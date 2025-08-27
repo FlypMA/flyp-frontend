@@ -14,7 +14,7 @@ import {
   Monitor,
   MapPin,
 } from 'lucide-react';
-import { EnhancedInput, FormTip } from '../../forms/EnhancedFormFields';
+import { CleanInput } from '../../ui';
 
 interface SecuritySettingsProps {
   onSave: (data: any) => Promise<void>;
@@ -22,9 +22,6 @@ interface SecuritySettingsProps {
 
 const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
   const [saving, setSaving] = useState(false);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -152,53 +149,27 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
         </CardHeader>
         <CardBody className="space-y-6">
           <div className="grid grid-cols-1 gap-6">
-            <EnhancedInput
+            <CleanInput
               label="Current Password"
-              type={showCurrentPassword ? 'text' : 'password'}
+              type="password"
               placeholder="Enter current password"
               value={passwordData.currentPassword}
               onChange={value => handlePasswordChange('currentPassword', value)}
-              name="currentPassword"
+              id="currentPassword"
               required
-              icon={<Lock className="w-4 h-4 text-default-400" />}
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                >
-                  {showCurrentPassword ? (
-                    <EyeOff className="w-4 h-4 text-default-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-default-400" />
-                  )}
-                </button>
-              }
+              startIcon={<Lock className="w-4 h-4 text-gray-400" />}
             />
 
-            <EnhancedInput
+            <CleanInput
               label="New Password"
-              type={showNewPassword ? 'text' : 'password'}
+              type="password"
               placeholder="Enter new password"
               value={passwordData.newPassword}
               onChange={value => handlePasswordChange('newPassword', value)}
-              name="newPassword"
+              id="newPassword"
               required
-              icon={<Key className="w-4 h-4 text-default-400" />}
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={() => setShowNewPassword(!showNewPassword)}
-                >
-                  {showNewPassword ? (
-                    <EyeOff className="w-4 h-4 text-default-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-default-400" />
-                  )}
-                </button>
-              }
-              description="Use at least 12 characters with mix of letters, numbers and symbols"
+              startIcon={<Key className="w-4 h-4 text-gray-400" />}
+              helpText="Use at least 12 characters with mix of letters, numbers and symbols"
             />
 
             {/* Password Strength Indicator */}
@@ -229,32 +200,19 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               </div>
             )}
 
-            <EnhancedInput
+            <CleanInput
               label="Confirm New Password"
-              type={showConfirmPassword ? 'text' : 'password'}
+              type="password"
               placeholder="Confirm new password"
               value={passwordData.confirmPassword}
               onChange={value => handlePasswordChange('confirmPassword', value)}
-              name="confirmPassword"
+              id="confirmPassword"
               required
               error={
                 passwordData.confirmPassword &&
                 passwordData.newPassword !== passwordData.confirmPassword
                   ? 'Passwords do not match'
                   : undefined
-              }
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-4 h-4 text-default-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-default-400" />
-                  )}
-                </button>
               }
             />
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, Button, Avatar, Badge, Chip, Divider } from '@heroui/react';
-import { AirbnbInput } from '../../components/forms';
+import { CleanInput } from '../../components/ui';
 import { 
   Search, 
   MessageCircle, 
@@ -304,7 +304,7 @@ const Messages: React.FC = () => {
 
             {/* Search */}
             <div className="mb-4">
-              <AirbnbInput
+              <CleanInput
                 placeholder="Search conversations..."
                 value={searchQuery}
                 onChange={setSearchQuery}
@@ -586,7 +586,7 @@ const Messages: React.FC = () => {
                   </Button>
                   
                   <div className="flex-1 relative">
-                    <AirbnbInput
+                    <CleanInput
                       placeholder="Type your message..."
                       value={newMessage}
                       onChange={setNewMessage}

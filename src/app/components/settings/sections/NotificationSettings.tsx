@@ -12,7 +12,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react';
-import { FormTip } from '../../forms/EnhancedFormFields';
+
 
 interface NotificationSettingsProps {
   onSave: (data: any) => Promise<void>;
@@ -422,12 +422,12 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
 
       {/* Tips */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <FormTip
+        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
           title="Stay Informed"
           content="Enable matching search alerts to never miss opportunities that fit your investment criteria."
           type="info"
         />
-        <FormTip
+        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
           title="Manage Noise"
           content="Use quiet hours and digest options to reduce notification overload while staying informed about important updates."
           type="success"

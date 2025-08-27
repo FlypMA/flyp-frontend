@@ -1,6 +1,14 @@
+/**
+ * BetweenDeals Help Center
+ * Clean, modular implementation with new FAQ system
+ */
+
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, Button, Input, Accordion, AccordionItem, Chip, Badge } from '@heroui/react';
+import { Card, CardBody, Button } from '@heroui/react';
+import { CleanInput } from '../../components/ui';
+import { FAQCategory } from '../../components/ui';
+import type { FAQCategoryType } from '../../components/ui';
 import { 
   Search, 
   HelpCircle, 
@@ -15,42 +23,11 @@ import {
   FileText,
   Settings,
   Clock,
-  CheckCircle,
-  Star,
-  Award,
   BookOpen,
-  Headphones,
-  ExternalLink,
-  Download,
-  Play,
-  Lightbulb,
-  Target,
-  Calculator,
-  Globe,
-  Filter,
-  ChevronRight,
-  Zap,
-  Analytics
+  Star,
+  Zap
 } from 'lucide-react';
 import { SEOHead } from '../../components/SEO';
-
-interface FAQ {
-  question: string;
-  answer: string;
-  tags?: string[];
-  isNew?: boolean;
-  isPopular?: boolean;
-}
-
-interface FAQCategory {
-  id: string;
-  category: string;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-  questions: FAQ[];
-  questionCount: number;
-}
 
 interface SupportOption {
   id: string;
@@ -68,57 +45,14 @@ const Help: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const supportOptions: SupportOption[] = [
-    {
-      id: 'live-chat',
-      title: 'Live Chat Support',
-      description: 'Get instant help from our M&A experts',
-      icon: <MessageCircle className="w-6 h-6" />,
-      action: 'Start Chat',
-      availability: 'Mon-Fri 9:00-18:00 CET',
-      responseTime: 'Usually < 2 minutes',
-      color: 'blue'
-    },
-    {
-      id: 'video-call',
-      title: 'Schedule Video Call',
-      description: 'Book a consultation with our specialists',
-      icon: <Play className="w-6 h-6" />,
-      action: 'Book Call',
-      availability: 'Mon-Fri 9:00-17:00 CET',
-      responseTime: 'Same day booking',
-      color: 'green'
-    },
-    {
-      id: 'phone-support',
-      title: 'Phone Support',
-      description: 'Call us directly for immediate assistance',
-      icon: <Phone className="w-6 h-6" />,
-      action: '+32 2 588 0970',
-      availability: 'Mon-Fri 9:00-18:00 CET',
-      responseTime: 'Immediate',
-      color: 'purple'
-    },
-    {
-      id: 'email-support',
-      title: 'Email Support',
-      description: 'Send detailed questions to our team',
-      icon: <Mail className="w-6 h-6" />,
-      action: 'support@betweendeals.com',
-      availability: '24/7 Submission',
-      responseTime: 'Within 2 hours',
-      color: 'orange'
-    }
-  ];
-
-  const faqData: FAQCategory[] = [
+  // FAQ Categories Data
+  const faqCategories: FAQCategoryType[] = [
     {
       id: 'getting-started',
       category: 'Getting Started',
-      description: 'Essential information for new users',
-      icon: <BookOpen className="w-5 h-5" />,
+      description: 'Essential information to help you begin your journey on BetweenDeals',
+      icon: <Star className="w-6 h-6" />,
       color: 'blue',
-      questionCount: 6,
       questions: [
         {
           question: 'What is BetweenDeals and how does it work?',
@@ -127,155 +61,90 @@ const Help: React.FC = () => {
           isPopular: true
         },
         {
-          question: 'How do I create an account and get started?',
-          answer: 'Getting started is simple! Click "Sign Up" and choose your account type (Buyer or Seller). Complete our 2-minute verification process with your email and basic information. Buyers get instant access to browse businesses, while sellers are guided through our intuitive listing creation process. Both account types are completely free to create.',
-          tags: ['account', 'registration', 'verification'],
-          isPopular: true
-        },
-        {
-          question: 'What types of businesses are available on BetweenDeals?',
-          answer: 'We feature profitable businesses across all industries: SaaS and tech companies, e-commerce stores, manufacturing and industrial businesses, professional services, restaurants and hospitality, retail stores, healthcare practices, consulting firms, and more. Most businesses generate between €50K-€50M+ in annual revenue.',
-          tags: ['business types', 'industries', 'range'],
-          isPopular: true
-        },
-        {
-          question: 'Is BetweenDeals only for Belgian businesses?',
-          answer: 'While we started in Belgium and have deep expertise in the Belgian market, BetweenDeals now serves businesses across Europe and beyond. We specialize in EU markets but welcome international businesses looking to expand into Europe or global buyers interested in European opportunities.',
-          tags: ['location', 'international', 'belgium']
-        },
-        {
-          question: 'How much does it cost to use BetweenDeals?',
-          answer: 'Creating an account and browsing businesses is completely free for buyers. For sellers, basic listings are free, while premium features (verification, featured placement, marketing boost) have optional fees. We only charge a success fee when a transaction completes through our platform.',
-          tags: ['pricing', 'fees', 'cost']
-        },
-        {
-          question: 'What makes BetweenDeals different from other platforms?',
-          answer: 'BetweenDeals combines cutting-edge technology with deep M&A expertise. Our AI-powered matching system, comprehensive due diligence tools, built-in valuation calculator, secure document sharing, integrated communications, and network of M&A professionals create an unmatched experience.',
-          tags: ['differentiation', 'technology', 'expertise'],
-          isNew: true
-        }
-      ]
-    },
-    {
-      id: 'selling-business',
-      category: 'Selling Your Business',
-      description: 'Complete guide to listing and selling successfully',
-      icon: <Building2 className="w-5 h-5" />,
-      color: 'green',
-      questionCount: 10,
-      questions: [
-        {
-          question: 'What information do I need to create a business listing?',
-          answer: 'To create a compelling listing you\'ll need: business overview (name, industry, location, founded date), financial details (revenue, profit, growth trends), operational information (employees, business model, key assets), reason for sale, asking price or valuation range, and high-quality photos.',
-          tags: ['listing', 'requirements', 'information'],
-          isPopular: true
-        },
-        {
-          question: 'How do I determine the right price for my business?',
-          answer: 'Our built-in valuation calculator provides initial estimates based on industry multiples, typically 1.5-8x annual profit depending on factors like growth rate, market position, and scalability. For accurate valuations, we recommend our professional valuation service or can connect you with certified business valuers.',
-          tags: ['pricing', 'valuation', 'calculator'],
-          isPopular: true
-        },
-        {
-          question: 'Should I get my business verified?',
-          answer: 'Absolutely! Verified businesses receive 5x more inquiries, appear higher in search results, and sell 60% faster on average. Verification involves uploading key documents (business registration, tax returns, financial statements) and takes 24-48 hours. Verified listings display a prominent trust badge.',
-          tags: ['verification', 'trust', 'benefits'],
-          isPopular: true
-        },
-        {
-          question: 'How long does it typically take to sell a business?',
-          answer: 'Most quality listings receive serious inquiries within the first week. The complete sales process typically takes 2-8 months depending on business complexity, asking price, market conditions, and buyer financing. Well-prepared, verified listings with realistic pricing sell significantly faster.',
-          tags: ['timeline', 'process', 'expectations']
-        },
-        {
-          question: 'Can I keep my business sale confidential?',
-          answer: 'Yes! We offer multiple confidentiality levels: anonymous listings (hide business name/exact location), NDA-protected detailed information sharing, blind contact system where buyers must qualify before seeing sensitive details, and private communications through our secure messaging system.',
-          tags: ['confidentiality', 'privacy', 'anonymous']
-        },
-        {
-          question: 'What documents should I prepare for potential buyers?',
-          answer: 'Essential documents include: 3 years of financial statements, tax returns, business registration, customer contracts (if applicable), lease agreements, employee agreements, inventory lists, and equipment valuations. Having these ready accelerates the due diligence process.',
-          tags: ['documents', 'due diligence', 'preparation']
-        },
-        {
-          question: 'How do I handle inquiries from potential buyers?',
-          answer: 'All buyer communications go through our secure messaging system. Respond promptly to serious inquiries, ask about buyer qualifications and financing, share appropriate information based on confidentiality level, and schedule calls with qualified prospects.',
-          tags: ['inquiries', 'communication', 'screening']
-        },
-        {
-          question: 'What fees do sellers pay on BetweenDeals?',
-          answer: 'Basic listings are free forever. Premium features (verification €99, featured placement €199/month, marketing boost €299/month) are optional. We charge a success fee only when your business sells: 3% for transactions under €1M, 2% for €1M-€5M, 1.5% for over €5M.',
-          tags: ['fees', 'pricing', 'success fee'],
+          question: 'How do I create an account on BetweenDeals?',
+          answer: 'Creating an account is simple: Click "Sign Up" on our homepage, provide your email and basic information, verify your email address, and complete your profile. For sellers, we require additional business verification to ensure marketplace quality.',
+          tags: ['registration', 'account', 'signup'],
           isNew: true
         },
         {
-          question: 'Can I edit or update my listing after it\'s published?',
-          answer: 'Yes! You have complete control over your listing. Update business information, adjust pricing, add new photos, modify descriptions, and respond to market feedback anytime through your seller dashboard. Major changes may require re-verification.',
-          tags: ['editing', 'updates', 'flexibility']
+          question: 'Is BetweenDeals free to use?',
+          answer: 'BetweenDeals offers a freemium model. Basic browsing and initial contact with sellers is free for buyers. For sellers, listing your business is free, but we charge a success fee only when your business sells. Premium features like enhanced visibility and advanced analytics require a subscription.',
+          tags: ['pricing', 'free', 'subscription']
         },
         {
-          question: 'How do I know if a buyer is serious and qualified?',
-          answer: 'We verify buyer accounts and financial capacity. Look for verified buyer badges, detailed buyer profiles, specific questions showing research, and proof of funds or financing pre-approval. Our team can help assess buyer seriousness.',
-          tags: ['buyer qualification', 'verification', 'assessment']
+          question: 'What types of businesses can I find on BetweenDeals?',
+          answer: 'Our platform features a diverse range of established businesses including restaurants, retail stores, tech companies, service businesses, manufacturing operations, and more. All listings are verified and represent legitimate business opportunities in Belgium and beyond.',
+          tags: ['business-types', 'listings', 'variety']
         }
       ]
     },
     {
       id: 'buying-business',
       category: 'Buying a Business',
-      description: 'Everything you need to acquire the perfect business',
-      icon: <TrendingUp className="w-5 h-5" />,
-      color: 'purple',
-      questionCount: 9,
+      description: 'Everything you need to know about finding and purchasing your ideal business',
+      icon: <Building2 className="w-6 h-6" />,
+      color: 'green',
       questions: [
         {
-          question: 'How do I search for businesses that match my criteria?',
-          answer: 'Use our advanced search filters to find perfect matches: filter by industry, location, revenue range, asking price, business model, number of employees, and growth rate. Save your searches and set up email alerts for new listings. Our AI recommendation engine suggests businesses based on your preferences.',
-          tags: ['search', 'filters', 'recommendations'],
+          question: 'How do I search for businesses to buy?',
+          answer: 'Use our advanced search filters to find businesses by industry, location, price range, revenue, and more. You can save searches, set up alerts for new listings, and use our AI-powered recommendation engine to discover opportunities that match your criteria.',
+          tags: ['search', 'filters', 'discovery']
+        },
+        {
+          question: 'What information do business listings include?',
+          answer: 'Our listings provide comprehensive business information including financial summaries, operational details, market position, growth potential, asset information, and verified performance metrics. Premium listings include detailed financial statements and due diligence reports.',
+          tags: ['listings', 'information', 'details']
+        },
+        {
+          question: 'How do I contact a business seller?',
+          answer: 'After viewing a listing, click "Contact Seller" to send a message through our secure platform. You\'ll need to sign an NDA for detailed financial information. All communications are tracked and secure, ensuring privacy for both parties.',
+          tags: ['contact', 'sellers', 'communication'],
           isPopular: true
         },
         {
-          question: 'What should I evaluate when considering a business?',
-          answer: 'Key evaluation criteria include: consistent revenue and profit trends, customer diversification, market position and competitive advantages, quality of management and systems, growth opportunities, reason for sale, financial health indicators, and cultural fit.',
-          tags: ['evaluation', 'criteria', 'analysis'],
+          question: 'What is the due diligence process?',
+          answer: 'Our platform provides a structured due diligence framework including financial verification, legal document review, operational assessment, and market analysis. We connect you with verified professionals including accountants, lawyers, and business advisors to ensure thorough evaluation.',
+          tags: ['due-diligence', 'verification', 'analysis']
+        },
+        {
+          question: 'How does financing work for business purchases?',
+          answer: 'BetweenDeals partners with banks and alternative lenders to offer various financing options including SBA loans, asset-based financing, and seller financing. Our financing partners are pre-qualified and understand business acquisitions.',
+          tags: ['financing', 'loans', 'funding']
+        }
+      ]
+    },
+    {
+      id: 'selling-business',
+      category: 'Selling a Business',
+      description: 'Guide to successfully listing and selling your business on our platform',
+      icon: <TrendingUp className="w-6 h-6" />,
+      color: 'purple',
+      questions: [
+        {
+          question: 'How do I list my business for sale?',
+          answer: 'Start with our seller onboarding process: complete business verification, provide financial documents, describe your operations, set your asking price, and publish your listing. Our team reviews all listings to ensure quality and accuracy.',
+          tags: ['listing', 'selling', 'onboarding'],
           isPopular: true
         },
         {
-          question: 'How do I contact sellers and request information?',
-          answer: 'Click "Request Information" on any listing to send a secure message. Introduce yourself professionally, explain your background and acquisition criteria, ask specific questions, and demonstrate serious interest. Verified buyers with complete profiles receive faster responses.',
-          tags: ['contact', 'messaging', 'introduction'],
-          isPopular: true
+          question: 'What documents do I need to sell my business?',
+          answer: 'Essential documents include 3 years of financial statements, tax returns, legal structure documents, key contracts, asset lists, and operational procedures. Our platform provides a comprehensive checklist to ensure you have everything needed.',
+          tags: ['documents', 'requirements', 'paperwork']
         },
         {
-          question: 'What financing options are available for business purchases?',
-          answer: 'Common financing methods include: seller financing (30-50% down, seller holds note), SBA loans (70-90% financing for qualified buyers), traditional bank financing, investor partnerships, asset-based lending, and revenue-based financing. We partner with specialized lenders.',
-          tags: ['financing', 'loans', 'funding'],
-          isPopular: true
+          question: 'How do you determine the value of my business?',
+          answer: 'We provide a free AI-powered business valuation using multiple methodologies including revenue multiples, asset valuation, and market comparisons. Professional appraisers are available for detailed valuations.',
+          tags: ['valuation', 'pricing', 'assessment']
         },
         {
-          question: 'How do I verify a business opportunity is legitimate?',
-          answer: 'Look for verified business badges, review financial documentation, ask for references, conduct independent market research, verify business registration and licenses, and request proof of claims. Always conduct your own due diligence with professional advisors.',
-          tags: ['verification', 'legitimacy', 'due diligence']
+          question: 'How long does it take to sell a business?',
+          answer: 'Average time to sale varies by industry and price range, typically 3-12 months. Factors affecting timeline include business performance, asking price, market conditions, and seller flexibility. Well-prepared listings with complete documentation sell faster.',
+          tags: ['timeline', 'process', 'duration']
         },
         {
-          question: 'What is the typical buying process timeline?',
-          answer: 'The process typically follows: initial research and inquiry (1-2 weeks), detailed evaluation and due diligence (4-6 weeks), offer negotiation and acceptance (1-2 weeks), financing and legal documentation (4-8 weeks), and closing (1-2 weeks).',
-          tags: ['process', 'timeline', 'steps']
-        },
-        {
-          question: 'Do I need professional help for due diligence?',
-          answer: 'For most transactions over €100K, yes! We recommend engaging: an M&A attorney for legal review, an accountant for financial analysis, and industry experts for market validation. We can connect you with our network of trusted professionals.',
-          tags: ['due diligence', 'professionals', 'legal']
-        },
-        {
-          question: 'How do I make a competitive offer?',
-          answer: 'Research comparable sales, understand the seller\'s motivation and timeline, structure terms that work for both parties (price, down payment, seller financing), include reasonable contingencies, and present proof of financing.',
-          tags: ['offers', 'negotiation', 'strategy']
-        },
-        {
-          question: 'What ongoing support is available after purchase?',
-          answer: 'We provide post-acquisition support including: transition planning guidance, connection to business mentors and advisors, access to growth funding resources, networking with other BetweenDeals entrepreneurs, and ongoing platform access for future opportunities.',
-          tags: ['support', 'post-acquisition', 'community'],
+          question: 'What are your fees for selling?',
+          answer: 'BetweenDeals charges a success fee only when your business sells, typically 3-8% depending on transaction size. No upfront fees, no monthly charges. Additional services like professional valuation or marketing upgrades have separate fees.',
+          tags: ['fees', 'commission', 'pricing'],
           isNew: true
         }
       ]
@@ -283,278 +152,407 @@ const Help: React.FC = () => {
     {
       id: 'platform-features',
       category: 'Platform Features',
-      description: 'Master all BetweenDeals tools and capabilities',
-      icon: <Settings className="w-5 h-5" />,
+      description: 'Discover all the tools and features available on BetweenDeals',
+      icon: <Zap className="w-6 h-6" />,
       color: 'orange',
-      questionCount: 7,
       questions: [
         {
-          question: 'How does the AI matching system work?',
-          answer: 'Our proprietary AI analyzes your profile, search behavior, and preferences to recommend highly relevant businesses. It considers factors like industry experience, investment capacity, geographic preferences, and business model interests. The system learns from your activity and improves recommendations over time.',
-          tags: ['AI', 'matching', 'recommendations'],
-          isPopular: true
+          question: 'What is the AI-powered matching system?',
+          answer: 'Our AI analyzes buyer preferences, business characteristics, and market data to recommend the best matches. It considers factors like industry experience, investment capacity, location preferences, and business goals to connect the right buyers with the right sellers.',
+          tags: ['ai', 'matching', 'technology']
         },
         {
-          question: 'What is the valuation calculator and how accurate is it?',
-          answer: 'Our valuation calculator uses industry-standard multiples, recent market data, and business-specific factors to provide estimated value ranges. While useful for initial assessments, accuracy varies by industry and business complexity. For precise valuations, we recommend our professional valuation service.',
-          tags: ['valuation', 'calculator', 'accuracy']
+          question: 'How does the secure messaging system work?',
+          answer: 'All communications happen through our encrypted messaging platform. Messages are logged, searchable, and can include document sharing with automatic NDA protection. Integration with video calls and meeting scheduling makes negotiations efficient.',
+          tags: ['messaging', 'security', 'communication']
         },
         {
-          question: 'How does the secure document sharing work?',
-          answer: 'Our document vault provides encrypted storage and sharing of confidential business information. Set access permissions, track who views documents, add watermarks, and control download rights. All documents are stored with bank-level security and are only accessible to authorized parties.',
-          tags: ['documents', 'security', 'sharing']
+          question: 'What analytics are available to sellers?',
+          answer: 'Sellers get detailed analytics including listing views, buyer inquiries, market interest trends, comparative market analysis, and optimization suggestions. Premium accounts access advanced metrics and industry benchmarking.',
+          tags: ['analytics', 'insights', 'metrics']
         },
         {
-          question: 'Can I integrate BetweenDeals with my existing tools?',
-          answer: 'Yes! We offer integrations with popular CRM systems, accounting software, email platforms, and calendar applications. API access is available for enterprise users. Contact our support team to discuss specific integration needs.',
-          tags: ['integrations', 'API', 'tools']
-        },
-        {
-          question: 'How do saved searches and alerts work?',
-          answer: 'Save any search criteria combination and receive instant email notifications when matching businesses are listed. Set up multiple alert profiles for different investment interests, adjust notification frequency, and modify criteria anytime.',
-          tags: ['alerts', 'notifications', 'search']
-        },
-        {
-          question: 'What analytics are available for my listings or searches?',
-          answer: 'Sellers get detailed analytics: listing views, inquiry rates, buyer demographics, search ranking performance, and market comparison data. Buyers receive insights on search competition, market trends, and personalized opportunity scoring.',
-          tags: ['analytics', 'insights', 'tracking']
-        },
-        {
-          question: 'What mobile features are available?',
-          answer: 'Our mobile-optimized platform includes: full browsing and search capabilities, instant messaging, document viewing, notification management, and listing management for sellers. Native mobile apps for iOS and Android are coming in Q2 2024.',
-          tags: ['mobile', 'apps', 'features'],
-          isNew: true
+          question: 'Can I get professional support during the process?',
+          answer: 'Yes, we offer access to verified professionals including business brokers, attorneys, accountants, and advisors. Our concierge service can manage the entire transaction process for complex deals.',
+          tags: ['support', 'professionals', 'assistance']
         }
       ]
     },
     {
-      id: 'pricing-fees',
-      category: 'Pricing & Fees',
-      description: 'Transparent pricing for all services',
-      icon: <DollarSign className="w-5 h-5" />,
-      color: 'emerald',
-      questionCount: 6,
+      id: 'account-security',
+      category: 'Account & Security',
+      description: 'Manage your account settings, security, and privacy preferences',
+      icon: <Shield className="w-6 h-6" />,
+      color: 'indigo',
       questions: [
         {
-          question: 'What are the fees for buyers?',
-          answer: 'BetweenDeals is completely free for buyers! Create an account, browse businesses, contact sellers, and access due diligence tools at no cost. We only succeed when you do - our revenue comes from seller success fees, ensuring we\'re aligned with finding you the perfect business.',
-          tags: ['buyer fees', 'free', 'cost'],
-          isPopular: true
+          question: 'How do I update my account information?',
+          answer: 'Go to Settings > Profile to update personal information, business details, and preferences. Changes to sensitive information like banking details require additional verification for security.',
+          tags: ['account', 'profile', 'updates']
         },
         {
-          question: 'What fees do sellers pay?',
-          answer: 'Basic listings are free forever. Optional premium services: Business Verification (€99), Featured Listing (€199/month), Marketing Boost (€299/month). Success fees only apply when your business sells: 3% for deals under €1M, 2% for €1M-€5M, 1.5% for over €5M.',
-          tags: ['seller fees', 'success fee', 'premium'],
-          isPopular: true
-        },
-        {
-          question: 'When are success fees paid?',
-          answer: 'Success fees are only charged when your business successfully sells through our platform and funds transfer at closing. No upfront fees, no monthly charges unless you choose premium services. We only get paid when you get paid.',
-          tags: ['success fee', 'payment timing', 'closing']
-        },
-        {
-          question: 'Are there any hidden fees or charges?',
-          answer: 'Absolutely not! We believe in complete transparency. All fees are clearly disclosed upfront with no hidden charges, processing fees, or surprise costs. Optional services are clearly priced, and success fees are only charged on completed transactions.',
-          tags: ['transparency', 'hidden fees', 'disclosure']
-        },
-        {
-          question: 'How do professional services fees work?',
-          answer: 'Professional valuation (€299-€999), legal document review (€199/hour), M&A advisory (€150/hour), and specialized consultations are priced separately. These are optional services from our partner network with transparent pricing upfront.',
-          tags: ['professional services', 'consultation', 'advisory']
-        },
-        {
-          question: 'How do fees compare to traditional business brokers?',
-          answer: 'Traditional brokers typically charge 8-12% commission plus upfront fees. BetweenDeals charges 1.5-3% success fees with no upfront costs - saving you thousands while providing superior technology, broader reach, and faster transactions.',
-          tags: ['comparison', 'savings', 'traditional brokers'],
-          isNew: true
-        }
-      ]
-    },
-    {
-      id: 'security-legal',
-      category: 'Security & Legal',
-      description: 'Understanding safety, regulations and compliance',
-      icon: <Shield className="w-5 h-5" />,
-      color: 'red',
-      questionCount: 6,
-      questions: [
-        {
-          question: 'How secure is my information on BetweenDeals?',
-          answer: 'Security is our top priority. We use bank-level encryption, secure document storage, verified user accounts, NDA-protected communications, and comply with GDPR and other data protection regulations. All financial information and business documents are protected with enterprise-grade security measures.',
+          question: 'What security measures protect my data?',
+          answer: 'We use enterprise-grade security including 256-bit SSL encryption, two-factor authentication, regular security audits, and GDPR compliance. All financial data is encrypted and stored separately from profile information.',
           tags: ['security', 'encryption', 'protection'],
           isPopular: true
         },
         {
-          question: 'Is BetweenDeals regulated and compliant?',
-          answer: 'Yes! We comply with all applicable EU regulations including GDPR, AML (Anti-Money Laundering), KYC (Know Your Customer), and business broker licensing requirements. We\'re registered in Belgium and operate under strict financial services compliance standards.',
-          tags: ['regulation', 'compliance', 'licensing']
+          question: 'How do I enable two-factor authentication?',
+          answer: 'In Settings > Security, click "Enable 2FA" and follow the setup process using your preferred authentication method (SMS, authenticator app, or email). 2FA is required for all financial transactions.',
+          tags: ['2fa', 'authentication', 'security']
         },
         {
-          question: 'What legal documents are typically needed for a business sale?',
-          answer: 'Common documents include: Purchase Agreement, Asset Purchase Agreement or Stock Purchase Agreement, Due Diligence Reports, Financial Statements, Tax Returns, Business Registration, Employment Agreements, and Closing Documents. We provide templates and can connect you with M&A attorneys.',
-          tags: ['legal documents', 'contracts', 'requirements']
+          question: 'Can I delete my account?',
+          answer: 'Yes, you can request account deletion in Settings > Account. Active listings must be closed first, and we retain certain transaction records as required by law. The deletion process takes 7-14 days.',
+          tags: ['deletion', 'account', 'privacy']
+        }
+      ]
+    },
+    {
+      id: 'payments-transactions',
+      category: 'Payments & Transactions',
+      description: 'Understanding payment processing, escrow services, and transaction management',
+      icon: <DollarSign className="w-6 h-6" />,
+      color: 'pink',
+      questions: [
+        {
+          question: 'How does the escrow service work?',
+          answer: 'Our secure escrow service holds buyer funds during due diligence and closing. Funds are released to sellers only after all conditions are met and both parties agree. This protects both buyers and sellers throughout the transaction.',
+          tags: ['escrow', 'payments', 'security']
         },
         {
-          question: 'Do I need a lawyer for my business transaction?',
-          answer: 'For most transactions over €50K, yes! Legal representation protects your interests, ensures proper documentation, handles regulatory compliance, and manages liability issues. We work with experienced M&A attorneys who understand our platform.',
-          tags: ['lawyers', 'legal representation', 'protection']
+          question: 'What payment methods do you accept?',
+          answer: 'We accept bank transfers, certified checks, and wire transfers for business purchases. Cryptocurrency payments are available for qualified transactions. All payments are processed through regulated financial institutions.',
+          tags: ['payments', 'methods', 'transactions']
         },
         {
-          question: 'What anti-fraud measures are in place?',
-          answer: 'Comprehensive fraud prevention includes: identity verification for all users, business registration validation, financial document authentication, secure payment processing, suspicious activity monitoring, and cooperation with law enforcement when needed.',
-          tags: ['fraud prevention', 'security', 'verification']
+          question: 'How are transaction fees calculated?',
+          answer: 'Transaction fees vary by deal size and complexity. Typical fees range from 1-3% for buyers and 3-8% for sellers. Detailed fee schedules are provided before any transaction begins. No hidden fees guaranteed.',
+          tags: ['fees', 'transactions', 'costs'],
+          isNew: true
         },
         {
-          question: 'How do international transactions work legally?',
-          answer: 'Cross-border transactions involve additional complexity: multiple jurisdiction compliance, currency regulations, tax treaties, immigration considerations for business ownership, and international contract law. We work with specialists in international M&A.',
-          tags: ['international', 'cross-border', 'regulations'],
+          question: 'What happens if a deal falls through?',
+          answer: 'If a transaction is cancelled during due diligence, escrowed funds are returned to buyers minus any applicable fees. Our platform tracks all conditions and automatically manages refunds according to the purchase agreement.',
+          tags: ['cancellation', 'refunds', 'protection']
+        }
+      ]
+    },
+    {
+      id: 'legal-compliance',
+      category: 'Legal & Compliance',
+      description: 'Legal requirements, compliance issues, and regulatory information',
+      icon: <FileText className="w-6 h-6" />,
+      color: 'yellow',
+      questions: [
+        {
+          question: 'What legal documents are required for business sales?',
+          answer: 'Required documents include asset purchase agreements, disclosure statements, employment contracts, intellectual property assignments, and regulatory compliance certificates. Our legal partners provide standardized templates.',
+          tags: ['legal', 'documents', 'requirements']
+        },
+        {
+          question: 'Do you provide legal advice?',
+          answer: 'BetweenDeals does not provide legal advice. However, we partner with qualified business attorneys who specialize in M&A transactions. All users are encouraged to consult independent legal counsel.',
+          tags: ['legal', 'advice', 'attorneys']
+        },
+        {
+          question: 'How do you ensure compliance with regulations?',
+          answer: 'We maintain compliance with Belgian commercial law, EU data protection regulations, and financial services requirements. All listings are verified for regulatory compliance and legitimate business operations.',
+          tags: ['compliance', 'regulations', 'verification']
+        },
+        {
+          question: 'What are the tax implications of business sales?',
+          answer: 'Tax implications vary by business structure, sale terms, and jurisdiction. We recommend consulting qualified tax advisors. Our platform can connect you with experienced tax professionals who specialize in business transactions.',
+          tags: ['taxes', 'implications', 'advice']
+        }
+      ]
+    },
+    {
+      id: 'troubleshooting',
+      category: 'Troubleshooting',
+      description: 'Common issues and technical support for platform usage',
+      icon: <Settings className="w-6 h-6" />,
+      color: 'red',
+      questions: [
+        {
+          question: 'I\'m having trouble uploading documents. What should I do?',
+          answer: 'Ensure your files are in supported formats (PDF, DOC, JPG, PNG) and under 10MB each. Clear your browser cache, try a different browser, or use our mobile app. Contact support if issues persist.',
+          tags: ['upload', 'documents', 'technical']
+        },
+        {
+          question: 'Why isn\'t my listing appearing in search results?',
+          answer: 'New listings take 24-48 hours to appear in search. Ensure your listing is complete, approved, and active. Incomplete listings or those under review won\'t appear in public searches.',
+          tags: ['listings', 'search', 'visibility']
+        },
+        {
+          question: 'How do I reset my password?',
+          answer: 'Click "Forgot Password" on the login page, enter your email, and check for a reset link. If you don\'t receive the email within 10 minutes, check your spam folder or contact support.',
+          tags: ['password', 'reset', 'login']
+        },
+        {
+          question: 'The platform seems slow. Is there an issue?',
+          answer: 'Check our status page for known issues. Clear your browser cache, disable browser extensions, and ensure you have a stable internet connection. Our platform is optimized for Chrome, Firefox, and Safari.',
+          tags: ['performance', 'speed', 'technical'],
           isNew: true
         }
       ]
     }
   ];
 
-  // Filter questions based on search query
+  // Support options
+  const supportOptions: SupportOption[] = [
+    {
+      id: 'live-chat',
+      title: 'Live Chat',
+      description: 'Get instant help from our support team',
+      icon: <MessageCircle className="w-6 h-6" />,
+      action: 'Start Chat',
+      availability: 'Mon-Fri 9AM-6PM CET',
+      responseTime: 'Usually responds within minutes',
+      color: 'blue'
+    },
+    {
+      id: 'email-support',
+      title: 'Email Support',
+      description: 'Send us a detailed message about your issue',
+      icon: <Mail className="w-6 h-6" />,
+      action: 'Send Email',
+      availability: '24/7',
+      responseTime: 'Response within 4-6 hours',
+      color: 'green'
+    },
+    {
+      id: 'phone-support',
+      title: 'Phone Support',
+      description: 'Speak directly with our business experts',
+      icon: <Phone className="w-6 h-6" />,
+      action: 'Schedule Call',
+      availability: 'Mon-Fri 9AM-5PM CET',
+      responseTime: 'Same-day callback available',
+      color: 'purple'
+    }
+  ];
+
+  // Filter categories based on search
   const filteredCategories = useMemo(() => {
     if (!searchQuery.trim()) {
       return selectedCategory 
-        ? faqData.filter(cat => cat.id === selectedCategory)
-        : faqData;
+        ? faqCategories.filter(cat => cat.id === selectedCategory)
+        : faqCategories;
     }
 
-    const query = searchQuery.toLowerCase();
-    return faqData.map(category => ({
-      ...category,
-      questions: category.questions.filter(faq =>
-        faq.question.toLowerCase().includes(query) ||
-        faq.answer.toLowerCase().includes(query) ||
-        faq.tags?.some(tag => tag.toLowerCase().includes(query))
-      )
-    })).filter(category => category.questions.length > 0);
-  }, [searchQuery, selectedCategory]);
+    return faqCategories
+      .map(category => ({
+        ...category,
+        questions: category.questions.filter(
+          faq => 
+            faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            faq.answer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            faq.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+        )
+      }))
+      .filter(category => category.questions.length > 0);
+  }, [searchQuery, selectedCategory, faqCategories]);
 
-  const totalQuestions = faqData.reduce((sum, cat) => sum + cat.questionCount, 0);
-
-  const handleCategorySelect = (categoryId: string | null) => {
-    setSelectedCategory(categoryId);
-    setSearchQuery('');
-  };
-
-  const handleSupportAction = (option: SupportOption) => {
-    switch (option.id) {
-      case 'live-chat':
-        console.log('Opening live chat...');
-        break;
-      case 'video-call':
-        window.open('https://calendly.com/betweendeals', '_blank');
-        break;
-      case 'phone-support':
-        window.open('tel:+3225880970', '_self');
-        break;
-      case 'email-support':
-        window.open('mailto:support@betweendeals.com', '_self');
-        break;
-    }
-  };
+  // Get total question count
+  const totalQuestions = faqCategories.reduce((total, category) => total + category.questions.length, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SEOHead
-        title="Help Center - BetweenDeals Support | Business Marketplace FAQ"
-        description="Get comprehensive support for buying and selling businesses on BetweenDeals. Find answers to common questions, access expert help, and learn how to succeed in business transactions."
-        keywords="business marketplace help, M&A support, buying selling business guide, BetweenDeals FAQ, business transaction assistance, Belgium business platform"
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <SEOHead 
+        title="Help Center - BetweenDeals"
+        description="Find answers to common questions about buying and selling businesses on BetweenDeals. Get support for account management, transactions, and platform features."
+        keywords="help, support, FAQ, business marketplace, BetweenDeals assistance"
       />
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white">
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 py-20">
         <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="relative max-w-6xl mx-auto px-4 py-20 text-center">
-          <div className="mb-8">
-            <HelpCircle className="w-16 h-16 mx-auto mb-6 text-blue-200" />
-            <h1 className="text-5xl font-bold mb-4">How can we help you today?</h1>
-            <p className="text-xl text-blue-100 mb-2">
-              Get expert support for your business transaction journey
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
+                <HelpCircle className="w-12 h-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              How can we help you?
+            </h1>
+            <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
+              Find answers to your questions about buying and selling businesses on Belgium's premier business marketplace
             </p>
-            <div className="flex items-center justify-center gap-6 text-sm text-blue-200 mt-4">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                <span>{totalQuestions}+ Help Articles</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>24/7 Support</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                <span>&lt; 2h Response Time</span>
-              </div>
-            </div>
-          </div>
 
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
-                placeholder="Search help articles, guides, and FAQs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                size="lg"
-                classNames={{
-                  input: "pl-12 text-base",
-                  inputWrapper: "bg-white/90 border-0 shadow-xl hover:bg-white h-14 backdrop-blur-sm",
-                  mainWrapper: "shadow-2xl"
-                }}
-              />
-            </div>
-            {searchQuery && (
-              <div className="mt-3">
-                <Chip
-                  size="sm"
-                  variant="flat"
-                  className="bg-white/20 text-white"
-                  onClose={() => setSearchQuery('')}
-                >
-                  Search: "{searchQuery}"
-                </Chip>
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <CleanInput
+                  placeholder="Search for answers... e.g., 'How to list my business'"
+                  value={searchQuery}
+                  onChange={(value) => setSearchQuery(value)}
+                  startIcon={<Search className="w-5 h-5 text-gray-400" />}
+                  className="text-lg"
+                  size="lg"
+                />
               </div>
-            )}
+              
+              {searchQuery && (
+                <div className="mt-4 text-blue-100">
+                  {filteredCategories.length > 0 
+                    ? `Found ${filteredCategories.reduce((total, cat) => total + cat.questions.length, 0)} relevant answers`
+                    : 'No results found. Try different keywords or browse categories below.'
+                  }
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Support Options */}
-        <div className="mb-16">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Get Instant Support</h2>
-            <p className="text-lg text-gray-600">Choose the support method that works best for you</p>
+      {/* Quick Stats */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="bg-white shadow-lg border-0">
+            <CardBody className="text-center py-6">
+              <BookOpen className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-gray-900">{totalQuestions}</div>
+              <div className="text-gray-600">Help Articles</div>
+            </CardBody>
+          </Card>
+          
+          <Card className="bg-white shadow-lg border-0">
+            <CardBody className="text-center py-6">
+              <Users className="w-8 h-8 text-green-600 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-gray-900">24/7</div>
+              <div className="text-gray-600">Support Available</div>
+            </CardBody>
+          </Card>
+          
+          <Card className="bg-white shadow-lg border-0">
+            <CardBody className="text-center py-6">
+              <Clock className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-gray-900">&lt; 1hr</div>
+              <div className="text-gray-600">Average Response</div>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+          
+          {/* Sidebar - Category Filter */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl shadow-sm border p-6 sticky top-8">
+              <h3 className="font-semibold text-gray-900 mb-4">Categories</h3>
+              
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className={`w-full text-left p-3 rounded-lg transition-colors mb-2 ${
+                  !selectedCategory 
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                    : 'hover:bg-gray-50 text-gray-700'
+                }`}
+              >
+                All Categories
+              </button>
+
+              {faqCategories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`w-full text-left p-3 rounded-lg transition-colors mb-2 flex items-center gap-3 ${
+                    selectedCategory === category.id 
+                      ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                      : 'hover:bg-gray-50 text-gray-700'
+                  }`}
+                >
+                  <div className="flex-shrink-0">{category.icon}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{category.category}</div>
+                    <div className="text-sm text-gray-500">{category.questions.length} questions</div>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Main FAQ Content */}
+          <div className="lg:col-span-3">
+            <div className="space-y-12">
+              {filteredCategories.length > 0 ? (
+                filteredCategories.map((category) => (
+                  <FAQCategory
+                    key={category.id}
+                    category={category}
+                    allowMultiple={false}
+                  />
+                ))
+              ) : (
+                <div className="text-center py-12">
+                  <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No results found</h3>
+                  <p className="text-gray-600 mb-6">
+                    Try adjusting your search terms or browse our categories
+                  </p>
+                  <Button 
+                    onClick={() => setSearchQuery('')}
+                    className="bg-blue-600 text-white"
+                  >
+                    Clear Search
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Support Section */}
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Still need help?
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Our support team is here to assist you with any questions
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {supportOptions.map((option) => (
-              <Card
-                key={option.id}
-                isPressable
-                onPress={() => handleSupportAction(option)}
-                className="hover:shadow-xl transition-shadow cursor-pointer group border-0"
-              >
+              <Card key={option.id} className="border-0 shadow-md hover:shadow-lg transition-shadow">
                 <CardBody className="p-6 text-center">
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-${option.color}-100 text-${option.color}-600 group-hover:scale-110 transition-transform`}>
-                    {option.icon}
+                  <div className="flex items-center justify-center mb-4">
+                    <div className={`p-3 rounded-full bg-${option.color}-50 text-${option.color}-600`}>
+                      {option.icon}
+                    </div>
                   </div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-2">{option.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{option.description}</p>
-                  <div className="space-y-1">
-                    <div className="text-xs text-gray-500">{option.availability}</div>
-                    <div className="text-xs font-medium text-green-600">{option.responseTime}</div>
+                  
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    {option.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 mb-4">
+                    {option.description}
+                  </p>
+                  
+                  <div className="text-sm text-gray-500 mb-4">
+                    <div>{option.availability}</div>
+                    <div>{option.responseTime}</div>
                   </div>
-                  <Button
-                    color="primary"
-                    variant="flat"
-                    size="sm"
-                    className="mt-4 w-full"
-                    endContent={<ExternalLink className="w-3 h-3" />}
+                  
+                  <Button 
+                    className={`w-full bg-${option.color}-600 text-white hover:bg-${option.color}-700`}
+                    onClick={() => {
+                      if (option.id === 'email-support') {
+                        window.location.href = 'mailto:support@betweendeals.be';
+                      } else if (option.id === 'phone-support') {
+                        navigate('/contact');
+                      }
+                      // Live chat would integrate with chat system
+                    }}
                   >
                     {option.action}
                   </Button>
@@ -563,201 +561,33 @@ const Help: React.FC = () => {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Category Filter */}
-        {!searchQuery && (
-          <div className="mb-12">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Browse by Category</h2>
-              <p className="text-lg text-gray-600">Find answers organized by topic</p>
-            </div>
-
-            <div className="flex flex-wrap gap-3 justify-center mb-8">
-              <Button
-                variant={!selectedCategory ? "solid" : "flat"}
-                color="primary"
-                size="sm"
-                onPress={() => handleCategorySelect(null)}
-                startContent={<Filter className="w-4 h-4" />}
-              >
-                All Categories ({totalQuestions})
-              </Button>
-              {faqData.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "solid" : "flat"}
-                  color="primary"
-                  size="sm"
-                  onPress={() => handleCategorySelect(category.id)}
-                  startContent={category.icon}
-                >
-                  {category.category} ({category.questionCount})
-                </Button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {faqData.map((category) => (
-                <Card
-                  key={category.id}
-                  isPressable
-                  onPress={() => handleCategorySelect(category.id)}
-                  className={`hover:shadow-lg transition-all cursor-pointer ${
-                    selectedCategory === category.id ? 'ring-2 ring-primary-500 shadow-lg' : ''
-                  }`}
-                >
-                  <CardBody className="p-6">
-                    <div className="flex items-start space-x-3">
-                      <div className={`w-12 h-12 rounded-lg bg-${category.color}-100 flex items-center justify-center flex-shrink-0`}>
-                        {React.cloneElement(category.icon as React.ReactElement, {
-                          className: `w-6 h-6 text-${category.color}-600`
-                        })}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-semibold text-gray-900 text-lg">{category.category}</h3>
-                          <Badge color="primary" variant="flat" size="sm">
-                            {category.questionCount}
-                          </Badge>
-                        </div>
-                        <p className="text-gray-600 text-sm mb-3">{category.description}</p>
-                        <div className="flex items-center text-primary-600 text-sm font-medium">
-                          <span>View questions</span>
-                          <ChevronRight className="w-4 h-4 ml-1" />
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* FAQ Content */}
-        <div className="space-y-12">
-          {filteredCategories.map((category) => (
-            <div key={category.id} className="space-y-6">
-              <div className="flex items-center space-x-3 border-b border-gray-200 pb-4">
-                <div className={`w-10 h-10 rounded-lg bg-${category.color}-100 flex items-center justify-center`}>
-                  {React.cloneElement(category.icon as React.ReactElement, {
-                    className: `w-5 h-5 text-${category.color}-600`
-                  })}
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
-                  <p className="text-gray-600">{category.description}</p>
-                </div>
-                <div className="ml-auto">
-                  <Badge color="primary" variant="flat">
-                    {category.questions.length} questions
-                  </Badge>
-                </div>
-              </div>
-
-              <Accordion variant="splitted" className="space-y-4">
-                {category.questions.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    aria-label={faq.question}
-                    title={
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-gray-900">{faq.question}</span>
-                        <div className="flex gap-1">
-                          {faq.isNew && (
-                            <Badge color="success" size="sm" variant="flat">New</Badge>
-                          )}
-                          {faq.isPopular && (
-                            <Badge color="warning" size="sm" variant="flat">Popular</Badge>
-                          )}
-                        </div>
-                      </div>
-                    }
-                    className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                    classNames={{
-                      title: "font-semibold text-gray-900",
-                      content: "text-gray-700 pb-4 leading-relaxed"
-                    }}
-                  >
-                    <div className="space-y-4">
-                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                      {faq.tags && (
-                        <div className="flex flex-wrap gap-2">
-                          {faq.tags.map((tag, tagIndex) => (
-                            <Chip
-                              key={tagIndex}
-                              size="sm"
-                              variant="flat"
-                              color="primary"
-                              className="text-xs"
-                            >
-                              {tag}
-                            </Chip>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          ))}
-        </div>
-
-        {filteredCategories.length === 0 && (
-          <div className="text-center py-16">
-            <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
-            <p className="text-gray-600 mb-6">
-              We couldn't find any articles matching "{searchQuery}". Try different keywords or browse by category.
-            </p>
-            <Button color="primary" variant="flat" onPress={() => setSearchQuery('')}>
-              Clear Search
+      {/* Bottom CTA */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Ready to get started?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Join thousands of entrepreneurs using BetweenDeals to buy and sell businesses
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8"
+              onClick={() => navigate('/signup')}
+            >
+              Create Account
             </Button>
-          </div>
-        )}
-
-        {/* Additional Resources */}
-        <div className="mt-20 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
-          <div className="text-center mb-8">
-            <Lightbulb className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Still need help?</h2>
-            <p className="text-gray-600">Our M&A experts are here to support your success</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="border-0 shadow-md">
-              <CardBody className="p-6 text-center">
-                <BookOpen className="w-8 h-8 text-purple-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Learning Center</h3>
-                <p className="text-sm text-gray-600 mb-4">Comprehensive M&A guides and tutorials</p>
-                <Button size="sm" color="primary" variant="flat" fullWidth>
-                  Explore Guides
-                </Button>
-              </CardBody>
-            </Card>
-
-            <Card className="border-0 shadow-md">
-              <CardBody className="p-6 text-center">
-                <Users className="w-8 h-8 text-green-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Community Forum</h3>
-                <p className="text-sm text-gray-600 mb-4">Connect with other entrepreneurs</p>
-                <Button size="sm" color="success" variant="flat" fullWidth>
-                  Join Community
-                </Button>
-              </CardBody>
-            </Card>
-
-            <Card className="border-0 shadow-md">
-              <CardBody className="p-6 text-center">
-                <Award className="w-8 h-8 text-orange-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Expert Consultation</h3>
-                <p className="text-sm text-gray-600 mb-4">One-on-one M&A guidance</p>
-                <Button size="sm" color="warning" variant="flat" fullWidth>
-                  Book Session
-                </Button>
-              </CardBody>
-            </Card>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8"
+              onClick={() => navigate('/browse')}
+            >
+              Browse Businesses
+            </Button>
           </div>
         </div>
       </div>

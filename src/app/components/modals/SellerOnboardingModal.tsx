@@ -25,9 +25,9 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { 
-  Input, 
-  Textarea, 
-  Select,
+  CleanInput, 
+  CleanTextarea, 
+  CleanSelect,
   PrimaryButton,
   SecondaryButton
 } from '../ui';
@@ -230,7 +230,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   <Card
                     key={type.value}
                     isPressable
-                    onPress={() => updateFormData({ businessType: type.value })}
+                    onPress={() => {
+                      updateFormData({ businessType: type.value });
+                      // Auto-advance to next step after a brief delay for visual feedback
+                      setTimeout(() => {
+                        handleNext();
+                      }, 300);
+                    }}
                     className={`p-6 cursor-pointer transition-all hover:shadow-lg ${
                       formData.businessType === type.value
                         ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -262,7 +268,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 This will be displayed prominently in your listing.
               </p>
             </div>
-            <Input
+            <CleanInput
               placeholder="e.g., Premium Restaurant Brussels"
               value={formData.businessName}
               onChange={(value) => updateFormData({ businessName: value })}
@@ -292,7 +298,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 <Card
                   key={industry}
                   isPressable
-                  onPress={() => updateFormData({ industry })}
+                  onPress={() => {
+                    updateFormData({ industry });
+                    // Auto-advance to next step after a brief delay for visual feedback
+                    setTimeout(() => {
+                      handleNext();
+                    }, 300);
+                  }}
                   className={`p-4 cursor-pointer text-center transition-all hover:shadow-md ${
                     formData.industry === industry
                       ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -324,7 +336,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
             </div>
             <div className="space-y-6">
               <div>
-                <Input
+                <CleanInput
                   label="Country"
                   value={formData.country}
                   onChange={(value) => updateFormData({ country: value })}
@@ -332,7 +344,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 />
               </div>
               <div>
-                <Input
+                <CleanInput
                   label="City"
                   placeholder="e.g., Brussels, Antwerp, Ghent"
                   value={formData.city}
@@ -363,7 +375,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   <Card
                     key={year}
                     isPressable
-                    onPress={() => updateFormData({ foundedYear: year.toString() })}
+                    onPress={() => {
+                      updateFormData({ foundedYear: year.toString() });
+                      // Auto-advance to next step after a brief delay for visual feedback
+                      setTimeout(() => {
+                        handleNext();
+                      }, 300);
+                    }}
                     className={`p-4 cursor-pointer text-center transition-all hover:shadow-md ${
                       formData.foundedYear === year.toString()
                         ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -380,7 +398,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
               })}
             </div>
             <div className="text-center mt-6">
-              <Input
+              <CleanInput
                 placeholder="Or enter a different year"
                 value={formData.foundedYear}
                 onChange={(value) => updateFormData({ foundedYear: value })}
@@ -403,7 +421,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 competitive advantages, and growth opportunities.
               </p>
             </div>
-            <Textarea
+            <CleanTextarea
               placeholder="e.g., We are a premium restaurant chain operating 5 locations across Brussels. Our restaurants serve contemporary European cuisine with a focus on locally sourced ingredients. We have built a strong reputation for quality service and have a loyal customer base..."
               value={formData.description}
               onChange={(value) => updateFormData({ description: value })}
@@ -442,7 +460,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 <Card
                   key={option.value}
                   isPressable
-                  onPress={() => updateFormData({ employeeCount: option.value })}
+                  onPress={() => {
+                    updateFormData({ employeeCount: option.value });
+                    // Auto-advance to next step after a brief delay for visual feedback
+                    setTimeout(() => {
+                      handleNext();
+                    }, 300);
+                  }}
                   className={`p-6 cursor-pointer transition-all hover:shadow-md ${
                     formData.employeeCount === option.value
                       ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -520,7 +544,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 <Card
                   key={reason.value}
                   isPressable
-                  onPress={() => updateFormData({ sellingReason: reason.value })}
+                  onPress={() => {
+                    updateFormData({ sellingReason: reason.value });
+                    // Auto-advance to next step after a brief delay for visual feedback
+                    setTimeout(() => {
+                      handleNext();
+                    }, 300);
+                  }}
                   className={`p-6 cursor-pointer transition-all hover:shadow-md ${
                     formData.sellingReason === reason.value
                       ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -564,7 +594,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 <Card
                   key={timeline.value}
                   isPressable
-                  onPress={() => updateFormData({ timeline: timeline.value })}
+                  onPress={() => {
+                    updateFormData({ timeline: timeline.value });
+                    // Auto-advance to next step after a brief delay for visual feedback
+                    setTimeout(() => {
+                      handleNext();
+                    }, 300);
+                  }}
                   className={`p-4 cursor-pointer transition-all hover:shadow-md ${
                     formData.timeline === timeline.value
                       ? 'ring-2 ring-primary-500 bg-primary-50'
@@ -644,7 +680,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 We'll use this to send you updates and buyer inquiries.
               </p>
             </div>
-            <Input
+            <CleanInput
               type="email"
               placeholder="your.email@company.com"
               value={formData.contactEmail}
@@ -667,7 +703,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 Serious buyers may want to speak with you directly.
               </p>
             </div>
-            <Input
+            <CleanInput
               type="tel"
               placeholder="+32 XXX XX XX XX"
               value={formData.contactPhone}

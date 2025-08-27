@@ -13,12 +13,10 @@ import {
 } from '@heroui/react';
 import { AnimatedInput, AnimatedTextarea } from '../../components/forms';
 import {
-  EnhancedInput,
-  EnhancedSelect,
-  EnhancedTextarea,
-  FormSection,
-  FormTip,
-} from '../../components/forms/EnhancedFormFields';
+  Input,
+  Select as UISelect,
+  Textarea as UITextarea,
+} from '../../components/ui';
 import { useNavigate } from 'react-router-dom';
 import {
   Building2,
@@ -480,14 +478,14 @@ const ListingWizard = () => {
                 {currentStep === 1 && (
                   <div className="space-y-8">
                     {/* Company Information Section */}
-                    <FormSection
+                    <div
                       title="Company Information"
                       description="Tell us about your business and what makes it special"
                       icon={<Building className="w-5 h-5 text-primary-600" />}
                     >
                       <div className="space-y-6">
                         {/* Business Title - Full Width */}
-                        <EnhancedInput
+                        <Input
                           label="Business Title"
                           placeholder="Enter a compelling title that attracts buyers"
                           value={basicInfo.title}
@@ -500,7 +498,7 @@ const ListingWizard = () => {
 
                         {/* Industry & Business Model Row */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                          <EnhancedSelect
+                          <UISelect
                             label="Industry"
                             placeholder="Select your primary industry"
                             value={basicInfo.industry}
@@ -512,7 +510,7 @@ const ListingWizard = () => {
                             description="Choose the industry that best describes your business"
                           />
 
-                          <EnhancedSelect
+                          <UISelect
                             label="Business Model"
                             placeholder="Select your business model"
                             value={basicInfo.business_model}
@@ -525,16 +523,16 @@ const ListingWizard = () => {
                           />
                         </div>
                       </div>
-                    </FormSection>
+                    </div>
 
                     {/* Business Details Section */}
-                    <FormSection
+                    <div
                       title="Business Details"
                       description="Key metrics and operational information"
                       icon={<Briefcase className="w-5 h-5 text-primary-600" />}
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <EnhancedSelect
+                        <UISelect
                           label="Company Size"
                           placeholder="Select number of employees"
                           value={basicInfo.employee_count}
@@ -546,7 +544,7 @@ const ListingWizard = () => {
                           description="Total number of employees"
                         />
 
-                        <EnhancedInput
+                        <Input
                           label="Founded Year"
                           placeholder="e.g., 2015"
                           type="number"
@@ -557,16 +555,16 @@ const ListingWizard = () => {
                           icon={<Calendar className="w-4 h-4 text-default-400" />}
                         />
                       </div>
-                    </FormSection>
+                    </div>
 
                     {/* Location & Contact Section */}
-                    <FormSection
+                    <div
                       title="Location & Contact"
                       description="Where is your business located?"
                       icon={<Location className="w-5 h-5 text-primary-600" />}
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <EnhancedSelect
+                        <UISelect
                           label="Country"
                           placeholder="Select your country"
                           value={basicInfo.location_country}
@@ -578,7 +576,7 @@ const ListingWizard = () => {
                           description="Primary business location"
                         />
 
-                        <EnhancedInput
+                        <Input
                           label="City"
                           placeholder="Enter your city"
                           value={basicInfo.location_city}
@@ -589,7 +587,7 @@ const ListingWizard = () => {
                           icon={<MapPin className="w-4 h-4 text-default-400" />}
                         />
 
-                        <EnhancedInput
+                        <Input
                           label="Website"
                           placeholder="https://yourcompany.com"
                           type="url"
@@ -601,15 +599,15 @@ const ListingWizard = () => {
                           className="lg:col-span-2"
                         />
                       </div>
-                    </FormSection>
+                    </div>
 
                     {/* Business Description Section */}
-                    <FormSection
+                    <div
                       title="Business Description"
                       description="Describe what makes your business unique and attractive"
                       icon={<Info className="w-5 h-5 text-primary-600" />}
                     >
-                      <EnhancedTextarea
+                      <UITextarea
                         label="Tell Your Story"
                         placeholder="Describe your business, its history, key achievements, growth potential, and what makes it attractive to buyers..."
                         value={basicInfo.description}
@@ -619,16 +617,16 @@ const ListingWizard = () => {
                         rows={5}
                         description="Be specific and compelling. This is your chance to make a great first impression."
                       />
-                    </FormSection>
+                    </div>
 
                     {/* Tips Section */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                      <FormTip
+                      <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
                         title="Writing Tips"
                         content="Focus on your unique value proposition, key achievements, growth metrics, and what makes your business stand out from competitors."
                         type="info"
                       />
-                      <FormTip
+                      <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
                         title="What Buyers Look For"
                         content="Stable revenue, growth potential, strong market position, quality management team, and clear competitive advantages."
                         type="success"

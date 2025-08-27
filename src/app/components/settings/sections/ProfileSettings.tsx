@@ -14,10 +14,10 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import {
-  AirbnbInput,
-  AirbnbSelect,
-  AirbnbTextarea,
-} from '../../forms';
+  CleanInput,
+  CleanSelect,
+  CleanTextarea,
+} from '../../ui';
 import { User as UserType } from '../../../types/api/users/user';
 
 interface ProfileSettingsProps {
@@ -169,59 +169,61 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         </CardHeader>
         <CardBody className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AirbnbInput
+            <AirbnbCleanInput
               label="Full Name"
               placeholder="Enter your full name"
               value={profileData.name}
-              onChange={value => handleInputChange('name', value)}
+              onChange={value => handleCleanInputChange('name', value)}
               id="name"
               required
               startIcon={<User className="w-4 h-4 text-gray-400" />}
               helpText="Your name as it appears to other users"
             />
 
-            <AirbnbInput
+            <AirbnbCleanInput
               label="Email Address"
               placeholder="your.email@company.com"
               type="email"
               value={profileData.email}
-              onChange={value => handleInputChange('email', value)}
+              onChange={value => handleCleanInputChange('email', value)}
               id="email"
               required
               startIcon={<Mail className="w-4 h-4 text-gray-400" />}
               helpText="Primary contact email"
             />
 
-            <EnhancedInput
+            <CleanInput
               label="Phone Number"
               placeholder="+32 123 456 789"
               type="tel"
               value={profileData.phone}
-              onChange={value => handleInputChange('phone', value)}
-              name="phone"
-              icon={<Phone className="w-4 h-4 text-default-400" />}
-              description="For important account notifications"
+              onChange={value => handleCleanInputChange('phone', value)}
+              id="phone"
+              startIcon={<Phone className="w-4 h-4 text-gray-400" />}
+              helpText="For important account notifications"
             />
 
-            <EnhancedInput
+            <CleanInput
               label="Location"
               placeholder="Brussels, Belgium"
               value={profileData.location}
-              onChange={value => handleInputChange('location', value)}
-              name="location"
-              icon={<MapPin className="w-4 h-4 text-default-400" />}
-              description="Your primary business location"
+              onChange={value => handleCleanInputChange('location', value)}
+              id="location"
+              startIcon={<MapPin className="w-4 h-4 text-gray-400" />}
+              helpText="Your primary business location"
             />
           </div>
 
-          <EnhancedTextarea
+          <Textarea
             label="Professional Bio"
             placeholder="Tell other users about your background, expertise, and what you're looking for..."
             value={profileData.bio}
-            onChange={value => handleInputChange('bio', value)}
-            name="bio"
-            rows={4}
-            description="This appears on your public profile and helps build trust with other users"
+            onChange={value => handleCleanInputChange('bio', value)}
+            id="bio"
+            minRows={4}
+            helpText="This appears on your public profile and helps build trust with other users"
+            showCharCount
+            maxLength={500}
           />
         </CardBody>
       </Card>
@@ -233,44 +235,44 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         </CardHeader>
         <CardBody className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <EnhancedInput
+            <CleanInput
               label="Company"
               placeholder="Your company name"
               value={profileData.company}
-              onChange={value => handleInputChange('company', value)}
-              name="company"
-              icon={<Building2 className="w-4 h-4 text-default-400" />}
-              description="Current company or organization"
+              onChange={value => handleCleanInputChange('company', value)}
+              id="company"
+              startIcon={<Building2 className="w-4 h-4 text-gray-400" />}
+              helpText="Current company or organization"
             />
 
-            <EnhancedInput
+            <CleanInput
               label="Position"
               placeholder="CEO, Founder, Investment Manager"
               value={profileData.position}
-              onChange={value => handleInputChange('position', value)}
-              name="position"
-              description="Your role or title"
+              onChange={value => handleCleanInputChange('position', value)}
+              id="position"
+              helpText="Your role or title"
             />
 
-            <EnhancedInput
+            <CleanInput
               label="Website"
               placeholder="https://yourcompany.com"
               type="url"
               value={profileData.website}
-              onChange={value => handleInputChange('website', value)}
-              name="website"
-              icon={<ExternalLink className="w-4 h-4 text-default-400" />}
-              description="Company or personal website"
+              onChange={value => handleCleanInputChange('website', value)}
+              id="website"
+              startIcon={<ExternalLink className="w-4 h-4 text-gray-400" />}
+              helpText="Company or personal website"
             />
 
-            <EnhancedInput
+            <CleanInput
               label="LinkedIn Profile"
               placeholder="https://linkedin.com/in/yourprofile"
               type="url"
               value={profileData.linkedin}
-              onChange={value => handleInputChange('linkedin', value)}
-              name="linkedin"
-              description="Professional networking profile"
+              onChange={value => handleCleanInputChange('linkedin', value)}
+              id="linkedin"
+              helpText="Professional networking profile"
             />
           </div>
         </CardBody>
@@ -283,22 +285,24 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         </CardHeader>
         <CardBody className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <EnhancedSelect
+            <CleanSelect
               label="Timezone"
               placeholder="Select your timezone"
               value={profileData.timezone}
-              onSelectionChange={value => handleInputChange('timezone', value)}
+              onChange={value => handleInputChange('timezone', value)}
               options={timezones}
-              description="Used for scheduling and notifications"
+              helpText="Used for scheduling and notifications"
+              id="timezone"
             />
 
-            <EnhancedSelect
+            <CleanSelect
               label="Language"
               placeholder="Select your language"
               value={profileData.language}
-              onSelectionChange={value => handleInputChange('language', value)}
+              onChange={value => handleInputChange('language', value)}
               options={languages}
-              description="Interface language preference"
+              helpText="Interface language preference"
+              id="language"
             />
           </div>
         </CardBody>

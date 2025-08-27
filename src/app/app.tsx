@@ -15,7 +15,7 @@ import PasswordReset from './pages/account/loginTools/passwordReset/PasswordRese
 import SignUpComplete from './pages/account/onboarding/signUpComplete/SignUpComplete';
 import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
-import FAQ from './pages/support/faq';
+
 import Contact from './pages/support/contact';
 import Messages from './pages/messages/Messages';
 import HelpCenter from './pages/help/Help';
@@ -70,7 +70,7 @@ const routes = [
       { path: 'listings/:id', element: <ListingDetails /> },
       { path: UrlGeneratorService.privacyPolicy(), element: <PrivacyPolicy /> },
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
-      { path: UrlGeneratorService.faq(), element: <FAQ /> },
+
       { path: UrlGeneratorService.contact(), element: <Contact /> },
       { path: UrlGeneratorService.help(), element: <HelpCenter /> },
 
