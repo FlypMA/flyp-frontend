@@ -14,7 +14,7 @@ import {
   Divider,
   Chip,
 } from '@heroui/react';
-import { AnimatedInput, AnimatedTextarea } from '../forms';
+import { Input, Textarea } from '../ui';
 import {
   MessageSquare,
   User,
@@ -390,7 +390,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
         <h3 className="text-lg font-semibold">Your Contact Information</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <AnimatedInput
+          <Input
             label="Full Name"
             placeholder="Enter your full name"
             value={inquiryData.buyerName}
@@ -400,7 +400,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             name="buyerName"
           />
 
-          <AnimatedInput
+          <Input
             label="Email Address"
             type="email"
             placeholder="your.email@company.com"
@@ -413,7 +413,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <AnimatedInput
+          <Input
             label="Company/Organization"
             placeholder="Your company name"
             value={inquiryData.companyName}
@@ -423,7 +423,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             name="companyName"
           />
 
-          <AnimatedInput
+          <Input
             label="Position/Title"
             placeholder="Your job title"
             value={inquiryData.position}
@@ -433,7 +433,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           />
         </div>
 
-        <AnimatedInput
+        <Input
           label="Phone Number"
           placeholder="+32 123 456 789"
           value={inquiryData.buyerPhone}
@@ -524,7 +524,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Your Message</h3>
 
-        <AnimatedTextarea
+        <Textarea
           label="Inquiry Message"
           placeholder="Tell the seller about your interest in this business, your background, and any specific questions you have..."
           value={inquiryData.message}

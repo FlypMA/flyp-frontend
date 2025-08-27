@@ -232,8 +232,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
               "min-h-[100px]",
               {
                 "text-sm": size === 'sm',
-                "text-base": size === 'md',
-                "text-base": size === 'lg',
+                "text-base": size === 'md' || size === 'lg',
               }
             )
           }}

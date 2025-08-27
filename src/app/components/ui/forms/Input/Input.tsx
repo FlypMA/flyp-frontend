@@ -233,8 +233,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             "data-[has-start-content=true]:ps-0 data-[has-end-content=true]:pe-0",
             {
               "text-sm": size === 'sm',
-              "text-base": size === 'md',
-              "text-base": size === 'lg',
+              "text-base": size === 'md' || size === 'lg',
             }
           ),
           clearButton: "text-gray-400 hover:text-gray-600"

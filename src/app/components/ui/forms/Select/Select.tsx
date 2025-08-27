@@ -234,8 +234,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             "text-gray-900",
             {
               "text-sm": size === 'sm',
-              "text-base": size === 'md',
-              "text-base": size === 'lg',
+              "text-base": size === 'md' || size === 'lg',
             }
           ),
           selectorIcon: "text-gray-500",

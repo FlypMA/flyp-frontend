@@ -11,7 +11,7 @@ import {
   CardBody,
   Divider,
 } from '@heroui/react';
-import { AnimatedInput, AnimatedTextarea } from '../forms';
+import { Input, Textarea } from '../ui';
 import { Shield, FileText, User, Building2, AlertTriangle } from 'lucide-react';
 
 interface NDAModalProps {
@@ -143,7 +143,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
       <h3 className="text-lg font-semibold">Your Information</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <AnimatedInput
+        <Input
           label="Full Name"
           placeholder="Enter your full legal name"
           value={signatureData.fullName}
@@ -153,7 +153,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
           name="fullName"
         />
 
-        <AnimatedInput
+        <Input
           label="Email Address"
           type="email"
           placeholder="your.email@company.com"
@@ -165,7 +165,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <AnimatedInput
+        <Input
           label="Company/Organization"
           placeholder="Your company name"
           value={signatureData.company}
@@ -175,7 +175,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
           name="company"
         />
 
-        <AnimatedInput
+        <Input
           label="Position/Title"
           placeholder="Your job title"
           value={signatureData.position}
@@ -184,7 +184,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
         />
       </div>
 
-      <AnimatedInput
+      <Input
         label="Phone Number"
         placeholder="+32 123 456 789"
         value={signatureData.phone}
@@ -239,7 +239,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
         </div>
       </div>
 
-      <AnimatedTextarea
+      <Textarea
         label="Digital Signature"
         placeholder="Type your full name as digital signature"
         value={signatureData.digitalSignature}

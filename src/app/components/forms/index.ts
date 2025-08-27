@@ -44,3 +44,7 @@ export { FormActions as AirbnbFormActions } from '../ui';
 
 // Keep FormField for backward compatibility
 export { default as FormField } from '../common/FormField';
+
+// Legacy animated components (still used in multiple files)
+export { default as AnimatedInput } from './AnimatedInput';
+export { default as AnimatedTextarea } from './AnimatedTextarea';
