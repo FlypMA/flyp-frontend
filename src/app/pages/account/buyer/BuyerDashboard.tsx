@@ -7,6 +7,7 @@ import { User } from '../../../types/api/users/user';
 import BuyerSidebarNavigation from '../../../components/navigation/BuyerSidebarNavigation';
 import DashboardOverview from '../../../components/buyer/DashboardOverview';
 import DiscoverBusinesses from '../../../components/buyer/DiscoverBusinesses';
+import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 
 interface SavedSearch {
   id: string;
@@ -290,6 +291,9 @@ const BuyerDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <UnifiedNavigation />
+
       <div className="flex">
         {/* Sidebar Navigation */}
         <BuyerSidebarNavigation

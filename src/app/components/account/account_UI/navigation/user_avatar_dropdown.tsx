@@ -1,5 +1,4 @@
-import React from 'react';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { authService } from '../../../../services/users/authenticationService';
@@ -19,7 +18,39 @@ interface UserAvatarDropdownProps {
 }
 
 const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLImageElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target as Node) &&
+        avatarRef.current && 
+        !avatarRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close on escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -30,22 +61,24 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
       console.error('Logout failed:', error);
       window.location.href = UrlGeneratorService.root();
     }
+    setIsOpen(false);
   };
 
-  // Handle dropdown menu actions
-  const handleMenuAction = (key: React.Key) => {
-    switch (key) {
+  const handleMenuClick = (action: string) => {
+    setIsOpen(false);
+    
+    switch (action) {
       case 'favorites':
-        navigate('/account/buyer');
+        navigate('/dashboard/buyer');
         break;
       case 'my-business':
-        navigate('/account/seller');
+        navigate('/business/overview');
         break;
       case 'messages':
         navigate('/messages');
         break;
       case 'profile-settings':
-        navigate('/account/settings');
+        navigate('/profile/settings');
         break;
       case 'help-center':
         navigate('/help');
@@ -56,119 +89,133 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
       case 'logout':
         handleLogout();
         break;
-      default:
-        console.log('Unknown action:', key);
     }
   };
 
-  // Determine user role for conditional menu items
   const isSeller = user?.userType === UserType.Seller;
   const isBuyer = user?.userType === UserType.Buyer;
-
-  // Default avatar image (placeholder)
   const defaultAvatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80";
 
+  const menuItems = [
+    ...(isBuyer ? [{
+      key: 'favorites',
+      icon: Heart,
+      label: 'Favorites',
+      action: 'favorites'
+    }] : []),
+    ...(isSeller ? [{
+      key: 'my-business', 
+      icon: Building2,
+      label: 'My business',
+      action: 'my-business'
+    }] : []),
+    {
+      key: 'messages',
+      icon: MessageCircle,
+      label: 'Messages', 
+      action: 'messages'
+    },
+    {
+      key: 'profile-settings',
+      icon: Settings,
+      label: 'Profile & settings',
+      action: 'profile-settings'  
+    },
+    {
+      key: 'help-center',
+      icon: HelpCircle,
+      label: 'Help center',
+      action: 'help-center'
+    },
+    {
+      key: 'divider',
+      isDivider: true
+    },
+    {
+      key: 'sell-business',
+      icon: Store,
+      label: 'Sell your business', 
+      action: 'sell-business'
+    },
+    {
+      key: 'logout',
+      icon: LogOut,
+      label: 'Log out',
+      action: 'logout',
+      isLogout: true
+    }
+  ];
+
   return (
-    <Dropdown 
-      placement="bottom-end" 
-      className="w-56"
-      classNames={{
-        content: "p-0 border-0 shadow-lg bg-white rounded-xl min-w-56",
-      }}
-    >
-      <DropdownTrigger>
-        <button 
-          className="relative flex items-center justify-center rounded-full overflow-hidden hover:shadow-md transition-all duration-200"
-          aria-label="User menu"
-        >
-          <img
-            src={user?.avatar || defaultAvatar}
-            alt={user?.name || 'User'}
-            className="w-8 h-8 rounded-full object-cover"
-          />
-        </button>
-      </DropdownTrigger>
-
-      <DropdownMenu
-        aria-label="User menu"
-        className="p-2"
-        onAction={handleMenuAction}
-        itemClasses={{
-          base: "rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-150 cursor-pointer",
+    <div className="relative">
+      {/* Clean Avatar - No borders, spacing, or effects */}
+      <img
+        ref={avatarRef}
+        src={user?.avatar || defaultAvatar}
+        alt={user?.name || 'User'}
+        className="w-8 h-8 rounded-full object-cover cursor-pointer select-none"
+        onClick={() => setIsOpen(!isOpen)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }
         }}
-      >
-        {/* Favorites (for buyers) */}
-        {isBuyer && (
-          <DropdownItem
-            key="favorites"
-            startContent={<Heart className="w-4 h-4 text-gray-500" />}
-          >
-            Favorites
-          </DropdownItem>
-        )}
+        aria-label="User menu"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      />
 
-        {/* My business (for sellers) */}
-        {isSeller && (
-          <DropdownItem
-            key="my-business"
-            startContent={<Building2 className="w-4 h-4 text-gray-500" />}
-          >
-            My business
-          </DropdownItem>
-        )}
-
-        {/* Messages */}
-        <DropdownItem
-          key="messages"
-          startContent={<MessageCircle className="w-4 h-4 text-gray-500" />}
+      {/* Custom Dropdown - Full control */}
+      {isOpen && (
+        <div
+          ref={dropdownRef}
+          className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border-0 z-50 overflow-hidden"
+          role="menu"
+          aria-orientation="vertical"
+          style={{
+            filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
+          }}
         >
-          Messages
-        </DropdownItem>
+          {menuItems.map((item, index) => {
+            if (item.isDivider) {
+              return (
+                <div 
+                  key={item.key}
+                  className="h-px bg-gray-200 my-1"
+                  role="separator"
+                />
+              );
+            }
 
-        {/* Profile & settings */}
-        <DropdownItem
-          key="profile-settings"
-          startContent={<Settings className="w-4 h-4 text-gray-500" />}
-        >
-          Profile & settings
-        </DropdownItem>
-
-        {/* Help center */}
-        <DropdownItem
-          key="help-center"
-          startContent={<HelpCircle className="w-4 h-4 text-gray-500" />}
-        >
-          Help center
-        </DropdownItem>
-
-        {/* Divider */}
-        <DropdownItem
-          key="divider"
-          className="p-0 h-px my-2 cursor-default"
-          isReadOnly
-          textValue=""
-        >
-          <div className="w-full h-px bg-gray-200" />
-        </DropdownItem>
-
-        {/* Sell your business */}
-        <DropdownItem
-          key="sell-business"
-          startContent={<Store className="w-4 h-4 text-gray-500" />}
-        >
-          Sell your business
-        </DropdownItem>
-
-        {/* Logout */}
-        <DropdownItem
-          key="logout"
-          className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
-          startContent={<LogOut className="w-4 h-4 text-gray-500" />}
-        >
-          Log out
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+            const Icon = item.icon!;
+            const isFirst = index === 0;
+            const isLast = index === menuItems.length - 1;
+            
+            return (
+              <button
+                key={item.key}
+                className={`
+                  w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 
+                  hover:bg-gray-50 transition-colors duration-150 text-left border-0 bg-transparent
+                  ${isFirst ? 'rounded-t-xl' : ''} 
+                  ${isLast ? 'rounded-b-xl' : ''}
+                  ${item.isLogout ? 'text-gray-700 hover:bg-gray-50' : ''}
+                `}
+                onClick={() => handleMenuClick(item.action!)}
+                role="menuitem"
+                tabIndex={0}
+              >
+                <Icon className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span className="flex-1">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 };
 

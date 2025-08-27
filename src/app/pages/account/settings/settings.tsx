@@ -8,6 +8,7 @@ import SettingsSidebar from '../../../components/settings/SettingsSidebar';
 import ProfileSettings from '../../../components/settings/sections/ProfileSettings';
 import SecuritySettings from '../../../components/settings/sections/SecuritySettings';
 import NotificationSettings from '../../../components/settings/sections/NotificationSettings';
+import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 
 const Settings: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -198,6 +199,9 @@ const Settings: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <UnifiedNavigation />
+
       <div className="flex">
         {/* Settings Sidebar */}
         <SettingsSidebar selectedSection={selectedSection} onSectionChange={setSelectedSection} />

@@ -14,11 +14,10 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import {
-  EnhancedInput,
-  EnhancedSelect,
-  EnhancedTextarea,
-  FormTip,
-} from '../../forms/EnhancedFormFields';
+  AirbnbInput,
+  AirbnbSelect,
+  AirbnbTextarea,
+} from '../../forms';
 import { User as UserType } from '../../../types/api/users/user';
 
 interface ProfileSettingsProps {
@@ -170,27 +169,27 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         </CardHeader>
         <CardBody className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <EnhancedInput
+            <AirbnbInput
               label="Full Name"
               placeholder="Enter your full name"
               value={profileData.name}
               onChange={value => handleInputChange('name', value)}
-              name="name"
+              id="name"
               required
-              icon={<User className="w-4 h-4 text-default-400" />}
-              description="Your name as it appears to other users"
+              startIcon={<User className="w-4 h-4 text-gray-400" />}
+              helpText="Your name as it appears to other users"
             />
 
-            <EnhancedInput
+            <AirbnbInput
               label="Email Address"
               placeholder="your.email@company.com"
               type="email"
               value={profileData.email}
               onChange={value => handleInputChange('email', value)}
-              name="email"
+              id="email"
               required
-              icon={<Mail className="w-4 h-4 text-default-400" />}
-              description="Primary contact email"
+              startIcon={<Mail className="w-4 h-4 text-gray-400" />}
+              helpText="Primary contact email"
             />
 
             <EnhancedInput

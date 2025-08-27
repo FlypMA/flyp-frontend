@@ -123,8 +123,8 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
           title: 'Dashboard',
           items: [
             {
-              label: userRole === 'seller' ? 'Seller Dashboard' : 'Buyer Dashboard',
-              href: userRole === 'seller' ? '/account/seller' : '/account/buyer',
+              label: userRole === 'seller' ? 'Business Overview' : 'Buyer Dashboard',
+              href: userRole === 'seller' ? '/business/overview' : '/dashboard/buyer',
               icon: Home,
             },
             { label: 'Saved Listings', href: '/account/saved', icon: Heart },
@@ -135,11 +135,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
 
       if (userRole === 'seller') {
         authenticatedSections.push({
-          title: 'My Listings',
+          title: 'Business Management',
           items: [
-            { label: 'Active Listings', href: '/account/seller/listings', icon: Building2 },
+            { label: 'Manage Listings', href: '/business/listings', icon: Building2 },
             { label: 'Create Listing', href: '/seller/listings/new', icon: FileText, isNew: true },
-            { label: 'Inquiries', href: '/account/seller/inquiries', icon: Users, badge: '5' },
+            { label: 'Business Valuation', href: '/business/valuation', icon: Users },
           ],
         });
       }
@@ -147,7 +147,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
       authenticatedSections.push({
         title: 'Account',
         items: [
-          { label: 'Profile Settings', href: '/account/settings', icon: Settings },
+          { label: 'Profile Settings', href: '/profile/settings', icon: Settings },
           { label: 'Subscription', href: '/account/billing', icon: Shield },
         ],
       });

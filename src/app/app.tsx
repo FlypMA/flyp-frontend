@@ -17,7 +17,6 @@ import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
 import FAQ from './pages/support/faq';
 import Contact from './pages/support/contact';
-import Help from './pages/support/help';
 import Messages from './pages/messages/Messages';
 import HelpCenter from './pages/help/Help';
 
@@ -36,10 +35,10 @@ import DueDiligenceChecklist from './pages/resources/DueDiligenceChecklist';
 import CookiePolicy from './pages/legal/cookiePolicy/CookiePolicy';
 import GdprCompliance from './pages/legal/gdpr/GdprCompliance';
 import Security from './pages/legal/security/Security';
-import SellerOnboarding from './pages/onboarding/seller/ModernSellerOnboarding';
+import SellerOnboarding from './pages/onboarding/seller/SellerOnboardingPage';
 import BuyerOnboarding from './pages/onboarding/buyer/ModernBuyerOnboarding';
 import ListingWizard from './pages/listings/ListingWizard';
-import CreateListingModal from './pages/listings/CreateListingModal';
+import CreateListingPage from './pages/listings/CreateListingPage';
 import TransactionFlow from './pages/transaction/TransactionFlow';
 import NavigationTest from './components/navigation/NavigationTest';
 import { ScrollToTop } from './components/common';
@@ -73,8 +72,7 @@ const routes = [
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
       { path: UrlGeneratorService.faq(), element: <FAQ /> },
       { path: UrlGeneratorService.contact(), element: <Contact /> },
-      { path: UrlGeneratorService.help(), element: <Help /> },
-      { path: 'help', element: <HelpCenter /> },
+      { path: UrlGeneratorService.help(), element: <HelpCenter /> },
 
       { path: 'for-sellers', element: <SellersLandingPage /> },
       { path: 'about', element: <About /> },
@@ -115,6 +113,44 @@ const routes = [
     ],
   },
   {
+    path: '/business',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <SellerDashboard /> }, // Default to overview
+      { path: 'overview', element: <SellerDashboard /> },
+      { path: 'listings', element: <SellerDashboard /> }, // Can be updated to a listings-specific component later
+      { path: 'valuation', element: <SellerDashboard /> }, // Can be updated to a valuation component later
+    ],
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <BuyerDashboard /> }, // Default to buyer dashboard
+      { path: 'buyer', element: <BuyerDashboard /> },
+    ],
+  },
+  {
+    path: '/profile',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <Settings /> }, // Default to settings
+      { path: 'settings', element: <Settings /> },
+    ],
+  },
+  {
     path: '/messages',
     element: (
       <RootLayout>
@@ -132,7 +168,7 @@ const routes = [
     children: [
       { index: true, element: <SellerDashboard /> },
       { path: 'dashboard', element: <SellerDashboard /> },
-      { path: 'listings/new', element: <CreateListingModal /> },
+      { path: 'listings/new', element: <CreateListingPage /> },
       { path: 'listings/:id/edit', element: <ListingWizard /> },
     ],
   },

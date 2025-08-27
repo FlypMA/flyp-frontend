@@ -4,7 +4,6 @@ import { Button, Card, CardBody, CardHeader, Chip, Divider, Progress } from '@he
 import {
   Plus,
   Building2,
-  Eye,
   MessageSquare,
   TrendingUp,
   FileText,
@@ -13,11 +12,12 @@ import {
   CheckCircle,
   Clock,
   Search,
+  Eye,
 } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
 import { User as UserType } from '../../../types/api/users/user';
-import DashboardNavigation from '../../../components/navigation/DashboardNavigation';
-import SidebarNavigation from '../../../components/navigation/SidebarNavigation';
+import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
+import SellerSidebar from '../../../components/navigation/SellerSidebar';
 
 interface Listing {
   id: string;
@@ -32,25 +32,12 @@ interface Listing {
   country: string;
 }
 
-interface DashboardStats {
-  total_listings: number;
-  published_listings: number;
-  total_views: number;
-  total_inquiries: number;
-  active_conversations: number;
-}
+
 
 const SellerDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
   const [listings, setListings] = useState<Listing[]>([]);
-  const [stats, setStats] = useState<DashboardStats>({
-    total_listings: 0,
-    published_listings: 0,
-    total_views: 0,
-    total_inquiries: 0,
-    active_conversations: 0,
-  });
   const [selectedTab, setSelectedTab] = useState('overview');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -104,14 +91,7 @@ const SellerDashboard = () => {
             },
           ]);
 
-          // Mock stats data
-          setStats({
-            total_listings: 3,
-            published_listings: 1,
-            total_views: 245,
-            total_inquiries: 12,
-            active_conversations: 8,
-          });
+          // Stats data no longer needed since we removed the stats cards
         } else {
           // Redirect to login if not authenticated
           navigate('/');
@@ -203,88 +183,16 @@ const SellerDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
-      <DashboardNavigation user={user} />
+      <UnifiedNavigation />
 
-      {/* Dashboard Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user.name || 'Seller'}!
-          </h1>
-          <p className="text-gray-600">Manage your business listings and track buyer interest</p>
-        </div>
+      {/* Main Layout with Sidebar */}
+      <div className="flex">
+        {/* Left Sidebar */}
+        <SellerSidebar selectedTab={selectedTab} onTabChange={setSelectedTab} />
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-          <Card className="border border-gray-200">
-            <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Total Listings</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_listings}</p>
-                </div>
-                <Building2 className="w-8 h-8 text-primary-600" />
-              </div>
-            </CardBody>
-          </Card>
-
-          <Card className="border border-gray-200">
-            <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Published</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.published_listings}</p>
-                </div>
-                <CheckCircle className="w-8 h-8 text-green-600" />
-              </div>
-            </CardBody>
-          </Card>
-
-          <Card className="border border-gray-200">
-            <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Total Views</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_views}</p>
-                </div>
-                <Eye className="w-8 h-8 text-blue-600" />
-              </div>
-            </CardBody>
-          </Card>
-
-          <Card className="border border-gray-200">
-            <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Inquiries</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_inquiries}</p>
-                </div>
-                <MessageSquare className="w-8 h-8 text-purple-600" />
-              </div>
-            </CardBody>
-          </Card>
-
-          <Card className="border border-gray-200">
-            <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Active Conversations</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.active_conversations}</p>
-                </div>
-                <TrendingUp className="w-8 h-8 text-orange-600" />
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-
-        {/* Main Dashboard Content with Sidebar */}
-        <div className="flex gap-6">
-          {/* Sidebar Navigation */}
-          <SidebarNavigation selectedTab={selectedTab} onTabChange={setSelectedTab} />
-
-          {/* Main Content Area */}
-          <div className="flex-1 space-y-6">
+        {/* Main Content Area */}
+        <div className="flex-1 px-8 py-8">
+          <div className="max-w-6xl space-y-6">
             {/* Overview Tab Content */}
             {selectedTab === 'overview' && (
               <div className="space-y-6">
@@ -513,28 +421,14 @@ const SellerDashboard = () => {
               </div>
             )}
 
-            {/* Inquiries Tab Content */}
-            {selectedTab === 'inquiries' && (
-              <Card>
-                <CardBody className="text-center py-12">
-                  <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Inquiry management</h3>
-                  <p className="text-gray-600">
-                    This section will show buyer inquiries and communication tools
-                  </p>
-                  <p className="text-sm text-blue-600 mt-2">Coming in Phase 3 development</p>
-                </CardBody>
-              </Card>
-            )}
-
-            {/* Analytics Tab Content */}
-            {selectedTab === 'analytics' && (
+            {/* Valuation Tab Content */}
+            {selectedTab === 'valuation' && (
               <Card>
                 <CardBody className="text-center py-12">
                   <TrendingUp className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Advanced Analytics</h3>
-                  <p className="text-gray-600">Detailed performance metrics and insights</p>
-                  <p className="text-sm text-blue-600 mt-2">Coming in Phase 4 development</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Business Valuation</h3>
+                  <p className="text-gray-600">Calculate your business valuation with our advanced tools</p>
+                  <p className="text-sm text-blue-600 mt-2">Coming Soon</p>
                 </CardBody>
               </Card>
             )}
