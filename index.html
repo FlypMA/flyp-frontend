@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Prevent search engine indexing -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    
+    <!-- Block Creative Tim promotional banners -->
+    <script>
+      // Block Creative Tim banner creation
+      (function() {
+        // Set the cookie to prevent banner creation
+        document.cookie = "view_offer_bar=true; path=/; max-age=31536000";
+        
+        // Override Creative Tim functions
+        window.createOfferBar = function() { return false; };
+        window.closeOfferBar = function() { return false; };
+        
+        // Block banner creation on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+          const bannerId = 'ofBar';
+          const existingBanner = document.getElementById(bannerId);
+          if (existingBanner) {
+            existingBanner.remove();
+          }
+          
+          // Continuous monitoring for banner injection
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) { // Element node
+                  if (node.id === bannerId || 
+                      (node.querySelector && node.querySelector('#' + bannerId))) {
+                    node.remove();
+                  }
+                }
+              });
+            });
+          });
+          
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+        });
+      })();
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N5JTEPNWR7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N5JTEPNWR7');
+    </script>
+    <meta charset="UTF-8" />
+    <!-- betweendeals favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>betweendeals - European SME M&A Platform</title>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PX78ST5C"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html> 
