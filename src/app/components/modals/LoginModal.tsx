@@ -51,6 +51,10 @@ const LoginModal: React.FC = () => {
       const response = await authService.login(email, password);
       console.log('✅ Login successful:', response);
 
+      // Dispatch auth change events for navigation state synchronization
+      window.dispatchEvent(new CustomEvent('auth-change'));
+      console.log('📡 Dispatched auth-change event');
+
       handleCloseModal();
 
       // Check if we have a redirect with preserved query

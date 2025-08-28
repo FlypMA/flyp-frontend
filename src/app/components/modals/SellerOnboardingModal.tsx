@@ -31,6 +31,11 @@ import {
   PrimaryButton,
   SecondaryButton
 } from '../ui';
+import RevenueRangeSlider from './RevenueRangeSlider';
+import SellerOnboardingNavigation from './SellerOnboardingNavigation';
+import TimelineSelector from './TimelineSelector';
+import PriceExpectationsSelector from './PriceExpectationsSelector';
+import BusinessTypeAndIndustrySelector from './BusinessTypeAndIndustrySelector';
 
 export interface SellerFormData {
   businessType: string;
@@ -54,12 +59,16 @@ interface SellerOnboardingModalProps {
   isOpen: boolean;
   onClose: () => void;
   onComplete?: (data: SellerFormData) => void;
+  existingData?: SellerFormData | null;
+  isEditMode?: boolean;
 }
 
 const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
   isOpen,
   onClose,
-  onComplete
+  onComplete,
+  existingData,
+  isEditMode = false
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,15 +91,34 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
     wantsVerification: false,
   });
 
-  const totalSteps = 16; // Includes welcome, 14 form steps, and success
+  const totalSteps = 15; // Includes welcome, 13 form steps (merged business type & industry), and success
 
-  // Reset form when modal opens
+  // Initialize form when modal opens
   useEffect(() => {
     if (isOpen) {
-      setCurrentStep(0);
+      setCurrentStep(isEditMode ? 1 : 0); // Skip welcome step in edit mode
       setIsSubmitting(false);
+      
+      // Populate form with existing data if in edit mode
+      if (isEditMode && existingData) {
+        setFormData(existingData);
+      } else {
+        // Check for saved draft (only in create mode)
+        try {
+          const savedDraft = localStorage.getItem('sellerOnboardingDraft');
+          if (savedDraft) {
+            const { formData: draftData, currentStep: draftStep } = JSON.parse(savedDraft);
+            // Optional: Ask user if they want to continue from draft
+            // For now, automatically load the draft
+            setFormData(draftData);
+            setCurrentStep(draftStep);
+          }
+        } catch (error) {
+          console.error('Failed to load draft:', error);
+        }
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, isEditMode, existingData]);
 
   const updateFormData = (updates: Partial<SellerFormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
@@ -108,11 +136,34 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
     }
   };
 
+  const handleSaveDraft = async () => {
+    try {
+      // Save current progress to localStorage
+      localStorage.setItem('sellerOnboardingDraft', JSON.stringify({
+        formData,
+        currentStep,
+        timestamp: new Date().toISOString()
+      }));
+      
+      // Show success feedback
+      // You can add a toast notification here
+      console.log('Draft saved successfully');
+      
+      // Optional: Show a temporary success message
+      // This could be replaced with a toast notification system
+    } catch (error) {
+      console.error('Failed to save draft:', error);
+    }
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Clear draft after successful submission
+    localStorage.removeItem('sellerOnboardingDraft');
     
     // Trigger confetti
     confetti({
@@ -132,20 +183,19 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
   const getStepTitle = (stepNumber: number): string => {
     const stepTitles: Record<number, string> = {
-      1: 'Business Type',
+      1: 'Business Type & Industry',
       2: 'Business Name',
-      3: 'Industry',
-      4: 'Location',
-      5: 'Founded Year',
-      6: 'Description',
-      7: 'Team Size',
-      8: 'Revenue',
-      9: 'Selling Reason',
-      10: 'Timeline',
-      11: 'Price Expectations',
-      12: 'Contact Email',
-      13: 'Phone Number',
-      14: 'Verification'
+      3: 'Location',
+      4: 'Founded Year',
+      5: 'Description',
+      6: 'Team Size',
+      7: 'Revenue',
+      8: 'Selling Reason',
+      9: 'Timeline',
+      10: 'Price Expectations',
+      11: 'Contact Email',
+      12: 'Phone Number',
+      13: 'Verification'
     };
     return stepTitles[stepNumber] || `Step ${stepNumber}`;
   };
@@ -160,20 +210,19 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: return formData.businessType !== '';
+      case 1: return formData.businessType !== '' && formData.industry !== '';
       case 2: return formData.businessName.trim() !== '';
-      case 3: return formData.industry !== '';
-      case 4: return formData.city.trim() !== '';
-      case 5: return formData.foundedYear !== '';
-      case 6: return formData.description.trim().length >= 50;
-      case 7: return formData.employeeCount !== '';
-      case 8: return true; // Revenue range always valid
-      case 9: return formData.sellingReason !== '';
-      case 10: return formData.timeline !== '';
-      case 11: return formData.priceExpectations !== '';
-      case 12: return formData.contactEmail.includes('@');
-      case 13: return formData.contactPhone.trim() !== '';
-      case 14: return true; // Verification is optional
+      case 3: return formData.city.trim() !== '';
+      case 4: return formData.foundedYear !== '';
+      case 5: return formData.description.trim().length >= 50;
+      case 6: return formData.employeeCount !== '';
+      case 7: return true; // Revenue range always valid
+      case 8: return formData.sellingReason !== '';
+      case 9: return formData.timeline !== '';
+      case 10: return formData.priceExpectations !== '';
+      case 11: return formData.contactEmail.includes('@');
+      case 12: return formData.contactPhone.trim() !== '';
+      case 13: return true; // Verification is optional
       default: return true;
     }
   };
@@ -209,52 +258,17 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
       case 1:
         return (
-          <div className="max-w-2xl mx-auto text-center py-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              What type of business are you selling?
-            </h2>
-            <p className="text-gray-600 mb-12">
-              This helps us understand your business model and attract the right buyers.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { value: 'retail', icon: Building2, label: 'Retail Business', desc: 'Physical stores, franchises' },
-                { value: 'service', icon: Users, label: 'Service Business', desc: 'Consulting, agencies' },
-                { value: 'manufacturing', icon: Zap, label: 'Manufacturing', desc: 'Production, industrial' },
-                { value: 'technology', icon: Target, label: 'Technology', desc: 'Software, SaaS, tech' },
-                { value: 'restaurant', icon: Heart, label: 'Restaurant/Food', desc: 'Food service, catering' },
-                { value: 'other', icon: Star, label: 'Other', desc: 'Something else' },
-              ].map((type) => {
-                const Icon = type.icon;
-                return (
-                  <Card
-                    key={type.value}
-                    isPressable
-                    onPress={() => {
-                      updateFormData({ businessType: type.value });
-                      // Auto-advance to next step after a brief delay for visual feedback
-                      setTimeout(() => {
-                        handleNext();
-                      }, 300);
-                    }}
-                    className={`p-6 cursor-pointer transition-all hover:shadow-lg ${
-                      formData.businessType === type.value
-                        ? 'ring-2 ring-primary-500 bg-primary-50'
-                        : ''
-                    }`}
-                  >
-                    <div className="text-center">
-                      <Icon className={`w-8 h-8 mx-auto mb-3 ${
-                        formData.businessType === type.value ? 'text-primary-600' : 'text-gray-500'
-                      }`} />
-                      <h3 className="font-semibold text-gray-900">{type.label}</h3>
-                      <p className="text-sm text-gray-600 mt-1">{type.desc}</p>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+          <BusinessTypeAndIndustrySelector
+            selectedBusinessType={formData.businessType}
+            selectedIndustry={formData.industry}
+            onSelect={(businessType, industry) => {
+              updateFormData({ businessType, industry });
+              // Auto-advance to next step after a brief delay for visual feedback
+              setTimeout(() => {
+                handleNext();
+              }, 800);
+            }}
+          />
         );
 
       case 2:
@@ -279,50 +293,6 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         );
 
       case 3:
-        return (
-          <div className="max-w-3xl mx-auto py-12">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Which industry best describes your business?
-              </h2>
-              <p className="text-gray-600">
-                Choose the primary industry sector for your business.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                'Technology', 'Healthcare', 'Finance', 'Retail', 'Manufacturing',
-                'Food & Beverage', 'Professional Services', 'Construction',
-                'Transportation', 'Education', 'Real Estate', 'Other'
-              ].map((industry) => (
-                <Card
-                  key={industry}
-                  isPressable
-                  onPress={() => {
-                    updateFormData({ industry });
-                    // Auto-advance to next step after a brief delay for visual feedback
-                    setTimeout(() => {
-                      handleNext();
-                    }, 300);
-                  }}
-                  className={`p-4 cursor-pointer text-center transition-all hover:shadow-md ${
-                    formData.industry === industry
-                      ? 'ring-2 ring-primary-500 bg-primary-50'
-                      : ''
-                  }`}
-                >
-                  <span className={`font-medium ${
-                    formData.industry === industry ? 'text-primary-700' : 'text-gray-700'
-                  }`}>
-                    {industry}
-                  </span>
-                </Card>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 4:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -356,7 +326,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 5:
+      case 4:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -408,7 +378,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 6:
+      case 5:
         return (
           <div className="max-w-3xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -436,7 +406,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 7:
+      case 6:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -487,41 +457,15 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 8:
+      case 7:
         return (
-          <div className="max-w-2xl mx-auto py-12">
-            <div className="text-center mb-12">
-              <Euro className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What's your annual revenue range?
-              </h2>
-              <p className="text-gray-600">
-                This information helps match you with qualified buyers.
-              </p>
-            </div>
-            <div className="space-y-8">
-              <div>
-                {/* TODO: Implement Slider component in new UI system */}
-                <div className="max-w-md mx-auto p-4 bg-gray-50 rounded-lg">
-                  <p className="text-center text-gray-600 mb-2">Revenue Range Selection</p>
-                  <p className="text-center text-lg font-semibold">
-                    €{(formData.revenueRange[0] / 1000000).toFixed(1)}M - €{(formData.revenueRange[1] / 1000000).toFixed(1)}M
-                  </p>
-                  <p className="text-center text-sm text-gray-500 mt-1">
-                    (Slider component will be implemented in new UI system)
-                  </p>
-                </div>
-              </div>
-              <div className="text-center">
-                <p className="text-lg font-semibold text-gray-900">
-                  €{(formData.revenueRange[0] / 1000000).toFixed(1)}M - €{(formData.revenueRange[1] / 1000000).toFixed(1)}M annually
-                </p>
-              </div>
-            </div>
-          </div>
+          <RevenueRangeSlider
+            value={formData.revenueRange}
+            onChange={(value) => updateFormData({ revenueRange: value })}
+          />
         );
 
-      case 9:
+      case 8:
         return (
           <div className="max-w-3xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -571,101 +515,32 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 10:
+      case 9:
         return (
-          <div className="max-w-2xl mx-auto py-12">
-            <div className="text-center mb-12">
-              <Clock className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What's your ideal timeline for selling?
-              </h2>
-              <p className="text-gray-600">
-                This helps us prioritize your listing appropriately.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {[
-                { value: 'immediately', label: 'As soon as possible', desc: 'Ready to close quickly' },
-                { value: '3-months', label: 'Within 3 months', desc: 'Flexible on timing' },
-                { value: '6-months', label: 'Within 6 months', desc: 'Standard timeline' },
-                { value: '12-months', label: 'Within 12 months', desc: 'Patient approach' },
-                { value: 'flexible', label: 'Very flexible', desc: 'Waiting for right buyer' },
-              ].map((timeline) => (
-                <Card
-                  key={timeline.value}
-                  isPressable
-                  onPress={() => {
-                    updateFormData({ timeline: timeline.value });
-                    // Auto-advance to next step after a brief delay for visual feedback
-                    setTimeout(() => {
-                      handleNext();
-                    }, 300);
-                  }}
-                  className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                    formData.timeline === timeline.value
-                      ? 'ring-2 ring-primary-500 bg-primary-50'
-                      : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className={`font-semibold ${
-                        formData.timeline === timeline.value ? 'text-primary-700' : 'text-gray-900'
-                      }`}>
-                        {timeline.label}
-                      </h3>
-                      <p className="text-sm text-gray-600">{timeline.desc}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
+          <TimelineSelector
+            selectedValue={formData.timeline}
+            onSelect={(value) => {
+              updateFormData({ timeline: value });
+              // Auto-advance to next step after a brief delay for visual feedback
+              setTimeout(() => {
+                handleNext();
+              }, 800);
+            }}
+          />
         );
 
-      case 11:
+      case 10:
         return (
-          <div className="max-w-2xl mx-auto py-12">
-            <div className="text-center mb-12">
-              <TrendingUp className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What are your price expectations?
-              </h2>
-              <p className="text-gray-600">
-                This helps us match you with buyers in the right range.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {[
-                { value: 'market-value', label: 'Market value assessment', desc: 'Based on professional valuation' },
-                { value: 'flexible', label: 'Open to offers', desc: 'Flexible on pricing' },
-                { value: 'premium', label: 'Premium pricing', desc: 'Above market value' },
-                { value: 'quick-sale', label: 'Quick sale pricing', desc: 'Competitive for fast sale' },
-              ].map((pricing) => (
-                <Card
-                  key={pricing.value}
-                  isPressable
-                  onPress={() => updateFormData({ priceExpectations: pricing.value })}
-                  className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                    formData.priceExpectations === pricing.value
-                      ? 'ring-2 ring-primary-500 bg-primary-50'
-                      : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className={`font-semibold ${
-                        formData.priceExpectations === pricing.value ? 'text-primary-700' : 'text-gray-900'
-                      }`}>
-                        {pricing.label}
-                      </h3>
-                      <p className="text-sm text-gray-600">{pricing.desc}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
+          <PriceExpectationsSelector
+            selectedValue={formData.priceExpectations}
+            onSelect={(value) => {
+              updateFormData({ priceExpectations: value });
+              // Auto-advance to next step after a brief delay for visual feedback
+              setTimeout(() => {
+                handleNext();
+              }, 800);
+            }}
+          />
         );
 
       case 12:
@@ -714,7 +589,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 14:
+      case 13:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -783,7 +658,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 15:
+      case 14:
         return (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
@@ -920,7 +795,10 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                       className="w-full"
                       size="lg"
                     >
-                      {isSubmitting ? 'Setting up your listing...' : 'Complete Setup'}
+                      {isSubmitting ? 
+                        (isEditMode ? 'Saving changes...' : 'Setting up your listing...') : 
+                        (isEditMode ? 'Save Changes' : 'Complete Setup')
+                      }
                     </Button>
                   ) : (
                     <Button
@@ -955,8 +833,26 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 overflow-y-auto p-8">
-              {renderStep()}
+            <div className="flex-1 flex flex-col">
+              <div className="flex-1 overflow-y-auto p-8">
+                {renderStep()}
+              </div>
+              
+              {/* Enhanced Navigation - Always Visible */}
+              <SellerOnboardingNavigation
+                currentStep={currentStep}
+                totalSteps={totalSteps}
+                isLastStep={currentStep === 14}
+                isFirstStep={currentStep <= 1}
+                onBack={handleBack}
+                onNext={handleNext}
+                onSaveDraft={handleSaveDraft}
+                onSubmit={handleSubmit}
+                isSubmitting={isSubmitting}
+                isStepValid={isStepValid()}
+                isEditMode={isEditMode}
+                showNavigation={currentStep > 0}
+              />
             </div>
           </div>
         </div>

@@ -208,7 +208,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
           trigger: cn(
             "select-trigger",
             "transition-all duration-200",
-            "bg-white border-2 rounded-md",
+            "bg-white border-2 rounded-md shadow-sm",
             
             // Size variants
             {
@@ -219,8 +219,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             
             // State variants
             {
-              "border-gray-300 hover:border-gray-400": !currentError && !focused,
-              "border-black shadow-none": (focused || 'data-[open=true]') && !currentError,
+              "border-gray-200 hover:border-gray-300": !currentError && !focused,
+              "border-black shadow-sm": (focused || 'data-[open=true]') && !currentError,
               "border-red-500 hover:border-red-500": currentError,
               "bg-gray-50 border-gray-200 cursor-not-allowed opacity-60": disabled,
             },

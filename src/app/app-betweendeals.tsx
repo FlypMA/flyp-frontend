@@ -89,7 +89,7 @@ const routes = [
       { index: true, element: <SellerDashboard /> },
       { path: 'dashboard', element: <SellerDashboard /> },
       { path: 'listings/new', element: <CreateListing /> },
-      { path: 'listings/:id/edit', element: <CreateListing /> },
+      // Removed old ID-based edit route - now using /seller/listings/edit with query param
     ],
   },
   {

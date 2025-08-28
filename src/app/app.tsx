@@ -25,6 +25,7 @@ import SellersLandingPage from './pages/landingPages/sellers/sellers';
 import ListingSearch from './pages/listings/ListingSearch';
 import ListingDetails from './pages/listings/ListingDetails';
 import CreateListing from './pages/listings/CreateListing';
+import EditListingPage from './pages/listings/EditListingPage';
 import NoPage from './pages/error/404/noPage';
 import { AuthModalProvider } from './contexts/AuthModalContext';
 import AuthModals from './components/modals/AuthModals';
@@ -37,7 +38,7 @@ import GdprCompliance from './pages/legal/gdpr/GdprCompliance';
 import Security from './pages/legal/security/Security';
 import SellerOnboarding from './pages/onboarding/seller/SellerOnboardingPage';
 import BuyerOnboarding from './pages/onboarding/buyer/ModernBuyerOnboarding';
-import ListingWizard from './pages/listings/ListingWizard';
+
 import CreateListingPage from './pages/listings/CreateListingPage';
 import TransactionFlow from './pages/transaction/TransactionFlow';
 import NavigationTest from './components/navigation/NavigationTest';
@@ -169,7 +170,7 @@ const routes = [
       { index: true, element: <SellerDashboard /> },
       { path: 'dashboard', element: <SellerDashboard /> },
       { path: 'listings/new', element: <CreateListingPage /> },
-      { path: 'listings/:id/edit', element: <ListingWizard /> },
+      { path: 'listings/edit', element: <EditListingPage /> },
     ],
   },
   {

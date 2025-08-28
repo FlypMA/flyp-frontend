@@ -81,7 +81,7 @@ const TextAreaInviteFriends: React.FC<CustomTextareaFieldProps> = ({
         <textarea
           ref={textareaRef}
           placeholder={placeholder}
-          className={`w-full h-32 text-md px-4 pt-8 text-white bg-transparent text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-white custom-textarea`}
+          className={`w-full h-32 text-md px-4 pt-8 text-gray-900 bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-blue-500 custom-textarea`}
           aria-label={label}
           value={typedEmail}
           onChange={handleTextareaChange}

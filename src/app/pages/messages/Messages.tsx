@@ -529,7 +529,7 @@ const Messages: React.FC = () => {
                       <div className={`flex ${message.senderId === 'current' ? 'justify-end' : 'justify-start'}`}>
                         <div className={`max-w-xs lg:max-w-md ${
                           message.senderId === 'current' 
-                            ? 'bg-primary-600 text-white' 
+                            ? 'bg-primary-300 text-white' 
                             : message.type === 'offer' 
                               ? 'bg-green-50 border border-green-200'
                               : 'bg-gray-100 text-gray-900'
@@ -574,42 +574,70 @@ const Messages: React.FC = () => {
                 ))}
               </div>
 
-              {/* Message Input */}
-              <div className="p-4 border-t border-gray-200 bg-white">
-                <div className="flex items-end space-x-3">
+              {/* Modern Message Input - Redesigned */}
+              <div className="px-4 py-3 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200/50">
+                <div className="flex items-end gap-3 max-w-4xl mx-auto">
+                  {/* Attachment Button */}
                   <Button
                     isIconOnly
-                    variant="ghost"
-                    className="text-gray-500 hover:text-gray-700"
+                    variant="flat"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-gray-100 border border-gray-200/50 shadow-sm text-gray-600 hover:text-gray-800 transition-all duration-200 hover:scale-105"
                   >
-                    <Paperclip className="w-5 h-5" />
+                    <Paperclip className="w-4 h-4" />
                   </Button>
                   
+                  {/* Message Input Container */}
                   <div className="flex-1 relative">
-                    <CleanInput
-                      placeholder="Type your message..."
-                      value={newMessage}
-                      onChange={setNewMessage}
-                      onFocus={() => {}} // Can add message input focus handling
-                      className="message-input"
-                    />
-                    <Button
-                      isIconOnly
-                      variant="light"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                    >
-                      <Smile className="w-4 h-4" />
-                    </Button>
+                    <div className="flex items-center bg-white rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-300/50 focus-within:border-primary-400 focus-within:shadow-md focus-within:ring-1 focus-within:ring-primary-100">
+                      {/* Input Field */}
+                      <input
+                        type="text"
+                        placeholder="Type a message..."
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        className="flex-1 px-5 py-3 bg-transparent text-gray-900 placeholder:text-gray-500 focus:outline-none text-base rounded-l-3xl"
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey && newMessage.trim()) {
+                            e.preventDefault();
+                            handleSendMessage();
+                          }
+                        }}
+                      />
+                      
+                      {/* Emoji Button */}
+                      <Button
+                        isIconOnly
+                        variant="light"
+                        className="w-9 h-9 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200 mr-2"
+                      >
+                        <Smile className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                   
+                  {/* Send Button - Modern Circular Design */}
                   <Button
-                    color="primary"
                     isIconOnly
                     onPress={handleSendMessage}
                     isDisabled={!newMessage.trim()}
+                    className={`w-11 h-11 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 ${
+                      newMessage.trim() 
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-primary-500/25' 
+                        : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-gray-200/50'
+                    }`}
                   >
-                    <Send className="w-4 h-4" />
+                    <Send className={`w-4 h-4 transition-transform duration-200 ${newMessage.trim() ? 'translate-x-0.5' : ''}`} />
                   </Button>
+                </div>
+                
+                {/* Typing Indicator Placeholder */}
+                <div className="flex items-center justify-center mt-2 opacity-0 transition-opacity duration-200">
+                  <div className="flex items-center space-x-1 text-xs text-gray-500">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <span className="ml-2">Someone is typing...</span>
+                  </div>
                 </div>
               </div>
             </>

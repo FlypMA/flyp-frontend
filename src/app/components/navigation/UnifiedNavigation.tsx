@@ -22,12 +22,20 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log('🔍 UnifiedNavigation: Checking authentication...');
         const authResult = await authService.checkAuthentication();
+        console.log('🔍 UnifiedNavigation: Auth result:', authResult);
+        
         if (authResult.isAuthenticated && authResult.user) {
+          console.log('✅ UnifiedNavigation: User authenticated:', authResult.user);
           setUser(authResult.user);
+        } else {
+          console.log('❌ UnifiedNavigation: No authenticated user');
+          setUser(null);
         }
       } catch (error) {
-        console.error('Auth check failed:', error);
+        console.error('❌ UnifiedNavigation: Auth check failed:', error);
+        setUser(null);
       } finally {
         setIsCheckingAuth(false);
       }
@@ -36,8 +44,12 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     checkAuth();
 
     // Listen for auth changes
-    const handleAuthChange = () => checkAuth();
+    const handleAuthChange = () => {
+      console.log('📡 UnifiedNavigation: Auth change event received, rechecking...');
+      checkAuth();
+    };
     const handleLogout = () => {
+      console.log('📡 UnifiedNavigation: Logout event received');
       setUser(null);
       setIsCheckingAuth(false);
     };

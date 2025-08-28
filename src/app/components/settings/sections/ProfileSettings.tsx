@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
-import { Card, CardBody, CardHeader, Button, Avatar, Badge } from '@heroui/react';
+import { Button, Avatar } from '@heroui/react';
 import {
-  Camera,
-  Upload,
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Building2,
-  ExternalLink,
-  Check,
-  AlertCircle,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import {
   CleanInput,
-  CleanSelect,
-  CleanTextarea,
 } from '../../ui';
 import { User as UserType } from '../../../types/api/users/user';
 
@@ -27,18 +16,18 @@ interface ProfileSettingsProps {
 
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
   const [saving, setSaving] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [profileData, setProfileData] = useState({
     name: user.name || '',
     email: user.email || '',
-    phone: '',
-    company: '',
-    position: '',
-    bio: '',
-    location: '',
-    website: '',
-    linkedin: '',
-    timezone: 'Europe/Brussels',
-    language: 'English',
+    phone: user.phone || '',
+  });
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
   });
 
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -46,6 +35,10 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
 
   const handleInputChange = (field: string, value: string) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePasswordChange = (field: string, value: string) => {
+    setPasswordData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,10 +53,26 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
     }
   };
 
-  const handleSave = async () => {
+  const handleSaveProfile = async () => {
     setSaving(true);
     try {
-      await onSave(profileData);
+      await onSave({ ...profileData, profileImage });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleSavePassword = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert('New passwords do not match');
+      return;
+    }
+    
+    setSaving(true);
+    try {
+      // In a real app, you'd call a separate password change API
+      await onSave({ passwordChange: passwordData });
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } finally {
       setSaving(false);
     }
@@ -79,263 +88,178 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
       .slice(0, 2);
   };
 
-  const timezones = [
-    'Europe/Brussels',
-    'Europe/Amsterdam',
-    'Europe/Paris',
-    'Europe/Berlin',
-    'Europe/London',
-    'UTC',
-  ];
-
-  const languages = ['English', 'Dutch', 'French', 'German'];
-
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Profile Settings</h1>
-        <p className="text-gray-600 mt-2">
-          Manage your personal information and how others see you on BetweenDeals
-        </p>
+    <div className="max-w-2xl mx-auto space-y-12">
+      {/* Header - Minimalistic */}
+      <div className="text-center">
+        <h1 className="text-2xl font-semibold text-gray-900">Account</h1>
+        <p className="mt-2 text-gray-600">Manage your BetweenDeals profile</p>
       </div>
 
-      {/* Profile Picture Section */}
-      <Card className="border border-gray-200">
-        <CardHeader>
-          <h3 className="text-xl font-semibold text-gray-900">Profile Picture</h3>
-        </CardHeader>
-        <CardBody>
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <Avatar
-                src={previewImage || user.avatar}
-                alt={profileData.name}
-                className="w-24 h-24 text-lg"
-                fallback={
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                    {getUserInitials()}
-                  </div>
-                }
-              />
-              <div className="absolute -bottom-2 -right-2">
-                <Badge
-                  color="success"
-                  shape="circle"
-                  size="lg"
-                  content={<Check className="w-3 h-3" />}
-                >
-                  <div className="w-6 h-6" />
-                </Badge>
-              </div>
-            </div>
-
-            <div className="flex-1">
-              <h4 className="font-semibold text-gray-900 mb-2">Upload New Picture</h4>
-              <p className="text-sm text-gray-600 mb-4">
-                JPG, GIF or PNG. Max size 5MB. Minimum 200x200px.
-              </p>
-              <div className="flex gap-3">
-                <label className="cursor-pointer">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                  <Button
-                    as="span"
-                    color="primary"
-                    variant="flat"
-                    size="sm"
-                    startContent={<Upload className="w-4 h-4" />}
-                  >
-                    Upload Photo
-                  </Button>
-                </label>
-                <Button variant="bordered" size="sm" startContent={<Camera className="w-4 h-4" />}>
-                  Take Photo
-                </Button>
-              </div>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-
-      {/* Personal Information */}
-      <Card className="border border-gray-200">
-        <CardHeader>
-          <h3 className="text-xl font-semibold text-gray-900">Personal Information</h3>
-        </CardHeader>
-        <CardBody className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AirbnbCleanInput
-              label="Full Name"
-              placeholder="Enter your full name"
-              value={profileData.name}
-              onChange={value => handleCleanInputChange('name', value)}
-              id="name"
-              required
-              startIcon={<User className="w-4 h-4 text-gray-400" />}
-              helpText="Your name as it appears to other users"
-            />
-
-            <AirbnbCleanInput
-              label="Email Address"
-              placeholder="your.email@company.com"
-              type="email"
-              value={profileData.email}
-              onChange={value => handleCleanInputChange('email', value)}
-              id="email"
-              required
-              startIcon={<Mail className="w-4 h-4 text-gray-400" />}
-              helpText="Primary contact email"
-            />
-
-            <CleanInput
-              label="Phone Number"
-              placeholder="+32 123 456 789"
-              type="tel"
-              value={profileData.phone}
-              onChange={value => handleCleanInputChange('phone', value)}
-              id="phone"
-              startIcon={<Phone className="w-4 h-4 text-gray-400" />}
-              helpText="For important account notifications"
-            />
-
-            <CleanInput
-              label="Location"
-              placeholder="Brussels, Belgium"
-              value={profileData.location}
-              onChange={value => handleCleanInputChange('location', value)}
-              id="location"
-              startIcon={<MapPin className="w-4 h-4 text-gray-400" />}
-              helpText="Your primary business location"
-            />
-          </div>
-
-          <Textarea
-            label="Professional Bio"
-            placeholder="Tell other users about your background, expertise, and what you're looking for..."
-            value={profileData.bio}
-            onChange={value => handleCleanInputChange('bio', value)}
-            id="bio"
-            minRows={4}
-            helpText="This appears on your public profile and helps build trust with other users"
-            showCharCount
-            maxLength={500}
+      {/* Profile Picture - Airbnb Style */}
+      <div className="flex flex-col items-center space-y-4">
+        <div className="relative">
+          <Avatar
+            size="xl"
+            src={previewImage || user.avatar}
+            name={getUserInitials()}
+            className="w-32 h-32 text-3xl border-4 border-white shadow-lg"
+            showFallback
           />
-        </CardBody>
-      </Card>
-
-      {/* Professional Information */}
-      <Card className="border border-gray-200">
-        <CardHeader>
-          <h3 className="text-xl font-semibold text-gray-900">Professional Information</h3>
-        </CardHeader>
-        <CardBody className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <CleanInput
-              label="Company"
-              placeholder="Your company name"
-              value={profileData.company}
-              onChange={value => handleCleanInputChange('company', value)}
-              id="company"
-              startIcon={<Building2 className="w-4 h-4 text-gray-400" />}
-              helpText="Current company or organization"
-            />
-
-            <CleanInput
-              label="Position"
-              placeholder="CEO, Founder, Investment Manager"
-              value={profileData.position}
-              onChange={value => handleCleanInputChange('position', value)}
-              id="position"
-              helpText="Your role or title"
-            />
-
-            <CleanInput
-              label="Website"
-              placeholder="https://yourcompany.com"
-              type="url"
-              value={profileData.website}
-              onChange={value => handleCleanInputChange('website', value)}
-              id="website"
-              startIcon={<ExternalLink className="w-4 h-4 text-gray-400" />}
-              helpText="Company or personal website"
-            />
-
-            <CleanInput
-              label="LinkedIn Profile"
-              placeholder="https://linkedin.com/in/yourprofile"
-              type="url"
-              value={profileData.linkedin}
-              onChange={value => handleCleanInputChange('linkedin', value)}
-              id="linkedin"
-              helpText="Professional networking profile"
-            />
-          </div>
-        </CardBody>
-      </Card>
-
-      {/* Preferences */}
-      <Card className="border border-gray-200">
-        <CardHeader>
-          <h3 className="text-xl font-semibold text-gray-900">Preferences</h3>
-        </CardHeader>
-        <CardBody className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <CleanSelect
-              label="Timezone"
-              placeholder="Select your timezone"
-              value={profileData.timezone}
-              onChange={value => handleInputChange('timezone', value)}
-              options={timezones}
-              helpText="Used for scheduling and notifications"
-              id="timezone"
-            />
-
-            <CleanSelect
-              label="Language"
-              placeholder="Select your language"
-              value={profileData.language}
-              onChange={value => handleInputChange('language', value)}
-              options={languages}
-              helpText="Interface language preference"
-              id="language"
-            />
-          </div>
-        </CardBody>
-      </Card>
-
-      {/* Tips */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <FormTip
-          title="Complete Your Profile"
-          content="A complete profile with photo and bio increases trust and helps you connect with serious buyers and sellers."
-          type="info"
-        />
-        <FormTip
-          title="Professional Presence"
-          content="Use a professional photo and clear description of your role to establish credibility in the M&A market."
-          type="success"
-        />
+          <button
+            onClick={() => document.getElementById('avatar-upload')?.click()}
+            aria-label="Upload profile picture"
+            title="Upload profile picture"
+            className="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-full border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="w-6 h-6 text-gray-700 hover:text-primary-600 transition-colors"
+            >
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+              <circle cx="12" cy="13" r="3" />
+            </svg>
+          </button>
+          <input
+            id="avatar-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+        </div>
+        
+        <button
+          onClick={() => document.getElementById('avatar-upload')?.click()}
+          className="text-sm text-gray-600 hover:text-gray-900 underline underline-offset-2"
+        >
+          Update photo
+        </button>
       </div>
 
-      {/* Save Button */}
-      <div className="flex justify-end pt-6 border-t border-gray-200">
-        <div className="flex gap-3">
-          <Button variant="bordered" size="lg">
-            Cancel Changes
-          </Button>
+      {/* Personal Information - Clean & Simple */}
+      <div className="space-y-6">
+        <h2 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+          Personal information
+        </h2>
+        
+        <div className="space-y-4">
+          <CleanInput
+            label="Name"
+            placeholder="Your full name"
+            value={profileData.name}
+            onChange={value => handleInputChange('name', value)}
+            size="lg"
+          />
+
+          <CleanInput
+            label="Email address"
+            type="email"
+            placeholder="your@email.com"
+            value={profileData.email}
+            onChange={value => handleInputChange('email', value)}
+            size="lg"
+            helpText="We'll use this to send you important updates"
+          />
+
+          <CleanInput
+            label="Phone number"
+            type="tel"
+            placeholder="+32 123 456 789 (optional)"
+            value={profileData.phone}
+            onChange={value => handleInputChange('phone', value)}
+            size="lg"
+          />
+        </div>
+
+        <div className="pt-4">
           <Button
             color="primary"
-            size="lg"
+            onPress={handleSaveProfile}
             isLoading={saving}
-            onPress={handleSave}
-            className="bg-gradient-to-r from-primary-500 to-blue-600"
+            size="lg"
+            className="w-full"
           >
-            {saving ? 'Saving...' : 'Save Profile'}
+            {saving ? 'Saving...' : 'Save'}
+          </Button>
+        </div>
+      </div>
+
+      {/* Password Section - Secure & Simple */}
+      <div className="space-y-6">
+        <h2 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+          Login & security
+        </h2>
+        
+        <div className="space-y-4">
+          <div className="relative">
+            <CleanInput
+              label="Current password"
+              type={showCurrentPassword ? "text" : "password"}
+              placeholder="Enter current password"
+              value={passwordData.currentPassword}
+              onChange={value => handlePasswordChange('currentPassword', value)}
+              size="lg"
+              endIcon={
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              }
+            />
+          </div>
+
+          <div className="relative">
+            <CleanInput
+              label="New password"
+              type={showNewPassword ? "text" : "password"}
+              placeholder="Create new password"
+              value={passwordData.newPassword}
+              onChange={value => handlePasswordChange('newPassword', value)}
+              size="lg"
+              endIcon={
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              }
+            />
+          </div>
+
+          <CleanInput
+            label="Confirm new password"
+            type="password"
+            placeholder="Confirm new password"
+            value={passwordData.confirmPassword}
+            onChange={value => handlePasswordChange('confirmPassword', value)}
+            size="lg"
+          />
+        </div>
+
+        <div className="pt-4">
+          <Button
+            variant="bordered"
+            onPress={handleSavePassword}
+            isLoading={saving}
+            size="lg"
+            className="w-full"
+            isDisabled={!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
+          >
+            {saving ? 'Updating...' : 'Update password'}
           </Button>
         </div>
       </div>

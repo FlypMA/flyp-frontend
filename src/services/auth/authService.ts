@@ -393,6 +393,16 @@ export class AuthService {
 
       // Clear local auth state
       httpClient.clearAuthTokens();
+      
+      // Also clear cookies for backward compatibility
+      try {
+        // Clear access_token cookie used by the older auth system
+        document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        console.log('🍪 Cleared access_token cookie');
+      } catch (error) {
+        console.warn('Failed to clear access_token cookie:', error);
+      }
+
       this.stateManager.setState({
         isAuthenticated: false,
         user: null,

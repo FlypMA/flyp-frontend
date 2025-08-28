@@ -62,7 +62,7 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
           ref={inputRef}
           type={showPassword ? 'text' : 'password'}
           placeholder={placeholder}
-          className={`w-full h-16 px-4 text-white pb-0 text-md bg-transparent text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-white custom-input ${
+          className={`w-full h-16 px-4 text-gray-900 pb-0 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-blue-500 custom-input ${
             hasContent || isFocused
               ? 'bg-filled text-md pt-4 pl-4'
               : 'bg-transparent text-md pt-3 pl-4'

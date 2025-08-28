@@ -2,13 +2,8 @@ import React from 'react';
 import { cn } from '@heroui/react';
 import {
   User,
-  Lock,
   Bell,
-  CreditCard,
   Building2,
-  Eye,
-  Shield,
-  Users,
   HelpCircle,
   Settings as SettingsIcon,
 } from 'lucide-react';
@@ -32,73 +27,41 @@ const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
   onSectionChange,
   className,
 }) => {
+  // 🎯 MVP Settings - Simplified to essential sections only
   const settingsSections: SettingsSection[] = [
-    // Account Settings
+    // Account Settings - Combined Profile + Security
     {
       id: 'profile',
-      label: 'Profile',
+      label: 'Account',
       icon: User,
-      description: 'Personal information and avatar',
-      category: 'Account',
-    },
-    {
-      id: 'security',
-      label: 'Security',
-      icon: Lock,
-      description: 'Password and authentication',
-      category: 'Account',
-    },
-    {
-      id: 'privacy',
-      label: 'Privacy',
-      icon: Eye,
-      description: 'Data and visibility settings',
-      category: 'Account',
+      description: 'Profile, security and password',
+      category: 'Personal',
     },
 
-    // Business Settings
+    // Business Settings - Simplified business info only  
     {
-      id: 'company',
-      label: 'Company Profile',
+      id: 'business',
+      label: 'Business',
       icon: Building2,
-      description: 'Business information',
-      category: 'Business',
-    },
-    {
-      id: 'verification',
-      label: 'Verification',
-      icon: Shield,
-      description: 'Identity verification status',
-      category: 'Business',
-    },
-    {
-      id: 'team',
-      label: 'Team Members',
-      icon: Users,
-      description: 'Manage team access',
+      description: 'Company name and type',
       category: 'Business',
     },
 
-    // Platform Settings
+    // Notifications - Simple email preferences
     {
       id: 'notifications',
       label: 'Notifications',
       icon: Bell,
-      description: 'Email and push preferences',
+      description: 'Email and alert preferences',
       category: 'Platform',
     },
-    {
-      id: 'billing',
-      label: 'Billing',
-      icon: CreditCard,
-      description: 'Subscription and payments',
-      category: 'Platform',
-    },
+
+    // Support - Help and contact links
     {
       id: 'support',
       label: 'Support',
       icon: HelpCircle,
-      description: 'Help and contact options',
+      description: 'Help center and contact',
       category: 'Platform',
     },
   ];
@@ -184,12 +147,7 @@ const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
                       </p>
                     </div>
 
-                    {/* Active indicator */}
-                    {isActive && (
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                        <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                      </div>
-                    )}
+
                   </button>
                 );
               })}
@@ -198,27 +156,7 @@ const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
         ))}
       </div>
 
-      {/* Footer */}
-      <div className="p-4 border-t border-gray-100">
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-200">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500 rounded-lg">
-              <Shield className="w-4 h-4 text-white" />
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-gray-900">Security Status</p>
-              <p className="text-xs text-gray-600">Your account is secure</p>
-            </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between text-xs">
-            <span className="text-gray-500">Last login: Today</span>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-green-600 font-medium">Active</span>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </nav>
   );
 };

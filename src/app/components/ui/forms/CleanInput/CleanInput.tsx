@@ -195,6 +195,7 @@ export const CleanInput = forwardRef<HTMLInputElement, CleanInputProps>(({
             'w-full rounded-xl border-2 transition-all duration-200',
             'text-gray-900 placeholder:text-gray-500',
             'focus:outline-none focus:ring-0',
+            'bg-white shadow-sm', // Added white bg and subtle shadow for visibility
             
             // Size
             sizeClasses[size],
@@ -203,9 +204,9 @@ export const CleanInput = forwardRef<HTMLInputElement, CleanInputProps>(({
             startIcon && 'pl-12',
             finalEndIcon && 'pr-12',
             
-            // States
-            focused && !error && 'border-black shadow-none',
-            !focused && !error && 'border-gray-300 hover:border-gray-400',
+            // States - Updated for better visibility on white backgrounds  
+            focused && !error && 'border-black shadow-sm',
+            !focused && !error && 'border-gray-200 hover:border-gray-300',
             error && 'border-red-500 hover:border-red-500 focus:border-red-500',
             disabled && 'bg-gray-50 border-gray-200 cursor-not-allowed opacity-60',
             readOnly && 'bg-gray-50 cursor-default'

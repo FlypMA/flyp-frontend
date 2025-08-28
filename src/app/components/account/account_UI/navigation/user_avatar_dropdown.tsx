@@ -54,12 +54,39 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
 
   const handleLogout = async () => {
     try {
-      await authService.logout();
+      console.log('🔓 Initiating logout...');
+      
+      // 🔧 DEV BYPASS FIX: Set logout flag to override dev authentication
+      sessionStorage.setItem('user_logged_out', 'true');
+      console.log('🔧 Set logout override flag for dev bypass');
+      
+      // Try to notify backend of logout (optional)
+      try {
+        await fetch(`${process.env.REACT_APP_NODE_BACKEND_URL || 'http://localhost:3001'}/api/auth/logout`, {
+          method: 'POST',
+          credentials: 'include',
+        });
+        console.log('🌐 Notified backend of logout');
+      } catch (error) {
+        console.warn('⚠️ Backend logout notification failed:', error);
+      }
+      
+      // Clear access_token cookie directly
+      document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      console.log('🍪 Cleared access_token cookie');
+      
+      // Dispatch events for navigation state synchronization
       window.dispatchEvent(new CustomEvent('auth-logout'));
+      window.dispatchEvent(new CustomEvent('auth-change'));
+      
+      console.log('✅ Logout successful, navigating to home');
       navigate(UrlGeneratorService.root());
     } catch (error) {
-      console.error('Logout failed:', error);
-      window.location.href = UrlGeneratorService.root();
+      console.error('❌ Logout failed:', error);
+      // Ensure logout flag is still set on error
+      sessionStorage.setItem('user_logged_out', 'true');
+      // Fallback: force navigation even if logout fails
+      navigate(UrlGeneratorService.root());
     }
     setIsOpen(false);
   };

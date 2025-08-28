@@ -28,36 +28,25 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
 }) => {
   const navSections: NavSection[] = [
     {
-      title: 'Overview',
+      title: 'My Business',
       items: [
         {
           key: 'overview',
-          label: 'My business',
+          label: 'Business Overview',
           icon: LayoutDashboard,
-          description: '',
+          description: 'Dashboard and performance',
         },
-      ],
-    },
-    {
-      title: 'Listing',
-      items: [
-        {
-          key: 'listings',
-          label: 'Manage your listing',
-          icon: Building2,
-          description: '',
-        },
-      ],
-    },
-    {
-      title: 'Valuation',
-      items: [
         {
           key: 'valuation',
-          label: 'Calculate your business valuation',
+          label: 'Get Free Valuation',
           icon: Calculator,
-          description: '',
-          isComingSoon: true,
+          description: 'Discover your business value',
+        },
+        {
+          key: 'listing',
+          label: 'Listing Management',
+          icon: Building2,
+          description: 'Manage your sale listing',
         },
       ],
     },

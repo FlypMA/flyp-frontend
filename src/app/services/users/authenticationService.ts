@@ -444,6 +444,10 @@ class AuthenticationService {
       // Continue with logout even if server request fails
     }
 
+    // 🔧 DEV BYPASS FIX: Set logout flag to override dev authentication
+    sessionStorage.setItem('user_logged_out', 'true');
+    console.log('🔧 Set logout override flag for dev bypass');
+
     // Clear cached credit data on logout
     try {
       console.log('🧹 Clearing cached data on logout...');
@@ -471,6 +475,14 @@ class AuthenticationService {
 
   async checkAuthentication(): Promise<AuthResult> {
     console.log('🔐 checkAuthentication: Starting authentication check');
+
+    // 🔓 LOGOUT OVERRIDE: Check if user explicitly logged out
+    const hasLoggedOut = sessionStorage.getItem('user_logged_out') === 'true';
+    if (hasLoggedOut) {
+      console.log('🔓 User explicitly logged out, returning unauthenticated');
+      sessionStorage.removeItem('user_logged_out');
+      return { isAuthenticated: false };
+    }
 
     // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
     const DEV_BYPASS_AUTH = import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';

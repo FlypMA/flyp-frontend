@@ -207,7 +207,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           inputWrapper: cn(
             "input-wrapper",
             "transition-all duration-200",
-            "bg-white border-2 rounded-md",
+            "bg-white border-2 rounded-md shadow-sm",
             
             // Size variants
             {
@@ -218,8 +218,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             
             // State variants
             {
-              "border-gray-300 hover:border-gray-400": !currentError && !focused,
-              "border-black shadow-none": focused && !currentError,
+              "border-gray-200 hover:border-gray-300": !currentError && !focused,
+              "border-black shadow-sm": focused && !currentError,
               "border-red-500 hover:border-red-500": currentError,
               "bg-gray-50 border-gray-200 cursor-not-allowed opacity-60": disabled,
             },
