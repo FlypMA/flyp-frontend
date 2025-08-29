@@ -277,7 +277,7 @@ const ListingSearch = () => {
                   <select
                     value={filters.sector || ''}
                     onChange={e => handleFilterChange('sector', e.target.value)}
-                    className="w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
+                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
                   >
                     <option value="" className="text-slate-500">
                       Select sector
@@ -332,7 +332,7 @@ const ListingSearch = () => {
                   <select
                     value={filters.country || ''}
                     onChange={e => handleFilterChange('country', e.target.value)}
-                    className="w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
+                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
                   >
                     <option value="" className="text-slate-500">
                       Select region

@@ -24,6 +24,8 @@ import { authService } from '../../../services/users/authenticationService';
 import { User as UserType } from '../../../types/api/users/user';
 import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../../components/navigation/SellerSidebar';
+import ValuationDashboard from '../../../components/valuation/ValuationDashboard';
+import ValuationReportCard from '../../../components/valuation/ValuationReportCard';
 
 interface Listing {
   id: string;
@@ -45,7 +47,15 @@ interface BusinessValuation {
   valuation_date: string;
   confidence_level: 'high' | 'medium' | 'low';
   methodology: string;
-  status: 'completed' | 'pending' | 'expired';
+  status: 'completed' | 'in_progress' | 'draft' | 'expired';
+  last_updated?: string;
+  revenue_multiple?: number;
+  ebitda_multiple?: number;
+  industry_average?: number;
+  market_conditions?: string;
+  key_drivers?: string[];
+  risk_factors?: string[];
+  next_review_date?: string;
 }
 
 interface BusinessProfile {
@@ -105,6 +115,26 @@ const SellerDashboard = () => {
             confidence_level: 'high',
             methodology: 'Comparable Sales & DCF Analysis',
             status: 'completed',
+            last_updated: '2024-01-15',
+            revenue_multiple: 3.2,
+            ebitda_multiple: 8.5,
+            industry_average: 7.2,
+            market_conditions: 'favorable',
+            key_drivers: [
+              'Strong recurring revenue base',
+              'Prime location with long-term lease',
+              'Experienced management team',
+              'Growing market demand',
+              'Proprietary business processes'
+            ],
+            risk_factors: [
+              'Key person dependency',
+              'Market competition increasing',
+              'Economic uncertainty',
+              'Regulatory changes possible',
+              'Customer concentration risk'
+            ],
+            next_review_date: '2024-07-10',
           });
 
           // Mock listing data (active listing)
@@ -299,31 +329,14 @@ const SellerDashboard = () => {
             {/* Overview Tab Content */}
             {selectedTab === 'overview' && (
               <div className="space-y-8">
-                {/* Welcome & Business Profile Header */}
+                {/* Welcome Header */}
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         Welcome back, {user?.name?.split(' ')[0] || 'Business Owner'}! 👋
                       </h1>
-                      {businessProfile ? (
-                        <div className="space-y-2">
-                          <h2 className="text-xl font-semibold text-blue-900">
-                            {businessProfile.name}
-                          </h2>
-                          <div className="flex items-center space-x-4 text-sm text-blue-700">
-                            <span>{businessProfile.sector}</span>
-                            <span>•</span>
-                            <span>{businessProfile.location}</span>
-                            <span>•</span>
-                            <span>Founded {businessProfile.founded_year}</span>
-                            <span>•</span>
-                            <span>{businessProfile.employee_count} employees</span>
-                          </div>
-                        </div>
-                      ) : (
-                        <p className="text-blue-700">Let's get your business profile set up to begin your selling journey.</p>
-                      )}
+                      <p className="text-blue-700">Your business intelligence dashboard is ready with valuable insights.</p>
                     </div>
                     <div className="ml-6">
                       <Building2 className="w-16 h-16 text-blue-600" />
@@ -331,261 +344,174 @@ const SellerDashboard = () => {
                   </div>
                 </div>
 
-                {/* Business Journey Progress */}
-                <Card className="border border-gray-200">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-gray-900">Your Selling Journey</h3>
-                      <div className="flex items-center space-x-2 text-sm text-blue-600">
-                        <Sparkles className="w-4 h-4" />
-                        <span>{getJourneyProgress()}% Complete</span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardBody>
-                    <div className="space-y-6">
-                      {/* Progress Bar */}
-                      <Progress value={getJourneyProgress()} className="w-full" color="primary" />
-                      
-                      {/* Journey Steps */}
-                      <div className="grid md:grid-cols-3 gap-6">
-                        {/* Step 1: Business Profile */}
-                        <div className="flex items-start space-x-4">
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${businessProfile?.is_complete ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}>
-                            {businessProfile?.is_complete ? <CheckCircle className="w-5 h-5" /> : <Building2 className="w-5 h-5" />}
-                          </div>
+                {/* Main Business Overview Grid */}
+                <div className="grid lg:grid-cols-3 gap-8">
+                  
+                  {/* Business Hero Card - Left Side (2/3) */}
+                  <div className="lg:col-span-2">
+                    <Card className="border-0 shadow-lg bg-gradient-to-br from-white via-gray-50 to-blue-50">
+                      <CardBody className="p-8">
+                        <div className="flex items-start justify-between mb-6">
                           <div className="flex-1">
-                            <h4 className="font-medium text-gray-900">Business Profile</h4>
-                            <p className="text-sm text-gray-600">Complete your business information</p>
-                            {businessProfile?.is_complete && (
-                              <p className="text-xs text-green-600 mt-1">✓ Completed</p>
+                            <div className="flex items-center space-x-3 mb-4">
+                              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <Building2 className="w-6 h-6 text-white" />
+                              </div>
+                              {businessProfile && (
+                                <div>
+                                  <h2 className="text-2xl font-bold text-gray-900">{businessProfile.name}</h2>
+                                  <p className="text-gray-600 font-medium">{businessProfile.sector}</p>
+                                </div>
+                              )}
+                            </div>
+                            
+                            {businessProfile && (
+                              <div className="space-y-4">
+                                <p className="text-gray-700 leading-relaxed">{businessProfile.description}</p>
+                                
+                                {/* Business Key Facts */}
+                                <div className="flex flex-wrap gap-4">
+                                  <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
+                                    <div className="text-sm text-gray-600">Founded</div>
+                                    <div className="font-semibold text-gray-900">{businessProfile.founded_year}</div>
+                                  </div>
+                                  <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
+                                    <div className="text-sm text-gray-600">Team</div>
+                                    <div className="font-semibold text-gray-900">{businessProfile.employee_count}</div>
+                                  </div>
+                                  <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
+                                    <div className="text-sm text-gray-600">Location</div>
+                                    <div className="font-semibold text-gray-900">{businessProfile.location}</div>
+                                  </div>
+                                  <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
+                                    <div className="text-sm text-gray-600">Revenue</div>
+                                    <div className="font-semibold text-gray-900">€{businessProfile.annual_revenue?.toLocaleString()}</div>
+                                  </div>
+                                </div>
+                              </div>
                             )}
                           </div>
                         </div>
-
-                        {/* Step 2: Valuation */}
-                        <div className="flex items-start space-x-4">
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${businessValuation?.status === 'completed' ? 'bg-green-100 text-green-600' : businessValuation?.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-400'}`}>
-                            {businessValuation?.status === 'completed' ? <CheckCircle className="w-5 h-5" /> : <Calculator className="w-5 h-5" />}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900">Free Valuation</h4>
-                            <p className="text-sm text-gray-600">Discover your business value</p>
-                            {businessValuation?.status === 'completed' && (
-                              <p className="text-xs text-green-600 mt-1">✓ Completed: €{businessValuation.estimated_value.toLocaleString()}</p>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Step 3: Create Listing */}
-                        <div className="flex items-start space-x-4">
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${businessListing?.status === 'published' ? 'bg-green-100 text-green-600' : businessListing ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-400'}`}>
-                            {businessListing?.status === 'published' ? <CheckCircle className="w-5 h-5" /> : <Target className="w-5 h-5" />}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900">Create Listing</h4>
-                            <p className="text-sm text-gray-600">List your business for sale</p>
-                            {businessListing?.status === 'published' && (
-                              <p className="text-xs text-green-600 mt-1">✓ Live: {businessListing.views} views, {businessListing.inquiries} inquiries</p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-
-                {/* Next Steps / Quick Actions */}
-                <Card className="border border-gray-200">
-                  <CardHeader className="pb-3">
-                    <h3 className="text-lg font-semibold text-gray-900">Recommended Next Steps</h3>
-                  </CardHeader>
-                  <CardBody>
-                    <div className="space-y-4">
-                      {getNextSteps().map((step, index) => (
-                        <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
-                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <step.icon className="w-4 h-4 text-blue-600" />
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900 mb-1">{step.title}</h4>
-                            <p className="text-sm text-gray-600 mb-3">{step.description}</p>
-                            <Button 
-                              size="sm" 
-                              color="primary" 
-                              variant="flat"
-                              endContent={<ArrowRight className="w-4 h-4" />}
-                              onPress={step.action}
-                            >
-                              {step.actionText}
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardBody>
-                </Card>
-
-                {/* Business Performance Summary */}
-                {businessListing && (
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <Card className="border border-gray-200">
-                      <CardHeader className="pb-3">
-                        <h3 className="text-lg font-semibold text-gray-900">Listing Performance</h3>
-                      </CardHeader>
-                      <CardBody>
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <Eye className="w-5 h-5 text-gray-400" />
-                              <span className="text-sm text-gray-600">Total Views</span>
+                        
+                        {/* Market Performance Indicators */}
+                        {businessListing && (
+                          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+                            <div className="text-center">
+                              <div className="flex items-center justify-center space-x-2 mb-2">
+                                <Eye className="w-5 h-5 text-blue-600" />
+                                <span className="text-2xl font-bold text-gray-900">{businessListing.views}</span>
+                              </div>
+                              <p className="text-sm text-gray-600">Total Views</p>
                             </div>
-                            <span className="text-lg font-semibold text-gray-900">{businessListing.views}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <MessageSquare className="w-5 h-5 text-gray-400" />
-                              <span className="text-sm text-gray-600">Inquiries</span>
+                            <div className="text-center">
+                              <div className="flex items-center justify-center space-x-2 mb-2">
+                                <MessageSquare className="w-5 h-5 text-green-600" />
+                                <span className="text-2xl font-bold text-gray-900">{businessListing.inquiries}</span>
+                              </div>
+                              <p className="text-sm text-gray-600">Buyer Inquiries</p>
                             </div>
-                            <span className="text-lg font-semibold text-gray-900">{businessListing.inquiries}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <TrendingUp className="w-5 h-5 text-gray-400" />
-                              <span className="text-sm text-gray-600">Conversion Rate</span>
+                            <div className="text-center">
+                              <div className="flex items-center justify-center space-x-2 mb-2">
+                                <TrendingUp className="w-5 h-5 text-purple-600" />
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {businessListing.views > 0 ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1) : 0}%
+                                </span>
+                              </div>
+                              <p className="text-sm text-gray-600">Interest Rate</p>
                             </div>
-                            <span className="text-lg font-semibold text-gray-900">
-                              {businessListing.views > 0 ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1) : 0}%
-                            </span>
                           </div>
+                        )}
+                      </CardBody>
+                    </Card>
+                  </div>
+                  
+                  {/* Ready to Sell CTA - Right Side (1/3) */}
+                  <div>
+                    <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-600 to-purple-700">
+                      <CardBody className="p-6 text-center text-white">
+                        <div className="mb-4">
+                          <Sparkles className="w-12 h-12 mx-auto mb-4 text-blue-200" />
+                          <h3 className="text-xl font-bold mb-2">Ready to Sell?</h3>
+                          <p className="text-blue-100 text-sm leading-relaxed">
+                            Your business is validated and attracting buyer interest. 
+                            Take the next step in your entrepreneurial journey.
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          <Button
+                            className="w-full bg-white text-blue-700 font-semibold hover:bg-blue-50"
+                            size="lg"
+                            endContent={<ArrowRight className="w-4 h-4" />}
+                            onPress={() => navigate('/messages')}
+                          >
+                            Review Buyer Messages
+                          </Button>
+                          <Button
+                            variant="bordered"
+                            className="w-full border-white text-white hover:bg-white hover:text-blue-700"
+                            endContent={<FileText className="w-4 h-4" />}
+                            onPress={() => setSelectedTab('listings')}
+                          >
+                            Manage Listing
+                          </Button>
                         </div>
                       </CardBody>
                     </Card>
-
-                    {businessValuation && (
-                      <Card className="border border-gray-200">
-                        <CardHeader className="pb-3">
-                          <h3 className="text-lg font-semibold text-gray-900">Business Valuation</h3>
-                        </CardHeader>
-                        <CardBody>
-                          <div className="space-y-4">
-                            <div className="text-center">
-                              <div className="text-3xl font-bold text-green-600 mb-1">
-                                €{businessValuation.estimated_value.toLocaleString()}
-                              </div>
-                              <div className="text-sm text-gray-600">Estimated Market Value</div>
-                            </div>
-                            <div className="space-y-2">
-                              <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Confidence Level:</span>
-                                <Chip size="sm" color={businessValuation.confidence_level === 'high' ? 'success' : 'warning'} variant="flat">
-                                  {businessValuation.confidence_level.toUpperCase()}
-                                </Chip>
-                              </div>
-                              <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Methodology:</span>
-                                <span className="font-medium text-gray-900">{businessValuation.methodology}</span>
-                              </div>
-                              <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Valuation Date:</span>
-                                <span className="text-gray-900">{new Date(businessValuation.valuation_date).toLocaleDateString()}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    )}
                   </div>
-                )}
+                </div>
+
+                {/* Reports Section */}
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900">Reports</h2>
+                  </div>
+                  
+                  {/* Business Valuation Report */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <ValuationReportCard
+                      valuation={businessValuation}
+                      onRequestValuation={() => setSelectedTab('valuation')}
+                      onUpdateValuation={() => setSelectedTab('valuation')}
+                      onCreateListing={() => navigate('/seller/listings/new')}
+                      className="max-w-none"
+                    />
+                    
+                    {/* Placeholder for future reports */}
+                    <Card className="border border-dashed border-gray-300 bg-gray-50">
+                      <CardBody className="p-6 text-center">
+                        <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
+                          <Plus className="w-6 h-6 text-gray-400" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-2">More Reports Coming Soon</h3>
+                        <p className="text-gray-500 text-sm">
+                          Additional business intelligence reports will be available here.
+                        </p>
+                      </CardBody>
+                    </Card>
+                  </div>
+                </div>
               </div>
             )}
 
             {/* Valuation Tab Content */}
             {selectedTab === 'valuation' && (
-              <div className="space-y-6">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Business Valuation</h2>
-                  <p className="text-gray-600">Get a professional estimate of your business value</p>
-                </div>
-
-                {businessValuation ? (
-                  <div className="space-y-6">
-                    <Card className="border border-green-200 bg-green-50">
-                      <CardHeader>
-                        <div className="flex items-center justify-between w-full">
-                          <h3 className="text-lg font-semibold text-green-900">Valuation Completed</h3>
-                          <Chip color="success" variant="flat" startContent={<CheckCircle className="w-4 h-4" />}>
-                            {businessValuation.status.toUpperCase()}
-                          </Chip>
-                        </div>
-                      </CardHeader>
-                      <CardBody>
-                        <div className="text-center mb-6">
-                          <div className="text-4xl font-bold text-green-700 mb-2">
-                            €{businessValuation.estimated_value.toLocaleString()}
-                          </div>
-                          <p className="text-green-600">Estimated Market Value</p>
-                        </div>
-                        
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Valuation Date:</span>
-                              <span className="font-medium">{new Date(businessValuation.valuation_date).toLocaleDateString()}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Confidence Level:</span>
-                              <Chip size="sm" color={businessValuation.confidence_level === 'high' ? 'success' : 'warning'} variant="flat">
-                                {businessValuation.confidence_level.toUpperCase()}
-                              </Chip>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Methodology:</span>
-                              <span className="font-medium">{businessValuation.methodology}</span>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <Button 
-                              color="primary" 
-                              variant="flat" 
-                              className="w-full"
-                              onPress={() => navigate('/seller/listings/new')}
-                            >
-                              Create Listing Based on Valuation
-                            </Button>
-                            <Button 
-                              variant="bordered" 
-                              className="w-full"
-                              onPress={() => {/* TODO: Download valuation report */}}
-                            >
-                              Download Report
-                            </Button>
-                          </div>
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </div>
-                ) : (
-                  <Card>
-                    <CardBody className="text-center py-12">
-                      <Calculator className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Get Your Free Valuation</h3>
-                      <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                        Our professional valuation tool uses industry data and financial metrics to provide 
-                        an accurate estimate of your business value. This helps you set the right asking price 
-                        and attract serious buyers.
-                      </p>
-                      <div className="space-y-4">
-                        <Button color="primary" size="lg" onPress={() => {/* TODO: Start valuation wizard */}}>
-                          Start Free Valuation
-                        </Button>
-                        <p className="text-sm text-gray-500">Takes 5-10 minutes • Completely confidential</p>
-                      </div>
-                    </CardBody>
-                  </Card>
-                )}
-              </div>
+              <ValuationDashboard
+                currentValuation={businessValuation}
+                historicalValuations={[]} // TODO: Add historical data when available
+                onCreateValuation={() => {
+                  // TODO: Navigate to valuation wizard or open modal
+                  console.log('Create valuation');
+                }}
+                onUpdateValuation={() => {
+                  // TODO: Navigate to valuation update wizard
+                  console.log('Update valuation');
+                }}
+                onCreateListing={() => navigate('/seller/listings/new')}
+              />
             )}
 
             {/* Listing Management Tab Content */}

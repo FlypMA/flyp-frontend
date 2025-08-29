@@ -263,10 +263,8 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
             selectedIndustry={formData.industry}
             onSelect={(businessType, industry) => {
               updateFormData({ businessType, industry });
-              // Auto-advance to next step after a brief delay for visual feedback
-              setTimeout(() => {
-                handleNext();
-              }, 800);
+              // Immediately advance to next step - no delay needed with explicit continue button
+              handleNext();
             }}
           />
         );
@@ -543,7 +541,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           />
         );
 
-      case 12:
+      case 11:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -566,7 +564,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           </div>
         );
 
-      case 13:
+      case 12:
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
@@ -701,12 +699,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      size="5xl"
+      size="full"
       classNames={{
-        base: "h-[95vh] max-h-[95vh]",
+        base: "h-screen max-h-screen w-screen max-w-none m-0 rounded-none",
         body: "p-0",
         header: "hidden",
-        footer: "hidden"
+        footer: "hidden",
+        wrapper: "w-full h-full p-0"
       }}
       hideCloseButton
       isDismissable={currentStep === 0 || currentStep === totalSteps - 1}

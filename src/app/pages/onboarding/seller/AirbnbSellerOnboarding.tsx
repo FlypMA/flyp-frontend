@@ -383,7 +383,7 @@ const AirbnbSellerOnboarding: React.FC = () => {
                 <select
                   value={formData.country}
                   onChange={(e) => updateFormData('country', e.target.value)}
-                  className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none"
+                  className="clean-select w-full p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none appearance-none cursor-pointer pr-10"
                 >
                   <option value="Belgium">🇧🇪 Belgium</option>
                   <option value="Netherlands">🇳🇱 Netherlands</option>

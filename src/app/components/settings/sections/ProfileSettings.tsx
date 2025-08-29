@@ -108,8 +108,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
           />
           <button
             onClick={() => document.getElementById('avatar-upload')?.click()}
-            aria-label="Upload profile picture"
-            title="Upload profile picture"
+            aria-label="BetweenDeals logo"
+            title="BetweenDeals"
             className="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-full border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
           >
             <svg 
@@ -119,13 +119,16 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
               viewBox="0 0 24 24" 
               fill="none" 
               stroke="currentColor" 
-              strokeWidth="2" 
+              strokeWidth="1.5" 
               strokeLinecap="round" 
               strokeLinejoin="round" 
-              className="w-6 h-6 text-gray-700 hover:text-primary-600 transition-colors"
+              className="w-6 h-6 text-gray-400 hover:text-primary-500 transition-colors"
             >
-              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-              <circle cx="12" cy="13" r="3" />
+              {/* Simple BetweenDeals logo - stylized "BD" with connecting element */}
+              <rect x="3" y="6" width="6" height="12" rx="2" fill="currentColor" opacity="0.8" />
+              <rect x="15" y="6" width="6" height="12" rx="2" fill="currentColor" opacity="0.8" />
+              <path d="M9 12h6" strokeWidth="2" />
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" />
             </svg>
           </button>
           <input

@@ -159,9 +159,9 @@ export const CleanTextarea = forwardRef<HTMLTextAreaElement, CleanTextareaProps>
             // Size
             sizeClasses[size],
             
-            // States - Updated for better visibility on white backgrounds
+            // States - Enhanced visibility on white backgrounds
             focused && !error && 'border-black shadow-sm',
-            !focused && !error && 'border-gray-200 hover:border-gray-300',
+            !focused && !error && 'border-gray-300 hover:border-gray-400',
             error && 'border-red-500 hover:border-red-500 focus:border-red-500',
             disabled && 'bg-gray-50 border-gray-200 cursor-not-allowed opacity-60',
             readOnly && 'bg-gray-50 cursor-default'

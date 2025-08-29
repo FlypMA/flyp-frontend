@@ -30,6 +30,9 @@ export { FAQAccordion, FAQItem, FAQBadge, FAQCategory } from './FAQ';
 // Clean Form Components (without wrappers)
 export { CleanInput, CleanTextarea, CleanSelect } from './forms/CleanComponents';
 
+// Modern Tab Components
+export { ModernTabs, ModernTabContent } from './ModernTabs';
+
 // Component Types
 export type { InputProps } from './forms/Input/Input';
 export type { TextareaProps } from './forms/Textarea/Textarea';
@@ -55,6 +58,13 @@ export type {
   CleanSelectProps, 
   SelectOption 
 } from './forms/CleanComponents';
+
+// Modern Tab Component Types
+export type {
+  TabItem,
+  ModernTabsProps,
+  ModernTabContentProps,
+} from './ModernTabs';
 
 // =============================================================================
 // CONVENIENCE EXPORTS FOR COMMON PATTERNS

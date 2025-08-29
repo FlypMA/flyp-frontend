@@ -109,8 +109,8 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             inputWrapper: cn(
               "form-input-wrapper",
               "h-14 px-4 rounded-xl border-2",
-              "bg-white border-gray-200 shadow-sm",
-              "hover:border-gray-300 transition-all duration-200",
+              "bg-white border-gray-300 shadow-sm",
+              "hover:border-gray-400 transition-all duration-200",
               "data-[focus=true]:border-black data-[focus=true]:shadow-sm",
               error && "border-red-500 hover:border-red-500 data-[focus=true]:border-red-500",
               disabled && "bg-gray-50 border-gray-200 cursor-not-allowed opacity-60"

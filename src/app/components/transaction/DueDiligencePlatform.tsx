@@ -8,9 +8,8 @@ import {
   Textarea,
   Select,
   SelectItem,
-  Tabs,
-  Tab,
 } from '@heroui/react';
+import { ModernTabs, ModernTabContent } from '../ui/ModernTabs';
 import {
   FileText,
   MessageSquare,
@@ -77,6 +76,35 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
   const [newMessage, setNewMessage] = useState('');
   const [selectedDocument, setSelectedDocument] = useState<DueDiligenceDocument | null>(null);
   const [uploading, setUploading] = useState(false);
+
+  // Define tabs for the new ModernTabs component
+  const dueDiligenceTabs = [
+    {
+      id: 'documents',
+      label: 'Documents',
+      icon: <FileText className="w-4 h-4" />,
+      badge: documents.length > 0 ? documents.length.toString() : undefined,
+    },
+    {
+      id: 'checklist',
+      label: 'Checklist',
+      icon: <CheckCircle className="w-4 h-4" />,
+      badge: checklist.filter(item => item.completed).length > 0 
+        ? `${checklist.filter(item => item.completed).length}/${checklist.length}` 
+        : undefined,
+    },
+    {
+      id: 'messages',
+      label: 'Messages',
+      icon: <MessageSquare className="w-4 h-4" />,
+      badge: messages.length > 0 ? messages.length.toString() : undefined,
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: <BarChart3 className="w-4 h-4" />,
+    },
+  ];
 
   const documentCategories = [
     'Financial',
@@ -290,13 +318,17 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
         </div>
       </div>
 
-      {/* Main Content */}
-      <Tabs
-        selectedKey={activeTab}
-        onSelectionChange={key => setActiveTab(key as string)}
+      {/* Main Content - Modern Implementation */}
+      <ModernTabs
+        tabs={dueDiligenceTabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        variant="pills"
+        size="md"
         className="w-full"
       >
-        <Tab key="documents" title="Documents">
+        <div className="mt-6">
+          <ModernTabContent tabId="documents">
           <Card>
             <CardBody className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -446,9 +478,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
               )}
             </CardBody>
           </Card>
-        </Tab>
+        </ModernTabContent>
 
-        <Tab key="checklist" title="Checklist">
+        <ModernTabContent tabId="checklist">
           <Card>
             <CardBody className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -521,9 +553,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
               </div>
             </CardBody>
           </Card>
-        </Tab>
+        </ModernTabContent>
 
-        <Tab key="messages" title="Messages">
+        <ModernTabContent tabId="messages">
           <Card>
             <CardBody className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -578,9 +610,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
               </div>
             </CardBody>
           </Card>
-        </Tab>
+        </ModernTabContent>
 
-        <Tab key="analytics" title="Analytics">
+        <ModernTabContent tabId="analytics">
           <Card>
             <CardBody className="p-6">
               <h2 className="text-xl font-semibold text-neutral-900 mb-6">
@@ -636,8 +668,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
               </div>
             </CardBody>
           </Card>
-        </Tab>
-      </Tabs>
+        </ModernTabContent>
+        </div>
+      </ModernTabs>
     </div>
   );
 };

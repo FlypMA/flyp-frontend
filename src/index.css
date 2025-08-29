@@ -1698,6 +1698,20 @@ select {
   appearance: none !important;
 }
 
+/* CleanSelect component specific styling - ensure no double arrows */
+select.clean-select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem !important;
+}
+
+select.clean-select::-ms-expand {
+  display: none !important;
+}
+
 /* Filter tags styling */
 .filter-tag {
   display: inline-flex;

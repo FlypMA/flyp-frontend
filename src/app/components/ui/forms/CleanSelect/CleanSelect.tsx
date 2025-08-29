@@ -133,10 +133,15 @@ export const CleanSelect = forwardRef<HTMLSelectElement, CleanSelectProps>(({
           required={required}
           autoFocus={autoFocus}
           data-testid={testId}
+          style={{
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
+            appearance: 'none'
+          }}
           className={cn(
             // Base styles
-            'w-full rounded-xl border-2 transition-all duration-200',
-            'text-gray-900 appearance-none cursor-pointer',
+            'clean-select w-full rounded-xl border-2 transition-all duration-200',
+            'text-gray-900 cursor-pointer',
             'focus:outline-none focus:ring-0 pr-10',
             'bg-white shadow-sm', // Added white bg and subtle shadow for visibility
             

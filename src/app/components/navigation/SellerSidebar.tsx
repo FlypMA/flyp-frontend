@@ -1,10 +1,10 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@heroui/react';
-import { LayoutDashboard, Building2, FileText, Calculator } from 'lucide-react';
+import { LayoutDashboard, Building2, FileText, Calculator, TrendingUp, AlertTriangle } from 'lucide-react';
 
 interface SellerSidebarProps {
-  selectedTab: string;
-  onTabChange: (tab: string) => void;
+  selectedTab?: string;
   className?: string;
 }
 
@@ -18,35 +18,77 @@ interface NavItem {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   description?: string;
+  path: string;
   isComingSoon?: boolean;
 }
 
 const SellerSidebar: React.FC<SellerSidebarProps> = ({
   selectedTab,
-  onTabChange,
   className,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const navSections: NavSection[] = [
     {
-      title: 'My Business',
+      title: 'Business Overview',
       items: [
         {
           key: 'overview',
-          label: 'Business Overview',
+          label: 'Dashboard',
           icon: LayoutDashboard,
-          description: 'Dashboard and performance',
+          description: 'Business overview and performance',
+          path: '/business/overview',
         },
+      ],
+    },
+    {
+      title: 'Reports & Analysis',
+      items: [
         {
           key: 'valuation',
-          label: 'Get Free Valuation',
+          label: 'Business Valuation',
           icon: Calculator,
-          description: 'Discover your business value',
+          description: 'Professional business valuation tool',
+          path: '/business/valuation',
         },
         {
-          key: 'listing',
+          key: 'solvency',
+          label: 'Solvency Intelligence',
+          icon: TrendingUp,
+          description: 'Financial health & loan eligibility',
+          path: '/business/solvency',
+        },
+        {
+          key: 'liquidation',
+          label: 'Liquidation Analysis',
+          icon: AlertTriangle,
+          description: 'Strategic sale vs liquidation',
+          path: '/business/liquidation',
+        },
+      ],
+    },
+    {
+      title: 'Data Room',
+      items: [
+        {
+          key: 'documents',
+          label: 'Document Vault',
+          icon: FileText,
+          description: 'Secure document storage',
+          path: '/business/documents',
+        },
+      ],
+    },
+    {
+      title: 'Business Management',
+      items: [
+        {
+          key: 'listings',
           label: 'Listing Management',
           icon: Building2,
           description: 'Manage your sale listing',
+          path: '/business/listings',
         },
       ],
     },
@@ -73,13 +115,13 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
             <div className="space-y-1">
               {section.items.map(item => {
                 const Icon = item.icon;
-                const isActive = selectedTab === item.key;
+                const isActive = selectedTab ? selectedTab === item.key : location.pathname === item.path;
                 const isDisabled = item.isComingSoon;
 
                 return (
                   <button
                     key={item.key}
-                    onClick={() => !isDisabled && onTabChange(item.key)}
+                    onClick={() => !isDisabled && navigate(item.path)}
                     disabled={isDisabled}
                     className={cn(
                       'w-full flex items-start gap-3 px-3 py-3 rounded-lg text-left transition-all duration-150',

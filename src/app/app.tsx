@@ -15,17 +15,17 @@ import PasswordReset from './pages/account/loginTools/passwordReset/PasswordRese
 import SignUpComplete from './pages/account/onboarding/signUpComplete/SignUpComplete';
 import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
-
 import Contact from './pages/support/contact';
 import Messages from './pages/messages/Messages';
-import HelpCenter from './pages/help/Help';
+// import Help from './pages/help/Help';
 
 import SellersLandingPage from './pages/landingPages/sellers/sellers';
 
 import ListingSearch from './pages/listings/ListingSearch';
 import ListingDetails from './pages/listings/ListingDetails';
-import CreateListing from './pages/listings/CreateListing';
 import EditListingPage from './pages/listings/EditListingPage';
+
+
 import NoPage from './pages/error/404/noPage';
 import { AuthModalProvider } from './contexts/AuthModalContext';
 import AuthModals from './components/modals/AuthModals';
@@ -43,6 +43,12 @@ import CreateListingPage from './pages/listings/CreateListingPage';
 import TransactionFlow from './pages/transaction/TransactionFlow';
 import NavigationTest from './components/navigation/NavigationTest';
 import { ScrollToTop } from './components/common';
+import BusinessOverview from './pages/business/BusinessOverview';
+import BusinessValuation from './pages/business/BusinessValuation';
+import ListingManagement from './pages/business/ListingManagement';
+import SolvencyIntelligence from './pages/business/SolvencyIntelligence';
+import LiquidationComparison from './pages/business/LiquidationComparison';
+import DocumentVault from './pages/business/DocumentVault';
 
 // Root layout component that wraps the entire app
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -73,7 +79,7 @@ const routes = [
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
 
       { path: UrlGeneratorService.contact(), element: <Contact /> },
-      { path: UrlGeneratorService.help(), element: <HelpCenter /> },
+      // { path: UrlGeneratorService.help(), element: <Help /> },
 
       { path: 'for-sellers', element: <SellersLandingPage /> },
       { path: 'about', element: <About /> },
@@ -121,10 +127,13 @@ const routes = [
       </RootLayout>
     ),
     children: [
-      { index: true, element: <SellerDashboard /> }, // Default to overview
-      { path: 'overview', element: <SellerDashboard /> },
-      { path: 'listings', element: <SellerDashboard /> }, // Can be updated to a listings-specific component later
-      { path: 'valuation', element: <SellerDashboard /> }, // Can be updated to a valuation component later
+      { index: true, element: <BusinessOverview /> }, // Default to overview
+      { path: 'overview', element: <BusinessOverview /> },
+      { path: 'listings', element: <ListingManagement /> }, 
+      { path: 'valuation', element: <BusinessValuation /> },
+      { path: 'solvency', element: <SolvencyIntelligence /> },
+      { path: 'liquidation', element: <LiquidationComparison /> },
+      { path: 'documents', element: <DocumentVault /> },
     ],
   },
   {

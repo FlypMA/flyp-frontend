@@ -209,7 +209,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
               
               // State variants
               {
-                "border-gray-200 hover:border-gray-300": !currentError && !focused,
+                "border-gray-300 hover:border-gray-400": !currentError && !focused,
                 "border-black shadow-sm": focused && !currentError,
                 "border-red-500 hover:border-red-500": currentError,
                 "bg-gray-50 border-gray-200 cursor-not-allowed opacity-60": disabled,
