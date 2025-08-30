@@ -143,7 +143,7 @@ const ListingManagement = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="listings" />
+        <SellerSidebar selectedTab="listings" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

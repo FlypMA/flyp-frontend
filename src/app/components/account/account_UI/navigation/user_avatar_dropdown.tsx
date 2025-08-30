@@ -11,6 +11,13 @@ import {
   HelpCircle,
   Store,
   LogOut,
+  LayoutDashboard,
+  Search,
+  MessageSquare,
+  Calculator,
+  FileText,
+  TrendingUp,
+  Target,
 } from 'lucide-react';
 
 interface UserAvatarDropdownProps {
@@ -95,23 +102,68 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
     setIsOpen(false);
     
     switch (action) {
+      // Buyer navigation
+      case 'buyer-dashboard':
+        navigate('/dashboard/buyer');
+        break;
+      case 'discover':
+        navigate('/search');
+        break;
       case 'favorites':
         navigate('/dashboard/buyer');
+        // Simulate clicking the favorites tab
+        setTimeout(() => {
+          const event = new CustomEvent('navigate-buyer-tab', { detail: 'favorites' });
+          window.dispatchEvent(event);
+        }, 100);
+        break;
+      case 'inquiries':
+        navigate('/dashboard/buyer');
+        setTimeout(() => {
+          const event = new CustomEvent('navigate-buyer-tab', { detail: 'inquiries' });
+          window.dispatchEvent(event);
+        }, 100);
+        break;
+      case 'my-businesses':
+        navigate('/dashboard/buyer');
+        setTimeout(() => {
+          const event = new CustomEvent('navigate-buyer-tab', { detail: 'businesses' });
+          window.dispatchEvent(event);
+        }, 100);
+        break;
+        
+      // Seller navigation  
+      case 'seller-dashboard':
+        navigate('/business/overview');
         break;
       case 'my-business':
         navigate('/business/overview');
         break;
+      case 'valuation':
+        navigate('/business/valuation');
+        break;
+      case 'solvency':
+        navigate('/business/solvency');
+        break;
+      case 'listings':
+        navigate('/business/listing');
+        break;
+      case 'reports':
+        navigate('/business/valuation');
+        break;
+        
+      // Common navigation
       case 'messages':
         navigate('/messages');
         break;
       case 'profile-settings':
-        navigate('/profile/settings');
+        navigate('/account/settings');
         break;
       case 'help-center':
         navigate('/help');
         break;
       case 'sell-business':
-        navigate('/onboarding/seller');
+        navigate('/seller/listings/new');
         break;
       case 'logout':
         handleLogout();
@@ -123,55 +175,117 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
   const isBuyer = user?.userType === UserType.Buyer;
   const defaultAvatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80";
 
-  const menuItems = [
-    ...(isBuyer ? [{
+  // Role-based menu items
+  const buyerMenuItems = [
+    {
+      key: 'buyer-dashboard',
+      icon: LayoutDashboard,
+      label: 'Dashboard',
+      action: 'buyer-dashboard'
+    },
+    {
+      key: 'discover',
+      icon: Search,
+      label: 'Discover Businesses',
+      action: 'discover'
+    },
+    {
       key: 'favorites',
       icon: Heart,
       label: 'Favorites',
       action: 'favorites'
-    }] : []),
-    ...(isSeller ? [{
-      key: 'my-business', 
-      icon: Building2,
-      label: 'My business',
-      action: 'my-business'
-    }] : []),
+    },
+    {
+      key: 'inquiries',
+      icon: MessageSquare,
+      label: 'My Inquiries',
+      action: 'inquiries'
+    },
     {
       key: 'messages',
       icon: MessageCircle,
-      label: 'Messages', 
+      label: 'Messages',
       action: 'messages'
+    },
+    {
+      key: 'divider-1',
+      isDivider: true
     },
     {
       key: 'profile-settings',
       icon: Settings,
-      label: 'Profile & settings',
-      action: 'profile-settings'  
+      label: 'Profile & Settings',
+      action: 'profile-settings'
     },
     {
       key: 'help-center',
       icon: HelpCircle,
-      label: 'Help center',
+      label: 'Help Center',
       action: 'help-center'
     },
     {
-      key: 'divider',
+      key: 'divider-2',
+      isDivider: true
+    },
+    {
+      key: 'logout',
+      icon: LogOut,
+      label: 'Log Out',
+      action: 'logout',
+      isLogout: true
+    }
+  ];
+
+  const sellerMenuItems = [
+    {
+      key: 'seller-dashboard',
+      icon: LayoutDashboard,
+      label: 'Dashboard',
+      action: 'seller-dashboard'
+    },
+    {
+      key: 'messages',
+      icon: MessageCircle,
+      label: 'Messages',
+      action: 'messages'
+    },
+    {
+      key: 'divider-1',
+      isDivider: true
+    },
+    {
+      key: 'profile-settings',
+      icon: Settings,
+      label: 'Profile & Settings',
+      action: 'profile-settings'
+    },
+    {
+      key: 'help-center',
+      icon: HelpCircle,
+      label: 'Help Center',
+      action: 'help-center'
+    },
+    {
+      key: 'divider-2',
       isDivider: true
     },
     {
       key: 'sell-business',
-      icon: Store,
-      label: 'Sell your business', 
+      icon: Target,
+      label: 'Sell a Business',
       action: 'sell-business'
     },
     {
       key: 'logout',
       icon: LogOut,
-      label: 'Log out',
+      label: 'Log Out',
       action: 'logout',
       isLogout: true
     }
   ];
+
+  // Select appropriate menu based on user type
+  const menuItems = isBuyer ? buyerMenuItems : sellerMenuItems;
 
   return (
     <div className="relative">

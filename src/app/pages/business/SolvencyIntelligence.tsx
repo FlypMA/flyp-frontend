@@ -20,6 +20,7 @@ import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
+import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
 
 interface SolvencyMetrics {
   currentRatio: number;        // Current Assets / Current Liabilities
@@ -206,7 +207,7 @@ const SolvencyIntelligence = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="solvency" />
+        <SellerSidebar selectedTab="solvency" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">
@@ -216,6 +217,14 @@ const SolvencyIntelligence = () => {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Solvency Intelligence Hub</h1>
               <p className="text-gray-600">Monitor your business financial health and bank loan eligibility</p>
             </div>
+
+            {/* Financial Analysis Disclaimer */}
+            <FinancialDisclaimer 
+              type="solvency" 
+              variant="banner"
+              isCollapsible={true}
+              className="mb-6"
+            />
 
             {/* Overall Score Card */}
             <Card className={`border-2 ${getSolvencyBgColor(solvencyData.solvencyScore)}`}>

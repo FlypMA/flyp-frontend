@@ -18,6 +18,7 @@ import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
+import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
 
 interface LiquidationAnalysis {
   strategicSaleValue: number;      // Current valuation from business overview
@@ -195,7 +196,7 @@ const LiquidationComparison = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="liquidation" />
+        <SellerSidebar selectedTab="liquidation" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">
@@ -210,6 +211,13 @@ const LiquidationComparison = () => {
                 See the shocking difference between strategic sale and liquidation value
               </p>
             </div>
+
+            {/* Critical Disclaimer */}
+            <FinancialDisclaimer 
+              type="liquidation" 
+              variant="banner"
+              className="mb-8"
+            />
 
             {/* Shocking Value Comparison */}
             <Card className="border border-gray-200 shadow-sm">

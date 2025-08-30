@@ -10,6 +10,7 @@ import {
   Bell,
   Settings,
   ChevronRight,
+  Building2,
 } from 'lucide-react';
 
 interface BuyerSidebarNavigationProps {
@@ -64,21 +65,27 @@ const BuyerSidebarNavigation: React.FC<BuyerSidebarNavigationProps> = ({
       gradient: 'from-pink-500 to-pink-600',
     },
     {
-      key: 'searches',
-      label: 'Saved Searches',
-      icon: Bookmark,
-      count: stats?.saved_searches,
-      description: 'Your search alerts',
-      gradient: 'from-purple-500 to-purple-600',
-    },
-    {
       key: 'inquiries',
       label: 'Inquiries',
       icon: MessageSquare,
       count: stats?.active_inquiries,
       description: 'Active conversations',
       gradient: 'from-orange-500 to-orange-600',
-      isComingSoon: true,
+    },
+    {
+      key: 'businesses',
+      label: 'My Businesses',
+      icon: Building2,
+      description: 'Your portfolio',
+      gradient: 'from-slate-500 to-slate-600',
+    },
+    {
+      key: 'searches',
+      label: 'Saved Searches',
+      icon: Bookmark,
+      count: stats?.saved_searches,
+      description: 'Your search alerts',
+      gradient: 'from-purple-500 to-purple-600',
     },
     {
       key: 'insights',

@@ -13,6 +13,8 @@ import {
   Sparkles
 } from 'lucide-react';
 import ValuationReportCard from './ValuationReportCard';
+import FinancialDisclaimer from '../ui/FinancialDisclaimer';
+import ValuationWizardModal from '../modals/ValuationWizardModal';
 
 interface BusinessValuation {
   id: string;
@@ -48,6 +50,8 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
   onCreateListing,
 }) => {
   const [selectedTab, setSelectedTab] = useState('current');
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [wizardMode, setWizardMode] = useState<'create' | 'update'>('create');
 
   // Define tabs for the new ModernTabs component
   const valuationTabs = [
@@ -89,6 +93,34 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
   };
 
   const trend = getValuationTrend();
+
+  const handleCreateValuation = () => {
+    setWizardMode('create');
+    setIsWizardOpen(true);
+  };
+
+  const handleUpdateValuation = () => {
+    setWizardMode('update');
+    setIsWizardOpen(true);
+  };
+
+  const handleValuationComplete = (newValuation: any) => {
+    // This would normally call an API to save the valuation
+    // For now, we'll call the existing callback
+    if (wizardMode === 'create' && onCreateValuation) {
+      onCreateValuation();
+    } else if (wizardMode === 'update' && onUpdateValuation) {
+      onUpdateValuation();
+    }
+    
+    // In a real implementation, you would:
+    // 1. Save the valuation to your backend
+    // 2. Refresh the current valuation state
+    // 3. Add to historical valuations if creating new
+    
+    console.log('Generated valuation:', newValuation);
+    setIsWizardOpen(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -171,12 +203,20 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
       >
         <div className="mt-6">
           <ModernTabContent tabId="current">
-            <ValuationReportCard
-              valuation={currentValuation}
-              onRequestValuation={onCreateValuation}
-              onUpdateValuation={onUpdateValuation}
-              onCreateListing={onCreateListing}
-            />
+            <div className="space-y-6">
+              <FinancialDisclaimer 
+                type="valuation" 
+                variant="sidebar"
+                isCollapsible={true}
+                className="mb-4"
+              />
+              <ValuationReportCard
+                valuation={currentValuation}
+                onRequestValuation={handleCreateValuation}
+                onUpdateValuation={handleUpdateValuation}
+                onCreateListing={onCreateListing}
+              />
+            </div>
           </ModernTabContent>
 
           <ModernTabContent tabId="history">
@@ -193,7 +233,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                     </p>
                     <Button
                       color="primary"
-                      onPress={onCreateValuation}
+                      onPress={handleCreateValuation}
                       startContent={<Plus className="w-4 h-4" />}
                     >
                       Create First Valuation
@@ -349,6 +389,20 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
           </ModernTabContent>
         </div>
       </ModernTabs>
+      
+      {/* Valuation Wizard Modal */}
+      <ValuationWizardModal
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+        onComplete={handleValuationComplete}
+        mode={wizardMode}
+        existingData={wizardMode === 'update' && currentValuation ? {
+          companyName: 'Existing Business', // This would come from business profile
+          industry: 'Technology', // This would be determined from current data
+          annualRevenue: currentValuation.estimated_value / (currentValuation.revenue_multiple || 3.2)
+          // Add other mappings as needed
+        } : undefined}
+      />
     </div>
   );
 };

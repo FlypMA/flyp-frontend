@@ -185,7 +185,7 @@ const BusinessOverview = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="overview" />
+        <SellerSidebar selectedTab="overview" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
@@ -304,7 +304,7 @@ const BusinessOverview = () => {
                   size="sm"
                   onPress={() => navigate('/business/valuation')}
                 >
-                  New Report
+                  View All Reports
                 </Button>
               </div>
 

@@ -27,6 +27,7 @@ interface NavItem {
 const SellerSidebar: React.FC<SellerSidebarProps> = ({
   selectedTab,
   className,
+  userRole = 'seller',
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,6 +42,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: LayoutDashboard,
           description: 'Business overview and performance',
           path: '/business/overview',
+          allowedRoles: ['seller', 'admin'],
         },
       ],
     },
@@ -53,6 +55,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: Calculator,
           description: 'Professional business valuation tool',
           path: '/business/valuation',
+          allowedRoles: ['seller', 'admin'],
         },
         {
           key: 'solvency',
@@ -60,6 +63,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: TrendingUp,
           description: 'Financial health & loan eligibility',
           path: '/business/solvency',
+          allowedRoles: ['seller', 'admin'],
         },
         {
           key: 'liquidation',
@@ -67,6 +71,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: AlertTriangle,
           description: 'Strategic sale vs liquidation',
           path: '/business/liquidation',
+          allowedRoles: ['seller', 'admin'],
         },
       ],
     },
@@ -79,6 +84,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: FileText,
           description: 'Secure document storage',
           path: '/business/documents',
+          allowedRoles: ['seller', 'admin'],
         },
       ],
     },
@@ -91,10 +97,19 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: Building2,
           description: 'Manage your sale listing',
           path: '/business/listings',
+          allowedRoles: ['seller', 'admin'],
         },
       ],
     },
   ];
+
+  // Filter sections and items based on user role
+  const filteredNavSections = navSections.map(section => ({
+    ...section,
+    items: section.items.filter(item => 
+      !item.allowedRoles || item.allowedRoles.includes(userRole)
+    )
+  })).filter(section => section.items.length > 0);
 
   return (
     <nav
@@ -106,7 +121,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
     >
       {/* Navigation Sections */}
       <div className="flex-1 py-6">
-        {navSections.map((section, sectionIndex) => (
+        {filteredNavSections.map((section, sectionIndex) => (
           <div key={section.title} className={cn('px-6', sectionIndex > 0 && 'mt-8')}>
             {/* Section Title */}
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">

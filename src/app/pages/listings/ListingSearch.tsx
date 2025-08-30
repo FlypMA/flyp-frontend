@@ -22,9 +22,12 @@ import {
   Shield,
   MessageSquare,
   ArrowRight,
+  Bookmark,
+  Bell,
 } from 'lucide-react';
 import { SearchComponent, PriceRangeSlider } from '../../components/common';
 import ListingCard from '../../components/listings/ListingCard';
+import SaveSearchModal from '../../components/buyer/SaveSearchModal';
 
 interface Listing {
   id: string;
@@ -69,6 +72,7 @@ const ListingSearch = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
+  const [showSaveSearchModal, setShowSaveSearchModal] = useState(false);
 
   // Search filters state
   const [filters, setFilters] = useState({
@@ -304,6 +308,50 @@ const ListingSearch = () => {
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleSaveSearch = async (searchData: any) => {
+    try {
+      // TODO: Replace with actual API call
+      console.log('Saving search:', searchData);
+      // await searchService.saveSearch(searchData);
+      
+      // Show success notification
+      // toast.success('Search saved successfully!');
+    } catch (error) {
+      console.error('Error saving search:', error);
+      // toast.error('Failed to save search');
+    }
+  };
+
+  const getCurrentSearchCriteria = () => {
+    const criteria: any = {};
+    
+    if (filters.searchQuery) criteria.searchQuery = filters.searchQuery;
+    if (filters.sector) criteria.sector = filters.sector;
+    if (filters.country) criteria.country = filters.country;
+    if (filters.priceRange[0] > 0 || filters.priceRange[1] < 10000000) {
+      criteria.priceRange = filters.priceRange;
+    }
+    if (filters.revenueRange[0] > 0 || filters.revenueRange[1] < 50000000) {
+      criteria.revenueRange = filters.revenueRange;
+    }
+    if (filters.anonymous) criteria.anonymous = true;
+    if (filters.requiresNda) criteria.requiresNda = true;
+    
+    return criteria;
+  };
+
+  const hasActiveFilters = () => {
+    return filters.searchQuery || 
+           filters.sector || 
+           filters.country || 
+           filters.priceRange[0] > 0 || 
+           filters.priceRange[1] < 10000000 ||
+           filters.revenueRange[0] > 0 || 
+           filters.revenueRange[1] < 50000000 ||
+           filters.anonymous || 
+           filters.requiresNda;
   };
 
   return (
@@ -571,6 +619,20 @@ const ListingSearch = () => {
               <p className="text-neutral-600 mt-1">Results for "{filters.searchQuery}"</p>
             )}
           </div>
+
+          {/* Save Search Button */}
+          {hasActiveFilters() && totalResults > 0 && (
+            <div className="flex items-center gap-3">
+              <Button
+                variant="bordered"
+                startContent={<Bell className="w-4 h-4" />}
+                onPress={() => setShowSaveSearchModal(true)}
+                className="border-purple-200 text-purple-700 hover:bg-purple-50"
+              >
+                Save Search Alert
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Results */}
@@ -726,6 +788,15 @@ const ListingSearch = () => {
           </>
         )}
       </div>
+
+      {/* Save Search Modal */}
+      <SaveSearchModal
+        isOpen={showSaveSearchModal}
+        onClose={() => setShowSaveSearchModal(false)}
+        onSave={handleSaveSearch}
+        initialCriteria={getCurrentSearchCriteria()}
+        mode="create"
+      />
     </div>
   );
 };

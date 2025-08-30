@@ -7,6 +7,10 @@ import { User } from '../../../types/api/users/user';
 import BuyerSidebarNavigation from '../../../components/navigation/BuyerSidebarNavigation';
 import DashboardOverview from '../../../components/buyer/DashboardOverview';
 import DiscoverBusinesses from '../../../components/buyer/DiscoverBusinesses';
+import FavoriteBusinesses from '../../../components/buyer/FavoriteBusinesses';
+import InquiryManagement from '../../../components/buyer/InquiryManagement';
+import MyBusinesses from '../../../components/buyer/MyBusinesses';
+import SavedSearches from '../../../components/buyer/SavedSearches';
 import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 
 interface SavedSearch {
@@ -60,6 +64,22 @@ const BuyerDashboard = () => {
   });
   const [selectedTab, setSelectedTab] = useState('dashboard');
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Listen for navigation events from avatar dropdown
+    const handleBuyerNavigation = (event: CustomEvent) => {
+      const targetTab = event.detail;
+      if (['favorites', 'inquiries', 'businesses'].includes(targetTab)) {
+        setSelectedTab(targetTab);
+      }
+    };
+
+    window.addEventListener('navigate-buyer-tab', handleBuyerNavigation as EventListener);
+    
+    return () => {
+      window.removeEventListener('navigate-buyer-tab', handleBuyerNavigation as EventListener);
+    };
+  }, []);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -197,63 +217,13 @@ const BuyerDashboard = () => {
       case 'discover':
         return <DiscoverBusinesses />;
       case 'favorites':
-        return (
-          <Card className="border border-gray-200">
-            <CardBody className="text-center py-16">
-              <div className="max-w-md mx-auto">
-                <div className="p-4 bg-pink-100 rounded-2xl w-fit mx-auto mb-4">
-                  <Heart className="w-12 h-12 text-pink-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Your Favorite Businesses</h3>
-                <p className="text-gray-600 mb-6">
-                  Bookmark businesses you're interested in for quick access and updates.
-                </p>
-                <div className="text-sm text-blue-600 font-medium">
-                  Coming in Phase 3 development
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        );
-      case 'searches':
-        return (
-          <Card className="border border-gray-200">
-            <CardBody className="text-center py-16">
-              <div className="max-w-md mx-auto">
-                <div className="p-4 bg-purple-100 rounded-2xl w-fit mx-auto mb-4">
-                  <Bookmark className="w-12 h-12 text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Saved Searches & Alerts</h3>
-                <p className="text-gray-600 mb-6">
-                  Create saved searches and get email alerts when new businesses match your
-                  criteria.
-                </p>
-                <div className="text-sm text-blue-600 font-medium">
-                  Coming in Phase 3 development
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        );
+        return <FavoriteBusinesses />;
       case 'inquiries':
-        return (
-          <Card className="border border-gray-200">
-            <CardBody className="text-center py-16">
-              <div className="max-w-md mx-auto">
-                <div className="p-4 bg-orange-100 rounded-2xl w-fit mx-auto mb-4">
-                  <MessageSquare className="w-12 h-12 text-orange-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Inquiry Management</h3>
-                <p className="text-gray-600 mb-6">
-                  Track your inquiries, manage communications with sellers, and organize deal flow.
-                </p>
-                <div className="text-sm text-blue-600 font-medium">
-                  Coming in Phase 3 development
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        );
+        return <InquiryManagement />;
+      case 'businesses':
+        return <MyBusinesses />;
+      case 'searches':
+        return <SavedSearches />;
       case 'insights':
         return (
           <Card className="border border-gray-200">
