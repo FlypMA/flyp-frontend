@@ -160,16 +160,16 @@ const SolvencyIntelligence = () => {
 
   const getSolvencyColor = (score: number) => {
     if (score >= 80) return 'text-green-600';
-    if (score >= 65) return 'text-blue-600';
-    if (score >= 50) return 'text-yellow-600';
+    if (score >= 65) return 'text-gray-900';
+    if (score >= 50) return 'text-gray-700';
     return 'text-red-600';
   };
 
   const getSolvencyBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-50 border-green-200';
-    if (score >= 65) return 'bg-blue-50 border-blue-200';
-    if (score >= 50) return 'bg-yellow-50 border-yellow-200';
-    return 'bg-red-50 border-red-200';
+    if (score >= 80) return 'bg-gray-50 border-gray-300';
+    if (score >= 65) return 'bg-gray-50 border-gray-300';
+    if (score >= 50) return 'bg-gray-50 border-gray-300';
+    return 'bg-gray-50 border-gray-300';
   };
 
   const isInSweetSpot = (ratio: number, type: 'current' | 'quick' | 'debt') => {
@@ -228,14 +228,13 @@ const SolvencyIntelligence = () => {
                         {solvencyData.solvencyScore}/100
                       </span>
                       <div>
-                        <Chip 
-                          color={solvencyData.bankLoanEligibility === 'excellent' ? 'success' : 
-                                solvencyData.bankLoanEligibility === 'good' ? 'primary' : 
-                                solvencyData.bankLoanEligibility === 'fair' ? 'warning' : 'danger'}
-                          className="font-semibold"
-                        >
+                        <span className={`px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 ${
+                          solvencyData.bankLoanEligibility === 'excellent' ? 'text-green-600' : 
+                          solvencyData.bankLoanEligibility === 'good' ? 'text-gray-900' : 
+                          solvencyData.bankLoanEligibility === 'fair' ? 'text-gray-700' : 'text-red-600'
+                        }`}>
                           {solvencyData.bankLoanEligibility.toUpperCase()} RATING
-                        </Chip>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -247,12 +246,14 @@ const SolvencyIntelligence = () => {
                         Better than {Math.round(solvencyData.industryRanking)}% of {user.businessType || 'Food & Beverage'} businesses
                       </span>
                     </div>
-                    <Progress 
-                      value={solvencyData.industryRanking} 
-                      color="success"
-                      className="w-64"
-                      showValueLabel
-                    />
+                    <div className="w-64">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-gray-900 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${Math.min(solvencyData.industryRanking, 100)}%` }}
+                        ></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardBody>
@@ -262,7 +263,7 @@ const SolvencyIntelligence = () => {
             <div className="grid md:grid-cols-3 gap-6">
               
               {/* Current Ratio */}
-              <Card className={`border-2 ${isInSweetSpot(solvencyData.currentRatio, 'current') ? 'bg-green-50 border-green-300' : 'border-gray-200'}`}>
+              <Card className="border border-gray-200 shadow-sm">
                 <CardHeader>
                   <div className="flex items-center justify-between w-full">
                     <h3 className="font-semibold text-gray-900">Current Ratio</h3>
@@ -280,7 +281,7 @@ const SolvencyIntelligence = () => {
                       Current Assets ÷ Current Liabilities
                     </div>
                     {isInSweetSpot(solvencyData.currentRatio, 'current') && (
-                      <div className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">
+                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
                         🎯 Bank Loan Sweet Spot (1.2-2.5)
                       </div>
                     )}
@@ -292,7 +293,7 @@ const SolvencyIntelligence = () => {
               </Card>
 
               {/* Quick Ratio */}
-              <Card className={`border-2 ${isInSweetSpot(solvencyData.quickRatio, 'quick') ? 'bg-green-50 border-green-300' : 'border-gray-200'}`}>
+              <Card className="border border-gray-200 shadow-sm">
                 <CardHeader>
                   <div className="flex items-center justify-between w-full">
                     <h3 className="font-semibold text-gray-900">Quick Ratio</h3>
@@ -310,7 +311,7 @@ const SolvencyIntelligence = () => {
                       (Current Assets - Inventory) ÷ Current Liabilities
                     </div>
                     {isInSweetSpot(solvencyData.quickRatio, 'quick') && (
-                      <div className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">
+                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
                         🎯 Bank Loan Sweet Spot (1.0-2.0)
                       </div>
                     )}
@@ -319,7 +320,7 @@ const SolvencyIntelligence = () => {
               </Card>
 
               {/* Debt-to-Equity */}
-              <Card className={`border-2 ${isInSweetSpot(solvencyData.debtToEquity, 'debt') ? 'bg-green-50 border-green-300' : 'border-gray-200'}`}>
+              <Card className="border border-gray-200 shadow-sm">
                 <CardHeader>
                   <div className="flex items-center justify-between w-full">
                     <h3 className="font-semibold text-gray-900">Debt-to-Equity</h3>
@@ -337,7 +338,7 @@ const SolvencyIntelligence = () => {
                       Total Debt ÷ Total Equity
                     </div>
                     {isInSweetSpot(solvencyData.debtToEquity, 'debt') && (
-                      <div className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">
+                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
                         🎯 Healthy Range (25-45%)
                       </div>
                     )}
@@ -347,23 +348,23 @@ const SolvencyIntelligence = () => {
             </div>
 
             {/* Bank Loan Eligibility */}
-            <Card className="border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-8">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-4">
-                      <Wallet className="w-8 h-8 text-blue-600" />
+                      <Wallet className="w-8 h-8 text-gray-600" />
                       <h3 className="text-2xl font-bold text-gray-900">Bank Loan Calculator</h3>
                     </div>
                     <p className="text-gray-700 mb-6">
                       Based on your current solvency ratios, you can qualify for:
                     </p>
-                    <div className="bg-white rounded-xl p-6 border border-blue-200">
+                    <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                       <div className="text-center">
-                        <div className="text-4xl font-bold text-blue-700 mb-2">
+                        <div className="text-4xl font-bold text-gray-900 mb-2">
                           €{maxLoanAmount.toLocaleString()}
                         </div>
-                        <div className="text-blue-600 font-medium mb-4">Maximum Loan Amount</div>
+                        <div className="text-gray-600 font-medium mb-4">Maximum Loan Amount</div>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <span className="text-gray-600">Interest Rate Range:</span>
@@ -375,7 +376,9 @@ const SolvencyIntelligence = () => {
                           </div>
                           <div>
                             <span className="text-gray-600">Approval Probability:</span>
-                            <div className="font-semibold text-green-600">
+                            <div className={`font-semibold ${
+                              solvencyData.bankLoanEligibility === 'excellent' ? 'text-green-600' : 'text-gray-900'
+                            }`}>
                               {solvencyData.bankLoanEligibility === 'excellent' ? '85-95%' :
                                solvencyData.bankLoanEligibility === 'good' ? '70-85%' :
                                solvencyData.bankLoanEligibility === 'fair' ? '45-70%' : '15-45%'}
@@ -402,10 +405,10 @@ const SolvencyIntelligence = () => {
             </Card>
 
             {/* Monthly Alerts */}
-            <Card className="border border-gray-200">
+            <Card className="border border-gray-200 shadow-sm">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <Bell className="w-6 h-6 text-blue-600" />
+                  <Bell className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">Smart Alerts & Monitoring</h3>
                 </div>
               </CardHeader>
@@ -414,10 +417,10 @@ const SolvencyIntelligence = () => {
                   <div className="space-y-4">
                     <h4 className="font-medium text-gray-900">Recent Alerts</h4>
                     
-                    <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-green-800">
+                        <p className="text-sm font-medium text-gray-900">
                           Current ratio improved to {solvencyData.currentRatio.toFixed(2)} 
                         </p>
                         <p className="text-xs text-green-600">
@@ -426,25 +429,25 @@ const SolvencyIntelligence = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <TrendingUp className="w-5 h-5 text-blue-600 mt-0.5" />
+                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      <TrendingUp className="w-5 h-5 text-green-600 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-blue-800">
+                        <p className="text-sm font-medium text-gray-900">
                           Cash flow increased by €2,400 last month
                         </p>
-                        <p className="text-xs text-blue-600">
+                        <p className="text-xs text-green-600">
                           This improves your loan eligibility • 1 week ago
                         </p>
                       </div>
                     </div>
                     
-                    <div className="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                      <Info className="w-5 h-5 text-yellow-600 mt-0.5" />
+                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      <Info className="w-5 h-5 text-gray-600 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-yellow-800">
+                        <p className="text-sm font-medium text-gray-900">
                           Industry benchmark update available
                         </p>
-                        <p className="text-xs text-yellow-600">
+                        <p className="text-xs text-gray-600">
                           See how you compare to other Food & Beverage businesses • 3 days ago
                         </p>
                       </div>
@@ -463,9 +466,9 @@ const SolvencyIntelligence = () => {
                       </ul>
                     </div>
                     
-                    <div className="p-4 bg-blue-50 rounded-lg">
-                      <h5 className="font-medium text-blue-900 mb-2">Strategic Actions</h5>
-                      <ul className="text-sm text-blue-800 space-y-1">
+                    <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                      <h5 className="font-medium text-gray-900 mb-2">Strategic Actions</h5>
+                      <ul className="text-sm text-gray-700 space-y-1">
                         <li>• Consider equipment financing vs cash purchase</li>
                         <li>• Optimize payment terms with suppliers</li>
                         <li>• Schedule quarterly solvency reviews</li>

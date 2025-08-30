@@ -59,6 +59,13 @@ interface ListingCardProps {
     employee_count?: number;
     business_age?: number;
     highlights?: string[];
+    images?: {
+      id: string;
+      storage_url: string;
+      thumbnail_url: string;
+      is_primary: boolean;
+      alt_text?: string;
+    }[];
     organization?: {
       name: string;
       verified: boolean;
@@ -311,159 +318,151 @@ const ListingCard: React.FC<ListingCardProps> = ({
     );
   }
 
+  // Get primary image or first image
+  const primaryImage = listing.images?.find(img => img.is_primary) || listing.images?.[0];
+  
+  // Stock photo fallbacks by sector
+  const getSectorPlaceholder = (sector: string) => {
+    const sectorMap: Record<string, string> = {
+      'Food & Beverage': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Technology': 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Retail': 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Manufacturing': 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Healthcare': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Professional Services': 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80'
+    };
+    return sectorMap[sector] || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&crop=center&auto=format&q=80';
+  };
+
+  const imageUrl = primaryImage?.storage_url || getSectorPlaceholder(listing.sector);
+
   // Card view (default)
   return (
     <>
       <Card className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 h-full transform hover:-translate-y-2">
-        <CardBody className="p-8">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-6">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-3 mb-3">
-                {listing.organization?.verified && (
-                  <Tooltip content="Verified business">
-                    <div className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-gray-700">
-                      <Shield className="w-3 h-3" />
-                      <span className="text-xs font-medium">Verified</span>
-                    </div>
-                  </Tooltip>
-                )}
-              </div>
-
-              <h3 className="font-bold text-xl text-slate-900 line-clamp-2 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
-                {listing.anonymous ? 'Anonymous Business Listing' : listing.title}
-              </h3>
-
-              <div className="flex items-center gap-3 text-sm text-slate-600 mb-4">
-                <div className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-                  <Building2 className="w-3 h-3" />
-                  <span className="font-medium">{listing.sector}</span>
-                </div>
-                <div className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-                  <MapPin className="w-3 h-3" />
-                  <span>{listing.country}</span>
-                </div>
-              </div>
-            </div>
-
+        <CardBody className="p-0">
+          {/* Product Image */}
+          <div className="relative overflow-hidden rounded-t-3xl aspect-[16/10] mb-6">
+            <img
+              src={imageUrl}
+              alt={primaryImage?.alt_text || `${listing.title} business image`}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Favorite button overlay */}
             {canSave && (
-              <Button
-                isIconOnly
-                size="sm"
-                variant={isSaved ? 'solid' : 'light'}
-                color={isSaved ? 'danger' : 'default'}
-                onPress={handleSave}
-                isLoading={isProcessing}
-                className="text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all duration-300 transform hover:scale-110"
-              >
-                <Heart className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
-              </Button>
-            )}
-          </div>
-
-          {/* Summary */}
-          <p className="text-slate-700 line-clamp-3 mb-6 leading-relaxed text-base">
-            {listing.summary}
-          </p>
-
-          {/* Highlights */}
-          {listing.highlights && listing.highlights.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {listing.highlights.slice(0, 2).map((highlight, index) => (
-                <span
-                  key={index}
-                  className="bg-gray-100 px-2 py-1 rounded text-gray-700 text-xs font-medium"
+              <div className="absolute top-4 right-4">
+                <Button
+                  isIconOnly
+                  radius="full"
+                  size="sm"
+                  variant="flat"
+                  className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
+                  onPress={handleSave}
+                  isLoading={isProcessing}
                 >
-                  {highlight}
-                </span>
-              ))}
-              {listing.highlights.length > 2 && (
-                <span className="bg-gray-100 px-2 py-1 rounded text-gray-700 text-xs font-medium">
-                  +{listing.highlights.length - 2} more
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Financial Info */}
-          <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl p-4 border border-slate-200 mb-6">
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-slate-600">Asking Price:</span>
-                <span className="font-bold text-green-600 text-lg">
-                  {formatPrice(listing.asking_price, listing.currency)}
-                </span>
+                  <Heart className={`w-4 h-4 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
+                </Button>
               </div>
+            )}
 
-              {listing.revenue_range && (
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-slate-600">Revenue:</span>
-                  <span className="text-sm font-semibold text-slate-800">
-                    {formatRange(listing.revenue_range, listing.currency)}
-                  </span>
+            {/* Featured badge */}
+            {listing.featured && (
+              <div className="absolute top-4 left-4">
+                <div className="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                  FEATURED
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="px-8 pb-8">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 mb-3">
+                  {listing.organization?.verified && (
+                    <Tooltip content="Verified business">
+                      <div className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-gray-700">
+                        <Shield className="w-3 h-3" />
+                        <span className="text-xs font-medium">Verified</span>
+                      </div>
+                    </Tooltip>
+                  )}
+                </div>
+
+                <h3 className="font-bold text-slate-900 text-xl line-clamp-2 group-hover:text-blue-600 transition-colors mb-3 leading-tight">
+                  {listing.anonymous ? 'Confidential Business' : listing.title}
+                </h3>
+
+                <div className="flex items-center gap-3 text-sm text-slate-600 mb-4">
+                  <div className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full min-w-0 flex-shrink-0">
+                    <Building2 className="w-3 h-3 flex-shrink-0" />
+                    <span className="font-medium text-slate-700 truncate">{listing.sector}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full min-w-0 flex-shrink-0">
+                    <MapPin className="w-3 h-3 flex-shrink-0" />
+                    <span className="text-slate-700 truncate whitespace-nowrap">{listing.country}{listing.region && `, ${listing.region}`}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content Area */}
+            <div className="space-y-6">
+              {/* Summary */}
+              <p className="text-slate-700 line-clamp-3 leading-relaxed text-base">
+                {listing.summary}
+              </p>
+
+              {/* Highlights */}
+              {listing.highlights && listing.highlights.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {listing.highlights.slice(0, 2).map((highlight, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-1.5 bg-gray-100 px-2.5 py-1.5 rounded-lg text-gray-700 text-xs font-medium whitespace-nowrap"
+                    >
+                      <Shield className="w-3 h-3 flex-shrink-0" />
+                      <span>{highlight}</span>
+                    </span>
+                  ))}
+                  {listing.business_age && (
+                    <span className="inline-flex items-center bg-gray-100 px-2.5 py-1.5 rounded-lg text-gray-700 text-xs font-medium whitespace-nowrap">
+                      <span>{listing.business_age} years</span>
+                    </span>
+                  )}
                 </div>
               )}
 
-              {listing.ebitda_range && (
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-slate-600">EBITDA:</span>
-                  <span className="text-sm font-semibold text-slate-800">
-                    {formatRange(listing.ebitda_range, listing.currency)}
-                  </span>
+              {/* Financial Info */}
+              <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl p-4 border border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-bold text-green-600 text-2xl">
+                      {formatPrice(listing.asking_price, listing.currency)}
+                    </p>
+                    {listing.revenue_range && (
+                      <p className="text-sm text-slate-600 mt-1">
+                        Revenue: {listing.revenue_range}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-slate-500">
+                    <div className="flex items-center gap-1">
+                      <Eye className="w-4 h-4" />
+                      <span className="font-medium">{listing.views}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <TrendingUp className="w-4 h-4" />
+                      <span className="font-medium">{listing.inquiries}</span>
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Metrics */}
-          <div className="flex justify-between items-center mb-6 pt-4 border-t border-slate-200">
-            <div className="flex items-center gap-6 text-sm text-slate-500">
-              <div className="flex items-center gap-1">
-                <Eye className="w-4 h-4" />
-                <span className="font-medium">{listing.views}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <MessageSquare className="w-4 h-4" />
-                <span className="font-medium">{listing.inquiries}</span>
-              </div>
-              <span className="font-medium">{getTimeAgo(listing.published_at)}</span>
             </div>
-          </div>
-
-          {/* Warning badges */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {listing.requires_nda && (
-              <span className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-gray-700 text-xs font-medium">
-                <Shield className="w-3 h-3" />
-                NDA Required
-              </span>
-            )}
-            {listing.anonymous && (
-              <span className="bg-gray-100 px-2 py-1 rounded text-gray-700 text-xs font-medium">
-                Anonymous
-              </span>
-            )}
-          </div>
-
-          {/* Actions */}
-          <div className="flex gap-3">
-            <Button
-              variant="bordered"
-              onPress={handleViewDetails}
-              className="flex-1 border-2 border-slate-300 hover:border-slate-400 hover:shadow-md rounded-2xl font-semibold transition-all duration-300"
-            >
-              View Details
-            </Button>
-            {canMakeInquiry && (
-              <Button
-                color="primary"
-                onPress={() => setShowInquiryModal(true)}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200"
-                startContent={<MessageSquare className="w-4 h-4" />}
-              >
-                Contact Seller
-              </Button>
-            )}
           </div>
         </CardBody>
       </Card>

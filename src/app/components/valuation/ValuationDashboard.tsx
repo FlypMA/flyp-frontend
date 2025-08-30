@@ -241,9 +241,9 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                             </div>
                             <div className="flex items-center space-x-2">
                               <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                valuation.confidence_level === 'high' ? 'bg-green-100 text-green-700' :
-                                valuation.confidence_level === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                                'bg-red-100 text-red-700'
+                                valuation.confidence_level === 'high' ? 'bg-gray-100 text-green-700' :
+                                valuation.confidence_level === 'medium' ? 'bg-gray-100 text-gray-700' :
+                                'bg-gray-100 text-red-700'
                               }`}>
                                 {valuation.confidence_level.toUpperCase()}
                               </div>
@@ -265,13 +265,13 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
             <div className="space-y-6">
               {/* Valuation Resources */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+                <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
-                      <Calculator className="w-8 h-8 text-blue-600" />
+                      <Calculator className="w-8 h-8 text-gray-600" />
                       <div>
-                        <h3 className="font-semibold text-blue-900">Valuation Calculator</h3>
-                        <p className="text-blue-700 text-sm">Quick estimate using multiples</p>
+                        <h3 className="font-semibold text-gray-900">Valuation Calculator</h3>
+                        <p className="text-gray-600 text-sm">Quick estimate using multiples</p>
                       </div>
                     </div>
                     <Button
@@ -285,17 +285,17 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                   </CardBody>
                 </Card>
 
-                <Card className="border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+                <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
-                      <BookOpen className="w-8 h-8 text-green-600" />
+                      <BookOpen className="w-8 h-8 text-gray-600" />
                       <div>
-                        <h3 className="font-semibold text-green-900">Valuation Guide</h3>
-                        <p className="text-green-700 text-sm">Learn valuation methods</p>
+                        <h3 className="font-semibold text-gray-900">Valuation Guide</h3>
+                        <p className="text-gray-600 text-sm">Learn valuation methods</p>
                       </div>
                     </div>
                     <Button
-                      color="success"
+                      color="primary"
                       variant="flat"
                       className="w-full"
                       endContent={<BookOpen className="w-4 h-4" />}
@@ -305,17 +305,17 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                   </CardBody>
                 </Card>
 
-                <Card className="border border-purple-200 bg-gradient-to-br from-purple-50 to-violet-50">
+                <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
-                      <Target className="w-8 h-8 text-purple-600" />
+                      <Target className="w-8 h-8 text-gray-600" />
                       <div>
-                        <h3 className="font-semibold text-purple-900">Industry Benchmarks</h3>
-                        <p className="text-purple-700 text-sm">Compare with similar businesses</p>
+                        <h3 className="font-semibold text-gray-900">Industry Benchmarks</h3>
+                        <p className="text-gray-600 text-sm">Compare with similar businesses</p>
                       </div>
                     </div>
                     <Button
-                      color="secondary"
+                      color="primary"
                       variant="flat"
                       className="w-full"
                       endContent={<Target className="w-4 h-4" />}
@@ -325,17 +325,17 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                   </CardBody>
                 </Card>
 
-                <Card className="border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50">
+                <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
-                      <TrendingUp className="w-8 h-8 text-orange-600" />
+                      <TrendingUp className="w-8 h-8 text-gray-600" />
                       <div>
-                        <h3 className="font-semibold text-orange-900">Market Trends</h3>
-                        <p className="text-orange-700 text-sm">Current M&A market insights</p>
+                        <h3 className="font-semibold text-gray-900">Market Trends</h3>
+                        <p className="text-gray-600 text-sm">Current M&A market insights</p>
                       </div>
                     </div>
                     <Button
-                      color="warning"
+                      color="primary"
                       variant="flat"
                       className="w-full"
                       endContent={<TrendingUp className="w-4 h-4" />}

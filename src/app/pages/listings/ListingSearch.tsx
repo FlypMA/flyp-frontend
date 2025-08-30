@@ -24,6 +24,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { SearchComponent, PriceRangeSlider } from '../../components/common';
+import ListingCard from '../../components/listings/ListingCard';
 
 interface Listing {
   id: string;
@@ -41,8 +42,23 @@ interface Listing {
   anonymous: boolean;
   requires_nda: boolean;
   years_in_business?: number;
-  revenue_range?: string;
-  ebitda_range?: string;
+  business_age?: number;
+  revenue_range?: string | {
+    min?: number;
+    max?: number;
+  };
+  ebitda_range?: string | {
+    min?: number;
+    max?: number;
+  };
+  highlights?: string[];
+  images?: {
+    id: string;
+    storage_url: string;
+    thumbnail_url: string;
+    is_primary: boolean;
+    alt_text?: string;
+  }[];
 }
 
 const ListingSearch = () => {
@@ -91,6 +107,22 @@ const ListingSearch = () => {
           currency: 'EUR',
           summary:
             'Established restaurant chain with 3 locations in prime Brussels areas. Strong customer base, excellent reputation, and significant growth potential in the Belgian market.',
+          images: [
+            {
+              id: '1',
+              storage_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              is_primary: true,
+              alt_text: 'Premium restaurant interior with elegant dining setup'
+            },
+            {
+              id: '2',
+              storage_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              is_primary: false,
+              alt_text: 'Restaurant exterior view'
+            }
+          ],
           views: 245,
           inquiries: 12,
           published_at: '2024-01-15',
@@ -110,6 +142,15 @@ const ListingSearch = () => {
           currency: 'EUR',
           summary:
             'Growing SaaS company specializing in enterprise solutions. 15 employees, recurring revenue model, and expanding European client base.',
+          images: [
+            {
+              id: '3',
+              storage_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              is_primary: true,
+              alt_text: 'Modern tech office workspace'
+            }
+          ],
           views: 189,
           inquiries: 8,
           published_at: '2024-01-18',
@@ -137,6 +178,15 @@ const ListingSearch = () => {
           requires_nda: true,
           years_in_business: 12,
           revenue_range: '€5M - €10M',
+          images: [
+            {
+              id: '3',
+              storage_url: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+              is_primary: true,
+              alt_text: 'Manufacturing facility'
+            }
+          ],
         },
         {
           id: '4',
@@ -148,6 +198,15 @@ const ListingSearch = () => {
           currency: 'EUR',
           summary:
             'Full-service digital marketing agency with 20+ clients, strong team, and proven track record in B2B marketing.',
+          images: [
+            {
+              id: '4',
+              storage_url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+              is_primary: true,
+              alt_text: 'Creative office space'
+            }
+          ],
           views: 98,
           inquiries: 4,
           published_at: '2024-01-22',
@@ -167,6 +226,15 @@ const ListingSearch = () => {
           currency: 'EUR',
           summary:
             'Successful e-commerce platform specializing in sustainable products. Growing customer base and strong online presence.',
+          images: [
+            {
+              id: '5',
+              storage_url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              is_primary: true,
+              alt_text: 'Modern retail warehouse and fulfillment center'
+            }
+          ],
           views: 134,
           inquiries: 9,
           published_at: '2024-01-19',
@@ -550,126 +618,42 @@ const ListingSearch = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-              {listings.map(listing => (
-                <Card
-                  key={listing.id}
-                  className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 cursor-pointer transform hover:-translate-y-2 hover:scale-[1.02]"
-                  isPressable
-                  onPress={() => navigate(`/listings/${listing.id}`)}
-                >
-                  <CardBody className="p-8">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3"></div>
-                        <h3 className="font-bold text-slate-900 text-xl line-clamp-2 group-hover:text-blue-600 transition-colors mb-3 leading-tight">
-                          {listing.anonymous ? 'Confidential Business' : listing.title}
-                        </h3>
-                        <div className="flex items-center gap-3 text-sm text-slate-600 mb-4">
-                          <div className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full min-w-0 flex-shrink-0">
-                            <Building2
-                              className="w-3 h-3 flex-shrink-0"
-                              style={{ stroke: 'currentColor', fill: 'none' }}
-                            />
-                            <span className="font-medium text-slate-700 truncate">
-                              {listing.sector}
-                            </span>
-                          </div>
-                          <div className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full min-w-0 flex-shrink-0">
-                            <MapPin
-                              className="w-3 h-3 flex-shrink-0"
-                              style={{ stroke: 'currentColor', fill: 'none' }}
-                            />
-                            <span className="text-slate-700 truncate whitespace-nowrap">
-                              {listing.region
-                                ? `${listing.region}, ${listing.country}`
-                                : listing.country}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <Button
-                        isIconOnly
-                        variant="light"
-                        size="sm"
-                        className="text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all duration-300 transform hover:scale-110"
-                        onPress={() => {
-                          // TODO: Implement save functionality
-                        }}
-                      >
-                        <Heart
-                          className="w-4 h-4"
-                          style={{ stroke: 'currentColor', fill: 'none' }}
-                        />
-                      </Button>
-                    </div>
+              {listings.map(listing => {
+                // Transform listing to match ListingCard interface
+                const transformedListing = {
+                  ...listing,
+                  highlights: listing.requires_nda || listing.anonymous || listing.years_in_business ? [
+                    ...(listing.requires_nda ? ['NDA Required'] : []),
+                    ...(listing.anonymous ? ['Confidential'] : []),
+                  ] : undefined,
+                  business_age: listing.years_in_business,
+                  revenue_range: listing.revenue_range ? { 
+                    min: undefined, 
+                    max: undefined 
+                  } : undefined,
+                  ebitda_range: listing.ebitda_range ? {
+                    min: undefined,
+                    max: undefined
+                  } : undefined,
+                };
 
-                    <div className="space-y-6">
-                      <p className="text-slate-700 line-clamp-3 leading-relaxed text-base">
-                        {listing.summary}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2">
-                        {listing.requires_nda && (
-                          <span className="inline-flex items-center gap-1.5 bg-gray-100 px-2.5 py-1.5 rounded-lg text-gray-700 text-xs font-medium whitespace-nowrap">
-                            <Shield
-                              className="w-3 h-3 flex-shrink-0"
-                              style={{ stroke: 'currentColor', fill: 'none' }}
-                            />
-                            <span>NDA Required</span>
-                          </span>
-                        )}
-                        {listing.anonymous && (
-                          <span className="inline-flex items-center bg-gray-100 px-2.5 py-1.5 rounded-lg text-gray-700 text-xs font-medium whitespace-nowrap">
-                            <span>Confidential</span>
-                          </span>
-                        )}
-                        {listing.years_in_business && (
-                          <span className="inline-flex items-center bg-gray-100 px-2.5 py-1.5 rounded-lg text-gray-700 text-xs font-medium whitespace-nowrap">
-                            <span>{listing.years_in_business} years</span>
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl p-4 border border-slate-200">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="font-bold text-green-600 text-2xl">
-                              {formatPrice(listing.asking_price, listing.currency)}
-                            </p>
-                            {listing.revenue_range && (
-                              <p className="text-sm text-slate-600 mt-1">
-                                Revenue: {listing.revenue_range}
-                              </p>
-                            )}
-                            {listing.ebitda_range && (
-                              <p className="text-sm text-slate-600 mt-1">
-                                EBITDA: {listing.ebitda_range}
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="flex items-center gap-4 text-sm text-slate-500">
-                            <div className="flex items-center gap-1">
-                              <Eye
-                                className="w-4 h-4"
-                                style={{ stroke: 'currentColor', fill: 'none' }}
-                              />
-                              <span className="font-medium">{listing.views}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <TrendingUp
-                                className="w-4 h-4"
-                                style={{ stroke: 'currentColor', fill: 'none' }}
-                              />
-                              <span className="font-medium">{listing.inquiries}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              ))}
+                return (
+                  <ListingCard
+                    key={listing.id}
+                    listing={transformedListing}
+                    currentUserRole="buyer"
+                    viewMode="card"
+                    onSave={(listingId) => {
+                      // TODO: Implement save functionality
+                      console.log('Save listing:', listingId);
+                    }}
+                    onInquiry={async (listingId, inquiryData) => {
+                      // TODO: Implement inquiry functionality  
+                      console.log('Inquiry for listing:', listingId, inquiryData);
+                    }}
+                  />
+                );
+              })}
             </div>
 
             {/* Pagination */}

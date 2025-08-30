@@ -212,7 +212,7 @@ const LiquidationComparison = () => {
             </div>
 
             {/* Shocking Value Comparison */}
-            <Card className="border-2 border-red-200 bg-gradient-to-r from-red-50 via-white to-green-50">
+            <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-8">
                 <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
                   Your Business Value Comparison
@@ -220,15 +220,15 @@ const LiquidationComparison = () => {
                 
                 <div className="grid md:grid-cols-2 gap-8">
                   
-                  {/* Strategic Sale - Green Side */}
-                  <div className="bg-green-100 rounded-2xl p-6 border-2 border-green-300">
+                  {/* Strategic Sale */}
+                  <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
                     <div className="text-center">
                       <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-green-900 mb-2">Strategic Sale</h3>
-                      <div className="text-5xl font-bold text-green-700 mb-4">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Strategic Sale</h3>
+                      <div className="text-5xl font-bold text-gray-900 mb-4">
                         €{liquidationData.strategicSaleValue.toLocaleString()}
                       </div>
-                      <ul className="text-sm text-green-800 space-y-2 text-left">
+                      <ul className="text-sm text-gray-700 space-y-2 text-left">
                         <li>✅ Full business value realized</li>
                         <li>✅ Buyer values customer relationships</li>
                         <li>✅ Equipment sold at fair market value</li>
@@ -239,15 +239,15 @@ const LiquidationComparison = () => {
                     </div>
                   </div>
 
-                  {/* Liquidation - Red Side */}
-                  <div className="bg-red-100 rounded-2xl p-6 border-2 border-red-300">
+                  {/* Liquidation */}
+                  <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
                     <div className="text-center">
                       <X className="w-12 h-12 text-red-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-red-900 mb-2">Forced Liquidation</h3>
-                      <div className="text-5xl font-bold text-red-700 mb-4">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Forced Liquidation</h3>
+                      <div className="text-5xl font-bold text-gray-900 mb-4">
                         €{liquidationData.netLiquidationProceeds.toLocaleString()}
                       </div>
-                      <ul className="text-sm text-red-800 space-y-2 text-left">
+                      <ul className="text-sm text-gray-700 space-y-2 text-left">
                         <li>❌ Fire sale prices (15-25% of value)</li>
                         <li>❌ Customer relationships lost</li>
                         <li>❌ Equipment sold at auction prices</li>
@@ -286,12 +286,12 @@ const LiquidationComparison = () => {
             </Card>
 
             {/* Daily Value Loss Counter */}
-            <Card className="border-2 border-orange-200 bg-gradient-to-r from-orange-50 to-red-50">
+            <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center space-x-3 mb-2">
-                      <Clock className="w-6 h-6 text-orange-600" />
+                      <Clock className="w-6 h-6 text-gray-600" />
                       <h3 className="text-xl font-bold text-gray-900">Time is Money</h3>
                     </div>
                     <p className="text-gray-700 mb-4">
@@ -300,7 +300,7 @@ const LiquidationComparison = () => {
                     <div className="grid grid-cols-2 gap-6">
                       <div>
                         <div className="text-sm text-gray-600">Daily Value Loss</div>
-                        <div className="text-2xl font-bold text-orange-600">
+                        <div className="text-2xl font-bold text-gray-900">
                           €{liquidationData.dailyValueLoss.toLocaleString()}/day
                         </div>
                       </div>
@@ -341,26 +341,26 @@ const LiquidationComparison = () => {
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Asset Recovery (20% of value)</span>
                       <span className="font-semibold text-green-600">
                         +€{((liquidationData.strategicSaleValue * 0.4) * 0.2).toLocaleString()}
                       </span>
                     </div>
                     
-                    <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Employee Severance</span>
                       <span className="font-semibold text-red-600">
                         -€{liquidationData.employeeSeveranceCost.toLocaleString()}
                       </span>
                     </div>
                     
-                    <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Legal & Administrative Costs</span>
                       <span className="font-semibold text-red-600">-€45,000</span>
                     </div>
                     
-                    <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Auction & Marketing Fees</span>
                       <span className="font-semibold text-red-600">-€15,000</span>
                     </div>
@@ -473,7 +473,7 @@ const LiquidationComparison = () => {
             </Card>
 
             {/* Call to Action */}
-            <Card className="border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-purple-50">
+            <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-8 text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   Don't Let Your Life's Work Be Sold for Scrap

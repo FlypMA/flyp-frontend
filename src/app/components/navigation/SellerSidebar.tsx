@@ -6,6 +6,7 @@ import { LayoutDashboard, Building2, FileText, Calculator, TrendingUp, AlertTria
 interface SellerSidebarProps {
   selectedTab?: string;
   className?: string;
+  userRole?: 'seller' | 'buyer' | 'admin';
 }
 
 interface NavSection {
@@ -20,6 +21,7 @@ interface NavItem {
   description?: string;
   path: string;
   isComingSoon?: boolean;
+  allowedRoles?: ('seller' | 'buyer' | 'admin')[];
 }
 
 const SellerSidebar: React.FC<SellerSidebarProps> = ({

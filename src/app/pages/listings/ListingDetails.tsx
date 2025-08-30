@@ -46,6 +46,29 @@ const ListingDetails = () => {
         currency: 'EUR',
         summary:
           'Established restaurant chain with 3 locations in prime Brussels areas. Strong customer base, excellent reputation, and significant growth potential in the Belgian market.',
+        images: [
+          {
+            id: '1',
+            storage_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            is_primary: true,
+            alt_text: 'Premium restaurant interior with elegant dining setup'
+          },
+          {
+            id: '2',
+            storage_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            is_primary: false,
+            alt_text: 'Restaurant exterior view'
+          },
+          {
+            id: '3',
+            storage_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            is_primary: false,
+            alt_text: 'Delicious gourmet food presentation'
+          }
+        ],
         description: `This premium restaurant chain represents an exceptional opportunity to acquire a well-established business in the heart of Brussels. With three strategically located restaurants in high-traffic areas, this business has built a loyal customer base over 8 years of operation.
 
 Key highlights:
@@ -132,6 +155,9 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
       </div>
     );
   }
+
+  const primaryImage = listing.images?.find(img => img.is_primary) || listing.images?.[0];
+  const additionalImages = listing.images?.filter(img => img.id !== primaryImage?.id) || [];
 
   return (
     <div className="min-h-screen bg-white">
@@ -322,6 +348,66 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                 </div>
               </CardBody>
             </Card>
+
+            {/* Image Gallery */}
+            {(primaryImage || additionalImages.length > 0) && (
+              <Card>
+                <CardHeader>
+                  <h2 className="text-xl font-semibold">Business Photos</h2>
+                </CardHeader>
+                <CardBody>
+                  <div className="space-y-4">
+                    {/* Primary Image */}
+                    {primaryImage && (
+                      <div className="relative overflow-hidden rounded-2xl aspect-[16/9]">
+                        <img
+                          src={primaryImage.storage_url}
+                          alt={primaryImage.alt_text || `${listing.title} main image`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-white/90 backdrop-blur-sm text-slate-700 text-sm font-semibold px-3 py-1.5 rounded-full shadow-lg">
+                            Main Photo
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Additional Images Grid */}
+                    {additionalImages.length > 0 && (
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {additionalImages.slice(0, 6).map((image, index) => (
+                          <div key={image.id} className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer hover:scale-105 transition-transform duration-300">
+                            <img
+                              src={image.thumbnail_url || image.storage_url}
+                              alt={image.alt_text || `${listing.title} photo ${index + 1}`}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg">
+                                  <Eye className="w-5 h-5 text-slate-700" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {additionalImages.length > 6 && (
+                          <div className="flex items-center justify-center bg-gray-50 rounded-xl aspect-[4/3] border-2 border-dashed border-gray-300">
+                            <div className="text-center">
+                              <span className="text-gray-500 font-medium">+{additionalImages.length - 6}</span>
+                              <p className="text-xs text-gray-400 mt-1">More photos</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </CardBody>
+              </Card>
+            )}
 
             {/* Description */}
             <Card>
