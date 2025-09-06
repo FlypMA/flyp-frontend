@@ -11,7 +11,7 @@ import CustomPasswordInputField from '../main_UI/forms/customPasswordInputtField
 import { LuInfo } from 'react-icons/lu';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { BetweendealsLogo } from '../common';
-import backgroundImage from '../../../assets/background4.jpg';
+// Professional business background for M&A platform
 
 interface LoginData {
   email: string;
@@ -306,13 +306,53 @@ const LoginModal: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Right Side - Image */}
+                    {/* Right Side - Business Theme */}
                     <div className="hidden md:block relative">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                        style={{ backgroundImage: `url(${backgroundImage})` }}
-                      >
-                        <div className="absolute inset-0 bg-black/20"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+                        {/* Business Pattern Overlay */}
+                        <div className="absolute inset-0" style={{
+                          backgroundImage: `
+                            radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                            radial-gradient(circle at 75% 75%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                            linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%)
+                          `
+                        }}>
+                        </div>
+                        
+                        {/* Business Icons */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center text-white/20 space-y-8">
+                            {/* Growth Chart Icon */}
+                            <div className="flex justify-center">
+                              <svg width="80" height="60" viewBox="0 0 80 60" fill="currentColor" className="opacity-30">
+                                <path d="M5 55L20 40L35 45L50 25L65 15L75 10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                                <circle cx="5" cy="55" r="3" />
+                                <circle cx="20" cy="40" r="3" />
+                                <circle cx="35" cy="45" r="3" />
+                                <circle cx="50" cy="25" r="3" />
+                                <circle cx="65" cy="15" r="3" />
+                                <circle cx="75" cy="10" r="3" />
+                              </svg>
+                            </div>
+                            
+                            {/* Handshake Icon */}
+                            <div className="flex justify-center">
+                              <svg width="60" height="40" viewBox="0 0 60 40" fill="currentColor" className="opacity-20">
+                                <path d="M15 25C15 20 18 15 23 15H37C42 15 45 20 45 25V35H15V25Z" />
+                                <circle cx="20" cy="10" r="5" />
+                                <circle cx="40" cy="10" r="5" />
+                                <rect x="25" y="22" width="10" height="5" rx="2" />
+                              </svg>
+                            </div>
+                            
+                            {/* Building Icons */}
+                            <div className="flex justify-center space-x-4">
+                              <div className="w-6 h-12 bg-current opacity-10 rounded-sm"></div>
+                              <div className="w-8 h-16 bg-current opacity-15 rounded-sm"></div>
+                              <div className="w-6 h-10 bg-current opacity-10 rounded-sm"></div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
 import { User as UserType } from '../../types/api/users/user';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { useAuthModal } from '../../contexts/AuthModalContext';
+import { useBusinessModal } from '../../contexts/BusinessModalContext';
 import { authService } from '../../services/users/authenticationService';
+import { detectUserContext, UserIntent } from '../../utils/contextDetection';
 
 interface UnifiedNavigationProps {
   className?: string;
@@ -13,10 +15,19 @@ interface UnifiedNavigationProps {
 
 const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openModal } = useAuthModal();
+  const { openBusinessModal } = useBusinessModal();
+
+  // Detect user context based on current page
+  const contextInfo = detectUserContext(
+    location.pathname,
+    document.referrer,
+    new URLSearchParams(location.search)
+  );
 
   // Check authentication status
   useEffect(() => {
@@ -62,6 +73,71 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
       window.removeEventListener('auth-logout', handleLogout);
     };
   }, []);
+
+  // Handle context-aware CTA actions
+  const handlePrimaryCTA = () => {
+    switch (contextInfo.primaryCTA.action) {
+      case 'business-valuation':
+        // Open business modal starting with valuation hook
+        openBusinessModal('business-listing', 'valuation-hook', {
+          url: '/business/overview',
+          state: { source: 'navbar-valuation', confidence: contextInfo.confidence }
+        });
+        break;
+      case 'business-listing':
+        // Open business modal starting with listing pitch (skip valuation)
+        openBusinessModal('business-listing', 'listing-pitch', {
+          url: '/business/overview', 
+          state: { source: 'navbar-listing', confidence: contextInfo.confidence }
+        });
+        break;
+      case 'signup-seller':
+        openModal('signup', {
+          intent: 'seller',
+          url: location.pathname.includes('/valuation') ? '/business/valuation' : '/seller/listings/new',
+          state: { detectedIntent: 'seller', confidence: contextInfo.confidence }
+        });
+        break;
+      case 'signup-buyer':
+        openModal('signup', {
+          intent: 'buyer', 
+          url: '/search',
+          state: { detectedIntent: 'buyer', confidence: contextInfo.confidence }
+        });
+        break;
+      case 'signup-neutral':
+        openModal('signup', {
+          intent: 'neutral',
+          state: { detectedIntent: 'neutral', confidence: contextInfo.confidence }
+        });
+        break;
+      default:
+        openModal('signup');
+    }
+  };
+
+  const handleSecondaryCTA = () => {
+    switch (contextInfo.secondaryCTA.action) {
+      case 'login':
+        openModal('login');
+        break;
+      case 'explore-alternative':
+        if (contextInfo.intent === 'seller') {
+          navigate('/search');
+        } else if (contextInfo.intent === 'buyer') {
+          // If buyer wants to explore selling, show valuation hook
+          openBusinessModal('business-listing', 'valuation-hook', {
+            url: '/business/overview',
+            state: { source: 'navbar-explore', confidence: 'medium' }
+          });
+        } else {
+          navigate('/for-sellers');
+        }
+        break;
+      default:
+        openModal('login');
+    }
+  };
 
   return (
     <nav 
@@ -126,17 +202,18 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
               ) : (
                 <>
                   <button
-                    onClick={() => openModal('login')}
-                    className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100"
+                    onClick={handleSecondaryCTA}
+                    className={contextInfo.secondaryCTA.className}
                   >
-                    Log in
+                    {contextInfo.secondaryCTA.text}
                   </button>
                   <button
-                    onClick={() => openModal('signup')}
-                    data-conversion="CTA - Sell your business"
-                    className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200"
+                    onClick={handlePrimaryCTA}
+                    data-conversion={`CTA - ${contextInfo.primaryCTA.text}`}
+                    className={contextInfo.primaryCTA.className}
+                    title={`${contextInfo.primaryCTA.text} (${contextInfo.confidence} confidence)`}
                   >
-                    Sell your business
+                    {contextInfo.primaryCTA.text}
                   </button>
                 </>
               ))}
@@ -163,11 +240,14 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
                 // Mobile: Show CTA + Menu Toggle when logged out
                 <>
                   <button
-                    onClick={() => openModal('signup')}
-                    data-conversion="CTA - Sell your business (mobile)"
+                    onClick={() => {
+                      handlePrimaryCTA();
+                    }}
+                    data-conversion={`CTA - ${contextInfo.primaryCTA.text} (mobile)`}
                     className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
                   >
-                    Sell
+                    {contextInfo.intent === 'buyer' ? 'Find' : 
+                     contextInfo.intent === 'seller' ? 'List' : 'Start'}
                   </button>
                   <Button
                     isIconOnly
@@ -215,21 +295,21 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
               <div className="pt-4 border-t border-neutral-200 space-y-2">
                 <button
                   onClick={() => {
-                    openModal('login');
+                    handleSecondaryCTA();
                     setIsMenuOpen(false);
                   }}
                   className="block w-full text-left text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium py-2"
                 >
-                  Log in
+                  {contextInfo.secondaryCTA.text}
                 </button>
                 <button
                   onClick={() => {
-                    openModal('signup');
+                    handlePrimaryCTA();
                     setIsMenuOpen(false);
                   }}
                   className="block w-full bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
                 >
-                  Sell your business
+                  {contextInfo.primaryCTA.text}
                 </button>
               </div>
             )}

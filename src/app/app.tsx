@@ -28,7 +28,9 @@ import EditListingPage from './pages/listings/EditListingPage';
 
 import NoPage from './pages/error/404/noPage';
 import { AuthModalProvider } from './contexts/AuthModalContext';
+import { BusinessModalProvider, useBusinessModal } from './contexts/BusinessModalContext';
 import AuthModals from './components/modals/AuthModals';
+import BusinessListingModal from './components/modals/BusinessListingModal';
 import UrlGeneratorService from './services/urlMapping/urlGeneratorService';
 import About from './pages/company/about/About';
 import ValuationGuide from './pages/resources/ValuationGuide';
@@ -54,12 +56,28 @@ import DocumentVault from './pages/business/DocumentVault';
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthModalProvider>
-      <div>
-        <ScrollToTop />
-        {children}
-        <AuthModals />
-      </div>
+      <BusinessModalProvider>
+        <div>
+          <ScrollToTop />
+          {children}
+          <AuthModals />
+          <BusinessListingModalContainer />
+        </div>
+      </BusinessModalProvider>
     </AuthModalProvider>
+  );
+};
+
+// Container component for BusinessListingModal with context integration
+const BusinessListingModalContainer = () => {
+  const { activeModal, modalStep, closeBusinessModal } = useBusinessModal();
+  
+  return (
+    <BusinessListingModal
+      isOpen={activeModal === 'business-listing'}
+      onClose={closeBusinessModal}
+      initialStep={modalStep}
+    />
   );
 };
 
