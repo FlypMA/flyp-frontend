@@ -1,50 +1,26 @@
-# Dependencies
-node_modules
-.npm
-.yarn
+# Ignore API directory in source code - not serverless functions
+src/app/api/
+src/api/
 
-# Development
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Development files
+src/__tests__/
+tests/
+*.test.*
+*.spec.*
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage
-*.lcov
-
-# IDE
-.vscode
-.idea
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Tests
-**/*.test.*
-**/__tests__/**
+# Config files that don't need to be deployed
+tsconfig.json
+vite.config.ts
+vitest.config.ts
+tailwind.config.ts
 
 # Documentation
-docs/
 README.md
-LICENSE
+CAMERA_ICON_FIX.md
 
-# Scripts that aren't needed for build
+# Scripts
 scripts/
 
-# Include important config files
-!.npmrc 
+# Logs
+*.log
+server.log
