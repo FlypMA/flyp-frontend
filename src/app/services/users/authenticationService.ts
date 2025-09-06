@@ -444,10 +444,6 @@ class AuthenticationService {
       // Continue with logout even if server request fails
     }
 
-    // 🔧 DEV BYPASS FIX: Set logout flag to override dev authentication
-    sessionStorage.setItem('user_logged_out', 'true');
-    console.log('🔧 Set logout override flag for dev bypass');
-
     // Clear cached credit data on logout
     try {
       console.log('🧹 Clearing cached data on logout...');
@@ -475,14 +471,6 @@ class AuthenticationService {
 
   async checkAuthentication(): Promise<AuthResult> {
     console.log('🔐 checkAuthentication: Starting authentication check');
-
-    // 🔓 LOGOUT OVERRIDE: Check if user explicitly logged out
-    const hasLoggedOut = sessionStorage.getItem('user_logged_out') === 'true';
-    if (hasLoggedOut) {
-      console.log('🔓 User explicitly logged out, returning unauthenticated');
-      sessionStorage.removeItem('user_logged_out');
-      return { isAuthenticated: false };
-    }
 
     // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
     const DEV_BYPASS_AUTH = import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';
@@ -676,12 +664,13 @@ class AuthenticationService {
   }
 
   getAuthenticatedUser(): string | null {
-    // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
+    // 🚨 DEMO MODE: Enable demo authentication for production showcase
+    const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
     const DEV_BYPASS_AUTH = import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';
 
-    if (DEV_BYPASS_AUTH && process.env.NODE_ENV === 'development') {
-      console.log('🚨 DEV MODE: getAuthenticatedUser bypassing for development');
-      return 'dev-mock-token';
+    if (DEMO_MODE || (DEV_BYPASS_AUTH && process.env.NODE_ENV === 'development')) {
+      console.log('🎭 DEMO MODE: Authentication bypassed for demonstration');
+      return 'demo-user-token-2024';
     }
 
     if (!this.cookies) return null;
