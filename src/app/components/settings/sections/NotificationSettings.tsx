@@ -219,7 +219,7 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
       {notificationCategories.map(category => {
         const CategoryIcon = category.icon;
         return (
-          <Card key={category.title} className="border border-gray-200">
+          <Card key={category.title} className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary-100 rounded-lg">
@@ -310,7 +310,7 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
       })}
 
       {/* Notification Preferences */}
-      <Card className="border border-gray-200">
+      <Card className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 bg-purple-100 rounded-lg">

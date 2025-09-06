@@ -106,31 +106,6 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
             className="w-32 h-32 text-3xl border-4 border-white shadow-lg"
             showFallback
           />
-          <button
-            onClick={() => document.getElementById('avatar-upload')?.click()}
-            aria-label="BetweenDeals logo"
-            title="BetweenDeals"
-            className="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-full border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="1.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="w-6 h-6 text-gray-400 hover:text-primary-500 transition-colors"
-            >
-              {/* Simple BetweenDeals logo - stylized "BD" with connecting element */}
-              <rect x="3" y="6" width="6" height="12" rx="2" fill="currentColor" opacity="0.8" />
-              <rect x="15" y="6" width="6" height="12" rx="2" fill="currentColor" opacity="0.8" />
-              <path d="M9 12h6" strokeWidth="2" />
-              <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-            </svg>
-          </button>
           <input
             id="avatar-upload"
             type="file"

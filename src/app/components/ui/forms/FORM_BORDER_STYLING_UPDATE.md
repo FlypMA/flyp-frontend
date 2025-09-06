@@ -209,3 +209,4 @@ $ yarn build
 7. ✅ `inputs/FormInput.tsx` - Updated border styling
 
 **All form components now have consistent, professional soft light grey borders for optimal visibility on white backgrounds! ✨**
+

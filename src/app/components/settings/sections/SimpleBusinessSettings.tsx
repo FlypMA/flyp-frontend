@@ -54,7 +54,7 @@ const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave 
       </div>
 
       {/* Business Information */}
-      <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+      <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <div className="space-y-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-6">Business Information</h2>
           
@@ -62,14 +62,14 @@ const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave 
             label="Company Name"
             placeholder="e.g., Premium Restaurant Brussels"
             value={businessData.companyName}
-            onChange={(e) => handleInputChange('companyName', e.target.value)}
+            onChange={(value) => handleInputChange('companyName', value)}
           />
 
           <CleanSelect
             label="Business Type"
             placeholder="Select your business type"
             value={businessData.businessType}
-            onChange={(e) => handleInputChange('businessType', e.target.value)}
+            onChange={(value) => handleInputChange('businessType', value)}
             options={businessTypes}
           />
 
@@ -77,8 +77,7 @@ const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave 
             label="Brief Description"
             placeholder="Tell potential buyers about your business..."
             value={businessData.description}
-            onChange={(e) => handleInputChange('description', e.target.value)}
-            showCount={true}
+            onChange={(value) => handleInputChange('description', value)}
             maxLength={200}
             rows={4}
             helpText="Keep it concise - focus on what makes your business unique"
@@ -107,3 +106,4 @@ const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave 
 };
 
 export default SimpleBusinessSettings;
+

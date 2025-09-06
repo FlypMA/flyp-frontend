@@ -123,3 +123,4 @@ const SimpleNotificationSettings: React.FC<SimpleNotificationSettingsProps> = ({
 };
 
 export default SimpleNotificationSettings;
+

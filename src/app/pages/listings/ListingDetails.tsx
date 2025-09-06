@@ -17,6 +17,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { InquiryModal } from '../../components/ma';
+import ImageGalleryModal from '../../components/modals/ImageGalleryModal';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -24,6 +25,8 @@ const ListingDetails = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [listing, setListing] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isImageGalleryOpen, setIsImageGalleryOpen] = useState(false);
+  const [initialImageIndex, setInitialImageIndex] = useState(0);
 
   useEffect(() => {
     loadListingDetails();
@@ -130,6 +133,11 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  const handleImageClick = (imageIndex: number) => {
+    setInitialImageIndex(imageIndex);
+    setIsImageGalleryOpen(true);
   };
 
   if (isLoading) {
@@ -266,6 +274,107 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
           </div>
         </div>
 
+        {/* Airbnb-Style Image Gallery Section */}
+        {(primaryImage || additionalImages.length > 0) && (
+          <div className="mb-8">
+            <div className="grid grid-cols-4 gap-2 h-[400px] md:h-[480px] rounded-xl overflow-hidden">
+              {/* Large primary image - takes up 2 columns */}
+              {primaryImage && (
+                <div 
+                  className="col-span-4 md:col-span-2 relative cursor-pointer group"
+                  onClick={() => handleImageClick(0)}
+                >
+                  <img
+                    src={primaryImage.storage_url}
+                    alt={primaryImage.alt_text || `${listing.title} main image`}
+                    className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-90"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+                </div>
+              )}
+
+              {/* Right side grid - smaller images */}
+              <div className="col-span-4 md:col-span-2 grid grid-cols-2 gap-2">
+                {additionalImages.slice(0, 4).map((image, index) => (
+                  <div
+                    key={image.id}
+                    className={`relative cursor-pointer group overflow-hidden ${
+                      index === 1 ? 'row-span-1' : ''
+                    }`}
+                    onClick={() => handleImageClick(index + 1)}
+                  >
+                    <img
+                      src={image.thumbnail_url || image.storage_url}
+                      alt={image.alt_text || `${listing.title} photo ${index + 1}`}
+                      className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-90"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+                    
+                    {/* Show all photos overlay on last image if there are more */}
+                    {index === 3 && additionalImages.length > 4 && (
+                      <div 
+                        className="absolute inset-0 bg-black/50 flex items-center justify-center transition-all duration-300 group-hover:bg-black/60"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleImageClick(0);
+                        }}
+                      >
+                        <div className="text-center text-white">
+                          <svg 
+                            className="w-8 h-8 mx-auto mb-2" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round" 
+                              strokeWidth={2} 
+                              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" 
+                            />
+                          </svg>
+                          <div className="text-sm font-semibold">
+                            +{additionalImages.length - 3} photos
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Fill empty slots if we have fewer than 4 additional images */}
+                {additionalImages.length < 4 && Array.from({ length: 4 - additionalImages.length }).map((_, index) => (
+                  <div
+                    key={`empty-${index}`}
+                    className="bg-gray-100 flex items-center justify-center"
+                  >
+                    <div className="text-gray-400">
+                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Show all photos button - mobile/tablet view */}
+            <div className="mt-4 md:hidden flex justify-center">
+              <button
+                onClick={() => handleImageClick(0)}
+                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <span className="text-sm font-medium">View all {(listing.images || []).length} photos</span>
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Mobile Price & Contact - Shown first on mobile */}
           <div className="lg:hidden order-1">
@@ -349,65 +458,6 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
               </CardBody>
             </Card>
 
-            {/* Image Gallery */}
-            {(primaryImage || additionalImages.length > 0) && (
-              <Card>
-                <CardHeader>
-                  <h2 className="text-xl font-semibold">Business Photos</h2>
-                </CardHeader>
-                <CardBody>
-                  <div className="space-y-4">
-                    {/* Primary Image */}
-                    {primaryImage && (
-                      <div className="relative overflow-hidden rounded-2xl aspect-[16/9]">
-                        <img
-                          src={primaryImage.storage_url}
-                          alt={primaryImage.alt_text || `${listing.title} main image`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="bg-white/90 backdrop-blur-sm text-slate-700 text-sm font-semibold px-3 py-1.5 rounded-full shadow-lg">
-                            Main Photo
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Additional Images Grid */}
-                    {additionalImages.length > 0 && (
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        {additionalImages.slice(0, 6).map((image, index) => (
-                          <div key={image.id} className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer hover:scale-105 transition-transform duration-300">
-                            <img
-                              src={image.thumbnail_url || image.storage_url}
-                              alt={image.alt_text || `${listing.title} photo ${index + 1}`}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg">
-                                  <Eye className="w-5 h-5 text-slate-700" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                        {additionalImages.length > 6 && (
-                          <div className="flex items-center justify-center bg-gray-50 rounded-xl aspect-[4/3] border-2 border-dashed border-gray-300">
-                            <div className="text-center">
-                              <span className="text-gray-500 font-medium">+{additionalImages.length - 6}</span>
-                              <p className="text-xs text-gray-400 mt-1">More photos</p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
-            )}
 
             {/* Description */}
             <Card>
@@ -604,6 +654,14 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
             </Card>
           </div>
         </div>
+
+        {/* Image Gallery Modal */}
+        <ImageGalleryModal
+          isOpen={isImageGalleryOpen}
+          onClose={() => setIsImageGalleryOpen(false)}
+          images={listing.images || []}
+          initialImageIndex={initialImageIndex}
+        />
 
         {/* Inquiry Modal */}
         <InquiryModal

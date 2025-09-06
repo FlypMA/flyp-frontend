@@ -54,13 +54,13 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
   return (
     <div className="relative">
       <div
-        className={`custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm  ${className}`}
+        className={`custom-input-group flex flex-col items-center border-2 border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-blue-500 focus-within:shadow-md transition-all duration-200  ${className}`}
       >
         <input
           ref={inputRef}
           type={type}
-          placeholder={placeholder}
-          className={`w-full h-16 px-4 text-gray-900 pb-0 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-blue-500 custom-input ${hasContent || isFocused ? 'bg-filled text-md pt-4 pl-4' : 'bg-transparent text-md pt-3 pl-4'} ${inputErrorClass}`}
+          placeholder=""
+          className={`w-full h-16 px-4 text-black pb-2 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl custom-input ${hasContent || isFocused ? 'pt-6' : 'pt-4'} ${inputErrorClass} placeholder:text-gray-400`}
           aria-label={label}
           value={input?.value || ''}
           onChange={handleInputChange}
@@ -69,7 +69,7 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
           name={input?.name || ''}
         />
         <label
-          className={`absolute top-7 left-4 text-zinc-400 text-md transition-all duration-500 pointer-events-none custom-label ${hasContent || isFocused ? 'text-xs -translate-y-.5' : '-translate-y-1.5'}`}
+          className={`absolute left-4 ${hasContent || isFocused ? 'text-blue-600 text-xs top-2' : 'text-gray-500 top-5 text-sm'} transition-all duration-300 pointer-events-none custom-label`}
         >
           {label}
         </label>

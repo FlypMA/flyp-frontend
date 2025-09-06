@@ -137,7 +137,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
       </div>
 
       {/* Password Section */}
-      <Card className="border border-gray-200">
+      <Card className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <CardHeader>
           <div className="flex items-center justify-between w-full">
             <h3 className="text-xl font-semibold text-gray-900">Password</h3>
@@ -235,7 +235,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
       </Card>
 
       {/* Two-Factor Authentication */}
-      <Card className="border border-gray-200">
+      <Card className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <CardHeader>
           <div className="flex items-center justify-between w-full">
             <h3 className="text-xl font-semibold text-gray-900">Two-Factor Authentication</h3>
@@ -290,7 +290,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
       </Card>
 
       {/* Security Preferences */}
-      <Card className="border border-gray-200">
+      <Card className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <CardHeader>
           <h3 className="text-xl font-semibold text-gray-900">Security Preferences</h3>
         </CardHeader>
@@ -339,7 +339,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
       </Card>
 
       {/* Active Sessions */}
-      <Card className="border border-gray-200">
+      <Card className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
         <CardHeader>
           <h3 className="text-xl font-semibold text-gray-900">Active Sessions</h3>
         </CardHeader>

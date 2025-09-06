@@ -4374,6 +4374,16 @@ form {
   color: #ef4444 !important;
 }
 
+/* Enhanced label styling for login modal */
+[data-page="login"] .custom-label {
+  font-weight: 500 !important;
+}
+
+/* Enhanced input placeholder styling for login modal */
+[data-page="login"] .custom-input::placeholder {
+  color: #9ca3af !important;
+}
+
 /* Input validation styling */
 [data-page="login"] .error-ring {
   border-color: #ef4444 !important;
@@ -4387,6 +4397,96 @@ form {
 
 [data-page="login"] .custom-input-group button:hover {
   color: #374151 !important;
+}
+
+/* Comprehensive form styling for login modal - higher specificity */
+[data-page="login"] .custom-input-group.flex {
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+[data-page="login"] .custom-input-group.flex:hover {
+  border-color: #9ca3af !important;
+}
+
+[data-page="login"] .custom-input-group.flex:focus-within {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+}
+
+/* Input text styling with higher specificity */
+[data-page="login"] input.custom-input {
+  color: #000000 !important;
+  caret-color: #3b82f6 !important;
+}
+
+[data-page="login"] input.custom-input::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* Label positioning and styling with absolute specificity */
+[data-page="login"] label.custom-label.absolute {
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+/* Force label colors and positions */
+[data-page="login"] label.custom-label.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+[data-page="login"] label.custom-label.text-blue-600 {
+  color: #3b82f6 !important;
+}
+
+/* Override any conflicting Tailwind classes - Maximum specificity */
+[data-page="login"] .custom-input-group .custom-label {
+  color: #6b7280 !important;
+}
+
+[data-page="login"] .custom-input:focus ~ .custom-label,
+[data-page="login"] .custom-input:not(:placeholder-shown) ~ .custom-label {
+  color: #3b82f6 !important;
+}
+
+/* Force override component's inline classes with maximum specificity */
+[data-page="login"] label.custom-label.text-gray-500.top-5.text-sm {
+  color: #6b7280 !important;
+  font-size: 0.875rem !important;
+  top: 1.25rem !important;
+}
+
+[data-page="login"] label.custom-label.text-blue-600.text-xs.top-2 {
+  color: #3b82f6 !important;
+  font-size: 0.75rem !important;
+  top: 0.5rem !important;
+}
+
+/* Additional override for any remaining conflicts */
+[data-page="login"] label.absolute.left-4.custom-label {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: 500 !important;
+}
+
+/* Input field overrides - Updated for white background compatibility */
+[data-page="login"] input.custom-input.text-black {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+
+/* Force browser cache refresh - Updated styles */
+
+/* Error state overrides */
+[data-page="login"] .custom-input-group.error-ring,
+[data-page="login"] .error-ring.custom-input-group {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1) !important;
 }
 
 /* Login button styling */
@@ -4452,6 +4552,16 @@ form {
   color: #ef4444 !important;
 }
 
+/* Enhanced label styling for signup modal */
+[data-page="signup"] .custom-label {
+  font-weight: 500 !important;
+}
+
+/* Enhanced input placeholder styling for signup modal */
+[data-page="signup"] .custom-input::placeholder {
+  color: #9ca3af !important;
+}
+
 /* Input validation styling */
 [data-page="signup"] .error-ring {
   border-color: #ef4444 !important;
@@ -4465,6 +4575,96 @@ form {
 
 [data-page="signup"] .custom-input-group button:hover {
   color: #374151 !important;
+}
+
+/* Comprehensive form styling for signup modal - higher specificity */
+[data-page="signup"] .custom-input-group.flex {
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+[data-page="signup"] .custom-input-group.flex:hover {
+  border-color: #9ca3af !important;
+}
+
+[data-page="signup"] .custom-input-group.flex:focus-within {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+}
+
+/* Input text styling with higher specificity */
+[data-page="signup"] input.custom-input {
+  color: #000000 !important;
+  caret-color: #3b82f6 !important;
+}
+
+[data-page="signup"] input.custom-input::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* Label positioning and styling with absolute specificity */
+[data-page="signup"] label.custom-label.absolute {
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+/* Force label colors and positions */
+[data-page="signup"] label.custom-label.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+[data-page="signup"] label.custom-label.text-blue-600 {
+  color: #3b82f6 !important;
+}
+
+/* Override any conflicting Tailwind classes - Maximum specificity */
+[data-page="signup"] .custom-input-group .custom-label {
+  color: #6b7280 !important;
+}
+
+[data-page="signup"] .custom-input:focus ~ .custom-label,
+[data-page="signup"] .custom-input:not(:placeholder-shown) ~ .custom-label {
+  color: #3b82f6 !important;
+}
+
+/* Force override component's inline classes with maximum specificity */
+[data-page="signup"] label.custom-label.text-gray-500.top-5.text-sm {
+  color: #6b7280 !important;
+  font-size: 0.875rem !important;
+  top: 1.25rem !important;
+}
+
+[data-page="signup"] label.custom-label.text-blue-600.text-xs.top-2 {
+  color: #3b82f6 !important;
+  font-size: 0.75rem !important;
+  top: 0.5rem !important;
+}
+
+/* Additional override for any remaining conflicts */
+[data-page="signup"] label.absolute.left-4.custom-label {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: 500 !important;
+}
+
+/* Input field overrides - Updated for white background compatibility */
+[data-page="signup"] input.custom-input.text-black {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+
+/* Force browser cache refresh - Updated styles */
+
+/* Error state overrides */
+[data-page="signup"] .custom-input-group.error-ring,
+[data-page="signup"] .error-ring.custom-input-group {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1) !important;
 }
 
 /* Signup button styling */

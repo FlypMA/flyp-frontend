@@ -217,3 +217,4 @@ const BusinessTypeSelector: React.FC<BusinessTypeSelectorProps> = ({
 };
 
 export default BusinessTypeSelector;
+

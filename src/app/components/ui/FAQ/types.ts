@@ -43,3 +43,4 @@ export interface FAQCategoryProps {
   allowMultiple?: boolean;
   className?: string;
 }
+

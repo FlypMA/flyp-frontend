@@ -17,7 +17,7 @@ import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
 import Contact from './pages/support/contact';
 import Messages from './pages/messages/Messages';
-// import Help from './pages/help/Help';
+import Help from './pages/help/Help';
 
 import SellersLandingPage from './pages/landingPages/sellers/sellers';
 
@@ -79,7 +79,7 @@ const routes = [
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
 
       { path: UrlGeneratorService.contact(), element: <Contact /> },
-      // { path: UrlGeneratorService.help(), element: <Help /> },
+      { path: UrlGeneratorService.help(), element: <Help /> },
 
       { path: 'for-sellers', element: <SellersLandingPage /> },
       { path: 'about', element: <About /> },

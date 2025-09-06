@@ -114,3 +114,4 @@ import { Camera } from 'lucide-react';
 The avatar upload functionality now has a properly visible camera icon that maintains the beautiful Airbnb-inspired design while being fully functional and accessible.
 
 **Status**: ✅ Fixed and tested - Ready for production
+

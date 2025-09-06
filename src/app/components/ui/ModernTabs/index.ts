@@ -20,3 +20,4 @@ export type {
 // Convenience re-exports for common usage patterns
 export { ModernTabs as Tabs } from './ModernTabs';
 export { ModernTabContent as TabContent } from './ModernTabs';
+

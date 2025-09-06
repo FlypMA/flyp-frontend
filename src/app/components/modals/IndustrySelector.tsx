@@ -305,3 +305,4 @@ const IndustrySelector: React.FC<IndustrySelectorProps> = ({
 };
 
 export default IndustrySelector;
+

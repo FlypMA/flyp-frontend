@@ -57,16 +57,16 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
 
   return (
     <div className={`relative mt-6 ${className}`}>
-      <div className="custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+      <div className="custom-input-group flex flex-col items-center border-2 border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-blue-500 focus-within:shadow-md transition-all duration-200">
         <input
           ref={inputRef}
           type={showPassword ? 'text' : 'password'}
-          placeholder={placeholder}
-          className={`w-full h-16 px-4 text-gray-900 pb-0 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-blue-500 custom-input ${
+          placeholder=""
+          className={`w-full h-16 px-4 text-black pb-2 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl custom-input ${
             hasContent || isFocused
-              ? 'bg-filled text-md pt-4 pl-4'
-              : 'bg-transparent text-md pt-3 pl-4'
-          } ${inputErrorClass}`}
+              ? 'pt-6'
+              : 'pt-4'
+          } ${inputErrorClass} placeholder:text-gray-400`}
           style={{ paddingRight: '3rem' }}
           aria-label={label}
           value={input?.value || ''}
@@ -76,16 +76,14 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
           name={input?.name || ''}
         />
         <label
-          className={`absolute top-7 left-4 text-zinc-400 text-md transition-all duration-500 pointer-events-none custom-label ${
-            hasContent || isFocused ? 'text-xs -translate-y-.5' : '-translate-y-1.5'
-          }`}
+          className={`absolute left-4 ${hasContent || isFocused ? 'text-blue-600 text-xs top-2' : 'text-gray-500 top-5 text-sm'} transition-all duration-300 pointer-events-none custom-label`}
         >
           {label}
         </label>
         <button
           type="button"
           onClick={togglePasswordVisibility}
-          className="absolute top-7 right-4 text-zinc-400 hover:text-zinc-300 -translate-y-1.5"
+          className="absolute top-1/2 right-4 text-gray-500 hover:text-gray-700 -translate-y-1/2 transition-colors duration-200"
         >
           {showPassword ? (
             <AiOutlineEyeInvisible className="w-5 h-5" />

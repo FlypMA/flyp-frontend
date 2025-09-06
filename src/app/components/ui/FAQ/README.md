@@ -181,3 +181,4 @@ A professional, maintainable, and accessible FAQ system that:
 - Maintains full accessibility compliance
 - Integrates seamlessly with the BetweenDeals design system
 - Reduces technical debt and maintenance overhead
+

@@ -19,3 +19,4 @@ export type {
 
 // Default export for convenience
 export { FAQAccordion as default } from './FAQAccordion';
+

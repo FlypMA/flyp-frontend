@@ -689,14 +689,8 @@ const ListingSearch = () => {
                     ...(listing.anonymous ? ['Confidential'] : []),
                   ] : undefined,
                   business_age: listing.years_in_business,
-                  revenue_range: listing.revenue_range ? { 
-                    min: undefined, 
-                    max: undefined 
-                  } : undefined,
-                  ebitda_range: listing.ebitda_range ? {
-                    min: undefined,
-                    max: undefined
-                  } : undefined,
+                  revenue_range: listing.revenue_range,
+                  ebitda_range: listing.ebitda_range,
                 };
 
                 return (

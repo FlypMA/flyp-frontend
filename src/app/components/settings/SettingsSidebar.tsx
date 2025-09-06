@@ -88,9 +88,6 @@ const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
       {/* Header */}
       <div className="p-6 border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
-            <SettingsIcon className="w-5 h-5 text-white" />
-          </div>
           <div>
             <h2 className="text-xl font-bold text-gray-900">Settings</h2>
             <p className="text-sm text-gray-500">Manage your account and preferences</p>

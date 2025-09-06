@@ -186,3 +186,4 @@ const RevenueRangeSlider: React.FC<RevenueRangeSliderProps> = ({
 };
 
 export default RevenueRangeSlider;
+

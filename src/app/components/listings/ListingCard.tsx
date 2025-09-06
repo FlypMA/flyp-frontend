@@ -339,7 +339,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
   // Card view (default)
   return (
     <>
-      <Card className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 h-full transform hover:-translate-y-2">
+      <Card 
+        className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 h-full transform hover:-translate-y-2 cursor-pointer"
+        isPressable
+        onPress={handleViewDetails}
+      >
         <CardBody className="p-0">
           {/* Product Image */}
           <div className="relative overflow-hidden rounded-t-3xl aspect-[16/10] mb-6">
@@ -360,7 +364,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   size="sm"
                   variant="flat"
                   className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
-                  onPress={handleSave}
+                  onPress={(e) => {
+                    e?.stopPropagation?.();
+                    handleSave();
+                  }}
                   isLoading={isProcessing}
                 >
                   <Heart className={`w-4 h-4 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
@@ -446,7 +453,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     </p>
                     {listing.revenue_range && (
                       <p className="text-sm text-slate-600 mt-1">
-                        Revenue: {listing.revenue_range}
+                        Revenue: {typeof listing.revenue_range === 'string' ? listing.revenue_range : formatRange(listing.revenue_range, listing.currency)}
                       </p>
                     )}
                   </div>
