@@ -19,6 +19,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // Explicit aliases for Vercel compatibility
       '@': path.resolve(__dirname, './src'),
       '@app': path.resolve(__dirname, './src/app'),
       '@components': path.resolve(__dirname, './src/app/components'),
@@ -46,6 +47,9 @@ export default defineConfig({
     outDir: 'build',
     sourcemap: false,
     target: 'es2020',
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
     rollupOptions: {
       output: {
         manualChunks: {
