@@ -43,15 +43,23 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@supabase/supabase-js', '@heroui/react', '@heroui/theme', 'react-icons'],
   },
+  css: {
+    postcss: './postcss.config.js',
+  },
   build: {
     outDir: 'build',
     sourcemap: false,
     target: 'es2020',
+    assetsDir: 'assets',
+    cssCodeSplit: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     rollupOptions: {
       output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['@heroui/react', '@heroui/theme', 'framer-motion'],
