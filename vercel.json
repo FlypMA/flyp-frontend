@@ -5,16 +5,6 @@
   "outputDirectory": "build",
   "installCommand": "npm install",
   "devCommand": "npm run dev",
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
