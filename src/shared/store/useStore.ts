@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { User, AppState } from '@/types';
+import { User, AppState } from '../../types';
 
 const useStore = create<AppState>()(
   devtools(

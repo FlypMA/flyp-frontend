@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import Heading1 from '@/app/components/main_UI/fonts/heading1';
-import { authService } from '@/app/services/users/authenticationService';
-import UrlGeneratorService from '@/app/services/urlMapping/urlGeneratorService';
+import Heading1 from '../../../../components/main_UI/fonts/heading1';
+import { authService } from '../../../../services/users/authenticationService';
+import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { Button } from '@heroui/react';
 
 const SignUpComplete: React.FC = () => {
