@@ -23,25 +23,15 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
     icon: Search,
     title: 'I want to buy a business',
     description: 'Explore opportunities and find the perfect business to acquire',
-    features: ['Browse verified listings', 'Connect with sellers', 'Get market insights', 'Due diligence support'],
-    color: 'blue',
-    bgGradient: 'from-blue-50 to-blue-100',
-    iconColor: 'text-blue-600',
-    borderColor: 'border-blue-200',
-    hoverColor: 'hover:border-blue-400'
+    features: ['Browse verified listings', 'Connect with sellers', 'Get market insights', 'Due diligence support']
   };
 
   const sellerCard = {
     intent: 'seller' as UserIntent,
     icon: Building2,
-    title: 'I want to sell my business',
+    title: 'I want to sell my business', 
     description: 'Get your business in front of qualified buyers and maximize value',
-    features: ['Professional listings', 'Buyer matching', 'Valuation tools', 'Transaction support'],
-    color: 'green',
-    bgGradient: 'from-green-50 to-green-100',
-    iconColor: 'text-green-600',
-    borderColor: 'border-green-200',
-    hoverColor: 'hover:border-green-400'
+    features: ['Professional listings', 'Buyer matching', 'Valuation tools', 'Transaction support']
   };
 
   const cards = [buyerCard, sellerCard];
@@ -52,15 +42,15 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
     : cards;
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={`space-y-8 ${className}`}>
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold text-gray-900">Choose your path</h2>
-        <p className="text-gray-600">
+      <div className="text-center space-y-3">
+        <h2 className="text-2xl font-semibold text-gray-900">Choose your path</h2>
+        <p className="text-gray-600 text-sm max-w-md mx-auto">
           {isHighConfidence && detectedIntent !== 'neutral' ? (
             <span>
               We detected you might be interested in{' '}
-              <span className="font-semibold">
+              <span className="font-medium text-black">
                 {detectedIntent === 'buyer' ? 'buying' : 'selling'}
               </span>{' '}
               a business. Is this correct?
@@ -72,40 +62,35 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
       </div>
 
       {/* Role Cards */}
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-6">
         {sortedCards.map((card) => {
           const Icon = card.icon;
           const isRecommended = isHighConfidence && card.intent === detectedIntent;
           
           return (
-            <Card
+            <div
               key={card.intent}
-              isPressable
-              onPress={() => onSelect(card.intent)}
+              onClick={() => onSelect(card.intent)}
               className={`
-                relative p-2 transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]
-                ${card.borderColor} ${card.hoverColor} border-2
-                ${isRecommended ? 'ring-2 ring-offset-2 ring-blue-400 shadow-lg' : 'hover:shadow-lg'}
-                bg-gradient-to-br ${card.bgGradient} hover:to-white
+                relative p-6 bg-white border border-gray-200 rounded-xl cursor-pointer
+                transition-all duration-200 hover:shadow-sm hover:border-gray-300
+                ${isRecommended ? 'ring-2 ring-gray-900 ring-offset-1 shadow-sm' : ''}
               `}
             >
               {isRecommended && (
-                <Badge
-                  color="primary"
-                  className="absolute -top-2 -right-2 z-10 bg-blue-500 text-white text-xs font-semibold"
-                >
+                <div className="absolute -top-2 -right-2 bg-gray-900 text-white text-xs font-medium px-2.5 py-1 rounded-full">
                   Recommended
-                </Badge>
+                </div>
               )}
               
-              <CardBody className="p-6 space-y-4">
+              <div className="space-y-6">
                 {/* Icon and Title */}
                 <div className="text-center space-y-4">
-                  <div className={`inline-flex p-4 rounded-full bg-white shadow-sm ${card.iconColor}`}>
-                    <Icon className="w-8 h-8" />
+                  <div className="inline-flex p-4 rounded-xl bg-gray-50 text-gray-700">
+                    <Icon className="w-7 h-7" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {card.title}
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
@@ -116,11 +101,11 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
 
                 {/* Features */}
                 <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-gray-800">What you'll get:</h4>
+                  <h4 className="text-sm font-medium text-black">What you'll get:</h4>
                   <ul className="space-y-2">
                     {card.features.map((feature, index) => (
                       <li key={index} className="flex items-center text-sm text-gray-700">
-                        <div className={`w-1.5 h-1.5 rounded-full ${card.iconColor.replace('text-', 'bg-')} mr-3 flex-shrink-0`} />
+                        <div className="w-1.5 h-1.5 rounded-full bg-gray-400 mr-3 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -128,22 +113,19 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
                 </div>
 
                 {/* CTA */}
-                <Button
-                  className={`
-                    w-full font-semibold transition-all duration-200 
-                    ${card.color === 'blue' 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                      : 'bg-green-600 hover:bg-green-700 text-white'
-                    }
-                    ${isRecommended ? 'shadow-md hover:shadow-lg' : ''}
-                  `}
-                  size="lg"
+                <button
+                  className="
+                    w-full py-2.5 px-4 bg-gray-900 text-white font-medium rounded-lg 
+                    hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center
+                    text-sm
+                  "
+                  type="button"
                 >
-                  {card.intent === 'buyer' ? 'Start Buying' : 'Start Selling'}
+                  {card.intent === 'buyer' ? 'Continue as Buyer' : 'Continue as Seller'}
                   {isRecommended && <Target className="w-4 h-4 ml-2" />}
-                </Button>
-              </CardBody>
-            </Card>
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
@@ -151,22 +133,21 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
       {/* Alternative Options */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
-          <div className="h-px bg-gray-300 flex-1" />
-          <span className="text-sm text-gray-500 px-3">or</span>
-          <div className="h-px bg-gray-300 flex-1" />
+          <div className="h-px bg-gray-200 flex-1" />
+          <span className="text-sm text-gray-500 px-4">or</span>
+          <div className="h-px bg-gray-200 flex-1" />
         </div>
         
-        <div className="space-y-2">
-          <p className="text-sm text-gray-600">
+        <div className="space-y-3">
+          <p className="text-gray-600 text-sm">
             Not sure yet or interested in both?
           </p>
-          <Button
-            variant="ghost"
-            className="text-gray-600 hover:text-gray-800 font-medium"
-            onPress={() => onSelect('neutral')}
+          <button
+            onClick={() => onSelect('neutral')}
+            className="text-gray-600 hover:text-gray-900 font-medium hover:underline focus:outline-none focus:underline text-sm"
           >
             I'll decide later
-          </Button>
+          </button>
         </div>
       </div>
 

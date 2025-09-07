@@ -97,7 +97,7 @@ const AnimatedInput = forwardRef<HTMLInputElement, AnimatedInputProps>((props, r
               transition-[transform,color,left,opacity] pe-2 max-w-full text-ellipsis overflow-hidden
               ${
                 hasContent || isFocused
-                  ? 'text-default-600 pointer-events-auto scale-85 text-small -translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px_-_theme(borderWidth.medium))]'
+                  ? 'text-default-600 pointer-events-auto scale-85 text-xs -translate-y-6 top-2'
                   : 'text-foreground-500 text-small top-1/2 -translate-y-1/2'
               }
               ${required ? "after:content-['*'] after:text-danger after:ms-0.5" : ''}

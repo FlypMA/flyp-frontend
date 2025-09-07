@@ -53,21 +53,23 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
     setHasContent(!!(input?.value || ''));
   }, [input?.value]);
 
-  const inputErrorClass = meta?.error && meta?.touched ? 'error-ring' : '';
+  const hasError = meta?.error && meta?.touched;
 
   return (
-    <div className={`relative mt-6 ${className}`}>
-      <div className="custom-input-group flex flex-col items-center border-2 border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-blue-500 focus-within:shadow-md transition-all duration-200">
+    <div className={`mb-6 ${className}`}>
+      <div className="relative">
         <input
           ref={inputRef}
           type={showPassword ? 'text' : 'password'}
-          placeholder=""
-          className={`w-full h-16 px-4 text-black pb-2 text-md bg-transparent focus:outline-none focus-visible:outline-none border-none rounded-xl custom-input ${
-            hasContent || isFocused
-              ? 'pt-6'
-              : 'pt-4'
-          } ${inputErrorClass} placeholder:text-gray-400`}
-          style={{ paddingRight: '3rem' }}
+          placeholder={placeholder}
+          className={`
+            w-full h-14 px-4 pt-6 pb-2 pr-12 text-base text-black bg-white 
+            border border-gray-300 rounded-xl transition-all duration-200 
+            focus:outline-none focus:border-gray-900 focus:ring-0
+            hover:border-gray-500
+            ${hasError ? 'border-red-400 focus:border-red-500' : ''}
+            placeholder:text-transparent
+          `}
           aria-label={label}
           value={input?.value || ''}
           onChange={handleInputChange}
@@ -76,14 +78,21 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
           name={input?.name || ''}
         />
         <label
-          className={`absolute left-4 ${hasContent || isFocused ? 'text-blue-600 text-xs top-2' : 'text-gray-500 top-5 text-sm'} transition-all duration-300 pointer-events-none custom-label`}
+          className={`
+            absolute left-4 transition-all duration-200 pointer-events-none font-medium
+            ${hasContent || isFocused || input?.value 
+              ? 'top-2 text-xs text-gray-700' 
+              : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
+            }
+            ${hasError ? 'text-red-600' : ''}
+          `}
         >
           {label}
         </label>
         <button
           type="button"
           onClick={togglePasswordVisibility}
-          className="absolute top-1/2 right-4 text-gray-500 hover:text-gray-700 -translate-y-1/2 transition-colors duration-200"
+          className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-900 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-50"
         >
           {showPassword ? (
             <AiOutlineEyeInvisible className="w-5 h-5" />
@@ -92,8 +101,10 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
           )}
         </button>
       </div>
-      {meta?.error && meta?.touched && (
-        <span className="text-xs text-zinc-500 mt-2">{meta.error}</span>
+      {hasError && (
+        <span className="block text-sm text-red-600 mt-2 font-medium">
+          {meta.error}
+        </span>
       )}
     </div>
   );
