@@ -1,7 +1,7 @@
 import React from 'react';
-import Container from '../../../components/main_UI/containers/container_default.tsx';
-import Heading1 from '../../../components/main_UI/fonts/heading1.tsx';
-import Heading2 from '../../../components/main_UI/fonts/heading2.tsx';
+import Container from '../../../components/main_UI/containers/container_default';
+import Heading1 from '../../../components/main_UI/fonts/heading1';
+import Heading2 from '../../../components/main_UI/fonts/heading2';
 import { SEOHead } from '../../../components/SEO';
 import { getSEOData } from '../../../constants/seoData';
 
