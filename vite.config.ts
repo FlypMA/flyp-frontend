@@ -18,10 +18,6 @@ export default defineConfig(({ mode }) => {
       }),
       tsconfigPaths(), // This plugin reads tsconfig.json paths and applies them to Vite
     ],
-    define: {
-      // Ensure global React is available for dependencies
-      global: 'globalThis',
-    },
     server: {
       port: 3000,
       host: true, // Needed for proper WebSocket connection
@@ -49,9 +45,6 @@ export default defineConfig(({ mode }) => {
         '@config': path.resolve(__dirname, './src/config'),
       },
       extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
-    },
-    define: {
-      global: 'globalThis',
     },
     optimizeDeps: {
       include: [
