@@ -18,7 +18,7 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
-      <div className="text-center space-y-2">
+      <div className="text-left space-y-2">
         <h2 className="text-xl font-semibold text-gray-900">Choose your path</h2>
         <p className="text-gray-500 text-sm">What best describes your interest?</p>
       </div>
@@ -63,7 +63,7 @@ const RoleSelectionCards: React.FC<RoleSelectionCardsProps> = ({
       </div>
 
       {/* Skip Option */}
-      <div className="text-center pt-2">
+      <div className="text-left pt-2">
         <button
           onClick={() => onSelect('neutral')}
           className="text-gray-500 hover:text-gray-700 text-sm font-medium hover:underline focus:outline-none focus:underline"
