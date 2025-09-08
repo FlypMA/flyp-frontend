@@ -258,25 +258,25 @@ const SignupModal: React.FC = () => {
               validate={validate}
               render={({
                 handleSubmit,
-                submitting,
-                pristine,
-                values,
-                errors,
+                submitting: _submitting,
+                pristine: _pristine,
+                values: _values,
+                errors: _errors,
               }: FormRenderProps<SignupFormValues>) => {
                 return (
                   <form data-page="signup" onSubmit={handleSubmit} className="h-full">
                     <div className="grid md:grid-cols-2 min-h-screen">
                       {/* Left Side - Role Selection or Form */}
                       <div className="p-8 flex bg-white">
-                        <div className="max-w-md w-full">
+                        <div className="max-w-md w-full mx-auto">
                           {showRoleSelection ? (
                             /* Role Selection Mode */
                             <>
-                              <div className="mb-8">
-                                <h1 className="text-2xl font-semibold text-slate-900 text-left">
+                              <div className="mb-8 text-center">
+                                <h1 className="text-2xl font-semibold text-slate-900">
                                   Join BetweenDeals
                                 </h1>
-                                <p className="text-base text-slate-600 mt-2 text-left">
+                                <p className="text-base text-slate-600 mt-2">
                                   Already have an account?{' '}
                                   <button
                                     type="button"
@@ -294,7 +294,7 @@ const SignupModal: React.FC = () => {
                               </div>
                               <RoleSelectionCards
                                 onSelect={handleRoleSelect}
-                                className="max-w-sm"
+                                className="max-w-sm mx-auto"
                               />
                             </>
                           ) : (

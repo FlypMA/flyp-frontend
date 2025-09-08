@@ -10,7 +10,12 @@ export interface ContextInfo {
   confidence: 'high' | 'medium' | 'low';
   primaryCTA: {
     text: string;
-    action: 'signup-buyer' | 'signup-seller' | 'signup-neutral' | 'business-valuation' | 'business-listing';
+    action:
+      | 'signup-buyer'
+      | 'signup-seller'
+      | 'signup-neutral'
+      | 'business-valuation'
+      | 'business-listing';
     className: string;
   };
   secondaryCTA: {
@@ -26,26 +31,29 @@ export interface ContextInfo {
  */
 export const detectIntentFromPath = (pathname: string): UserIntent => {
   // High confidence seller intent
-  if (pathname.includes('/for-sellers') || 
-      pathname.includes('/sell') ||
-      pathname.includes('/list-business') ||
-      pathname.includes('/seller') ||
-      pathname.includes('/valuation')) {
+  if (
+    pathname.includes('/for-sellers') ||
+    pathname.includes('/sell') ||
+    pathname.includes('/list-business') ||
+    pathname.includes('/seller') ||
+    pathname.includes('/valuation')
+  ) {
     return 'seller';
   }
 
-  // High confidence buyer intent  
-  if (pathname.includes('/search') ||
-      pathname.includes('/buy') ||
-      pathname.includes('/for-buyers') ||
-      pathname.includes('/listings') ||
-      pathname.includes('/discover')) {
+  // High confidence buyer intent
+  if (
+    pathname.includes('/search') ||
+    pathname.includes('/buy') ||
+    pathname.includes('/for-buyers') ||
+    pathname.includes('/listings') ||
+    pathname.includes('/discover')
+  ) {
     return 'buyer';
   }
 
   // Medium confidence seller intent
-  if (pathname.includes('/business') ||
-      pathname.includes('/opportunities')) {
+  if (pathname.includes('/business') || pathname.includes('/opportunities')) {
     return 'seller';
   }
 
@@ -60,19 +68,23 @@ export const detectIntentFromReferrer = (referrer?: string): UserIntent => {
   if (!referrer) return 'neutral';
 
   const referrerLower = referrer.toLowerCase();
-  
+
   // Business sale related referrers
-  if (referrerLower.includes('business-sale') ||
-      referrerLower.includes('sell-business') ||
-      referrerLower.includes('business-broker') ||
-      referrerLower.includes('company-sale')) {
+  if (
+    referrerLower.includes('business-sale') ||
+    referrerLower.includes('sell-business') ||
+    referrerLower.includes('business-broker') ||
+    referrerLower.includes('company-sale')
+  ) {
     return 'seller';
   }
 
   // Business acquisition related referrers
-  if (referrerLower.includes('buy-business') ||
-      referrerLower.includes('business-acquisition') ||
-      referrerLower.includes('company-acquisition')) {
+  if (
+    referrerLower.includes('buy-business') ||
+    referrerLower.includes('business-acquisition') ||
+    referrerLower.includes('company-acquisition')
+  ) {
     return 'buyer';
   }
 
@@ -83,17 +95,17 @@ export const detectIntentFromReferrer = (referrer?: string): UserIntent => {
  * Main context detection function
  */
 export const detectUserContext = (
-  pathname: string, 
+  pathname: string,
   referrer?: string,
   searchParams?: URLSearchParams
 ): ContextInfo => {
   const pathIntent = detectIntentFromPath(pathname);
   const referrerIntent = detectIntentFromReferrer(referrer);
-  
+
   // Check URL parameters for explicit intent
   const urlIntent = searchParams?.get('intent') as UserIntent | null;
   const utmCampaign = searchParams?.get('utm_campaign')?.toLowerCase();
-  
+
   let finalIntent: UserIntent = pathIntent;
   let confidence: 'high' | 'medium' | 'low' = 'medium';
 
@@ -111,17 +123,15 @@ export const detectUserContext = (
   else if (utmCampaign?.includes('seller') || utmCampaign?.includes('sell')) {
     finalIntent = 'seller';
     confidence = 'medium';
-  }
-  else if (utmCampaign?.includes('buyer') || utmCampaign?.includes('buy')) {
-    finalIntent = 'buyer';  
+  } else if (utmCampaign?.includes('buyer') || utmCampaign?.includes('buy')) {
+    finalIntent = 'buyer';
     confidence = 'medium';
   }
   // Referrer-based detection
   else if (referrerIntent !== 'neutral') {
     finalIntent = referrerIntent;
     confidence = 'medium';
-  }
-  else {
+  } else {
     confidence = 'low';
   }
 
@@ -129,7 +139,7 @@ export const detectUserContext = (
     intent: finalIntent,
     confidence,
     ...generateCTAs(finalIntent, pathname),
-    pageContext: pathname
+    pageContext: pathname,
   };
 };
 
@@ -138,50 +148,60 @@ export const detectUserContext = (
  */
 const generateCTAs = (intent: UserIntent, pathname: string) => {
   switch (intent) {
-    case 'seller':
+    case 'seller': {
       // Prioritize valuation hook for seller pages
       const isValuationPage = pathname.includes('/valuation');
       const isSellerLandingPage = pathname.includes('/for-sellers');
-      
+
       return {
         primaryCTA: {
           text: isValuationPage ? 'Get Free Valuation' : 'List Your Business',
-          action: (isValuationPage || isSellerLandingPage) ? 'business-valuation' : 'business-listing' as const,
-          className: 'bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200'
+          action:
+            isValuationPage || isSellerLandingPage
+              ? 'business-valuation'
+              : ('business-listing' as const),
+          className:
+            'bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200',
         },
         secondaryCTA: {
-          text: 'Browse Businesses',
-          action: 'explore-alternative' as const,
-          className: 'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100'
-        }
+          text: 'Log in',
+          action: 'login' as const,
+          className:
+            'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100',
+        },
       };
+    }
 
     case 'buyer':
       return {
         primaryCTA: {
           text: 'Find Businesses',
           action: 'signup-buyer' as const,
-          className: 'bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200'
+          className:
+            'bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200',
         },
         secondaryCTA: {
-          text: 'Sell Your Business',
-          action: 'explore-alternative' as const,
-          className: 'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100'
-        }
+          text: 'Log in',
+          action: 'login' as const,
+          className:
+            'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100',
+        },
       };
 
     default: // neutral
       return {
         primaryCTA: {
-          text: 'Get Started',
-          action: 'signup-neutral' as const,
-          className: 'bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200'
+          text: 'Sell your business',
+          action: 'signup-seller' as const,
+          className:
+            'bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200',
         },
         secondaryCTA: {
           text: 'Log in',
           action: 'login' as const,
-          className: 'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100'
-        }
+          className:
+            'text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100',
+        },
       };
   }
 };

@@ -80,7 +80,9 @@ class APISendRequest {
         method !== 'GET' && data ? (data instanceof FormData ? data : JSON.stringify(data)) : null,
     };
 
-    const fullUrl = this.appendQueryParams(`${this.baseUrl}${url}`, queryParams);
+    // Remove leading slash from url if baseUrl ends with slash to avoid double slashes
+    const cleanUrl = url.startsWith('/') && this.baseUrl.endsWith('/') ? url.substring(1) : url;
+    const fullUrl = this.appendQueryParams(`${this.baseUrl}${cleanUrl}`, queryParams);
     console.log(`Sending request to ${fullUrl} with method: ${method}`);
     if (queryParams) {
       console.log(`Query parameters:`, queryParams);
@@ -93,9 +95,33 @@ class APISendRequest {
     try {
       const response = await fetch(fullUrl, requestOptions);
 
+      console.log(`📡 Response status: ${response.status}`);
+
       if (!response.ok) {
-        console.error(`HTTP error! Status: ${response.status}`);
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        let errorMessage = `HTTP ${response.status}`;
+        let errorDetails = null;
+
+        try {
+          // Try to read error response body for better error information
+          const errorText = await response.text();
+          if (errorText) {
+            try {
+              errorDetails = JSON.parse(errorText);
+              errorMessage = errorDetails.error || errorDetails.message || errorMessage;
+            } catch {
+              // If not JSON, use the text as error message
+              errorMessage = errorText || errorMessage;
+            }
+          }
+        } catch (bodyError) {
+          console.warn('Could not read error response body:', bodyError);
+        }
+
+        console.error(`🚨 Request failed for ${url}:`, errorMessage);
+        const error = new Error(errorMessage);
+        (error as any).status = response.status;
+        (error as any).details = errorDetails;
+        throw error;
       }
 
       return await response.json();
