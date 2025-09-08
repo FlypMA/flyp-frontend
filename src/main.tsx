@@ -4,10 +4,20 @@ import { HeroUIProvider } from '@heroui/react';
 import App from './app/app';
 import './index.css';
 
-// CRITICAL: Lightweight React global assignment for third-party library compatibility
-// This prevents useLayoutEffect errors from libraries expecting React to be global
-if (typeof window !== 'undefined' && !window.React) {
-  window.React = React;
+// CRITICAL: SSR-safe React setup for Vercel deployment
+// This prevents useLayoutEffect errors during server-side rendering
+if (typeof window !== 'undefined') {
+  // Client-side: Ensure React is globally available
+  if (!window.React) {
+    window.React = React;
+  }
+} else {
+  // Server-side: Provide SSR-safe React with useLayoutEffect fallback
+  const ssrSafeReact = {
+    ...React,
+    useLayoutEffect: React.useEffect, // Fallback for SSR
+  };
+  (globalThis as any).React = ssrSafeReact;
 }
 
 // Debug info for production

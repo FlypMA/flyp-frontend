@@ -149,11 +149,16 @@ export default defineConfig(({ mode }) => {
     },
     // Environment variable handling
     envPrefix: ['VITE_', 'REACT_APP_'],
-    // Define globals
+    // Define globals for SSR compatibility
     define: {
       global: 'globalThis',
     },
     // External configuration for proper module handling
     external: isProduction ? [] : undefined,
+    // SSR configuration
+    ssr: {
+      // Don't externalize React during SSR to prevent version conflicts
+      noExternal: ['react', 'react-dom', '@heroui/react', 'framer-motion'],
+    },
   };
 });
