@@ -2,6 +2,7 @@
   "buildCommand": "yarn vercel-build",
   "outputDirectory": "build",
   "framework": null,
+  "functions": {},
   "rewrites": [
     {
       "source": "/((?!api).*)",
