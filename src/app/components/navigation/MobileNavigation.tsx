@@ -20,13 +20,13 @@ import {
   Shield,
 } from 'lucide-react';
 import { BetweendealsLogo } from '../common';
-import { UserProfile } from '../../../types/api';
+import { User } from '../../types/api/users/user';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { authService } from '../../services/users/authenticationService';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
 
 interface MobileNavigationProps {
-  user?: UserProfile | null;
+  user?: User | null;
   isOpen: boolean;
   onToggle: () => void;
 }
@@ -114,7 +114,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
 
     if (user) {
       // Authenticated user sections
-      const userRole = user.role || 'buyer';
+      const userRole = user.userType || 'buyer';
       const isDashboard =
         location.pathname.includes('/dashboard') || location.pathname.includes('/account');
 
@@ -208,17 +208,17 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
         {user && (
           <div className="p-6 bg-gray-50 border-b border-gray-200">
             <div className="flex items-center space-x-4">
-              {user.avatar_url ? (
+              {user.avatar ? (
                 <img
-                  src={user.avatar_url}
-                  alt={user.full_name || user.email || 'User'}
+                  src={user.avatar}
+                  alt={user.name || user.email || 'User'}
                   className="w-12 h-12 object-cover rounded-full ring-2 ring-white shadow-sm"
                 />
               ) : (
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center ring-2 ring-white shadow-sm">
                   <span className="text-white text-sm font-semibold">
                     {(() => {
-                      const name = user.full_name;
+                      const name = user.name;
                       const email = user.email;
                       if (name) {
                         const nameParts = name.split(' ');
@@ -236,10 +236,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 truncate">{user.full_name || 'User'}</h3>
+                <h3 className="font-semibold text-gray-900 truncate">{user.name || 'User'}</h3>
                 <p className="text-sm text-gray-500 truncate">{user.email}</p>
                 <span className="inline-block px-2 py-1 mt-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-                  {user.role === 'seller' ? 'Seller' : 'Buyer'}
+                  {user.userType === 'seller' ? 'Seller' : 'Buyer'}
                 </span>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { authService } from '../../../../services/users/authenticationService';
-import { UserProfile } from '../../../../../types/api';
+import { User, UserType } from '../../../../types/api/users/user';
 import {
   Heart,
   Building2,
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 interface UserAvatarDropdownProps {
-  user: UserProfile;
+  user: User;
 }
 
 const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
@@ -171,8 +171,8 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
     }
   };
 
-  const isSeller = user?.role === 'seller';
-  const isBuyer = user?.role === 'buyer';
+  const isSeller = user?.userType === UserType.Seller;
+  const isBuyer = user?.userType === UserType.Buyer;
   const defaultAvatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80";
 
   // Role-based menu items
@@ -292,8 +292,8 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
       {/* Clean Avatar - No borders, spacing, or effects */}
       <img
         ref={avatarRef}
-        src={user?.avatar_url || defaultAvatar}
-        alt={user?.full_name || 'User'}
+        src={user?.avatar || defaultAvatar}
+        alt={user?.name || 'User'}
         className="w-8 h-8 rounded-full object-cover cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
         role="button"

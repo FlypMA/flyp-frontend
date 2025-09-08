@@ -395,6 +395,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             placeholder="Enter your full name"
             value={inquiryData.buyerName}
             onChange={value => setInquiryData(prev => ({ ...prev, buyerName: value }))}
+            startContent={<User className="w-4 h-4 text-gray-400" />}
             required
             name="buyerName"
           />
@@ -405,6 +406,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             placeholder="your.email@company.com"
             value={inquiryData.buyerEmail}
             onChange={value => setInquiryData(prev => ({ ...prev, buyerEmail: value }))}
+            startContent={<Mail className="w-4 h-4 text-gray-400" />}
             required
             name="buyerEmail"
           />
@@ -416,6 +418,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             placeholder="Your company name"
             value={inquiryData.companyName}
             onChange={value => setInquiryData(prev => ({ ...prev, companyName: value }))}
+            startContent={<Building2 className="w-4 h-4 text-gray-400" />}
             required
             name="companyName"
           />
@@ -425,6 +428,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             placeholder="Your job title"
             value={inquiryData.position}
             onChange={value => setInquiryData(prev => ({ ...prev, position: value }))}
+            startContent={<User className="w-4 h-4 text-gray-400" />}
             name="position"
           />
         </div>
@@ -434,6 +438,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           placeholder="+32 123 456 789"
           value={inquiryData.buyerPhone}
           onChange={value => setInquiryData(prev => ({ ...prev, buyerPhone: value }))}
+          startContent={<Phone className="w-4 h-4 text-gray-400" />}
           name="buyerPhone"
         />
       </div>

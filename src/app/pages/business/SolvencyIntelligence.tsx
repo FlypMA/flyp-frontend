@@ -17,7 +17,7 @@ import {
   Target,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { UserProfile } from '../../../types/api';
+import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
@@ -45,7 +45,7 @@ interface BusinessFinancials {
 
 const SolvencyIntelligence = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [solvencyData, setSolvencyData] = useState<SolvencyMetrics | null>(null);
   const [maxLoanAmount, setMaxLoanAmount] = useState<number>(0);
@@ -207,7 +207,7 @@ const SolvencyIntelligence = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="solvency" userRole={(user?.role as 'seller' | 'buyer' | 'admin') || 'seller'} />
+        <SellerSidebar selectedTab="solvency" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">
@@ -252,7 +252,7 @@ const SolvencyIntelligence = () => {
                     <div className="flex items-center space-x-2 mb-2">
                       <BarChart3 className="w-5 h-5 text-gray-600" />
                       <span className="text-lg font-semibold text-gray-900">
-                        Better than {Math.round(solvencyData.industryRanking)}% of {'Food & Beverage'} businesses
+                        Better than {Math.round(solvencyData.industryRanking)}% of {user.businessType || 'Food & Beverage'} businesses
                       </span>
                     </div>
                     <div className="w-64">

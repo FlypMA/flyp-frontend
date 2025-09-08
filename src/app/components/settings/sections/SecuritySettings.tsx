@@ -413,14 +413,16 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
 
       {/* Security Tips */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="font-semibold text-blue-900 mb-2">Strong Password</h4>
-          <p className="text-blue-700 text-sm">Use a unique password with at least 12 characters, including uppercase, lowercase, numbers, and symbols.</p>
-        </div>
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-          <h4 className="font-semibold text-orange-900 mb-2">Two-Factor Authentication</h4>
-          <p className="text-orange-700 text-sm">Enable 2FA for an extra layer of security. Even if someone gets your password, they won't be able to access your account.</p>
-        </div>
+        <FormTip
+          title="Strong Password"
+          content="Use a unique password with at least 12 characters, including uppercase, lowercase, numbers, and symbols."
+          type="info"
+        />
+        <FormTip
+          title="Two-Factor Authentication"
+          content="Enable 2FA for an extra layer of security. Even if someone gets your password, they won't be able to access your account."
+          type="warning"
+        />
       </div>
     </div>
   );

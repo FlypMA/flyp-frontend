@@ -14,7 +14,7 @@ import {
   Target,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { UserProfile } from '../../../types/api';
+import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -33,7 +33,7 @@ interface Listing {
 
 const ListingManagement = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [businessListing, setBusinessListing] = useState<Listing | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -143,7 +143,7 @@ const ListingManagement = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="listings" userRole={(user?.role as 'seller' | 'buyer' | 'admin') || 'seller'} />
+        <SellerSidebar selectedTab="listings" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

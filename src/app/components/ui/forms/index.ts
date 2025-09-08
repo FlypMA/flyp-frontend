@@ -22,14 +22,6 @@ export { FormSlider } from './inputs/FormSlider';
 export { FormCheckbox } from './inputs/FormCheckbox';
 export { FormRadioGroup } from './inputs/FormRadioGroup';
 
-// Import for default export
-import { FormInput } from './inputs/FormInput';
-import { FormTextarea } from './inputs/FormTextarea';
-import { FormSelect } from './inputs/FormSelect';
-import { FormSlider } from './inputs/FormSlider';
-import { FormCheckbox } from './inputs/FormCheckbox';
-import { FormRadioGroup } from './inputs/FormRadioGroup';
-
 // =============================================================================
 // ACTION COMPONENTS
 // =============================================================================
@@ -38,19 +30,11 @@ export { FormActions } from './actions/FormActions';
 export { PrimaryButton } from './actions/PrimaryButton';
 export { SecondaryButton } from './actions/SecondaryButton';
 
-// Import for default export
-import { FormActions } from './actions/FormActions';
-import { PrimaryButton } from './actions/PrimaryButton';
-import { SecondaryButton } from './actions/SecondaryButton';
-
 // =============================================================================
 // LAYOUT COMPONENTS
 // =============================================================================
 
 export { FormFieldWrapper } from './layouts/FormFieldWrapper';
-
-// Import for default export
-import { FormFieldWrapper } from './layouts/FormFieldWrapper';
 
 // =============================================================================
 // TYPE DEFINITIONS

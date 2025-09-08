@@ -5,7 +5,7 @@ interface BetweendealsLogoProps {
   /**
    * Logo variant/context for different use cases
    */
-  variant?: 'header' | 'footer' | 'sidebar' | 'mobile' | 'icon';
+  variant?: 'header' | 'footer' | 'sidebar' | 'mobile';
 
   /**
    * Custom width override
@@ -72,8 +72,7 @@ const BetweendealsLogo: React.FC<BetweendealsLogoProps> = ({
   priority = false,
 }) => {
   // Get logo configuration based on variant
-  const safeVariant = (variant === 'icon' ? 'header' : variant) as 'header' | 'footer' | 'sidebar' | 'mobile';
-  const logoConfig = getLogoConfig(safeVariant);
+  const logoConfig = getLogoConfig(variant);
 
   // Determine final dimensions
   const finalWidth = width ?? logoConfig.width;

@@ -365,7 +365,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   variant="flat"
                   className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
                   onPress={(e) => {
-                    e?.preventDefault?.();
+                    e?.stopPropagation?.();
                     handleSave();
                   }}
                   isLoading={isProcessing}

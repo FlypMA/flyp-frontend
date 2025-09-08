@@ -12,7 +12,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { UserProfile } from '../../../types/api';
+import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -30,7 +30,7 @@ interface PerformanceData {
 
 const DashboardPerformance = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [performanceData, setPerformanceData] = useState<PerformanceData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -101,7 +101,7 @@ const DashboardPerformance = () => {
       <UnifiedNavigation />
       
       <div className="flex">
-        <SellerSidebar selectedTab="performance" />
+        <SellerSidebar selectedTab="performance" onTabChange={(tab) => navigate(`/business/${tab}`)} />
         
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl space-y-6">

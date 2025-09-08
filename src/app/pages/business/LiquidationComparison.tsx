@@ -15,7 +15,7 @@ import {
   X,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { UserProfile } from '../../../types/api';
+import { User as UserType } from '../../types/api/users/user';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
@@ -42,7 +42,7 @@ interface SuccessStory {
 
 const LiquidationComparison = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [liquidationData, setLiquidationData] = useState<LiquidationAnalysis | null>(null);
   const [daysSinceValuation, setDaysSinceValuation] = useState(0);
@@ -196,7 +196,7 @@ const LiquidationComparison = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="liquidation" userRole={(user?.role as 'seller' | 'buyer' | 'admin') || 'seller'} />
+        <SellerSidebar selectedTab="liquidation" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">
