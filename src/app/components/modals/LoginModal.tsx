@@ -11,7 +11,7 @@ import CustomPasswordInputField from '../main_UI/forms/customPasswordInputtField
 import { LuInfo } from 'react-icons/lu';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { BetweendealsLogo } from '../common';
-// Professional business background for M&A platform
+import backgroundImage from '../../../assets/background4.jpg';
 
 interface LoginData {
   email: string;
@@ -219,9 +219,9 @@ const LoginModal: React.FC = () => {
             {/* Close Button */}
             <button
               onClick={handleCloseModal}
-              className="absolute top-6 right-6 z-50 p-2 rounded-full bg-white hover:bg-gray-50 border border-gray-200 transition-colors duration-200 shadow-sm"
+              className="absolute top-6 right-6 z-50 p-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
             >
-              <X className="w-4 h-4 text-gray-600" />
+              <X className="w-5 h-5 text-slate-700" />
             </button>
 
             {/* Main Content */}
@@ -232,181 +232,87 @@ const LoginModal: React.FC = () => {
                 <form data-page="login" onSubmit={handleSubmit} className="h-full">
                   <div className="grid md:grid-cols-2 min-h-screen">
                     {/* Left Side - Form */}
-                    <div className="px-6 py-8 md:px-12 md:py-16 flex bg-white">
-                      <div className="w-full max-w-sm mx-auto">
-                        {/* Header */}
-                        <div className="mb-8">
-                          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-                            Welcome back
-                          </h1>
-                          <p className="text-gray-600 text-sm">
-                            Don't have an account?{' '}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                console.log(
-                                  '🔄 LoginModal: Sign up button clicked - opening signup modal'
-                                );
-                                openModal('signup');
-                              }}
-                              className="text-gray-900 font-medium hover:underline focus:outline-none focus:underline"
-                            >
-                              Sign up
-                            </button>
-                          </p>
-                        </div>
+                    <div className="p-8 flex bg-white">
+                      <div className="m-auto max-w-md w-full">
+                        <Heading1 className="text-slate-900">Welcome back</Heading1>
+                        <p className="text-base text-slate-600 mt-2">
+                          Don't have an account?{' '}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              console.log(
+                                '🔄 LoginModal: Sign up button clicked - opening signup modal'
+                              );
+                              openModal('signup');
+                            }}
+                            className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
+                          >
+                            Sign up
+                          </button>
+                        </p>
 
-                        {/* Error Message */}
-                        {errorMessage && (
-                          <div className="mb-6 p-4 border border-red-300 bg-red-50 rounded-lg">
-                            <div className="flex items-start">
-                              <LuInfo className="w-4 h-4 text-red-600 mt-0.5 mr-2 flex-shrink-0" />
-                              <p className="text-sm text-red-700">{errorMessage}</p>
+                        <div className="flex flex-col mt-8">
+                          {errorMessage && (
+                            <div className="flex items-start mb-4 bg-red-600 border-l-4 border-red-600 text-red-700 p-4 rounded-xl">
+                              <p className="font-bold text-white text-lg mr-2 mt-0.5">
+                                <LuInfo />
+                              </p>
+                              <div className="font-normal text-white text-sm">{errorMessage}</div>
                             </div>
-                          </div>
-                        )}
+                          )}
 
-                        {/* Form Fields */}
-                        <div className="space-y-5">
-                          <Field<string>
-                            name="email"
-                            render={(props: FieldRenderProps<string>) => (
-                              <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-900">
-                                  Email
-                                </label>
-                                <input
-                                  ref={emailInputRef}
+                          <section>
+                            <Field<string>
+                              name="email"
+                              render={(props: FieldRenderProps<string>) => (
+                                <CustomInputField
+                                  {...props}
+                                  label="Your email address"
                                   type="email"
-                                  className={`
-                                    block w-full px-3 py-2.5 border rounded-lg text-gray-900 
-                                    placeholder-gray-500 text-sm bg-white
-                                    focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent
-                                    transition-all duration-200
-                                    ${
-                                      props.meta.error && props.meta.touched
-                                        ? 'border-red-300 focus:ring-red-500'
-                                        : 'border-gray-300 hover:border-gray-400'
-                                    }
-                                  `}
-                                  placeholder="Enter your email"
-                                  value={props.input.value || ''}
-                                  onChange={props.input.onChange}
-                                  onBlur={props.input.onBlur}
-                                  onFocus={props.input.onFocus}
-                                  name={props.input.name}
+                                  placeholder=" "
+                                  inputRef={emailInputRef}
+                                  className=""
                                 />
-                                {props.meta.error && props.meta.touched && (
-                                  <p className="text-sm text-red-600 mt-1">{props.meta.error}</p>
-                                )}
-                              </div>
-                            )}
-                          />
+                              )}
+                            />
+                          </section>
 
                           <Field<string>
                             name="password"
                             render={(props: FieldRenderProps<string>) => (
-                              <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-900">
-                                  Password
-                                </label>
-                                <div className="relative">
-                                  <input
-                                    ref={passwordInputRef}
-                                    type={showPassword ? 'text' : 'password'}
-                                    className={`
-                                      block w-full px-3 py-2.5 pr-10 border rounded-lg text-gray-900 
-                                      placeholder-gray-500 text-sm bg-white
-                                      focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent
-                                      transition-all duration-200
-                                      ${
-                                        props.meta.error && props.meta.touched
-                                          ? 'border-red-300 focus:ring-red-500'
-                                          : 'border-gray-300 hover:border-gray-400'
-                                      }
-                                    `}
-                                    placeholder="Enter your password"
-                                    value={props.input.value || ''}
-                                    onChange={props.input.onChange}
-                                    onBlur={props.input.onBlur}
-                                    onFocus={props.input.onFocus}
-                                    name={props.input.name}
-                                  />
-                                  <button
-                                    type="button"
-                                    onClick={togglePasswordVisibility}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
-                                  >
-                                    {showPassword ? (
-                                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
-                                      </svg>
-                                    ) : (
-                                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                      </svg>
-                                    )}
-                                  </button>
-                                </div>
-                                {props.meta.error && props.meta.touched && (
-                                  <p className="text-sm text-red-600 mt-1">{props.meta.error}</p>
-                                )}
-                              </div>
+                              <CustomPasswordInputField
+                                {...props}
+                                label="Your password"
+                                inputRef={passwordInputRef}
+                                className=""
+                                placeholder=" "
+                                showPassword={showPassword}
+                                togglePasswordVisibility={togglePasswordVisibility}
+                              />
                             )}
                           />
 
                           {/* Login Button */}
-                          <button
+                          <Button
                             type="submit"
+                            color="primary"
+                            size="lg"
                             disabled={isSubmitting}
-                            className="
-                              w-full flex justify-center py-2.5 px-4 border border-transparent 
-                              rounded-lg shadow-sm text-sm font-medium text-white bg-gray-900
-                              hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                              focus:ring-gray-900 disabled:opacity-50 disabled:cursor-not-allowed
-                              transition-colors duration-200
-                            "
+                            className="w-full mt-8"
                           >
-                            {isSubmitting ? 'Signing in...' : 'Continue'}
-                          </button>
+                            {isSubmitting ? 'Logging in...' : 'Log in'}
+                          </Button>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right Side - Clean Background */}
-                    <div className="hidden md:block relative bg-gray-50">
-                      <div className="absolute inset-0 flex items-center justify-center p-12">
-                        <div className="text-center space-y-8">
-                          <div className="max-w-md mx-auto">
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                              Welcome to BetweenDeals
-                            </h2>
-                            <p className="text-gray-600 text-base leading-relaxed">
-                              Connect with opportunities in the M&A marketplace. 
-                              Find the perfect business match for your next venture.
-                            </p>
-                          </div>
-                          
-                          {/* Clean Abstract Icons */}
-                          <div className="flex items-center justify-center space-x-8 pt-8">
-                            <div className="w-16 h-16 rounded-xl bg-gray-200 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                              </svg>
-                            </div>
-                            <div className="w-16 h-16 rounded-xl bg-gray-200 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                              </svg>
-                            </div>
-                            <div className="w-16 h-16 rounded-xl bg-gray-200 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
+                    {/* Right Side - Image */}
+                    <div className="hidden md:block relative">
+                      <div
+                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                        style={{ backgroundImage: `url(${backgroundImage})` }}
+                      >
+                        <div className="absolute inset-0 bg-black/20"></div>
                       </div>
                     </div>
                   </div>

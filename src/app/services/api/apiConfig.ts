@@ -9,17 +9,18 @@ export const API_CONFIG = {
     baseURL: 'https://web-production-2edf5.up.railway.app',
     endpoints: {
       auth: {
-        // Standardized endpoints (compatible with Chrome plugin) - ✅ WORKING
-        login: '/auth/login',
-        register: '/auth/register',
-        profile: '/auth/profile',
-
-        // Legacy endpoints (backwards compatibility) - ✅ WORKING
-        loginLegacy: '/api/auth/login',
+        // Current working endpoints (Railway backend)
+        login: '/api/auth/login',
+        register: '/api/auth/register',
         logout: '/api/auth/logout',
-        registerLegacy: '/api/auth/register',
         verify: '/api/auth/verify',
         refresh: '/api/auth/refresh',
+        profile: '/api/users/profile',
+
+        // Legacy endpoints for backward compatibility
+        loginLegacy: '/auth/login',
+        registerLegacy: '/auth/register',
+        profileLegacy: '/auth/profile',
       },
       users: {
         profile: '/api/users/profile',

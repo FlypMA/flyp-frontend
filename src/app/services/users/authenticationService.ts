@@ -99,7 +99,11 @@ class AuthenticationService {
       console.log('🔧 Creating account:', { email, name: name || 'Anonymous User', role });
       const data = { email, password, name, role };
 
-      const createResponse = (await this.sendRequest('/auth/register', 'POST', data)) as {
+      const createResponse = (await this.sendRequest(
+        API_CONFIG.NODE_BACKEND.endpoints.auth.register,
+        'POST',
+        data
+      )) as {
         success: boolean;
         user?: UserProfile;
         token?: string;
@@ -188,7 +192,12 @@ class AuthenticationService {
 
   async refreshToken(): Promise<{ success: boolean; token?: string }> {
     try {
-      const response = (await this.sendRequest('/auth/refresh', 'POST', {}, true)) as {
+      const response = (await this.sendRequest(
+        API_CONFIG.NODE_BACKEND.endpoints.auth.refresh,
+        'POST',
+        {},
+        true
+      )) as {
         success: boolean;
         token?: string;
       };
@@ -358,7 +367,11 @@ class AuthenticationService {
     try {
       console.log('🔑 Login attempt:', { email, baseUrl: this.baseUrl });
 
-      const response = (await this.sendRequest('/auth/login', 'POST', data)) as {
+      const response = (await this.sendRequest(
+        API_CONFIG.NODE_BACKEND.endpoints.auth.login,
+        'POST',
+        data
+      )) as {
         success?: boolean;
         user?: UserProfile;
         token?: string;
@@ -439,7 +452,7 @@ class AuthenticationService {
 
   async logout(): Promise<void> {
     try {
-      await this.sendRequest('/auth/logout', 'POST', {}, true);
+      await this.sendRequest(API_CONFIG.NODE_BACKEND.endpoints.auth.logout, 'POST', {}, true);
     } catch {
       // Continue with logout even if server request fails
     }
@@ -561,7 +574,12 @@ class AuthenticationService {
 
       // Try to get fresh profile data, but fall back to token data if profile endpoints fail
       try {
-        const response = (await this.sendRequest('/auth/profile', 'GET', undefined, true)) as {
+        const response = (await this.sendRequest(
+          API_CONFIG.NODE_BACKEND.endpoints.auth.profile,
+          'GET',
+          undefined,
+          true
+        )) as {
           success: boolean;
           user?: UserProfile;
         };
