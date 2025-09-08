@@ -8,7 +8,7 @@ interface AppConfig {
 const config: AppConfig = {
   apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000',
   environment: (import.meta.env.MODE as AppConfig['environment']) || 'development',
-  appName: 'Ilara Client Portal',
+  appName: 'BetweenDeals Platform',
   version: '1.0.0',
 };
 

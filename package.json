@@ -7,16 +7,16 @@
   "packageManager": "yarn@4.1.1",
   "engines": {
     "node": "20.x",
-    "yarn": ">=1.22.0"
+    "yarn": ">=4.0.0"
   },
   "scripts": {
     "start": "vite --host --clearScreen false",
     "dev": "vite --host --clearScreen false --mode development",
-    "build": "yarn clean:dist && yarn type-check && NODE_ENV=production vite build --mode production",
-    "vercel-build": "yarn clean:dist && NODE_ENV=production VITE_NODE_ENV=production vite build --mode production --logLevel warn",
-    "build:local": "yarn clean:dist && yarn type-check && NODE_ENV=production vite build --mode production",
+    "build": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
+    "vercel-build": "yarn clean:build && NODE_ENV=production VITE_NODE_ENV=production vite build --mode production --logLevel warn",
+    "build:local": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
     "build:check": "yarn type-check && yarn build:local",
-    "build:preview": "yarn build:local && vite preview --host",
+    "build:preview": "yarn build:local && vite preview --host --port 4173",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
@@ -30,10 +30,11 @@
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
-    "clean": "rm -rf dist node_modules/.cache .vite",
+    "clean": "rm -rf build node_modules/.cache .vite",
+    "clean:build": "rm -rf build",
     "clean:dist": "rm -rf dist",
     "fresh": "rm -rf node_modules yarn.lock && yarn install",
-    "analyze": "yarn build:local && npx vite-bundle-analyzer dist/assets/*.js"
+    "analyze": "yarn build:local && npx vite-bundle-analyzer build/assets/*.js"
   },
   "dependencies": {
     "@heroui/react": "^2.8.3",

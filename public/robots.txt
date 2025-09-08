@@ -1,36 +1,26 @@
-# robots.txt for Ilara Client Portal
-# This site should not be indexed by search engines
+# Robots.txt for BetweenDeals Platform
+# https://www.robotstxt.org/robotstxt.html
 
 User-agent: *
-Disallow: /
+Allow: /
 
-# Block all common crawlers explicitly
-User-agent: Googlebot
-Disallow: /
+# Block sensitive pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /messages/
+Disallow: /transaction/
 
-User-agent: Bingbot
-Disallow: /
+# Allow specific public pages
+Allow: /
+Allow: /about
+Allow: /help
+Allow: /legal/
+Allow: /listings
 
-User-agent: Slurp
-Disallow: /
+# Sitemap location
+Sitemap: https://www.betweendeals.com/sitemap.xml
 
-User-agent: DuckDuckBot
-Disallow: /
-
-User-agent: Baiduspider
-Disallow: /
-
-User-agent: YandexBot
-Disallow: /
-
-User-agent: facebookexternalhit
-Disallow: /
-
-User-agent: Twitterbot
-Disallow: /
-
-User-agent: LinkedInBot
-Disallow: /
-
-# No sitemap provided
-# Sitemap:
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

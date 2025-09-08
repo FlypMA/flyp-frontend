@@ -1,38 +1,42 @@
-# 🌟 Mercury - Ilara Frontend Service
+# 🌟 BetweenDeals Frontend
 
-**React-based conversational AI interface for predictive cultural intelligence**
+**React-based web application for Europe's premier SME M&A platform**
 
-Mercury is the user-facing frontend service of the Ilara ecosystem, providing an intuitive chat interface for AI-powered trend analysis and report generation. Built with modern React technologies, it delivers a seamless user experience for creators and brands seeking predictive cultural insights.
+BetweenDeals Frontend is the user-facing interface for the BetweenDeals platform, providing an intuitive experience for SME business buying, selling, and valuation. Built with modern React technologies and optimized for performance, it delivers a seamless user experience for business owners and investors across Europe.
 
 ## 🎯 Overview
 
-Mercury serves as the primary interface for Ilara's predictive cultural intelligence platform, enabling users to:
+BetweenDeals Frontend serves as the primary interface for Europe's premier SME M&A platform, enabling users to:
 
-- **Chat with AI** about trends and cultural movements
-- **Generate Professional Reports** with real-time insights
-- **Access Predictive Analytics** for content strategy
-- **Manage User Accounts** and subscription plans
-- **View Real-time Dashboards** of trend data
+- **Browse and Search** business opportunities across Europe
+- **Create and Manage** business listings for sale
+- **Access Professional Valuations** and market insights
+- **Communicate Securely** with potential buyers/sellers
+- **Manage Transactions** through the complete M&A process
+- **Access Analytics** and performance metrics
 
 ## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Mercury Frontend                         │
+│                BetweenDeals Frontend                        │
 ├─────────────────────────────────────────────────────────────┤
-│  React 18 + TypeScript + HeroUI + Vite                     │
-│  • Conversational Chat Interface                           │
-│  • Real-time Report Generation                             │
-│  • User Authentication & Management                        │
+│  React 18 + TypeScript + HeroUI + TailwindCSS + Vite       │
+│  • Business Listing Management                             │
+│  • Secure Transaction Processing                           │
+│  • User Authentication & Profiles                          │
+│  • Real-time Messaging & Notifications                     │
+│  • Business Valuation Tools                                │
 │  • Mobile-Responsive Design                                │
 └─────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Saturn Backend                           │
+│                BetweenDeals Backend                         │
 │  • API Gateway & Authentication                            │
-│  • Request Routing & Rate Limiting                         │
-│  • Service Orchestration                                   │
+│  • Business Logic & Data Management                        │
+│  • Payment Processing & Verification                       │
+│  • Real-time Communication Services                        │
 └─────────────────────────────────────────────────────────────┘
 ```
 

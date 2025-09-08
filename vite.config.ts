@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
       modules: false,
     },
     build: {
-      outDir: 'dist',
+      outDir: 'build',
       sourcemap: isDevelopment ? 'inline' : false,
       target: 'es2020',
       assetsDir: 'assets',
@@ -77,7 +77,7 @@ export default defineConfig(({ mode }) => {
       cssCodeSplit: false,
       cssMinify: isProduction ? 'cssnano' : false,
       // Inline smaller assets, reference larger ones
-      assetsInlineLimit: 2048,
+      assetsInlineLimit: 4096,
       emptyOutDir: true,
       commonjsOptions: {
         transformMixedEsModules: true,
@@ -107,13 +107,16 @@ export default defineConfig(({ mode }) => {
                   if (id.includes('react-icons') || id.includes('lucide-react')) {
                     return 'icons-vendor';
                   }
+                  if (id.includes('axios') || id.includes('@supabase')) {
+                    return 'api-vendor';
+                  }
                   return 'vendor';
                 }
               }
             : undefined,
         },
       },
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 1500,
     },
     // Environment variable handling
     envPrefix: ['VITE_', 'REACT_APP_'],
