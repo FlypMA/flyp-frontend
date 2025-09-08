@@ -159,8 +159,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               required
               startIcon={<Lock className="w-4 h-4 text-gray-400" />}
             />
-        */}
-
+            */
             <CleanInput
               label="New Password"
               type="password"
@@ -172,8 +171,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               startIcon={<Key className="w-4 h-4 text-gray-400" />}
               helpText="Use at least 12 characters with mix of letters, numbers and symbols"
             />
-        */}
-
+            */
             {/* Password Strength Indicator */}
             {passwordData.newPassword && (
               <div className="space-y-2">
@@ -198,11 +196,10 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                     }`}
                     style={{ width: `${passwordStrength.strength}%` }}
                   />
-        */}
+                  */
                 </div>
               </div>
             )}
-
             <CleanInput
               label="Confirm New Password"
               type="password"
@@ -218,7 +215,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                   : undefined
               }
             />
-        */}
+            */
           </div>
 
           <div className="pt-4">
@@ -281,7 +278,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               onValueChange={value => handleSecurityToggle('twoFactorEnabled', value)}
               color="success"
             />
-        */}
+            */
           </div>
 
           {!securitySettings.twoFactorEnabled && (
@@ -313,7 +310,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                 onValueChange={value => handleSecurityToggle('loginNotifications', value)}
                 color="primary"
               />
-        */}
+              */
             </div>
 
             <div className="flex items-center justify-between">
@@ -328,7 +325,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                 onValueChange={value => handleSecurityToggle('secureDataAccess', value)}
                 color="primary"
               />
-        */}
+              */
             </div>
           </div>
 
