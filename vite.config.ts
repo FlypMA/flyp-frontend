@@ -52,7 +52,8 @@ export default defineConfig({
     sourcemap: false,
     target: 'es2020',
     assetsDir: 'assets',
-    cssCodeSplit: false,
+    cssCodeSplit: true,
+    cssMinify: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },

@@ -31,9 +31,14 @@ const config: Config = {
     'hover:bg-gray-100',
     'focus:ring-2',
     'focus:ring-blue-500',
-    // HeroUI core classes that might be dynamically used
-    { pattern: /data-\[.*\]:.*/ },
-    { pattern: /heroui-.*/ },
+    // Dynamic state classes
+    'opacity-0',
+    'opacity-100',
+    'transform',
+    'transition-all',
+    'duration-300',
+    'scale-95',
+    'scale-100',
   ],
   theme: {
     extend: {
