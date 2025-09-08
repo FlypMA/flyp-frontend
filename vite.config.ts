@@ -89,7 +89,7 @@ export default defineConfig(({ mode }) => {
       modules: false,
     },
     build: {
-      outDir: 'build',
+      outDir: 'dist',
       sourcemap: isDevelopment ? 'inline' : false,
       target: 'es2020',
       assetsDir: 'assets',

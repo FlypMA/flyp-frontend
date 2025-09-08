@@ -30,11 +30,11 @@
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
-    "clean": "rm -rf build node_modules/.cache .vite",
-    "clean:build": "rm -rf build",
+    "clean": "rm -rf dist node_modules/.cache .vite",
+    "clean:build": "rm -rf dist",
     "clean:dist": "rm -rf dist",
     "fresh": "rm -rf node_modules yarn.lock && yarn install",
-    "analyze": "yarn build:local && npx vite-bundle-analyzer build/assets/*.js"
+    "analyze": "yarn build:local && npx vite-bundle-analyzer dist/assets/*.js"
   },
   "dependencies": {
     "@heroui/react": "^2.8.3",
