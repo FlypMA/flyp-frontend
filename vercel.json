@@ -3,7 +3,7 @@
   "framework": "vite",
   "buildCommand": "yarn vercel-build",
   "outputDirectory": "dist",
-  "installCommand": "yarn install --frozen-lockfile",
+  "installCommand": "yarn install --immutable",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
