@@ -67,17 +67,23 @@ class AuthenticationService {
       console.log(`📡 Response status: ${response.status} ${response.statusText}`);
 
       if (!response.ok) {
-        let responseJson: unknown;
+        let errorMessage: string;
         try {
-          responseJson = await response.json();
+          const responseClone = response.clone(); // Clone the response to read it multiple times if needed
+          const responseJson = await responseClone.json();
           console.log('❌ Error response JSON:', responseJson);
+          errorMessage = `HTTP ${response.status}: ${JSON.stringify(responseJson)}`;
         } catch {
-          const responseText = await response.text();
-          console.log('❌ Error response text:', responseText);
-          throw new Error(`HTTP ${response.status}: ${responseText}`);
+          try {
+            const responseText = await response.text();
+            console.log('❌ Error response text:', responseText);
+            errorMessage = `HTTP ${response.status}: ${responseText}`;
+          } catch (textError) {
+            errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+          }
         }
 
-        throw new Error(`HTTP ${response.status}: ${JSON.stringify(responseJson)}`);
+        throw new Error(errorMessage);
       }
 
       const responseData = await response.json();
