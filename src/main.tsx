@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// Ensure React is available globally for dependencies
+if (typeof window !== 'undefined') {
+  (window as any).React = React;
+}
 import { HeroUIProvider } from '@heroui/react';
 import App from './app/app';
 import './index.css';

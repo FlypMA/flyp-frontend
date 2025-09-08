@@ -13,9 +13,15 @@ export default defineConfig(({ mode }) => {
       react({
         // Enable Fast Refresh for development
         fastRefresh: isDevelopment,
+        // Ensure React is properly handled in production
+        jsxRuntime: 'automatic'
       }),
       tsconfigPaths(), // This plugin reads tsconfig.json paths and applies them to Vite
     ],
+    define: {
+      // Ensure global React is available for dependencies
+      global: 'globalThis',
+    },
     server: {
       port: 3000,
       host: true, // Needed for proper WebSocket connection
