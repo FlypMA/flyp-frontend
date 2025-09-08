@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardBody } from '@heroui/react';
 import { Heart, MessageSquare, TrendingUp, Bookmark } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
-import { User } from '../../../types/api/users/user';
+import { UserProfile } from '../../../../types/api';
 import BuyerSidebarNavigation from '../../../components/navigation/BuyerSidebarNavigation';
 import DashboardOverview from '../../../components/buyer/DashboardOverview';
 import DiscoverBusinesses from '../../../components/buyer/DiscoverBusinesses';
@@ -52,7 +52,7 @@ interface BuyerStats {
 
 const BuyerDashboard = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
   const [recentListings, setRecentListings] = useState<RecentListing[]>([]);
   const [stats, setStats] = useState<BuyerStats>({
@@ -75,7 +75,7 @@ const BuyerDashboard = () => {
     };
 
     window.addEventListener('navigate-buyer-tab', handleBuyerNavigation as EventListener);
-    
+
     return () => {
       window.removeEventListener('navigate-buyer-tab', handleBuyerNavigation as EventListener);
     };

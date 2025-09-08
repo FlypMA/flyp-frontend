@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, Button } from '@heroui/react';
 import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import ListingWizard from '../../pages/listings/ListingWizard';
+import CreateListing from '../../pages/listings/CreateListingPage';
 
 interface ListingWizardModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ interface ListingWizardModalProps {
 const ModalListingWizard: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   // For now, use the original ListingWizard
   // The navigation will be handled by the modal's close behavior
-  return <ListingWizard />;
+  return <CreateListing />;
 };
 
 const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ isOpen, onClose, onComplete }) => {

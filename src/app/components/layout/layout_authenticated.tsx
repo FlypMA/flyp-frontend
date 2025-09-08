@@ -3,15 +3,16 @@ import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
-import { User, UserType } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
+import { UserType } from '../../types/api/users/user';
 import MobileNavigation from '../navigation/MobileNavigation';
 
 const DEV_BYPASS_AUTH =
   import.meta.env.VITE_DEV_BYPASS_AUTH === 'true' || process.env.NODE_ENV === 'development';
 
 const AuthenticatedAccount = () => {
-  const [authenticatedUser, setAuthenticatedUser] = useState<User | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const [authenticatedUser, setAuthenticatedUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -29,21 +30,15 @@ const AuthenticatedAccount = () => {
       if (DEV_BYPASS_AUTH) {
         console.log('🚨 DEV MODE: Bypassing authentication for development');
         const mockUser = {
-          _id: 'dev-user-123',
+          id: 'dev-user-123',
           email: 'dev@betweendeals.com',
-          name: 'Development User',
-          userType: UserType.Seller,
-          password: 'mock_password', // Required by type but not used in UI
-          verified: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          rank: 1,
-          userPreferences: {
-            enableDataCollection: true,
-            eventCollection: 'all events',
-            tabOption: 'all tabs',
+          full_name: 'Development User',
+          role: 'seller',
+          preferences: {
+            language: 'en',
+            timezone: 'UTC',
           },
-        } as User;
+        } as UserProfile;
 
         setUser(mockUser);
         setAuthenticatedUser(mockUser);

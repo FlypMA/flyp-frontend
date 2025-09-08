@@ -15,7 +15,7 @@ import {
   Conversation,
   Message,
   BuyerProfile,
-  UserPreferences,
+  UserPreferences as BaseUserPreferences,
   ListingAnalytics,
   UserRole,
   ListingStatus,
@@ -44,6 +44,16 @@ export interface UserProfile {
   avatar_url?: string;
   role: UserRole;
   preferences?: UserPreferences;
+}
+
+export interface UserPreferences {
+  language?: string;
+  timezone?: string;
+  email_notifications?: boolean;
+  marketing_emails?: boolean;
+  currency?: string;
+  theme?: 'light' | 'dark' | 'system';
+  [key: string]: any;
 }
 
 export interface PaymentMetadata {

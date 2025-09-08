@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Slider, Tabs, Tab } from '@heroui/react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Select,
+  SelectItem,
+  Slider,
+  Tabs,
+  Tab,
+} from '@heroui/react';
 import {
   Calculator,
   TrendingUp,
@@ -53,7 +64,7 @@ const ValuationTool = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculating, setIsCalculating] = useState(false);
   const [activeTab, setActiveTab] = useState('input');
-  
+
   const [inputs, setInputs] = useState<ValuationInputs>({
     annualRevenue: 450000,
     grossProfit: 315000,
@@ -78,32 +89,32 @@ const ValuationTool = () => {
     'food-beverage': {
       revenueMultiple: { low: 0.8, avg: 1.2, high: 2.0 },
       ebitdaMultiple: { low: 3.0, avg: 4.5, high: 7.0 },
-      description: 'Restaurants, cafés, food services'
+      description: 'Restaurants, cafés, food services',
     },
-    'retail': {
+    retail: {
       revenueMultiple: { low: 0.5, avg: 0.8, high: 1.5 },
       ebitdaMultiple: { low: 3.5, avg: 5.0, high: 8.0 },
-      description: 'Retail stores, e-commerce'
+      description: 'Retail stores, e-commerce',
     },
     'professional-services': {
       revenueMultiple: { low: 1.0, avg: 1.8, high: 3.5 },
       ebitdaMultiple: { low: 4.0, avg: 6.0, high: 10.0 },
-      description: 'Consulting, legal, accounting'
+      description: 'Consulting, legal, accounting',
     },
-    'technology': {
+    technology: {
       revenueMultiple: { low: 2.0, avg: 4.0, high: 8.0 },
       ebitdaMultiple: { low: 8.0, avg: 12.0, high: 20.0 },
-      description: 'Software, tech services'
+      description: 'Software, tech services',
     },
-    'healthcare': {
+    healthcare: {
       revenueMultiple: { low: 1.5, avg: 2.5, high: 4.0 },
       ebitdaMultiple: { low: 6.0, avg: 9.0, high: 15.0 },
-      description: 'Medical practices, healthcare'
+      description: 'Medical practices, healthcare',
     },
-    'manufacturing': {
+    manufacturing: {
       revenueMultiple: { low: 0.8, avg: 1.5, high: 2.5 },
       ebitdaMultiple: { low: 4.0, avg: 6.5, high: 10.0 },
-      description: 'Manufacturing, production'
+      description: 'Manufacturing, production',
     },
   };
 
@@ -131,15 +142,16 @@ const ValuationTool = () => {
 
   const calculateValuation = async () => {
     setIsCalculating(true);
-    
+
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     try {
       const results: ValuationResult[] = [];
       const industryData = industryMultiples[inputs.industry as keyof typeof industryMultiples];
-      
+
       // 1. Revenue Multiple Method
-      const revenueMultipleValuation = inputs.annualRevenue * industryData.revenueMultiple.avg * inputs.marketMultiplier;
+      const revenueMultipleValuation =
+        inputs.annualRevenue * industryData.revenueMultiple.avg * inputs.marketMultiplier;
       results.push({
         method: 'Revenue Multiple',
         value: revenueMultipleValuation,
@@ -150,13 +162,14 @@ const ValuationTool = () => {
         assumptions: [
           `Industry average: ${industryData.revenueMultiple.avg}x revenue`,
           `Market conditions: ${inputs.marketMultiplier === 1 ? 'neutral' : inputs.marketMultiplier > 1 ? 'favorable' : 'challenging'}`,
-          `Revenue quality and predictability considered`
-        ]
+          `Revenue quality and predictability considered`,
+        ],
       });
 
       // 2. EBITDA Multiple Method
       if (inputs.ebitda > 0) {
-        const ebitdaMultipleValuation = inputs.ebitda * industryData.ebitdaMultiple.avg * inputs.marketMultiplier;
+        const ebitdaMultipleValuation =
+          inputs.ebitda * industryData.ebitdaMultiple.avg * inputs.marketMultiplier;
         results.push({
           method: 'EBITDA Multiple',
           value: ebitdaMultipleValuation,
@@ -167,8 +180,8 @@ const ValuationTool = () => {
           assumptions: [
             `Industry EBITDA multiple: ${industryData.ebitdaMultiple.avg}x`,
             `EBITDA quality and sustainability assessed`,
-            `Management depth and systems considered`
-          ]
+            `Management depth and systems considered`,
+          ],
         });
       }
 
@@ -185,8 +198,8 @@ const ValuationTool = () => {
         assumptions: [
           `Net assets: €${netAssets.toLocaleString()}`,
           `Asset utilization and condition considered`,
-          `Liquidation discount applied for conservative estimate`
-        ]
+          `Liquidation discount applied for conservative estimate`,
+        ],
       });
 
       // 4. Discounted Cash Flow (Simplified)
@@ -203,17 +216,19 @@ const ValuationTool = () => {
         assumptions: [
           `Current cash flow: €${inputs.cashFlow.toLocaleString()}`,
           `Growth rate assumption: ${inputs.revenueGrowthRate}%`,
-          `Terminal value multiple: 10x final year cash flow`
-        ]
+          `Terminal value multiple: 10x final year cash flow`,
+        ],
       });
 
       setValuationResults(results);
-      
+
       // Calculate weighted average
       const weights = [0.35, 0.35, 0.15, 0.15];
-      const weightedSum = results.reduce((sum, result, index) => sum + (result.value * weights[index]), 0);
+      const weightedSum = results.reduce(
+        (sum, result, index) => sum + result.value * weights[index],
+        0
+      );
       setAverageValuation(weightedSum);
-
     } catch (error) {
       console.error('Error calculating valuation:', error);
     } finally {
@@ -225,9 +240,10 @@ const ValuationTool = () => {
   const handleInputChange = (field: keyof ValuationInputs, value: string | number) => {
     setInputs(prev => ({
       ...prev,
-      [field]: typeof value === 'string' && field !== 'industry' && field !== 'employeeCount' 
-        ? parseFloat(value) || 0 
-        : value
+      [field]:
+        typeof value === 'string' && field !== 'industry' && field !== 'employeeCount'
+          ? parseFloat(value) || 0
+          : value,
     }));
   };
 
@@ -260,17 +276,20 @@ const ValuationTool = () => {
         <SellerSidebar selectedTab="valuation" />
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl mx-auto">
-            
             {/* Header */}
             <div className="mb-8">
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Valuation Tool</h1>
-                  <p className="text-lg text-gray-600">Get a professional valuation using multiple industry-standard methods</p>
+                  <p className="text-lg text-gray-600">
+                    Get a professional valuation using multiple industry-standard methods
+                  </p>
                 </div>
                 <Button
                   color="primary"
-                  startContent={<RefreshCw className={`w-4 h-4 ${isCalculating ? 'animate-spin' : ''}`} />}
+                  startContent={
+                    <RefreshCw className={`w-4 h-4 ${isCalculating ? 'animate-spin' : ''}`} />
+                  }
                   onPress={calculateValuation}
                   isLoading={isCalculating}
                 >
@@ -281,14 +300,13 @@ const ValuationTool = () => {
 
             <Tabs
               selectedKey={activeTab}
-              onSelectionChange={(key) => setActiveTab(key as string)}
+              onSelectionChange={key => setActiveTab(key as string)}
               className="mb-8"
               variant="underlined"
               color="primary"
             >
               <Tab key="input" title="Business Data">
                 <div className="grid lg:grid-cols-2 gap-8">
-                  
                   {/* Financial Information */}
                   <Card className="border border-gray-200 shadow-sm">
                     <CardHeader>
@@ -299,28 +317,28 @@ const ValuationTool = () => {
                         label="Annual Revenue (€)"
                         placeholder="450,000"
                         value={inputs.annualRevenue.toString()}
-                        onChange={(e) => handleInputChange('annualRevenue', e.target.value)}
+                        onChange={e => handleInputChange('annualRevenue', e.target.value)}
                         startContent="€"
                       />
                       <Input
                         label="EBITDA (€)"
                         placeholder="135,000"
                         value={inputs.ebitda.toString()}
-                        onChange={(e) => handleInputChange('ebitda', e.target.value)}
+                        onChange={e => handleInputChange('ebitda', e.target.value)}
                         startContent="€"
                       />
                       <Input
                         label="Annual Cash Flow (€)"
                         placeholder="125,000"
                         value={inputs.cashFlow.toString()}
-                        onChange={(e) => handleInputChange('cashFlow', e.target.value)}
+                        onChange={e => handleInputChange('cashFlow', e.target.value)}
                         startContent="€"
                       />
                       <Input
                         label="Total Assets (€)"
                         placeholder="320,000"
                         value={inputs.totalAssets.toString()}
-                        onChange={(e) => handleInputChange('totalAssets', e.target.value)}
+                        onChange={e => handleInputChange('totalAssets', e.target.value)}
                         startContent="€"
                       />
                     </CardBody>
@@ -336,12 +354,10 @@ const ValuationTool = () => {
                         label="Industry"
                         placeholder="Select your industry"
                         selectedKeys={[inputs.industry]}
-                        onChange={(e) => handleInputChange('industry', e.target.value)}
+                        onChange={e => handleInputChange('industry', e.target.value)}
                       >
                         {Object.entries(industryMultiples).map(([key, value]) => (
-                          <SelectItem key={key} value={key}>
-                            {value.description}
-                          </SelectItem>
+                          <SelectItem key={key}>{value.description}</SelectItem>
                         ))}
                       </Select>
                       <Input
@@ -349,7 +365,7 @@ const ValuationTool = () => {
                         type="number"
                         placeholder="16"
                         value={inputs.yearsInBusiness.toString()}
-                        onChange={(e) => handleInputChange('yearsInBusiness', e.target.value)}
+                        onChange={e => handleInputChange('yearsInBusiness', e.target.value)}
                       />
                       <div className="space-y-4">
                         <label className="text-sm font-medium text-gray-700">
@@ -361,7 +377,12 @@ const ValuationTool = () => {
                           minValue={-10}
                           maxValue={20}
                           value={inputs.revenueGrowthRate}
-                          onChange={(value) => handleInputChange('revenueGrowthRate', Array.isArray(value) ? value[0] : value)}
+                          onChange={value =>
+                            handleInputChange(
+                              'revenueGrowthRate',
+                              Array.isArray(value) ? value[0] : value
+                            )
+                          }
                           className="max-w-md"
                           color="primary"
                         />
@@ -389,7 +410,9 @@ const ValuationTool = () => {
                   <div className="text-center py-16">
                     <Calculator className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">No Valuation Yet</h3>
-                    <p className="text-gray-600 mb-6">Enter your business data and run the valuation to see results</p>
+                    <p className="text-gray-600 mb-6">
+                      Enter your business data and run the valuation to see results
+                    </p>
                     <Button
                       color="primary"
                       onPress={() => setActiveTab('input')}
@@ -400,18 +423,21 @@ const ValuationTool = () => {
                   </div>
                 ) : (
                   <div className="space-y-8">
-                    
                     {/* Summary Card */}
                     <Card className="border border-gray-200 shadow-sm">
                       <CardBody className="p-8 text-center">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Estimated Business Value</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                          Estimated Business Value
+                        </h2>
                         <div className="flex items-center justify-center space-x-3 mb-4">
                           <TrendingUp className="w-8 h-8 text-gray-600" />
                           <span className="text-5xl font-bold text-gray-900">
                             €{averageValuation.toLocaleString()}
                           </span>
                         </div>
-                        <p className="text-lg text-gray-600 mb-6">Weighted average of {valuationResults.length} valuation methods</p>
+                        <p className="text-lg text-gray-600 mb-6">
+                          Weighted average of {valuationResults.length} valuation methods
+                        </p>
 
                         <div className="flex justify-center space-x-4">
                           <Button
@@ -437,12 +463,18 @@ const ValuationTool = () => {
                         <Card key={index} className="border border-gray-200 shadow-sm">
                           <CardHeader>
                             <div className="flex items-center justify-between w-full">
-                              <h3 className="text-lg font-semibold text-gray-900">{result.method}</h3>
-                              <span className={`text-sm font-medium px-2 py-1 rounded-full bg-gray-100 ${
-                                result.confidence === 'high' ? 'text-green-600' :
-                                result.confidence === 'medium' ? 'text-gray-600' :
-                                'text-red-600'
-                              }`}>
+                              <h3 className="text-lg font-semibold text-gray-900">
+                                {result.method}
+                              </h3>
+                              <span
+                                className={`text-sm font-medium px-2 py-1 rounded-full bg-gray-100 ${
+                                  result.confidence === 'high'
+                                    ? 'text-green-600'
+                                    : result.confidence === 'medium'
+                                      ? 'text-gray-600'
+                                      : 'text-red-600'
+                                }`}
+                              >
                                 {result.confidence.toUpperCase()}
                               </span>
                             </div>
@@ -453,7 +485,8 @@ const ValuationTool = () => {
                                 €{result.value.toLocaleString()}
                               </div>
                               <div className="text-sm text-gray-600">
-                                Range: €{result.lowRange.toLocaleString()} - €{result.highRange.toLocaleString()}
+                                Range: €{result.lowRange.toLocaleString()} - €
+                                {result.highRange.toLocaleString()}
                               </div>
                             </div>
                             <p className="text-gray-700 mb-4">{result.explanation}</p>

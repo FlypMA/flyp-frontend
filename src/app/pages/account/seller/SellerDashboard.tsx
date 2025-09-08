@@ -21,7 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
-import { User as UserType } from '../../../types/api/users/user';
+import { UserProfile } from '../../../../types/api';
 import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../../components/valuation/ValuationDashboard';
@@ -70,11 +70,9 @@ interface BusinessProfile {
   is_complete: boolean;
 }
 
-
-
 const SellerDashboard = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [businessListing, setBusinessListing] = useState<Listing | null>(null);
@@ -101,7 +99,8 @@ const SellerDashboard = () => {
             founded_year: 2008,
             employee_count: '6-10',
             annual_revenue: 450000,
-            description: 'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
+            description:
+              'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
             location: 'Brussels, Belgium',
             is_complete: true,
           });
@@ -125,14 +124,14 @@ const SellerDashboard = () => {
               'Prime location with long-term lease',
               'Experienced management team',
               'Growing market demand',
-              'Proprietary business processes'
+              'Proprietary business processes',
             ],
             risk_factors: [
               'Key person dependency',
               'Market competition increasing',
               'Economic uncertainty',
               'Regulatory changes possible',
-              'Customer concentration risk'
+              'Customer concentration risk',
             ],
             next_review_date: '2024-07-10',
           });
@@ -213,57 +212,57 @@ const SellerDashboard = () => {
 
   const getNextSteps = () => {
     const steps = [];
-    
+
     if (!businessProfile?.is_complete) {
       steps.push({
         title: 'Complete Business Profile',
         description: 'Add your business information to get started with valuation and listing.',
         icon: Building2,
         actionText: 'Complete Profile',
-        action: () => navigate('/account/settings')
+        action: () => navigate('/account/settings'),
       });
     }
-    
+
     if (businessProfile?.is_complete && !businessValuation) {
       steps.push({
         title: 'Get Free Business Valuation',
         description: 'Discover what your business is worth with our professional valuation tool.',
         icon: Calculator,
         actionText: 'Start Valuation',
-        action: () => setSelectedTab('valuation')
+        action: () => setSelectedTab('valuation'),
       });
     }
-    
+
     if (businessValuation?.status === 'completed' && !businessListing) {
       steps.push({
         title: 'Create Your Business Listing',
         description: 'List your business for sale and start attracting qualified buyers.',
         icon: Target,
         actionText: 'Create Listing',
-        action: () => navigate('/seller/listings/new')
+        action: () => navigate('/seller/listings/new'),
       });
     }
-    
+
     if (businessListing?.status === 'published' && businessListing.inquiries > 0) {
       steps.push({
         title: 'Review Buyer Inquiries',
         description: `You have ${businessListing.inquiries} inquiries waiting for your response.`,
         icon: MessageSquare,
         actionText: 'View Messages',
-        action: () => navigate('/messages')
+        action: () => navigate('/messages'),
       });
     }
-    
+
     if (businessListing?.status === 'published' && businessListing.views < 50) {
       steps.push({
         title: 'Optimize Your Listing',
         description: 'Improve your listing visibility and attract more qualified buyers.',
         icon: TrendingUp,
         actionText: 'Optimize Listing',
-        action: () => setSelectedTab('listing')
+        action: () => setSelectedTab('listing'),
       });
     }
-    
+
     // Default action if all steps are completed
     if (steps.length === 0) {
       steps.push({
@@ -271,10 +270,10 @@ const SellerDashboard = () => {
         description: 'Track views, inquiries, and engagement on your business listing.',
         icon: TrendingUp,
         actionText: 'View Analytics',
-        action: () => setSelectedTab('listing')
+        action: () => setSelectedTab('listing'),
       });
     }
-    
+
     return steps;
   };
 
@@ -336,7 +335,9 @@ const SellerDashboard = () => {
                       <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         Welcome back, {user?.name?.split(' ')[0] || 'Business Owner'}! 👋
                       </h1>
-                      <p className="text-blue-700">Your business intelligence dashboard is ready with valuable insights.</p>
+                      <p className="text-blue-700">
+                        Your business intelligence dashboard is ready with valuable insights.
+                      </p>
                     </div>
                     <div className="ml-6">
                       <Building2 className="w-16 h-16 text-blue-600" />
@@ -346,7 +347,6 @@ const SellerDashboard = () => {
 
                 {/* Main Business Overview Grid */}
                 <div className="grid lg:grid-cols-3 gap-8">
-                  
                   {/* Business Hero Card - Left Side (2/3) */}
                   <div className="lg:col-span-2">
                     <Card className="border-0 shadow-lg bg-gradient-to-br from-white via-gray-50 to-blue-50">
@@ -359,54 +359,72 @@ const SellerDashboard = () => {
                               </div>
                               {businessProfile && (
                                 <div>
-                                  <h2 className="text-2xl font-bold text-gray-900">{businessProfile.name}</h2>
-                                  <p className="text-gray-600 font-medium">{businessProfile.sector}</p>
+                                  <h2 className="text-2xl font-bold text-gray-900">
+                                    {businessProfile.name}
+                                  </h2>
+                                  <p className="text-gray-600 font-medium">
+                                    {businessProfile.sector}
+                                  </p>
                                 </div>
                               )}
                             </div>
-                            
+
                             {businessProfile && (
                               <div className="space-y-4">
-                                <p className="text-gray-700 leading-relaxed">{businessProfile.description}</p>
-                                
+                                <p className="text-gray-700 leading-relaxed">
+                                  {businessProfile.description}
+                                </p>
+
                                 {/* Business Key Facts */}
                                 <div className="flex flex-wrap gap-4">
                                   <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
                                     <div className="text-sm text-gray-600">Founded</div>
-                                    <div className="font-semibold text-gray-900">{businessProfile.founded_year}</div>
+                                    <div className="font-semibold text-gray-900">
+                                      {businessProfile.founded_year}
+                                    </div>
                                   </div>
                                   <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
                                     <div className="text-sm text-gray-600">Team</div>
-                                    <div className="font-semibold text-gray-900">{businessProfile.employee_count}</div>
+                                    <div className="font-semibold text-gray-900">
+                                      {businessProfile.employee_count}
+                                    </div>
                                   </div>
                                   <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
                                     <div className="text-sm text-gray-600">Location</div>
-                                    <div className="font-semibold text-gray-900">{businessProfile.location}</div>
+                                    <div className="font-semibold text-gray-900">
+                                      {businessProfile.location}
+                                    </div>
                                   </div>
                                   <div className="bg-white bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
                                     <div className="text-sm text-gray-600">Revenue</div>
-                                    <div className="font-semibold text-gray-900">€{businessProfile.annual_revenue?.toLocaleString()}</div>
+                                    <div className="font-semibold text-gray-900">
+                                      €{businessProfile.annual_revenue?.toLocaleString()}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             )}
                           </div>
                         </div>
-                        
+
                         {/* Market Performance Indicators */}
                         {businessListing && (
                           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
                             <div className="text-center">
                               <div className="flex items-center justify-center space-x-2 mb-2">
                                 <Eye className="w-5 h-5 text-blue-600" />
-                                <span className="text-2xl font-bold text-gray-900">{businessListing.views}</span>
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {businessListing.views}
+                                </span>
                               </div>
                               <p className="text-sm text-gray-600">Total Views</p>
                             </div>
                             <div className="text-center">
                               <div className="flex items-center justify-center space-x-2 mb-2">
                                 <MessageSquare className="w-5 h-5 text-green-600" />
-                                <span className="text-2xl font-bold text-gray-900">{businessListing.inquiries}</span>
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {businessListing.inquiries}
+                                </span>
                               </div>
                               <p className="text-sm text-gray-600">Buyer Inquiries</p>
                             </div>
@@ -414,7 +432,13 @@ const SellerDashboard = () => {
                               <div className="flex items-center justify-center space-x-2 mb-2">
                                 <TrendingUp className="w-5 h-5 text-purple-600" />
                                 <span className="text-2xl font-bold text-gray-900">
-                                  {businessListing.views > 0 ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1) : 0}%
+                                  {businessListing.views > 0
+                                    ? (
+                                        (businessListing.inquiries / businessListing.views) *
+                                        100
+                                      ).toFixed(1)
+                                    : 0}
+                                  %
                                 </span>
                               </div>
                               <p className="text-sm text-gray-600">Interest Rate</p>
@@ -424,7 +448,7 @@ const SellerDashboard = () => {
                       </CardBody>
                     </Card>
                   </div>
-                  
+
                   {/* Ready to Sell CTA - Right Side (1/3) */}
                   <div>
                     <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-600 to-purple-700">
@@ -433,11 +457,11 @@ const SellerDashboard = () => {
                           <Sparkles className="w-12 h-12 mx-auto mb-4 text-blue-200" />
                           <h3 className="text-xl font-bold mb-2">Ready to Sell?</h3>
                           <p className="text-blue-100 text-sm leading-relaxed">
-                            Your business is validated and attracting buyer interest. 
-                            Take the next step in your entrepreneurial journey.
+                            Your business is validated and attracting buyer interest. Take the next
+                            step in your entrepreneurial journey.
                           </p>
                         </div>
-                        
+
                         <div className="space-y-3">
                           <Button
                             className="w-full bg-white text-blue-700 font-semibold hover:bg-blue-50"
@@ -469,7 +493,7 @@ const SellerDashboard = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900">Reports</h2>
                   </div>
-                  
+
                   {/* Business Valuation Report */}
                   <div className="grid md:grid-cols-2 gap-6">
                     <ValuationReportCard
@@ -479,14 +503,16 @@ const SellerDashboard = () => {
                       onCreateListing={() => navigate('/seller/listings/new')}
                       className="max-w-none"
                     />
-                    
+
                     {/* Placeholder for future reports */}
                     <Card className="border border-dashed border-gray-300 bg-gray-50">
                       <CardBody className="p-6 text-center">
                         <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
                           <Plus className="w-6 h-6 text-gray-400" />
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-700 mb-2">More Reports Coming Soon</h3>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                          More Reports Coming Soon
+                        </h3>
                         <p className="text-gray-500 text-sm">
                           Additional business intelligence reports will be available here.
                         </p>
@@ -519,7 +545,9 @@ const SellerDashboard = () => {
               <div className="space-y-6">
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">Listing Management</h2>
-                  <p className="text-gray-600">Manage your business listing and track performance</p>
+                  <p className="text-gray-600">
+                    Manage your business listing and track performance
+                  </p>
                 </div>
 
                 {businessListing ? (
@@ -528,7 +556,9 @@ const SellerDashboard = () => {
                     <Card className="border border-gray-200">
                       <CardHeader>
                         <div className="flex items-center justify-between w-full">
-                          <h3 className="text-lg font-semibold text-gray-900">Your Business Listing</h3>
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            Your Business Listing
+                          </h3>
                           <Chip
                             color={getStatusColor(businessListing.status)}
                             variant="flat"
@@ -541,35 +571,46 @@ const SellerDashboard = () => {
                       <CardBody>
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-semibold text-gray-900 mb-2">{businessListing.title}</h4>
+                            <h4 className="font-semibold text-gray-900 mb-2">
+                              {businessListing.title}
+                            </h4>
                             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
                               <span>{businessListing.sector}</span>
                               <span>•</span>
                               <span>{businessListing.country}</span>
                               <span>•</span>
-                              <span>{formatPrice(businessListing.asking_price, businessListing.currency)}</span>
+                              <span>
+                                {formatPrice(
+                                  businessListing.asking_price,
+                                  businessListing.currency
+                                )}
+                              </span>
                               <span>•</span>
-                              <span>Listed {new Date(businessListing.created_at).toLocaleDateString()}</span>
+                              <span>
+                                Listed {new Date(businessListing.created_at).toLocaleDateString()}
+                              </span>
                             </div>
                           </div>
-                          
+
                           <div className="flex items-center gap-4">
-                            <Button 
-                              color="primary" 
+                            <Button
+                              color="primary"
                               variant="flat"
                               onPress={() => navigate(`/listings/${businessListing.id}`)}
                             >
                               View Public Listing
                             </Button>
-                            <Button 
+                            <Button
                               variant="bordered"
                               startContent={<Settings className="w-4 h-4" />}
-                              onPress={() => navigate(`/seller/listings/edit?id=${businessListing.id}`)}
+                              onPress={() =>
+                                navigate(`/seller/listings/edit?id=${businessListing.id}`)
+                              }
                             >
                               Edit Listing
                             </Button>
                             {businessListing.inquiries > 0 && (
-                              <Button 
+                              <Button
                                 color="success"
                                 variant="flat"
                                 startContent={<MessageSquare className="w-4 h-4" />}
@@ -588,14 +629,18 @@ const SellerDashboard = () => {
                       <Card>
                         <CardBody className="text-center">
                           <Eye className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-gray-900">{businessListing.views}</div>
+                          <div className="text-2xl font-bold text-gray-900">
+                            {businessListing.views}
+                          </div>
                           <p className="text-sm text-gray-600">Total Views</p>
                         </CardBody>
                       </Card>
                       <Card>
                         <CardBody className="text-center">
                           <MessageSquare className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-gray-900">{businessListing.inquiries}</div>
+                          <div className="text-2xl font-bold text-gray-900">
+                            {businessListing.inquiries}
+                          </div>
                           <p className="text-sm text-gray-600">Inquiries Received</p>
                         </CardBody>
                       </Card>
@@ -603,7 +648,12 @@ const SellerDashboard = () => {
                         <CardBody className="text-center">
                           <TrendingUp className="w-8 h-8 text-purple-600 mx-auto mb-2" />
                           <div className="text-2xl font-bold text-gray-900">
-                            {businessListing.views > 0 ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1) : 0}%
+                            {businessListing.views > 0
+                              ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(
+                                  1
+                                )
+                              : 0}
+                            %
                           </div>
                           <p className="text-sm text-gray-600">Conversion Rate</p>
                         </CardBody>
@@ -614,13 +664,16 @@ const SellerDashboard = () => {
                   <Card>
                     <CardBody className="text-center py-12">
                       <Target className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Your Business Listing</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        Create Your Business Listing
+                      </h3>
                       <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                        List your business for sale and start attracting qualified buyers. 
-                        {businessValuation && ' Based on your valuation, we recommend an asking price range.'}
+                        List your business for sale and start attracting qualified buyers.
+                        {businessValuation &&
+                          ' Based on your valuation, we recommend an asking price range.'}
                       </p>
-                      <Button 
-                        color="primary" 
+                      <Button
+                        color="primary"
                         size="lg"
                         onPress={() => navigate('/seller/listings/new')}
                       >
@@ -636,8 +689,6 @@ const SellerDashboard = () => {
                 )}
               </div>
             )}
-
-
           </div>
         </div>
       </div>

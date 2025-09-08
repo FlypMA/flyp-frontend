@@ -17,13 +17,13 @@ import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
 import FAQ from './pages/support/faq';
 import Contact from './pages/support/contact';
-import Help from './pages/support/help';
+import Help from './pages/help/Help';
 
 import SellersLandingPage from './pages/landingPages/sellers/sellers';
 
 import ListingSearch from './pages/listings/ListingSearch';
 import ListingDetails from './pages/listings/ListingDetails';
-import CreateListing from './pages/listings/CreateListing';
+import CreateListing from './pages/listings/CreateListingPage';
 import NoPage from './pages/error/404/noPage';
 import { AuthModalProvider } from './contexts/AuthModalContext';
 import AuthModals from './components/modals/AuthModals';

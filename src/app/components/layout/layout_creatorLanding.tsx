@@ -7,12 +7,12 @@ import Footer from '../footer';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { authService } from '../../services/users/authenticationService';
-import { User } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { BetweendealsLogo } from '../common';
 
 const CreatorLandingLayout = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const { openModal } = useAuthModal();
 

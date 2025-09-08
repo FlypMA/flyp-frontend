@@ -1,10 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Modal, ModalContent, ModalBody, Button, Input, Select, SelectItem, Textarea, Progress, Card, CardBody } from '@heroui/react';
-import { X, ArrowLeft, ArrowRight, Calculator, TrendingUp, Users, MapPin, Building2, Sparkles, Target, CheckCircle2 } from 'lucide-react';
+import {
+  Modal,
+  ModalContent,
+  ModalBody,
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Textarea,
+  Progress,
+  Card,
+  CardBody,
+} from '@heroui/react';
+import {
+  X,
+  ArrowLeft,
+  ArrowRight,
+  Calculator,
+  TrendingUp,
+  Users,
+  MapPin,
+  Building2,
+  Sparkles,
+  Target,
+  CheckCircle2,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { BetweendealsLogo } from '../common';
 
-type ModalStep = 'valuation-hook' | 'valuation-form' | 'valuation-result' | 'listing-pitch' | 'listing-form' | 'success';
+type ModalStep =
+  | 'valuation-hook'
+  | 'valuation-form'
+  | 'valuation-result'
+  | 'listing-pitch'
+  | 'listing-form'
+  | 'success';
 
 interface BusinessValuationData {
   businessName: string;
@@ -32,7 +62,7 @@ interface BusinessListingModalProps {
 const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
   isOpen,
   onClose,
-  initialStep = 'valuation-hook'
+  initialStep = 'valuation-hook',
 }) => {
   const [currentStep, setCurrentStep] = useState<ModalStep>(initialStep);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +74,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
     location: '',
     revenueRange: '',
     employeeCount: '',
-    businessAge: ''
+    businessAge: '',
   });
 
   const [listingData, setListingData] = useState<BusinessListingData>({
@@ -53,7 +83,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
     contactEmail: '',
     contactPhone: '',
     sellingReason: '',
-    timeline: ''
+    timeline: '',
   });
 
   const [calculatedValuation, setCalculatedValuation] = useState<{
@@ -73,7 +103,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
   const industries = [
     'Technology & Software',
     'Healthcare & Medical',
-    'Finance & Insurance', 
+    'Finance & Insurance',
     'Retail & E-commerce',
     'Manufacturing',
     'Real Estate',
@@ -84,27 +114,32 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
     'Education & Training',
     'Media & Entertainment',
     'Agriculture',
-    'Other'
+    'Other',
   ];
 
   const revenueRanges = [
     'Under €100K',
-    '€100K - €500K', 
+    '€100K - €500K',
     '€500K - €1M',
     '€1M - €2.5M',
     '€2.5M - €5M',
     '€5M - €10M',
-    '€10M+'
+    '€10M+',
   ];
 
   const employeeCounts = ['1-5', '6-10', '11-25', '26-50', '51-100', '100+'];
   const businessAges = ['Under 2 years', '2-5 years', '5-10 years', '10-20 years', '20+ years'];
-  const timelines = ['Immediate (0-3 months)', 'Short term (3-6 months)', 'Medium term (6-12 months)', 'Long term (1+ years)'];
+  const timelines = [
+    'Immediate (0-3 months)',
+    'Short term (3-6 months)',
+    'Medium term (6-12 months)',
+    'Long term (1+ years)',
+  ];
 
   // Mock valuation calculation
   const calculateValuation = (data: BusinessValuationData) => {
     setIsLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       const revenueMultipliers: Record<string, number> = {
@@ -114,7 +149,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
         '€1M - €2.5M': 3.0,
         '€2.5M - €5M': 3.5,
         '€5M - €10M': 4.0,
-        '€10M+': 4.5
+        '€10M+': 4.5,
       };
 
       const industryMultipliers: Record<string, number> = {
@@ -122,15 +157,15 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
         'Healthcare & Medical': 1.2,
         'Finance & Insurance': 1.3,
         'Professional Services': 1.1,
-        'Manufacturing': 0.9,
+        Manufacturing: 0.9,
         'Retail & E-commerce': 1.0,
-        'Other': 1.0
+        Other: 1.0,
       };
 
       const baseRevenue = getRevenueAverage(data.revenueRange);
       const revenueMultiplier = revenueMultipliers[data.revenueRange] || 2.0;
       const industryMultiplier = industryMultipliers[data.industry] || 1.0;
-      
+
       const baseValuation = baseRevenue * revenueMultiplier * industryMultiplier;
       const minValue = Math.round(baseValuation * 0.8);
       const maxValue = Math.round(baseValuation * 1.3);
@@ -143,8 +178,8 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           `${data.industry} industry multiple`,
           `${data.businessAge} operating history`,
           `${data.employeeCount} employee base`,
-          `${data.location} market location`
-        ]
+          `${data.location} market location`,
+        ],
       });
 
       setIsLoading(false);
@@ -160,7 +195,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
       '€1M - €2.5M': 1750000,
       '€2.5M - €5M': 3750000,
       '€5M - €10M': 7500000,
-      '€10M+': 15000000
+      '€10M+': 15000000,
     };
     return ranges[range] || 300000;
   };
@@ -174,7 +209,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
 
   const handleCreateListing = async () => {
     setIsLoading(true);
-    
+
     // Simulate API call to create listing
     setTimeout(() => {
       setIsLoading(false);
@@ -189,7 +224,13 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
   };
 
   const getStepProgress = () => {
-    const steps = ['valuation-hook', 'valuation-form', 'valuation-result', 'listing-form', 'success'];
+    const steps = [
+      'valuation-hook',
+      'valuation-form',
+      'valuation-result',
+      'listing-form',
+      'success',
+    ];
     const currentIndex = steps.indexOf(currentStep);
     return ((currentIndex + 1) / steps.length) * 100;
   };
@@ -213,7 +254,8 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             Get Your Free Business Valuation
           </h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto leading-relaxed">
-            Discover what your business is worth in today's market. Professional valuation in under 2 minutes.
+            Discover what your business is worth in today's market. Professional valuation in under
+            2 minutes.
           </p>
         </div>
       </div>
@@ -261,7 +303,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Business Name"
           placeholder="Enter your business name"
           value={valuationData.businessName}
-          onValueChange={(value) => setValuationData(prev => ({ ...prev, businessName: value }))}
+          onValueChange={value => setValuationData(prev => ({ ...prev, businessName: value }))}
           size="lg"
           variant="bordered"
           isRequired
@@ -271,7 +313,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Industry"
           placeholder="Select your industry"
           selectedKeys={valuationData.industry ? [valuationData.industry] : []}
-          onSelectionChange={(keys) => {
+          onSelectionChange={keys => {
             const selectedIndustry = Array.from(keys)[0] as string;
             setValuationData(prev => ({ ...prev, industry: selectedIndustry }));
           }}
@@ -279,10 +321,8 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           variant="bordered"
           isRequired
         >
-          {industries.map((industry) => (
-            <SelectItem key={industry} value={industry}>
-              {industry}
-            </SelectItem>
+          {industries.map(industry => (
+            <SelectItem key={industry}>{industry}</SelectItem>
           ))}
         </Select>
 
@@ -290,7 +330,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Annual Revenue"
           placeholder="Select revenue range"
           selectedKeys={valuationData.revenueRange ? [valuationData.revenueRange] : []}
-          onSelectionChange={(keys) => {
+          onSelectionChange={keys => {
             const selectedRange = Array.from(keys)[0] as string;
             setValuationData(prev => ({ ...prev, revenueRange: selectedRange }));
           }}
@@ -298,10 +338,8 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           variant="bordered"
           isRequired
         >
-          {revenueRanges.map((range) => (
-            <SelectItem key={range} value={range}>
-              {range}
-            </SelectItem>
+          {revenueRanges.map(range => (
+            <SelectItem key={range}>{range}</SelectItem>
           ))}
         </Select>
 
@@ -309,32 +347,28 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           <Select
             label="Employees"
             selectedKeys={valuationData.employeeCount ? [valuationData.employeeCount] : []}
-            onSelectionChange={(keys) => {
+            onSelectionChange={keys => {
               const selectedCount = Array.from(keys)[0] as string;
               setValuationData(prev => ({ ...prev, employeeCount: selectedCount }));
             }}
             variant="bordered"
           >
-            {employeeCounts.map((count) => (
-              <SelectItem key={count} value={count}>
-                {count}
-              </SelectItem>
+            {employeeCounts.map(count => (
+              <SelectItem key={count}>{count}</SelectItem>
             ))}
           </Select>
 
           <Select
             label="Business Age"
             selectedKeys={valuationData.businessAge ? [valuationData.businessAge] : []}
-            onSelectionChange={(keys) => {
+            onSelectionChange={keys => {
               const selectedAge = Array.from(keys)[0] as string;
               setValuationData(prev => ({ ...prev, businessAge: selectedAge }));
             }}
             variant="bordered"
           >
-            {businessAges.map((age) => (
-              <SelectItem key={age} value={age}>
-                {age}
-              </SelectItem>
+            {businessAges.map(age => (
+              <SelectItem key={age}>{age}</SelectItem>
             ))}
           </Select>
         </div>
@@ -343,7 +377,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Location"
           placeholder="City, Country"
           value={valuationData.location}
-          onValueChange={(value) => setValuationData(prev => ({ ...prev, location: value }))}
+          onValueChange={value => setValuationData(prev => ({ ...prev, location: value }))}
           variant="bordered"
           startContent={<MapPin className="w-4 h-4 text-gray-400" />}
         />
@@ -361,7 +395,9 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           size="lg"
           className="bg-green-600 hover:bg-green-700 text-white px-8"
           onPress={handleValuationSubmit}
-          isDisabled={!valuationData.businessName || !valuationData.industry || !valuationData.revenueRange}
+          isDisabled={
+            !valuationData.businessName || !valuationData.industry || !valuationData.revenueRange
+          }
           endContent={<Calculator className="w-4 h-4" />}
         >
           Calculate Valuation
@@ -382,9 +418,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Calculating Your Business Value...
               </h2>
-              <p className="text-gray-600">
-                Analyzing market data and industry comparables
-              </p>
+              <p className="text-gray-600">Analyzing market data and industry comparables</p>
             </div>
           </div>
           <Progress size="sm" isIndeterminate className="max-w-xs mx-auto" />
@@ -401,11 +435,10 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             <TrendingUp className="w-8 h-8 text-green-600" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Your Business Valuation
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Business Valuation</h2>
             <p className="text-gray-600">
-              Based on current market data for <span className="font-semibold">{valuationData.businessName}</span>
+              Based on current market data for{' '}
+              <span className="font-semibold">{valuationData.businessName}</span>
             </p>
           </div>
         </div>
@@ -415,13 +448,19 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             <div className="space-y-4">
               <div>
                 <div className="text-4xl font-bold text-green-600 mb-2">
-                  {formatCurrency(calculatedValuation.minValue)} - {formatCurrency(calculatedValuation.maxValue)}
+                  {formatCurrency(calculatedValuation.minValue)} -{' '}
+                  {formatCurrency(calculatedValuation.maxValue)}
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    calculatedValuation.confidence === 'high' ? 'bg-green-500' : 
-                    calculatedValuation.confidence === 'medium' ? 'bg-yellow-500' : 'bg-orange-500'
-                  }`} />
+                  <div
+                    className={`w-2 h-2 rounded-full ${
+                      calculatedValuation.confidence === 'high'
+                        ? 'bg-green-500'
+                        : calculatedValuation.confidence === 'medium'
+                          ? 'bg-yellow-500'
+                          : 'bg-orange-500'
+                    }`}
+                  />
                   <span className="text-sm font-medium text-gray-600 capitalize">
                     {calculatedValuation.confidence} confidence
                   </span>
@@ -440,19 +479,15 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
 
         <div className="text-center space-y-6">
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Want to reach serious buyers?
-            </h3>
+            <h3 className="text-xl font-semibold text-gray-900">Want to reach serious buyers?</h3>
             <p className="text-gray-600 max-w-md mx-auto">
-              Create a professional listing to connect with our network of qualified buyers actively looking for businesses like yours.
+              Create a professional listing to connect with our network of qualified buyers actively
+              looking for businesses like yours.
             </p>
           </div>
 
           <div className="flex justify-center space-x-4">
-            <Button
-              variant="ghost"
-              onPress={handleClose}
-            >
+            <Button variant="ghost" onPress={handleClose}>
               Maybe Later
             </Button>
             <Button
@@ -480,7 +515,8 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             Your business deserves the right buyer
           </h2>
           <p className="text-gray-600 max-w-md mx-auto">
-            Join thousands of successful business owners who found their perfect buyer through our platform.
+            Join thousands of successful business owners who found their perfect buyer through our
+            platform.
           </p>
         </div>
       </div>
@@ -513,7 +549,9 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
             <div>
               <div className="font-semibold text-gray-900">Confidential process</div>
-              <div className="text-sm text-gray-600">Your information stays private until you're ready</div>
+              <div className="text-sm text-gray-600">
+                Your information stays private until you're ready
+              </div>
             </div>
           </div>
           <div className="flex items-start space-x-3">
@@ -552,7 +590,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Business Description"
           placeholder="Describe your business, what makes it special, key selling points..."
           value={listingData.description}
-          onValueChange={(value) => setListingData(prev => ({ ...prev, description: value }))}
+          onValueChange={value => setListingData(prev => ({ ...prev, description: value }))}
           minRows={4}
           variant="bordered"
           isRequired
@@ -564,7 +602,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             type="email"
             placeholder="your@email.com"
             value={listingData.contactEmail}
-            onValueChange={(value) => setListingData(prev => ({ ...prev, contactEmail: value }))}
+            onValueChange={value => setListingData(prev => ({ ...prev, contactEmail: value }))}
             variant="bordered"
             isRequired
           />
@@ -573,7 +611,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             type="tel"
             placeholder="+32 xxx xxx xxx"
             value={listingData.contactPhone}
-            onValueChange={(value) => setListingData(prev => ({ ...prev, contactPhone: value }))}
+            onValueChange={value => setListingData(prev => ({ ...prev, contactPhone: value }))}
             variant="bordered"
           />
         </div>
@@ -582,33 +620,31 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           label="Selling Reason"
           placeholder="Why are you selling?"
           selectedKeys={listingData.sellingReason ? [listingData.sellingReason] : []}
-          onSelectionChange={(keys) => {
+          onSelectionChange={keys => {
             const selectedReason = Array.from(keys)[0] as string;
             setListingData(prev => ({ ...prev, sellingReason: selectedReason }));
           }}
           variant="bordered"
         >
-          <SelectItem key="retirement" value="retirement">Retirement</SelectItem>
-          <SelectItem key="new-venture" value="new-venture">Starting new venture</SelectItem>
-          <SelectItem key="health" value="health">Health reasons</SelectItem>
-          <SelectItem key="relocation" value="relocation">Relocation</SelectItem>
-          <SelectItem key="other" value="other">Other</SelectItem>
+          <SelectItem key="retirement">Retirement</SelectItem>
+          <SelectItem key="new-venture">Starting new venture</SelectItem>
+          <SelectItem key="health">Health reasons</SelectItem>
+          <SelectItem key="relocation">Relocation</SelectItem>
+          <SelectItem key="other">Other</SelectItem>
         </Select>
 
         <Select
           label="Timeline"
           placeholder="When do you want to sell?"
           selectedKeys={listingData.timeline ? [listingData.timeline] : []}
-          onSelectionChange={(keys) => {
+          onSelectionChange={keys => {
             const selectedTimeline = Array.from(keys)[0] as string;
             setListingData(prev => ({ ...prev, timeline: selectedTimeline }));
           }}
           variant="bordered"
         >
-          {timelines.map((timeline) => (
-            <SelectItem key={timeline} value={timeline}>
-              {timeline}
-            </SelectItem>
+          {timelines.map(timeline => (
+            <SelectItem key={timeline}>{timeline}</SelectItem>
           ))}
         </Select>
       </div>
@@ -642,11 +678,10 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           <CheckCircle2 className="w-8 h-8 text-green-600" />
         </div>
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Your listing is live!
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Your listing is live!</h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto">
-            <strong>{listingData.businessName}</strong> is now visible to our network of qualified buyers.
+            <strong>{listingData.businessName}</strong> is now visible to our network of qualified
+            buyers.
           </p>
         </div>
       </div>
@@ -726,35 +761,29 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
                 <BetweendealsLogo variant="icon" className="h-8 w-8" />
                 <div>
                   <div className="font-semibold text-gray-900">
-                    {currentStep === 'valuation-hook' || currentStep === 'valuation-form' || currentStep === 'valuation-result' 
-                      ? 'Business Valuation' 
-                      : 'List Your Business'
-                    }
+                    {currentStep === 'valuation-hook' ||
+                    currentStep === 'valuation-form' ||
+                    currentStep === 'valuation-result'
+                      ? 'Business Valuation'
+                      : 'List Your Business'}
                   </div>
                   {currentStep !== 'valuation-hook' && currentStep !== 'success' && (
-                    <Progress 
-                      size="sm" 
-                      value={getStepProgress()} 
-                      className="w-48 mt-1" 
+                    <Progress
+                      size="sm"
+                      value={getStepProgress()}
+                      className="w-48 mt-1"
                       color="success"
                     />
                   )}
                 </div>
               </div>
-              <Button
-                isIconOnly
-                variant="ghost"
-                onPress={handleClose}
-                className="rounded-full"
-              >
+              <Button isIconOnly variant="ghost" onPress={handleClose} className="rounded-full">
                 <X className="w-5 h-5" />
               </Button>
             </div>
 
             {/* Content */}
-            <div className="px-8 pb-8">
-              {renderCurrentStep()}
-            </div>
+            <div className="px-8 pb-8">{renderCurrentStep()}</div>
           </div>
         </ModalBody>
       </ModalContent>

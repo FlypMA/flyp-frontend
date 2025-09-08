@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardBody } from '@heroui/react';
 import { Building2, HelpCircle } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
-import { User } from '../../../types/api/users/user';
+import { UserProfile } from '../../../../types/api';
 import SettingsSidebar from '../../../components/settings/SettingsSidebar';
 import ProfileSettings from '../../../components/settings/sections/ProfileSettings';
 import SimpleBusinessSettings from '../../../components/settings/sections/SimpleBusinessSettings';
@@ -12,7 +12,7 @@ import SimpleSupportSettings from '../../../components/settings/sections/SimpleS
 import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 
 const Settings: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedSection, setSelectedSection] = useState('profile');
   const navigate = useNavigate();

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, Button, Avatar, Badge, Chip, Divider } from '@heroui/react';
 import { CleanInput } from '../../components/ui';
-import { 
-  Search, 
-  MessageCircle, 
-  Send, 
-  MoreVertical, 
-  Phone, 
-  Video, 
+import {
+  Search,
+  MessageCircle,
+  Send,
+  MoreVertical,
+  Phone,
+  Video,
   Paperclip,
   Smile,
   Filter,
@@ -20,7 +20,7 @@ import {
   Building2,
   User,
   Euro,
-  MapPin
+  MapPin,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../types/api/users/user';
@@ -81,96 +81,102 @@ const Messages: React.FC = () => {
       id: '1',
       participant: {
         name: 'Michael Chen',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+        avatar:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
         role: 'buyer',
-        company: 'Chen Investments'
+        company: 'Chen Investments',
       },
       lastMessage: {
-        content: 'I\'m very interested in the restaurant chain. Could we schedule a call to discuss the details?',
+        content:
+          "I'm very interested in the restaurant chain. Could we schedule a call to discuss the details?",
         timestamp: new Date('2024-01-20T14:30:00'),
         isRead: false,
-        senderId: 'buyer1'
+        senderId: 'buyer1',
       },
       businessContext: {
         title: 'Premium Restaurant Chain - Brussels',
         price: 2500000,
         currency: 'EUR',
-        location: 'Brussels, Belgium'
+        location: 'Brussels, Belgium',
       },
       unreadCount: 2,
       isPinned: true,
       isArchived: false,
-      status: 'negotiating'
+      status: 'negotiating',
     },
     {
       id: '2',
       participant: {
         name: 'Sarah Williams',
-        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b6ec1617?w=150&h=150&fit=crop&crop=face',
+        avatar:
+          'https://images.unsplash.com/photo-1494790108755-2616b6ec1617?w=150&h=150&fit=crop&crop=face',
         role: 'buyer',
-        company: 'Williams Capital'
+        company: 'Williams Capital',
       },
       lastMessage: {
         content: 'Thank you for the financial documents. Everything looks good so far.',
         timestamp: new Date('2024-01-20T11:15:00'),
         isRead: true,
-        senderId: 'buyer2'
+        senderId: 'buyer2',
       },
       businessContext: {
         title: 'Software Development Company',
         price: 1800000,
         currency: 'EUR',
-        location: 'Antwerp, Belgium'
+        location: 'Antwerp, Belgium',
       },
       unreadCount: 0,
       isPinned: false,
       isArchived: false,
-      status: 'active'
+      status: 'active',
     },
     {
       id: '3',
       participant: {
         name: 'David Thompson',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+        avatar:
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
         role: 'buyer',
-        company: 'Thompson Group'
+        company: 'Thompson Group',
       },
       lastMessage: {
         content: 'Let me know if you have any other questions about the manufacturing business.',
         timestamp: new Date('2024-01-19T16:45:00'),
         isRead: true,
-        senderId: 'current'
+        senderId: 'current',
       },
       businessContext: {
         title: 'Manufacturing Business - Ghent',
         price: 950000,
         currency: 'EUR',
-        location: 'Ghent, Belgium'
+        location: 'Ghent, Belgium',
       },
       unreadCount: 0,
       isPinned: false,
       isArchived: false,
-      status: 'active'
-    }
+      status: 'active',
+    },
   ]);
 
   // Mock messages for selected conversation
   const [messages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I\'m interested in your restaurant chain listing. Could you provide more details about the current operations?',
+      content:
+        "Hello! I'm interested in your restaurant chain listing. Could you provide more details about the current operations?",
       senderId: 'buyer1',
       timestamp: new Date('2024-01-20T10:00:00'),
       isRead: true,
-      type: 'text'
+      type: 'text',
     },
     {
       id: '2',
-      content: 'Hi Michael! Thank you for your interest. The restaurant chain currently operates 5 locations across Brussels with strong revenue growth. I can share the detailed financials after we sign an NDA.',
+      content:
+        'Hi Michael! Thank you for your interest. The restaurant chain currently operates 5 locations across Brussels with strong revenue growth. I can share the detailed financials after we sign an NDA.',
       senderId: 'current',
       timestamp: new Date('2024-01-20T10:30:00'),
       isRead: true,
-      type: 'text'
+      type: 'text',
     },
     {
       id: '3',
@@ -178,11 +184,12 @@ const Messages: React.FC = () => {
       senderId: 'system',
       timestamp: new Date('2024-01-20T14:00:00'),
       isRead: true,
-      type: 'system'
+      type: 'system',
     },
     {
       id: '4',
-      content: 'Based on my initial review, I\'d like to make a preliminary offer of €2.2M. This is subject to due diligence.',
+      content:
+        "Based on my initial review, I'd like to make a preliminary offer of €2.2M. This is subject to due diligence.",
       senderId: 'buyer1',
       timestamp: new Date('2024-01-20T14:15:00'),
       isRead: true,
@@ -190,17 +197,18 @@ const Messages: React.FC = () => {
       offerDetails: {
         amount: 2200000,
         currency: 'EUR',
-        terms: 'Subject to due diligence and final negotiations'
-      }
+        terms: 'Subject to due diligence and final negotiations',
+      },
     },
     {
       id: '5',
-      content: 'I\'m very interested in the restaurant chain. Could we schedule a call to discuss the details?',
+      content:
+        "I'm very interested in the restaurant chain. Could we schedule a call to discuss the details?",
       senderId: 'buyer1',
       timestamp: new Date('2024-01-20T14:30:00'),
       isRead: false,
-      type: 'text'
-    }
+      type: 'text',
+    },
   ]);
 
   useEffect(() => {
@@ -229,7 +237,7 @@ const Messages: React.FC = () => {
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
-    
+
     // Add message logic would go here
     console.log('Sending message:', newMessage);
     setNewMessage('');
@@ -239,21 +247,21 @@ const Messages: React.FC = () => {
     const now = new Date();
     const diff = now.getTime() - timestamp.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    
+
     if (days === 0) {
-      return timestamp.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
+      return timestamp.toLocaleTimeString('en-US', {
+        hour: '2-digit',
         minute: '2-digit',
-        hour12: false 
+        hour12: false,
       });
     } else if (days === 1) {
       return 'Yesterday';
     } else if (days < 7) {
       return timestamp.toLocaleDateString('en-US', { weekday: 'short' });
     } else {
-      return timestamp.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric' 
+      return timestamp.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
       });
     }
   };
@@ -263,8 +271,10 @@ const Messages: React.FC = () => {
     if (filterType === 'buyers' && conv.participant.role !== 'buyer') return false;
     if (filterType === 'sellers' && conv.participant.role !== 'seller') return false;
     if (searchQuery) {
-      return conv.participant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-             conv.businessContext?.title.toLowerCase().includes(searchQuery.toLowerCase());
+      return (
+        conv.participant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        conv.businessContext?.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
     return true;
   });
@@ -285,7 +295,7 @@ const Messages: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <UnifiedNavigation />
-      
+
       <div className="h-[calc(100vh-4rem)] flex">
         {/* Conversations Sidebar */}
         <div className="w-96 bg-white border-r border-gray-200 flex flex-col">
@@ -293,11 +303,7 @@ const Messages: React.FC = () => {
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
-              <Button
-                isIconOnly
-                variant="ghost"
-                className="text-gray-500 hover:text-gray-700"
-              >
+              <Button isIconOnly variant="ghost" className="text-gray-500 hover:text-gray-700">
                 <MoreVertical className="w-5 h-5" />
               </Button>
             </div>
@@ -320,15 +326,22 @@ const Messages: React.FC = () => {
                 <Button
                   key={filter}
                   size="sm"
-                  variant={filterType === filter ? "solid" : "light"}
-                  color={filterType === filter ? "primary" : "default"}
+                  variant={filterType === filter ? 'solid' : 'light'}
+                  color={filterType === filter ? 'primary' : 'default'}
                   className="text-xs capitalize"
                   onPress={() => setFilterType(filter)}
                 >
                   {filter}
-                  {filter === 'unread' && conversations.filter(c => c.unreadCount > 0).length > 0 && (
-                    <Badge content={conversations.filter(c => c.unreadCount > 0).length} size="sm" color="danger" />
-                  )}
+                  {filter === 'unread' &&
+                    conversations.filter(c => c.unreadCount > 0).length > 0 && (
+                      <Badge
+                        content={conversations.filter(c => c.unreadCount > 0).length}
+                        size="sm"
+                        color="danger"
+                      >
+                        {conversations.filter(c => c.unreadCount > 0).length}
+                      </Badge>
+                    )}
                 </Button>
               ))}
             </div>
@@ -343,7 +356,9 @@ const Messages: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">No conversations</h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  {searchQuery ? 'No conversations match your search.' : 'Start connecting with buyers and sellers.'}
+                  {searchQuery
+                    ? 'No conversations match your search.'
+                    : 'Start connecting with buyers and sellers.'}
                 </p>
                 <Button
                   color="primary"
@@ -356,7 +371,7 @@ const Messages: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-1 p-2">
-                {filteredConversations.map((conversation) => (
+                {filteredConversations.map(conversation => (
                   <div
                     key={conversation.id}
                     className={`p-4 rounded-lg cursor-pointer transition-colors relative ${
@@ -369,7 +384,7 @@ const Messages: React.FC = () => {
                     {conversation.isPinned && (
                       <Pin className="absolute top-2 right-2 w-3 h-3 text-gray-400" />
                     )}
-                    
+
                     <div className="flex items-start space-x-3">
                       <div className="relative">
                         <Avatar
@@ -386,9 +401,11 @@ const Messages: React.FC = () => {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h3 className={`text-sm font-semibold truncate ${
-                            conversation.unreadCount > 0 ? 'text-gray-900' : 'text-gray-700'
-                          }`}>
+                          <h3
+                            className={`text-sm font-semibold truncate ${
+                              conversation.unreadCount > 0 ? 'text-gray-900' : 'text-gray-700'
+                            }`}
+                          >
                             {conversation.participant.name}
                           </h3>
                           <div className="flex items-center space-x-1">
@@ -398,7 +415,9 @@ const Messages: React.FC = () => {
                               </Chip>
                             )}
                             {conversation.unreadCount > 0 && (
-                              <Badge content={conversation.unreadCount} size="sm" color="danger" />
+                              <Badge content={conversation.unreadCount} size="sm" color="danger">
+                                {conversation.unreadCount}
+                              </Badge>
                             )}
                           </div>
                         </div>
@@ -426,9 +445,13 @@ const Messages: React.FC = () => {
                         )}
 
                         <div className="flex items-center justify-between">
-                          <p className={`text-sm truncate pr-2 ${
-                            conversation.unreadCount > 0 ? 'text-gray-900 font-medium' : 'text-gray-600'
-                          }`}>
+                          <p
+                            className={`text-sm truncate pr-2 ${
+                              conversation.unreadCount > 0
+                                ? 'text-gray-900 font-medium'
+                                : 'text-gray-600'
+                            }`}
+                          >
                             {conversation.lastMessage.content}
                           </p>
                           <span className="text-xs text-gray-500 whitespace-nowrap">
@@ -517,7 +540,7 @@ const Messages: React.FC = () => {
 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {messages.map((message) => (
+                {messages.map(message => (
                   <div key={message.id}>
                     {message.type === 'system' ? (
                       <div className="flex justify-center">
@@ -526,14 +549,18 @@ const Messages: React.FC = () => {
                         </div>
                       </div>
                     ) : (
-                      <div className={`flex ${message.senderId === 'current' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-xs lg:max-w-md ${
-                          message.senderId === 'current' 
-                            ? 'bg-primary-300 text-white' 
-                            : message.type === 'offer' 
-                              ? 'bg-green-50 border border-green-200'
-                              : 'bg-gray-100 text-gray-900'
-                        } rounded-lg px-4 py-2`}>
+                      <div
+                        className={`flex ${message.senderId === 'current' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div
+                          className={`max-w-xs lg:max-w-md ${
+                            message.senderId === 'current'
+                              ? 'bg-primary-300 text-white'
+                              : message.type === 'offer'
+                                ? 'bg-green-50 border border-green-200'
+                                : 'bg-gray-100 text-gray-900'
+                          } rounded-lg px-4 py-2`}
+                        >
                           {message.type === 'offer' && message.offerDetails ? (
                             <div>
                               <div className="flex items-center space-x-2 mb-2">
@@ -552,19 +579,23 @@ const Messages: React.FC = () => {
                           ) : (
                             <p className="text-sm">{message.content}</p>
                           )}
-                          
-                          <div className={`flex items-center justify-end space-x-1 mt-1 ${
-                            message.senderId === 'current' ? 'text-white/70' : 'text-gray-500'
-                          }`}>
+
+                          <div
+                            className={`flex items-center justify-end space-x-1 mt-1 ${
+                              message.senderId === 'current' ? 'text-white/70' : 'text-gray-500'
+                            }`}
+                          >
                             <span className="text-xs">
-                              {message.timestamp.toLocaleTimeString('en-US', { 
-                                hour: '2-digit', 
+                              {message.timestamp.toLocaleTimeString('en-US', {
+                                hour: '2-digit',
                                 minute: '2-digit',
-                                hour12: false 
+                                hour12: false,
                               })}
                             </span>
                             {message.senderId === 'current' && (
-                              <CheckCheck className={`w-3 h-3 ${message.isRead ? 'text-blue-300' : 'text-white/50'}`} />
+                              <CheckCheck
+                                className={`w-3 h-3 ${message.isRead ? 'text-blue-300' : 'text-white/50'}`}
+                              />
                             )}
                           </div>
                         </div>
@@ -585,7 +616,7 @@ const Messages: React.FC = () => {
                   >
                     <Paperclip className="w-4 h-4" />
                   </Button>
-                  
+
                   {/* Message Input Container */}
                   <div className="flex-1 relative">
                     <div className="flex items-center bg-white rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-300/50 focus-within:border-primary-400 focus-within:shadow-md focus-within:ring-1 focus-within:ring-primary-100">
@@ -594,16 +625,16 @@ const Messages: React.FC = () => {
                         type="text"
                         placeholder="Type a message..."
                         value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
+                        onChange={e => setNewMessage(e.target.value)}
                         className="flex-1 px-5 py-3 bg-transparent text-gray-900 placeholder:text-gray-500 focus:outline-none text-base rounded-l-3xl"
-                        onKeyPress={(e) => {
+                        onKeyPress={e => {
                           if (e.key === 'Enter' && !e.shiftKey && newMessage.trim()) {
                             e.preventDefault();
                             handleSendMessage();
                           }
                         }}
                       />
-                      
+
                       {/* Emoji Button */}
                       <Button
                         isIconOnly
@@ -614,28 +645,36 @@ const Messages: React.FC = () => {
                       </Button>
                     </div>
                   </div>
-                  
+
                   {/* Send Button - Modern Circular Design */}
                   <Button
                     isIconOnly
                     onPress={handleSendMessage}
                     isDisabled={!newMessage.trim()}
                     className={`w-11 h-11 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 ${
-                      newMessage.trim() 
-                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-primary-500/25' 
+                      newMessage.trim()
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-primary-500/25'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-gray-200/50'
                     }`}
                   >
-                    <Send className={`w-4 h-4 transition-transform duration-200 ${newMessage.trim() ? 'translate-x-0.5' : ''}`} />
+                    <Send
+                      className={`w-4 h-4 transition-transform duration-200 ${newMessage.trim() ? 'translate-x-0.5' : ''}`}
+                    />
                   </Button>
                 </div>
-                
+
                 {/* Typing Indicator Placeholder */}
                 <div className="flex items-center justify-center mt-2 opacity-0 transition-opacity duration-200">
                   <div className="flex items-center space-x-1 text-xs text-gray-500">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: '0.1s' }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: '0.2s' }}
+                    ></div>
                     <span className="ml-2">Someone is typing...</span>
                   </div>
                 </div>
@@ -649,8 +688,8 @@ const Messages: React.FC = () => {
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Messages</h2>
               <p className="text-gray-600 max-w-md mb-6">
-                Connect with buyers and sellers to discuss business opportunities. 
-                Your conversations about deals will appear here.
+                Connect with buyers and sellers to discuss business opportunities. Your
+                conversations about deals will appear here.
               </p>
               <div className="flex space-x-3">
                 <Button

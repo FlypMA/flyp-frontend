@@ -1,2 +1,2 @@
-import FAQ from './faq';
-export default FAQ;
+export { default as FAQ } from './faq';
+export { default as Contact } from './contact';
