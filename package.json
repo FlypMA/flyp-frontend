@@ -13,7 +13,7 @@
     "start": "vite --host --clearScreen false",
     "dev": "vite --host --clearScreen false --mode development",
     "build": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
-    "vercel-build": "yarn clean:build && NODE_ENV=production VITE_NODE_ENV=production vite build --mode production --logLevel warn",
+    "vercel-build": "NODE_ENV=production vite build --mode production",
     "build:local": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
     "build:check": "yarn type-check && yarn build:local",
     "build:preview": "yarn build:local && vite preview --host --port 4173",

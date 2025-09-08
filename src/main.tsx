@@ -7,7 +7,6 @@ import './index.css';
 // Debug info for production
 console.log('🚀 BetweenDeals App starting...');
 console.log('Environment:', import.meta.env.MODE);
-console.log('Build timestamp:', new Date().toISOString());
 
 // Simple error boundary component
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
@@ -40,12 +39,15 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
   }
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+// Ensure we're in a browser environment before rendering
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
     <ErrorBoundary>
       <HeroUIProvider>
         <App />
       </HeroUIProvider>
     </ErrorBoundary>
-  </React.StrictMode>
-);
+  );
+}
