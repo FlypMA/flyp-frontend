@@ -1,24 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-// Import CSS first to ensure proper loading order
+import { HeroUIProvider } from '@heroui/react';
+import App from './app/app';
 import './index.css';
 
-// Then import the app
-import { App } from './app/app';
-
-// Ensure DOM is ready and create root
-const rootElement = document.getElementById('root');
-
-if (!rootElement) {
-  throw new Error('Root element not found');
-}
-
-// Create root and render app
-const root = ReactDOM.createRoot(rootElement);
-
-root.render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <HeroUIProvider>
+      <App />
+    </HeroUIProvider>
   </React.StrictMode>
 );
