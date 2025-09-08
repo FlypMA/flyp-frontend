@@ -1,8 +1,6 @@
 {
   "buildCommand": "yarn vercel-build",
   "outputDirectory": "build",
-  "framework": null,
-  "functions": {},
   "rewrites": [
     {
       "source": "/((?!api).*)",
@@ -45,8 +43,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "NODE_OPTIONS": "--max-old-space-size=4096"
-  }
+  ]
 }

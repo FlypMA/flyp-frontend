@@ -13,9 +13,8 @@ export default defineConfig(({ mode }) => {
       react({
         // Enable Fast Refresh for development
         fastRefresh: isDevelopment,
-        // CRITICAL: Use classic runtime to prevent hook issues
-        jsxRuntime: 'classic',
-        jsxImportSource: undefined,
+        // Ensure React is properly handled in production
+        jsxRuntime: 'automatic',
       }),
       tsconfigPaths(), // This plugin reads tsconfig.json paths and applies them to Vite
     ],
@@ -44,6 +43,9 @@ export default defineConfig(({ mode }) => {
         '@pages': path.resolve(__dirname, './src/app/pages'),
         '@styles': path.resolve(__dirname, './src/styles'),
         '@config': path.resolve(__dirname, './src/config'),
+        // CRITICAL: Force single React instance
+        react: path.resolve(__dirname, './node_modules/react'),
+        'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
       },
       extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
       dedupe: ['react', 'react-dom'], // Force single React instance
@@ -85,12 +87,9 @@ export default defineConfig(({ mode }) => {
       assetsInlineLimit: 4096,
       emptyOutDir: true,
       commonjsOptions: {
-        include: [/node_modules/],
         transformMixedEsModules: true,
       },
       rollupOptions: {
-        // CRITICAL: Externalize React to prevent bundling issues
-        external: isProduction ? [] : undefined,
         output: {
           // Ensure consistent file naming
           entryFileNames: isProduction ? 'assets/[name]-[hash].js' : 'assets/[name].js',
@@ -102,31 +101,26 @@ export default defineConfig(({ mode }) => {
             }
             return isProduction ? 'assets/[name]-[hash].[ext]' : 'assets/[name].[ext]';
           },
-          // NUCLEAR: Disable code splitting completely for React dependencies
+          // Optimize chunk splitting for better loading
           manualChunks: isProduction
-            ? (id) => {
-                // Keep React and React-DOM together in main bundle
-                if (id.includes('react') || id.includes('react-dom')) {
-                  return 'index';
-                }
-                // Group other vendors
+            ? id => {
                 if (id.includes('node_modules')) {
+                  if (id.includes('react') || id.includes('react-dom')) {
+                    return 'react-vendor';
+                  }
                   if (id.includes('@heroui') || id.includes('framer-motion')) {
                     return 'ui-vendor';
                   }
+                  if (id.includes('react-icons') || id.includes('lucide-react')) {
+                    return 'icons-vendor';
+                  }
+                  if (id.includes('axios') || id.includes('@supabase')) {
+                    return 'api-vendor';
+                  }
                   return 'vendor';
                 }
-                // Everything else goes to main bundle
-                return 'index';
               }
             : undefined,
-          // Ensure globals are available
-          globals: isProduction
-            ? {}
-            : {
-                react: 'React',
-                'react-dom': 'ReactDOM',
-              },
         },
       },
       chunkSizeWarningLimit: 1500,
@@ -136,9 +130,10 @@ export default defineConfig(({ mode }) => {
     // CRITICAL: Define globals for React to prevent useLayoutEffect errors
     define: {
       global: 'globalThis',
-      // Make React available at compile time
-      __DEV__: isDevelopment,
-      'process.env.NODE_ENV': JSON.stringify(mode),
+      // Ensure React is available as a global
+      'globalThis.React': 'React',
     },
+    // External configuration for proper module handling
+    external: isProduction ? [] : undefined,
   };
 });
