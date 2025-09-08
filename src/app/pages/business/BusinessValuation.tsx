@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../components/valuation/ValuationDashboard';
@@ -26,7 +26,7 @@ interface BusinessValuation {
 
 const BusinessValuation = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -115,7 +115,7 @@ const BusinessValuation = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="valuation" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar selectedTab="valuation" userRole={(user?.role as 'seller' | 'buyer' | 'admin') || 'seller'} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

@@ -28,7 +28,7 @@ interface BuyerSidebarNavigationProps {
 interface NavItem {
   key: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: any;
   count?: number;
   isComingSoon?: boolean;
   description?: string;

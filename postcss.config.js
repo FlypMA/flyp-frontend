@@ -1,6 +1,6 @@
 export default {
   plugins: {
-    tailwindcss: './tailwind.config.ts',
+    '@tailwindcss/postcss': './tailwind.config.ts',
     autoprefixer: {
       flexbox: 'no-2009',
       grid: 'autoplace',

@@ -320,7 +320,7 @@ const SellerDashboard = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab={selectedTab} onTabChange={setSelectedTab} />
+        <SellerSidebar selectedTab={selectedTab} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
@@ -333,7 +333,7 @@ const SellerDashboard = () => {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                        Welcome back, {user?.name?.split(' ')[0] || 'Business Owner'}! 👋
+                        Welcome back, {user?.full_name?.split(' ')[0] || 'Business Owner'}! 👋
                       </h1>
                       <p className="text-blue-700">
                         Your business intelligence dashboard is ready with valuable insights.

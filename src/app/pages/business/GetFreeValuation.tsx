@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../components/valuation/ValuationDashboard';
@@ -26,7 +26,7 @@ interface BusinessValuation {
 
 const GetFreeValuation = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [historicalValuations, setHistoricalValuations] = useState<BusinessValuation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -145,7 +145,7 @@ const GetFreeValuation = () => {
       <UnifiedNavigation />
       
       <div className="flex">
-        <SellerSidebar selectedTab="valuation" onTabChange={(tab) => navigate(`/business/${tab}`)} />
+        <SellerSidebar selectedTab="valuation" />
         
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl">

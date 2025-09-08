@@ -23,7 +23,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 
 interface Conversation {
@@ -68,7 +68,7 @@ interface Message {
 
 const Messages: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);

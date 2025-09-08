@@ -211,7 +211,7 @@ const BuyerDashboard = () => {
           <DashboardOverview
             stats={stats}
             recentListings={recentListings}
-            userName={user?.name || 'Buyer'}
+            userName={user?.full_name || 'Buyer'}
           />
         );
       case 'discover':

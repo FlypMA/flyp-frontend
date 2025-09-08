@@ -422,16 +422,14 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
 
       {/* Tips */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
-          title="Stay Informed"
-          content="Enable matching search alerts to never miss opportunities that fit your investment criteria."
-          type="info"
-        />
-        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
-          title="Manage Noise"
-          content="Use quiet hours and digest options to reduce notification overload while staying informed about important updates."
-          type="success"
-        />
+        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
+          <h4 className="font-semibold text-blue-900 mb-2">Stay Informed</h4>
+          <p className="text-blue-700">Enable matching search alerts to never miss opportunities that fit your investment criteria.</p>
+        </div>
+        <div className="text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
+          <h4 className="font-semibold text-green-900 mb-2">Manage Noise</h4>
+          <p className="text-green-700">Use quiet hours and digest options to reduce notification overload while staying informed about important updates.</p>
+        </div>
       </div>
 
       {/* Save Button */}

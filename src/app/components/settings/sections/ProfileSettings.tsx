@@ -7,10 +7,10 @@ import {
 import {
   CleanInput,
 } from '../../ui';
-import { User as UserType } from '../../../types/api/users/user';
+import { UserProfile } from '../../../../types/api';
 
 interface ProfileSettingsProps {
-  user: UserType;
+  user: UserProfile;
   onSave: (data: any) => Promise<void>;
 }
 
@@ -19,9 +19,9 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [profileData, setProfileData] = useState({
-    name: user.name || '',
+    name: user.full_name || '',
     email: user.email || '',
-    phone: user.phone || '',
+    phone: '',
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -79,7 +79,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
   };
 
   const getUserInitials = () => {
-    const name = profileData.name || user.name || 'User';
+    const name = profileData.name || user.full_name || 'User';
     return name
       .split(' ')
       .map(n => n[0])
@@ -100,8 +100,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
       <div className="flex flex-col items-center space-y-4">
         <div className="relative">
           <Avatar
-            size="xl"
-            src={previewImage || user.avatar}
+            size="lg"
+            src={previewImage || user.avatar_url}
             name={getUserInitials()}
             className="w-32 h-32 text-3xl border-4 border-white shadow-lg"
             showFallback

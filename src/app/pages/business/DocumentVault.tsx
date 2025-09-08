@@ -20,7 +20,7 @@ import {
   List,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { UserProfile } from '../../../types/api';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -48,7 +48,7 @@ interface StorageInfo {
 
 const DocumentVault = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
@@ -332,7 +332,7 @@ const DocumentVault = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="documents" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar selectedTab="documents" userRole={(user?.role as 'seller' | 'buyer' | 'admin') || 'seller'} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl mx-auto">

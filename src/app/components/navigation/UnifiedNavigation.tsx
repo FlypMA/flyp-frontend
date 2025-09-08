@@ -93,7 +93,6 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
         break;
       case 'signup-seller':
         openModal('signup', {
-          intent: 'seller',
           url: location.pathname.includes('/valuation')
             ? '/business/valuation'
             : '/seller/listings/new',
@@ -102,14 +101,13 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
         break;
       case 'signup-buyer':
         openModal('signup', {
-          intent: 'buyer',
           url: '/search',
           state: { detectedIntent: 'buyer', confidence: contextInfo.confidence },
         });
         break;
       case 'signup-neutral':
         openModal('signup', {
-          intent: 'neutral',
+          url: '/',
           state: { detectedIntent: 'neutral', confidence: contextInfo.confidence },
         });
         break;
