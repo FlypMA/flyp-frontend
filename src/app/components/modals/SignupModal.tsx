@@ -114,10 +114,12 @@ const SignupModal: React.FC = () => {
       console.log('🔑 Attempting signup with role:', selectedRole);
       // Use selected role or default to buyer
       const roleForSignup = selectedRole === 'neutral' ? 'buyer' : selectedRole || 'buyer';
+      // Use email prefix as name since no name field is collected
+      const nameFromEmail = email.split('@')[0] || 'User';
       const response = await authService.createAccount(
         email,
         password,
-        email.split('@')[0],
+        nameFromEmail,
         roleForSignup
       );
       console.log('✅ Signup successful:', response);
