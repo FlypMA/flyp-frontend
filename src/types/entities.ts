@@ -48,7 +48,7 @@ export interface User extends DatabaseEntity {
   metadata?: Record<string, any>;
   businessType?: string; // For business context
   // Legacy API compatibility fields
-  _id?: string;
+  _id: string; // Required for legacy compatibility
   password?: string;
   rank?: number;
   userPreferences?: UserPreferences;

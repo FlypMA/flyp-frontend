@@ -159,6 +159,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               required
               startIcon={<Lock className="w-4 h-4 text-gray-400" />}
             />
+        */}
 
             <CleanInput
               label="New Password"
@@ -171,6 +172,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               startIcon={<Key className="w-4 h-4 text-gray-400" />}
               helpText="Use at least 12 characters with mix of letters, numbers and symbols"
             />
+        */}
 
             {/* Password Strength Indicator */}
             {passwordData.newPassword && (
@@ -196,6 +198,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                     }`}
                     style={{ width: `${passwordStrength.strength}%` }}
                   />
+        */}
                 </div>
               </div>
             )}
@@ -215,6 +218,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                   : undefined
               }
             />
+        */}
           </div>
 
           <div className="pt-4">
@@ -277,6 +281,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
               onValueChange={value => handleSecurityToggle('twoFactorEnabled', value)}
               color="success"
             />
+        */}
           </div>
 
           {!securitySettings.twoFactorEnabled && (
@@ -308,6 +313,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                 onValueChange={value => handleSecurityToggle('loginNotifications', value)}
                 color="primary"
               />
+        */}
             </div>
 
             <div className="flex items-center justify-between">
@@ -322,6 +328,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
                 onValueChange={value => handleSecurityToggle('secureDataAccess', value)}
                 color="primary"
               />
+        */}
             </div>
           </div>
 
@@ -413,7 +420,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
 
       {/* Security Tips */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <FormTip
+        {/* <FormTip
           title="Strong Password"
           content="Use a unique password with at least 12 characters, including uppercase, lowercase, numbers, and symbols."
           type="info"
@@ -422,7 +429,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({ onSave }) => {
           title="Two-Factor Authentication"
           content="Enable 2FA for an extra layer of security. Even if someone gets your password, they won't be able to access your account."
           type="warning"
-        />
+        /> */}
       </div>
     </div>
   );

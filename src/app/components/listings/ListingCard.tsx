@@ -4,19 +4,11 @@ import {
   Card,
   CardBody,
   Button,
-  Chip,
-  Avatar,
   Tooltip,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from '@heroui/react';
 import {
   Building2,
   MapPin,
-  Euro,
   Eye,
   Heart,
   MessageSquare,
@@ -24,10 +16,6 @@ import {
   Users,
   TrendingUp,
   Shield,
-  Star,
-  AlertTriangle,
-  Info,
-  ExternalLink,
 } from 'lucide-react';
 import InquiryModal from '../inquiries/InquiryModal';
 
@@ -88,7 +76,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const formatPrice = (price?: number, currency = 'EUR') => {
@@ -373,11 +360,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   size="sm"
                   variant="flat"
                   className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
-                  onPress={e => {
-                    // Prevent event propagation if possible
-                    if (e && typeof e.stopPropagation === 'function') {
-                      e.stopPropagation();
-                    }
+                  onPress={() => {
                     handleSave();
                   }}
                   isLoading={isProcessing}
