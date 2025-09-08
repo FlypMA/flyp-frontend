@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
         // Enable Fast Refresh for development
         fastRefresh: isDevelopment,
         // Ensure React is properly handled in production
-        jsxRuntime: 'automatic'
+        jsxRuntime: 'automatic',
       }),
       tsconfigPaths(), // This plugin reads tsconfig.json paths and applies them to Vite
     ],
@@ -43,8 +43,12 @@ export default defineConfig(({ mode }) => {
         '@pages': path.resolve(__dirname, './src/app/pages'),
         '@styles': path.resolve(__dirname, './src/styles'),
         '@config': path.resolve(__dirname, './src/config'),
+        // CRITICAL: Force single React instance
+        react: path.resolve(__dirname, './node_modules/react'),
+        'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
       },
       extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
+      dedupe: ['react', 'react-dom'], // Force single React instance
     },
     optimizeDeps: {
       include: [
@@ -55,7 +59,11 @@ export default defineConfig(({ mode }) => {
         'react',
         'react-dom',
         'react-router-dom',
+        'react/jsx-runtime',
+        'react-dom/client',
       ],
+      // Force React to be bundled correctly
+      force: true,
     },
     css: {
       postcss: './postcss.config.js',
@@ -119,5 +127,13 @@ export default defineConfig(({ mode }) => {
     },
     // Environment variable handling
     envPrefix: ['VITE_', 'REACT_APP_'],
+    // CRITICAL: Define globals for React to prevent useLayoutEffect errors
+    define: {
+      global: 'globalThis',
+      // Ensure React is available as a global
+      'globalThis.React': 'React',
+    },
+    // External configuration for proper module handling
+    external: isProduction ? [] : undefined,
   };
 });

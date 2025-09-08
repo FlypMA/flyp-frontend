@@ -4,24 +4,34 @@
   "description": "Professional M&A platform connecting European SME buyers and sellers",
   "icons": [
     {
-      "src": "favicon.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32"
     },
     {
-      "src": "favicon-16x16.svg",
-      "type": "image/svg+xml",
+      "src": "favicon-16x16.png",
+      "type": "image/png",
       "sizes": "16x16"
     },
     {
-      "src": "favicon-32x32.svg",
-      "type": "image/svg+xml",
+      "src": "favicon-32x32.png",
+      "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "apple-touch-icon.svg",
-      "type": "image/svg+xml",
+      "src": "apple-touch-icon.png",
+      "type": "image/png",
       "sizes": "180x180"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": "/",
