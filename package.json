@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "description": "BetweenDeals Web Application - React Frontend for Europe's Premier SME M&A Platform",
   "type": "module",
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "yarn@1.22.19",
   "engines": {
-    "node": "20.x",
-    "yarn": ">=4.0.0"
+    "node": ">=20.0.0",
+    "yarn": ">=1.22.0"
   },
   "scripts": {
     "start": "vite --host --clearScreen false",
