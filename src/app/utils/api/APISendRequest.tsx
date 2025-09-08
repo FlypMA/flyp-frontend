@@ -10,6 +10,14 @@ const getApiConfig = () => {
   console.log('  Environment:', environment);
   console.log('  API URL (prod):', apiUrl);
   console.log('  API URL (dev):', apiUrlDev);
+  console.log('  All env vars:', {
+    VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT,
+    VITE_API_URL: import.meta.env.VITE_API_URL,
+    VITE_API_URL_DEV: import.meta.env.VITE_API_URL_DEV,
+    MODE: import.meta.env.MODE,
+    PROD: import.meta.env.PROD,
+    DEV: import.meta.env.DEV,
+  });
 
   let baseUrl: string;
 
