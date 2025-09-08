@@ -13,6 +13,27 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/shared/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
+    // Force include critical patterns for production builds
+    './src/**/index.{js,ts,jsx,tsx}',
+    './src/**/*.tsx',
+    './src/**/*.ts',
+    './src/**/*.jsx',
+    './src/**/*.js',
+  ],
+  // Force CSS generation in production
+  safelist: [
+    // Ensure core utility classes are never purged
+    'bg-white',
+    'bg-black',
+    'text-black',
+    'text-white',
+    'border-gray-300',
+    'hover:bg-gray-100',
+    'focus:ring-2',
+    'focus:ring-blue-500',
+    // HeroUI core classes that might be dynamically used
+    { pattern: /data-\[.*\]:.*/ },
+    { pattern: /heroui-.*/ },
   ],
   theme: {
     extend: {
