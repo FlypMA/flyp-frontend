@@ -1,22 +1,10 @@
 {
   "buildCommand": "yarn vercel-build",
   "outputDirectory": "build",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!api).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
