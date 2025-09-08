@@ -43,27 +43,40 @@ export default defineConfig(({ mode }) => {
         '@pages': path.resolve(__dirname, './src/app/pages'),
         '@styles': path.resolve(__dirname, './src/styles'),
         '@config': path.resolve(__dirname, './src/config'),
-        // CRITICAL: Force single React instance
+        // CRITICAL: Force single React instance - use absolute paths for better deduplication
         react: path.resolve(__dirname, './node_modules/react'),
         'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+        'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime'),
+        'react/jsx-dev-runtime': path.resolve(__dirname, './node_modules/react/jsx-dev-runtime'),
       },
       extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
-      dedupe: ['react', 'react-dom'], // Force single React instance
+      // Enhanced deduplication for React ecosystem
+      dedupe: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        '@types/react',
+        '@types/react-dom',
+      ],
     },
     optimizeDeps: {
       include: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        'react-dom/client',
+        'react-router-dom',
         '@supabase/supabase-js',
         '@heroui/react',
         '@heroui/theme',
         'react-icons',
-        'react',
-        'react-dom',
-        'react-router-dom',
-        'react/jsx-runtime',
-        'react-dom/client',
       ],
-      // Force React to be bundled correctly
+      // Force React to be bundled correctly and prevent duplicate instances
       force: true,
+      // Explicitly exclude problematic dependencies that might bundle React
+      exclude: [],
     },
     css: {
       postcss: './postcss.config.js',
@@ -101,22 +114,31 @@ export default defineConfig(({ mode }) => {
             }
             return isProduction ? 'assets/[name]-[hash].[ext]' : 'assets/[name].[ext]';
           },
-          // Optimize chunk splitting for better loading
+          // Optimize chunk splitting for better loading and React deduplication
           manualChunks: isProduction
             ? id => {
                 if (id.includes('node_modules')) {
-                  if (id.includes('react') || id.includes('react-dom')) {
+                  // CRITICAL: Group all React-related modules together
+                  if (
+                    id.includes('react') ||
+                    id.includes('react-dom') ||
+                    id.includes('react/jsx')
+                  ) {
                     return 'react-vendor';
                   }
+                  // Group UI libraries that depend on React
                   if (id.includes('@heroui') || id.includes('framer-motion')) {
                     return 'ui-vendor';
                   }
+                  // Group icon libraries
                   if (id.includes('react-icons') || id.includes('lucide-react')) {
                     return 'icons-vendor';
                   }
+                  // Group API/utility libraries
                   if (id.includes('axios') || id.includes('@supabase')) {
                     return 'api-vendor';
                   }
+                  // Everything else goes to vendor
                   return 'vendor';
                 }
               }

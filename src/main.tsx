@@ -4,6 +4,12 @@ import { HeroUIProvider } from '@heroui/react';
 import App from './app/app';
 import './index.css';
 
+// CRITICAL: Lightweight React global assignment for third-party library compatibility
+// This prevents useLayoutEffect errors from libraries expecting React to be global
+if (typeof window !== 'undefined' && !window.React) {
+  window.React = React;
+}
+
 // Debug info for production
 console.log('🚀 BetweenDeals App starting...');
 console.log('Environment:', import.meta.env.MODE);
