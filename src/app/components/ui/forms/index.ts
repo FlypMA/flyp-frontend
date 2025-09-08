@@ -1,9 +1,9 @@
 /**
  * BetweenDeals Form System - Main Exports
- * 
+ *
  * Centralized exports for the modular form component system.
  * Provides a clean, professional API for consuming applications.
- * 
+ *
  * @author BetweenDeals Platform Team
  * @version 2.0.0
  */
@@ -37,6 +37,12 @@ export { SecondaryButton } from './actions/SecondaryButton';
 export { FormFieldWrapper } from './layouts/FormFieldWrapper';
 
 // =============================================================================
+// UTILITY COMPONENTS
+// =============================================================================
+
+export { FormTip } from './misc/FormTip';
+
+// =============================================================================
 // TYPE DEFINITIONS
 // =============================================================================
 
@@ -44,43 +50,43 @@ export type {
   // Base Types
   BaseFormFieldProps,
   FormFieldInteractionProps,
-  
+
   // Input Types
   InputType,
   InputSize,
   FormInputProps,
-  
+
   // Textarea Types
   TextareaResize,
   FormTextareaProps,
-  
+
   // Select Types
   SelectOption,
   FormSelectProps,
-  
+
   // Slider Types
   FormSliderProps,
-  
+
   // Checkbox Types
   FormCheckboxProps,
-  
+
   // Radio Group Types
   RadioOption,
   FormRadioGroupProps,
-  
+
   // Action Types
   FormActionsProps,
   BaseButtonProps,
   PrimaryButtonProps,
   SecondaryButtonProps,
-  
+
   // Validation Types
   ValidationRule,
   FormValidationProps,
-  
+
   // Context Types
   FormContextValue,
-  
+
   // Theme Types
   FormTheme,
 } from './types/FormTypes';
@@ -112,14 +118,17 @@ export default {
   Slider: FormSlider,
   Checkbox: FormCheckbox,
   RadioGroup: FormRadioGroup,
-  
+
   // Action Components
   Actions: FormActions,
   PrimaryButton,
   SecondaryButton,
-  
+
   // Layout Components
   FieldWrapper: FormFieldWrapper,
+
+  // Utility Components
+  FormTip,
 } as const;
 
 // =============================================================================

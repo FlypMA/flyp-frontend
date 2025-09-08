@@ -148,7 +148,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
           placeholder="Enter your full legal name"
           value={signatureData.fullName}
           onChange={value => setSignatureData(prev => ({ ...prev, fullName: value }))}
-          startContent={<User className="w-4 h-4 text-gray-400" />}
+          startIcon={<User className="w-4 h-4 text-gray-400" />}
           required
           name="fullName"
         />
@@ -170,7 +170,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
           placeholder="Your company name"
           value={signatureData.company}
           onChange={value => setSignatureData(prev => ({ ...prev, company: value }))}
-          startContent={<Building2 className="w-4 h-4 text-gray-400" />}
+          startIcon={<Building2 className="w-4 h-4 text-gray-400" />}
           required
           name="company"
         />
@@ -184,7 +184,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
         />
       </div>
 
-      <Input
+      <CleanInput
         label="Phone Number"
         placeholder="+32 123 456 789"
         value={signatureData.phone}
@@ -239,12 +239,12 @@ const NDAModal: React.FC<NDAModalProps> = ({
         </div>
       </div>
 
-      <Textarea
+      <CleanTextarea
         label="Digital Signature"
         placeholder="Type your full name as digital signature"
         value={signatureData.digitalSignature}
         onChange={value => setSignatureData(prev => ({ ...prev, digitalSignature: value }))}
-        description="By typing your name, you confirm this serves as your digital signature"
+        helpText="By typing your name, you confirm this serves as your digital signature"
         required
         name="digitalSignature"
         minRows={2}

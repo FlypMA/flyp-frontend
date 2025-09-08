@@ -16,9 +16,16 @@ export interface UserPreferences {
   language?: string;
   timezone?: string;
   email_notifications?: boolean;
+  push_notifications?: boolean;
   marketing_emails?: boolean;
   currency?: string;
   theme?: 'light' | 'dark' | 'system';
+  // For compatibility with different preference structures
+  notifications?: {
+    email: boolean;
+    push: boolean;
+    marketing: boolean;
+  };
   [key: string]: any;
 }
 
@@ -30,13 +37,26 @@ export interface User extends DatabaseEntity {
   role: UserRole;
   locale?: string;
   phone_number?: string;
+  phone?: string; // Legacy compatibility
   email_verified?: boolean;
   business_verified?: boolean;
   avatar_url?: string;
+  avatar?: string; // Legacy compatibility
   last_login?: string;
   is_active?: boolean;
   preferences?: UserPreferences;
   metadata?: Record<string, any>;
+  businessType?: string; // For business context
+  // Legacy API compatibility fields
+  _id?: string;
+  password?: string;
+  rank?: number;
+  userPreferences?: UserPreferences;
+  userType?: any;
+  verified?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+  platformId?: string;
 }
 
 export interface Organization extends DatabaseEntity {

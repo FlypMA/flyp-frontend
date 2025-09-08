@@ -42,19 +42,26 @@ export interface UserProfile {
   email: string;
   full_name?: string;
   avatar_url?: string;
+  avatar?: string; // Legacy compatibility
+  name?: string; // Legacy compatibility
+  phone?: string; // For profile settings
+  businessType?: string; // For business context
   role: UserRole;
   preferences?: UserPreferences;
+  // Legacy API compatibility fields
+  _id?: string;
+  password?: string;
+  rank?: number;
+  userPreferences?: UserPreferences;
+  userType?: any;
+  verified?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+  platformId?: string;
 }
 
-export interface UserPreferences {
-  language?: string;
-  timezone?: string;
-  email_notifications?: boolean;
-  marketing_emails?: boolean;
-  currency?: string;
-  theme?: 'light' | 'dark' | 'system';
-  [key: string]: any;
-}
+// Use UserPreferences from entities to avoid conflicts
+export type UserPreferences = BaseUserPreferences;
 
 export interface PaymentMetadata {
   stripe_customer_id?: string;

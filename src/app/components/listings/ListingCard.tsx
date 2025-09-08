@@ -320,18 +320,27 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   // Get primary image or first image
   const primaryImage = listing.images?.find(img => img.is_primary) || listing.images?.[0];
-  
+
   // Stock photo fallbacks by sector
   const getSectorPlaceholder = (sector: string) => {
     const sectorMap: Record<string, string> = {
-      'Food & Beverage': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-      'Technology': 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-      'Retail': 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-      'Manufacturing': 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-      'Healthcare': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-      'Professional Services': 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80'
+      'Food & Beverage':
+        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      Technology:
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      Retail:
+        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      Manufacturing:
+        'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      Healthcare:
+        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+      'Professional Services':
+        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
     };
-    return sectorMap[sector] || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&crop=center&auto=format&q=80';
+    return (
+      sectorMap[sector] ||
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&crop=center&auto=format&q=80'
+    );
   };
 
   const imageUrl = primaryImage?.storage_url || getSectorPlaceholder(listing.sector);
@@ -339,7 +348,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   // Card view (default)
   return (
     <>
-      <Card 
+      <Card
         className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 h-full transform hover:-translate-y-2 cursor-pointer"
         isPressable
         onPress={handleViewDetails}
@@ -354,7 +363,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
+
             {/* Favorite button overlay */}
             {canSave && (
               <div className="absolute top-4 right-4">
@@ -364,8 +373,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   size="sm"
                   variant="flat"
                   className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
-                  onPress={(e) => {
-                    e?.stopPropagation?.();
+                  onPress={e => {
+                    // Prevent event propagation if possible
+                    if (e && typeof e.stopPropagation === 'function') {
+                      e.stopPropagation();
+                    }
                     handleSave();
                   }}
                   isLoading={isProcessing}
@@ -411,7 +423,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   </div>
                   <div className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full min-w-0 flex-shrink-0">
                     <MapPin className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-slate-700 truncate whitespace-nowrap">{listing.country}{listing.region && `, ${listing.region}`}</span>
+                    <span className="text-slate-700 truncate whitespace-nowrap">
+                      {listing.country}
+                      {listing.region && `, ${listing.region}`}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -453,7 +468,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     </p>
                     {listing.revenue_range && (
                       <p className="text-sm text-slate-600 mt-1">
-                        Revenue: {typeof listing.revenue_range === 'string' ? listing.revenue_range : formatRange(listing.revenue_range, listing.currency)}
+                        Revenue:{' '}
+                        {typeof listing.revenue_range === 'string'
+                          ? listing.revenue_range
+                          : formatRange(listing.revenue_range, listing.currency)}
                       </p>
                     )}
                   </div>

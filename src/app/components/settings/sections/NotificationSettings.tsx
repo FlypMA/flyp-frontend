@@ -13,7 +13,6 @@ import {
   VolumeX,
 } from 'lucide-react';
 
-
 interface NotificationSettingsProps {
   onSave: (data: any) => Promise<void>;
 }
@@ -219,7 +218,10 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
       {notificationCategories.map(category => {
         const CategoryIcon = category.icon;
         return (
-          <Card key={category.title} className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100">
+          <Card
+            key={category.title}
+            className="bg-gradient-to-br from-white to-gray-50 shadow-lg border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 ring-1 ring-gray-100"
+          >
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary-100 rounded-lg">
@@ -422,16 +424,20 @@ const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) =
 
       {/* Tips */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
-          title="Stay Informed"
-          content="Enable matching search alerts to never miss opportunities that fit your investment criteria."
-          type="info"
-        />
-        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg"
-          title="Manage Noise"
-          content="Use quiet hours and digest options to reduce notification overload while staying informed about important updates."
-          type="success"
-        />
+        <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
+          <div className="font-medium mb-2">Stay Informed</div>
+          <div>
+            Enable matching search alerts to never miss opportunities that fit your investment
+            criteria.
+          </div>
+        </div>
+        <div className="text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
+          <div className="font-medium mb-2">Manage Noise</div>
+          <div>
+            Use quiet hours and digest options to reduce notification overload while staying
+            informed about important updates.
+          </div>
+        </div>
       </div>
 
       {/* Save Button */}
