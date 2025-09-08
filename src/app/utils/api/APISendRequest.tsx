@@ -22,9 +22,9 @@ const getApiConfig = () => {
   let baseUrl: string;
 
   if (environment === 'development') {
-    baseUrl = apiUrlDev || 'https://web-production-2edf5.up.railway.app';
+    baseUrl = apiUrlDev || 'https://web-production-8d00b.up.railway.app';
   } else {
-    baseUrl = apiUrl || 'https://web-production-2edf5.up.railway.app';
+    baseUrl = apiUrl || 'https://web-production-8d00b.up.railway.app';
   }
 
   // Ensure URL ends with slash for proper concatenation

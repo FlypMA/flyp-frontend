@@ -6,24 +6,20 @@
 export const API_CONFIG = {
   // Node.js backend connected to Supabase for user management and data
   NODE_BACKEND: {
-    baseURL:
-      import.meta.env.VITE_NODE_BACKEND_URL ||
-      import.meta.env.VITE_API_URL ||
-      'https://web-production-2edf5.up.railway.app',
+    baseURL: 'https://web-production-8d00b.up.railway.app',
     endpoints: {
       auth: {
-        // Current working endpoints (Railway backend)
-        login: '/api/auth/login',
-        register: '/api/auth/register',
+        // Standardized endpoints (compatible with Chrome plugin) - ✅ WORKING
+        login: '/auth/login',
+        register: '/auth/register',
+        profile: '/auth/profile',
+
+        // Legacy endpoints (backwards compatibility) - ✅ WORKING
+        loginLegacy: '/api/auth/login',
         logout: '/api/auth/logout',
+        registerLegacy: '/api/auth/register',
         verify: '/api/auth/verify',
         refresh: '/api/auth/refresh',
-        profile: '/api/users/profile',
-
-        // Legacy endpoints for backward compatibility
-        loginLegacy: '/auth/login',
-        registerLegacy: '/auth/register',
-        profileLegacy: '/auth/profile',
       },
       users: {
         profile: '/api/users/profile',
@@ -93,9 +89,7 @@ export const API_CONFIG = {
 
   // Python backend for AI query chat functionality
   AI_BACKEND: {
-    baseURL:
-      import.meta.env.VITE_AI_BACKEND_URL ||
-      'https://ilara-deep-end-artemis-production.up.railway.app',
+    baseURL: 'https://ilara-deep-end-artemis-production.up.railway.app',
     endpoints: {
       chat: {
         query: '/api/chat/query',
@@ -132,9 +126,7 @@ export const API_CONFIG = {
 
   // Data aggregation backend (Aphrodite)
   DATA_BACKEND: {
-    baseURL:
-      import.meta.env.VITE_DATA_BACKEND_URL ||
-      'https://ilara-trends-data-aggregator-aphrodite-production.up.railway.app',
+    baseURL: 'https://ilara-trends-data-aggregator-aphrodite-production.up.railway.app',
     endpoints: {
       trends: {
         list: '/api/v1/trends', // ✅ WORKING

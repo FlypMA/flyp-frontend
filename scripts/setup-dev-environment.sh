@@ -22,8 +22,8 @@ cat > .env.development << 'EOF'
 # BACKEND API CONFIGURATION
 # =============================================================================
 # Railway Backend (verified working)
-VITE_API_URL=https://web-production-2edf5.up.railway.app
-VITE_API_URL_DEV=https://web-production-2edf5.up.railway.app
+VITE_API_URL=https://web-production-8d00b.up.railway.app
+VITE_API_URL_DEV=https://web-production-8d00b.up.railway.app
 
 # AI Backend Configuration
 VITE_AI_API_URL=https://ilara-deep-end-artemis-production.up.railway.app
@@ -139,7 +139,7 @@ echo ""
 
 echo "🔗 ACCESS POINTS:"
 echo "   • Frontend: http://localhost:5173"
-echo "   • Backend Health: https://web-production-2edf5.up.railway.app/health"
+echo "   • Backend Health: https://web-production-8d00b.up.railway.app/health"
 echo "   • Supabase Dashboard: https://app.supabase.com/project/falgeqzvvjtoahrppqsy"
 echo ""
 
