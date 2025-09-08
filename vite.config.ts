@@ -45,13 +45,14 @@ export default defineConfig({
   },
   css: {
     postcss: './postcss.config.js',
+    devSourcemap: true,
   },
   build: {
-    outDir: 'build',
+    outDir: 'dist',
     sourcemap: false,
     target: 'es2020',
     assetsDir: 'assets',
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
