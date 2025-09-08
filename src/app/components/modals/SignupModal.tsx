@@ -268,15 +268,15 @@ const SignupModal: React.FC = () => {
                     <div className="grid md:grid-cols-2 min-h-screen">
                       {/* Left Side - Role Selection or Form */}
                       <div className="p-8 flex bg-white">
-                        <div className="m-auto max-w-md w-full">
+                        <div className="max-w-md w-full">
                           {showRoleSelection ? (
                             /* Role Selection Mode */
                             <>
                               <div className="mb-8">
-                                <h1 className="text-2xl font-semibold text-slate-900">
+                                <h1 className="text-2xl font-semibold text-slate-900 text-left">
                                   Join BetweenDeals
                                 </h1>
-                                <p className="text-base text-slate-600 mt-2">
+                                <p className="text-base text-slate-600 mt-2 text-left">
                                   Already have an account?{' '}
                                   <button
                                     type="button"
@@ -294,7 +294,7 @@ const SignupModal: React.FC = () => {
                               </div>
                               <RoleSelectionCards
                                 onSelect={handleRoleSelect}
-                                className="max-w-sm mx-auto"
+                                className="max-w-sm"
                               />
                             </>
                           ) : (

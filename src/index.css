@@ -273,26 +273,6 @@ input, textarea, select {
   color: #111827 !important;
 }
 
-/* Override @tailwindcss/forms border styling to remove unwanted borders */
-[type='text'], 
-input:where(:not([type])), 
-[type='email'], 
-[type='url'], 
-[type='password'], 
-[type='number'], 
-[type='date'], 
-[type='datetime-local'], 
-[type='month'], 
-[type='search'], 
-[type='tel'], 
-[type='time'], 
-[type='week'], 
-[multiple], 
-textarea, 
-select {
-  border-color: transparent !important;
-  border-width: 0 !important;
-}
 
 input::placeholder, textarea::placeholder {
   color: #9ca3af !important;
@@ -1222,14 +1202,6 @@ code {
   box-shadow: 0 0 0 2px white;
 }
 
-input[type='email']:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #363638 inset; 
-  -webkit-text-fill-color: #fff !important;
-}
-
-input[type='email']:-webkit-autofill {
-  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
-}
 
 .custom-input-group {
   display: flex;
@@ -1261,15 +1233,14 @@ input[type='email']:-webkit-autofill {
 
 .custom-input:focus + .custom-label,
 .custom-input.filled + .custom-label,
-.custom-input:not(:placeholder-shown) + .custom-label,
-.custom-input:autofill + .custom-label {
+.custom-input:not(:placeholder-shown) + .custom-label {
   top: 0.75rem;
   left: 1rem;
   font-size: 0.825rem; 
   padding:0;
 }
 
-.custom-input.filled, .custom-input:focus, .custom-input:autofill, .custom-input:not(:placeholder-shown) {
+.custom-input.filled, .custom-input:focus, .custom-input:not(:placeholder-shown) {
   padding-top: 0.75rem;
   font-size: 1rem !important;
 }
@@ -4348,7 +4319,6 @@ form {
 
 [data-page="login"] .custom-input {
   color: #111827 !important;
-  background: transparent !important;
 }
 
 [data-page="login"] .custom-input:focus {
