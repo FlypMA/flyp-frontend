@@ -6,7 +6,10 @@
 export const API_CONFIG = {
   // Node.js backend connected to Supabase for user management and data
   NODE_BACKEND: {
-    baseURL: 'https://web-production-2edf5.up.railway.app',
+    baseURL:
+      import.meta.env.VITE_NODE_BACKEND_URL ||
+      import.meta.env.VITE_API_URL ||
+      'https://web-production-2edf5.up.railway.app',
     endpoints: {
       auth: {
         // Current working endpoints (Railway backend)
@@ -90,7 +93,9 @@ export const API_CONFIG = {
 
   // Python backend for AI query chat functionality
   AI_BACKEND: {
-    baseURL: 'https://ilara-deep-end-artemis-production.up.railway.app',
+    baseURL:
+      import.meta.env.VITE_AI_BACKEND_URL ||
+      'https://ilara-deep-end-artemis-production.up.railway.app',
     endpoints: {
       chat: {
         query: '/api/chat/query',
@@ -127,7 +132,9 @@ export const API_CONFIG = {
 
   // Data aggregation backend (Aphrodite)
   DATA_BACKEND: {
-    baseURL: 'https://ilara-trends-data-aggregator-aphrodite-production.up.railway.app',
+    baseURL:
+      import.meta.env.VITE_DATA_BACKEND_URL ||
+      'https://ilara-trends-data-aggregator-aphrodite-production.up.railway.app',
     endpoints: {
       trends: {
         list: '/api/v1/trends', // ✅ WORKING
