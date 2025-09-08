@@ -155,10 +155,5 @@ export default defineConfig(({ mode }) => {
     },
     // External configuration for proper module handling
     external: isProduction ? [] : undefined,
-    // SSR configuration
-    ssr: {
-      // Don't externalize React during SSR to prevent version conflicts
-      noExternal: ['react', 'react-dom', '@heroui/react', 'framer-motion'],
-    },
   };
 });

@@ -1,7 +1,7 @@
 {
   "name": "betweendeals-frontend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BetweenDeals Web Application - React Frontend for Europe's Premier SME M&A Platform",
   "type": "module",
   "packageManager": "yarn@1.22.19",
