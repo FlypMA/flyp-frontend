@@ -83,7 +83,7 @@ const SignupModal: React.FC = () => {
       console.log('🔑 Attempting signup with role:', selectedRole);
       // Use selected role or default to buyer
       const roleForSignup = selectedRole === 'neutral' ? 'buyer' : selectedRole || 'buyer';
-      const response = await authService.createAccount(email, password, '', roleForSignup);
+      const response = await authService.createAccount(email, password, email, roleForSignup);
       console.log('✅ Signup successful:', response);
 
       handleCloseModal();
