@@ -54,7 +54,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api|assets|manifest.json|robots.txt|favicon|.*\\.(css|js|png|jpg|jpeg|svg|ico|woff|woff2|ttf|eot|mp4|webm|ogg|mp3|wav|flac|aac|json)).*)$",
+      "source": "/((?!assets|manifest.json|robots.txt|favicon|.*\\.).*)",
       "destination": "/index.html"
     }
   ],
