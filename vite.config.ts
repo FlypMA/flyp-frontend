@@ -127,11 +127,9 @@ export default defineConfig(({ mode }) => {
     },
     // Environment variable handling
     envPrefix: ['VITE_', 'REACT_APP_'],
-    // CRITICAL: Define globals for React to prevent useLayoutEffect errors
+    // Define globals
     define: {
       global: 'globalThis',
-      // Ensure React is available as a global
-      'globalThis.React': 'React',
     },
     // External configuration for proper module handling
     external: isProduction ? [] : undefined,

@@ -1,22 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-// CRITICAL: Ensure React is globally available to prevent useLayoutEffect errors
-if (typeof window !== 'undefined') {
-  (window as any).React = React;
-  (window as any).ReactDOM = ReactDOM;
-}
-
-// Also ensure React is available globally for server-side rendering and other environments
-(globalThis as any).React = React;
-(globalThis as any).ReactDOM = ReactDOM;
-
-// Force React to be available for all modules that might need it
-Object.defineProperty(globalThis, 'React', {
-  value: React,
-  writable: false,
-  configurable: false,
-});
 import { HeroUIProvider } from '@heroui/react';
 import App from './app/app';
 import './index.css';
