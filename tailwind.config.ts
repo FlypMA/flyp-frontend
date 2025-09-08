@@ -9,6 +9,10 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx}',
     './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
     './node_modules/@heroui/react/dist/**/*.{js,ts,jsx,tsx}',
+    // Ensure Vercel finds all component files
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/shared/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
