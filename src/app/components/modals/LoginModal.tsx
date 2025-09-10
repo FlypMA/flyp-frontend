@@ -292,8 +292,8 @@ const LoginModal: React.FC = () => {
                             )}
                           />
 
-                          {/* Forgot Password Link */}
-                          <div className="text-right mt-2">
+                          {/* Forgot Password Link - Enhanced Visibility */}
+                          <div className="text-right mt-3 mb-2">
                             <button
                               type="button"
                               onClick={() => {
@@ -303,7 +303,7 @@ const LoginModal: React.FC = () => {
                                 handleCloseModal();
                                 navigate('/password-reset');
                               }}
-                              className="text-sm text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors"
+                              className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 underline underline-offset-2 transition-all duration-200 px-2 py-1 rounded-md"
                             >
                               Forgot your password?
                             </button>
