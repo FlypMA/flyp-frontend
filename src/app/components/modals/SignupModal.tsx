@@ -91,18 +91,45 @@ const SignupModal: React.FC = () => {
 
       handleCloseModal();
 
-      // Check if we have a redirect with preserved query
-      if (postAuthRedirect) {
-        console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
-        clearRedirect(); // Clear the redirect state
-        navigate(postAuthRedirect.url, {
-          state: postAuthRedirect.state,
-          replace: true,
-        });
-      } else {
-        // Default redirect to new report
-        navigate(UrlGeneratorService.createListing());
-      }
+      // Small delay to allow auth state to propagate
+      setTimeout(() => {
+        // Check if we have a redirect with preserved query
+        if (postAuthRedirect) {
+          console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
+          clearRedirect(); // Clear the redirect state
+          navigate(postAuthRedirect.url, {
+            state: postAuthRedirect.state,
+            replace: true,
+          });
+        } else {
+          // Role-based dashboard redirect
+          console.log('🎯 Redirecting to dashboard for role:', roleForSignup);
+          let dashboardUrl: string;
+
+          switch (roleForSignup) {
+            case 'seller':
+              dashboardUrl = UrlGeneratorService.sellerDashboard(); // '/account/seller'
+              break;
+            case 'buyer':
+              dashboardUrl = UrlGeneratorService.buyerDashboard(); // '/dashboard/buyer'
+              break;
+            // Note: 'both' role doesn't come from UserIntent, but if it did:
+            // case 'both':
+            //   dashboardUrl = UrlGeneratorService.sellerDashboard();
+            //   break;
+            default:
+              // Default to general dashboard (buyer dashboard)
+              dashboardUrl = UrlGeneratorService.dashboard(); // '/dashboard'
+              break;
+          }
+
+          console.log('🚀 Navigating to dashboard:', dashboardUrl);
+          navigate(dashboardUrl, { replace: true });
+        }
+
+        // Trigger a re-check of authentication state across the app
+        window.dispatchEvent(new CustomEvent('auth-change'));
+      }, 100);
     } catch (error: any) {
       console.error('❌ Signup failed in SignupModal:', error);
       console.error('❌ Error type:', typeof error);

@@ -32,7 +32,7 @@ class UrlGeneratorService {
   // DASHBOARD - Role-based user areas
   // ==============================================================================
   static dashboard = () => '/dashboard';
-  static sellerDashboard = () => '/dashboard/seller';
+  static sellerDashboard = () => '/account/seller'; // Fixed: actual route is /account/seller
   static buyerDashboard = () => '/dashboard/buyer';
 
   // ==============================================================================
