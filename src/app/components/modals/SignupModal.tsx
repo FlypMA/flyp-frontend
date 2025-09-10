@@ -93,43 +93,38 @@ const SignupModal: React.FC = () => {
 
       // Small delay to allow auth state to propagate
       setTimeout(() => {
-        // Check if we have a redirect with preserved query
-        if (postAuthRedirect) {
-          console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
-          clearRedirect(); // Clear the redirect state
-          navigate(postAuthRedirect.url, {
-            state: postAuthRedirect.state,
-            replace: true,
-          });
-        } else {
-          // Role-based dashboard redirect
-          console.log('🎯 Redirecting to dashboard for role:', roleForSignup);
-          let dashboardUrl: string;
+        // FORCE role-based dashboard redirect - ignore postAuthRedirect for signup
+        // postAuthRedirect is often set to /listings/new which isn't appropriate for all roles
+        console.log('🚀 SIGNUP SUCCESS: Forcing role-based dashboard redirect');
+        console.log('👤 User role:', roleForSignup);
 
-          switch (roleForSignup) {
-            case 'seller':
-              dashboardUrl = UrlGeneratorService.sellerDashboard(); // '/account/seller'
-              break;
-            case 'buyer':
-              dashboardUrl = UrlGeneratorService.buyerDashboard(); // '/dashboard/buyer'
-              break;
-            // Note: 'both' role doesn't come from UserIntent, but if it did:
-            // case 'both':
-            //   dashboardUrl = UrlGeneratorService.sellerDashboard();
-            //   break;
-            default:
-              // Default to general dashboard (buyer dashboard)
-              dashboardUrl = UrlGeneratorService.dashboard(); // '/dashboard'
-              break;
-          }
+        // Always redirect to role-based dashboard after successful signup
+        let dashboardUrl: string;
 
-          console.log('🚀 Navigating to dashboard:', dashboardUrl);
-          navigate(dashboardUrl, { replace: true });
+        switch (roleForSignup) {
+          case 'seller':
+            dashboardUrl = UrlGeneratorService.sellerDashboard(); // '/account/seller'
+            break;
+          case 'buyer':
+            dashboardUrl = UrlGeneratorService.buyerDashboard(); // '/dashboard/buyer'
+            break;
+          // Note: 'both' role doesn't come from UserIntent, but if it did:
+          // case 'both':
+          //   dashboardUrl = UrlGeneratorService.sellerDashboard();
+          //   break;
+          default:
+            // Default to general dashboard (buyer dashboard)
+            dashboardUrl = UrlGeneratorService.dashboard(); // '/dashboard'
+            break;
         }
 
+        console.log('🚀 Navigating to dashboard:', dashboardUrl);
+        navigate(dashboardUrl, { replace: true });
+
         // Trigger a re-check of authentication state across the app
+        console.log('🔄 Dispatching auth-change event for navigation update');
         window.dispatchEvent(new CustomEvent('auth-change'));
-      }, 100);
+      }, 500); // Increased delay to ensure auth state is fully set
     } catch (error: any) {
       console.error('❌ Signup failed in SignupModal:', error);
       console.error('❌ Error type:', typeof error);

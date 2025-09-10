@@ -140,6 +140,13 @@ class AuthenticationService {
 
           const loginResponse = await this.login(email, password);
           console.log('🔧 Automatic login successful:', loginResponse);
+
+          // Ensure authentication state is set properly for navigation
+          if (loginResponse.success && loginResponse.token) {
+            console.log('🎆 Setting auth token for immediate navigation detection');
+            this.updateTokenCookies(loginResponse.token);
+          }
+
           return loginResponse;
         } catch (loginError) {
           console.log('🔧 Automatic login failed, returning creation response:', loginError);
