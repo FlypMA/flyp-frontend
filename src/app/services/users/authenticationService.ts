@@ -505,7 +505,7 @@ class AuthenticationService {
         _id: 'dev-user-123', // Legacy compatibility
         email: 'dev@betweendeals.com',
         name: 'Development User',
-        role: 'seller', // Use role instead of userType
+        role: UserRole.SELLER, // Use UserRole enum
         userType: 'seller',
         password: 'mock_password', // Required by type but not used
         verified: true,

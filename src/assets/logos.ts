@@ -4,7 +4,7 @@
  */
 
 // Import the main logo from public directory with cache busting
-const betweendealsLogo = '/betweendeals_logo.svg?v=2024.1';
+const betweendealsLogo = '/betweendeals_logo.svg?v=2024.2';
 
 // Export logo configurations for different use cases
 export const logos = {

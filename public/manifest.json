@@ -9,13 +9,13 @@
       "sizes": "16x16 32x32"
     },
     {
-      "src": "favicon-16x16.png",
-      "type": "image/png",
+      "src": "favicon-16x16.svg",
+      "type": "image/svg+xml",
       "sizes": "16x16"
     },
     {
-      "src": "favicon-32x32.png",
-      "type": "image/png",
+      "src": "favicon-32x32.svg",
+      "type": "image/svg+xml",
       "sizes": "32x32"
     },
     {
