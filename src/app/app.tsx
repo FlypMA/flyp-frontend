@@ -12,6 +12,7 @@ import Settings from './pages/account/settings/settings';
 import Checkout from './pages/checkout/checkout';
 import CheckoutSuccess from './pages/checkout/success/CheckoutSuccess';
 import PasswordReset from './pages/account/loginTools/passwordReset/PasswordReset';
+import PasswordResetConfirm from './pages/account/loginTools/passwordReset/PasswordResetConfirm';
 import SignUpComplete from './pages/account/onboarding/signUpComplete/SignUpComplete';
 import PrivacyPolicy from './pages/legal/privacyPolicy/privacyPolicy';
 import TermsAndConditions from './pages/legal/termsAndConditions/TermsAndConditions';
@@ -24,7 +25,6 @@ import SellersLandingPage from './pages/landingPages/sellers/sellers';
 import ListingSearch from './pages/listings/ListingSearch';
 import ListingDetails from './pages/listings/ListingDetails';
 import EditListingPage from './pages/listings/EditListingPage';
-
 
 import NoPage from './pages/error/404/noPage';
 import { AuthModalProvider } from './contexts/AuthModalContext';
@@ -71,7 +71,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 // Container component for BusinessListingModal with context integration
 const BusinessListingModalContainer = () => {
   const { activeModal, modalStep, closeBusinessModal } = useBusinessModal();
-  
+
   return (
     <BusinessListingModal
       isOpen={activeModal === 'business-listing'}
@@ -147,7 +147,7 @@ const routes = [
     children: [
       { index: true, element: <BusinessOverview /> }, // Default to overview
       { path: 'overview', element: <BusinessOverview /> },
-      { path: 'listings', element: <ListingManagement /> }, 
+      { path: 'listings', element: <ListingManagement /> },
       { path: 'valuation', element: <BusinessValuation /> },
       { path: 'solvency', element: <SolvencyIntelligence /> },
       { path: 'liquidation', element: <LiquidationComparison /> },
@@ -258,6 +258,15 @@ const routes = [
       </RootLayout>
     ),
     children: [{ index: true, element: <SignUpComplete /> }],
+  },
+  {
+    path: '/password-reset/confirm',
+    element: (
+      <RootLayout>
+        <SplitScreenLayout />
+      </RootLayout>
+    ),
+    children: [{ index: true, element: <PasswordResetConfirm /> }],
   },
   {
     path: '*',

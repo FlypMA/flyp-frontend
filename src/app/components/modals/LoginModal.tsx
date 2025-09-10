@@ -302,6 +302,23 @@ const LoginModal: React.FC = () => {
                           >
                             {isSubmitting ? 'Logging in...' : 'Log in'}
                           </Button>
+
+                          {/* Forgot Password Link */}
+                          <div className="text-center mt-4">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                console.log(
+                                  '🔄 LoginModal: Forgot password clicked - navigating to reset'
+                                );
+                                handleCloseModal();
+                                navigate('/password-reset');
+                              }}
+                              className="text-sm text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors"
+                            >
+                              Forgot your password?
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -714,6 +714,78 @@ class AuthenticationService {
     if (!this.cookies) return null;
     return this.cookies.get('access_token') || null;
   }
+
+  /**
+   * Send password reset email
+   */
+  async sendPasswordResetEmail(email: string): Promise<{ success: boolean; message?: string }> {
+    try {
+      console.log('🔐 Requesting password reset for:', email);
+
+      const response = (await this.sendRequest('/api/auth/password-reset/request', 'POST', {
+        email,
+      })) as { success: boolean; message?: string };
+
+      console.log('✅ Password reset request response:', response);
+      return response;
+    } catch (error: any) {
+      console.error('❌ Password reset request failed:', error);
+
+      // Handle specific error responses
+      if (error.message.includes('429')) {
+        throw new Error('Too many password reset attempts. Please try again later.');
+      }
+
+      if (error.message.includes('400')) {
+        throw new Error('Invalid email address.');
+      }
+
+      throw new Error('Failed to send password reset email. Please try again.');
+    }
+  }
+
+  /**
+   * Confirm password reset with token
+   */
+  async confirmPasswordReset(
+    token: string,
+    password: string,
+    confirmPassword: string
+  ): Promise<{ success: boolean; message?: string }> {
+    try {
+      console.log('🔐 Confirming password reset with token');
+
+      const response = (await this.sendRequest('/api/auth/password-reset/confirm', 'POST', {
+        token,
+        password,
+        confirmPassword,
+      })) as { success: boolean; message?: string };
+
+      console.log('✅ Password reset confirm response:', response);
+      return response;
+    } catch (error: any) {
+      console.error('❌ Password reset confirm failed:', error);
+
+      // Handle specific error responses
+      if (error.message.includes('400') && error.message.includes('expired')) {
+        throw new Error('Reset token has expired. Please request a new password reset.');
+      }
+
+      if (error.message.includes('400') && error.message.includes('match')) {
+        throw new Error('Passwords do not match.');
+      }
+
+      if (error.message.includes('400') && error.message.includes('Invalid')) {
+        throw new Error('Invalid or expired reset token.');
+      }
+
+      if (error.message.includes('400')) {
+        throw new Error('Invalid password format. Password must be at least 8 characters.');
+      }
+
+      throw new Error('Failed to reset password. Please try again.');
+    }
+  }
 }
 
 export const authService = new AuthenticationService();
