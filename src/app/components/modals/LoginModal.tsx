@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal, ModalContent, ModalBody, Link as UILink, Button } from '@heroui/react';
+import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
 import { Field, Form, FormRenderProps, FieldRenderProps } from 'react-final-form';
 import { X } from 'lucide-react';
 import Heading1 from '../main_UI/fonts/heading1';
@@ -37,15 +37,19 @@ const LoginModal: React.FC = () => {
 
     // Only check if already logged in when modal first opens and user hasn't started typing
     // This prevents the "already logged in" message during active login attempts
-    if (isOpen && !isSubmitting) {
-      // Add a small delay to prevent showing the message immediately when modal opens
+    // PHASE 1 FIX: Don't check during login submission or for 2 seconds after modal opens
+    if (isOpen && !isSubmitting && !errorMessage) {
+      // Increased delay to prevent race condition during login
       const checkTimer = setTimeout(() => {
-        checkIfAlreadyLoggedIn();
-      }, 500);
+        if (!isSubmitting) {
+          // Double-check before running
+          checkIfAlreadyLoggedIn();
+        }
+      }, 2000);
 
       return () => clearTimeout(checkTimer);
     }
-  }, [activeModal, isOpen, postAuthRedirect]);
+  }, [activeModal, isOpen, postAuthRedirect, isSubmitting, errorMessage]);
 
   const checkIfAlreadyLoggedIn = async () => {
     try {
@@ -75,10 +79,11 @@ const LoginModal: React.FC = () => {
             });
           } else {
             // Default dashboard redirect based on user role
+            // PHASE 1 FIX: Correct seller dashboard URL
             const dashboardUrl =
-              authResult.user.role === 'seller'
-                ? UrlGeneratorService.sellerDashboard()
-                : UrlGeneratorService.buyerDashboard();
+              authResult.user.role === 'seller' || authResult.user.role === 'both'
+                ? '/my-business' // Direct path to seller dashboard
+                : '/listings'; // Buyer sees listings
 
             console.log(
               '🎯 LoginModal: Redirecting already-logged-in user to dashboard:',
@@ -329,7 +334,7 @@ const LoginModal: React.FC = () => {
             <Form<LoginData>
               onSubmit={handleLogin}
               validate={validate}
-              render={({ handleSubmit, submitting, pristine }: FormRenderProps<LoginData>) => (
+              render={({ handleSubmit }: FormRenderProps<LoginData>) => (
                 <form data-page="login" onSubmit={handleSubmit} className="h-full">
                   <div className="grid md:grid-cols-2 min-h-screen">
                     {/* Left Side - Form */}
@@ -337,7 +342,7 @@ const LoginModal: React.FC = () => {
                       <div className="m-auto max-w-md w-full">
                         <Heading1 className="text-slate-900">Welcome back</Heading1>
                         <p className="text-base text-slate-600 mt-2">
-                          Don't have an account?{' '}
+                          Don&apos;t have an account?{' '}
                           <button
                             type="button"
                             onClick={() => {
