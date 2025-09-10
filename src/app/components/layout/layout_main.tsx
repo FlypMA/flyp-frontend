@@ -13,7 +13,12 @@ const scrollToSection = (sectionId: string) => {
   }
 };
 
-const MainLayout = () => {
+interface MainLayoutProps {
+  showFooter?: boolean;
+  children?: React.ReactNode;
+}
+
+const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [sectionToScroll, setSectionToScroll] = useState<string | null>(null);
@@ -37,8 +42,8 @@ const MainLayout = () => {
   return (
     <div>
       <UnifiedNavigation />
-      <Outlet />
-      <Footer />
+      {children || <Outlet />}
+      {showFooter && <Footer />}
     </div>
   );
 };

@@ -21,7 +21,7 @@ import {
   MessageCircle,
 } from 'lucide-react';
 import { BetweendealsLogo } from '../common';
-import { User } from '../../types/api/users/user';
+import { User, normalizeUserRole } from '../../../types/user.consolidated';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { authService } from '../../services/users/authenticationService';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
@@ -114,15 +114,12 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
     ];
 
     if (user) {
-      // Authenticated user sections - ROBUST ROLE DETECTION  
-      const userRole = user.userType || user.role || 'buyer';
-      const normalizedRole = typeof userRole === 'string' ? userRole.toLowerCase() : 'buyer';
+      // Authenticated user sections - CONSOLIDATED ROLE DETECTION
+      const normalizedRole = normalizeUserRole(user);
       console.log('🔍 MobileNavigation role detection:', {
-        userType: user.userType,
-        role: user.role,
-        userRole,
+        originalRole: user.role,
         normalizedRole,
-        user: { id: user.id, email: user.email }
+        user: { id: user.id, email: user.email },
       });
       const isDashboard =
         location.pathname.includes('/dashboard') || location.pathname.includes('/account');

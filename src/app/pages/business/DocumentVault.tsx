@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Progress, Chip } from '@heroui/react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Select,
+  SelectItem,
+  Progress,
+  Chip,
+} from '@heroui/react';
 import {
   Upload,
   FileText,
@@ -20,7 +30,7 @@ import {
   List,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -52,7 +62,7 @@ const DocumentVault = () => {
   // Loading states removed for smooth UX
   const [isUploading, setIsUploading] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
-  
+
   // Document management
   const [documents, setDocuments] = useState<DocumentFile[]>([]);
   const [filteredDocuments, setFilteredDocuments] = useState<DocumentFile[]>([]);
@@ -62,7 +72,7 @@ const DocumentVault = () => {
     used: 0,
     total: 5 * 1024 * 1024 * 1024, // 5GB in bytes
     percentage: 0,
-    tier: 'professional'
+    tier: 'professional',
   });
 
   // Categories configuration
@@ -71,32 +81,32 @@ const DocumentVault = () => {
       name: 'Financial',
       description: 'Financial statements, tax returns, bank statements',
       color: 'bg-green-100 text-green-800',
-      icon: '💰'
+      icon: '💰',
     },
     legal: {
       name: 'Legal',
       description: 'Contracts, licenses, incorporation docs, leases',
       color: 'bg-blue-100 text-blue-800',
-      icon: '⚖️'
+      icon: '⚖️',
     },
     operations: {
       name: 'Operations',
       description: 'Processes, SOPs, employee handbook, policies',
       color: 'bg-purple-100 text-purple-800',
-      icon: '⚙️'
+      icon: '⚙️',
     },
     marketing: {
       name: 'Marketing',
       description: 'Brand assets, marketing materials, customer data',
       color: 'bg-pink-100 text-pink-800',
-      icon: '📈'
+      icon: '📈',
     },
     other: {
       name: 'Other',
       description: 'Insurance, certifications, miscellaneous',
       color: 'bg-gray-100 text-gray-800',
-      icon: '📁'
-    }
+      icon: '📁',
+    },
   };
 
   useEffect(() => {
@@ -106,7 +116,7 @@ const DocumentVault = () => {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
-          
+
           // Load mock documents for demo
           loadMockDocuments();
         } else {
@@ -137,7 +147,7 @@ const DocumentVault = () => {
         tags: ['2023', 'annual', 'statements'],
         isEncrypted: true,
         version: 1,
-        status: 'active'
+        status: 'active',
       },
       {
         id: '2',
@@ -151,7 +161,7 @@ const DocumentVault = () => {
         tags: ['license', 'legal', '2025'],
         isEncrypted: true,
         version: 2,
-        status: 'active'
+        status: 'active',
       },
       {
         id: '3',
@@ -165,7 +175,7 @@ const DocumentVault = () => {
         tags: ['employees', 'policies', 'handbook'],
         isEncrypted: false,
         version: 2,
-        status: 'active'
+        status: 'active',
       },
       {
         id: '4',
@@ -179,7 +189,7 @@ const DocumentVault = () => {
         tags: ['lease', 'real-estate', '2024-2029'],
         isEncrypted: true,
         version: 1,
-        status: 'active'
+        status: 'active',
       },
       {
         id: '5',
@@ -193,7 +203,7 @@ const DocumentVault = () => {
         tags: ['taxes', '2022', 'corporate'],
         isEncrypted: true,
         version: 1,
-        status: 'archived'
+        status: 'archived',
       },
       {
         id: '6',
@@ -207,41 +217,42 @@ const DocumentVault = () => {
         tags: ['brand', 'design', 'guidelines'],
         isEncrypted: false,
         version: 1,
-        status: 'active'
-      }
+        status: 'active',
+      },
     ];
 
     setDocuments(mockDocs);
     setFilteredDocuments(mockDocs);
-    
+
     // Calculate storage usage
     const totalUsed = mockDocs.reduce((sum, doc) => sum + doc.size, 0);
     setStorageInfo(prev => ({
       ...prev,
       used: totalUsed,
-      percentage: (totalUsed / prev.total) * 100
+      percentage: (totalUsed / prev.total) * 100,
     }));
   };
 
   // Filter documents based on category and search
   useEffect(() => {
     let filtered = documents;
-    
+
     // Filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(doc => doc.category === selectedCategory);
     }
-    
+
     // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(doc => 
-        doc.name.toLowerCase().includes(query) ||
-        doc.description?.toLowerCase().includes(query) ||
-        doc.tags.some(tag => tag.toLowerCase().includes(query))
+      filtered = filtered.filter(
+        doc =>
+          doc.name.toLowerCase().includes(query) ||
+          doc.description?.toLowerCase().includes(query) ||
+          doc.tags.some(tag => tag.toLowerCase().includes(query))
       );
     }
-    
+
     setFilteredDocuments(filtered);
   }, [documents, selectedCategory, searchQuery]);
 
@@ -250,11 +261,11 @@ const DocumentVault = () => {
     if (!files) return;
 
     setIsUploading(true);
-    
+
     try {
       // Simulate upload process
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       const newDocuments: DocumentFile[] = Array.from(files).map(file => ({
         id: `${Date.now()}-${Math.random()}`,
         name: file.name,
@@ -267,19 +278,18 @@ const DocumentVault = () => {
         tags: [],
         isEncrypted: true,
         version: 1,
-        status: 'active' as const
+        status: 'active' as const,
       }));
 
       setDocuments(prev => [...newDocuments, ...prev]);
-      
+
       // Update storage usage
       const additionalSize = newDocuments.reduce((sum, doc) => sum + doc.size, 0);
       setStorageInfo(prev => ({
         ...prev,
         used: prev.used + additionalSize,
-        percentage: ((prev.used + additionalSize) / prev.total) * 100
+        percentage: ((prev.used + additionalSize) / prev.total) * 100,
       }));
-      
     } catch (error) {
       console.error('Upload failed:', error);
     } finally {
@@ -323,17 +333,18 @@ const DocumentVault = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="documents" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar selectedTab="documents" userRole={user?.role as any} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl mx-auto">
-            
             {/* Header */}
             <div className="mb-8">
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-3xl font-semibold text-gray-900 mb-2">Document Vault</h1>
-                  <p className="text-lg text-gray-600">Store and organize your important business documents securely</p>
+                  <p className="text-lg text-gray-600">
+                    Store and organize your important business documents securely
+                  </p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center space-x-1 border border-gray-300 rounded-lg p-1">
@@ -342,7 +353,11 @@ const DocumentVault = () => {
                       isIconOnly
                       size="sm"
                       onPress={() => setViewMode('list')}
-                      className={viewMode === 'list' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100'}
+                      className={
+                        viewMode === 'list'
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-600 hover:bg-gray-100'
+                      }
                     >
                       <List className="w-4 h-4" />
                     </Button>
@@ -351,7 +366,11 @@ const DocumentVault = () => {
                       isIconOnly
                       size="sm"
                       onPress={() => setViewMode('grid')}
-                      className={viewMode === 'grid' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100'}
+                      className={
+                        viewMode === 'grid'
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-600 hover:bg-gray-100'
+                      }
                     >
                       <Grid3X3 className="w-4 h-4" />
                     </Button>
@@ -382,30 +401,35 @@ const DocumentVault = () => {
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Storage</h3>
-                    <p className="text-sm text-gray-500">Professional Plan • Bank-grade encryption</p>
+                    <p className="text-sm text-gray-500">
+                      Professional Plan • Bank-grade encryption
+                    </p>
                   </div>
                   <div className="px-3 py-1 bg-gray-100 rounded-full">
-                    <span className="text-xs font-medium text-gray-700">{storageInfo.tier.toUpperCase()}</span>
+                    <span className="text-xs font-medium text-gray-700">
+                      {storageInfo.tier.toUpperCase()}
+                    </span>
                   </div>
                 </div>
-                
+
                 <div className="mb-4">
                   <div className="flex justify-between text-sm text-gray-600 mb-3">
                     <span>{formatFileSize(storageInfo.used)} used</span>
                     <span>{formatFileSize(storageInfo.total)} total</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-gray-900 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${Math.min(storageInfo.percentage, 100)}%` }}
                     ></div>
                   </div>
                 </div>
-                
+
                 {storageInfo.percentage > 80 && (
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
                     <p className="text-sm text-gray-700">
-                      Storage is {storageInfo.percentage.toFixed(0)}% full. Consider upgrading to Premium for unlimited storage.
+                      Storage is {storageInfo.percentage.toFixed(0)}% full. Consider upgrading to
+                      Premium for unlimited storage.
                     </p>
                   </div>
                 )}
@@ -415,7 +439,6 @@ const DocumentVault = () => {
             {/* Search and Filters */}
             <div className="mb-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                
                 {/* Left: Search */}
                 <div className="flex-1 max-w-md">
                   <div className="relative">
@@ -424,7 +447,7 @@ const DocumentVault = () => {
                       type="text"
                       placeholder="Search documents..."
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={e => setSearchQuery(e.target.value)}
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     />
                   </div>
@@ -435,19 +458,21 @@ const DocumentVault = () => {
                   <div className="relative">
                     <select
                       value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      onChange={e => setSelectedCategory(e.target.value)}
                       className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="all">All Categories</option>
                       {Object.entries(documentCategories).map(([key, category]) => (
-                        <option key={key} value={key}>{category.name}</option>
+                        <option key={key} value={key}>
+                          {category.name}
+                        </option>
                       ))}
                     </select>
                     <Filter className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                   </div>
-                  
-                  <Button 
-                    variant="bordered" 
+
+                  <Button
+                    variant="bordered"
                     className="border-gray-300 text-gray-600 hover:bg-gray-50"
                     startContent={<Calendar className="w-4 h-4" />}
                   >
@@ -464,9 +489,11 @@ const DocumentVault = () => {
                 const isSelected = selectedCategory === key;
                 return (
                   <div
-                    key={key} 
+                    key={key}
                     className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:shadow-sm ${
-                      isSelected ? 'border-gray-900 bg-gray-50' : 'border-gray-200 hover:border-gray-300'
+                      isSelected
+                        ? 'border-gray-900 bg-gray-50'
+                        : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setSelectedCategory(selectedCategory === key ? 'all' : key)}
                   >
@@ -492,10 +519,9 @@ const DocumentVault = () => {
                     {documents.length === 0 ? 'No Documents Yet' : 'No Documents Found'}
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    {documents.length === 0 
+                    {documents.length === 0
                       ? 'Upload your first document to get started with your secure vault'
-                      : 'Try adjusting your search criteria or category filter'
-                    }
+                      : 'Try adjusting your search criteria or category filter'}
                   </p>
                   {documents.length === 0 && (
                     <Button
@@ -509,10 +535,14 @@ const DocumentVault = () => {
                 </CardBody>
               </Card>
             ) : (
-              <div className={viewMode === 'grid' ? 'grid md:grid-cols-4 lg:grid-cols-5 gap-4' : 'space-y-2'}>
-                {filteredDocuments.map((doc) => (
-                  <div 
-                    key={doc.id} 
+              <div
+                className={
+                  viewMode === 'grid' ? 'grid md:grid-cols-4 lg:grid-cols-5 gap-4' : 'space-y-2'
+                }
+              >
+                {filteredDocuments.map(doc => (
+                  <div
+                    key={doc.id}
                     className={`border border-gray-200 rounded-lg hover:shadow-sm hover:border-gray-300 transition-all cursor-pointer ${
                       viewMode === 'grid' ? 'p-4 text-center' : 'p-4'
                     }`}
@@ -521,7 +551,10 @@ const DocumentVault = () => {
                       // Grid View
                       <>
                         <div className="text-3xl mb-3">{getFileIcon(doc.type, doc.category)}</div>
-                        <h3 className="font-medium text-sm text-gray-900 mb-2 truncate" title={doc.name}>
+                        <h3
+                          className="font-medium text-sm text-gray-900 mb-2 truncate"
+                          title={doc.name}
+                        >
                           {doc.name}
                         </h3>
                         <div className="flex items-center justify-center space-x-1 mb-2">
@@ -542,14 +575,22 @@ const DocumentVault = () => {
                               <h3 className="font-medium text-gray-900 truncate">{doc.name}</h3>
                               {doc.isEncrypted && <Lock className="w-4 h-4 text-gray-500" />}
                               {doc.version > 1 && (
-                                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">v{doc.version}</span>
+                                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                                  v{doc.version}
+                                </span>
                               )}
                             </div>
                             <p className="text-sm text-gray-500 truncate">{doc.description}</p>
                             <div className="flex items-center space-x-4 mt-1">
-                              <span className="text-xs text-gray-500">{documentCategories[doc.category].name}</span>
-                              <span className="text-xs text-gray-500">{formatFileSize(doc.size)}</span>
-                              <span className="text-xs text-gray-500">{doc.uploadDate.toLocaleDateString()}</span>
+                              <span className="text-xs text-gray-500">
+                                {documentCategories[doc.category].name}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {formatFileSize(doc.size)}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {doc.uploadDate.toLocaleDateString()}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -594,7 +635,9 @@ const DocumentVault = () => {
                     <Shield className="w-6 h-6 text-gray-700" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Enterprise-Grade Security</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Enterprise-Grade Security
+                    </h3>
                     <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-600 mb-4">
                       <div className="flex items-center space-x-2">
                         <FileCheck className="w-4 h-4 text-gray-500" />
@@ -610,7 +653,7 @@ const DocumentVault = () => {
                       </div>
                     </div>
                     <p className="text-sm text-gray-600">
-                      Your documents are encrypted before upload and stored on secure EU servers. 
+                      Your documents are encrypted before upload and stored on secure EU servers.
                       Access is logged and monitored for your protection.
                     </p>
                   </div>

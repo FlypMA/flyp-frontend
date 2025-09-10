@@ -1,12 +1,20 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@heroui/react';
-import { LayoutDashboard, Building2, FileText, Calculator, TrendingUp, AlertTriangle } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Building2,
+  FileText,
+  Calculator,
+  TrendingUp,
+  AlertTriangle,
+} from 'lucide-react';
+import { UserRole, UserRoleString } from '../../../types/user.consolidated';
 
 interface SellerSidebarProps {
   selectedTab?: string;
   className?: string;
-  userRole?: 'seller' | 'buyer' | 'admin';
+  userRole?: UserRoleString;
 }
 
 interface NavSection {
@@ -17,11 +25,11 @@ interface NavSection {
 interface NavItem {
   key: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: any;
   description?: string;
   path: string;
   isComingSoon?: boolean;
-  allowedRoles?: ('seller' | 'buyer' | 'admin')[];
+  allowedRoles?: UserRoleString[];
 }
 
 const SellerSidebar: React.FC<SellerSidebarProps> = ({
@@ -31,7 +39,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const navSections: NavSection[] = [
     {
       title: 'Business Overview',
@@ -41,8 +49,8 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           label: 'Dashboard',
           icon: LayoutDashboard,
           description: 'Business overview and performance',
-          path: '/business/overview',
-          allowedRoles: ['seller', 'admin'],
+          path: '/my-business',
+          allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
     },
@@ -55,7 +63,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: Calculator,
           description: 'Professional business valuation tool',
           path: '/business/valuation',
-          allowedRoles: ['seller', 'admin'],
+          allowedRoles: [UserRole.SELLER, UserRole.ADMIN],
         },
         {
           key: 'solvency',
@@ -63,7 +71,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: TrendingUp,
           description: 'Financial health & loan eligibility',
           path: '/business/solvency',
-          allowedRoles: ['seller', 'admin'],
+          allowedRoles: [UserRole.SELLER, UserRole.ADMIN],
         },
         {
           key: 'liquidation',
@@ -71,7 +79,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: AlertTriangle,
           description: 'Strategic sale vs liquidation',
           path: '/business/liquidation',
-          allowedRoles: ['seller', 'admin'],
+          allowedRoles: [UserRole.SELLER, UserRole.ADMIN],
         },
       ],
     },
@@ -84,7 +92,7 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: FileText,
           description: 'Secure document storage',
           path: '/business/documents',
-          allowedRoles: ['seller', 'admin'],
+          allowedRoles: [UserRole.SELLER, UserRole.ADMIN],
         },
       ],
     },
@@ -97,19 +105,21 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
           icon: Building2,
           description: 'Manage your sale listing',
           path: '/business/listings',
-          allowedRoles: ['seller', 'admin'],
+          allowedRoles: [UserRole.SELLER, UserRole.ADMIN],
         },
       ],
     },
   ];
 
   // Filter sections and items based on user role
-  const filteredNavSections = navSections.map(section => ({
-    ...section,
-    items: section.items.filter(item => 
-      !item.allowedRoles || item.allowedRoles.includes(userRole)
-    )
-  })).filter(section => section.items.length > 0);
+  const filteredNavSections = navSections
+    .map(section => ({
+      ...section,
+      items: section.items.filter(
+        item => !item.allowedRoles || item.allowedRoles.includes(userRole)
+      ),
+    }))
+    .filter(section => section.items.length > 0);
 
   return (
     <nav
@@ -127,12 +137,14 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
               {section.title}
             </h3>
-            
+
             {/* Section Items */}
             <div className="space-y-1">
               {section.items.map(item => {
                 const Icon = item.icon;
-                const isActive = selectedTab ? selectedTab === item.key : location.pathname === item.path;
+                const isActive = selectedTab
+                  ? selectedTab === item.key
+                  : location.pathname === item.path;
                 const isDisabled = item.isComingSoon;
 
                 return (
@@ -147,27 +159,29 @@ const SellerSidebar: React.FC<SellerSidebarProps> = ({
                       isDisabled && 'opacity-50 cursor-not-allowed hover:bg-transparent'
                     )}
                   >
-                    <Icon 
+                    <Icon
                       className={cn(
                         'w-5 h-5 mt-0.5 flex-shrink-0',
                         isActive ? 'text-primary-600' : 'text-gray-500'
-                      )} 
+                      )}
                     />
-                    
+
                     <div className="flex-1 min-w-0">
-                      <div className={cn(
-                        'text-sm font-medium',
-                        isActive ? 'text-primary-700' : 'text-gray-900'
-                      )}>
+                      <div
+                        className={cn(
+                          'text-sm font-medium',
+                          isActive ? 'text-primary-700' : 'text-gray-900'
+                        )}
+                      >
                         {item.label}
                         {isDisabled && (
-                          <span className="ml-2 text-xs text-gray-400 font-normal">(Coming Soon)</span>
+                          <span className="ml-2 text-xs text-gray-400 font-normal">
+                            (Coming Soon)
+                          </span>
                         )}
                       </div>
                       {item.description && (
-                        <div className="text-xs text-gray-500 mt-1">
-                          {item.description}
-                        </div>
+                        <div className="text-xs text-gray-500 mt-1">{item.description}</div>
                       )}
                     </div>
                   </button>

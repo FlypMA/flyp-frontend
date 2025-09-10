@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../components/valuation/ValuationDashboard';
@@ -59,14 +59,14 @@ const BusinessValuation = () => {
               'Prime location with long-term lease',
               'Experienced management team',
               'Growing market demand',
-              'Proprietary business processes'
+              'Proprietary business processes',
             ],
             risk_factors: [
               'Key person dependency',
               'Market competition increasing',
               'Economic uncertainty',
               'Regulatory changes possible',
-              'Customer concentration risk'
+              'Customer concentration risk',
             ],
             next_review_date: '2024-07-10',
           });
@@ -106,7 +106,7 @@ const BusinessValuation = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="valuation" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar selectedTab="valuation" userRole={user?.role} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

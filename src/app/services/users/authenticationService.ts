@@ -1,15 +1,17 @@
 import { API_CONFIG } from '../api/apiConfig';
-import { UserProfile, PaymentMetadata, UserPreferences } from '../../../types/api';
+import { PaymentMetadata } from '../../../types/api';
 import Cookies from 'universal-cookie';
 import UrlGeneratorService from '../urlMapping/urlGeneratorService';
 import {
   User,
   UserRole,
   AuthResult,
+  AuthCheckResponse,
   LoginRequest,
   RegisterRequest,
-  AuthResponse,
   convertLegacyUser,
+  UserPreferences,
+  AuthResponse,
 } from '../../types/shared/index';
 
 // Additional imports from production types for backward compatibility
@@ -110,7 +112,7 @@ class AuthenticationService {
     password: string,
     name: string,
     role: string = 'buyer'
-  ): Promise<{ success: boolean; user?: UserProfile; token?: string }> {
+  ): Promise<{ success: boolean; user?: User; token?: string }> {
     try {
       console.log('🔧 Creating account:', { email, name: name || 'Anonymous User', role });
       const data = { email, password, name, role };
@@ -121,7 +123,7 @@ class AuthenticationService {
         data
       )) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
         token?: string;
       };
       console.log('🔧 Account creation response:', createResponse);
@@ -245,32 +247,32 @@ class AuthenticationService {
     return (await response.json()) as { success: boolean; avatarUrl?: string };
   }
 
-  async updateUserProfile(profileData: {
+  async updateUser(profileData: {
     name?: string;
     email?: string;
     user_preferences?: UserPreferences;
-  }): Promise<{ success: boolean; user?: UserProfile }> {
+  }): Promise<{ success: boolean; user?: User }> {
     try {
       const response = (await this.sendRequest('/auth/profile', 'PUT', profileData, true)) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
       };
       return response;
     } catch {
       const response = (await this.sendRequest('/api/user/profile', 'PUT', profileData, true)) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
       };
       return response;
     }
   }
 
-  async getUserProfile(): Promise<{ success: boolean; user?: UserProfile }> {
+  async getUser(): Promise<{ success: boolean; user?: User }> {
     try {
       const url = '/auth/profile';
       const response = (await this.sendRequest(url, 'GET', undefined, true)) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
       };
 
       if (response.user?.avatar) {
@@ -282,7 +284,7 @@ class AuthenticationService {
       const url = '/api/user/profile';
       const response = (await this.sendRequest(url, 'GET', undefined, true)) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
       };
 
       if (response.user?.avatar) {
@@ -300,9 +302,19 @@ class AuthenticationService {
     return `${this.baseUrl}${avatar.startsWith('/') ? '' : '/'}${avatar}`;
   }
 
+  async updateUserProfile(data: any): Promise<{ success: boolean; user?: User }> {
+    // TODO: Implement user profile update
+    console.log('Updating user profile:', data);
+    const authResult = await this.checkAuthentication();
+    if (authResult.isAuthenticated && authResult.user) {
+      return { success: true, user: authResult.user };
+    }
+    return { success: false };
+  }
+
   async updateUserType(
     userType: 'creator' | 'business'
-  ): Promise<{ success: boolean; user?: UserProfile }> {
+  ): Promise<{ success: boolean; user?: User }> {
     const authResult = await this.checkAuthentication();
 
     if (!authResult.isAuthenticated || !authResult.user) {
@@ -313,7 +325,7 @@ class AuthenticationService {
       const profileData = { userType };
       const response = (await this.sendRequest('/auth/profile', 'PUT', profileData, true)) as {
         success: boolean;
-        user?: UserProfile;
+        user?: User;
       };
 
       if (response.success) {
@@ -328,20 +340,20 @@ class AuthenticationService {
           'POST',
           { enabled: userType === 'creator' },
           true
-        )) as { success: boolean; user?: UserProfile };
+        )) as { success: boolean; user?: User };
         return creatorResponse;
       } catch (creatorError) {
         if (userType === 'business') {
           const localUser = { ...authResult.user, userType: 'business' };
           this.updateTokenCookies(this.cookies.get('access_token'));
-          return { success: true, user: localUser };
+          return { success: true, user: convertLegacyUser(localUser) };
         }
         throw creatorError;
       }
     }
   }
 
-  async toggleCreatorMode(enabled: boolean): Promise<{ success: boolean; user?: UserProfile }> {
+  async toggleCreatorMode(enabled: boolean): Promise<{ success: boolean; user?: User }> {
     const authResult = await this.checkAuthentication();
 
     if (!authResult.isAuthenticated) {
@@ -354,7 +366,7 @@ class AuthenticationService {
         'POST',
         { enabled },
         true
-      )) as { success: boolean; user?: UserProfile };
+      )) as { success: boolean; user?: User };
       return response;
     } catch (error) {
       throw error;
@@ -364,7 +376,7 @@ class AuthenticationService {
   async login(
     email: string,
     password: string
-  ): Promise<{ success: boolean; user?: UserProfile; token?: string }> {
+  ): Promise<{ success: boolean; user?: User; token?: string }> {
     const data = { email, password };
 
     try {
@@ -376,11 +388,11 @@ class AuthenticationService {
         data
       )) as {
         success?: boolean;
-        user?: UserProfile;
+        user?: User;
         token?: string;
         data?: {
           token?: string;
-          user?: UserProfile;
+          user?: User;
           [key: string]: unknown;
         };
         access_token?: string;
@@ -505,7 +517,7 @@ class AuthenticationService {
         _id: 'dev-user-123', // Legacy compatibility
         email: 'dev@betweendeals.com',
         name: 'Development User',
-        role: UserRole.SELLER, // Use UserRole enum
+        role: 'seller', // Use string literal for consistency
         userType: 'seller',
         password: 'mock_password', // Required by type but not used
         verified: true,

@@ -17,7 +17,7 @@ import {
   Target,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';

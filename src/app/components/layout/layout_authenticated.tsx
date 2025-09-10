@@ -3,8 +3,8 @@ import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
-import { User as UserProfile, UserRole } from '../../types/shared/index';
-import { UserType } from '../../types/api/users/user';
+import { User as UserProfile, UserRole } from '../../../types/user.consolidated';
+// UserType imported from consolidated types above
 import MobileNavigation from '../navigation/MobileNavigation';
 
 const DEV_BYPASS_AUTH =

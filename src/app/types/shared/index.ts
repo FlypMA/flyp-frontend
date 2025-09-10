@@ -6,16 +6,53 @@
 // =============================================================================
 
 // =============================================================================
-// CORE ENUMS
+// USER SYSTEM - SINGLE SOURCE OF TRUTH
 // =============================================================================
 
-export enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  SELLER = 'seller',
-  BUYER = 'buyer',
-  BOTH = 'both',
-}
+// Import ALL user-related types from consolidated system
+export {
+  UserRole,
+  isSellerUser,
+  isBuyerUser,
+  isAdminUser,
+  hasBusinessInfo,
+  isVerifiedUser,
+  normalizeUserRole,
+  getUserRole,
+  USER_ROLES,
+  DEFAULT_USER_VALUES,
+  convertLegacyUser,
+  needsLegacyConversion,
+} from '../../../types/user.consolidated';
+
+// Import types with proper naming to avoid conflicts
+export type {
+  User,
+  UserRoleString,
+  UserType,
+  UserProfile,
+  UserPreferences,
+  AuthResult,
+  AuthResponse,
+  AuthCheckResponse,
+  LoginRequest,
+  RegisterRequest,
+  UpdateProfileRequest,
+  UpdateBusinessInfoRequest,
+  RoleToggleRequest,
+  UserResponse,
+  UsersListResponse,
+  Country,
+  Language,
+  AuthProvider,
+} from '../../../types/user.consolidated';
+
+// Import User as a local type for interface usage
+import type { User as UserType } from '../../../types/user.consolidated';
+
+// =============================================================================
+// BUSINESS LOGIC ENUMS
+// =============================================================================
 
 export enum ListingStatus {
   DRAFT = 'draft',
@@ -64,149 +101,20 @@ export enum PaymentStatus {
   CANCELLED = 'cancelled',
 }
 
+export enum TransactionStatus {
+  DRAFT = 'draft',
+  SUBMITTED = 'submitted',
+  UNDER_REVIEW = 'under_review',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+  CANCELLED = 'cancelled',
+}
+
 // =============================================================================
-// CORE ENTITIES
+// BUSINESS ENTITIES
 // =============================================================================
-
-/**
- * User - Main user entity for all platform users
- * Production-ready types aligned with enhanced single-table schema
- */
-export interface User {
-  // Core Identity
-  id: string;
-  email: string;
-  name: string;
-  phone?: string;
-
-  // Role Management
-  role: UserRole;
-
-  // Business Information (sellers only)
-  company_name?: string;
-  company_description?: string;
-
-  // Enhanced Business Data (MVP Critical Fields)
-  industry?: string;
-  business_type?: string;
-  years_in_operation?: number;
-
-  // Financial & Size Indicators
-  revenue_range?: string;
-  asking_price_range?: string;
-  employee_count_range?: string;
-
-  // Business Status & Marketing
-  business_verified?: boolean;
-  listing_status?: 'draft' | 'active' | 'under_offer' | 'sold' | 'withdrawn';
-  business_highlights?: string;
-  reason_for_selling?: string;
-
-  // Location
-  city?: string;
-  country: string;
-
-  // Verification
-  email_verified: boolean;
-  verification_token?: string;
-  verification_token_expires_at?: string;
-
-  // Authentication
-  password_hash?: string;
-  auth_provider: string;
-
-  // Preferences
-  language_preference: string;
-
-  // Audit Fields
-  created_at: string;
-  updated_at: string;
-  last_login_at?: string;
-  deleted_at?: string;
-
-  // Legacy compatibility fields (deprecated - for gradual migration)
-  first_name?: string;
-  last_name?: string;
-  locale?: string;
-  phone_number?: string;
-  avatar_url?: string;
-  last_login?: string;
-  is_active?: boolean;
-  preferences?: UserPreferences;
-  metadata?: Record<string, any>;
-  _id?: string; // Legacy field mapping
-}
-
-/**
- * User preferences for platform customization
- */
-export interface UserPreferences {
-  language?: string;
-  timezone?: string;
-  email_notifications?: boolean;
-  marketing_emails?: boolean;
-  currency?: string;
-  theme?: 'light' | 'dark' | 'system';
-  notifications?: {
-    email: boolean;
-    push: boolean;
-    marketing: boolean;
-  };
-  [key: string]: any;
-}
-
-/**
- * UserProfile - Alias for User to maintain backward compatibility
- * Gradually migrate components to use User instead of UserProfile
- */
-export type UserProfile = User;
-
-/**
- * Legacy User interface mapping for components still using old structure
- */
-export interface LegacyUser {
-  _id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  userType?: UserType;
-  verified?: boolean;
-  avatar?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-// Common user role/type mappings
-export type UserType = 'seller' | 'buyer' | 'both' | 'admin' | 'business';
-
-// Type conversion utilities
-export const convertLegacyToUser = (legacy: LegacyUser): User => ({
-  id: legacy._id,
-  name: legacy.name,
-  email: legacy.email,
-  role: legacy.role,
-  email_verified: legacy.verified ?? false,
-  country: 'BE', // Default
-  auth_provider: 'email',
-  language_preference: 'en',
-  created_at: legacy.createdAt?.toISOString() ?? new Date().toISOString(),
-  updated_at: legacy.updatedAt?.toISOString() ?? new Date().toISOString(),
-  avatar_url: legacy.avatar,
-});
-
-// Alias for backward compatibility
-export const convertLegacyUser = convertLegacyToUser;
-
-export const convertUserToLegacy = (user: User): LegacyUser => ({
-  _id: user.id,
-  name: user.name,
-  email: user.email,
-  role: user.role,
-  verified: user.email_verified,
-  avatar: user.avatar_url,
-  createdAt: new Date(user.created_at),
-  updatedAt: new Date(user.updated_at),
-});
 
 /**
  * Organization - Business entities that own listings
@@ -229,725 +137,412 @@ export interface Organization {
 }
 
 /**
- * Business Listing - Core listing entity
+ * Business Listing - Core marketplace entity
  */
 export interface Listing {
   id: string;
-  organization_id: string;
-  created_by: string;
+  title: string;
+  description: string;
+  owner_id: string;
+  organization_id?: string;
 
-  // Basic information
+  // Business Details
+  asking_price: number;
+  currency: string;
   sector: string;
+  employee_count?: number;
+  annual_revenue?: number;
+  profit_margin?: number;
+
+  // Location
   country: string;
   region?: string;
   city?: string;
 
-  // Listing configuration
+  // Status and Visibility
   status: ListingStatus;
-  anonymous: boolean;
-  requires_nda: boolean;
+  visibility: 'public' | 'private' | 'nda_required';
   featured: boolean;
 
-  // Financial information
-  asking_price?: number;
-  currency: string;
-  price_negotiable: boolean;
-
-  // Timing
-  reason_for_sale?: string;
-  preferred_timeline?: string;
-  expires_at?: string;
-  published_at?: string;
-
-  created_at: string;
-  updated_at: string;
-
-  // Relations (populated in API responses)
-  translations?: ListingTranslation[];
-  financials?: ListingFinancials;
-  analytics?: ListingAnalytics;
-  organization?: Organization;
+  // Media and Documents
+  images?: string[];
   documents?: Document[];
-}
 
-/**
- * Multi-language listing content
- */
-export interface ListingTranslation {
-  id: string;
-  listing_id: string;
-  locale: string;
-  title: string;
-  description: string;
-  summary?: string;
-  highlights?: string[];
-  reason_for_sale_details?: string;
+  // SEO and Discovery
+  tags: string[];
+  keywords?: string[];
+
+  // Metrics
+  view_count: number;
+  inquiry_count: number;
+  favorite_count: number;
+
+  // Timestamps
   created_at: string;
   updated_at: string;
+  published_at?: string;
+  expires_at?: string;
 }
 
 /**
- * Financial details for listings
- */
-export interface ListingFinancials {
-  id: string;
-  listing_id: string;
-  revenue_min?: number;
-  revenue_max?: number;
-  revenue_currency: string;
-  ebitda_min?: number;
-  ebitda_max?: number;
-  ebitda_margin?: number;
-  revenue_growth_rate?: number;
-  profit_growth_rate?: number;
-  financial_year?: number;
-  years_in_business?: number;
-  assets_value?: number;
-  liabilities_value?: number;
-  inventory_value?: number;
-  created_at: string;
-}
-
-/**
- * Listing performance analytics
- */
-export interface ListingAnalytics {
-  id: string;
-  listing_id: string;
-  views_count: number;
-  unique_views_count: number;
-  inquiries_count: number;
-  saves_count: number;
-  shares_count: number;
-  completion_score?: number;
-  quality_score?: number;
-  last_activity_at?: string;
-  created_at: string;
-  updated_at: string;
-}
-
-/**
- * Buyer inquiry to seller
+ * Inquiry - Buyer interest in a listing
  */
 export interface Inquiry {
   id: string;
   listing_id: string;
-  buyer_id: string;
-  seller_id: string;
-  status: InquiryStatus;
+  buyer?: UserType;
+  seller?: UserType;
+
+  // Inquiry Details
   message: string;
-  buyer_background?: string;
-  intended_use?: string;
-  financing_confirmed: boolean;
-  nda_required: boolean;
-  nda_accepted: boolean;
-  nda_accepted_at?: string;
-  seller_response?: string;
-  responded_at?: string;
+  proposed_price?: number;
+  financing_type?: 'cash' | 'financed' | 'mixed';
+  timeline?: string;
+
+  // Status
+  status: InquiryStatus;
+  priority: 'low' | 'medium' | 'high';
+
+  // Communication
+  conversation_id?: string;
+
+  // Timestamps
   created_at: string;
   updated_at: string;
-
-  // Relations (populated in API responses)
-  listing?: Listing;
-  buyer?: User;
-  seller?: User;
+  responded_at?: string;
+  expires_at?: string;
 }
 
 /**
- * Conversation between buyer and seller
+ * Conversation - Communication between users
  */
 export interface Conversation {
   id: string;
-  inquiry_id: string;
-  listing_id: string;
-  buyer_id: string;
-  seller_id: string;
-  status: ConversationStatus;
+  participants: string[]; // User IDs
+
+  // Context
+  listing_id?: string;
+  inquiry_id?: string;
   subject?: string;
-  nda_signed: boolean;
-  confidential_access_granted: boolean;
+
+  // Status
+  status: ConversationStatus;
   last_message_at?: string;
-  last_message_by?: string;
-  message_count: number;
+
+  // Metadata
+  unread_counts: Record<string, number>; // userId -> unread count
+  archived_by: string[]; // User IDs who archived
+
+  // Timestamps
   created_at: string;
   updated_at: string;
-
-  // Relations (populated in API responses)
-  messages?: Message[];
-  listing?: Listing;
-  buyer?: User;
-  seller?: User;
 }
 
 /**
- * Individual message in conversation
+ * Message - Individual message in a conversation
  */
 export interface Message {
   id: string;
   conversation_id: string;
-  sender_id: string;
-  content: string;
-  message_type: MessageType;
-  is_system_message: boolean;
-  reply_to_id?: string;
-  edited_at?: string;
-  sent_at: string;
-  read_at?: string;
-  read_by?: string;
-  attachments?: any[];
-  created_at: string;
+  sender?: UserType;
 
-  // Relations (populated in API responses)
-  sender?: User;
+  // Content
+  type: MessageType;
+  content: string;
+  attachments?: Attachment[];
+
+  // Status
+  read_by: Record<string, string>; // userId -> timestamp
+  edited_at?: string;
+
+  // Timestamps
+  created_at: string;
+  updated_at: string;
 }
 
 /**
- * Document attached to listings
+ * Document - File attachments
  */
 export interface Document {
   id: string;
-  listing_id: string;
-  uploaded_by: string;
   filename: string;
-  original_filename: string;
-  file_size: number;
+  original_name: string;
+  size: number;
   mime_type: string;
-  storage_key: string;
-  storage_url?: string;
-  document_type?: string;
-  category?: string;
-  description?: string;
+
+  // Access Control
   access_level: DocumentAccessLevel;
-  password_protected: boolean;
-  watermarked: boolean;
-  version: number;
-  parent_document_id?: string;
-  created_at: string;
-  updated_at: string;
-}
+  owner_id: string;
 
-/**
- * Document access tracking
- */
-export interface DocumentAccess {
-  id: string;
-  document_id: string;
-  user_id: string;
-  granted_by: string;
-  granted_at: string;
-  expires_at?: string;
-  revoked_at?: string;
-  revoked_by?: string;
-  first_accessed_at?: string;
-  last_accessed_at?: string;
-  access_count: number;
-  download_count: number;
-  ip_addresses?: string[];
-  user_agents?: string[];
-}
+  // Context
+  listing_id?: string;
+  conversation_id?: string;
 
-/**
- * Buyer investment profile
- */
-export interface BuyerProfile {
-  id: string;
-  user_id: string;
-  target_sectors?: string[];
-  target_countries?: string[];
-  target_regions?: string[];
-  budget_min?: number;
-  budget_max?: number;
-  budget_currency: string;
-  preferred_business_age_min?: number;
-  preferred_business_age_max?: number;
-  preferred_employee_count_min?: number;
-  preferred_employee_count_max?: number;
-  investment_timeline?: string;
-  involvement_level?: string;
-  experience_level?: string;
-  risk_tolerance?: string;
-  contact_preferences?: Record<string, any>;
-  created_at: string;
-  updated_at: string;
-}
-
-/**
- * Saved search for buyers
- */
-export interface SavedSearch {
-  id: string;
-  user_id: string;
-  name: string;
-  search_criteria: Record<string, any>; // JSON filters
-  alert_enabled: boolean;
-  alert_frequency: string;
-  last_run_at?: string;
-  results_count: number;
-  created_at: string;
-  updated_at: string;
-}
-
-/**
- * NDA record for legal compliance
- */
-export interface NDARecord {
-  id: string;
-  conversation_id: string;
-  inquiry_id?: string;
-  buyer_id: string;
-  seller_id: string;
-  document_template_id: string;
-  document_url?: string;
-  terms_version: string;
-  signed_by_buyer: boolean;
-  signed_by_seller: boolean;
-  buyer_signed_at?: string;
-  seller_signed_at?: string;
-  buyer_ip_address?: string;
-  seller_ip_address?: string;
-  buyer_user_agent?: string;
-  seller_user_agent?: string;
-  expires_at?: string;
-  created_at: string;
-}
-
-/**
- * Subscription plans
- */
-export interface SubscriptionPlan {
-  id: string;
-  name: string;
+  // Metadata
   description?: string;
-  price_monthly: number;
-  price_yearly?: number;
-  currency: string;
-  features: string[];
-  limits: Record<string, any>;
-  trial_days: number;
-  is_active: boolean;
-  sort_order: number;
+  category?: string;
+
+  // Timestamps
   created_at: string;
   updated_at: string;
 }
 
 /**
- * User subscription
+ * Attachment - Message attachments
+ */
+export interface Attachment {
+  id: string;
+  filename: string;
+  size: number;
+  mime_type: string;
+  url: string;
+  thumbnail_url?: string;
+
+  // Metadata
+  description?: string;
+
+  created_at: string;
+}
+
+/**
+ * Subscription - User subscription plans
  */
 export interface Subscription {
   id: string;
   user_id: string;
+
+  // Plan Details
   plan_id: string;
-  stripe_subscription_id?: string;
-  stripe_customer_id?: string;
+  plan_name: string;
+
+  // Status
   status: SubscriptionStatus;
-  billing_period: string;
-  price_amount: number;
-  price_currency: string;
-  trial_starts_at?: string;
-  trial_ends_at?: string;
+
+  // Billing
   current_period_start: string;
   current_period_end: string;
-  canceled_at?: string;
+
+  // Timestamps
   created_at: string;
   updated_at: string;
+  cancelled_at?: string;
 }
 
 /**
- * Payment record
+ * Transaction - Financial transactions
  */
-export interface Payment {
+export interface Transaction {
   id: string;
   user_id: string;
-  subscription_id?: string;
-  listing_id?: string;
-  stripe_payment_intent_id?: string;
-  stripe_charge_id?: string;
+
+  // Transaction Details
+  type: 'subscription' | 'listing_fee' | 'commission';
   amount: number;
   currency: string;
-  status: PaymentStatus;
+  description: string;
+
+  // Status
+  status: TransactionStatus;
+
+  // Payment
   payment_method?: string;
-  purpose: string; // 'listing_fee', 'subscription', 'featured_listing'
-  description?: string;
-  receipt_url?: string;
-  processed_at?: string;
-  failed_at?: string;
-  refunded_at?: string;
-  refund_amount?: number;
+  payment_id?: string;
+
+  // References
+  listing_id?: string;
+  subscription_id?: string;
+
+  // Timestamps
   created_at: string;
   updated_at: string;
-}
-
-/**
- * User-Organization relationship
- */
-export interface UserOrganization {
-  id: string;
-  user_id: string;
-  organization_id: string;
-  role: string;
-  permissions: string[];
-  created_at: string;
-
-  // Relations (populated in API responses)
-  organization?: Organization;
-}
-
-// =============================================================================
-// API TYPES
-// =============================================================================
-
-/**
- * Standard API Response wrapper
- */
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-  meta?: {
-    pagination?: PaginationInfo;
-    total?: number;
-    timestamp?: string;
-  };
-}
-
-/**
- * Pagination information
- */
-export interface PaginationInfo {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-}
-
-/**
- * Search filters for listings
- */
-export interface ListingFilters {
-  page?: number;
-  limit?: number;
-  country?: string;
-  sector?: string;
-  revenueMin?: number;
-  revenueMax?: number;
-  askingPriceMin?: number;
-  askingPriceMax?: number;
-  anonymous?: boolean;
-  requiresNda?: boolean;
-  searchQuery?: string;
-  locale?: string;
-}
-
-/**
- * Search filters for inquiries
- */
-export interface InquiryFilters {
-  page?: number;
-  limit?: number;
-  status?: InquiryStatus;
-  listing_id?: string;
-  buyer_id?: string;
-  seller_id?: string;
-}
-
-/**
- * Search filters for conversations
- */
-export interface ConversationFilters {
-  page?: number;
-  limit?: number;
-  status?: ConversationStatus;
-  listing_id?: string;
-  buyer_id?: string;
-  seller_id?: string;
-}
-
-// =============================================================================
-// AUTHENTICATION TYPES
-// =============================================================================
-
-/**
- * Login credentials
- */
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-/**
- * Login request (alias for LoginCredentials)
- */
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-/**
- * Register request
- */
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  name: string;
-  role: UserRole;
-  phone?: string;
-  city?: string;
-  country?: string;
-  company_name?: string;
-  company_description?: string;
-}
-
-/**
- * Registration data
- */
-export interface RegisterData {
-  email: string;
-  password: string;
-  name: string;
-  role: UserRole;
-  locale?: string;
-}
-
-/**
- * Authentication response
- */
-export interface AuthResponse {
-  success: boolean;
-  user?: User;
-  token?: string;
-  refreshToken?: string;
-  error?: string;
-  expires_in?: number;
-}
-
-/**
- * Auth result for authentication checks
- */
-export interface AuthResult {
-  isAuthenticated: boolean;
-  user?: User;
-  token?: string;
-  error?: string;
-}
-
-/**
- * Auth check response for authentication status
- */
-export interface AuthCheckResponse {
-  isAuthenticated: boolean;
-  user?: User;
-  error?: string;
-}
-
-// =============================================================================
-// REQUEST/RESPONSE TYPES
-// =============================================================================
-
-/**
- * Create listing request
- */
-export interface CreateListingRequest {
-  organization_id: string;
-  sector: string;
-  country: string;
-  region?: string;
-  city?: string;
-  anonymous?: boolean;
-  requires_nda?: boolean;
-  asking_price?: number;
-  currency?: string;
-  price_negotiable?: boolean;
-  reason_for_sale?: string;
-  preferred_timeline?: string;
-  translations: {
-    [locale: string]: {
-      title: string;
-      description: string;
-      summary?: string;
-      highlights?: string[];
-      reason_for_sale_details?: string;
-    };
-  };
-  financials?: Partial<ListingFinancials>;
-}
-
-/**
- * Update listing request
- */
-export interface UpdateListingRequest {
-  sector?: string;
-  region?: string;
-  city?: string;
-  anonymous?: boolean;
-  requires_nda?: boolean;
-  asking_price?: number;
-  price_negotiable?: boolean;
-  reason_for_sale?: string;
-  preferred_timeline?: string;
-}
-
-/**
- * Create inquiry request
- */
-export interface CreateInquiryRequest {
-  listing_id: string;
-  message: string;
-  buyer_background?: string;
-  intended_use?: string;
-  financing_confirmed: boolean;
-  nda_required?: boolean;
-}
-
-/**
- * Update inquiry request
- */
-export interface UpdateInquiryRequest {
-  status?: InquiryStatus;
-  seller_response?: string;
-}
-
-/**
- * Create organization request
- */
-export interface CreateOrganizationRequest {
-  name: string;
-  business_type?: string;
-  registration_number?: string;
-  tax_id?: string;
-  country: string;
-  region?: string;
-  city?: string;
-  website?: string;
-  description?: string;
-  contact_info?: Record<string, any>;
-}
-
-/**
- * Update user profile request
- */
-export interface UpdateUserProfileRequest {
-  name?: string;
-  first_name?: string;
-  last_name?: string;
-  phone_number?: string;
-  locale?: string;
-  preferences?: UserPreferences;
+  processed_at?: string;
 }
 
 // =============================================================================
 // UTILITY TYPES
 // =============================================================================
 
-/**
- * Database entity base interface
- */
 export interface DatabaseEntity {
+  id: string;
   created_at: string;
   updated_at: string;
 }
 
-/**
- * Repository query options
- */
-export interface RepositoryOptions {
+export interface PaginationParams {
+  page?: number;
   limit?: number;
-  offset?: number;
-  orderBy?: string;
-  orderDirection?: 'ASC' | 'DESC';
+  sort_by?: string;
+  sort_direction?: 'asc' | 'desc';
 }
 
-/**
- * File upload result
- */
-export interface FileUploadResult {
-  id: string;
-  filename: string;
-  original_filename: string;
-  file_size: number;
-  mime_type: string;
-  storage_url: string;
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
 }
 
-/**
- * Error details for API responses
- */
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+  timestamp: string;
+}
+
+export interface SearchFilters {
+  query?: string;
+  category?: string;
+  location?: string;
+  price_min?: number;
+  price_max?: number;
+  [key: string]: any;
+}
+
+export interface NotificationSettings {
+  email_notifications: boolean;
+  push_notifications: boolean;
+  marketing_emails: boolean;
+  listing_alerts: boolean;
+  inquiry_notifications: boolean;
+  conversation_notifications: boolean;
+}
+
+export interface PrivacySettings {
+  profile_visibility: 'public' | 'private';
+  show_contact_info: boolean;
+  allow_direct_messages: boolean;
+  data_collection_consent: boolean;
+}
+
+export interface UserContext {
+  user: UserType | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  permissions: string[];
+}
+
+// =============================================================================
+// FORM AND VALIDATION TYPES
+// =============================================================================
+
+export interface ValidationError {
+  field: string;
+  message: string;
+  code: string;
+}
+
+export interface FormState<T> {
+  data: Partial<T>;
+  errors: ValidationError[];
+  loading: boolean;
+  submitted: boolean;
+}
+
+export interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+export interface FileUpload {
+  file: File;
+  progress: number;
+  status: 'pending' | 'uploading' | 'completed' | 'error';
+  error?: string;
+  url?: string;
+}
+
+// =============================================================================
+// ANALYTICS AND METRICS
+// =============================================================================
+
+export interface UserMetrics {
+  user_id: string;
+  total_listings: number;
+  active_listings: number;
+  total_inquiries_sent: number;
+  total_inquiries_received: number;
+  response_rate: number;
+  average_response_time: number;
+  profile_completion: number;
+  last_activity: string;
+}
+
+export interface ListingMetrics {
+  listing_id: string;
+  total_views: number;
+  unique_views: number;
+  total_inquiries: number;
+  qualified_inquiries: number;
+  conversion_rate: number;
+  average_time_on_page: number;
+  bounce_rate: number;
+  favorite_rate: number;
+}
+
+export interface PlatformMetrics {
+  total_users: number;
+  active_users: number;
+  total_listings: number;
+  active_listings: number;
+  total_transactions: number;
+  revenue: number;
+  growth_rate: number;
+  user_satisfaction: number;
+}
+
+// =============================================================================
+// ERROR HANDLING
+// =============================================================================
+
 export interface ErrorDetails {
   code: string;
   message: string;
   field?: string;
-  details?: any;
+  context?: Record<string, any>;
 }
 
-/**
- * Validation error response
- */
-export interface ValidationErrorResponse {
-  success: false;
-  error: string;
+export interface ValidationResult {
+  valid: boolean;
   errors: ErrorDetails[];
 }
 
-// =============================================================================
-// BUSINESS LOGIC TYPES
-// =============================================================================
-
-/**
- * Business valuation parameters
- */
-export interface BusinessValuation {
-  revenue: number;
-  ebitda: number;
-  sector: string;
-  location: string;
-  years_in_business: number;
-  growth_rate?: number;
-  market_position?: string;
-  estimated_value_min: number;
-  estimated_value_max: number;
-  valuation_method: string;
-  confidence_score: number;
+export interface ApiError extends Error {
+  status: number;
+  code: string;
+  details?: ErrorDetails[];
 }
 
-/**
- * Due diligence checklist item
- */
-export interface DueDiligenceItem {
-  id: string;
-  category: string;
-  title: string;
+// =============================================================================
+// FEATURE FLAGS
+// =============================================================================
+
+export interface FeatureFlag {
+  key: string;
+  enabled: boolean;
   description: string;
-  required: boolean;
-  completed: boolean;
-  completed_at?: string;
-  notes?: string;
-  documents_required: string[];
-  documents_provided: string[];
+  audience?: string[];
+  rollout_percentage?: number;
 }
 
-/**
- * Due diligence checklist
- */
-export interface DueDiligenceChecklist {
-  id: string;
-  inquiry_id: string;
-  conversation_id: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  items: DueDiligenceItem[];
-  completion_percentage: number;
-  created_at: string;
-  updated_at: string;
+export interface FeatureFlags {
+  [key: string]: boolean;
 }
 
 // =============================================================================
-// EXPORT ALL TYPES
+// EXPORTS
 // =============================================================================
 
-export * from './listing';
-export * from './user';
-export * from './inquiry';
-export * from './conversation';
-// Temporarily comment out to avoid export conflicts
-// export * from './api';
+// Re-export commonly used types for convenience
+export type {
+  DatabaseEntity as BaseEntity,
+  PaginatedResponse as PaginatedResp,
+  ApiResponse as ApiResp,
+  ValidationError as ValidationErr,
+  ErrorDetails as ErrorDet,
+  SelectOption as SelectOpt,
+};

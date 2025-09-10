@@ -1,6 +1,6 @@
 /**
  * Modern Tab Component - Clean, Accessible, Performance-Optimized
- * 
+ *
  * As designed by Senior CTO & Designer
  * - Zero dependencies on complex UI libraries
  * - Built-in accessibility (ARIA, keyboard navigation)
@@ -9,7 +9,14 @@
  * - Lightweight and performant
  */
 
-import React, { createContext, useContext, useState, useCallback, useMemo, KeyboardEvent } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  KeyboardEvent,
+} from 'react';
 import { cn } from '@heroui/react';
 
 // =============================================================================
@@ -105,71 +112,82 @@ export const ModernTabs: React.FC<ModernTabsProps> = ({
   children,
 }) => {
   // State management (controlled/uncontrolled)
-  const [internalActiveTab, setInternalActiveTab] = useState(() => 
-    controlledActiveTab || defaultTab || tabs[0]?.id || ''
+  const [internalActiveTab, setInternalActiveTab] = useState(
+    () => controlledActiveTab || defaultTab || tabs[0]?.id || ''
   );
-  
+
   const activeTab = controlledActiveTab ?? internalActiveTab;
-  
-  const handleTabChange = useCallback((tabId: string) => {
-    if (controlledActiveTab === undefined) {
-      setInternalActiveTab(tabId);
-    }
-    onTabChange?.(tabId);
-  }, [controlledActiveTab, onTabChange]);
+
+  const handleTabChange = useCallback(
+    (tabId: string) => {
+      if (controlledActiveTab === undefined) {
+        setInternalActiveTab(tabId);
+      }
+      onTabChange?.(tabId);
+    },
+    [controlledActiveTab, onTabChange]
+  );
 
   // Keyboard navigation
-  const handleKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>, tabId: string) => {
-    const currentIndex = tabs.findIndex(tab => tab.id === tabId);
-    let nextIndex = currentIndex;
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>, tabId: string) => {
+      const currentIndex = tabs.findIndex(tab => tab.id === tabId);
+      let nextIndex = currentIndex;
 
-    switch (event.key) {
-      case 'ArrowLeft':
-      case 'ArrowUp':
-        event.preventDefault();
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
-        break;
-      case 'ArrowRight':  
-      case 'ArrowDown':
-        event.preventDefault();
-        nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
-        break;
-      case 'Home':
-        event.preventDefault();
-        nextIndex = 0;
-        break;
-      case 'End':
-        event.preventDefault();
-        nextIndex = tabs.length - 1;
-        break;
-      default:
-        return;
-    }
+      switch (event.key) {
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          event.preventDefault();
+          nextIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+          break;
+        case 'ArrowRight':
+        case 'ArrowDown':
+          event.preventDefault();
+          nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+          break;
+        case 'Home':
+          event.preventDefault();
+          nextIndex = 0;
+          break;
+        case 'End':
+          event.preventDefault();
+          nextIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
 
-    const nextTab = tabs[nextIndex];
-    if (nextTab && !nextTab.disabled) {
-      handleTabChange(nextTab.id);
-      // Focus the next tab button
-      const nextButton = event.currentTarget.parentElement?.children[nextIndex] as HTMLButtonElement;
-      nextButton?.focus();
-    }
-  }, [tabs, handleTabChange]);
+      const nextTab = tabs[nextIndex];
+      if (nextTab && !nextTab.disabled) {
+        handleTabChange(nextTab.id);
+        // Focus the next tab button
+        const nextButton = event.currentTarget.parentElement?.children[
+          nextIndex
+        ] as HTMLButtonElement;
+        nextButton?.focus();
+      }
+    },
+    [tabs, handleTabChange]
+  );
 
   // Context value
-  const contextValue = useMemo(() => ({
-    activeTab,
-    setActiveTab: handleTabChange,
-    tabs,
-    variant,
-    size,
-  }), [activeTab, handleTabChange, tabs, variant, size]);
+  const contextValue = useMemo(
+    () => ({
+      activeTab,
+      setActiveTab: handleTabChange,
+      tabs,
+      variant,
+      size,
+    }),
+    [activeTab, handleTabChange, tabs, variant, size]
+  );
 
   // Style variants
   const containerStyles = cn(
     // Base styles
     'modern-tabs-container',
     'flex items-center',
-    
+
     // Variant styles
     {
       // Pills variant - Modern segmented control style
@@ -179,37 +197,30 @@ export const ModernTabs: React.FC<ModernTabsProps> = ({
       // Bordered variant - Card-style tabs
       'border border-gray-200 rounded-xl bg-white': variant === 'bordered',
     },
-    
+
     // Layout styles
     {
       'w-full': fullWidth,
       'overflow-x-auto': scrollable,
       'flex-nowrap': scrollable,
     },
-    
+
     // Custom classes
     className
   );
 
-  const tabListStyles = cn(
-    'flex',
-    {
-      'gap-1': variant === 'pills',
-      'gap-0': variant !== 'pills',
-      'w-full': fullWidth,
-      'min-w-max': scrollable,
-    }
-  );
+  const tabListStyles = cn('flex', {
+    'gap-1': variant === 'pills',
+    'gap-0': variant !== 'pills',
+    'w-full': fullWidth,
+    'min-w-max': scrollable,
+  });
 
   return (
     <TabContext.Provider value={contextValue}>
       <div className={containerStyles} data-testid={testId}>
-        <div
-          className={tabListStyles}
-          role="tablist"
-          aria-orientation="horizontal"
-        >
-          {tabs.map((tab) => (
+        <div className={tabListStyles} role="tablist" aria-orientation="horizontal">
+          {tabs.map(tab => (
             <ModernTabButton
               key={tab.id}
               tab={tab}
@@ -235,11 +246,7 @@ interface ModernTabButtonProps {
   fullWidth: boolean;
 }
 
-const ModernTabButton: React.FC<ModernTabButtonProps> = ({ 
-  tab, 
-  onKeyDown, 
-  fullWidth 
-}) => {
+const ModernTabButton: React.FC<ModernTabButtonProps> = ({ tab, onKeyDown, fullWidth }) => {
   const { activeTab, setActiveTab, variant, size } = useTabContext();
   const isActive = activeTab === tab.id;
 
@@ -260,35 +267,28 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'pills':
-        return cn(
-          'rounded-xl transition-all duration-200 font-medium',
-          {
-            'bg-white text-gray-900 shadow-sm': isActive && !tab.disabled,
-            'text-gray-600 hover:text-gray-900': !isActive && !tab.disabled,
-            'text-gray-400 cursor-not-allowed': tab.disabled,
-          }
-        );
-      
+        return cn('rounded-xl transition-all duration-200 font-medium', {
+          'bg-white text-gray-900 shadow-sm': isActive && !tab.disabled,
+          'text-gray-600 hover:text-gray-900': !isActive && !tab.disabled,
+          'text-gray-400 cursor-not-allowed': tab.disabled,
+        });
+
       case 'underline':
-        return cn(
-          'border-b-2 transition-all duration-200 font-medium',
-          {
-            'border-blue-600 text-blue-600': isActive && !tab.disabled,
-            'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300': !isActive && !tab.disabled,
-            'text-gray-400 cursor-not-allowed border-transparent': tab.disabled,
-          }
-        );
-      
+        return cn('border-b-2 transition-all duration-200 font-medium', {
+          'border-blue-600 text-blue-600': isActive && !tab.disabled,
+          'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300':
+            !isActive && !tab.disabled,
+          'text-gray-400 cursor-not-allowed border-transparent': tab.disabled,
+        });
+
       case 'bordered':
-        return cn(
-          'border-b-2 transition-all duration-200 font-medium',
-          {
-            'border-b-blue-600 text-blue-600 bg-blue-50': isActive && !tab.disabled,
-            'border-b-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50': !isActive && !tab.disabled,
-            'text-gray-400 cursor-not-allowed': tab.disabled,
-          }
-        );
-      
+        return cn('border-b-2 transition-all duration-200 font-medium', {
+          'border-b-blue-600 text-blue-600 bg-blue-50': isActive && !tab.disabled,
+          'border-b-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50':
+            !isActive && !tab.disabled,
+          'text-gray-400 cursor-not-allowed': tab.disabled,
+        });
+
       default:
         return '';
     }
@@ -299,19 +299,19 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({
     'relative flex items-center justify-center gap-2',
     'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
     'transition-colors duration-200',
-    
+
     // Size styles
     sizeStyles[size],
-    
+
     // Layout styles
     {
       'flex-1': fullWidth,
       'min-w-0': fullWidth, // Allow text truncation
     },
-    
+
     // Variant-specific styles
     getVariantStyles(),
-    
+
     // Disabled state
     {
       'cursor-not-allowed opacity-50': tab.disabled,
@@ -327,33 +327,29 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({
       aria-disabled={tab.disabled}
       tabIndex={isActive ? 0 : -1}
       onClick={handleClick}
-      onKeyDown={(e) => onKeyDown(e, tab.id)}
+      onKeyDown={e => onKeyDown(e as any, tab.id)}
       className={buttonStyles}
       title={tab.tooltip}
       disabled={tab.disabled}
     >
       {/* Icon */}
-      {tab.icon && (
-        <span className="flex-shrink-0">
-          {tab.icon}
-        </span>
-      )}
-      
+      {tab.icon && <span className="flex-shrink-0">{tab.icon}</span>}
+
       {/* Label */}
-      <span className={cn('whitespace-nowrap', fullWidth && 'truncate')}>
-        {tab.label}
-      </span>
-      
+      <span className={cn('whitespace-nowrap', fullWidth && 'truncate')}>{tab.label}</span>
+
       {/* Badge */}
       {tab.badge && (
-        <span className={cn(
-          'inline-flex items-center justify-center min-w-[20px] h-5 px-1.5',
-          'text-xs font-medium rounded-full',
-          {
-            'bg-blue-100 text-blue-800': isActive,
-            'bg-gray-100 text-gray-600': !isActive,
-          }
-        )}>
+        <span
+          className={cn(
+            'inline-flex items-center justify-center min-w-[20px] h-5 px-1.5',
+            'text-xs font-medium rounded-full',
+            {
+              'bg-blue-100 text-blue-800': isActive,
+              'bg-gray-100 text-gray-600': !isActive,
+            }
+          )}
+        >
           {tab.badge}
         </span>
       )}
@@ -390,7 +386,7 @@ export const ModernTabContent: React.FC<ModernTabContentProps> = ({
 // COMPOUND COMPONENT EXPORTS
 // =============================================================================
 
-ModernTabs.Content = ModernTabContent;
+(ModernTabs as any).Content = ModernTabContent;
 ModernTabs.displayName = 'ModernTabs';
 
 export default ModernTabs;

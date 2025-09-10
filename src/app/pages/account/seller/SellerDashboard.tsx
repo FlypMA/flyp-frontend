@@ -21,7 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
-import { UserProfile } from '../../../../types/api';
+import { User as UserProfile } from '../../../../types/user.consolidated';
 import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../../components/valuation/ValuationDashboard';

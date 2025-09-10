@@ -15,20 +15,20 @@ import {
   X,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
 
 interface LiquidationAnalysis {
-  strategicSaleValue: number;      // Current valuation from business overview
-  liquidationValue: number;       // Asset disposal estimate
-  valueLoss: number;              // Difference in euros
-  valueLossPercentage: number;    // Percentage destroyed
-  employeeSeveranceCost: number;  // Severance obligations
+  strategicSaleValue: number; // Current valuation from business overview
+  liquidationValue: number; // Asset disposal estimate
+  valueLoss: number; // Difference in euros
+  valueLossPercentage: number; // Percentage destroyed
+  employeeSeveranceCost: number; // Severance obligations
   netLiquidationProceeds: number; // After all costs
-  dailyValueLoss: number;         // Value lost per day of delay
-  timeToLiquidate: number;        // Months to complete liquidation
+  dailyValueLoss: number; // Value lost per day of delay
+  timeToLiquidate: number; // Months to complete liquidation
 }
 
 interface SuccessStory {
@@ -43,14 +43,14 @@ interface SuccessStory {
 const LiquidationComparison = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  // Loading states removed for smooth UX
+  const [isLoading, setIsLoading] = useState(true);
   const [liquidationData, setLiquidationData] = useState<LiquidationAnalysis | null>(null);
   const [daysSinceValuation, setDaysSinceValuation] = useState(0);
   const [showCalculator, setShowCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
-      // Instant data loading - no loading state
+      setIsLoading(true);
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -59,19 +59,19 @@ const LiquidationComparison = () => {
           // TODO: Replace with actual API calls
           // Mock data for Café Delice Brussels
           const mockAnalysis = calculateLiquidationAnalysis({
-            currentValuation: 850000,      // €850K from valuation
-            assetValue: 320000,           // €320K in tangible assets
-            inventory: 25000,             // €25K inventory
-            equipment: 180000,            // €180K equipment
-            employeeCount: 8,             // 8 employees
-            averageSalary: 35000,         // €35K average salary
-            monthsOfSeverance: 3,         // 3 months severance
-            liquidationCosts: 45000,      // Legal, auction, administrative costs
-            sector: 'Food & Beverage'
+            currentValuation: 850000, // €850K from valuation
+            assetValue: 320000, // €320K in tangible assets
+            inventory: 25000, // €25K inventory
+            equipment: 180000, // €180K equipment
+            employeeCount: 8, // 8 employees
+            averageSalary: 35000, // €35K average salary
+            monthsOfSeverance: 3, // 3 months severance
+            liquidationCosts: 45000, // Legal, auction, administrative costs
+            sector: 'Food & Beverage',
           });
-          
+
           setLiquidationData(mockAnalysis);
-          
+
           // Calculate days since last valuation (mock)
           const valuationDate = new Date('2024-01-14');
           const today = new Date();
@@ -85,7 +85,7 @@ const LiquidationComparison = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        // No loading state to manage
+        setIsLoading(false);
       }
     };
 
@@ -103,31 +103,30 @@ const LiquidationComparison = () => {
     liquidationCosts: number;
     sector: string;
   }): LiquidationAnalysis => {
-    
     // Liquidation typically recovers 15-25% of assets due to fire sale conditions
-    const assetRecoveryRate = 0.20; // 20% recovery
-    const inventoryRecoveryRate = 0.10; // 10% for perishable/restaurant inventory
+    const assetRecoveryRate = 0.2; // 20% recovery
+    const inventoryRecoveryRate = 0.1; // 10% for perishable/restaurant inventory
     const equipmentRecoveryRate = 0.25; // 25% for used restaurant equipment
-    
+
     const assetRecovery = data.assetValue * assetRecoveryRate;
     const inventoryRecovery = data.inventory * inventoryRecoveryRate;
     const equipmentRecovery = data.equipment * equipmentRecoveryRate;
-    
+
     const totalAssetRecovery = assetRecovery + inventoryRecovery + equipmentRecovery;
-    
+
     // Calculate severance costs
     const severanceCost = data.employeeCount * (data.averageSalary / 12) * data.monthsOfSeverance;
-    
+
     // Net liquidation proceeds after costs
     const netProceeds = totalAssetRecovery - severanceCost - data.liquidationCosts;
-    
+
     // Value loss calculations
     const valueLoss = data.currentValuation - Math.max(0, netProceeds);
     const valueLossPercentage = (valueLoss / data.currentValuation) * 100;
-    
+
     // Daily value loss (assumes declining business value over time)
     const dailyValueLoss = data.currentValuation * 0.002; // 0.2% per day
-    
+
     return {
       strategicSaleValue: data.currentValuation,
       liquidationValue: Math.max(0, netProceeds),
@@ -142,32 +141,41 @@ const LiquidationComparison = () => {
 
   const successStories: SuccessStory[] = [
     {
-      businessName: "Café Milano",
-      sector: "Italian Restaurant",
+      businessName: 'Café Milano',
+      sector: 'Italian Restaurant',
       strategicSale: 1200000,
       potentialLiquidation: 180000,
-      timeframe: "4 months",
-      keyFactor: "Loyal customer base and prime location"
+      timeframe: '4 months',
+      keyFactor: 'Loyal customer base and prime location',
     },
     {
-      businessName: "TechStart Solutions",
-      sector: "Software Development",
+      businessName: 'TechStart Solutions',
+      sector: 'Software Development',
       strategicSale: 2800000,
       potentialLiquidation: 320000,
-      timeframe: "6 months", 
-      keyFactor: "Intellectual property and recurring revenue"
+      timeframe: '6 months',
+      keyFactor: 'Intellectual property and recurring revenue',
     },
     {
-      businessName: "Green Gardens Nursery",
-      sector: "Garden Center",
+      businessName: 'Green Gardens Nursery',
+      sector: 'Garden Center',
       strategicSale: 650000,
       potentialLiquidation: 95000,
-      timeframe: "8 months",
-      keyFactor: "Established supplier relationships and customer loyalty"
-    }
+      timeframe: '8 months',
+      keyFactor: 'Established supplier relationships and customer loyalty',
+    },
   ];
 
-  // Loading screens removed for smooth UX
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading liquidation analysis...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user || !liquidationData) {
     return (
@@ -187,11 +195,13 @@ const LiquidationComparison = () => {
       <UnifiedNavigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="liquidation" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar
+          selectedTab="liquidation"
+          userRole={(user?.userType as 'seller' | 'buyer' | 'admin') || 'seller'}
+        />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">
-            
             {/* Header with Urgency */}
             <div className="text-center">
               <div className="flex items-center justify-center space-x-3 mb-4">
@@ -204,11 +214,7 @@ const LiquidationComparison = () => {
             </div>
 
             {/* Critical Disclaimer */}
-            <FinancialDisclaimer 
-              type="liquidation" 
-              variant="banner"
-              className="mb-8"
-            />
+            <FinancialDisclaimer type="liquidation" variant="banner" className="mb-8" />
 
             {/* Shocking Value Comparison */}
             <Card className="border border-gray-200 shadow-sm">
@@ -216,9 +222,8 @@ const LiquidationComparison = () => {
                 <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
                   Your Business Value Comparison
                 </h2>
-                
+
                 <div className="grid md:grid-cols-2 gap-8">
-                  
                   {/* Strategic Sale */}
                   <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
                     <div className="text-center">
@@ -270,14 +275,16 @@ const LiquidationComparison = () => {
                         ({liquidationData.valueLossPercentage.toFixed(0)}% lost!)
                       </span>
                     </div>
-                    <Progress 
-                      value={liquidationData.valueLossPercentage} 
+                    <Progress
+                      value={liquidationData.valueLossPercentage}
                       color="danger"
                       className="w-full max-w-lg mx-auto"
                       size="lg"
                     />
                     <p className="text-gray-600 mt-4">
-                      Liquidation destroys <strong>{liquidationData.valueLossPercentage.toFixed(0)}%</strong> of your business value
+                      Liquidation destroys{' '}
+                      <strong>{liquidationData.valueLossPercentage.toFixed(0)}%</strong> of your
+                      business value
                     </p>
                   </div>
                 </div>
@@ -313,12 +320,12 @@ const LiquidationComparison = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="text-center">
                     <Button
                       color="primary"
                       size="lg"
-                      onPress={() => navigate('/my-business/valuation')}
+                      onPress={() => navigate('/business/valuation')}
                       className="px-8"
                       endContent={<ArrowRight className="w-5 h-5" />}
                     >
@@ -332,38 +339,39 @@ const LiquidationComparison = () => {
 
             {/* Liquidation Cost Breakdown */}
             <div className="grid md:grid-cols-2 gap-8">
-              
               {/* Cost Breakdown */}
               <Card className="border border-gray-200">
                 <CardHeader>
-                  <h3 className="text-xl font-semibold text-gray-900">Liquidation Cost Breakdown</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Liquidation Cost Breakdown
+                  </h3>
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Asset Recovery (20% of value)</span>
                       <span className="font-semibold text-green-600">
-                        +€{((liquidationData.strategicSaleValue * 0.4) * 0.2).toLocaleString()}
+                        +€{(liquidationData.strategicSaleValue * 0.4 * 0.2).toLocaleString()}
                       </span>
                     </div>
-                    
+
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Employee Severance</span>
                       <span className="font-semibold text-red-600">
                         -€{liquidationData.employeeSeveranceCost.toLocaleString()}
                       </span>
                     </div>
-                    
+
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Legal & Administrative Costs</span>
                       <span className="font-semibold text-red-600">-€45,000</span>
                     </div>
-                    
+
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <span className="text-gray-700">Auction & Marketing Fees</span>
                       <span className="font-semibold text-red-600">-€15,000</span>
                     </div>
-                    
+
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center text-lg font-bold">
                         <span>Net Liquidation Proceeds</span>
@@ -383,7 +391,6 @@ const LiquidationComparison = () => {
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-6">
-                    
                     <div>
                       <h4 className="font-medium text-green-700 mb-3">Strategic Sale Process</h4>
                       <div className="space-y-2 text-sm">
@@ -435,7 +442,9 @@ const LiquidationComparison = () => {
             {/* Success Stories */}
             <Card className="border border-gray-200">
               <CardHeader>
-                <h3 className="text-xl font-semibold text-gray-900">Success Stories: Strategic Sales vs Potential Liquidations</h3>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Success Stories: Strategic Sales vs Potential Liquidations
+                </h3>
               </CardHeader>
               <CardBody>
                 <div className="grid md:grid-cols-3 gap-6">
@@ -443,15 +452,19 @@ const LiquidationComparison = () => {
                     <div key={index} className="p-4 border border-gray-200 rounded-lg">
                       <h4 className="font-semibold text-gray-900 mb-2">{story.businessName}</h4>
                       <p className="text-sm text-gray-600 mb-3">{story.sector}</p>
-                      
+
                       <div className="space-y-2 mb-4">
                         <div className="flex justify-between">
                           <span className="text-sm text-green-700">Strategic Sale:</span>
-                          <span className="font-semibold text-green-700">€{story.strategicSale.toLocaleString()}</span>
+                          <span className="font-semibold text-green-700">
+                            €{story.strategicSale.toLocaleString()}
+                          </span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm text-red-700">Liquidation Est:</span>
-                          <span className="font-semibold text-red-700">€{story.potentialLiquidation.toLocaleString()}</span>
+                          <span className="font-semibold text-red-700">
+                            €{story.potentialLiquidation.toLocaleString()}
+                          </span>
                         </div>
                         <div className="flex justify-between border-t pt-2">
                           <span className="text-sm font-medium">Value Saved:</span>
@@ -460,10 +473,14 @@ const LiquidationComparison = () => {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="text-xs text-gray-600">
-                        <p><strong>Timeline:</strong> {story.timeframe}</p>
-                        <p><strong>Key Factor:</strong> {story.keyFactor}</p>
+                        <p>
+                          <strong>Timeline:</strong> {story.timeframe}
+                        </p>
+                        <p>
+                          <strong>Key Factor:</strong> {story.keyFactor}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -478,14 +495,14 @@ const LiquidationComparison = () => {
                   Don't Let Your Life's Work Be Sold for Scrap
                 </h3>
                 <p className="text-gray-700 text-lg mb-6 max-w-3xl mx-auto">
-                  Every successful business deserves a strategic exit. Start planning today to 
+                  Every successful business deserves a strategic exit. Start planning today to
                   preserve and maximize the value you've built over years of hard work.
                 </p>
                 <div className="flex justify-center space-x-4">
                   <Button
                     color="primary"
                     size="lg"
-                    onPress={() => navigate('/my-business/valuation')}
+                    onPress={() => navigate('/business/valuation')}
                     className="px-8"
                     endContent={<Calculator className="w-5 h-5" />}
                   >
@@ -494,7 +511,7 @@ const LiquidationComparison = () => {
                   <Button
                     variant="bordered"
                     size="lg"
-                    onPress={() => navigate('/my-business/listings')}
+                    onPress={() => navigate('/business/listings')}
                     className="px-8"
                     endContent={<Target className="w-5 h-5" />}
                   >

@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { authService } from '../../../../services/users/authenticationService';
-import { User, UserType } from '../../../../types/api/users/user';
-import { UserRole } from '../../../../types/shared/index';
+import { User, UserRole, isSellerUser, isBuyerUser } from '../../../../../types/user.consolidated';
 import {
   Heart,
   Building2,
@@ -22,7 +21,7 @@ import {
 } from 'lucide-react';
 
 interface UserAvatarDropdownProps {
-  user: User;
+  user: any; // Temporary: Accept any user type during consolidation
 }
 
 const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
@@ -116,10 +115,10 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
 
       // Business Owner navigation (AIRBNB MODEL - /my-business/*)
       case 'business-dashboard':
-        navigate('/my-business');
+        navigate('/my-business'); // Navigate to business overview
         break;
       case 'my-business':
-        navigate('/my-business/overview');
+        navigate('/my-business'); // Navigate to business overview
         break;
       case 'my-listings':
         navigate('/my-business/listings');
@@ -153,26 +152,16 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
     }
   };
 
-  // ROBUST ROLE DETECTION - Check multiple possible fields and formats
-  const isSeller = 
-    user?.userType === UserType.Seller ||
-    (user?.userType as string) === 'seller' ||
-    user?.role === UserRole.SELLER ||
-    (user?.role as string) === 'seller';
-    
-  const isBuyer = 
-    user?.userType === UserType.Buyer ||
-    (user?.userType as string) === 'buyer' ||
-    user?.role === UserRole.BUYER ||
-    (user?.role as string) === 'buyer';
+  // STANDARDIZED ROLE DETECTION - Use consolidated type guards
+  const isSeller = isSellerUser(user);
+  const isBuyer = isBuyerUser(user);
 
-  // Debug logging to help identify role issues
+  // Debug logging for role detection
   console.log('🔍 UserAvatarDropdown role detection:', {
-    userType: user?.userType,
     role: user?.role,
     isSeller,
     isBuyer,
-    user: user ? { id: user.id, email: user.email, userType: user.userType, role: user.role } : null
+    user: user ? { id: user.id, email: user.email, role: user.role } : null,
   });
   const defaultAvatar =
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80';
@@ -227,37 +216,13 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
     },
   ];
 
-  // BUSINESS OWNER DROPDOWN - AIRBNB HOST MODEL (/my-business/*)
+  // BUSINESS OWNER DROPDOWN - SIMPLIFIED
   const businessOwnerMenuItems = [
     {
       key: 'business-dashboard',
       icon: LayoutDashboard,
       label: 'My Business',
       action: 'business-dashboard',
-    },
-    {
-      key: 'my-listings',
-      icon: Building2,
-      label: 'My Listings',
-      action: 'my-listings',
-    },
-    {
-      key: 'valuation',
-      icon: Calculator,
-      label: 'Valuations',
-      action: 'valuation',
-    },
-    {
-      key: 'performance',
-      icon: TrendingUp,
-      label: 'Performance',
-      action: 'performance',
-    },
-    {
-      key: 'documents',
-      icon: FileText,
-      label: 'Documents',
-      action: 'documents',
     },
     {
       key: 'messages',
@@ -270,29 +235,13 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
       isDivider: true,
     },
     {
-      key: 'create-listing',
-      icon: Target,
-      label: 'Create New Listing',
-      action: 'create-listing',
-    },
-    {
-      key: 'divider-2',
-      isDivider: true,
-    },
-    {
       key: 'profile-settings',
       icon: Settings,
       label: 'Account Settings',
       action: 'profile-settings',
     },
     {
-      key: 'help-center',
-      icon: HelpCircle,
-      label: 'Help Center',
-      action: 'help-center',
-    },
-    {
-      key: 'divider-3',
+      key: 'divider-2',
       isDivider: true,
     },
     {

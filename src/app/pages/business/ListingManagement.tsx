@@ -14,7 +14,7 @@ import {
   Target,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -134,7 +134,10 @@ const ListingManagement = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="listings" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar
+          selectedTab="listings"
+          userRole={(user?.userType as 'seller' | 'buyer' | 'admin') || 'seller'}
+        />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
@@ -163,27 +166,33 @@ const ListingManagement = () => {
                   <CardBody>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">{businessListing.title}</h4>
+                        <h4 className="font-semibold text-gray-900 mb-2">
+                          {businessListing.title}
+                        </h4>
                         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
                           <span>{businessListing.sector}</span>
                           <span>•</span>
                           <span>{businessListing.country}</span>
                           <span>•</span>
-                          <span>{formatPrice(businessListing.asking_price, businessListing.currency)}</span>
+                          <span>
+                            {formatPrice(businessListing.asking_price, businessListing.currency)}
+                          </span>
                           <span>•</span>
-                          <span>Listed {new Date(businessListing.created_at).toLocaleDateString()}</span>
+                          <span>
+                            Listed {new Date(businessListing.created_at).toLocaleDateString()}
+                          </span>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-4">
-                        <Button 
-                          color="primary" 
+                        <Button
+                          color="primary"
                           variant="flat"
                           onPress={() => navigate(`/listings/${businessListing.id}`)}
                         >
                           View Public Listing
                         </Button>
-                        <Button 
+                        <Button
                           variant="bordered"
                           startContent={<Settings className="w-4 h-4" />}
                           onPress={() => navigate(`/seller/listings/edit?id=${businessListing.id}`)}
@@ -191,7 +200,7 @@ const ListingManagement = () => {
                           Edit Listing
                         </Button>
                         {businessListing.inquiries > 0 && (
-                          <Button 
+                          <Button
                             color="success"
                             variant="flat"
                             startContent={<MessageSquare className="w-4 h-4" />}
@@ -210,14 +219,18 @@ const ListingManagement = () => {
                   <Card>
                     <CardBody className="text-center">
                       <Eye className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-gray-900">{businessListing.views}</div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {businessListing.views}
+                      </div>
                       <p className="text-sm text-gray-600">Total Views</p>
                     </CardBody>
                   </Card>
                   <Card>
                     <CardBody className="text-center">
                       <MessageSquare className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-gray-900">{businessListing.inquiries}</div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {businessListing.inquiries}
+                      </div>
                       <p className="text-sm text-gray-600">Inquiries Received</p>
                     </CardBody>
                   </Card>
@@ -225,7 +238,10 @@ const ListingManagement = () => {
                     <CardBody className="text-center">
                       <TrendingUp className="w-8 h-8 text-purple-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900">
-                        {businessListing.views > 0 ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1) : 0}%
+                        {businessListing.views > 0
+                          ? ((businessListing.inquiries / businessListing.views) * 100).toFixed(1)
+                          : 0}
+                        %
                       </div>
                       <p className="text-sm text-gray-600">Conversion Rate</p>
                     </CardBody>
@@ -256,7 +272,7 @@ const ListingManagement = () => {
                           </Button>
                         </div>
                       </div>
-                      
+
                       <div className="space-y-4">
                         <h4 className="font-medium text-gray-900">Buyer Management</h4>
                         <div className="space-y-2">
@@ -282,13 +298,15 @@ const ListingManagement = () => {
               <Card>
                 <CardBody className="text-center py-12">
                   <Target className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Your Business Listing</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Create Your Business Listing
+                  </h3>
                   <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                    List your business for sale and start attracting qualified buyers. 
-                    Get your business in front of serious investors.
+                    List your business for sale and start attracting qualified buyers. Get your
+                    business in front of serious investors.
                   </p>
-                  <Button 
-                    color="primary" 
+                  <Button
+                    color="primary"
                     size="lg"
                     onPress={() => navigate('/seller/listings/new')}
                   >

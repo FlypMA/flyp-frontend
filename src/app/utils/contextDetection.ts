@@ -135,10 +135,12 @@ export const detectUserContext = (
     confidence = 'low';
   }
 
+  const ctas = generateCTAs(finalIntent, pathname);
   return {
     intent: finalIntent,
     confidence,
-    ...generateCTAs(finalIntent, pathname),
+    primaryCTA: ctas.primaryCTA,
+    secondaryCTA: ctas.secondaryCTA,
     pageContext: pathname,
   };
 };
@@ -156,10 +158,9 @@ const generateCTAs = (intent: UserIntent, pathname: string) => {
       return {
         primaryCTA: {
           text: isValuationPage ? 'Get Free Valuation' : 'List Your Business',
-          action:
-            isValuationPage || isSellerLandingPage
-              ? 'business-valuation'
-              : ('business-listing' as const),
+          action: (isValuationPage || isSellerLandingPage
+            ? 'business-valuation'
+            : 'business-listing') as 'business-valuation' | 'business-listing',
           className:
             'bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200',
         },

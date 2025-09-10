@@ -28,7 +28,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
@@ -132,9 +132,9 @@ const ValuationTool = () => {
       } catch (error) {
         console.error('Error initializing page:', error);
         navigate('/');
-    } finally {
-      // No loading state to manage
-    }
+      } finally {
+        // No loading state to manage
+      }
     };
 
     initializePage();
@@ -345,7 +345,7 @@ const ValuationTool = () => {
                         label="Industry"
                         placeholder="Select your industry"
                         selectedKeys={[inputs.industry]}
-                        onSelectionChange={(value) => handleInputChange('industry', String(value))}
+                        onSelectionChange={value => handleInputChange('industry', String(value))}
                       >
                         {Object.entries(industryMultiples).map(([key, value]) => (
                           <SelectItem key={key}>{value.description}</SelectItem>

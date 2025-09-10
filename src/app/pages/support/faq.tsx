@@ -18,29 +18,39 @@ const FAQ: React.FC = () => {
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 How does BetweenDeals work?
               </h3>
-              <p className="text-gray-600">
-                BetweenDeals is Europe's premier SME M&A platform that connects business owners
-                looking to sell with qualified buyers and investors.
+              <p className="text-gray-700">
+                BetweenDeals connects business buyers and sellers in a secure marketplace
+                environment, facilitating the entire M&A process from initial discovery to closing.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Is the platform free to use?
+                How do I list my business?
               </h3>
-              <p className="text-gray-600">
-                Basic browsing is free. We offer various pricing tiers for sellers and buyers based
-                on the services you need.
+              <p className="text-gray-700">
+                Start by creating a business profile and getting a free valuation. Once ready, you
+                can create a detailed listing with financial information and business highlights.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                How do I list my business for sale?
+                Is my information secure?
               </h3>
-              <p className="text-gray-600">
-                Create an account, complete our seller onboarding process, and use our guided
-                listing wizard to create a professional business listing.
+              <p className="text-gray-700">
+                Yes, we use enterprise-grade security and data protection measures. All sensitive
+                information is encrypted and only shared with verified, qualified buyers.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                What fees does BetweenDeals charge?
+              </h3>
+              <p className="text-gray-700">
+                Our fee structure is transparent and success-based. Contact us for detailed
+                information about our pricing model for your specific situation.
               </p>
             </div>
           </div>

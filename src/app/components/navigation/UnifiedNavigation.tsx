@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
-import { User as UserProfile } from '../../types/shared/index';
+import { User as UserProfile } from '../../../types/user.consolidated';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { useBusinessModal } from '../../contexts/BusinessModalContext';
@@ -17,7 +17,8 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
   const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(false); // Start optimistic
+  const [hasToken, setHasToken] = useState(false); // Track token presence immediately
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openModal } = useAuthModal();
   const { openBusinessModal } = useBusinessModal();
@@ -29,32 +30,53 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     new URLSearchParams(location.search)
   );
 
-  // Check authentication status
+  // Immediate optimistic auth check
   useEffect(() => {
+    // IMMEDIATE TOKEN CHECK - Show avatar instantly if token exists
+    const checkTokenExists = () => {
+      const token = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('access_token='))
+        ?.split('=')[1];
+
+      const hasAuthToken = !!token && token !== '';
+      console.log('⚡ UnifiedNavigation: Immediate token check:', hasAuthToken);
+      setHasToken(hasAuthToken);
+
+      // If no token, we know immediately there's no user
+      if (!hasAuthToken) {
+        setUser(null);
+        setIsCheckingAuth(false);
+      }
+    };
+
+    // Check token immediately (synchronous)
+    checkTokenExists();
+
     const checkAuth = async () => {
+      // Only proceed with full auth check if we have a token
+      if (!hasToken) return;
+
       try {
-        console.log('🔍 UnifiedNavigation: Checking authentication...');
+        console.log('🔍 UnifiedNavigation: Background auth validation...');
+        setIsCheckingAuth(true); // Only set loading when actually checking
+
         const authResult = await authService.checkAuthentication();
         console.log('🔍 UnifiedNavigation: Auth result:', authResult);
-        console.log('🔍 UnifiedNavigation: isAuthenticated =', authResult.isAuthenticated);
-        console.log('🔍 UnifiedNavigation: user =', authResult.user);
-        console.log('🔍 UnifiedNavigation: token present =', !!authResult.token);
 
         if (authResult.isAuthenticated && authResult.user) {
           console.log('✅ UnifiedNavigation: User authenticated:', authResult.user);
-          console.log('🔄 UnifiedNavigation: Setting user state to:', authResult.user);
           setUser(authResult.user);
         } else {
-          console.log('❌ UnifiedNavigation: No authenticated user');
-          console.log('🔄 UnifiedNavigation: Setting user state to null');
+          console.log('❌ UnifiedNavigation: Auth validation failed');
           setUser(null);
+          setHasToken(false); // Token invalid, remove optimistic state
         }
       } catch (error) {
         console.error('❌ UnifiedNavigation: Auth check failed:', error);
-        console.log('🔄 UnifiedNavigation: Setting user state to null due to auth error');
         setUser(null);
+        setHasToken(false); // On error, assume no valid auth
       } finally {
-        console.log('✅ UnifiedNavigation: Auth check complete, setting isCheckingAuth to false');
         setIsCheckingAuth(false);
       }
     };
@@ -228,28 +250,32 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
                   user: !!user,
                   userRole: user?.role,
                 });
-                return (
-                  !isCheckingAuth &&
-                  (user ? (
-                    <UserAvatarDropdown user={user} />
-                  ) : (
-                    <>
-                      <button
-                        onClick={handleSecondaryCTA}
-                        className={contextInfo.secondaryCTA.className}
-                      >
-                        {contextInfo.secondaryCTA.text}
-                      </button>
-                      <button
-                        onClick={handlePrimaryCTA}
-                        data-conversion={`CTA - ${contextInfo.primaryCTA.text}`}
-                        className={contextInfo.primaryCTA.className}
-                        title={`${contextInfo.primaryCTA.text} (${contextInfo.confidence} confidence)`}
-                      >
-                        {contextInfo.primaryCTA.text}
-                      </button>
-                    </>
-                  ))
+                return user ? (
+                  <UserAvatarDropdown user={user} />
+                ) : hasToken ? (
+                  /* Optimistic avatar placeholder while loading user data */
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
+                      <span className="text-white text-sm font-medium">•</span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleSecondaryCTA}
+                      className={contextInfo.secondaryCTA.className}
+                    >
+                      {contextInfo.secondaryCTA.text}
+                    </button>
+                    <button
+                      onClick={handlePrimaryCTA}
+                      data-conversion={`CTA - ${contextInfo.primaryCTA.text}`}
+                      className={contextInfo.primaryCTA.className}
+                      title={`${contextInfo.primaryCTA.text} (${contextInfo.confidence} confidence)`}
+                    >
+                      {contextInfo.primaryCTA.text}
+                    </button>
+                  </>
                 );
               })()}
             </li>

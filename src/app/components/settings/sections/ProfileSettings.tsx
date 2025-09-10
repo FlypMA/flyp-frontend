@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Avatar } from '@heroui/react';
-import {
-  Eye,
-  EyeOff,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
-} from 'lucide-react';
-import {
-  CleanInput,
-} from '../../ui';
-import { User as UserType } from '../../../types/api/users/user';
+import { Eye, EyeOff, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { CleanInput } from '../../ui';
+import { User as UserType } from '../../../../types/user.consolidated';
 
 interface ProfileSettingsProps {
   user: UserType;
@@ -35,7 +27,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
 
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  
+
   // Toast notification state
   const [notification, setNotification] = useState<{
     type: 'success' | 'error' | 'warning';
@@ -99,27 +91,29 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
       showNotification('error', 'Current password is required');
       return;
     }
-    
+
     setSaving(true);
     try {
       console.log('🔐 Submitting password change request');
       const result = await onSave({ passwordChange: passwordData });
-      
+
       // Clear form only on success
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-      
+
       // Show success message
       showNotification('success', 'Password updated successfully!');
       console.log('✅ Password change completed successfully');
-      
     } catch (error: any) {
       console.error('❌ Password change failed:', error);
-      
+
       // Show user-friendly error messages
       if (error.message.includes('current password') || error.message.includes('incorrect')) {
         showNotification('error', 'Current password is incorrect. Please try again.');
       } else if (error.message.includes('weak') || error.message.includes('format')) {
-        showNotification('error', 'New password does not meet security requirements. Please choose a stronger password.');
+        showNotification(
+          'error',
+          'New password does not meet security requirements. Please choose a stronger password.'
+        );
       } else if (error.message.includes('same') || error.message.includes('different')) {
         showNotification('error', 'New password must be different from your current password.');
       } else {
@@ -144,31 +138,39 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
     <div className="max-w-2xl mx-auto space-y-12">
       {/* Toast Notification */}
       {notification.show && (
-        <div 
+        <div
           className={`fixed top-4 right-4 z-50 max-w-sm rounded-lg shadow-lg p-4 flex items-center space-x-3 transition-all duration-300 ${
-            notification.type === 'success' ? 'bg-green-50 border border-green-200' :
-            notification.type === 'error' ? 'bg-red-50 border border-red-200' :
-            'bg-yellow-50 border border-yellow-200'
+            notification.type === 'success'
+              ? 'bg-green-50 border border-green-200'
+              : notification.type === 'error'
+                ? 'bg-red-50 border border-red-200'
+                : 'bg-yellow-50 border border-yellow-200'
           }`}
         >
           {notification.type === 'success' && <CheckCircle className="w-5 h-5 text-green-600" />}
           {notification.type === 'error' && <XCircle className="w-5 h-5 text-red-600" />}
           {notification.type === 'warning' && <AlertTriangle className="w-5 h-5 text-yellow-600" />}
-          
-          <span className={`text-sm font-medium ${
-            notification.type === 'success' ? 'text-green-800' :
-            notification.type === 'error' ? 'text-red-800' :
-            'text-yellow-800'
-          }`}>
+
+          <span
+            className={`text-sm font-medium ${
+              notification.type === 'success'
+                ? 'text-green-800'
+                : notification.type === 'error'
+                  ? 'text-red-800'
+                  : 'text-yellow-800'
+            }`}
+          >
             {notification.message}
           </span>
-          
+
           <button
             onClick={() => setNotification(prev => ({ ...prev, show: false }))}
             className={`ml-auto text-xs ${
-              notification.type === 'success' ? 'text-green-600 hover:text-green-800' :
-              notification.type === 'error' ? 'text-red-600 hover:text-red-800' :
-              'text-yellow-600 hover:text-yellow-800'
+              notification.type === 'success'
+                ? 'text-green-600 hover:text-green-800'
+                : notification.type === 'error'
+                  ? 'text-red-600 hover:text-red-800'
+                  : 'text-yellow-600 hover:text-yellow-800'
             }`}
           >
             ✕
@@ -200,7 +202,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
             className="hidden"
           />
         </div>
-        
+
         <button
           onClick={() => document.getElementById('avatar-upload')?.click()}
           className="text-sm text-gray-600 hover:text-gray-900 underline underline-offset-2"
@@ -214,7 +216,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         <h2 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
           Personal information
         </h2>
-        
+
         <div className="space-y-4">
           <CleanInput
             label="Name"
@@ -262,12 +264,12 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
         <h2 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
           Login & security
         </h2>
-        
+
         <div className="space-y-4">
           <div className="relative">
             <CleanInput
               label="Current password"
-              type={showCurrentPassword ? "text" : "password"}
+              type={showCurrentPassword ? 'text' : 'password'}
               placeholder="Enter current password"
               value={passwordData.currentPassword}
               onChange={value => handlePasswordChange('currentPassword', value)}
@@ -278,7 +280,11 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
                   onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                   className="text-gray-400 hover:text-gray-600"
                 >
-                  {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showCurrentPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               }
             />
@@ -287,7 +293,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
           <div className="relative">
             <CleanInput
               label="New password"
-              type={showNewPassword ? "text" : "password"}
+              type={showNewPassword ? 'text' : 'password'}
               placeholder="Create new password"
               value={passwordData.newPassword}
               onChange={value => handlePasswordChange('newPassword', value)}
@@ -321,7 +327,11 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
             isLoading={saving}
             size="lg"
             className="w-full"
-            isDisabled={!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
+            isDisabled={
+              !passwordData.currentPassword ||
+              !passwordData.newPassword ||
+              !passwordData.confirmPassword
+            }
           >
             {saving ? 'Updating...' : 'Update password'}
           </Button>

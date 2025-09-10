@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardBody } from '@heroui/react';
 import { Building2, HelpCircle } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
-import { UserProfile } from '../../../../types/api';
+import { User as UserProfile } from '../../../../types/user.consolidated';
 import SettingsSidebar from '../../../components/settings/SettingsSidebar';
 import ProfileSettings from '../../../components/settings/sections/ProfileSettings';
 import SimpleBusinessSettings from '../../../components/settings/sections/SimpleBusinessSettings';
@@ -45,17 +45,17 @@ const Settings: React.FC = () => {
         // Handle password changes with proper API integration
         console.log('🔐 Processing password change request');
         const passwordData = data.data || data.passwordChange;
-        
+
         if (passwordData && passwordData.currentPassword && passwordData.newPassword) {
           const result = await authService.updatePassword(
             passwordData.currentPassword,
             passwordData.newPassword
           );
-          
+
           if (!result.success) {
             throw new Error(result.message || 'Failed to update password');
           }
-          
+
           console.log('✅ Password updated successfully');
           return { success: true, message: 'Password updated successfully' };
         } else {
@@ -72,11 +72,11 @@ const Settings: React.FC = () => {
           data.passwordChange.currentPassword,
           data.passwordChange.newPassword
         );
-        
+
         if (!result.success) {
           throw new Error(result.message || 'Failed to update password');
         }
-        
+
         console.log('✅ Password updated successfully');
         return { success: true, message: 'Password updated successfully' };
       } else {

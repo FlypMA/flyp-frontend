@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { AuthCheckResponse, User, UserType, UserPreferences } from '../../types/api/users/user';
+import { User, convertLegacyUser } from '../../../types/user.consolidated';
 
 export class SupabaseAuthService {
   async signUp(email: string, password: string, metadata?: any) {
@@ -39,7 +39,7 @@ export class SupabaseAuthService {
     return user;
   }
 
-  async checkAuthentication(): Promise<AuthCheckResponse> {
+  async checkAuthentication(): Promise<{ isAuthenticated: boolean; user?: User; error?: string }> {
     try {
       const {
         data: { session },
@@ -52,26 +52,29 @@ export class SupabaseAuthService {
       }
 
       if (session?.user) {
-        const defaultUserPreferences: UserPreferences = {
-          enableDataCollection: true,
-          eventCollection: 'all events',
-          tabOption: 'all tabs',
-        };
-
-        const user: User = {
+        // Create legacy user object first
+        const legacyUser = {
+          id: session.user.id,
           _id: session.user.id,
           email: session.user.email || '',
           name: session.user.user_metadata?.name || session.user.email || 'Unknown User',
           avatar: session.user.user_metadata?.avatar_url,
-          password: '', // Not exposed from Supabase
-          rank: session.user.user_metadata?.rank || 1,
-          userPreferences: session.user.user_metadata?.userPreferences || defaultUserPreferences,
-          userType: session.user.user_metadata?.userType || UserType.Default,
+          role: session.user.user_metadata?.role || 'buyer',
+          userType: session.user.user_metadata?.userType || 'buyer',
           verified: session.user.email_confirmed_at !== null,
           createdAt: session.user.created_at ? new Date(session.user.created_at) : new Date(),
           updatedAt: session.user.updated_at ? new Date(session.user.updated_at) : new Date(),
           platformId: session.user.user_metadata?.platformId,
+          country: session.user.user_metadata?.country || 'BE',
+          email_verified: session.user.email_confirmed_at !== null,
+          auth_provider: 'email',
+          language_preference: 'en',
+          created_at: session.user.created_at || new Date().toISOString(),
+          updated_at: session.user.updated_at || new Date().toISOString(),
         };
+
+        // Convert to consolidated User type
+        const user: User = convertLegacyUser(legacyUser);
 
         return {
           isAuthenticated: true,

@@ -12,7 +12,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../types/api/users/user';
+import { User as UserType } from '../../../types/user.consolidated';
 import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 import ValuationReportCard from '../../components/valuation/ValuationReportCard';
@@ -88,7 +88,8 @@ const BusinessOverview = () => {
             founded_year: 2008,
             employee_count: '6-10',
             annual_revenue: 450000,
-            description: 'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
+            description:
+              'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
             location: 'Brussels, Belgium',
             is_complete: true,
           });
@@ -112,14 +113,14 @@ const BusinessOverview = () => {
               'Prime location with long-term lease',
               'Experienced management team',
               'Growing market demand',
-              'Proprietary business processes'
+              'Proprietary business processes',
             ],
             risk_factors: [
               'Key person dependency',
               'Market competition increasing',
               'Economic uncertainty',
               'Regulatory changes possible',
-              'Customer concentration risk'
+              'Customer concentration risk',
             ],
             next_review_date: '2024-07-10',
           });
@@ -175,30 +176,31 @@ const BusinessOverview = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="overview" userRole={user?.userType as 'seller' | 'buyer' | 'admin' || 'seller'} />
+        <SellerSidebar selectedTab="overview" userRole={user?.role as any} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl mx-auto">
-            
             {/* Page Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Overview</h1>
-              <p className="text-lg text-gray-600">Manage your business profile, listings, and reports</p>
+              <p className="text-lg text-gray-600">
+                Manage your business profile, listings, and reports
+              </p>
             </div>
 
             {/* Main Grid Layout */}
             <div className="grid lg:grid-cols-3 gap-8 mb-12">
-              
               {/* Left: Café Delice Brussels Card (2/3 width) */}
               <div className="lg:col-span-2">
                 <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <CardBody className="p-8">
-                    
                     {/* Business Header */}
                     <div className="flex items-start justify-between mb-8">
                       <div>
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-1">Café Delice Brussels</h2>
+                        <h2 className="text-2xl font-semibold text-gray-900 mb-1">
+                          Café Delice Brussels
+                        </h2>
                         <p className="text-gray-500 text-base">Food & Beverage</p>
                       </div>
                       <div className="px-3 py-1 bg-gray-100 rounded-full">
@@ -207,7 +209,8 @@ const BusinessOverview = () => {
                     </div>
 
                     <p className="text-gray-600 text-base leading-relaxed mb-8">
-                      Charming French bistro in the heart of Brussels with loyal customer base and prime location.
+                      Charming French bistro in the heart of Brussels with loyal customer base and
+                      prime location.
                     </p>
 
                     {/* Key Facts Grid */}
@@ -232,7 +235,9 @@ const BusinessOverview = () => {
 
                     {/* Performance Metrics */}
                     <div className="border-t border-gray-100 pt-8">
-                      <h3 className="text-base font-medium text-gray-900 mb-6">Market Performance</h3>
+                      <h3 className="text-base font-medium text-gray-900 mb-6">
+                        Market Performance
+                      </h3>
                       <div className="grid grid-cols-3 gap-8">
                         <div className="text-center">
                           <div className="text-2xl font-semibold text-gray-900 mb-1">245</div>
@@ -251,17 +256,17 @@ const BusinessOverview = () => {
                   </CardBody>
                 </Card>
               </div>
-              
+
               {/* Right: Ready to Sell CTA (1/3 width) */}
               <div>
                 <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-8 text-center">
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready to Sell?</h3>
                     <p className="text-gray-600 leading-relaxed mb-8">
-                      Your business is validated and attracting buyer interest. 
-                      Take the next step in your entrepreneurial journey.
+                      Your business is validated and attracting buyer interest. Take the next step
+                      in your entrepreneurial journey.
                     </p>
-                    
+
                     <div className="space-y-3">
                       <Button
                         className="w-full bg-blue-600 text-white hover:bg-blue-700"
@@ -302,12 +307,15 @@ const BusinessOverview = () => {
                 {/* Business Valuation Report - Full Width */}
                 <Card className="border border-gray-200 shadow-sm">
                   <CardBody className="p-8">
-                    
                     {/* Report Header */}
                     <div className="flex items-start justify-between mb-8">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">Business Valuation Report</h3>
-                        <p className="text-gray-500">Comparable Sales & DCF Analysis • Updated January 14, 2024</p>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          Business Valuation Report
+                        </h3>
+                        <p className="text-gray-500">
+                          Comparable Sales & DCF Analysis • Updated January 14, 2024
+                        </p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="px-2 py-1 text-xs font-medium rounded bg-gray-100 text-gray-700">
@@ -318,16 +326,15 @@ const BusinessOverview = () => {
                         </span>
                       </div>
                     </div>
-                    
+
                     <div className="grid lg:grid-cols-2 gap-12">
-                      
                       {/* Left: Valuation Summary */}
                       <div>
                         {/* Main Valuation */}
                         <div className="text-center mb-8 p-6 border border-gray-100 rounded-lg">
                           <div className="text-4xl font-semibold text-gray-900 mb-2">€850,000</div>
                           <p className="text-base text-gray-600 mb-6">Estimated Market Value</p>
-                          
+
                           {/* Valuation Range */}
                           <div className="max-w-sm mx-auto">
                             <div className="flex justify-between text-sm text-gray-500 mb-2">
@@ -336,8 +343,14 @@ const BusinessOverview = () => {
                               <span>Optimistic</span>
                             </div>
                             <div className="relative h-2 bg-gray-200 rounded-full">
-                              <div className="absolute h-full bg-gray-900 rounded-full" style={{width: '60%', left: '20%'}}></div>
-                              <div className="absolute w-3 h-3 bg-gray-900 rounded-full" style={{left: 'calc(50% - 6px)', top: '-2px'}}></div>
+                              <div
+                                className="absolute h-full bg-gray-900 rounded-full"
+                                style={{ width: '60%', left: '20%' }}
+                              ></div>
+                              <div
+                                className="absolute w-3 h-3 bg-gray-900 rounded-full"
+                                style={{ left: 'calc(50% - 6px)', top: '-2px' }}
+                              ></div>
                             </div>
                             <div className="flex justify-between text-sm text-gray-500 mt-2">
                               <span>€680,000</span>
@@ -369,33 +382,36 @@ const BusinessOverview = () => {
 
                       {/* Right: Actions & Info */}
                       <div className="space-y-6">
-                        
                         {/* Expiration Notice */}
                         <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                          <p className="text-sm font-medium text-gray-900 mb-1">Valuation expires in -13 months</p>
-                          <p className="text-sm text-gray-600">Consider updating your valuation to reflect current market conditions.</p>
+                          <p className="text-sm font-medium text-gray-900 mb-1">
+                            Valuation expires in -13 months
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Consider updating your valuation to reflect current market conditions.
+                          </p>
                         </div>
-                        
+
                         {/* Action Buttons */}
                         <div className="space-y-3">
-                          <Button 
+                          <Button
                             className="bg-blue-600 text-white hover:bg-blue-700"
                             size="lg"
                             onPress={() => navigate('/seller/listings/new')}
                           >
                             Create Listing
                           </Button>
-                          
+
                           <div className="grid grid-cols-2 gap-3">
-                            <Button 
-                              variant="bordered" 
+                            <Button
+                              variant="bordered"
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                               size="md"
                             >
                               Download Report
                             </Button>
-                            <Button 
-                              variant="bordered" 
+                            <Button
+                              variant="bordered"
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                               size="md"
                               onPress={() => navigate('/my-business/valuation')}
@@ -407,8 +423,8 @@ const BusinessOverview = () => {
 
                         {/* Secondary Actions */}
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                          <Button 
-                            variant="light" 
+                          <Button
+                            variant="light"
                             className="text-gray-600 hover:text-gray-900"
                             size="sm"
                             onPress={() => navigate('/my-business/valuation')}
@@ -416,15 +432,15 @@ const BusinessOverview = () => {
                             Update Valuation
                           </Button>
                           <div className="flex items-center space-x-3">
-                            <Button 
-                              variant="light" 
+                            <Button
+                              variant="light"
                               className="text-gray-600 hover:text-gray-900"
                               size="sm"
                             >
                               Share
                             </Button>
-                            <Button 
-                              variant="light" 
+                            <Button
+                              variant="light"
                               className="text-gray-600 hover:text-gray-900"
                               size="sm"
                             >

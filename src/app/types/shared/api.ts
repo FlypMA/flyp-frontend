@@ -12,15 +12,15 @@ import {
   Conversation,
   Organization,
   Document,
-  BuyerProfile,
-  SavedSearch,
+  UserProfile as BuyerProfile,
+  // any // TODO: Define SavedSearch, // TODO: Define any // TODO: Define SavedSearch interface
   Subscription,
-  Payment,
+  // Payment, // TODO: Define Payment interface
   UserRole,
   ListingStatus,
   InquiryStatus,
   ConversationStatus,
-  PaginationInfo,
+  // { page: number; limit: number; total: number; pages: number; }, // TODO: Define { page: number; limit: number; total: number; pages: number; } interface
 } from './index';
 
 // =============================================================================
@@ -131,7 +131,7 @@ export interface GetListingsResponse {
   success: boolean;
   data?: Listing[];
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -245,7 +245,7 @@ export interface GetInquiriesResponse {
   success: boolean;
   data?: Inquiry[];
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -309,7 +309,7 @@ export interface GetConversationsResponse {
   success: boolean;
   data?: Conversation[];
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -338,7 +338,7 @@ export interface GetConversationMessagesResponse {
     sender: User;
   }>;
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -454,14 +454,14 @@ export interface SaveSearchRequest {
 
 export interface SaveSearchResponse {
   success: boolean;
-  data?: SavedSearch;
+  data?: any; // TODO: Define SavedSearch
   message?: string;
   error?: string;
 }
 
 export interface GetSavedSearchesResponse {
   success: boolean;
-  data?: SavedSearch[];
+  data?: any[]; // TODO: Define SavedSearch
   error?: string;
 }
 
@@ -530,9 +530,9 @@ export interface GetPaymentsRequest {
 
 export interface GetPaymentsResponse {
   success: boolean;
-  data?: Payment[];
+  data?: any[]; // TODO: Define Payment;
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -552,7 +552,7 @@ export interface GetAllUsersResponse {
   success: boolean;
   data?: User[];
   meta?: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
   };
   error?: string;
 }
@@ -666,7 +666,7 @@ export interface ListResponse<T> {
   success: boolean;
   data: T[];
   meta: {
-    pagination: PaginationInfo;
+    pagination: { page: number; limit: number; total: number; pages: number };
     total: number;
   };
   error?: string;
