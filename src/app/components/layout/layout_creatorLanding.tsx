@@ -7,7 +7,7 @@ import Footer from '../footer';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { authService } from '../../services/users/authenticationService';
-import { UserProfile } from '../../../types/api';
+import { User as UserProfile } from '../../types/shared/index';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { BetweendealsLogo } from '../common';
 

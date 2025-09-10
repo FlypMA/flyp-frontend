@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
-import { UserProfile } from '../../../types/api';
+import { User as UserProfile } from '../../types/shared/index';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { useBusinessModal } from '../../contexts/BusinessModalContext';

@@ -36,17 +36,43 @@ export interface ChatResponse {
   suggestions?: string[];
 }
 
-// User types
+// User types - Updated to match production schema
 export interface UserProfile {
   id: string;
   email: string;
+  name: string;
+  phone?: string;
+  role: UserRole;
+  company_name?: string;
+  company_description?: string;
+  industry?: string;
+  business_type?: string;
+  years_in_operation?: number;
+  revenue_range?: string;
+  asking_price_range?: string;
+  employee_count_range?: string;
+  business_verified?: boolean;
+  listing_status?: 'draft' | 'active' | 'under_offer' | 'sold' | 'withdrawn';
+  business_highlights?: string;
+  reason_for_selling?: string;
+  city?: string;
+  country: string;
+  email_verified: boolean;
+  verification_token?: string;
+  verification_token_expires_at?: string;
+  password_hash?: string;
+  auth_provider: string;
+  language_preference: string;
+  created_at: string;
+  updated_at: string;
+  last_login_at?: string;
+  deleted_at?: string;
+
+  // Legacy compatibility fields
   full_name?: string;
   avatar_url?: string;
-  avatar?: string; // Legacy compatibility
-  name?: string; // Legacy compatibility
-  phone?: string; // For profile settings
-  businessType?: string; // For business context
-  role: UserRole;
+  avatar?: string;
+  businessType?: string;
   preferences?: UserPreferences;
   // Legacy API compatibility fields
   _id?: string;

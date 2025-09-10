@@ -98,7 +98,7 @@ const SignupModal: React.FC = () => {
         });
       } else {
         // Default redirect to new report
-        navigate(UrlGeneratorService.createNewReport());
+        navigate(UrlGeneratorService.createListing());
       }
     } catch (error: any) {
       console.error('❌ Signup failed in SignupModal:', error);

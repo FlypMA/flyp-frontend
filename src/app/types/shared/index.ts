@@ -14,6 +14,7 @@ export enum UserRole {
   MODERATOR = 'moderator',
   SELLER = 'seller',
   BUYER = 'buyer',
+  BOTH = 'both',
 }
 
 export enum ListingStatus {
@@ -69,28 +70,71 @@ export enum PaymentStatus {
 
 /**
  * User - Main user entity for all platform users
+ * Production-ready types aligned with enhanced single-table schema
  */
 export interface User {
-  id: string; // UUID, PK
+  // Core Identity
+  id: string;
   email: string;
-  name?: string;
-  first_name?: string;
-  last_name?: string;
-  role: UserRole;
-  locale?: string;
-  phone_number?: string;
-  email_verified?: boolean;
-  business_verified?: boolean;
-  avatar_url?: string;
+  name: string;
+  phone?: string;
 
+  // Role Management
+  role: UserRole;
+
+  // Business Information (sellers only)
+  company_name?: string;
+  company_description?: string;
+
+  // Enhanced Business Data (MVP Critical Fields)
+  industry?: string;
+  business_type?: string;
+  years_in_operation?: number;
+
+  // Financial & Size Indicators
+  revenue_range?: string;
+  asking_price_range?: string;
+  employee_count_range?: string;
+
+  // Business Status & Marketing
+  business_verified?: boolean;
+  listing_status?: 'draft' | 'active' | 'under_offer' | 'sold' | 'withdrawn';
+  business_highlights?: string;
+  reason_for_selling?: string;
+
+  // Location
+  city?: string;
+  country: string;
+
+  // Verification
+  email_verified: boolean;
+  verification_token?: string;
+  verification_token_expires_at?: string;
+
+  // Authentication
+  password_hash?: string;
+  auth_provider: string;
+
+  // Preferences
+  language_preference: string;
+
+  // Audit Fields
   created_at: string;
   updated_at: string;
+  last_login_at?: string;
+  deleted_at?: string;
+
+  // Legacy compatibility fields (deprecated - for gradual migration)
+  first_name?: string;
+  last_name?: string;
+  locale?: string;
+  phone_number?: string;
+  avatar_url?: string;
   last_login?: string;
   is_active?: boolean;
-
-  // User preferences
   preferences?: UserPreferences;
   metadata?: Record<string, any>;
+  _id?: string; // Legacy field mapping
 }
 
 /**
@@ -102,8 +146,67 @@ export interface UserPreferences {
   email_notifications?: boolean;
   marketing_emails?: boolean;
   currency?: string;
+  theme?: 'light' | 'dark' | 'system';
+  notifications?: {
+    email: boolean;
+    push: boolean;
+    marketing: boolean;
+  };
   [key: string]: any;
 }
+
+/**
+ * UserProfile - Alias for User to maintain backward compatibility
+ * Gradually migrate components to use User instead of UserProfile
+ */
+export type UserProfile = User;
+
+/**
+ * Legacy User interface mapping for components still using old structure
+ */
+export interface LegacyUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  userType?: UserType;
+  verified?: boolean;
+  avatar?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+// Common user role/type mappings
+export type UserType = 'seller' | 'buyer' | 'both' | 'admin' | 'business';
+
+// Type conversion utilities
+export const convertLegacyToUser = (legacy: LegacyUser): User => ({
+  id: legacy._id,
+  name: legacy.name,
+  email: legacy.email,
+  role: legacy.role,
+  email_verified: legacy.verified ?? false,
+  country: 'BE', // Default
+  auth_provider: 'email',
+  language_preference: 'en',
+  created_at: legacy.createdAt?.toISOString() ?? new Date().toISOString(),
+  updated_at: legacy.updatedAt?.toISOString() ?? new Date().toISOString(),
+  avatar_url: legacy.avatar,
+});
+
+// Alias for backward compatibility
+export const convertLegacyUser = convertLegacyToUser;
+
+export const convertUserToLegacy = (user: User): LegacyUser => ({
+  _id: user.id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+  verified: user.email_verified,
+  avatar: user.avatar_url,
+  createdAt: new Date(user.created_at),
+  updatedAt: new Date(user.updated_at),
+});
 
 /**
  * Organization - Business entities that own listings
@@ -575,6 +678,29 @@ export interface LoginCredentials {
 }
 
 /**
+ * Login request (alias for LoginCredentials)
+ */
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+/**
+ * Register request
+ */
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  name: string;
+  role: UserRole;
+  phone?: string;
+  city?: string;
+  country?: string;
+  company_name?: string;
+  company_description?: string;
+}
+
+/**
  * Registration data
  */
 export interface RegisterData {
@@ -593,6 +719,16 @@ export interface AuthResponse {
   user?: User;
   token?: string;
   refreshToken?: string;
+  error?: string;
+  expires_in?: number;
+}
+
+/**
+ * Auth result for authentication checks
+ */
+export interface AuthResult {
+  isAuthenticated: boolean;
+  user?: User;
   error?: string;
 }
 

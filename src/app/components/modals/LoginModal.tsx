@@ -67,7 +67,7 @@ const LoginModal: React.FC = () => {
         });
       } else {
         // Default redirect to new report
-        navigate(UrlGeneratorService.createNewReport());
+        navigate(UrlGeneratorService.dashboard());
       }
     } catch (error: any) {
       console.error('❌ Login failed in LoginModal:', error);

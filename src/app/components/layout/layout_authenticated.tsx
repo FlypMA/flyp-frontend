@@ -3,7 +3,7 @@ import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
-import { UserProfile } from '../../../types/api';
+import { User as UserProfile, UserRole } from '../../types/shared/index';
 import { UserType } from '../../types/api/users/user';
 import MobileNavigation from '../navigation/MobileNavigation';
 
@@ -32,8 +32,14 @@ const AuthenticatedAccount = () => {
         const mockUser = {
           id: 'dev-user-123',
           email: 'dev@betweendeals.com',
-          full_name: 'Development User',
-          role: 'seller',
+          name: 'Development User',
+          role: UserRole.SELLER,
+          email_verified: true,
+          country: 'BE',
+          auth_provider: 'email',
+          language_preference: 'en',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
           preferences: {
             language: 'en',
             timezone: 'UTC',
@@ -92,7 +98,7 @@ const AuthenticatedAccount = () => {
 
   const handleUserDashboardClick = () => {
     console.log('🎯 Navigate to new report');
-    navigate(UrlGeneratorService.createNewReport());
+    navigate(UrlGeneratorService.createListing());
   };
 
   const handleUserSettingsClick = () => {
@@ -117,7 +123,7 @@ const AuthenticatedAccount = () => {
 
   const navItems = [
     {
-      to: UrlGeneratorService.createNewReport(),
+      to: UrlGeneratorService.createListing(),
       icon: MessageCircle,
       label: 'New Report',
       onClick: handleUserDashboardClick,

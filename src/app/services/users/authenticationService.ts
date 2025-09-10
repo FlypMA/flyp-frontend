@@ -2,21 +2,31 @@ import { API_CONFIG } from '../api/apiConfig';
 import { UserProfile, PaymentMetadata, UserPreferences } from '../../../types/api';
 import Cookies from 'universal-cookie';
 import UrlGeneratorService from '../urlMapping/urlGeneratorService';
-import { AuthCheckResponse, User, UserType } from '../../types/api/users/user';
+import {
+  User,
+  UserRole,
+  AuthResult,
+  LoginRequest,
+  RegisterRequest,
+  AuthResponse,
+  convertLegacyUser,
+} from '../../types/shared/index';
+
+// Additional imports from production types for backward compatibility
+import { User as ProductionUser } from '../../../types/user.production';
 // Import creditService to clear cache on login/registration
 import { creditService } from '../billing/creditService';
 
 interface AuthToken {
   exp: number;
   iat: number;
-  user: UserProfile;
+  user?: User;
+  // Backend JWT payload fields
+  id?: string;
+  email?: string;
+  name?: string;
+  role?: UserRole;
   [key: string]: unknown;
-}
-
-interface AuthResult {
-  isAuthenticated: boolean;
-  user?: UserProfile;
-  token?: string;
 }
 
 interface RequestData {
@@ -335,7 +345,7 @@ class AuthenticationService {
         return creatorResponse;
       } catch (creatorError) {
         if (userType === 'business') {
-          const localUser = { ...authResult.user, userType: UserType.Business };
+          const localUser = { ...authResult.user, userType: 'business' };
           this.updateTokenCookies(this.cookies.get('access_token'));
           return { success: true, user: localUser };
         }
@@ -498,10 +508,11 @@ class AuthenticationService {
       console.log('🚨 DEV MODE: Bypassing authentication check for development');
       const mockUser: UserProfile = {
         id: 'dev-user-123',
+        _id: 'dev-user-123', // Legacy compatibility
         _id: 'dev-user-123',
         email: 'dev@betweendeals.com',
         name: 'Development User',
-        userType: UserType.Seller,
+        userType: 'seller',
         password: 'mock_password', // Required by type but not used
         verified: true,
         createdAt: new Date(),
@@ -551,23 +562,26 @@ class AuthenticationService {
       }
 
       // Handle different token formats - either nested user object or direct fields
-      let userFromToken = null;
+      let userFromToken: User | null = null;
 
       if (decoded.user) {
-        // Token has nested user object
+        // Token has nested user object (new format)
         console.log('👤 checkAuthentication: Found nested user in token');
         userFromToken = decoded.user;
       } else if (decoded.id || decoded.email) {
         // Token has user fields directly (current backend format)
         console.log('👤 checkAuthentication: Found user fields directly in token');
         userFromToken = {
-          _id: decoded.id,
+          id: decoded.id || decoded.sub,
           email: decoded.email,
           name: decoded.name || 'Anonymous User',
-          userType: decoded.role || 'creator',
-          verified: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          role: decoded.role || 'buyer',
+          country: 'BE', // Default country
+          email_verified: true,
+          auth_provider: 'email',
+          language_preference: 'en',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         };
       }
 
@@ -581,22 +595,22 @@ class AuthenticationService {
       // Try to get fresh profile data, but fall back to token data if profile endpoints fail
       try {
         const response = (await this.sendRequest(
-          API_CONFIG.NODE_BACKEND.endpoints.auth.profile,
+          API_CONFIG.NODE_BACKEND.endpoints.users.profile,
           'GET',
           undefined,
           true
         )) as {
           success: boolean;
-          user?: UserProfile;
+          data?: User;
         };
 
         console.log('👤 checkAuthentication: Profile response:', response);
 
-        if (response.success && response.user) {
+        if (response.success && response.data) {
           console.log('✅ checkAuthentication: Authentication successful with fresh profile');
           return {
             isAuthenticated: true,
-            user: response.user,
+            user: response.data,
             token: authToken,
           };
         }
@@ -605,19 +619,19 @@ class AuthenticationService {
 
         try {
           const fallbackResponse = (await this.sendRequest(
-            '/api/user/profile',
+            '/api/users/profile',
             'GET',
             undefined,
             true
-          )) as { success: boolean; user?: UserProfile };
+          )) as { success: boolean; data?: User };
 
           console.log('👤 checkAuthentication: Fallback profile response:', fallbackResponse);
 
-          if (fallbackResponse.success && fallbackResponse.user) {
+          if (fallbackResponse.success && fallbackResponse.data) {
             console.log('✅ checkAuthentication: Authentication successful with fallback profile');
             return {
               isAuthenticated: true,
-              user: fallbackResponse.user,
+              user: fallbackResponse.data,
               token: authToken,
             };
           }

@@ -24,7 +24,10 @@ export const API_CONFIG = {
       },
       users: {
         profile: '/api/users/profile',
-        update: '/api/users/update',
+        update: '/api/users/profile',
+        business: '/api/users/business',
+        roleToggle: '/api/users/role/toggle',
+        sellers: '/api/users/sellers',
         creators: '/api/users/creators',
         businesses: '/api/users/businesses',
 

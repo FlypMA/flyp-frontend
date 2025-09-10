@@ -269,9 +269,10 @@ export interface ListingAnalytics {
 
 export enum UserRole {
   ADMIN = 'admin',
+  MODERATOR = 'moderator',
   SELLER = 'seller',
   BUYER = 'buyer',
-  BROKER = 'broker',
+  BOTH = 'both',
 }
 
 export enum ListingStatus {
