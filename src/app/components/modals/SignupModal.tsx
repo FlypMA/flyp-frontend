@@ -31,6 +31,7 @@ const SignupModal: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Role selection state
@@ -43,6 +44,7 @@ const SignupModal: React.FC = () => {
   useEffect(() => {
     if (isOpen) {
       setErrorMessage('');
+      setShowLoginPrompt(false);
       setSelectedRole(null);
       setShowRoleSelection(true);
     }
@@ -66,6 +68,7 @@ const SignupModal: React.FC = () => {
     setShowRoleSelection(true);
     setSelectedRole(null);
     setErrorMessage('');
+    setShowLoginPrompt(false);
   };
 
   const handleSignup = async ({ email, password }: SignupData) => {
@@ -120,7 +123,9 @@ const SignupModal: React.FC = () => {
             errorMsg = 'Invalid email or password.';
             break;
           case 409:
-            errorMsg = 'An account with this email already exists.';
+            // Special handling for user already exists
+            errorMsg = 'An account with this email address already exists.';
+            setShowLoginPrompt(true);
             break;
           case 422:
             errorMsg = 'Please enter a valid email address.';
@@ -134,7 +139,8 @@ const SignupModal: React.FC = () => {
         }
       } else {
         if (error.message.includes('409') || error.message.includes('already exists')) {
-          errorMsg = 'An account with this email already exists.';
+          errorMsg = 'An account with this email address already exists.';
+          setShowLoginPrompt(true);
         } else if (error.message.includes('401') || error.message.includes('invalid')) {
           errorMsg = 'Invalid email or password.';
         } else if (error.message.includes('400')) {
@@ -171,6 +177,7 @@ const SignupModal: React.FC = () => {
   const handleCloseModal = () => {
     console.log('🎭 SignupModal: Closing modal');
     setErrorMessage('');
+    setShowLoginPrompt(false);
     closeModal();
     // Scroll to top of viewport for clean user experience
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -346,12 +353,47 @@ const SignupModal: React.FC = () => {
                             <>
                               <div className="flex flex-col">
                                 {errorMessage && (
-                                  <div className="flex items-start mb-4 bg-red-600 border-l-4 border-red-600 text-red-700 p-4 rounded-xl">
-                                    <p className="font-bold text-white text-lg mr-2 mt-0.5">
+                                  <div
+                                    className={`flex items-start mb-4 border-l-4 p-4 rounded-xl ${
+                                      showLoginPrompt
+                                        ? 'bg-blue-50 border-blue-400 text-blue-700'
+                                        : 'bg-red-600 border-red-600 text-red-700'
+                                    }`}
+                                  >
+                                    <p
+                                      className={`font-bold text-lg mr-2 mt-0.5 ${
+                                        showLoginPrompt ? 'text-blue-600' : 'text-white'
+                                      }`}
+                                    >
                                       <LuInfo />
                                     </p>
-                                    <div className="font-normal text-white text-sm">
-                                      {errorMessage}
+                                    <div
+                                      className={`font-normal text-sm ${
+                                        showLoginPrompt ? 'text-blue-800' : 'text-white'
+                                      }`}
+                                    >
+                                      <div className="mb-2">{errorMessage}</div>
+                                      {showLoginPrompt && (
+                                        <div className="mt-3">
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              console.log(
+                                                '🔄 User exists - switching to login modal'
+                                              );
+                                              setErrorMessage('');
+                                              setShowLoginPrompt(false);
+                                              openModal('login');
+                                            }}
+                                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:border-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                          >
+                                            Switch to Login
+                                          </button>
+                                          <span className="text-blue-600 text-sm ml-2">
+                                            or try a different email address
+                                          </span>
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
                                 )}
