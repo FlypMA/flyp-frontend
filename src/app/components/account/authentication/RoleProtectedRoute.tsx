@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { authService } from '../../../services/users/authenticationService';
-import { UserRole, User } from '../../../../types/user.consolidated';
+import { UserRole, User, UserRoleString } from '../../../../types/user.consolidated';
 
 interface RoleProtectedRouteProps {
   element: React.ReactElement;
-  allowedRoles: (keyof typeof UserRole)[];
+  allowedRoles: UserRoleString[];
   redirectTo?: string;
 }
 
@@ -40,7 +40,7 @@ const RoleProtectedRoute: React.FC<RoleProtectedRouteProps> = ({
 
         // Check if user has required role
         const userRole = authResult.user.role;
-        const hasAccess = allowedRoles.includes(userRole as any) || userRole === 'both';
+        const hasAccess = allowedRoles.includes(userRole);
 
         console.log('🔐 RoleProtectedRoute: Role check:', {
           userRole,

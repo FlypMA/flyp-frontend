@@ -188,7 +188,7 @@ const routes = [
       <RootLayout>
         <RoleProtectedRoute
           element={<AuthenticatedLayout />}
-          allowedRoles={['SELLER', 'BOTH', 'ADMIN']}
+          allowedRoles={['seller', 'both', 'admin']}
         />
       </RootLayout>
     ),

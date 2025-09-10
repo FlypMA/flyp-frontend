@@ -113,24 +113,24 @@ const LoginModal: React.FC = () => {
       const response = await authService.login(email, password);
       console.log('✅ Login successful:', response);
 
+      // Get fresh auth state after login to ensure we have the correct user role
+      const authResult = await authService.checkAuthentication();
+      console.log('🔍 LoginModal: Post-login auth check:', authResult);
+
+      // Dispatch immediate user login event for instant navigation update
+      if (authResult.user) {
+        console.log('📡 LoginModal: Dispatching immediate user-login event');
+        window.dispatchEvent(new CustomEvent('user-login', { detail: authResult.user }));
+      }
+
+      // Also dispatch general auth change event
+      console.log('📡 LoginModal: Dispatching auth-change event');
+      window.dispatchEvent(new CustomEvent('auth-change'));
+
       handleCloseModal();
 
-      // Small delay to allow login to complete and auth state to update
-      setTimeout(async () => {
-        // Get fresh auth state after login to ensure we have the correct user role
-        const authResult = await authService.checkAuthentication();
-        console.log('🔍 LoginModal: Post-login auth check:', authResult);
-
-        // Dispatch auth change events for navigation state synchronization
-        window.dispatchEvent(new CustomEvent('auth-change'));
-        console.log('📡 Dispatched auth-change event');
-
-        // Also dispatch a custom event with user data for immediate nav update
-        if (authResult.user) {
-          window.dispatchEvent(new CustomEvent('user-login', { detail: authResult.user }));
-          console.log('📡 Dispatched user-login event with user data');
-        }
-
+      // Small delay for navigation to update before redirect
+      setTimeout(() => {
         // Check if we have a redirect with preserved query
         if (postAuthRedirect) {
           console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
@@ -169,7 +169,7 @@ const LoginModal: React.FC = () => {
             navigate(UrlGeneratorService.dashboard());
           }
         }
-      }, 100); // Short delay to allow auth state to update
+      }, 50); // Reduced delay since events are dispatched immediately
     } catch (error: any) {
       console.error('❌ Login failed in LoginModal:', error);
       console.error('❌ Error type:', typeof error);

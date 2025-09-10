@@ -33,8 +33,8 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
 
   // Immediate optimistic auth check
   useEffect(() => {
-    // IMMEDIATE TOKEN CHECK - Show avatar instantly if token exists
-    const checkTokenExists = () => {
+    const checkAuthWithToken = async () => {
+      // IMMEDIATE TOKEN CHECK - Show avatar instantly if token exists
       const token = document.cookie
         .split('; ')
         .find(row => row.startsWith('access_token='))
@@ -46,23 +46,14 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
 
       // If no token, we know immediately there's no user
       if (!hasAuthToken) {
+        console.log('🔍 UnifiedNavigation: No token found, skipping auth check');
         setUser(null);
         setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
+        return;
       }
-    };
 
-    // Check token immediately (synchronous)
-    checkTokenExists();
-
-    const checkAuth = async () => {
       try {
-        // Only proceed with full auth check if we have a token
-        if (!hasToken) {
-          console.log('🔍 UnifiedNavigation: No token found, skipping auth check');
-          setAuthCheckComplete(true);
-          return;
-        }
-
         console.log('🔍 UnifiedNavigation: Background auth validation...');
         setIsCheckingAuth(true); // Only set loading when actually checking
 
@@ -99,7 +90,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     };
 
     // Initial auth check
-    checkAuth();
+    checkAuthWithToken();
 
     // Fail-safe timeout to ensure UI doesn't hang on auth check
     const authTimeout = setTimeout(() => {
@@ -115,7 +106,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     }, 4000); // 4 second timeout
 
     // Listen for auth changes
-    const handleAuthChange = () => {
+    const handleAuthChange = async () => {
       console.log('📡 UnifiedNavigation: Auth change event received, rechecking...');
       setIsCheckingAuth(true); // Set checking state during recheck
       setAuthCheckComplete(false);
@@ -132,13 +123,36 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
 
       // If no token, clear user immediately
       if (!hasAuthToken) {
+        console.log('📡 UnifiedNavigation: No token after auth change, clearing user');
         setUser(null);
         setIsCheckingAuth(false);
         setAuthCheckComplete(true);
         return;
       }
 
-      checkAuth();
+      // Re-run the full auth check with token
+      try {
+        console.log('📡 UnifiedNavigation: Re-validating authentication after auth change...');
+        const authResult = await authService.checkAuthentication();
+        console.log('📡 UnifiedNavigation: Auth change result:', authResult);
+
+        if (authResult.isAuthenticated && authResult.user) {
+          console.log('✅ UnifiedNavigation: Auth change - User authenticated:', authResult.user);
+          setUser(authResult.user);
+          setHasToken(true);
+        } else {
+          console.log('❌ UnifiedNavigation: Auth change - Auth validation failed');
+          setUser(null);
+          setHasToken(false);
+        }
+      } catch (error) {
+        console.error('❌ UnifiedNavigation: Auth change check failed:', error);
+        setUser(null);
+        setHasToken(false);
+      } finally {
+        setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
+      }
     };
     const handleLogout = () => {
       console.log('📡 UnifiedNavigation: Logout event received');
@@ -155,10 +169,21 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     const handleUserLogin = (event: any) => {
       console.log('📡 UnifiedNavigation: User login event received:', event.detail);
       if (event.detail) {
+        console.log(
+          '✅ UnifiedNavigation: Immediately setting user from login event:',
+          event.detail
+        );
         setUser(event.detail);
         setHasToken(true);
         setIsCheckingAuth(false);
         setAuthCheckComplete(true);
+
+        // Verify token exists in cookies
+        const token = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('access_token='))
+          ?.split('=')[1];
+        console.log('🍪 UnifiedNavigation: Token verification after user login:', !!token);
       }
     };
     window.addEventListener('user-login', handleUserLogin);
