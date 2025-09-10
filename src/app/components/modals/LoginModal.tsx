@@ -292,19 +292,8 @@ const LoginModal: React.FC = () => {
                             )}
                           />
 
-                          {/* Login Button */}
-                          <Button
-                            type="submit"
-                            color="primary"
-                            size="lg"
-                            disabled={isSubmitting}
-                            className="w-full mt-8"
-                          >
-                            {isSubmitting ? 'Logging in...' : 'Log in'}
-                          </Button>
-
                           {/* Forgot Password Link */}
-                          <div className="text-center mt-4">
+                          <div className="text-right mt-2">
                             <button
                               type="button"
                               onClick={() => {
@@ -319,6 +308,17 @@ const LoginModal: React.FC = () => {
                               Forgot your password?
                             </button>
                           </div>
+
+                          {/* Login Button */}
+                          <Button
+                            type="submit"
+                            color="primary"
+                            size="lg"
+                            disabled={isSubmitting}
+                            className="w-full mt-6"
+                          >
+                            {isSubmitting ? 'Logging in...' : 'Log in'}
+                          </Button>
                         </div>
                       </div>
                     </div>
