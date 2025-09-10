@@ -193,26 +193,6 @@ class AuthenticationService {
     }
   }
 
-  async sendPasswordResetEmail(email: string): Promise<{ success: boolean; message: string }> {
-    try {
-      const response = (await this.sendRequest('/auth/forgot-password', 'POST', { email })) as {
-        success: boolean;
-        message: string;
-      };
-      return response;
-    } catch {
-      try {
-        const response = (await this.sendRequest('/users/forgotPassword', 'POST', { email })) as {
-          success: boolean;
-          message: string;
-        };
-        return response;
-      } catch (fallbackError) {
-        throw fallbackError;
-      }
-    }
-  }
-
   async refreshToken(): Promise<{ success: boolean; token?: string }> {
     try {
       const response = (await this.sendRequest(
@@ -398,6 +378,11 @@ class AuthenticationService {
         success?: boolean;
         user?: UserProfile;
         token?: string;
+        data?: {
+          token?: string;
+          user?: UserProfile;
+          [key: string]: unknown;
+        };
         access_token?: string;
         accessToken?: string;
         message?: string;
@@ -411,12 +396,14 @@ class AuthenticationService {
       console.log('🔍 Response success field:', response.success);
       console.log('🔍 Response token fields:', {
         token: response.token,
+        'data.token': response.data?.token,
         access_token: response.access_token,
         accessToken: response.accessToken,
       });
 
-      // Check for various token field names
-      const token = response.token || response.access_token || response.accessToken;
+      // Check for various token field names (including nested data.token)
+      const token =
+        response.token || response.data?.token || response.access_token || response.accessToken;
 
       if (token) {
         console.log('✅ Token found:', token.substring(0, 20) + '...');
@@ -516,12 +503,16 @@ class AuthenticationService {
       const mockUser: UserProfile = {
         id: 'dev-user-123',
         _id: 'dev-user-123', // Legacy compatibility
-        _id: 'dev-user-123',
         email: 'dev@betweendeals.com',
         name: 'Development User',
+        role: 'seller', // Use role instead of userType
         userType: 'seller',
         password: 'mock_password', // Required by type but not used
         verified: true,
+        email_verified: true,
+        country: 'BE',
+        auth_provider: 'email',
+        language_preference: 'en',
         createdAt: new Date(),
         updatedAt: new Date(),
         rank: 1,

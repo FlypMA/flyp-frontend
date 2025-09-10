@@ -36,27 +36,44 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
         console.log('🔍 UnifiedNavigation: Checking authentication...');
         const authResult = await authService.checkAuthentication();
         console.log('🔍 UnifiedNavigation: Auth result:', authResult);
+        console.log('🔍 UnifiedNavigation: isAuthenticated =', authResult.isAuthenticated);
+        console.log('🔍 UnifiedNavigation: user =', authResult.user);
+        console.log('🔍 UnifiedNavigation: token present =', !!authResult.token);
 
         if (authResult.isAuthenticated && authResult.user) {
           console.log('✅ UnifiedNavigation: User authenticated:', authResult.user);
+          console.log('🔄 UnifiedNavigation: Setting user state to:', authResult.user);
           setUser(authResult.user);
         } else {
           console.log('❌ UnifiedNavigation: No authenticated user');
+          console.log('🔄 UnifiedNavigation: Setting user state to null');
           setUser(null);
         }
       } catch (error) {
         console.error('❌ UnifiedNavigation: Auth check failed:', error);
+        console.log('🔄 UnifiedNavigation: Setting user state to null due to auth error');
         setUser(null);
       } finally {
+        console.log('✅ UnifiedNavigation: Auth check complete, setting isCheckingAuth to false');
         setIsCheckingAuth(false);
       }
     };
 
+    // Initial auth check
     checkAuth();
+
+    // Fail-safe timeout to ensure UI doesn't hang on auth check
+    const authTimeout = setTimeout(() => {
+      if (isCheckingAuth) {
+        console.warn('⚠️ UnifiedNavigation: Auth check timeout, forcing completion');
+        setIsCheckingAuth(false);
+      }
+    }, 5000); // 5 second timeout
 
     // Listen for auth changes
     const handleAuthChange = () => {
       console.log('📡 UnifiedNavigation: Auth change event received, rechecking...');
+      setIsCheckingAuth(true); // Set checking state during recheck
       checkAuth();
     };
     const handleLogout = () => {
@@ -71,6 +88,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     return () => {
       window.removeEventListener('auth-change', handleAuthChange);
       window.removeEventListener('auth-logout', handleLogout);
+      clearTimeout(authTimeout); // Clean up timeout
     };
   }, []);
 
@@ -204,73 +222,91 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
           <ul className="h-full flex-row flex-nowrap flex items-center gap-4" data-justify="end">
             {/* Desktop Actions */}
             <li className="text-medium whitespace-nowrap box-border list-none hidden lg:flex items-center gap-4">
-              {!isCheckingAuth &&
-                (user ? (
-                  <UserAvatarDropdown user={user} />
-                ) : (
-                  <>
-                    <button
-                      onClick={handleSecondaryCTA}
-                      className={contextInfo.secondaryCTA.className}
-                    >
-                      {contextInfo.secondaryCTA.text}
-                    </button>
-                    <button
-                      onClick={handlePrimaryCTA}
-                      data-conversion={`CTA - ${contextInfo.primaryCTA.text}`}
-                      className={contextInfo.primaryCTA.className}
-                      title={`${contextInfo.primaryCTA.text} (${contextInfo.confidence} confidence)`}
-                    >
-                      {contextInfo.primaryCTA.text}
-                    </button>
-                  </>
-                ))}
+              {(() => {
+                console.log('🖥️ UnifiedNavigation DESKTOP RENDER:', {
+                  isCheckingAuth,
+                  user: !!user,
+                  userRole: user?.role,
+                });
+                return (
+                  !isCheckingAuth &&
+                  (user ? (
+                    <UserAvatarDropdown user={user} />
+                  ) : (
+                    <>
+                      <button
+                        onClick={handleSecondaryCTA}
+                        className={contextInfo.secondaryCTA.className}
+                      >
+                        {contextInfo.secondaryCTA.text}
+                      </button>
+                      <button
+                        onClick={handlePrimaryCTA}
+                        data-conversion={`CTA - ${contextInfo.primaryCTA.text}`}
+                        className={contextInfo.primaryCTA.className}
+                        title={`${contextInfo.primaryCTA.text} (${contextInfo.confidence} confidence)`}
+                      >
+                        {contextInfo.primaryCTA.text}
+                      </button>
+                    </>
+                  ))
+                );
+              })()}
             </li>
 
             {/* Mobile Actions */}
             <li className="text-medium whitespace-nowrap box-border list-none flex lg:hidden items-center gap-2">
-              {!isCheckingAuth &&
-                (user ? (
-                  // Mobile: Show Avatar + Menu Toggle when logged in
-                  <>
-                    <UserAvatarDropdown user={user} />
-                    <Button
-                      isIconOnly
-                      variant="ghost"
-                      className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all duration-200 min-w-10 w-10 h-10"
-                      onPress={() => setIsMenuOpen(!isMenuOpen)}
-                      aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-                    >
-                      <Menu className="w-6 h-6" />
-                    </Button>
-                  </>
-                ) : (
-                  // Mobile: Show CTA + Menu Toggle when logged out
-                  <>
-                    <button
-                      onClick={() => {
-                        handlePrimaryCTA();
-                      }}
-                      data-conversion={`CTA - ${contextInfo.primaryCTA.text} (mobile)`}
-                      className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
-                    >
-                      {contextInfo.intent === 'buyer'
-                        ? 'Find'
-                        : contextInfo.intent === 'seller'
-                          ? 'List'
-                          : 'Start'}
-                    </button>
-                    <Button
-                      isIconOnly
-                      variant="ghost"
-                      className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all duration-200 min-w-10 w-10 h-10"
-                      onPress={() => setIsMenuOpen(!isMenuOpen)}
-                      aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-                    >
-                      <Menu className="w-6 h-6" />
-                    </Button>
-                  </>
-                ))}
+              {(() => {
+                console.log('📱 UnifiedNavigation MOBILE RENDER:', {
+                  isCheckingAuth,
+                  user: !!user,
+                  userRole: user?.role,
+                });
+                return (
+                  !isCheckingAuth &&
+                  (user ? (
+                    // Mobile: Show Avatar + Menu Toggle when logged in
+                    <>
+                      <UserAvatarDropdown user={user} />
+                      <Button
+                        isIconOnly
+                        variant="ghost"
+                        className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all duration-200 min-w-10 w-10 h-10"
+                        onPress={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                      >
+                        <Menu className="w-6 h-6" />
+                      </Button>
+                    </>
+                  ) : (
+                    // Mobile: Show CTA + Menu Toggle when logged out
+                    <>
+                      <button
+                        onClick={() => {
+                          handlePrimaryCTA();
+                        }}
+                        data-conversion={`CTA - ${contextInfo.primaryCTA.text} (mobile)`}
+                        className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                      >
+                        {contextInfo.intent === 'buyer'
+                          ? 'Find'
+                          : contextInfo.intent === 'seller'
+                            ? 'List'
+                            : 'Start'}
+                      </button>
+                      <Button
+                        isIconOnly
+                        variant="ghost"
+                        className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all duration-200 min-w-10 w-10 h-10"
+                        onPress={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                      >
+                        <Menu className="w-6 h-6" />
+                      </Button>
+                    </>
+                  ))
+                );
+              })()}
             </li>
           </ul>
         </div>

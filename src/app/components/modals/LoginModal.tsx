@@ -25,26 +25,82 @@ const LoginModal: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [messageType, setMessageType] = useState<'error' | 'info'>('error');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isOpen = activeModal === 'login';
 
-  // Debug modal state
+  // Debug modal state & Check if already logged in
   useEffect(() => {
     console.log('🎭 LoginModal: activeModal =', activeModal, 'isOpen =', isOpen);
     console.log('🎭 LoginModal: postAuthRedirect =', postAuthRedirect);
+
+    // Check if user is already logged in when modal opens
+    if (isOpen) {
+      checkIfAlreadyLoggedIn();
+    }
   }, [activeModal, isOpen, postAuthRedirect]);
+
+  const checkIfAlreadyLoggedIn = async () => {
+    try {
+      console.log('🔍 LoginModal: Checking if user is already logged in...');
+      const authResult = await authService.checkAuthentication();
+
+      if (authResult.isAuthenticated && authResult.user) {
+        console.log('✅ LoginModal: User is already logged in:', authResult.user);
+
+        // Show info message and redirect
+        setMessageType('info');
+        setErrorMessage('You are already logged in! Redirecting to your dashboard...');
+
+        // Auto-redirect after a short delay
+        setTimeout(() => {
+          handleCloseModal();
+
+          if (postAuthRedirect) {
+            console.log(
+              '🎯 LoginModal: Redirecting already-logged-in user to:',
+              postAuthRedirect.url
+            );
+            clearRedirect();
+            navigate(postAuthRedirect.url, {
+              state: postAuthRedirect.state,
+              replace: true,
+            });
+          } else {
+            // Default dashboard redirect based on user role
+            const dashboardUrl =
+              authResult.user.role === 'seller'
+                ? UrlGeneratorService.sellerDashboard()
+                : UrlGeneratorService.buyerDashboard();
+
+            console.log(
+              '🎯 LoginModal: Redirecting already-logged-in user to dashboard:',
+              dashboardUrl
+            );
+            navigate(dashboardUrl, { replace: true });
+          }
+        }, 1500);
+        return true; // User is already logged in
+      }
+    } catch (error) {
+      console.log('🔍 LoginModal: User is not logged in or auth check failed:', error);
+    }
+    return false; // User is not logged in
+  };
 
   const handleLogin = async ({ email, password }: LoginData) => {
     console.log('LoginModal: Logging in...');
 
     if (!email || !password) {
+      setMessageType('error');
       setErrorMessage('Both email and password are required.');
       return;
     }
 
     setIsSubmitting(true);
     setErrorMessage('');
+    setMessageType('error');
 
     try {
       console.log('🔑 Attempting login...');
@@ -253,11 +309,27 @@ const LoginModal: React.FC = () => {
 
                         <div className="flex flex-col mt-8">
                           {errorMessage && (
-                            <div className="flex items-start mb-4 bg-red-600 border-l-4 border-red-600 text-red-700 p-4 rounded-xl">
-                              <p className="font-bold text-white text-lg mr-2 mt-0.5">
+                            <div
+                              className={`flex items-start mb-4 p-4 rounded-xl border-l-4 ${
+                                messageType === 'info'
+                                  ? 'bg-blue-50 border-blue-600 text-blue-700'
+                                  : 'bg-red-600 border-red-600 text-red-700'
+                              }`}
+                            >
+                              <p
+                                className={`font-bold text-lg mr-2 mt-0.5 ${
+                                  messageType === 'info' ? 'text-blue-600' : 'text-white'
+                                }`}
+                              >
                                 <LuInfo />
                               </p>
-                              <div className="font-normal text-white text-sm">{errorMessage}</div>
+                              <div
+                                className={`font-normal text-sm ${
+                                  messageType === 'info' ? 'text-blue-800' : 'text-white'
+                                }`}
+                              >
+                                {errorMessage}
+                              </div>
                             </div>
                           )}
 

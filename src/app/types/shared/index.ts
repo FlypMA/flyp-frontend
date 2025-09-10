@@ -729,6 +729,7 @@ export interface AuthResponse {
 export interface AuthResult {
   isAuthenticated: boolean;
   user?: User;
+  token?: string;
   error?: string;
 }
 
