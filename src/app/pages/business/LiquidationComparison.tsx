@@ -43,14 +43,14 @@ interface SuccessStory {
 const LiquidationComparison = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [liquidationData, setLiquidationData] = useState<LiquidationAnalysis | null>(null);
   const [daysSinceValuation, setDaysSinceValuation] = useState(0);
   const [showCalculator, setShowCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -85,7 +85,7 @@ const LiquidationComparison = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -167,16 +167,7 @@ const LiquidationComparison = () => {
     }
   ];
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading liquidation analysis...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!user || !liquidationData) {
     return (
@@ -327,7 +318,7 @@ const LiquidationComparison = () => {
                     <Button
                       color="primary"
                       size="lg"
-                      onPress={() => navigate('/business/valuation')}
+                      onPress={() => navigate('/my-business/valuation')}
                       className="px-8"
                       endContent={<ArrowRight className="w-5 h-5" />}
                     >
@@ -494,7 +485,7 @@ const LiquidationComparison = () => {
                   <Button
                     color="primary"
                     size="lg"
-                    onPress={() => navigate('/business/valuation')}
+                    onPress={() => navigate('/my-business/valuation')}
                     className="px-8"
                     endContent={<Calculator className="w-5 h-5" />}
                   >
@@ -503,7 +494,7 @@ const LiquidationComparison = () => {
                   <Button
                     variant="bordered"
                     size="lg"
-                    onPress={() => navigate('/business/listings')}
+                    onPress={() => navigate('/my-business/listings')}
                     className="px-8"
                     endContent={<Target className="w-5 h-5" />}
                   >

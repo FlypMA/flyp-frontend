@@ -46,14 +46,14 @@ interface BusinessFinancials {
 const SolvencyIntelligence = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [solvencyData, setSolvencyData] = useState<SolvencyMetrics | null>(null);
   const [maxLoanAmount, setMaxLoanAmount] = useState<number>(0);
   const [showLoanCalculator, setShowLoanCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -85,7 +85,7 @@ const SolvencyIntelligence = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -184,16 +184,7 @@ const SolvencyIntelligence = () => {
     return false;
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading solvency analysis...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   if (!user || !solvencyData) {
     return (
@@ -271,7 +262,7 @@ const SolvencyIntelligence = () => {
                       <BarChart3 className="w-5 h-5 text-gray-600" />
                       <span className="text-lg font-semibold text-gray-900">
                         Better than {Math.round(solvencyData.industryRanking)}% of{' '}
-                        {user.business_type || user.businessType || 'Food & Beverage'} businesses
+                        {user.business_type || 'Food & Beverage'} businesses
                       </span>
                     </div>
                     <div className="w-64">

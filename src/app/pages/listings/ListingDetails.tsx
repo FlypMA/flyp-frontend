@@ -24,7 +24,7 @@ const ListingDetails = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [listing, setListing] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [isImageGalleryOpen, setIsImageGalleryOpen] = useState(false);
   const [initialImageIndex, setInitialImageIndex] = useState(0);
 
@@ -33,7 +33,7 @@ const ListingDetails = () => {
   }, [id]);
 
   const loadListingDetails = async () => {
-    setIsLoading(true);
+    // Instant data loading - no loading state
     try {
       // TODO: Replace with actual API call
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -121,7 +121,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     } catch (error) {
       console.error('Error loading listing details:', error);
     } finally {
-      setIsLoading(false);
+      // No loading state to manage
     }
   };
 
@@ -140,16 +140,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     setIsImageGalleryOpen(true);
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-neutral-600">Loading listing details...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!listing) {
     return (

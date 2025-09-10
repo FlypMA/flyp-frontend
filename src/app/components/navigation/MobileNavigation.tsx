@@ -114,8 +114,16 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
     ];
 
     if (user) {
-      // Authenticated user sections
-      const userRole = user.userType || 'buyer';
+      // Authenticated user sections - ROBUST ROLE DETECTION  
+      const userRole = user.userType || user.role || 'buyer';
+      const normalizedRole = typeof userRole === 'string' ? userRole.toLowerCase() : 'buyer';
+      console.log('🔍 MobileNavigation role detection:', {
+        userType: user.userType,
+        role: user.role,
+        userRole,
+        normalizedRole,
+        user: { id: user.id, email: user.email }
+      });
       const isDashboard =
         location.pathname.includes('/dashboard') || location.pathname.includes('/account');
 
@@ -124,26 +132,26 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
           title: 'Dashboard',
           items: [
             {
-              label: userRole === 'seller' ? 'My Business' : 'Browse Businesses',
-              href: userRole === 'seller' ? '/my-business' : '/listings',
+              label: normalizedRole === 'seller' ? 'My Business' : 'Browse Businesses',
+              href: normalizedRole === 'seller' ? '/my-business' : '/listings',
               icon: Home,
             },
             {
-              label: userRole === 'seller' ? 'My Listings' : 'Saved Items',
-              href: userRole === 'seller' ? '/my-business/listings' : '/users/saved',
+              label: normalizedRole === 'seller' ? 'My Listings' : 'Saved Items',
+              href: normalizedRole === 'seller' ? '/my-business/listings' : '/users/saved',
               icon: Heart,
             },
             {
               label: 'Messages',
               href: '/messages',
               icon: MessageCircle,
-              badge: userRole === 'buyer' ? '2' : undefined, // Show badge for buyers since most activity is here
+              badge: normalizedRole === 'buyer' ? '2' : undefined, // Show badge for buyers since most activity is here
             },
           ],
         },
       ];
 
-      if (userRole === 'seller') {
+      if (normalizedRole === 'seller') {
         authenticatedSections.push({
           title: 'Business Management',
           items: [

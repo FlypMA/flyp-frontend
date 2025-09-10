@@ -6,7 +6,7 @@ import { Check, Crown, ArrowRight, Sparkles } from 'lucide-react';
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [loading, setLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   const sessionId = searchParams.get('session_id');
   const planName = searchParams.get('plan') || 'Business Pro';
@@ -15,18 +15,18 @@ const CheckoutSuccess = () => {
   useEffect(() => {
     // Simulate verification delay
     const timer = setTimeout(() => {
-      setLoading(false);
+      // No loading state to manage
     }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleGoToDashboard = () => {
-    navigate('/account/business/dashboard');
+    navigate('/my-business');
   };
 
   const handleGoToSettings = () => {
-    navigate('/account/business/settings?tab=subscription');
+    navigate('/users/settings?tab=subscription');
   };
 
   const handleGoToReports = () => {
@@ -46,21 +46,7 @@ const CheckoutSuccess = () => {
     return () => clearTimeout(timer);
   }, [navigate]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 flex items-center justify-center">
-        <Card className="bg-zinc-900/80 border-zinc-700/40 p-8">
-          <CardBody className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mx-auto mb-4"></div>
-            <h2 className="text-xl font-semibold text-white mb-2">
-              Activating your subscription...
-            </h2>
-            <p className="text-zinc-400">Please wait while we set up your Business Pro account</p>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  }
+  // Loading state removed for smooth UX
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 flex items-center justify-center p-4">

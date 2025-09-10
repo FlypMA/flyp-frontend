@@ -15,7 +15,7 @@ const CreateListingPage: React.FC = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     // Navigate back to business overview when modal closes
-    navigate('/business/overview');
+    navigate('/my-business/overview');
   };
 
   const handleOnboardingComplete = (data: SellerFormData) => {
@@ -28,7 +28,7 @@ const CreateListingPage: React.FC = () => {
     
     // For now, close modal and navigate to business overview
     setIsModalOpen(false);
-    navigate('/business/overview', { 
+    navigate('/my-business/overview', { 
       state: { 
         message: 'Business listing created successfully!',
         listingData: data 

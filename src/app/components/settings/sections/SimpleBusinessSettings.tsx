@@ -4,7 +4,7 @@ import { Building2, Save } from 'lucide-react';
 import { CleanInput, CleanSelect, CleanTextarea } from '../../ui';
 
 interface SimpleBusinessSettingsProps {
-  onSave: (data: any) => Promise<void>;
+  onSave: (data: any) => Promise<any>;
 }
 
 const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave }) => {

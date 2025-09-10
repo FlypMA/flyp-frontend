@@ -13,14 +13,14 @@ const DEV_BYPASS_AUTH = import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     // 🚨 DEVELOPMENT BYPASS: Skip authentication check
     if (DEV_BYPASS_AUTH && process.env.NODE_ENV === 'development') {
       console.log('🚨 DEV MODE: Bypassing authentication for development');
       setIsAuthenticated(true);
-      setIsLoading(false);
+      // No loading state to manage
       return;
     }
 
@@ -34,7 +34,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
         if (!hasToken) {
           console.log('🔐 ProtectedRoute: No token found, redirecting to login');
           setIsAuthenticated(false);
-          setIsLoading(false);
+          // No loading state to manage
           return;
         }
 
@@ -47,7 +47,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
         console.error('🔐 ProtectedRoute: Authentication check failed:', error);
         setIsAuthenticated(false);
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -55,7 +55,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   }, []);
 
   // Show loading state while checking authentication
-  if (isLoading) {
+  // Loading removed for smooth UX - removed constant condition
+  if (false && false) {
+    // Loading screens removed for smooth UX
     return (
       <div
         style={{

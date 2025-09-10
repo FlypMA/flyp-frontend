@@ -6,7 +6,7 @@ import { SEOHead } from '../../components/SEO';
 const EditListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [existingData, setExistingData] = useState<SellerFormData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const listingId = searchParams.get('id');
@@ -16,7 +16,7 @@ const EditListingPage: React.FC = () => {
     const loadExistingListing = async () => {
       if (!listingId) {
         console.error('No listing ID provided');
-        navigate('/business/overview');
+        navigate('/my-business/overview');
         return;
       }
 
@@ -48,9 +48,9 @@ const EditListingPage: React.FC = () => {
       } catch (error) {
         console.error('Error loading listing data:', error);
         // Navigate back on error
-        navigate('/business/overview');
+        navigate('/my-business/overview');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -60,7 +60,7 @@ const EditListingPage: React.FC = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     // Navigate back to business overview when modal closes
-    navigate('/business/overview');
+    navigate('/my-business/overview');
   };
 
   const handleListingSave = async (data: SellerFormData) => {
@@ -98,24 +98,7 @@ const EditListingPage: React.FC = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <SEOHead
-          title="Edit Business Listing | BetweenDeals"
-          description="Update your business listing on BetweenDeals. Modify your listing details to attract the right buyers."
-          keywords="edit business listing, update listing, business for sale, BetweenDeals"
-        />
-        
-        <div className="flex items-center justify-center min-h-screen bg-gray-50">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading your listing data...</p>
-          </div>
-        </div>
-      </>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   return (
     <>

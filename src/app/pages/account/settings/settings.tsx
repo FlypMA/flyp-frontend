@@ -41,18 +41,51 @@ const Settings: React.FC = () => {
     try {
       if (data.type === 'profile') {
         await authService.updateUserProfile(data.data);
-      } else if (data.type === 'security') {
-        // Handle security updates
-        console.log('Security update:', data.data);
+      } else if (data.type === 'security' || data.type === 'password') {
+        // Handle password changes with proper API integration
+        console.log('🔐 Processing password change request');
+        const passwordData = data.data || data.passwordChange;
+        
+        if (passwordData && passwordData.currentPassword && passwordData.newPassword) {
+          const result = await authService.updatePassword(
+            passwordData.currentPassword,
+            passwordData.newPassword
+          );
+          
+          if (!result.success) {
+            throw new Error(result.message || 'Failed to update password');
+          }
+          
+          console.log('✅ Password updated successfully');
+          return { success: true, message: 'Password updated successfully' };
+        } else {
+          // Handle other security settings if needed
+          console.log('Security update (non-password):', data.data);
+        }
       } else if (data.type === 'notifications') {
         // Handle notification preferences
         console.log('Notification update:', data.data);
+      } else if (data.passwordChange) {
+        // Handle direct password change requests
+        console.log('🔐 Processing direct password change');
+        const result = await authService.updatePassword(
+          data.passwordChange.currentPassword,
+          data.passwordChange.newPassword
+        );
+        
+        if (!result.success) {
+          throw new Error(result.message || 'Failed to update password');
+        }
+        
+        console.log('✅ Password updated successfully');
+        return { success: true, message: 'Password updated successfully' };
       } else {
         // Handle profile data directly
         await authService.updateUserProfile(data);
       }
-    } catch (err) {
-      throw new Error('Failed to update settings');
+    } catch (err: any) {
+      console.error('❌ Settings update failed:', err);
+      throw new Error(err.message || 'Failed to update settings');
     }
   };
 

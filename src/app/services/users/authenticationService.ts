@@ -500,7 +500,7 @@ class AuthenticationService {
 
     if (DEV_BYPASS_AUTH && process.env.NODE_ENV === 'development') {
       console.log('🚨 DEV MODE: Bypassing authentication check for development');
-      const mockUser: UserProfile = {
+      const mockUser: any = {
         id: 'dev-user-123',
         _id: 'dev-user-123', // Legacy compatibility
         email: 'dev@betweendeals.com',

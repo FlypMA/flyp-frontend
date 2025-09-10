@@ -136,22 +136,14 @@ const routes = [
       { path: 'settings', element: <Settings /> },
     ],
   },
+  // Legacy /business route - redirect to /my-business
   {
     path: '/business',
-    element: (
-      <RootLayout>
-        <ProtectedRoute element={<AuthenticatedLayout />} />
-      </RootLayout>
-    ),
-    children: [
-      { index: true, element: <BusinessOverview /> }, // Default to overview
-      { path: 'overview', element: <BusinessOverview /> },
-      { path: 'listings', element: <ListingManagement /> },
-      { path: 'valuation', element: <BusinessValuation /> },
-      { path: 'solvency', element: <SolvencyIntelligence /> },
-      { path: 'liquidation', element: <LiquidationComparison /> },
-      { path: 'documents', element: <DocumentVault /> },
-    ],
+    loader: () => redirect('/my-business'),
+  },
+  {
+    path: '/business/*',
+    loader: ({ params }) => redirect('/my-business/' + (params['*'] || '')),
   },
   // ==============================================================================
   // MARKETPLACE ENHANCEMENTS - Extended listings functionality

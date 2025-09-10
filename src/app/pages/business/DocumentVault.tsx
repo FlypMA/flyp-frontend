@@ -49,7 +49,7 @@ interface StorageInfo {
 const DocumentVault = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [isUploading, setIsUploading] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   
@@ -101,7 +101,7 @@ const DocumentVault = () => {
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -116,7 +116,7 @@ const DocumentVault = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -305,16 +305,7 @@ const DocumentVault = () => {
     return documentCategories[category as keyof typeof documentCategories]?.icon || '📁';
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading document vault...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!user) {
     return (

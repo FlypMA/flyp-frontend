@@ -3,6 +3,9 @@ import { Button, Avatar } from '@heroui/react';
 import {
   Eye,
   EyeOff,
+  CheckCircle,
+  XCircle,
+  AlertTriangle,
 } from 'lucide-react';
 import {
   CleanInput,
@@ -11,7 +14,7 @@ import { User as UserType } from '../../../types/api/users/user';
 
 interface ProfileSettingsProps {
   user: UserType;
-  onSave: (data: any) => Promise<void>;
+  onSave: (data: any) => Promise<any>;
 }
 
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
@@ -32,6 +35,21 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
 
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  
+  // Toast notification state
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error' | 'warning';
+    message: string;
+    show: boolean;
+  }>({ type: 'success', message: '', show: false });
+
+  // Show notification helper
+  const showNotification = (type: 'success' | 'error' | 'warning', message: string) => {
+    setNotification({ type, message, show: true });
+    setTimeout(() => {
+      setNotification(prev => ({ ...prev, show: false }));
+    }, 4000);
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
@@ -57,22 +75,56 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
     setSaving(true);
     try {
       await onSave({ ...profileData, profileImage });
+      showNotification('success', 'Profile updated successfully!');
+    } catch (error: any) {
+      showNotification('error', error.message || 'Failed to update profile');
     } finally {
       setSaving(false);
     }
   };
 
   const handleSavePassword = async () => {
+    // Validation
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('New passwords do not match');
+      showNotification('error', 'New passwords do not match');
+      return;
+    }
+
+    if (passwordData.newPassword.length < 8) {
+      showNotification('error', 'Password must be at least 8 characters long');
+      return;
+    }
+
+    if (!passwordData.currentPassword.trim()) {
+      showNotification('error', 'Current password is required');
       return;
     }
     
     setSaving(true);
     try {
-      // In a real app, you'd call a separate password change API
-      await onSave({ passwordChange: passwordData });
+      console.log('🔐 Submitting password change request');
+      const result = await onSave({ passwordChange: passwordData });
+      
+      // Clear form only on success
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      
+      // Show success message
+      showNotification('success', 'Password updated successfully!');
+      console.log('✅ Password change completed successfully');
+      
+    } catch (error: any) {
+      console.error('❌ Password change failed:', error);
+      
+      // Show user-friendly error messages
+      if (error.message.includes('current password') || error.message.includes('incorrect')) {
+        showNotification('error', 'Current password is incorrect. Please try again.');
+      } else if (error.message.includes('weak') || error.message.includes('format')) {
+        showNotification('error', 'New password does not meet security requirements. Please choose a stronger password.');
+      } else if (error.message.includes('same') || error.message.includes('different')) {
+        showNotification('error', 'New password must be different from your current password.');
+      } else {
+        showNotification('error', 'Failed to update password. Please try again.');
+      }
     } finally {
       setSaving(false);
     }
@@ -90,6 +142,40 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-12">
+      {/* Toast Notification */}
+      {notification.show && (
+        <div 
+          className={`fixed top-4 right-4 z-50 max-w-sm rounded-lg shadow-lg p-4 flex items-center space-x-3 transition-all duration-300 ${
+            notification.type === 'success' ? 'bg-green-50 border border-green-200' :
+            notification.type === 'error' ? 'bg-red-50 border border-red-200' :
+            'bg-yellow-50 border border-yellow-200'
+          }`}
+        >
+          {notification.type === 'success' && <CheckCircle className="w-5 h-5 text-green-600" />}
+          {notification.type === 'error' && <XCircle className="w-5 h-5 text-red-600" />}
+          {notification.type === 'warning' && <AlertTriangle className="w-5 h-5 text-yellow-600" />}
+          
+          <span className={`text-sm font-medium ${
+            notification.type === 'success' ? 'text-green-800' :
+            notification.type === 'error' ? 'text-red-800' :
+            'text-yellow-800'
+          }`}>
+            {notification.message}
+          </span>
+          
+          <button
+            onClick={() => setNotification(prev => ({ ...prev, show: false }))}
+            className={`ml-auto text-xs ${
+              notification.type === 'success' ? 'text-green-600 hover:text-green-800' :
+              notification.type === 'error' ? 'text-red-600 hover:text-red-800' :
+              'text-yellow-600 hover:text-yellow-800'
+            }`}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Header - Minimalistic */}
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-gray-900">Account</h1>
@@ -100,7 +186,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
       <div className="flex flex-col items-center space-y-4">
         <div className="relative">
           <Avatar
-            size="xl"
+            size="lg"
             src={previewImage || user.avatar}
             name={getUserInitials()}
             className="w-32 h-32 text-3xl border-4 border-white shadow-lg"

@@ -61,7 +61,7 @@ interface ValuationResult {
 const ValuationTool = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [isCalculating, setIsCalculating] = useState(false);
   const [activeTab, setActiveTab] = useState('input');
 
@@ -120,7 +120,7 @@ const ValuationTool = () => {
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -132,9 +132,9 @@ const ValuationTool = () => {
       } catch (error) {
         console.error('Error initializing page:', error);
         navigate('/');
-      } finally {
-        setIsLoading(false);
-      }
+    } finally {
+      // No loading state to manage
+    }
     };
 
     initializePage();
@@ -247,16 +247,7 @@ const ValuationTool = () => {
     }));
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading valuation tool...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!user) {
     return (
@@ -354,7 +345,7 @@ const ValuationTool = () => {
                         label="Industry"
                         placeholder="Select your industry"
                         selectedKeys={[inputs.industry]}
-                        onChange={e => handleInputChange('industry', e.target.value)}
+                        onSelectionChange={(value) => handleInputChange('industry', String(value))}
                       >
                         {Object.entries(industryMultiples).map(([key, value]) => (
                           <SelectItem key={key}>{value.description}</SelectItem>
@@ -443,7 +434,7 @@ const ValuationTool = () => {
                           <Button
                             color="primary"
                             startContent={<FileText className="w-4 h-4" />}
-                            onPress={() => navigate('/business/listings')}
+                            onPress={() => navigate('/my-business/listings')}
                           >
                             Create Listing
                           </Button>

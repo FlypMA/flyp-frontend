@@ -66,11 +66,11 @@ const BusinessOverview = () => {
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [businessListing, setBusinessListing] = useState<Listing | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     const initializeDashboard = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         // Get authenticated user
         const authResult = await authService.checkAuthentication();
@@ -144,24 +144,14 @@ const BusinessOverview = () => {
       } catch (error) {
         console.error('Error initializing dashboard:', error);
         navigate('/');
-      } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
     initializeDashboard();
   }, [navigate]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   if (!user) {
     return (
@@ -284,7 +274,7 @@ const BusinessOverview = () => {
                         variant="bordered"
                         className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
                         size="lg"
-                        onPress={() => navigate('/business/listings')}
+                        onPress={() => navigate('/my-business/listings')}
                       >
                         Manage Listing
                       </Button>
@@ -302,7 +292,7 @@ const BusinessOverview = () => {
                   variant="bordered"
                   className="text-gray-600 border-gray-300 hover:bg-gray-50"
                   size="sm"
-                  onPress={() => navigate('/business/valuation')}
+                  onPress={() => navigate('/my-business/valuation')}
                 >
                   View All Reports
                 </Button>
@@ -408,7 +398,7 @@ const BusinessOverview = () => {
                               variant="bordered" 
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                               size="md"
-                              onPress={() => navigate('/business/valuation')}
+                              onPress={() => navigate('/my-business/valuation')}
                             >
                               View Details
                             </Button>
@@ -421,7 +411,7 @@ const BusinessOverview = () => {
                             variant="light" 
                             className="text-gray-600 hover:text-gray-900"
                             size="sm"
-                            onPress={() => navigate('/business/valuation')}
+                            onPress={() => navigate('/my-business/valuation')}
                           >
                             Update Valuation
                           </Button>

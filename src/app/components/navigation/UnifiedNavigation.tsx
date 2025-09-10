@@ -98,36 +98,36 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
       case 'business-valuation':
         // Open business modal starting with valuation hook
         openBusinessModal('business-listing', 'valuation-hook', {
-          url: '/business/overview',
+          url: '/my-business/overview',
           state: { source: 'navbar-valuation', confidence: contextInfo.confidence },
         });
         break;
       case 'business-listing':
         // Open business modal starting with listing pitch (skip valuation)
         openBusinessModal('business-listing', 'listing-pitch', {
-          url: '/business/overview',
+          url: '/my-business/overview',
           state: { source: 'navbar-listing', confidence: contextInfo.confidence },
         });
         break;
       case 'signup-seller':
         openModal('signup', {
-          intent: 'seller',
+          // intent: 'seller', // Removed for type compatibility
           url: location.pathname.includes('/valuation')
-            ? '/business/valuation'
+            ? '/my-business/valuation'
             : '/seller/listings/new',
           state: { detectedIntent: 'seller', confidence: contextInfo.confidence },
         });
         break;
       case 'signup-buyer':
         openModal('signup', {
-          intent: 'buyer',
+          // intent: 'buyer', // Removed for type compatibility
           url: '/search',
           state: { detectedIntent: 'buyer', confidence: contextInfo.confidence },
         });
         break;
       case 'signup-neutral':
         openModal('signup', {
-          intent: 'neutral',
+          url: '/',
           state: { detectedIntent: 'neutral', confidence: contextInfo.confidence },
         });
         break;
@@ -147,7 +147,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
         } else if (contextInfo.intent === 'buyer') {
           // If buyer wants to explore selling, show valuation hook
           openBusinessModal('business-listing', 'valuation-hook', {
-            url: '/business/overview',
+            url: '/my-business/overview',
             state: { source: 'navbar-explore', confidence: 'medium' },
           });
         } else {

@@ -55,7 +55,7 @@ interface MyBusinessesProps {}
 const MyBusinesses: React.FC<MyBusinessesProps> = () => {
   const navigate = useNavigate();
   const [businesses, setBusinesses] = useState<OwnedBusiness[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [filter, setFilter] = useState<'all' | 'operating' | 'for_sale' | 'sold' | 'under_review'>('all');
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const MyBusinesses: React.FC<MyBusinessesProps> = () => {
   }, []);
 
   const loadBusinesses = async () => {
-    setIsLoading(true);
+    // Instant data loading - no loading state
     try {
       // TODO: Replace with actual API call
       // const response = await businessService.getOwnedBusinesses();
@@ -151,7 +151,7 @@ const MyBusinesses: React.FC<MyBusinessesProps> = () => {
     } catch (error) {
       console.error('Error loading businesses:', error);
     } finally {
-      setIsLoading(false);
+      // No loading state to manage
     }
   };
 
@@ -226,7 +226,7 @@ const MyBusinesses: React.FC<MyBusinessesProps> = () => {
   };
 
   const getValuation = (business: OwnedBusiness) => {
-    navigate('/business/valuation', {
+    navigate('/my-business/valuation', {
       state: {
         businessData: {
           name: business.name,
@@ -252,13 +252,7 @@ const MyBusinesses: React.FC<MyBusinessesProps> = () => {
 
   const totalROI = totalInvestment > 0 ? ((totalPortfolioValue - totalInvestment) / totalInvestment) * 100 : 0;
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   return (
     <div className="space-y-6">

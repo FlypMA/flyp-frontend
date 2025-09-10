@@ -29,11 +29,11 @@ const GetFreeValuation = () => {
   const [user, setUser] = useState<UserType | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [historicalValuations, setHistoricalValuations] = useState<BusinessValuation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
@@ -108,7 +108,7 @@ const GetFreeValuation = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -126,26 +126,17 @@ const GetFreeValuation = () => {
   };
 
   const handleCreateListing = () => {
-    navigate('/business/listing');
+    navigate('/my-business/listings');
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading valuation data...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   return (
     <div className="min-h-screen bg-gray-50">
       <UnifiedNavigation />
       
       <div className="flex">
-        <SellerSidebar selectedTab="valuation" onTabChange={(tab) => navigate(`/business/${tab}`)} />
+        <SellerSidebar selectedTab="valuation" />
         
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl">

@@ -89,6 +89,24 @@ const SignupModal: React.FC = () => {
       const response = await authService.createAccount(email, password, email, roleForSignup);
       console.log('✅ Signup successful:', response);
 
+      // CRITICAL: If createAccount doesn't auto-login, we need to login immediately
+      console.log('🔄 Attempting auto-login after account creation...');
+      try {
+        const loginResponse = await authService.login(email, password);
+        console.log('✅ Auto-login after signup successful:', loginResponse);
+        
+        // Dispatch auth change events immediately after successful login
+        window.dispatchEvent(new CustomEvent('auth-change'));
+        console.log('🔄 Dispatched immediate auth-change event');
+      } catch (loginError) {
+        console.error('❌ Auto-login failed:', loginError);
+        // Show error message and redirect to login
+        setErrorMessage('Account created successfully, but auto-login failed. Please login manually.');
+        setShowLoginPrompt(true);
+        setIsSubmitting(false);
+        return;
+      }
+
       handleCloseModal();
 
       // Small delay to allow auth state to propagate
@@ -121,10 +139,10 @@ const SignupModal: React.FC = () => {
         console.log('🚀 Navigating to dashboard:', dashboardUrl);
         navigate(dashboardUrl, { replace: true });
 
-        // Trigger a re-check of authentication state across the app
-        console.log('🔄 Dispatching auth-change event for navigation update');
+        // Final auth-change event for any remaining components
+        console.log('🔄 Final auth-change event dispatch');
         window.dispatchEvent(new CustomEvent('auth-change'));
-      }, 500); // Increased delay to ensure auth state is fully set
+      }, 100); // Reduced delay since we now handle auth immediately
     } catch (error: any) {
       console.error('❌ Signup failed in SignupModal:', error);
       console.error('❌ Error type:', typeof error);

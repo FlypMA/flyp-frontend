@@ -3,7 +3,7 @@ import { Button, Switch } from '@heroui/react';
 import { Bell, Save, Mail, AlertTriangle, TrendingUp } from 'lucide-react';
 
 interface SimpleNotificationSettingsProps {
-  onSave: (data: any) => Promise<void>;
+  onSave: (data: any) => Promise<any>;
 }
 
 const SimpleNotificationSettings: React.FC<SimpleNotificationSettingsProps> = ({ onSave }) => {

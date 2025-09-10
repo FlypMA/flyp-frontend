@@ -14,7 +14,7 @@ const AuthenticatedAccount = () => {
   const [authenticatedUser, setAuthenticatedUser] = useState<UserProfile | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,7 +24,7 @@ const AuthenticatedAccount = () => {
       console.log('🔍 Current location:', location.pathname);
       console.log('🔍 DEV_BYPASS_AUTH:', DEV_BYPASS_AUTH);
 
-      setIsLoading(true);
+      // Instant data loading - no loading state
 
       // Development bypass
       if (DEV_BYPASS_AUTH) {
@@ -48,7 +48,7 @@ const AuthenticatedAccount = () => {
 
         setUser(mockUser);
         setAuthenticatedUser(mockUser);
-        setIsLoading(false);
+        // No loading state to manage
         return;
       }
 
@@ -71,7 +71,7 @@ const AuthenticatedAccount = () => {
         setAuthenticatedUser(null);
       }
 
-      setIsLoading(false);
+      // Loading states removed for smooth UX
     };
 
     fetchData();
@@ -106,14 +106,7 @@ const AuthenticatedAccount = () => {
     navigate(UrlGeneratorService.accountSettings());
   };
 
-  // Show loading state
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-zinc-950">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   // Only redirect if not in dev mode and no authenticated user
   if (!authenticatedUser && !DEV_BYPASS_AUTH) {

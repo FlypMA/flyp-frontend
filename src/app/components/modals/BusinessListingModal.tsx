@@ -705,7 +705,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
           className="bg-blue-600 hover:bg-blue-700 text-white px-8"
           onPress={() => {
             handleClose();
-            navigate('/business/overview');
+            navigate('/my-business/overview');
           }}
         >
           Go to Dashboard
@@ -758,7 +758,7 @@ const BusinessListingModal: React.FC<BusinessListingModalProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center space-x-3">
-                <BetweendealsLogo variant="icon" className="h-8 w-8" />
+                <BetweendealsLogo variant="header" className="h-8 w-8" />
                 <div>
                   <div className="font-semibold text-gray-900">
                     {currentStep === 'valuation-hook' ||

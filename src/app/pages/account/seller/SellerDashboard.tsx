@@ -77,11 +77,11 @@ const SellerDashboard = () => {
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
   const [businessListing, setBusinessListing] = useState<Listing | null>(null);
   const [selectedTab, setSelectedTab] = useState('overview');
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     const initializeDashboard = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         // Get authenticated user
         const authResult = await authService.checkAuthentication();
@@ -157,7 +157,7 @@ const SellerDashboard = () => {
         console.error('Error initializing dashboard:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -286,16 +286,7 @@ const SellerDashboard = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!user) {
     return (
@@ -320,7 +311,7 @@ const SellerDashboard = () => {
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab={selectedTab} onTabChange={setSelectedTab} />
+        <SellerSidebar selectedTab={selectedTab} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
@@ -501,7 +492,6 @@ const SellerDashboard = () => {
                       onRequestValuation={() => setSelectedTab('valuation')}
                       onUpdateValuation={() => setSelectedTab('valuation')}
                       onCreateListing={() => navigate('/my-business/listings/new')}
-                      className="max-w-none"
                     />
 
                     {/* Placeholder for future reports */}

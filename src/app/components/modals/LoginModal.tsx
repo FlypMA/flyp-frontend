@@ -365,7 +365,7 @@ const LoginModal: React.FC = () => {
                           />
 
                           {/* Forgot Password Link - Enhanced Visibility */}
-                          <div className="text-right mt-3 mb-2">
+                          <div className="text-left mt-3 mb-2">
                             <button
                               type="button"
                               onClick={() => {

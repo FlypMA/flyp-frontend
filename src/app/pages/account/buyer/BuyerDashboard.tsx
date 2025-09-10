@@ -63,7 +63,7 @@ const BuyerDashboard = () => {
     new_matches: 0,
   });
   const [selectedTab, setSelectedTab] = useState('dashboard');
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     // Listen for navigation events from avatar dropdown
@@ -83,7 +83,7 @@ const BuyerDashboard = () => {
 
   useEffect(() => {
     const initializeDashboard = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         // Get authenticated user
         const authResult = await authService.checkAuthentication();
@@ -196,7 +196,7 @@ const BuyerDashboard = () => {
       } catch (error) {
         console.error('Error initializing buyer dashboard:', error);
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -248,16 +248,7 @@ const BuyerDashboard = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   return (
     <div className="min-h-screen bg-gray-50">

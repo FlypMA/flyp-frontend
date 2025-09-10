@@ -68,7 +68,7 @@ const ListingSearch = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [listings, setListings] = useState<Listing[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
@@ -94,7 +94,7 @@ const ListingSearch = () => {
   }, [searchParams, currentPage]);
 
   const loadListings = async () => {
-    setIsLoading(true);
+    // Instant data loading - no loading state
     try {
       // TODO: Replace with actual API call to backend
       // For now, using mock data
@@ -274,7 +274,7 @@ const ListingSearch = () => {
     } catch (error) {
       console.error('Error loading listings:', error);
     } finally {
-      setIsLoading(false);
+      // No loading state to manage
     }
   };
 
@@ -613,7 +613,7 @@ const ListingSearch = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div>
             <h2 className="text-2xl font-semibold text-neutral-900">
-              {isLoading ? 'Searching...' : `${totalResults} businesses found`}
+              {`${totalResults} businesses found`}
             </h2>
             {filters.searchQuery && (
               <p className="text-neutral-600 mt-1">Results for "{filters.searchQuery}"</p>
@@ -636,20 +636,8 @@ const ListingSearch = () => {
         </div>
 
         {/* Results */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(6)].map((_, i) => (
-              <Card key={i} className="animate-pulse">
-                <CardBody>
-                  <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                  <div className="h-3 bg-gray-300 rounded mb-2 w-2/3"></div>
-                  <div className="h-3 bg-gray-300 rounded mb-4 w-1/2"></div>
-                  <div className="h-20 bg-gray-300 rounded"></div>
-                </CardBody>
-              </Card>
-            ))}
-          </div>
-        ) : listings.length === 0 ? (
+        {/* Loading screens removed for smooth UX */}
+        {listings.length === 0 ? (
           <Card>
             <CardBody className="text-center py-12">
               <Building2
@@ -684,13 +672,16 @@ const ListingSearch = () => {
                 // Transform listing to match ListingCard interface
                 const transformedListing = {
                   ...listing,
+                  status: 'active',
                   highlights: listing.requires_nda || listing.anonymous || listing.years_in_business ? [
                     ...(listing.requires_nda ? ['NDA Required'] : []),
                     ...(listing.anonymous ? ['Confidential'] : []),
                   ] : undefined,
                   business_age: listing.years_in_business,
-                  revenue_range: listing.revenue_range,
-                  ebitda_range: listing.ebitda_range,
+                  revenue_range: typeof listing.revenue_range === 'string' ? 
+                    { min: 0, max: 1000000 } : listing.revenue_range,
+                  ebitda_range: typeof listing.ebitda_range === 'string' ?
+                    { min: 0, max: 200000 } : listing.ebitda_range,
                 };
 
                 return (

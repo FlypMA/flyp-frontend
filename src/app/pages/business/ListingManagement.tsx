@@ -35,11 +35,11 @@ const ListingManagement = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
   const [businessListing, setBusinessListing] = useState<Listing | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Loading states removed for smooth UX
 
   useEffect(() => {
     const initializePage = async () => {
-      setIsLoading(true);
+      // Instant data loading - no loading state
       try {
         // Get authenticated user
         const authResult = await authService.checkAuthentication();
@@ -68,7 +68,7 @@ const ListingManagement = () => {
         console.error('Error initializing page:', error);
         navigate('/');
       } finally {
-        setIsLoading(false);
+        // No loading state to manage
       }
     };
 
@@ -113,16 +113,7 @@ const ListingManagement = () => {
     }).format(price);
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading listing management...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth UX
 
   if (!user) {
     return (

@@ -89,8 +89,8 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
       id: 'checklist',
       label: 'Checklist',
       icon: <CheckCircle className="w-4 h-4" />,
-      badge: checklist.filter(item => item.completed).length > 0 
-        ? `${checklist.filter(item => item.completed).length}/${checklist.length}` 
+      badge: checklist.filter((item: any) => item.completed).length > 0
+        ? `${checklist.filter((item: any) => item.completed).length}/${checklist.length}`
         : undefined,
     },
     {

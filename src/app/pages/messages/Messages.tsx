@@ -69,7 +69,7 @@ interface Message {
 const Messages: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Loading states removed for smooth UX
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState('');
@@ -231,7 +231,7 @@ const Messages: React.FC = () => {
       console.error('Failed to load user data:', err);
       navigate('/login');
     } finally {
-      setLoading(false);
+      // No loading state to manage
     }
   };
 
@@ -281,16 +281,7 @@ const Messages: React.FC = () => {
 
   const selectedConversation = conversations.find(c => c.id === selectedConversationId);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="flex items-center space-x-3">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-          <div className="text-gray-600 font-medium">Loading messages...</div>
-        </div>
-      </div>
-    );
-  }
+  // Loading screens removed for smooth user experience
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -701,7 +692,7 @@ const Messages: React.FC = () => {
                 </Button>
                 <Button
                   variant="bordered"
-                  onPress={() => navigate('/business/overview')}
+                  onPress={() => navigate('/my-business/overview')}
                   startContent={<Building2 className="w-4 h-4" />}
                 >
                   Manage Your Business

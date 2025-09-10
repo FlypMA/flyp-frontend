@@ -35,7 +35,7 @@ const SellerOnboardingPage: React.FC = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     // Navigate back to business overview when modal closes
-    navigate('/business/overview');
+    navigate('/my-business/overview');
   };
 
   const handleOnboardingComplete = (data: SellerFormData) => {
@@ -44,7 +44,7 @@ const SellerOnboardingPage: React.FC = () => {
     
     // Close modal and navigate to business overview
     setIsModalOpen(false);
-    navigate('/business/overview');
+    navigate('/my-business/overview');
   };
 
   return (
