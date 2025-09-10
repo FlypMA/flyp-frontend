@@ -229,7 +229,7 @@ const BuyerOnboarding = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      navigate('/buyer/dashboard');
+      navigate('/listings'); // AIRBNB MODEL: Buyers browse listings (no dashboard)
     } catch (error) {
       console.error('Error completing onboarding:', error);
     } finally {

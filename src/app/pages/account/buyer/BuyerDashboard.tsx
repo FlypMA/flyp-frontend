@@ -4,7 +4,7 @@ import { Card, CardBody } from '@heroui/react';
 import { Heart, MessageSquare, TrendingUp, Bookmark } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
 import { UserProfile } from '../../../../types/api';
-import BuyerSidebarNavigation from '../../../components/navigation/BuyerSidebarNavigation';
+// BuyerSidebarNavigation removed - buyers don't have sidebars in Airbnb model
 import DashboardOverview from '../../../components/buyer/DashboardOverview';
 import DiscoverBusinesses from '../../../components/buyer/DiscoverBusinesses';
 import FavoriteBusinesses from '../../../components/buyer/FavoriteBusinesses';
@@ -266,11 +266,7 @@ const BuyerDashboard = () => {
 
       <div className="flex">
         {/* Sidebar Navigation */}
-        <BuyerSidebarNavigation
-          selectedTab={selectedTab}
-          onTabChange={setSelectedTab}
-          stats={stats}
-        />
+        {/* Buyer sidebar removed - buyers browse /listings/ in Airbnb model */}
 
         {/* Main Content Area */}
         <div className="flex-1 overflow-auto">

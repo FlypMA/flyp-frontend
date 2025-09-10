@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardHeader, Button, Switch, Select, SelectItem, Chip, Badge } from '@heroui/react';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Button,
+  Switch,
+  Select,
+  SelectItem,
+  Chip,
+  Badge,
+} from '@heroui/react';
 import {
   Bell,
   BellOff,
@@ -30,7 +40,12 @@ interface NotificationSettings {
 
 interface Notification {
   id: string;
-  type: 'search_alert' | 'inquiry_update' | 'market_insight' | 'platform_update' | 'favorite_update';
+  type:
+    | 'search_alert'
+    | 'inquiry_update'
+    | 'market_insight'
+    | 'platform_update'
+    | 'favorite_update';
   title: string;
   message: string;
   timestamp: string;
@@ -71,14 +86,15 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
     try {
       // TODO: Replace with actual API call
       // const response = await notificationService.getNotifications();
-      
+
       // Mock data
       const mockNotifications: Notification[] = [
         {
           id: 'notif_1',
           type: 'search_alert',
           title: '3 new businesses match "Tech Companies Belgium €1-5M"',
-          message: 'New SaaS platforms and tech startups have been listed that match your saved search criteria.',
+          message:
+            'New SaaS platforms and tech startups have been listed that match your saved search criteria.',
           timestamp: '2024-01-22T09:15:00Z',
           is_read: false,
           action_url: '/search?search_id=search_1',
@@ -91,10 +107,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
           id: 'notif_2',
           type: 'inquiry_update',
           title: 'Response from Premium Restaurant Chain seller',
-          message: 'Marie Dupont has responded to your inquiry about the Brussels restaurant chain.',
+          message:
+            'Marie Dupont has responded to your inquiry about the Brussels restaurant chain.',
           timestamp: '2024-01-22T14:30:00Z',
           is_read: false,
-          action_url: '/dashboard/buyer?tab=inquiries',
+          action_url: '/buying/inquiries',
           metadata: {
             listing_title: 'Premium Restaurant Chain - Brussels',
             inquiry_id: 'inq_1',
@@ -116,7 +133,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
           id: 'notif_4',
           type: 'search_alert',
           title: '1 new business matches "Restaurants & Cafes Brussels"',
-          message: 'A new boutique café in Brussels has been listed that matches your search criteria.',
+          message:
+            'A new boutique café in Brussels has been listed that matches your search criteria.',
           timestamp: '2024-01-21T18:05:00Z',
           is_read: true,
           action_url: '/search?search_id=search_2',
@@ -138,10 +156,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
           id: 'notif_6',
           type: 'platform_update',
           title: 'New Feature: Business Portfolio Tracking',
-          message: 'Track the performance of your acquired businesses with our new portfolio management feature.',
+          message:
+            'Track the performance of your acquired businesses with our new portfolio management feature.',
           timestamp: '2024-01-19T12:00:00Z',
           is_read: true,
-          action_url: '/dashboard/buyer?tab=businesses',
+          action_url: '/buying/watchlist',
         },
       ];
 
@@ -176,9 +195,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
   const markAsRead = async (notificationId: string) => {
     try {
       setNotifications(prev =>
-        prev.map(notif =>
-          notif.id === notificationId ? { ...notif, is_read: true } : notif
-        )
+        prev.map(notif => (notif.id === notificationId ? { ...notif, is_read: true } : notif))
       );
       // TODO: API call to mark as read
     } catch (error) {
@@ -283,7 +300,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
           <Select
             placeholder="Filter notifications"
             selectedKeys={[filter]}
-            onSelectionChange={(keys) => setFilter(Array.from(keys)[0] as any)}
+            onSelectionChange={keys => setFilter(Array.from(keys)[0] as any)}
             className="w-48"
           >
             <SelectItem key="all">All Notifications</SelectItem>
@@ -316,19 +333,25 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <CardBody className="p-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-start gap-3 flex-1">
-                        <div className={`p-2 rounded-lg ${
-                          notification.is_read ? 'bg-gray-100' : 'bg-blue-100'
-                        }`}>
-                          <Icon className={`w-4 h-4 ${
-                            notification.is_read ? 'text-gray-600' : 'text-blue-600'
-                          }`} />
+                        <div
+                          className={`p-2 rounded-lg ${
+                            notification.is_read ? 'bg-gray-100' : 'bg-blue-100'
+                          }`}
+                        >
+                          <Icon
+                            className={`w-4 h-4 ${
+                              notification.is_read ? 'text-gray-600' : 'text-blue-600'
+                            }`}
+                          />
                         </div>
 
                         <div className="flex-1">
                           <div className="flex items-start justify-between mb-2">
-                            <h4 className={`font-medium ${
-                              notification.is_read ? 'text-gray-900' : 'text-blue-900'
-                            }`}>
+                            <h4
+                              className={`font-medium ${
+                                notification.is_read ? 'text-gray-900' : 'text-blue-900'
+                              }`}
+                            >
                               {notification.title}
                             </h4>
                             <div className="flex items-center gap-2">
@@ -341,9 +364,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                             </div>
                           </div>
 
-                          <p className="text-sm text-gray-600 mb-3">
-                            {notification.message}
-                          </p>
+                          <p className="text-sm text-gray-600 mb-3">{notification.message}</p>
 
                           <div className="flex items-center justify-between">
                             <Chip
@@ -371,7 +392,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                                   View
                                 </Button>
                               )}
-                              
+
                               {!notification.is_read && (
                                 <Button
                                   size="sm"
@@ -406,7 +427,9 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <Bell className="w-12 h-12 text-gray-500" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {filter === 'all' ? 'No notifications' : `No ${filter.replace('_', ' ')} notifications`}
+                  {filter === 'all'
+                    ? 'No notifications'
+                    : `No ${filter.replace('_', ' ')} notifications`}
                 </h3>
                 <p className="text-gray-600">
                   {filter === 'all'
@@ -432,13 +455,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                     <Mail className="w-4 h-4 text-gray-600" />
                     <span className="font-medium text-gray-900">Email Notifications</span>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Receive notifications via email
-                  </p>
+                  <p className="text-sm text-gray-600">Receive notifications via email</p>
                 </div>
                 <Switch
                   isSelected={settings.email_enabled}
-                  onValueChange={(value) => updateSetting('email_enabled', value)}
+                  onValueChange={value => updateSetting('email_enabled', value)}
                 />
               </div>
 
@@ -450,7 +471,9 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   </label>
                   <Select
                     selectedKeys={[settings.email_frequency]}
-                    onSelectionChange={(keys) => updateSetting('email_frequency', Array.from(keys)[0])}
+                    onSelectionChange={keys =>
+                      updateSetting('email_frequency', Array.from(keys)[0])
+                    }
                   >
                     <SelectItem key="immediate">Immediate</SelectItem>
                     <SelectItem key="daily">Daily Digest</SelectItem>
@@ -466,13 +489,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                     <Smartphone className="w-4 h-4 text-gray-600" />
                     <span className="font-medium text-gray-900">Push Notifications</span>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Receive notifications on your device
-                  </p>
+                  <p className="text-sm text-gray-600">Receive notifications on your device</p>
                 </div>
                 <Switch
                   isSelected={settings.push_enabled}
-                  onValueChange={(value) => updateSetting('push_enabled', value)}
+                  onValueChange={value => updateSetting('push_enabled', value)}
                 />
               </div>
 
@@ -485,7 +506,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <Switch
                     size="sm"
                     isSelected={settings.search_alerts}
-                    onValueChange={(value) => updateSetting('search_alerts', value)}
+                    onValueChange={value => updateSetting('search_alerts', value)}
                   />
                 </div>
 
@@ -494,7 +515,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <Switch
                     size="sm"
                     isSelected={settings.inquiry_updates}
-                    onValueChange={(value) => updateSetting('inquiry_updates', value)}
+                    onValueChange={value => updateSetting('inquiry_updates', value)}
                   />
                 </div>
 
@@ -503,7 +524,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <Switch
                     size="sm"
                     isSelected={settings.market_insights}
-                    onValueChange={(value) => updateSetting('market_insights', value)}
+                    onValueChange={value => updateSetting('market_insights', value)}
                   />
                 </div>
 
@@ -512,7 +533,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = () => {
                   <Switch
                     size="sm"
                     isSelected={settings.platform_updates}
-                    onValueChange={(value) => updateSetting('platform_updates', value)}
+                    onValueChange={value => updateSetting('platform_updates', value)}
                   />
                 </div>
               </div>

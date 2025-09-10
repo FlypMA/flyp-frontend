@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
 import Home from './pages/landingPages/home';
 import { MainLayout } from './components/layout';
 import { LogoOnlyLayout } from './components/layout';
@@ -7,7 +7,7 @@ import { SplitScreenLayout } from './components/layout';
 import { AuthenticatedAccount as AuthenticatedLayout } from './components/layout';
 import ProtectedRoute from './components/account/authentication/protectedRoute';
 import SellerDashboard from './pages/account/seller/SellerDashboard';
-import BuyerDashboard from './pages/account/buyer/BuyerDashboard';
+// BuyerDashboard removed - buyers browse /listings/ in Airbnb model
 import Settings from './pages/account/settings/settings';
 import Checkout from './pages/checkout/checkout';
 import CheckoutSuccess from './pages/checkout/success/CheckoutSuccess';
@@ -48,9 +48,9 @@ import { ScrollToTop } from './components/common';
 import BusinessOverview from './pages/business/BusinessOverview';
 import BusinessValuation from './pages/business/BusinessValuation';
 import ListingManagement from './pages/business/ListingManagement';
+import DocumentVault from './pages/business/DocumentVault';
 import SolvencyIntelligence from './pages/business/SolvencyIntelligence';
 import LiquidationComparison from './pages/business/LiquidationComparison';
-import DocumentVault from './pages/business/DocumentVault';
 
 // Root layout component that wraps the entire app
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -92,7 +92,7 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: 'search', element: <ListingSearch /> },
-      { path: 'listings/:id', element: <ListingDetails /> },
+      { path: 'listings/:id', element: <ListingSearch /> }, // Will show details modal/view
       { path: UrlGeneratorService.privacyPolicy(), element: <PrivacyPolicy /> },
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
 
@@ -132,8 +132,7 @@ const routes = [
       { index: true, element: <SellerDashboard /> }, // Default to seller dashboard
       { path: 'seller', element: <SellerDashboard /> },
       { path: 'seller/dashboard', element: <SellerDashboard /> },
-      { path: 'buyer', element: <BuyerDashboard /> },
-      { path: 'buyer/dashboard', element: <BuyerDashboard /> },
+      // Buyer routes removed - buyers browse /listings/ in Airbnb model
       { path: 'settings', element: <Settings /> },
     ],
   },
@@ -154,40 +153,30 @@ const routes = [
       { path: 'documents', element: <DocumentVault /> },
     ],
   },
+  // ==============================================================================
+  // MARKETPLACE ENHANCEMENTS - Extended listings functionality
+  // Buyers browse here (no dashboard needed, like Airbnb guests)
+  // ==============================================================================
   {
-    path: '/dashboard',
+    path: '/listings',
     element: (
       <RootLayout>
-        <ProtectedRoute element={<AuthenticatedLayout />} />
+        <MainLayout />
       </RootLayout>
     ),
     children: [
-      { index: true, element: <BuyerDashboard /> }, // Default to buyer dashboard
-      { path: 'buyer', element: <BuyerDashboard /> },
+      { index: true, element: <ListingSearch /> },
+      { path: 'advanced', element: <ListingSearch /> },
+      { path: ':id', element: <ListingSearch /> }, // Will show listing details
+      { path: ':id/data-room', element: <ListingSearch /> }, // Will show data room
     ],
   },
+  // ==============================================================================
+  // BUSINESS OWNER DOMAIN - /my-business/* (Airbnb /hosting/ equivalent)
+  // Only accessible if user owns/manages a business
+  // ==============================================================================
   {
-    path: '/profile',
-    element: (
-      <RootLayout>
-        <ProtectedRoute element={<AuthenticatedLayout />} />
-      </RootLayout>
-    ),
-    children: [
-      { index: true, element: <Settings /> }, // Default to settings
-      { path: 'settings', element: <Settings /> },
-    ],
-  },
-  {
-    path: '/messages',
-    element: (
-      <RootLayout>
-        <ProtectedRoute element={<Messages />} />
-      </RootLayout>
-    ),
-  },
-  {
-    path: '/seller',
+    path: '/my-business',
     element: (
       <RootLayout>
         <ProtectedRoute element={<AuthenticatedLayout />} />
@@ -195,23 +184,181 @@ const routes = [
     ),
     children: [
       { index: true, element: <SellerDashboard /> },
-      { path: 'dashboard', element: <SellerDashboard /> },
+      { path: 'overview', element: <SellerDashboard /> },
+      { path: 'listings', element: <SellerDashboard /> },
       { path: 'listings/new', element: <CreateListingPage /> },
-      { path: 'listings/edit', element: <EditListingPage /> },
+      { path: 'listings/:id', element: <EditListingPage /> },
+      { path: 'listings/:id/analytics', element: <SellerDashboard /> },
+      { path: 'listings/:id/inquiries', element: <SellerDashboard /> },
+      { path: 'valuations', element: <BusinessValuation /> },
+      { path: 'documents', element: <DocumentVault /> },
+      { path: 'performance', element: <SellerDashboard /> },
     ],
   },
+  // ==============================================================================
+  // USER DOMAIN - /users/* (Universal account management)
+  // ==============================================================================
   {
-    path: '/buyer',
+    path: '/users',
     element: (
       <RootLayout>
         <ProtectedRoute element={<AuthenticatedLayout />} />
       </RootLayout>
     ),
     children: [
-      { index: true, element: <BuyerDashboard /> },
-      { path: 'dashboard', element: <BuyerDashboard /> },
-      { path: 'search', element: <ListingSearch /> },
-      { path: 'saved-searches', element: <BuyerDashboard /> },
+      { index: true, element: <Settings /> },
+      { path: 'profile', element: <Settings /> },
+      { path: 'settings', element: <Settings /> },
+      { path: 'saved', element: <Settings /> }, // Saved listings for buyers
+      { path: 'notifications', element: <Settings /> },
+      { path: 'billing', element: <Settings /> },
+      { path: 'security', element: <Settings /> },
+      { path: 'consultation', element: <Settings /> }, // Buyer consultation booking
+    ],
+  },
+  // ==============================================================================
+  // UNIVERSAL COMMUNICATION - /messages/* (like Airbnb /messages/*)
+  // ==============================================================================
+  {
+    path: '/messages',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <Messages /> },
+      { path: ':conversationId', element: <Messages /> },
+    ],
+  },
+  // ==============================================================================
+  // BACKWARD COMPATIBILITY REDIRECTS - AIRBNB MODEL
+  // ==============================================================================
+  {
+    path: '/dashboard',
+    loader: () => {
+      // Redirect legacy dashboard based on role (like Airbnb)
+      const userRole = localStorage.getItem('userRole') || 'buyer';
+      if (userRole === 'seller') {
+        return redirect('/my-business'); // Business owners get /my-business/
+      }
+      return redirect('/listings'); // Buyers browse listings (no dashboard)
+    },
+  },
+  {
+    path: '/dashboard/buyer',
+    loader: () => redirect('/listings'), // No buyer dashboard, browse listings
+  },
+  {
+    path: '/account/seller',
+    loader: () => redirect('/my-business'),
+  },
+  {
+    path: '/selling',
+    loader: () => redirect('/my-business'),
+  },
+  {
+    path: '/selling/*',
+    loader: ({ params }) => redirect('/my-business/' + (params['*'] || '')),
+  },
+  {
+    path: '/buying',
+    loader: () => redirect('/listings'),
+  },
+  {
+    path: '/buying/*',
+    loader: () => redirect('/listings'),
+  },
+  {
+    path: '/buyer',
+    loader: () => redirect('/listings'),
+  },
+  {
+    path: '/seller',
+    loader: () => redirect('/my-business'),
+  },
+  {
+    path: '/profile',
+    loader: () => redirect('/users/profile'),
+  },
+  {
+    path: '/account',
+    loader: () => redirect('/users/profile'),
+  },
+  // ==============================================================================
+  // USER DOMAIN - /users/* (Universal account management)
+  // ==============================================================================
+  {
+    path: '/users',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <Settings /> }, // Default to profile
+      { path: 'profile', element: <Settings /> },
+      { path: 'settings', element: <Settings /> },
+      { path: 'billing', element: <Settings /> },
+      { path: 'security', element: <Settings /> },
+      { path: 'notifications', element: <Settings /> },
+    ],
+  },
+  // ==============================================================================
+  // COMMUNICATION DOMAIN - /messages/* (Universal messaging)
+  // ==============================================================================
+  {
+    path: '/messages',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<Messages />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <Messages /> },
+      { path: ':conversationId', element: <Messages /> },
+    ],
+  },
+  // ==============================================================================
+  // BUSINESS OWNER DOMAIN - /my-business/* (Airbnb /hosting/ equivalent)
+  // Only accessible if user owns/manages a business
+  // ==============================================================================
+  {
+    path: '/my-business',
+    element: (
+      <RootLayout>
+        <ProtectedRoute element={<AuthenticatedLayout />} />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <SellerDashboard /> },
+      { path: 'overview', element: <SellerDashboard /> },
+      { path: 'listings', element: <SellerDashboard /> },
+      { path: 'listings/new', element: <CreateListingPage /> },
+      { path: 'listings/:id', element: <EditListingPage /> },
+      { path: 'listings/:id/analytics', element: <SellerDashboard /> },
+      { path: 'listings/:id/inquiries', element: <SellerDashboard /> },
+      { path: 'valuations', element: <BusinessValuation /> },
+      { path: 'documents', element: <DocumentVault /> },
+      { path: 'performance', element: <SellerDashboard /> },
+    ],
+  },
+  // ==============================================================================
+  // MARKETPLACE ENHANCEMENTS - Extended listings functionality
+  // Buyers browse here (no dashboard needed, like Airbnb guests)
+  // ==============================================================================
+  {
+    path: '/listings',
+    element: (
+      <RootLayout>
+        <MainLayout />
+      </RootLayout>
+    ),
+    children: [
+      { index: true, element: <ListingSearch /> },
+      { path: 'advanced', element: <ListingSearch /> },
+      { path: ':id', element: <ListingSearch /> }, // Will show listing details
+      { path: ':id/data-room', element: <ListingSearch /> }, // Will show data room
     ],
   },
   {

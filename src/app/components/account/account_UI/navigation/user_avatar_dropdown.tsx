@@ -34,9 +34,9 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dropdownRef.current && 
+        dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
-        avatarRef.current && 
+        avatarRef.current &&
         !avatarRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
@@ -62,30 +62,33 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
   const handleLogout = async () => {
     try {
       console.log('🔓 Initiating logout...');
-      
+
       // 🔧 DEV BYPASS FIX: Set logout flag to override dev authentication
       sessionStorage.setItem('user_logged_out', 'true');
       console.log('🔧 Set logout override flag for dev bypass');
-      
+
       // Try to notify backend of logout (optional)
       try {
-        await fetch(`${process.env.REACT_APP_NODE_BACKEND_URL || 'http://localhost:3001'}/api/auth/logout`, {
-          method: 'POST',
-          credentials: 'include',
-        });
+        await fetch(
+          `${process.env.REACT_APP_NODE_BACKEND_URL || 'http://localhost:3001'}/api/auth/logout`,
+          {
+            method: 'POST',
+            credentials: 'include',
+          }
+        );
         console.log('🌐 Notified backend of logout');
       } catch (error) {
         console.warn('⚠️ Backend logout notification failed:', error);
       }
-      
+
       // Clear access_token cookie directly
       document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       console.log('🍪 Cleared access_token cookie');
-      
+
       // Dispatch events for navigation state synchronization
       window.dispatchEvent(new CustomEvent('auth-logout'));
       window.dispatchEvent(new CustomEvent('auth-change'));
-      
+
       console.log('✅ Logout successful, navigating to home');
       navigate(UrlGeneratorService.root());
     } catch (error) {
@@ -100,70 +103,48 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
 
   const handleMenuClick = (action: string) => {
     setIsOpen(false);
-    
+
     switch (action) {
-      // Buyer navigation
-      case 'buyer-dashboard':
-        navigate('/dashboard/buyer');
+      // Buyer navigation (SIMPLIFIED CTO MODEL)
+      case 'browse-listings':
+        navigate('/listings');
         break;
-      case 'discover':
-        navigate('/search');
+      case 'saved':
+        navigate('/users/saved'); // Saved items in user profile
         break;
-      case 'favorites':
-        navigate('/dashboard/buyer');
-        // Simulate clicking the favorites tab
-        setTimeout(() => {
-          const event = new CustomEvent('navigate-buyer-tab', { detail: 'favorites' });
-          window.dispatchEvent(event);
-        }, 100);
-        break;
-      case 'inquiries':
-        navigate('/dashboard/buyer');
-        setTimeout(() => {
-          const event = new CustomEvent('navigate-buyer-tab', { detail: 'inquiries' });
-          window.dispatchEvent(event);
-        }, 100);
-        break;
-      case 'my-businesses':
-        navigate('/dashboard/buyer');
-        setTimeout(() => {
-          const event = new CustomEvent('navigate-buyer-tab', { detail: 'businesses' });
-          window.dispatchEvent(event);
-        }, 100);
-        break;
-        
-      // Seller navigation  
-      case 'seller-dashboard':
-        navigate('/business/overview');
+
+      // Business Owner navigation (AIRBNB MODEL - /my-business/*)
+      case 'business-dashboard':
+        navigate('/my-business');
         break;
       case 'my-business':
-        navigate('/business/overview');
+        navigate('/my-business/overview');
+        break;
+      case 'my-listings':
+        navigate('/my-business/listings');
         break;
       case 'valuation':
-        navigate('/business/valuation');
+        navigate('/my-business/valuations');
         break;
-      case 'solvency':
-        navigate('/business/solvency');
+      case 'performance':
+        navigate('/my-business/performance');
         break;
-      case 'listings':
-        navigate('/business/listing');
+      case 'documents':
+        navigate('/my-business/documents');
         break;
-      case 'reports':
-        navigate('/business/valuation');
-        break;
-        
+
       // Common navigation
       case 'messages':
         navigate('/messages');
         break;
       case 'profile-settings':
-        navigate('/account/settings');
+        navigate('/users/settings');
         break;
       case 'help-center':
         navigate('/help');
         break;
-      case 'sell-business':
-        navigate('/seller/listings/new');
+      case 'create-listing':
+        navigate('/my-business/listings/new');
         break;
       case 'logout':
         handleLogout();
@@ -173,119 +154,138 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
 
   const isSeller = user?.userType === UserType.Seller;
   const isBuyer = user?.userType === UserType.Buyer;
-  const defaultAvatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80";
+  const defaultAvatar =
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80';
 
-  // Role-based menu items
+  // BUYER DROPDOWN - SIMPLIFIED CTO MODEL
+  // Most buyer activity happens through /messages/ - inquiries, offers, negotiations
   const buyerMenuItems = [
     {
-      key: 'buyer-dashboard',
+      key: 'browse-listings',
       icon: LayoutDashboard,
-      label: 'Dashboard',
-      action: 'buyer-dashboard'
+      label: 'Browse Businesses',
+      action: 'browse-listings',
     },
     {
-      key: 'discover',
-      icon: Search,
-      label: 'Discover Businesses',
-      action: 'discover'
-    },
-    {
-      key: 'favorites',
+      key: 'saved',
       icon: Heart,
-      label: 'Favorites',
-      action: 'favorites'
-    },
-    {
-      key: 'inquiries',
-      icon: MessageSquare,
-      label: 'My Inquiries',
-      action: 'inquiries'
+      label: 'Saved Items',
+      action: 'saved',
     },
     {
       key: 'messages',
       icon: MessageCircle,
       label: 'Messages',
-      action: 'messages'
+      action: 'messages',
     },
     {
       key: 'divider-1',
-      isDivider: true
+      isDivider: true,
     },
     {
       key: 'profile-settings',
       icon: Settings,
-      label: 'Profile & Settings',
-      action: 'profile-settings'
+      label: 'Account Settings',
+      action: 'profile-settings',
     },
     {
       key: 'help-center',
       icon: HelpCircle,
       label: 'Help Center',
-      action: 'help-center'
+      action: 'help-center',
     },
     {
       key: 'divider-2',
-      isDivider: true
+      isDivider: true,
     },
     {
       key: 'logout',
       icon: LogOut,
       label: 'Log Out',
       action: 'logout',
-      isLogout: true
-    }
+      isLogout: true,
+    },
   ];
 
-  const sellerMenuItems = [
+  // BUSINESS OWNER DROPDOWN - AIRBNB HOST MODEL (/my-business/*)
+  const businessOwnerMenuItems = [
     {
-      key: 'seller-dashboard',
+      key: 'business-dashboard',
       icon: LayoutDashboard,
-      label: 'Dashboard',
-      action: 'seller-dashboard'
+      label: 'My Business',
+      action: 'business-dashboard',
+    },
+    {
+      key: 'my-listings',
+      icon: Building2,
+      label: 'My Listings',
+      action: 'my-listings',
+    },
+    {
+      key: 'valuation',
+      icon: Calculator,
+      label: 'Valuations',
+      action: 'valuation',
+    },
+    {
+      key: 'performance',
+      icon: TrendingUp,
+      label: 'Performance',
+      action: 'performance',
+    },
+    {
+      key: 'documents',
+      icon: FileText,
+      label: 'Documents',
+      action: 'documents',
     },
     {
       key: 'messages',
       icon: MessageCircle,
       label: 'Messages',
-      action: 'messages'
+      action: 'messages',
     },
     {
       key: 'divider-1',
-      isDivider: true
+      isDivider: true,
+    },
+    {
+      key: 'create-listing',
+      icon: Target,
+      label: 'Create New Listing',
+      action: 'create-listing',
+    },
+    {
+      key: 'divider-2',
+      isDivider: true,
     },
     {
       key: 'profile-settings',
       icon: Settings,
-      label: 'Profile & Settings',
-      action: 'profile-settings'
+      label: 'Account Settings',
+      action: 'profile-settings',
     },
     {
       key: 'help-center',
       icon: HelpCircle,
       label: 'Help Center',
-      action: 'help-center'
+      action: 'help-center',
     },
     {
-      key: 'divider-2',
-      isDivider: true
-    },
-    {
-      key: 'sell-business',
-      icon: Target,
-      label: 'Sell a Business',
-      action: 'sell-business'
+      key: 'divider-3',
+      isDivider: true,
     },
     {
       key: 'logout',
       icon: LogOut,
       label: 'Log Out',
       action: 'logout',
-      isLogout: true
-    }
+      isLogout: true,
+    },
   ];
 
-  // Select appropriate menu based on user type
-  const menuItems = isBuyer ? buyerMenuItems : sellerMenuItems;
+  // Select appropriate menu based on user type (AIRBNB MODEL)
+  const menuItems = isSeller ? businessOwnerMenuItems : buyerMenuItems;
 
   return (
     <div className="relative">
@@ -298,7 +298,7 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
         onClick={() => setIsOpen(!isOpen)}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => {
+        onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             setIsOpen(!isOpen);
@@ -322,19 +322,13 @@ const UserAvatarDropdown = ({ user }: UserAvatarDropdownProps) => {
         >
           {menuItems.map((item, index) => {
             if (item.isDivider) {
-              return (
-                <div 
-                  key={item.key}
-                  className="h-px bg-gray-200 my-1"
-                  role="separator"
-                />
-              );
+              return <div key={item.key} className="h-px bg-gray-200 my-1" role="separator" />;
             }
 
             const Icon = item.icon!;
             const isFirst = index === 0;
             const isLast = index === menuItems.length - 1;
-            
+
             return (
               <button
                 key={item.key}

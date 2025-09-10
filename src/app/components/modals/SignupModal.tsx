@@ -103,10 +103,10 @@ const SignupModal: React.FC = () => {
 
         switch (roleForSignup) {
           case 'seller':
-            dashboardUrl = UrlGeneratorService.sellerDashboard(); // '/account/seller'
+            dashboardUrl = UrlGeneratorService.myBusiness(); // '/my-business/' (like Airbnb host mode)
             break;
           case 'buyer':
-            dashboardUrl = UrlGeneratorService.buyerDashboard(); // '/dashboard/buyer'
+            dashboardUrl = UrlGeneratorService.listings(); // '/listings/' (browse listings like Airbnb guests)
             break;
           // Note: 'both' role doesn't come from UserIntent, but if it did:
           // case 'both':

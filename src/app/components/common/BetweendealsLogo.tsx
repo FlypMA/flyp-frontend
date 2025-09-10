@@ -5,7 +5,7 @@ interface BetweendealsLogoProps {
   /**
    * Logo variant/context for different use cases
    */
-  variant?: 'header' | 'footer' | 'sidebar' | 'mobile' | 'icon';
+  variant?: 'header' | 'footer' | 'sidebar' | 'mobile';
 
   /**
    * Custom width override

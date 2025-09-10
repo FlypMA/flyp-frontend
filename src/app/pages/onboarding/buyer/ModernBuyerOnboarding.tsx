@@ -328,8 +328,8 @@ const ModernBuyerOnboarding = () => {
       <OnboardingSuccess
         userType="buyer"
         userName={buyerData.fullName.split(' ')[0] || 'Investor'}
-        onContinue={() => navigate('/buyer/dashboard')}
-        onScheduleCall={() => navigate('/buyer/schedule-consultation')}
+        onContinue={() => navigate('/listings')} // AIRBNB MODEL: Browse listings
+        onScheduleCall={() => navigate('/users/consultation')} // User-specific consultation
       />
     );
   }

@@ -24,13 +24,7 @@ import {
   X,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { 
-  CleanInput, 
-  CleanTextarea, 
-  CleanSelect,
-  PrimaryButton,
-  SecondaryButton
-} from '../ui';
+import { CleanInput, CleanTextarea, CleanSelect, PrimaryButton, SecondaryButton } from '../ui';
 import RevenueRangeSlider from './RevenueRangeSlider';
 import SellerOnboardingNavigation from './SellerOnboardingNavigation';
 import TimelineSelector from './TimelineSelector';
@@ -68,7 +62,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
   onClose,
   onComplete,
   existingData,
-  isEditMode = false
+  isEditMode = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,7 +92,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
     if (isOpen) {
       setCurrentStep(isEditMode ? 1 : 0); // Skip welcome step in edit mode
       setIsSubmitting(false);
-      
+
       // Populate form with existing data if in edit mode
       if (isEditMode && existingData) {
         setFormData(existingData);
@@ -139,16 +133,19 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
   const handleSaveDraft = async () => {
     try {
       // Save current progress to localStorage
-      localStorage.setItem('sellerOnboardingDraft', JSON.stringify({
-        formData,
-        currentStep,
-        timestamp: new Date().toISOString()
-      }));
-      
+      localStorage.setItem(
+        'sellerOnboardingDraft',
+        JSON.stringify({
+          formData,
+          currentStep,
+          timestamp: new Date().toISOString(),
+        })
+      );
+
       // Show success feedback
       // You can add a toast notification here
       console.log('Draft saved successfully');
-      
+
       // Optional: Show a temporary success message
       // This could be replaced with a toast notification system
     } catch (error) {
@@ -158,23 +155,23 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     // Clear draft after successful submission
     localStorage.removeItem('sellerOnboardingDraft');
-    
+
     // Trigger confetti
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { y: 0.6 }
+      origin: { y: 0.6 },
     });
 
     setCurrentStep(totalSteps - 1); // Go to success step
     setIsSubmitting(false);
-    
+
     // Call completion callback if provided
     if (onComplete) {
       onComplete(formData);
@@ -195,7 +192,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
       10: 'Price Expectations',
       11: 'Contact Email',
       12: 'Phone Number',
-      13: 'Verification'
+      13: 'Verification',
     };
     return stepTitles[stepNumber] || `Step ${stepNumber}`;
   };
@@ -210,20 +207,34 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: return formData.businessType !== '' && formData.industry !== '';
-      case 2: return formData.businessName.trim() !== '';
-      case 3: return formData.city.trim() !== '';
-      case 4: return formData.foundedYear !== '';
-      case 5: return formData.description.trim().length >= 50;
-      case 6: return formData.employeeCount !== '';
-      case 7: return true; // Revenue range always valid
-      case 8: return formData.sellingReason !== '';
-      case 9: return formData.timeline !== '';
-      case 10: return formData.priceExpectations !== '';
-      case 11: return formData.contactEmail.includes('@');
-      case 12: return formData.contactPhone.trim() !== '';
-      case 13: return true; // Verification is optional
-      default: return true;
+      case 1:
+        return formData.businessType !== '' && formData.industry !== '';
+      case 2:
+        return formData.businessName.trim() !== '';
+      case 3:
+        return formData.city.trim() !== '';
+      case 4:
+        return formData.foundedYear !== '';
+      case 5:
+        return formData.description.trim().length >= 50;
+      case 6:
+        return formData.employeeCount !== '';
+      case 7:
+        return true; // Revenue range always valid
+      case 8:
+        return formData.sellingReason !== '';
+      case 9:
+        return formData.timeline !== '';
+      case 10:
+        return formData.priceExpectations !== '';
+      case 11:
+        return formData.contactEmail.includes('@');
+      case 12:
+        return formData.contactPhone.trim() !== '';
+      case 13:
+        return true; // Verification is optional
+      default:
+        return true;
     }
   };
 
@@ -237,12 +248,10 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
             <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-8">
               <Building2 className="w-10 h-10 text-primary-600" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Ready to sell your business?
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Ready to sell your business?</h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Tell us about your business and we'll help you create an attractive listing 
-              that connects you with serious buyers.
+              Tell us about your business and we'll help you create an attractive listing that
+              connects you with serious buyers.
             </p>
             <Button
               size="lg"
@@ -273,17 +282,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         return (
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What's your business name?
-              </h2>
-              <p className="text-gray-600">
-                This will be displayed prominently in your listing.
-              </p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">What's your business name?</h2>
+              <p className="text-gray-600">This will be displayed prominently in your listing.</p>
             </div>
             <CleanInput
               placeholder="e.g., Premium Restaurant Brussels"
               value={formData.businessName}
-              onChange={(value) => updateFormData({ businessName: value })}
+              onChange={value => updateFormData({ businessName: value })}
               className="text-center"
               size="lg"
             />
@@ -298,16 +303,14 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 Where is your business located?
               </h2>
-              <p className="text-gray-600">
-                We'll show this to buyers looking in your area.
-              </p>
+              <p className="text-gray-600">We'll show this to buyers looking in your area.</p>
             </div>
             <div className="space-y-6">
               <div>
                 <CleanInput
                   label="Country"
                   value={formData.country}
-                  onChange={(value) => updateFormData({ country: value })}
+                  onChange={value => updateFormData({ country: value })}
                   className="text-center"
                 />
               </div>
@@ -316,7 +319,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   label="City"
                   placeholder="e.g., Brussels, Antwerp, Ghent"
                   value={formData.city}
-                  onChange={(value) => updateFormData({ city: value })}
+                  onChange={value => updateFormData({ city: value })}
                   className="text-center"
                 />
               </div>
@@ -332,9 +335,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 When was your business founded?
               </h2>
-              <p className="text-gray-600">
-                This helps buyers understand your business maturity.
-              </p>
+              <p className="text-gray-600">This helps buyers understand your business maturity.</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Array.from({ length: 10 }, (_, i) => {
@@ -356,9 +357,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                         : ''
                     }`}
                   >
-                    <span className={`font-semibold ${
-                      formData.foundedYear === year.toString() ? 'text-primary-700' : 'text-gray-700'
-                    }`}>
+                    <span
+                      className={`font-semibold ${
+                        formData.foundedYear === year.toString()
+                          ? 'text-primary-700'
+                          : 'text-gray-700'
+                      }`}
+                    >
                       {year}
                     </span>
                   </Card>
@@ -369,7 +374,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
               <CleanInput
                 placeholder="Or enter a different year"
                 value={formData.foundedYear}
-                onChange={(value) => updateFormData({ foundedYear: value })}
+                onChange={value => updateFormData({ foundedYear: value })}
                 className="max-w-xs mx-auto"
               />
             </div>
@@ -381,23 +386,23 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           <div className="max-w-3xl mx-auto py-12">
             <div className="text-center mb-12">
               <FileText className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Describe your business
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Describe your business</h2>
               <p className="text-gray-600">
-                Tell potential buyers what makes your business special. Include key services, 
+                Tell potential buyers what makes your business special. Include key services,
                 competitive advantages, and growth opportunities.
               </p>
             </div>
             <CleanTextarea
               placeholder="e.g., We are a premium restaurant chain operating 5 locations across Brussels. Our restaurants serve contemporary European cuisine with a focus on locally sourced ingredients. We have built a strong reputation for quality service and have a loyal customer base..."
               value={formData.description}
-              onChange={(value) => updateFormData({ description: value })}
+              onChange={value => updateFormData({ description: value })}
               minRows={8}
               className="text-base"
             />
             <div className="mt-2 text-right">
-              <span className={`text-sm ${formData.description.length >= 50 ? 'text-green-600' : 'text-gray-500'}`}>
+              <span
+                className={`text-sm ${formData.description.length >= 50 ? 'text-green-600' : 'text-gray-500'}`}
+              >
                 {formData.description.length}/50 minimum characters
               </span>
             </div>
@@ -424,7 +429,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 { value: '51-100', label: '51-100 employees', desc: 'Medium-sized business' },
                 { value: '101-250', label: '101-250 employees', desc: 'Large operation' },
                 { value: '250+', label: '250+ employees', desc: 'Enterprise scale' },
-              ].map((option) => (
+              ].map(option => (
                 <Card
                   key={option.value}
                   isPressable
@@ -442,9 +447,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   }`}
                 >
                   <div className="text-center">
-                    <h3 className={`font-semibold ${
-                      formData.employeeCount === option.value ? 'text-primary-700' : 'text-gray-900'
-                    }`}>
+                    <h3
+                      className={`font-semibold ${
+                        formData.employeeCount === option.value
+                          ? 'text-primary-700'
+                          : 'text-gray-900'
+                      }`}
+                    >
                       {option.label}
                     </h3>
                     <p className="text-sm text-gray-600 mt-1">{option.desc}</p>
@@ -458,8 +467,8 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
       case 7:
         return (
           <RevenueRangeSlider
-            value={formData.revenueRange}
-            onChange={(value) => updateFormData({ revenueRange: value })}
+            value={formData.revenueRange as [number, number]}
+            onChange={value => updateFormData({ revenueRange: value })}
           />
         );
 
@@ -482,7 +491,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 { value: 'health', label: 'Health Reasons', desc: 'Health considerations' },
                 { value: 'growth', label: 'Growth Capital', desc: 'Need investment for growth' },
                 { value: 'other', label: 'Other', desc: 'Different reason' },
-              ].map((reason) => (
+              ].map(reason => (
                 <Card
                   key={reason.value}
                   isPressable
@@ -500,9 +509,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   }`}
                 >
                   <div className="text-center">
-                    <h3 className={`font-semibold ${
-                      formData.sellingReason === reason.value ? 'text-primary-700' : 'text-gray-900'
-                    }`}>
+                    <h3
+                      className={`font-semibold ${
+                        formData.sellingReason === reason.value
+                          ? 'text-primary-700'
+                          : 'text-gray-900'
+                      }`}
+                    >
                       {reason.label}
                     </h3>
                     <p className="text-sm text-gray-600 mt-1">{reason.desc}</p>
@@ -517,7 +530,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         return (
           <TimelineSelector
             selectedValue={formData.timeline}
-            onSelect={(value) => {
+            onSelect={value => {
               updateFormData({ timeline: value });
               // Auto-advance to next step after a brief delay for visual feedback
               setTimeout(() => {
@@ -531,7 +544,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         return (
           <PriceExpectationsSelector
             selectedValue={formData.priceExpectations}
-            onSelect={(value) => {
+            onSelect={value => {
               updateFormData({ priceExpectations: value });
               // Auto-advance to next step after a brief delay for visual feedback
               setTimeout(() => {
@@ -546,9 +559,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
               <Mail className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What's your contact email?
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">What's your contact email?</h2>
               <p className="text-gray-600">
                 We'll use this to send you updates and buyer inquiries.
               </p>
@@ -557,7 +568,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
               type="email"
               placeholder="your.email@company.com"
               value={formData.contactEmail}
-              onChange={(value) => updateFormData({ contactEmail: value })}
+              onChange={value => updateFormData({ contactEmail: value })}
               className="text-center"
               size="lg"
             />
@@ -569,18 +580,14 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
           <div className="max-w-2xl mx-auto py-12">
             <div className="text-center mb-12">
               <Phone className="w-16 h-16 text-primary-600 mx-auto mb-6" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                What's your phone number?
-              </h2>
-              <p className="text-gray-600">
-                Serious buyers may want to speak with you directly.
-              </p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">What's your phone number?</h2>
+              <p className="text-gray-600">Serious buyers may want to speak with you directly.</p>
             </div>
             <CleanInput
               type="tel"
               placeholder="+32 XXX XX XX XX"
               value={formData.contactPhone}
-              onChange={(value) => updateFormData({ contactPhone: value })}
+              onChange={value => updateFormData({ contactPhone: value })}
               className="text-center"
               size="lg"
             />
@@ -596,8 +603,8 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 Would you like business verification?
               </h2>
               <p className="text-gray-600">
-                Verified businesses get more attention from serious buyers.
-                We'll help you verify your business documents.
+                Verified businesses get more attention from serious buyers. We'll help you verify
+                your business documents.
               </p>
             </div>
             <div className="space-y-4">
@@ -605,19 +612,21 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 isPressable
                 onPress={() => updateFormData({ wantsVerification: true })}
                 className={`p-6 cursor-pointer transition-all hover:shadow-md ${
-                  formData.wantsVerification
-                    ? 'ring-2 ring-primary-500 bg-primary-50'
-                    : ''
+                  formData.wantsVerification ? 'ring-2 ring-primary-500 bg-primary-50' : ''
                 }`}
               >
                 <div className="flex items-center space-x-4">
-                  <CheckCircle className={`w-6 h-6 ${
-                    formData.wantsVerification ? 'text-primary-600' : 'text-gray-400'
-                  }`} />
+                  <CheckCircle
+                    className={`w-6 h-6 ${
+                      formData.wantsVerification ? 'text-primary-600' : 'text-gray-400'
+                    }`}
+                  />
                   <div>
-                    <h3 className={`font-semibold ${
-                      formData.wantsVerification ? 'text-primary-700' : 'text-gray-900'
-                    }`}>
+                    <h3
+                      className={`font-semibold ${
+                        formData.wantsVerification ? 'text-primary-700' : 'text-gray-900'
+                      }`}
+                    >
                       Yes, verify my business
                     </h3>
                     <p className="text-sm text-gray-600">
@@ -631,19 +640,21 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 isPressable
                 onPress={() => updateFormData({ wantsVerification: false })}
                 className={`p-6 cursor-pointer transition-all hover:shadow-md ${
-                  !formData.wantsVerification
-                    ? 'ring-2 ring-gray-300 bg-gray-50'
-                    : ''
+                  !formData.wantsVerification ? 'ring-2 ring-gray-300 bg-gray-50' : ''
                 }`}
               >
                 <div className="flex items-center space-x-4">
-                  <X className={`w-6 h-6 ${
-                    !formData.wantsVerification ? 'text-gray-600' : 'text-gray-400'
-                  }`} />
+                  <X
+                    className={`w-6 h-6 ${
+                      !formData.wantsVerification ? 'text-gray-600' : 'text-gray-400'
+                    }`}
+                  />
                   <div>
-                    <h3 className={`font-semibold ${
-                      !formData.wantsVerification ? 'text-gray-700' : 'text-gray-900'
-                    }`}>
+                    <h3
+                      className={`font-semibold ${
+                        !formData.wantsVerification ? 'text-gray-700' : 'text-gray-900'
+                      }`}
+                    >
                       Not right now
                     </h3>
                     <p className="text-sm text-gray-600">
@@ -662,28 +673,16 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              🎉 Congratulations!
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">🎉 Congratulations!</h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Your business listing has been created successfully. We'll review your 
-              information and get your listing live within 24 hours.
+              Your business listing has been created successfully. We'll review your information and
+              get your listing live within 24 hours.
             </p>
             <div className="flex justify-center space-x-4">
-              <Button
-                size="lg"
-                color="primary"
-                onPress={() => handleClose()}
-                className="px-8"
-              >
+              <Button size="lg" color="primary" onPress={() => handleClose()} className="px-8">
                 Go to Dashboard
               </Button>
-              <Button
-                size="lg"
-                variant="bordered"
-                onPress={() => handleClose()}
-                className="px-8"
-              >
+              <Button size="lg" variant="bordered" onPress={() => handleClose()} className="px-8">
                 Close
               </Button>
             </div>
@@ -696,16 +695,16 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
   };
 
   return (
-        <Modal
+    <Modal
       isOpen={isOpen}
       onClose={handleClose}
       size="full"
       classNames={{
-        base: "h-screen max-h-screen w-screen max-w-none m-0 rounded-none",
-        body: "p-0",
-        header: "hidden",
-        footer: "hidden",
-        wrapper: "w-full h-full p-0"
+        base: 'h-screen max-h-screen w-screen max-w-none m-0 rounded-none',
+        body: 'p-0',
+        header: 'hidden',
+        footer: 'hidden',
+        wrapper: 'w-full h-full p-0',
       }}
       hideCloseButton
       isDismissable={currentStep === 0 || currentStep === totalSteps - 1}
@@ -722,24 +721,20 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                   <span className="text-sm text-gray-500">{Math.round(progress)}% complete</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
+                  <div
                     className="bg-primary-600 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
               </div>
-              
+
               {/* Step Information */}
               <div className="flex-1 p-6">
                 <div className="mb-6">
-                  <div className="text-2xl font-bold text-primary-600 mb-1">
-                    Step {currentStep}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    of {totalSteps - 2} steps
-                  </div>
+                  <div className="text-2xl font-bold text-primary-600 mb-1">Step {currentStep}</div>
+                  <div className="text-sm text-gray-500">of {totalSteps - 2} steps</div>
                 </div>
-                
+
                 {/* Step Indicators */}
                 <div className="space-y-3">
                   {Array.from({ length: totalSteps - 2 }).map((_, index) => {
@@ -747,21 +742,29 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                     const isCompleted = stepNumber < currentStep;
                     const isCurrent = stepNumber === currentStep;
                     const isUpcoming = stepNumber > currentStep;
-                    
+
                     return (
                       <div key={stepNumber} className="flex items-center space-x-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                          isCompleted ? 'bg-primary-600 text-white' :
-                          isCurrent ? 'bg-primary-100 text-primary-600 ring-2 ring-primary-600' :
-                          'bg-gray-200 text-gray-500'
-                        }`}>
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                            isCompleted
+                              ? 'bg-primary-600 text-white'
+                              : isCurrent
+                                ? 'bg-primary-100 text-primary-600 ring-2 ring-primary-600'
+                                : 'bg-gray-200 text-gray-500'
+                          }`}
+                        >
                           {isCompleted ? <CheckCircle className="w-4 h-4" /> : stepNumber}
                         </div>
-                        <div className={`text-sm ${
-                          isCurrent ? 'text-gray-900 font-medium' : 
-                          isCompleted ? 'text-gray-700' : 
-                          'text-gray-400'
-                        }`}>
+                        <div
+                          className={`text-sm ${
+                            isCurrent
+                              ? 'text-gray-900 font-medium'
+                              : isCompleted
+                                ? 'text-gray-700'
+                                : 'text-gray-400'
+                          }`}
+                        >
                           {getStepTitle(stepNumber)}
                         </div>
                       </div>
@@ -784,7 +787,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                       Go Back
                     </Button>
                   )}
-                  
+
                   {currentStep === 14 ? (
                     <Button
                       color="primary"
@@ -794,10 +797,13 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                       className="w-full"
                       size="lg"
                     >
-                      {isSubmitting ? 
-                        (isEditMode ? 'Saving changes...' : 'Setting up your listing...') : 
-                        (isEditMode ? 'Save Changes' : 'Complete Setup')
-                      }
+                      {isSubmitting
+                        ? isEditMode
+                          ? 'Saving changes...'
+                          : 'Setting up your listing...'
+                        : isEditMode
+                          ? 'Save Changes'
+                          : 'Complete Setup'}
                     </Button>
                   ) : (
                     <Button
@@ -833,10 +839,8 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
-              <div className="flex-1 overflow-y-auto p-8">
-                {renderStep()}
-              </div>
-              
+              <div className="flex-1 overflow-y-auto p-8">{renderStep()}</div>
+
               {/* Enhanced Navigation - Always Visible */}
               <SellerOnboardingNavigation
                 currentStep={currentStep}

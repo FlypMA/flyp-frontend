@@ -219,7 +219,7 @@ const SellerDashboard = () => {
         description: 'Add your business information to get started with valuation and listing.',
         icon: Building2,
         actionText: 'Complete Profile',
-        action: () => navigate('/account/settings'),
+        action: () => navigate('/users/settings'),
       });
     }
 
@@ -239,7 +239,7 @@ const SellerDashboard = () => {
         description: 'List your business for sale and start attracting qualified buyers.',
         icon: Target,
         actionText: 'Create Listing',
-        action: () => navigate('/seller/listings/new'),
+        action: () => navigate('/my-business/listings/new'),
       });
     }
 
@@ -500,7 +500,7 @@ const SellerDashboard = () => {
                       valuation={businessValuation}
                       onRequestValuation={() => setSelectedTab('valuation')}
                       onUpdateValuation={() => setSelectedTab('valuation')}
-                      onCreateListing={() => navigate('/seller/listings/new')}
+                      onCreateListing={() => navigate('/my-business/listings/new')}
                       className="max-w-none"
                     />
 
@@ -536,7 +536,7 @@ const SellerDashboard = () => {
                   // TODO: Navigate to valuation update wizard
                   console.log('Update valuation');
                 }}
-                onCreateListing={() => navigate('/seller/listings/new')}
+                onCreateListing={() => navigate('/my-business/listings/new')}
               />
             )}
 

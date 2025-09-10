@@ -20,52 +20,75 @@ class UrlGeneratorService {
   static emailVerification = () => '/verify-email';
 
   // ==============================================================================
-  // BUSINESS LISTINGS - Core marketplace functionality
+  // PUBLIC MARKETPLACE - Business listings (like Airbnb stays)
   // ==============================================================================
   static listings = () => '/listings';
   static listingById = (listingId: string) => `/listings/${listingId}`;
-  static createListing = () => '/listings/new';
-  static editListing = (listingId: string) => `/listings/${listingId}/edit`;
-  static listingAnalytics = (listingId: string) => `/listings/${listingId}/analytics`;
+  static listingDataRoom = (listingId: string) => `/listings/${listingId}/data-room`;
 
   // ==============================================================================
-  // DASHBOARD - Role-based user areas
+  // BUSINESS OWNER DOMAIN - /my-business/* (like Airbnb /hosting/*)
+  // For business owners managing their companies - only accessible if you own a business
   // ==============================================================================
-  static dashboard = () => '/dashboard';
-  static sellerDashboard = () => '/account/seller'; // Fixed: actual route is /account/seller
-  static buyerDashboard = () => '/dashboard/buyer';
+  static myBusiness = () => '/my-business';
+  static myBusinessOverview = () => '/my-business/overview';
+  static myBusinessListings = () => '/my-business/listings';
+  static createListing = () => '/my-business/listings/new';
+  static editListing = (listingId: string) => `/my-business/listings/${listingId}`;
+  static listingAnalytics = (listingId: string) => `/my-business/listings/${listingId}/analytics`;
+  static listingInquiries = (listingId: string) => `/my-business/listings/${listingId}/inquiries`;
+  static businessValuations = () => '/my-business/valuations';
+  static businessDocuments = () => '/my-business/documents';
+  static businessPerformance = () => '/my-business/performance';
 
   // ==============================================================================
-  // INQUIRIES & COMMUNICATIONS
+  // UNIVERSAL USER DOMAIN - /users/* (like Airbnb /users/*)
+  // Universal account management for all user types
   // ==============================================================================
-  static inquiries = () => '/inquiries';
-  static inquiryById = (inquiryId: string) => `/inquiries/${inquiryId}`;
-  static conversations = () => '/conversations';
-  static conversationById = (conversationId: string) => `/conversations/${conversationId}`;
+  static users = () => '/users';
+  static userProfile = () => '/users/profile';
+  static userSettings = () => '/users/settings';
+  static userBilling = () => '/users/billing';
+  static userSecurity = () => '/users/security';
+  static userNotifications = () => '/users/notifications';
 
   // ==============================================================================
-  // DUE DILIGENCE & DATA ROOMS
+  // UNIVERSAL COMMUNICATION - /messages/* (like Airbnb /messages/*)
   // ==============================================================================
+  static messages = () => '/messages';
+  static conversation = (conversationId: string) => `/messages/${conversationId}`;
+
+  // ==============================================================================
+  // LEGACY SUPPORT - Backward compatibility redirects
+  // ==============================================================================
+  static dashboard = () => '/listings'; // Redirect old dashboard to listings (like Airbnb home)
+  static sellerDashboard = () => '/my-business'; // Legacy: redirect to business owner domain
+  static buyerDashboard = () => '/listings'; // Legacy: redirect to listings (no buyer dashboard)
+  static selling = () => '/my-business'; // Legacy: redirect old selling to my-business
+  static buying = () => '/listings'; // Legacy: redirect old buying to listings
+
+  // ==============================================================================
+  // LEGACY REDIRECTS - For backward compatibility during migration
+  // CTO INSIGHT: Most buyer actions flow through /messages/ - inquiries, offers, negotiations
+  // ==============================================================================
+  static inquiries = () => '/messages'; // All inquiries flow through messages
+  static inquiryById = (inquiryId: string) => `/messages/${inquiryId}`;
+  static offers = () => '/messages'; // All offers flow through messages
+  static watchlist = () => '/users/saved'; // Watchlist becomes saved items
+  static conversations = () => '/messages';
+  static conversationById = (conversationId: string) => `/messages/${conversationId}`;
   static dataRoom = (listingId: string) => `/listings/${listingId}/data-room`;
-  static documents = (listingId: string) => `/listings/${listingId}/documents`;
-
-  // ==============================================================================
-  // USER ACCOUNT MANAGEMENT
-  // ==============================================================================
-  static account = () => '/account';
-  static accountSettings = () => '/account/settings';
-  static accountProfile = () => '/account/profile';
-  static accountNotifications = () => '/account/notifications';
-  static accountBilling = () => '/account/billing';
-  static accountSecurity = () => '/account/security';
-
-  // ==============================================================================
-  // SEARCH & DISCOVERY
-  // ==============================================================================
-  static search = () => '/search';
-  static searchResults = (query: string) => `/search?q=${encodeURIComponent(query)}`;
-  static advancedSearch = () => '/search/advanced';
-  static savedSearches = () => '/searches/saved';
+  static documents = (listingId: string) => `/my-business/documents`;
+  static account = () => '/users/profile';
+  static accountSettings = () => '/users/settings';
+  static accountProfile = () => '/users/profile';
+  static accountNotifications = () => '/users/notifications';
+  static accountBilling = () => '/users/billing';
+  static accountSecurity = () => '/users/security';
+  static search = () => '/listings'; // Search happens on listings page
+  static searchResults = (query: string) => `/listings?q=${encodeURIComponent(query)}`;
+  static advancedSearch = () => '/listings/advanced'; // Advanced search on listings page
+  static savedSearches = () => '/users/saved'; // Saved items in user profile
 
   // ==============================================================================
   // LEGAL & SUPPORT
@@ -102,16 +125,16 @@ class UrlGeneratorService {
   // ==============================================================================
 
   /**
-   * Generate dashboard URL based on user role
+   * Generate main destination URL based on user role - AIRBNB MODEL
    */
   static getDashboardForRole = (role: 'buyer' | 'seller' | 'admin') => {
     switch (role) {
       case 'seller':
-        return UrlGeneratorService.sellerDashboard();
+        return UrlGeneratorService.myBusiness(); // Business owners get /my-business/
       case 'buyer':
-        return UrlGeneratorService.buyerDashboard();
+        return UrlGeneratorService.listings(); // Buyers browse listings (like Airbnb guests)
       default:
-        return UrlGeneratorService.dashboard();
+        return UrlGeneratorService.listings(); // Default to marketplace
     }
   };
 
@@ -159,25 +182,74 @@ class UrlGeneratorService {
   };
 
   /**
-   * Generate account URL with specific section
+   * Generate user section URL - NEW ARCHITECTURE
    */
-  static getAccountSection = (
+  static getUserSection = (
     section: 'profile' | 'settings' | 'notifications' | 'billing' | 'security'
   ) => {
     switch (section) {
       case 'profile':
-        return UrlGeneratorService.accountProfile();
+        return UrlGeneratorService.userProfile();
       case 'settings':
-        return UrlGeneratorService.accountSettings();
+        return UrlGeneratorService.userSettings();
       case 'notifications':
-        return UrlGeneratorService.accountNotifications();
+        return UrlGeneratorService.userNotifications();
       case 'billing':
-        return UrlGeneratorService.accountBilling();
+        return UrlGeneratorService.userBilling();
       case 'security':
-        return UrlGeneratorService.accountSecurity();
+        return UrlGeneratorService.userSecurity();
       default:
-        return UrlGeneratorService.account();
+        return UrlGeneratorService.users();
     }
+  };
+
+  /**
+   * Generate business owner section URL - AIRBNB MODEL
+   */
+  static getBusinessSection = (
+    section: 'overview' | 'listings' | 'valuations' | 'documents' | 'performance'
+  ) => {
+    switch (section) {
+      case 'listings':
+        return UrlGeneratorService.myBusinessListings();
+      case 'valuations':
+        return UrlGeneratorService.businessValuations();
+      case 'documents':
+        return UrlGeneratorService.businessDocuments();
+      case 'performance':
+        return UrlGeneratorService.businessPerformance();
+      case 'overview':
+        return UrlGeneratorService.myBusinessOverview();
+      default:
+        return UrlGeneratorService.myBusiness();
+    }
+  };
+
+  /**
+   * Generate marketplace navigation - AIRBNB MODEL
+   * Buyers don't need a dashboard, they browse listings
+   */
+  static getMarketplaceSection = (section: 'browse' | 'search' | 'advanced' | 'category') => {
+    switch (section) {
+      case 'search':
+        return UrlGeneratorService.listings() + '?search=true';
+      case 'advanced':
+        return UrlGeneratorService.advancedSearch();
+      case 'category':
+        return UrlGeneratorService.browse();
+      default:
+        return UrlGeneratorService.listings();
+    }
+  };
+
+  /**
+   * Legacy method - for backward compatibility
+   */
+  static getAccountSection = (
+    section: 'profile' | 'settings' | 'notifications' | 'billing' | 'security'
+  ) => {
+    console.warn('getAccountSection is deprecated, use getUserSection instead');
+    return UrlGeneratorService.getUserSection(section);
   };
 
   /**

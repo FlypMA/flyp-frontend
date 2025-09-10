@@ -18,6 +18,7 @@ import {
   Bell,
   Heart,
   Shield,
+  MessageCircle,
 } from 'lucide-react';
 import { BetweendealsLogo } from '../common';
 import { User } from '../../types/api/users/user';
@@ -123,12 +124,21 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
           title: 'Dashboard',
           items: [
             {
-              label: userRole === 'seller' ? 'Business Overview' : 'Buyer Dashboard',
-              href: userRole === 'seller' ? '/business/overview' : '/dashboard/buyer',
+              label: userRole === 'seller' ? 'My Business' : 'Browse Businesses',
+              href: userRole === 'seller' ? '/my-business' : '/listings',
               icon: Home,
             },
-            { label: 'Saved Listings', href: '/account/saved', icon: Heart },
-            { label: 'Notifications', href: '/account/notifications', icon: Bell, badge: '3' },
+            {
+              label: userRole === 'seller' ? 'My Listings' : 'Saved Items',
+              href: userRole === 'seller' ? '/my-business/listings' : '/users/saved',
+              icon: Heart,
+            },
+            {
+              label: 'Messages',
+              href: '/messages',
+              icon: MessageCircle,
+              badge: userRole === 'buyer' ? '2' : undefined, // Show badge for buyers since most activity is here
+            },
           ],
         },
       ];
@@ -137,9 +147,15 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
         authenticatedSections.push({
           title: 'Business Management',
           items: [
-            { label: 'Manage Listings', href: '/business/listings', icon: Building2 },
-            { label: 'Create Listing', href: '/seller/listings/new', icon: FileText, isNew: true },
-            { label: 'Business Valuation', href: '/business/valuation', icon: Users },
+            { label: 'My Listings', href: '/my-business/listings', icon: Building2 },
+            {
+              label: 'Create New Listing',
+              href: '/my-business/listings/new',
+              icon: FileText,
+              isNew: true,
+            },
+            { label: 'Business Valuations', href: '/my-business/valuations', icon: Users },
+            { label: 'Performance Analytics', href: '/my-business/performance', icon: TrendingUp },
           ],
         });
       }
@@ -147,8 +163,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ user, isOpen, onTog
       authenticatedSections.push({
         title: 'Account',
         items: [
-          { label: 'Profile Settings', href: '/profile/settings', icon: Settings },
-          { label: 'Subscription', href: '/account/billing', icon: Shield },
+          { label: 'Account Settings', href: '/users/settings', icon: Settings },
+          { label: 'Billing & Subscription', href: '/users/billing', icon: Shield },
+          { label: 'Messages', href: '/messages', icon: MessageCircle },
         ],
       });
 
