@@ -14,7 +14,7 @@ const AuthenticatedAccount = () => {
   const [authenticatedUser, setAuthenticatedUser] = useState<UserProfile | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  // Loading states removed for smooth UX
+  const [isAuthChecking, setIsAuthChecking] = useState(true); // Add loading state to prevent premature redirect
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,7 +24,7 @@ const AuthenticatedAccount = () => {
       console.log('🔍 Current location:', location.pathname);
       console.log('🔍 DEV_BYPASS_AUTH:', DEV_BYPASS_AUTH);
 
-      // Instant data loading - no loading state
+      setIsAuthChecking(true);
 
       // Development bypass
       if (DEV_BYPASS_AUTH) {
@@ -48,7 +48,7 @@ const AuthenticatedAccount = () => {
 
         setUser(mockUser);
         setAuthenticatedUser(mockUser);
-        // No loading state to manage
+        setIsAuthChecking(false);
         return;
       }
 
@@ -69,13 +69,13 @@ const AuthenticatedAccount = () => {
         console.error('❌ Auth check error:', error);
         setUser(null);
         setAuthenticatedUser(null);
+      } finally {
+        setIsAuthChecking(false);
       }
-
-      // Loading states removed for smooth UX
     };
 
     fetchData();
-  }, [location.pathname]); // Remove location dependency to prevent loops
+  }, []); // Remove location dependency to prevent loops
 
   const handleUserLogoutClick = async () => {
     console.log('🔓 Logout initiated');
@@ -106,11 +106,21 @@ const AuthenticatedAccount = () => {
     navigate(UrlGeneratorService.accountSettings());
   };
 
-  // Loading screens removed for smooth UX
+  // Show loading state while checking authentication to prevent premature redirect
+  if (isAuthChecking) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Only redirect if not in dev mode and no authenticated user
-  if (!authenticatedUser && !DEV_BYPASS_AUTH) {
-    console.log('🚨 No authenticated user, redirecting to home');
+  // Only redirect if auth check is complete and no authenticated user (excluding dev mode)
+  if (!isAuthChecking && !authenticatedUser && !DEV_BYPASS_AUTH) {
+    console.log('🚨 No authenticated user after auth check complete, redirecting to home');
     return <Navigate to={UrlGeneratorService.root()} replace />;
   }
 
