@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
-import { User as UserProfile } from '../../../types/user.consolidated';
+import { User as UserProfile, AuthCheckResponse } from '../../../types/user.consolidated';
 import { UserAvatarDropdown } from '../account/account_UI/navigation';
 import { useAuthModal } from '../../contexts/AuthModalContext';
 import { useBusinessModal } from '../../contexts/BusinessModalContext';
@@ -19,6 +19,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(false); // Start optimistic
   const [hasToken, setHasToken] = useState(false); // Track token presence immediately
+  const [authCheckComplete, setAuthCheckComplete] = useState(false); // Track if auth check completed
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openModal } = useAuthModal();
   const { openBusinessModal } = useBusinessModal();
@@ -54,14 +55,24 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     checkTokenExists();
 
     const checkAuth = async () => {
-      // Only proceed with full auth check if we have a token
-      if (!hasToken) return;
-
       try {
+        // Only proceed with full auth check if we have a token
+        if (!hasToken) {
+          console.log('🔍 UnifiedNavigation: No token found, skipping auth check');
+          setAuthCheckComplete(true);
+          return;
+        }
+
         console.log('🔍 UnifiedNavigation: Background auth validation...');
         setIsCheckingAuth(true); // Only set loading when actually checking
 
-        const authResult = await authService.checkAuthentication();
+        // Add timeout to prevent hanging
+        const authPromise = authService.checkAuthentication();
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Auth check timeout')), 3000)
+        );
+
+        const authResult = (await Promise.race([authPromise, timeoutPromise])) as AuthCheckResponse;
         console.log('🔍 UnifiedNavigation: Auth result:', authResult);
 
         if (authResult.isAuthenticated && authResult.user) {
@@ -71,13 +82,18 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
           console.log('❌ UnifiedNavigation: Auth validation failed');
           setUser(null);
           setHasToken(false); // Token invalid, remove optimistic state
+          // Clear invalid token
+          document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
         }
       } catch (error) {
         console.error('❌ UnifiedNavigation: Auth check failed:', error);
         setUser(null);
         setHasToken(false); // On error, assume no valid auth
+        // Clear potentially invalid token
+        document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       } finally {
         setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
       }
     };
 
@@ -86,22 +102,30 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
 
     // Fail-safe timeout to ensure UI doesn't hang on auth check
     const authTimeout = setTimeout(() => {
-      if (isCheckingAuth) {
+      if (isCheckingAuth || !authCheckComplete) {
         console.warn('⚠️ UnifiedNavigation: Auth check timeout, forcing completion');
         setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
+        setUser(null);
+        setHasToken(false);
+        // Clear potentially stuck token
+        document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       }
-    }, 5000); // 5 second timeout
+    }, 4000); // 4 second timeout
 
     // Listen for auth changes
     const handleAuthChange = () => {
       console.log('📡 UnifiedNavigation: Auth change event received, rechecking...');
       setIsCheckingAuth(true); // Set checking state during recheck
+      setAuthCheckComplete(false);
       checkAuth();
     };
     const handleLogout = () => {
       console.log('📡 UnifiedNavigation: Logout event received');
       setUser(null);
       setIsCheckingAuth(false);
+      setHasToken(false);
+      setAuthCheckComplete(true);
     };
 
     window.addEventListener('auth-change', handleAuthChange);
@@ -247,13 +271,15 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
               {(() => {
                 console.log('🖥️ UnifiedNavigation DESKTOP RENDER:', {
                   isCheckingAuth,
+                  hasToken,
+                  authCheckComplete,
                   user: !!user,
                   userRole: user?.role,
                 });
                 return user ? (
                   <UserAvatarDropdown user={user} />
-                ) : hasToken ? (
-                  /* Optimistic avatar placeholder while loading user data */
+                ) : isCheckingAuth || (hasToken && !authCheckComplete) ? (
+                  /* Show loading only while actively checking auth */
                   <div className="flex items-center">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
                       <span className="text-white text-sm font-medium">•</span>
@@ -289,7 +315,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
                   userRole: user?.role,
                 });
                 return (
-                  !isCheckingAuth &&
+                  authCheckComplete &&
                   (user ? (
                     // Mobile: Show Avatar + Menu Toggle when logged in
                     <>
