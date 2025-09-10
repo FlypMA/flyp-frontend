@@ -4,7 +4,7 @@ import { Field, Form, FormRenderProps, FieldRenderProps } from 'react-final-form
 import CustomPasswordInputField from '../../../../components/main_UI/forms/customPasswordInputtField';
 import { authService } from '../../../../services/users/authenticationService';
 import { Button } from '@heroui/react';
-import { LuInfo, LuCheckCircle, LuXCircle } from 'react-icons/lu';
+import { LuInfo, LuCircleCheck, LuCircleX } from 'react-icons/lu';
 import { BetweendealsLogo } from '../../../../components/common';
 
 interface PasswordResetConfirmFormValues {
@@ -21,6 +21,7 @@ const PasswordResetConfirm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
 
   const token = searchParams.get('token');
 
@@ -115,7 +116,7 @@ const PasswordResetConfirm: React.FC = () => {
             <div className="mt-4 rounded-md bg-red-50 p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <LuXCircle className="h-5 w-5 text-red-400" />
+                  <LuCircleX className="h-5 w-5 text-red-400" />
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-red-700">
@@ -187,6 +188,7 @@ const PasswordResetConfirm: React.FC = () => {
                       label="Confirm New Password"
                       placeholder="Confirm your new password"
                       className=""
+                      inputRef={confirmPasswordInputRef}
                       showPassword={showConfirmPassword}
                       togglePasswordVisibility={() => setShowConfirmPassword(!showConfirmPassword)}
                     />
@@ -230,7 +232,7 @@ const PasswordResetConfirm: React.FC = () => {
                 <div className="rounded-md bg-red-50 p-4">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <LuXCircle className="h-5 w-5 text-red-400" />
+                      <LuCircleX className="h-5 w-5 text-red-400" />
                     </div>
                     <div className="ml-3">
                       <p className="text-sm text-red-700">{error}</p>
@@ -243,7 +245,7 @@ const PasswordResetConfirm: React.FC = () => {
                 <div className="rounded-md bg-green-50 p-4">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <LuCheckCircle className="h-5 w-5 text-green-400" />
+                      <LuCircleCheck className="h-5 w-5 text-green-400" />
                     </div>
                     <div className="ml-3">
                       <p className="text-sm text-green-700">{success}</p>
