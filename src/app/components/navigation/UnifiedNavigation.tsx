@@ -78,6 +78,7 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
         if (authResult.isAuthenticated && authResult.user) {
           console.log('✅ UnifiedNavigation: User authenticated:', authResult.user);
           setUser(authResult.user);
+          setHasToken(true); // Ensure token state is set
         } else {
           console.log('❌ UnifiedNavigation: Auth validation failed');
           setUser(null);
@@ -118,6 +119,25 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
       console.log('📡 UnifiedNavigation: Auth change event received, rechecking...');
       setIsCheckingAuth(true); // Set checking state during recheck
       setAuthCheckComplete(false);
+
+      // Force immediate token recheck
+      const token = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('access_token='))
+        ?.split('=')[1];
+
+      const hasAuthToken = !!token && token !== '';
+      console.log('📡 UnifiedNavigation: Token recheck after auth change:', hasAuthToken);
+      setHasToken(hasAuthToken);
+
+      // If no token, clear user immediately
+      if (!hasAuthToken) {
+        setUser(null);
+        setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
+        return;
+      }
+
       checkAuth();
     };
     const handleLogout = () => {
@@ -131,9 +151,22 @@ const UnifiedNavigation: React.FC<UnifiedNavigationProps> = ({ className = '' })
     window.addEventListener('auth-change', handleAuthChange);
     window.addEventListener('auth-logout', handleLogout);
 
+    // Listen for immediate user login events
+    const handleUserLogin = (event: any) => {
+      console.log('📡 UnifiedNavigation: User login event received:', event.detail);
+      if (event.detail) {
+        setUser(event.detail);
+        setHasToken(true);
+        setIsCheckingAuth(false);
+        setAuthCheckComplete(true);
+      }
+    };
+    window.addEventListener('user-login', handleUserLogin);
+
     return () => {
       window.removeEventListener('auth-change', handleAuthChange);
       window.removeEventListener('auth-logout', handleLogout);
+      window.removeEventListener('user-login', handleUserLogin);
       clearTimeout(authTimeout); // Clean up timeout
     };
   }, []);

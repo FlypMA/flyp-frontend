@@ -35,9 +35,15 @@ const LoginModal: React.FC = () => {
     console.log('🎭 LoginModal: activeModal =', activeModal, 'isOpen =', isOpen);
     console.log('🎭 LoginModal: postAuthRedirect =', postAuthRedirect);
 
-    // Check if user is already logged in when modal opens
-    if (isOpen) {
-      checkIfAlreadyLoggedIn();
+    // Only check if already logged in when modal first opens and user hasn't started typing
+    // This prevents the "already logged in" message during active login attempts
+    if (isOpen && !isSubmitting) {
+      // Add a small delay to prevent showing the message immediately when modal opens
+      const checkTimer = setTimeout(() => {
+        checkIfAlreadyLoggedIn();
+      }, 500);
+
+      return () => clearTimeout(checkTimer);
     }
   }, [activeModal, isOpen, postAuthRedirect]);
 
@@ -107,24 +113,63 @@ const LoginModal: React.FC = () => {
       const response = await authService.login(email, password);
       console.log('✅ Login successful:', response);
 
-      // Dispatch auth change events for navigation state synchronization
-      window.dispatchEvent(new CustomEvent('auth-change'));
-      console.log('📡 Dispatched auth-change event');
-
       handleCloseModal();
 
-      // Check if we have a redirect with preserved query
-      if (postAuthRedirect) {
-        console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
-        clearRedirect(); // Clear the redirect state
-        navigate(postAuthRedirect.url, {
-          state: postAuthRedirect.state,
-          replace: true,
-        });
-      } else {
-        // Default redirect to new report
-        navigate(UrlGeneratorService.dashboard());
-      }
+      // Small delay to allow login to complete and auth state to update
+      setTimeout(async () => {
+        // Get fresh auth state after login to ensure we have the correct user role
+        const authResult = await authService.checkAuthentication();
+        console.log('🔍 LoginModal: Post-login auth check:', authResult);
+
+        // Dispatch auth change events for navigation state synchronization
+        window.dispatchEvent(new CustomEvent('auth-change'));
+        console.log('📡 Dispatched auth-change event');
+
+        // Also dispatch a custom event with user data for immediate nav update
+        if (authResult.user) {
+          window.dispatchEvent(new CustomEvent('user-login', { detail: authResult.user }));
+          console.log('📡 Dispatched user-login event with user data');
+        }
+
+        // Check if we have a redirect with preserved query
+        if (postAuthRedirect) {
+          console.log('🎯 Redirecting with preserved state:', postAuthRedirect);
+          clearRedirect(); // Clear the redirect state
+          navigate(postAuthRedirect.url, {
+            state: postAuthRedirect.state,
+            replace: true,
+          });
+        } else {
+          // Use role-based redirect like signup does
+          if (authResult.isAuthenticated && authResult.user) {
+            let dashboardUrl: string;
+            const userRole = authResult.user.role;
+            console.log('🎯 LoginModal: Redirecting user with role:', userRole);
+
+            switch (userRole) {
+              case 'seller':
+                dashboardUrl = UrlGeneratorService.myBusiness(); // '/my-business'
+                break;
+              case 'buyer':
+                dashboardUrl = UrlGeneratorService.listings(); // '/listings'
+                break;
+              case 'both':
+                dashboardUrl = UrlGeneratorService.myBusiness(); // '/my-business' for business owners
+                break;
+              default:
+                dashboardUrl = UrlGeneratorService.listings(); // Default to marketplace
+                break;
+            }
+
+            console.log('🎯 LoginModal: Navigating to dashboard:', dashboardUrl);
+            navigate(dashboardUrl, { replace: true });
+          } else {
+            // Fallback to default dashboard
+            console.log('🎯 LoginModal: Fallback to default dashboard');
+            navigate(UrlGeneratorService.dashboard());
+          }
+        }
+      }, 100); // Short delay to allow auth state to update
     } catch (error: any) {
       console.error('❌ Login failed in LoginModal:', error);
       console.error('❌ Error type:', typeof error);

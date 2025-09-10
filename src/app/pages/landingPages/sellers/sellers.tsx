@@ -12,27 +12,35 @@ const SellersLandingPage = () => {
   const navigate = useNavigate();
   const { openModal } = useAuthModal();
 
-  // Handle List Your Business button click
+  // Handle Sell Your Business button click - Smart routing based on authentication
   const handleListBusinessClick = async () => {
     try {
       const authResult = await authService.checkAuthentication();
 
-      if (authResult.isAuthenticated) {
-        // User is logged in, redirect to create listing page
-        navigate('/seller/listings/new');
+      if (authResult.isAuthenticated && authResult.user) {
+        // User is logged in - check their role
+        const userRole = authResult.user.role;
+
+        if (userRole === 'seller' || userRole === 'both' || userRole === 'admin') {
+          // User has seller permissions - redirect to seller dashboard
+          navigate('/my-business');
+        } else {
+          // User is buyer - redirect to listing creation with role upgrade prompt
+          navigate('/seller/listings/new');
+        }
       } else {
-        // User is not logged in, show signup modal with redirect
+        // User is not logged in, show signup modal with seller intent
         openModal('signup', {
-          url: '/seller/listings/new',
-          state: { from: 'seller-landing' },
+          url: '/my-business',
+          state: { from: 'seller-landing', intent: 'seller' },
         });
       }
     } catch (error) {
       console.error('Authentication check failed:', error);
       // On error, default to showing signup modal
       openModal('signup', {
-        url: '/seller/listings/new',
-        state: { from: 'seller-landing' },
+        url: '/my-business',
+        state: { from: 'seller-landing', intent: 'seller' },
       });
     }
   };

@@ -95,7 +95,8 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: 'search', element: <ListingSearch /> },
-      { path: 'listings/:id', element: <ListingSearch /> }, // Will show details modal/view
+      { path: 'listings', element: <ListingSearch /> }, // Browse all listings
+      { path: 'listings/:id', element: <ListingDetails /> }, // Individual listing detail page
       { path: UrlGeneratorService.privacyPolicy(), element: <PrivacyPolicy /> },
       { path: UrlGeneratorService.termsConditions(), element: <TermsAndConditions /> },
 
@@ -173,8 +174,8 @@ const routes = [
     children: [
       { index: true, element: <ListingSearch /> },
       { path: 'advanced', element: <ListingSearch /> },
-      { path: ':id', element: <ListingSearch /> }, // Will show listing details
-      { path: ':id/data-room', element: <ListingSearch /> }, // Will show data room
+      { path: ':id', element: <ListingDetails /> }, // Individual listing details page
+      { path: ':id/data-room', element: <ListingDetails /> }, // Data room view (part of listing details)
     ],
   },
   // ==============================================================================
