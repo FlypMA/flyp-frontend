@@ -38,7 +38,7 @@ const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">BetweenDeals</span>
+              <span className="text-2xl font-bold text-blue-600">Flyp</span>
             </Link>
           </div>
 

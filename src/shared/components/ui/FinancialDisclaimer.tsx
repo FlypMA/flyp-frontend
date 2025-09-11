@@ -28,7 +28,7 @@ const FinancialDisclaimer: React.FC<FinancialDisclaimerProps> = ({
             'Valuations are estimates based on available data and market conditions, which can change rapidly.',
             'Actual sale prices may vary significantly from estimated values due to market conditions, buyer preferences, negotiation factors, and other variables.',
             'This tool does not constitute a formal business appraisal. For legal, tax, or investment decisions, consult qualified professionals.',
-            'BetweenDeals is not licensed to provide investment advice and makes no warranties about the accuracy of valuations.',
+            'Flyp is not licensed to provide investment advice and makes no warranties about the accuracy of valuations.',
           ],
         };
 
@@ -42,7 +42,7 @@ const FinancialDisclaimer: React.FC<FinancialDisclaimerProps> = ({
             'Banks consider numerous factors beyond these metrics when making lending decisions.',
             'Financial ratios should be interpreted by qualified financial professionals in context of your specific situation.',
             'Do not make financial decisions based solely on this analysis. Consult your accountant, financial advisor, or bank directly.',
-            'BetweenDeals is not a licensed financial institution and cannot guarantee loan approval or terms.',
+            'Flyp is not a licensed financial institution and cannot guarantee loan approval or terms.',
           ],
         };
 
@@ -56,7 +56,7 @@ const FinancialDisclaimer: React.FC<FinancialDisclaimerProps> = ({
             'These projections are for educational comparison purposes only and may not reflect actual liquidation outcomes.',
             'Liquidation processes involve complex legal and financial considerations that require professional guidance.',
             'Do not base business decisions on these estimates. Consult qualified legal, financial, and business professionals.',
-            'BetweenDeals strongly recommends professional business appraisal before making any exit decisions.',
+            'Flyp strongly recommends professional business appraisal before making any exit decisions.',
             'Actual costs, timelines, and recoveries in liquidation may vary dramatically from these projections.',
           ],
         };

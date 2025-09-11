@@ -16,7 +16,7 @@ const ContactPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg border">
             <h3 className="font-semibold mb-2">📧 Email Support</h3>
-            <p className="text-gray-600 mb-2">support@betweendeals.com</p>
+            <p className="text-gray-600 mb-2">support@flyp.com</p>
             <p className="text-sm text-gray-500">Response within 24 hours</p>
           </div>
 

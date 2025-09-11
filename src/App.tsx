@@ -13,15 +13,15 @@ import { router } from './app/router';
  */
 export const App: React.FC = () => {
   useEffect(() => {
-    console.log('🚀 BetweenDeals App initializing...');
+    console.log('🚀 Flyp App initializing...');
 
     const initializeApp = async () => {
       try {
         // Basic app initialization
         await new Promise(resolve => setTimeout(resolve, 100));
-        console.log('✅ BetweenDeals App ready');
+        console.log('✅ Flyp App ready');
       } catch (error) {
-        console.error('❌ BetweenDeals App initialization failed:', error);
+        console.error('❌ Flyp App initialization failed:', error);
       }
     };
 

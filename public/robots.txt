@@ -1,4 +1,4 @@
-# Robots.txt for BetweenDeals Platform
+# Robots.txt for Flyp Platform
 # https://www.robotstxt.org/robotstxt.html
 
 User-agent: *
@@ -20,7 +20,7 @@ Allow: /legal/
 Allow: /listings
 
 # Sitemap location
-Sitemap: https://www.betweendeals.com/sitemap.xml
+Sitemap: https://www.flyp.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

@@ -1,5 +1,5 @@
 /**
- * 🔧 API CONFIGURATION - BetweenDeals M&A Platform
+ * 🔧 API CONFIGURATION - Flyp M&A Platform
  * Central configuration for API endpoints, error handling, and monitoring
  * Built by Senior CTO for production-ready API management
  */
@@ -128,7 +128,7 @@ export const API_CONFIG = {
   SECURITY: {
     INCLUDE_CREDENTIALS: false,
     CORS_HEADERS: {
-      'Access-Control-Allow-Origin': isProduction ? 'https://app.betweendeals.com' : '*',
+      'Access-Control-Allow-Origin': isProduction ? 'https://app.flyp.com' : '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
       'Access-Control-Max-Age': '86400', // 24 hours
@@ -148,8 +148,8 @@ export const ENV_CONFIG = {
 
   // Authentication
   JWT_SECRET: import.meta.env.VITE_JWT_SECRET || 'dev-secret-key',
-  AUTH_COOKIE_NAME: import.meta.env.VITE_AUTH_COOKIE_NAME || 'betweendeals_auth',
-  REFRESH_TOKEN_KEY: import.meta.env.VITE_REFRESH_TOKEN_KEY || 'betweendeals_refresh',
+  AUTH_COOKIE_NAME: import.meta.env.VITE_AUTH_COOKIE_NAME || 'flyp_auth',
+  REFRESH_TOKEN_KEY: import.meta.env.VITE_REFRESH_TOKEN_KEY || 'flyp_refresh',
 
   // External services
   STRIPE_PUBLIC_KEY: import.meta.env.VITE_STRIPE_PUBLIC_KEY,
@@ -309,8 +309,8 @@ if (typeof window !== 'undefined') {
 // =============================================================================
 
 export const SECURITY_CONFIG = {
-  TOKEN_STORAGE_KEY: 'betweendeals_token',
-  REFRESH_TOKEN_KEY: 'betweendeals_refresh_token',
+  TOKEN_STORAGE_KEY: 'flyp_token',
+  REFRESH_TOKEN_KEY: 'flyp_refresh_token',
   TOKEN_REFRESH_THRESHOLD: 300000, // 5 minutes
   REQUEST_ID_HEADER: 'X-Request-ID',
   CONTENT_SECURITY_POLICY: {

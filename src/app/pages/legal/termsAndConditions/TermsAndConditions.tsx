@@ -18,8 +18,8 @@ const TermsAndConditionsPage: React.FC = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-gray-700 mb-4">
-              These Terms and Conditions govern your use of the BetweenDeals platform and services.
-              By using our platform, you agree to comply with these terms.
+              These Terms and Conditions govern your use of the Flyp platform and services. By using
+              our platform, you agree to comply with these terms.
             </p>
           </section>
 

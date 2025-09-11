@@ -45,7 +45,7 @@ interface DataLayerEvent {
 
 interface Window {
   dataLayer: DataLayerEvent[];
-  betweendealsPlugin?: BetweendealsPlugin;
+  flypPlugin?: BetweendealsPlugin;
   myExtensionVariable?: {
     isInstalled: boolean;
     version: string;

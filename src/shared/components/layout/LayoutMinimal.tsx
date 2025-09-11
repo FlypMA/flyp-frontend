@@ -27,7 +27,7 @@ const LogoOnlyLayout = () => {
               className="w-12 h-12 transition-transform duration-200 group-hover:scale-105"
             />
             <span className="text-xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-primary-600 ml-2">
-              betweendeals
+              flyp
             </span>
           </Link>
         </NavbarBrand>

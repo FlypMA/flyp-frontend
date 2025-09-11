@@ -1,5 +1,5 @@
 /**
- * Enhanced Type-Safe API Client for BetweenDeals Frontend
+ * Enhanced Type-Safe API Client for Flyp Frontend
  * Comprehensive API client with full type safety using shared types
  * Built by CTO for robust frontend-backend communication
  */

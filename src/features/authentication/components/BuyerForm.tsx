@@ -284,7 +284,7 @@ const BuyerOnboarding = () => {
     <>
       {/* TODO: Re-enable SEOHead when available */}
       {/* <SEOHead
-        title="Buyer Onboarding | betweendeals"
+        title="Buyer Onboarding | flyp"
         description="Set up your buyer profile and investment criteria"
         keywords="buyer onboarding, investment criteria, business search"
       /> */}
@@ -294,7 +294,7 @@ const BuyerOnboarding = () => {
           <div className="max-w-3xl mx-auto py-12">
             {/* Progress Header */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Welcome to betweendeals</h1>
+              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Welcome to flyp</h1>
               <p className="text-lg text-neutral-600 mb-6">
                 Let's set up your buyer profile to find the perfect business opportunities
               </p>

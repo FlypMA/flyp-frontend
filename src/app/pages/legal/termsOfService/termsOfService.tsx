@@ -18,7 +18,7 @@ const TermsOfServicePage: React.FC = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
             <p className="text-gray-700 mb-4">
-              By accessing and using BetweenDeals, you accept and agree to be bound by the terms and
+              By accessing and using Flyp, you accept and agree to be bound by the terms and
               provision of this agreement.
             </p>
           </section>
@@ -26,16 +26,16 @@ const TermsOfServicePage: React.FC = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">2. Use License</h2>
             <p className="text-gray-700 mb-4">
-              Permission is granted to temporarily access the materials on BetweenDeals for
-              personal, non-commercial transitory viewing only.
+              Permission is granted to temporarily access the materials on Flyp for personal,
+              non-commercial transitory viewing only.
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">3. Disclaimer</h2>
             <p className="text-gray-700 mb-4">
-              The materials on BetweenDeals are provided on an 'as is' basis. BetweenDeals makes no
-              warranties, expressed or implied.
+              The materials on Flyp are provided on an 'as is' basis. Flyp makes no warranties,
+              expressed or implied.
             </p>
           </section>
 

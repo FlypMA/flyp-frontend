@@ -92,7 +92,7 @@ export const API_CONFIG = {
   },
 
   // Python backend for AI query chat functionality
-  // TODO: Update legacy Ilara URLs to BetweenDeals endpoints
+  // TODO: Update legacy Ilara URLs to Flyp endpoints
   AI_BACKEND: {
     baseURL: 'https://ilara-deep-end-artemis-production.up.railway.app', // Legacy Ilara endpoint
     endpoints: {
@@ -130,7 +130,7 @@ export const API_CONFIG = {
   },
 
   // Data aggregation backend (Aphrodite)
-  // TODO: Update legacy Ilara URLs to BetweenDeals endpoints
+  // TODO: Update legacy Ilara URLs to Flyp endpoints
   DATA_BACKEND: {
     baseURL: 'https://ilara-trends-data-aggregator-aphrodite-production.up.railway.app', // Legacy Ilara endpoint
     endpoints: {

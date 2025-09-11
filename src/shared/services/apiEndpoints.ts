@@ -8,7 +8,7 @@
 
 export const API_BASE_URL =
   process.env.REACT_APP_API_URL || process.env.NODE_ENV === 'production'
-    ? 'https://betweendeals-api.up.railway.app' // Future unified backend
+    ? 'https://flyp-api.up.railway.app' // Future unified backend
     : 'https://web-production-8d00b.up.railway.app'; // Current working backend
 
 // =============================================================================

@@ -8,7 +8,7 @@ interface InlineBetweendealsLogoProps {
 }
 
 /**
- * Inline SVG version of the betweendeals logo
+ * Inline SVG version of the flyp logo
  * Use this as a backup if external SVG files have caching issues
  */
 const InlineBetweendealsLogo: React.FC<InlineBetweendealsLogoProps> = ({
@@ -24,7 +24,7 @@ const InlineBetweendealsLogo: React.FC<InlineBetweendealsLogoProps> = ({
       width={width}
       height={height}
       className={className}
-      aria-label="betweendeals logo"
+      aria-label="flyp logo"
     >
       <g fill={color} stroke="none">
         {/* Central hub circle */}

@@ -49,7 +49,7 @@ const AuthenticatedAccount = () => {
         console.log('🚨 DEV MODE: Bypassing authentication for development');
         const mockUser = {
           id: 'dev-user-123',
-          email: 'dev@betweendeals.com',
+          email: 'dev@flyp.com',
           name: 'Development User',
           role: UserRole.SELLER,
           email_verified: true,

@@ -210,7 +210,7 @@ export const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSa
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Notification Settings</h1>
         <p className="text-gray-600 mt-2">
-          Choose how and when you want to receive notifications about your BetweenDeals activity
+          Choose how and when you want to receive notifications about your Flyp activity
         </p>
       </div>
 

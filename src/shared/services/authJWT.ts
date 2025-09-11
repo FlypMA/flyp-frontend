@@ -1,5 +1,5 @@
 /**
- * 🔒 COMPREHENSIVE AUTHENTICATION SERVICE - BetweenDeals M&A Platform
+ * 🔒 COMPREHENSIVE AUTHENTICATION SERVICE - Flyp M&A Platform
  * Enterprise-grade authentication with JWT, Supabase integration, and security hardening
  * Built by Senior CTO for production-ready user management
  */

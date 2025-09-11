@@ -1,5 +1,5 @@
 /**
- * 🔒 SECURE HTTP CLIENT - BetweenDeals M&A Platform
+ * 🔒 SECURE HTTP CLIENT - Flyp M&A Platform
  * Enterprise-grade HTTP client with comprehensive security and error handling
  * Built by Senior CTO for production-ready frontend-backend communication
  */
@@ -241,7 +241,7 @@ class RequestInterceptor {
     // Simple browser fingerprinting for security purposes
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    ctx?.fillText('BetweenDeals', 0, 0);
+    ctx?.fillText('Flyp', 0, 0);
 
     const fingerprint = [
       navigator.userAgent,

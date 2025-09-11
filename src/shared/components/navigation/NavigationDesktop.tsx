@@ -136,7 +136,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({ className = '' })
       <div className="nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo">
-          <span className="logo-text">BetweenDeals</span>
+          <span className="logo-text">Flyp</span>
         </Link>
 
         {/* Desktop Navigation */}

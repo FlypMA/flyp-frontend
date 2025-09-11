@@ -8,7 +8,7 @@ const SplitScreenLayout = () => {
     <div data-scope="navigation" className="h-screen">
       <div className="absolute pt-10 pl-6">
         <Link to="/">
-          <Image src={logos.main} alt="betweendeals logo" width={64} className="text-white" />
+          <Image src={logos.main} alt="flyp logo" width={64} className="text-white" />
         </Link>
       </div>
       <Outlet />

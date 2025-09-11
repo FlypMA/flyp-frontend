@@ -1293,8 +1293,8 @@ code {
   scrollbar-width: none;  /* Firefox */
 }
 
-/*BetweenDeals Companion */
-#betweendeals-companion-v1 {
+/*Flyp Companion */
+#flyp-companion-v1 {
   position: fixed;
   top: 50%;
   right: 20px;
@@ -1302,7 +1302,7 @@ code {
   z-index: 9999;
 }
 
-#betweendeals-feed, #main-controller-ui {
+#flyp-feed, #main-controller-ui {
   background-color: transparent !important;
 }
 
@@ -1841,8 +1841,8 @@ select[data-slot] {
 .nav-logo-group img,
 .footer-logo-container img,
 .logo-container img,
-[alt*="betweendeals"] img,
-img[src*="betweendeals_logo"] {
+[alt*="flyp"] img,
+img[src*="flyp_logo"] {
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
@@ -1857,20 +1857,20 @@ img[src*="betweendeals_logo"] {
 }
 
 /* Override HeroUI Image loading states for logos */
-[alt*="betweendeals"].opacity-0,
-[src*="betweendeals_logo"].opacity-0 {
+[alt*="flyp"].opacity-0,
+[src*="flyp_logo"].opacity-0 {
   opacity: 1 !important;
 }
 
 /* Force visibility on data-loaded states */
-[alt*="betweendeals"][data-loaded="true"],
-[src*="betweendeals_logo"][data-loaded="true"] {
+[alt*="flyp"][data-loaded="true"],
+[src*="flyp_logo"][data-loaded="true"] {
   opacity: 1 !important;
 }
 
 /* Remove transition opacity that might cause invisible state */
-[alt*="betweendeals"].transition-opacity,
-[src*="betweendeals_logo"].transition-opacity {
+[alt*="flyp"].transition-opacity,
+[src*="flyp_logo"].transition-opacity {
   opacity: 1 !important;
 }
 

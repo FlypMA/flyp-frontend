@@ -41,9 +41,9 @@ const CreateListingPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Create Business Listing | BetweenDeals"
-        description="List your business for sale on BetweenDeals. Complete our guided process to create a professional listing that attracts qualified buyers."
-        keywords="sell business, create listing, business for sale, BetweenDeals listing"
+        title="Create Business Listing | Flyp"
+        description="List your business for sale on Flyp. Complete our guided process to create a professional listing that attracts qualified buyers."
+        keywords="sell business, create listing, business for sale, Flyp listing"
       />
 
       <SellerOnboardingModal

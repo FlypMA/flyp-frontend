@@ -26,7 +26,7 @@ import { useAuthModal } from '../../../shared/stores/AuthModalContext';
 
 // Placeholder types and components
 type UserIntent = 'buyer' | 'seller' | 'neutral';
-const BetweendealsLogo = () => <div className="text-xl font-bold text-blue-600">BetweenDeals</div>;
+const BetweendealsLogo = () => <div className="text-xl font-bold text-blue-600">Flyp</div>;
 const RoleSelectionCards = ({ onSelect }: { onSelect: (role: UserIntent) => void }) => (
   <div className="space-y-4">
     <button
@@ -354,7 +354,7 @@ const SignupModal: React.FC = () => {
                             <>
                               <div className="mb-8">
                                 <h1 className="text-2xl font-semibold text-slate-900 text-left">
-                                  Join BetweenDeals
+                                  Join Flyp
                                 </h1>
                                 <p className="text-base text-slate-600 mt-2 text-left">
                                   Already have an account?{' '}

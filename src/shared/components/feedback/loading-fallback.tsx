@@ -6,7 +6,7 @@ import React from 'react';
 const BetweendealsLoadingLogo = () => (
   <div className="flex items-center space-x-2">
     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-    <span className="text-blue-600 font-semibold">BetweenDeals</span>
+    <span className="text-blue-600 font-semibold">Flyp</span>
   </div>
 );
 

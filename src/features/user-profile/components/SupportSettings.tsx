@@ -26,7 +26,7 @@ export const SupportSettings: React.FC<SimpleSupportSettingsProps> = ({
       title: 'Email Support',
       description: "Send us a message and we'll respond within 24 hours",
       action: 'Contact Support',
-      href: 'mailto:support@betweendeals.com',
+      href: 'mailto:support@flyp.com',
       color: 'bg-green-100 text-green-600',
       buttonColor: 'bg-green-600 hover:bg-green-700',
     },

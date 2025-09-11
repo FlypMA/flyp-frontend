@@ -47,7 +47,7 @@ const SuccessFeeCollection = ({ transactionId }: { transactionId: string }) => (
 // Simple placeholder SEO component
 const SEOHead = ({ title, description }: { title?: string; description?: string }) => (
   <>
-    <title>{title || 'BetweenDeals'}</title>
+    <title>{title || 'Flyp'}</title>
     <meta name="description" content={description || 'Business marketplace'} />
   </>
 );
@@ -246,7 +246,7 @@ const TransactionFlow: React.FC = () => {
     <>
       <SEOHead
         {...seoData.transactionFlow}
-        title={`Transaction ${transaction.id} | betweendeals`}
+        title={`Transaction ${transaction.id} | flyp`}
         description={`Track the progress of transaction ${transaction.id} for ${transaction.listingTitle}`}
       />
 

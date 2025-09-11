@@ -7,7 +7,7 @@ import React from 'react';
 const AboutPage: React.FC = () => {
   return (
     <div className="about-page p-6">
-      <h1 className="text-4xl font-bold mb-8 text-center">About BetweenDeals</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">About Flyp</h1>
 
       <div className="max-w-4xl mx-auto">
         <div className="mb-12 text-center">

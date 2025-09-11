@@ -99,7 +99,7 @@ export const LoginModal: React.FC = () => {
           <>
             <ModalHeader className="flex flex-col gap-1">
               <h2 className="text-2xl font-bold">Welcome Back</h2>
-              <p className="text-sm text-gray-600">Sign in to your BetweenDeals account</p>
+              <p className="text-sm text-gray-600">Sign in to your Flyp account</p>
             </ModalHeader>
             <ModalBody className="pb-6">
               <LoginForm onSubmit={handleLoginSuccess} loading={false} />

@@ -12,7 +12,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // betweendeals Brand Colors
+        // flyp Brand Colors
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',

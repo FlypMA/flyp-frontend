@@ -24,8 +24,8 @@ export const FeatureProviders: React.FC<FeatureProvidersProps> = ({ children }) 
       {/* Main App Content */}
       {children}
 
-      {/* Global Modal Components */}
-      <AuthModals />
+      {/* Global Modal Components - AuthModals moved inside Router context */}
+      {/* AuthModals moved to RootLayout to fix Router context error */}
       <BusinessListingModalContainer />
     </BusinessModalProvider>
   );

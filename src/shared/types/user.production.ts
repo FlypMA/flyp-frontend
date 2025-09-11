@@ -1,4 +1,4 @@
-// BetweenDeals Production User Types
+// Flyp Production User Types
 // Aligned with single-table backend schema
 // This is the source of truth for user types across the frontend
 

@@ -63,7 +63,7 @@ The error is caused by `ScrollToTop` component using React Router hooks (`useLoc
 ### **Step 1: Remove ScrollToTop from ApplicationProviders**
 
 ```typescript
-// BEFORE (apps/betweendeals-frontend/src/app/providers/application-providers.tsx)
+// BEFORE (apps/flyp-frontend/src/app/providers/application-providers.tsx)
 export const ApplicationProviders: React.FC<ApplicationProvidersProps> = ({ children }) => {
   return (
     <>

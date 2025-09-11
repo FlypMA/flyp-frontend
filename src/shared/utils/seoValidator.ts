@@ -21,8 +21,8 @@ export const validateSEO = (seoProps: SEOProps): SEOValidationResult => {
       warnings.push(`Title is ${titleLength} characters (recommended: 30-60 characters)`);
     }
 
-    if (!seoProps.title.includes('betweendeals')) {
-      suggestions.push('Consider including "betweendeals" in the title for brand consistency');
+    if (!seoProps.title.includes('flyp')) {
+      suggestions.push('Consider including "flyp" in the title for brand consistency');
     }
   } else {
     errors.push('Title is required');

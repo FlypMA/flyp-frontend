@@ -1,5 +1,5 @@
 // =============================================================================
-// BETWEENDEALS PRODUCTION USER TYPES - BACKEND ALIGNED
+// FLYP PRODUCTION USER TYPES - BACKEND ALIGNED
 // =============================================================================
 // Single source of truth matching backend schema exactly
 // Based on /data/schemas/users/users.sql and backend API

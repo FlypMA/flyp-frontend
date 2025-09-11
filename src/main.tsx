@@ -5,7 +5,7 @@ import App from './app/app';
 import './index.css';
 
 // Debug info for production
-console.log('🚀 BetweenDeals App starting...');
+console.log('🚀 Flyp App starting...');
 console.log('Environment:', import.meta.env.MODE);
 
 // Simple error boundary component

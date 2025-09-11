@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # =============================================================================
-# BETWEENDEALS FRONTEND DEVELOPMENT ENVIRONMENT SETUP
+# FLYP FRONTEND DEVELOPMENT ENVIRONMENT SETUP
 # =============================================================================
 # This script sets up the development environment with dev bypass authentication
 # =============================================================================
 
-echo "🚀 Setting up BetweenDeals Frontend Development Environment"
+echo "🚀 Setting up Flyp Frontend Development Environment"
 echo "=========================================================="
 
 # Create development .env file
 cat > .env.development << 'EOF'
 # =============================================================================
-# BETWEENDEALS FRONTEND DEVELOPMENT ENVIRONMENT
+# FLYP FRONTEND DEVELOPMENT ENVIRONMENT
 # =============================================================================
 # Development configuration with dev bypass authentication enabled
 # This allows testing all dashboards without authentication
@@ -69,8 +69,8 @@ VITE_PREFETCH_ROUTES=true
 # =============================================================================
 # AUTHENTICATION SETTINGS
 # =============================================================================
-VITE_AUTH_COOKIE_NAME=betweendeals_auth_dev
-VITE_REFRESH_TOKEN_KEY=betweendeals_refresh_dev
+VITE_AUTH_COOKIE_NAME=flyp_auth_dev
+VITE_REFRESH_TOKEN_KEY=flyp_refresh_dev
 VITE_JWT_SECRET=dev-secret-key-change-in-production
 
 # =============================================================================

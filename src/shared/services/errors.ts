@@ -1,5 +1,5 @@
 /**
- * 🚨 COMPREHENSIVE ERROR HANDLING & MONITORING - BetweenDeals M&A Platform
+ * 🚨 COMPREHENSIVE ERROR HANDLING & MONITORING - Flyp M&A Platform
  * Enterprise-grade error handling with user feedback, logging, and recovery strategies
  * Built by Senior CTO for production-ready error management
  */

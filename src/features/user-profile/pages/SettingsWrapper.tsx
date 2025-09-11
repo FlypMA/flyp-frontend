@@ -56,7 +56,7 @@ export const SettingsWrapper: React.FC<SettingsWrapperProps> = ({ initialSection
       const mockUser: UserProfile = {
         id: 'mock-user-id',
         name: 'Demo User',
-        email: 'demo@betweendeals.com',
+        email: 'demo@flyp.com',
         phone: '+32 123 456 789',
         role: 'buyer',
         isVerified: true,

@@ -212,7 +212,7 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }
       {/* Header - Minimalistic */}
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-gray-900">Account</h1>
-        <p className="mt-2 text-gray-600">Manage your BetweenDeals profile</p>
+        <p className="mt-2 text-gray-600">Manage your Flyp profile</p>
       </div>
 
       {/* Profile Picture - Airbnb Style */}

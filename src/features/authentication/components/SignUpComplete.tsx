@@ -1,7 +1,12 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import Heading1 from '../../../../components/main_UI/fonts/heading1';
+// import Heading1 from '../../../../components/main_UI/fonts/heading1'; // TODO: Fix import
+
+// Placeholder component
+const Heading1 = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <h1 className={`text-3xl font-bold text-gray-900 ${className || ''}`}>{children}</h1>
+);
 import { authService } from '../../../../services/users/authenticationService';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { Button } from '@heroui/react';

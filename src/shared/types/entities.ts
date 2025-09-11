@@ -1,6 +1,6 @@
 // 🏢 Core M&A Platform Entities
 // Location: src/shared/types/entities.ts
-// Purpose: Backend-aligned entity definitions for BetweenDeals M&A platform
+// Purpose: Backend-aligned entity definitions for Flyp M&A platform
 
 // =============================================================================
 // CORE BUSINESS ENTITIES

@@ -17,9 +17,7 @@ const App: React.FC = () => {
       <AuthenticationProviders>
         <FeatureProviders>
           <ApplicationProviders>
-            <RouterProvider router={router}>
-              <ScrollToTop />
-            </RouterProvider>
+            <RouterProvider router={router} />
           </ApplicationProviders>
         </FeatureProviders>
       </AuthenticationProviders>

@@ -527,7 +527,7 @@ class AuthenticationService {
       const mockUser: any = {
         id: 'dev-user-123',
         _id: 'dev-user-123', // Legacy compatibility
-        email: 'dev@betweendeals.com',
+        email: 'dev@flyp.com',
         name: 'Development User',
         role: 'seller', // Use string literal for consistency
         userType: 'seller',
