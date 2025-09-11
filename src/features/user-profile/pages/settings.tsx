@@ -9,7 +9,7 @@ import ProfileSettings from '../../../components/settings/sections/ProfileSettin
 import SimpleBusinessSettings from '../../../components/settings/sections/SimpleBusinessSettings';
 import SimpleNotificationSettings from '../../../components/settings/sections/SimpleNotificationSettings';
 import SimpleSupportSettings from '../../../components/settings/sections/SimpleSupportSettings';
-import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
+import Navigation from '../../../app/components/navigation/Navigation';
 
 const Settings: React.FC = () => {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -121,7 +121,7 @@ const Settings: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <UnifiedNavigation />
+      <Navigation />
 
       <div className="flex">
         {/* Settings Sidebar */}

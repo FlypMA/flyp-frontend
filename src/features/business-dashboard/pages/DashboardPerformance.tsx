@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
+import Navigation from '../../../app/components/navigation/Navigation';
 import SellerSidebar from '../../components/navigation/SellerSidebar';
 
 interface PerformanceData {
@@ -89,7 +89,7 @@ const DashboardPerformance = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+      <Navigation />
 
       <div className="flex">
         <SellerSidebar selectedTab="performance" />

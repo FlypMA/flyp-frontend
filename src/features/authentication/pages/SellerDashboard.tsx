@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { authService } from '../../../services/users/authenticationService';
 import { User as UserProfile } from '../../../../types/user.consolidated';
-import UnifiedNavigation from '../../../components/navigation/UnifiedNavigation';
+import Navigation from '../../../app/components/navigation/Navigation';
 import SellerSidebar from '../../../components/navigation/SellerSidebar';
 import ValuationDashboard from '../../../components/valuation/ValuationDashboard';
 import ValuationReportCard from '../../../components/valuation/ValuationReportCard';
@@ -306,7 +306,7 @@ const SellerDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
-      <UnifiedNavigation />
+      <Navigation />
 
       {/* Main Layout with Sidebar */}
       <div className="flex">

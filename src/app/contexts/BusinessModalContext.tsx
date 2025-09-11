@@ -9,6 +9,7 @@ interface BusinessModalContextType {
   modalType: string | null;
   modalData: any;
   openModal: (type: string, data?: any) => void;
+  openBusinessModal: (type?: string, data?: any) => void;
   closeModal: () => void;
 }
 
@@ -37,6 +38,10 @@ export const BusinessModalProvider: React.FC<BusinessModalProviderProps> = ({ ch
     setIsOpen(true);
   };
 
+  const openBusinessModal = (type: string = 'business', data?: any) => {
+    openModal(type, data);
+  };
+
   const closeModal = () => {
     setIsOpen(false);
     setModalType(null);
@@ -48,6 +53,7 @@ export const BusinessModalProvider: React.FC<BusinessModalProviderProps> = ({ ch
     modalType,
     modalData,
     openModal,
+    openBusinessModal,
     closeModal,
   };
 

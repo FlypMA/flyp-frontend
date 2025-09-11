@@ -20,7 +20,7 @@ import {
 // TODO: Fix import paths
 // import { authService } from '../../../shared/services/authAPI';
 // import { User as UserType } from '../../../shared/types/user';
-// import UnifiedNavigation from '../../../shared/components/navigation/UnifiedNavigation';
+// import Navigation from '../../../app/components/navigation/Navigation';
 
 interface Conversation {
   id: string;
@@ -281,7 +281,7 @@ const Messages: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+      <Navigation />
 
       <div className="h-[calc(100vh-4rem)] flex">
         {/* Conversations Sidebar */}

@@ -11,6 +11,7 @@ interface AuthModalContextType {
   openLogin: () => void;
   openSignup: () => void;
   openForgotPassword: () => void;
+  openModal: (type: 'login' | 'signup' | 'forgotPassword') => void;
   closeAll: () => void;
 }
 
