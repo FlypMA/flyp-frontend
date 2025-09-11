@@ -1293,8 +1293,8 @@ code {
   scrollbar-width: none;  /* Firefox */
 }
 
-/*Listener */
-#ilara-companion-v1 {
+/*BetweenDeals Companion */
+#betweendeals-companion-v1 {
   position: fixed;
   top: 50%;
   right: 20px;
@@ -1302,7 +1302,7 @@ code {
   z-index: 9999;
 }
 
-#ilara-feed, #main-controller-ui {
+#betweendeals-feed, #main-controller-ui {
   background-color: transparent !important;
 }
 
@@ -4316,7 +4316,7 @@ form {
   border-color: #3b82f6 !important;
   box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1), 0 1px 3px 0 rgb(0 0 0 / 0.1) !important;
 }
-
+Eva
 [data-page="login"] .custom-input {
   color: #111827 !important;
 }
