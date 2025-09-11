@@ -18,10 +18,14 @@ interface AppLayoutProps {
  * - Layer 3: Application (ScrollToTop, global UI)
  * - Layer 4: Features (BusinessModals, global modals)
  */
-export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+export const LayoutApp: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <AppProviders>
       <div className="app-layout min-h-screen">{children}</div>
     </AppProviders>
   );
 };
+
+// Legacy alias for compatibility
+export const AppLayout = LayoutApp;
+export default LayoutApp;

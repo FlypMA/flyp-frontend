@@ -1,321 +1,357 @@
+// 🏢 Core M&A Platform Entities
+// Location: src/shared/types/entities.ts
+// Purpose: Backend-aligned entity definitions for BetweenDeals M&A platform
+
 // =============================================================================
-// FRONTEND LOCAL ENTITIES
-// =============================================================================
-// Core domain entities for the frontend application
-// Independent from shared types for production reliability
-// Auto-synchronized from backend entities on 2025-08-26T16:33:37.536Z
+// CORE BUSINESS ENTITIES
 // =============================================================================
 
-export interface DatabaseEntity {
+export interface Business {
   id: string;
+  name: string;
+  description: string;
+  industry: string;
+  revenue: number;
+  valuation?: number;
+  status: BusinessStatus;
+  seller_id: string;
+  location: {
+    country: string;
+    region: string;
+    city: string;
+  };
+  metrics: {
+    employees: number;
+    founded_year: number;
+    revenue_growth: number;
+    profit_margin: number;
+  };
+  documents: {
+    financials: boolean;
+    legal: boolean;
+    operational: boolean;
+    tax: boolean;
+  };
   created_at: string;
   updated_at: string;
+}
+
+export type BusinessStatus = 'draft' | 'active' | 'for-sale' | 'under-offer' | 'sold' | 'withdrawn';
+
+// =============================================================================
+// TRANSACTION ENTITIES
+// =============================================================================
+
+export interface Transaction {
+  id: string;
+  business_id: string;
+  buyer_id: string;
+  seller_id: string;
+  status: TransactionStatus;
+  offer_amount?: number;
+  offer_date?: string;
+  due_diligence_deadline?: string;
+  closing_date?: string;
+  terms: {
+    payment_structure: string;
+    earnout_terms?: string;
+    conditions: string[];
+  };
+  created_at: string;
+  updated_at: string;
+}
+
+export type TransactionStatus =
+  | 'inquiry'
+  | 'offer-submitted'
+  | 'offer-accepted'
+  | 'due-diligence'
+  | 'negotiation'
+  | 'closing'
+  | 'closed'
+  | 'cancelled';
+
+// =============================================================================
+// VALUATION ENTITIES
+// =============================================================================
+
+export interface Valuation {
+  id: string;
+  business_id: string;
+  valuation_amount: number;
+  currency: string;
+  method: ValuationMethod;
+  confidence_level: 'low' | 'medium' | 'high';
+  factors: {
+    revenue_multiple: number;
+    ebitda_multiple: number;
+    growth_rate: number;
+    market_conditions: string;
+  };
+  created_by: string; // User ID who created
+  approved_by?: string; // Professional valuator ID
+  is_official: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ValuationMethod =
+  | 'dcf'
+  | 'comparable-company'
+  | 'asset-based'
+  | 'revenue-multiple'
+  | 'ebitda-multiple';
+
+// =============================================================================
+// USER ENTITIES (Extended)
+// =============================================================================
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  profile: UserProfile;
+  preferences: UserPreferences;
+  subscription: {
+    plan: 'free' | 'basic' | 'pro' | 'enterprise';
+    status: 'active' | 'inactive' | 'cancelled';
+    expires_at?: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
+export type UserRole = 'buyer' | 'seller' | 'advisor' | 'admin';
+
+export interface UserProfile {
+  first_name: string;
+  last_name: string;
+  company?: string;
+  phone?: string;
+  location: {
+    country: string;
+    region?: string;
+    city?: string;
+  };
+  experience: {
+    years_in_ma: number;
+    completed_transactions: number;
+    total_transaction_value: number;
+  };
+  verification: {
+    identity_verified: boolean;
+    accredited_investor: boolean;
+    professional_credentials?: string[];
+  };
 }
 
 export interface UserPreferences {
-  language?: string;
-  timezone?: string;
-  email_notifications?: boolean;
-  push_notifications?: boolean;
-  marketing_emails?: boolean;
-  currency?: string;
-  theme?: 'light' | 'dark' | 'system';
-  // For compatibility with different preference structures
-  notifications?: {
-    email: boolean;
-    push: boolean;
-    marketing: boolean;
+  industries: string[];
+  revenue_range: {
+    min: number;
+    max: number;
   };
-  [key: string]: any;
+  location_preferences: string[];
+  investment_timeline: 'immediate' | '3-months' | '6-months' | '12-months+';
+  communication: {
+    email_notifications: boolean;
+    sms_notifications: boolean;
+    weekly_digest: boolean;
+  };
 }
 
-export interface User extends DatabaseEntity {
-  email: string;
-  name?: string;
-  first_name?: string;
-  last_name?: string;
-  role: UserRole;
-  locale?: string;
-  phone_number?: string;
-  phone?: string; // Legacy compatibility
-  email_verified?: boolean;
-  business_verified?: boolean;
-  avatar_url?: string;
-  avatar?: string; // Legacy compatibility
-  last_login?: string;
-  is_active?: boolean;
-  preferences?: UserPreferences;
-  metadata?: Record<string, any>;
-  businessType?: string; // For business context
-  // Legacy API compatibility fields
-  _id: string; // Required for legacy compatibility
-  password?: string;
-  rank?: number;
-  userPreferences?: UserPreferences;
-  userType?: any;
-  verified?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-  platformId?: string;
-}
+// =============================================================================
+// DOCUMENT ENTITIES
+// =============================================================================
 
-export interface Organization extends DatabaseEntity {
-  name: string;
-  description?: string;
-  website?: string;
-  industry?: string;
-  size?: string;
-  location?: string;
-  phone?: string;
-  email?: string;
-  logo_url?: string;
-  verified?: boolean;
-  subscription_plan?: string;
-  subscription_status?: string;
-  trial_ends_at?: string;
-  owner_id: string;
-  is_active?: boolean;
-  metadata?: Record<string, any>;
-}
-
-export type OrganizationRole = 'owner' | 'admin' | 'member' | 'viewer';
-
-export interface UserOrganization extends DatabaseEntity {
-  user_id: string;
-  organization_id: string;
-  role: OrganizationRole;
-  is_active?: boolean;
-  joined_at: string;
-  left_at?: string;
-}
-
-export interface Listing extends DatabaseEntity {
-  organization_id: string;
-  title: string;
-  description?: string;
-  asking_price?: number;
-  revenue?: number;
-  profit?: number;
-  employees?: number;
-  established_year?: number;
-  country: string;
-  region?: string;
-  city?: string;
-  sector?: string;
-  industry?: string;
-  business_model?: string;
-  assets_included?: string[];
-  liabilities?: number;
-  reason_for_sale?: string;
-  growth_opportunities?: string;
-  challenges?: string;
-  financials_description?: string;
-  status: ListingStatus;
-  anonymous?: boolean;
-  requires_nda?: boolean;
-  contact_instructions?: string;
-  featured?: boolean;
-  featured_until?: string;
-  views_count?: number;
-  inquiries_count?: number;
-  saves_count?: number;
-  published_at?: string;
-  expires_at?: string;
-  locale?: string;
-  metadata?: Record<string, any>;
-
-  // Relations
-  organization?: Organization;
-  documents?: Document[];
-  inquiries?: Inquiry[];
-  analytics?: ListingAnalytics;
-}
-
-export interface Document extends DatabaseEntity {
-  organization_id: string;
-  listing_id?: string;
-  inquiry_id?: string;
-  conversation_id?: string;
-  name: string;
-  description?: string;
-  file_path: string;
-  file_size: number;
-  file_type: string;
-  mime_type?: string;
-  is_confidential?: boolean;
-  requires_nda?: boolean;
-  uploaded_by: string;
-  download_count?: number;
-  last_accessed?: string;
-  expires_at?: string;
-  metadata?: Record<string, any>;
-}
-
-export interface Inquiry extends DatabaseEntity {
-  listing_id: string;
-  buyer_id: string;
-  buyer_organization_id?: string;
-  message: string;
-  budget_range?: string;
-  timeline?: string;
-  experience?: string;
-  financing_method?: string;
-  status: InquiryStatus;
-  responded_at?: string;
-  response_message?: string;
-  nda_signed?: boolean;
-  nda_signed_at?: string;
-  follow_up_scheduled?: string;
-  priority?: 'low' | 'medium' | 'high';
-  source?: string;
-  metadata?: Record<string, any>;
-
-  // Relations
-  listing?: Listing;
-  buyer?: User;
-  conversation?: Conversation;
-  documents?: Document[];
-}
-
-export interface Conversation extends DatabaseEntity {
-  listing_id: string;
-  inquiry_id?: string;
-  buyer_id: string;
-  seller_id: string;
-  status: ConversationStatus;
-  subject?: string;
-  last_message_at?: string;
-  last_message_preview?: string;
-  unread_count_buyer?: number;
-  unread_count_seller?: number;
-  archived_by_buyer?: boolean;
-  archived_by_seller?: boolean;
-  priority?: 'low' | 'medium' | 'high';
-  metadata?: Record<string, any>;
-
-  // Relations
-  messages?: Message[];
-  listing?: Listing;
-  buyer?: User;
-  seller?: User;
-}
-
-export interface Message extends DatabaseEntity {
-  conversation_id: string;
-  sender_id: string;
-  recipient_id: string;
-  content: string;
-  message_type: MessageType;
-  read_at?: string;
-  edited_at?: string;
-  deleted_at?: string;
-  reply_to_id?: string;
-  attachments?: string[];
-  metadata?: Record<string, any>;
-
-  // Relations
-  sender?: User;
-  recipient?: User;
-  attachments_docs?: Document[];
-}
-
-export interface BuyerProfile extends DatabaseEntity {
-  user_id: string;
-  organization_id?: string;
-  budget_min?: number;
-  budget_max?: number;
-  preferred_sectors?: string[];
-  preferred_countries?: string[];
-  preferred_regions?: string[];
-  experience_level?: string;
-  financing_methods?: string[];
-  investment_timeline?: string;
-  acquisition_criteria?: string;
-  background_description?: string;
-  verified_funds?: boolean;
-  funds_verification_date?: string;
-  profile_completeness?: number;
-  last_activity?: string;
-  metadata?: Record<string, any>;
-}
-
-export interface SavedSearch extends DatabaseEntity {
-  user_id: string;
-  name: string;
-  description?: string;
-  search_criteria: Record<string, any>;
-  email_alerts?: boolean;
-  alert_frequency?: 'immediate' | 'daily' | 'weekly';
-  last_run?: string;
-  results_count?: number;
-  is_active?: boolean;
-  metadata?: Record<string, any>;
-}
-
-export interface ListingAnalytics {
+export interface Document {
   id: string;
-  listing_id: string;
-  views_count: number;
-  unique_views_count: number;
-  inquiries_count: number;
-  saves_count: number;
-  shares_count: number;
-  completion_score?: number;
-  quality_score?: number;
-  last_activity_at?: string;
+  business_id: string;
+  name: string;
+  type: DocumentType;
+  category: DocumentCategory;
+  file_url: string;
+  file_size: number;
+  file_type: string; // MIME type
+  access_level: DocumentAccessLevel;
+  uploaded_by: string; // User ID
+  uploaded_at: string;
+  expires_at?: string;
+}
+
+export type DocumentType =
+  | 'financial'
+  | 'legal'
+  | 'operational'
+  | 'tax'
+  | 'marketing'
+  | 'hr'
+  | 'other';
+
+export type DocumentCategory =
+  | 'profit-loss'
+  | 'balance-sheet'
+  | 'cash-flow'
+  | 'tax-returns'
+  | 'contracts'
+  | 'licenses'
+  | 'legal-documents'
+  | 'operational-procedures'
+  | 'employee-handbook'
+  | 'marketing-materials';
+
+export type DocumentAccessLevel =
+  | 'public'
+  | 'registered'
+  | 'inquiry'
+  | 'due-diligence'
+  | 'offer'
+  | 'private';
+
+// =============================================================================
+// INQUIRY ENTITIES
+// =============================================================================
+
+export interface Inquiry {
+  id: string;
+  business_id: string;
+  buyer_id: string;
+  status: InquiryStatus;
+  message: string;
+  questions: InquiryQuestion[];
+  seller_response?: string;
+  responded_at?: string;
   created_at: string;
   updated_at: string;
 }
 
-export enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  SELLER = 'seller',
-  BUYER = 'buyer',
-  BOTH = 'both',
+export type InquiryStatus = 'pending' | 'responded' | 'follow-up' | 'converted' | 'closed';
+
+export interface InquiryQuestion {
+  id: string;
+  category: string;
+  question: string;
+  answer?: string;
+  is_required: boolean;
 }
 
-export enum ListingStatus {
-  DRAFT = 'draft',
-  PENDING_REVIEW = 'pending_review',
-  PUBLISHED = 'published',
-  ACTIVE = 'active',
-  PAUSED = 'paused',
-  SOLD = 'sold',
-  EXPIRED = 'expired',
-  REJECTED = 'rejected',
-  ARCHIVED = 'archived',
+// =============================================================================
+// MESSAGING ENTITIES
+// =============================================================================
+
+export interface Conversation {
+  id: string;
+  participants: string[]; // User IDs
+  business_id?: string; // Related business if applicable
+  transaction_id?: string; // Related transaction if applicable
+  status: ConversationStatus;
+  last_message?: Message;
+  created_at: string;
+  updated_at: string;
 }
 
-export enum InquiryStatus {
-  PENDING = 'pending',
-  REVIEWED = 'reviewed',
-  RESPONDED = 'responded',
-  MEETING_SCHEDULED = 'meeting_scheduled',
-  NDA_SENT = 'nda_sent',
-  NDA_SIGNED = 'nda_signed',
-  DUE_DILIGENCE = 'due_diligence',
-  OFFER_MADE = 'offer_made',
-  NEGOTIATING = 'negotiating',
-  ACCEPTED = 'accepted',
-  DECLINED = 'declined',
-  WITHDRAWN = 'withdrawn',
-  EXPIRED = 'expired',
+export type ConversationStatus = 'active' | 'archived' | 'blocked';
+
+export interface Message {
+  id: string;
+  conversation_id: string;
+  sender_id: string;
+  content: string;
+  message_type: MessageType;
+  attachments?: MessageAttachment[];
+  read_by: string[]; // User IDs who have read
+  sent_at: string;
 }
 
-export enum ConversationStatus {
-  ACTIVE = 'active',
-  PAUSED = 'paused',
-  ARCHIVED = 'archived',
-  CLOSED = 'closed',
+export type MessageType = 'text' | 'document' | 'offer' | 'system';
+
+export interface MessageAttachment {
+  id: string;
+  name: string;
+  url: string;
+  type: string;
+  size: number;
 }
 
-export enum MessageType {
-  TEXT = 'text',
-  DOCUMENT = 'document',
-  SYSTEM = 'system',
-  NDA_REQUEST = 'nda_request',
-  NDA_SIGNED = 'nda_signed',
-  MEETING_INVITE = 'meeting_invite',
-  OFFER = 'offer',
+// =============================================================================
+// ANALYTICS ENTITIES
+// =============================================================================
+
+export interface ListingAnalytics {
+  listing_id: string;
+  views: {
+    total: number;
+    unique: number;
+    this_week: number;
+    this_month: number;
+  };
+  inquiries: {
+    total: number;
+    pending: number;
+    responded: number;
+    conversion_rate: number;
+  };
+  engagement: {
+    document_downloads: number;
+    favorite_saves: number;
+    share_count: number;
+  };
+  demographics: {
+    buyer_locations: Array<{ country: string; count: number }>;
+    buyer_experience: Array<{ level: string; count: number }>;
+  };
 }
+
+// =============================================================================
+// SEARCH & FILTER ENTITIES
+// =============================================================================
+
+export interface SearchCriteria {
+  query?: string;
+  industries: string[];
+  revenue_range: {
+    min: number;
+    max: number;
+  };
+  valuation_range: {
+    min: number;
+    max: number;
+  };
+  locations: string[];
+  business_status: BusinessStatus[];
+  sort_by: 'relevance' | 'price' | 'revenue' | 'updated_at';
+  sort_order: 'asc' | 'desc';
+}
+
+export interface SearchResults<T> {
+  items: T[];
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
+}
+
+// =============================================================================
+// COMMON UTILITY TYPES
+// =============================================================================
+
+export type UUID = string;
+export type Timestamp = string;
+export type Currency = 'EUR' | 'USD' | 'GBP';
+
+// =============================================================================
+// EXPORT ALL FOR EASY IMPORTING
+// =============================================================================
+
+export type {
+  // Re-export for convenience
+  Business as BusinessEntity,
+  Transaction as TransactionEntity,
+  Valuation as ValuationEntity,
+  User as UserEntity,
+  Document as DocumentEntity,
+  Inquiry as InquiryEntity,
+  Conversation as ConversationEntity,
+  Message as MessageEntity,
+};

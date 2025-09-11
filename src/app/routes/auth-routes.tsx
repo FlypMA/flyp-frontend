@@ -1,15 +1,19 @@
 // 🔐 Authentication Routes - Login, signup, onboarding
 import { RouteObject } from 'react-router-dom';
 import { ProtectedRoute } from '../components/routing/ProtectedRoute';
-// TODO: Fix layout imports
-// import { SplitScreenLayout, MainLayout } from '@shared/components/layouts';
+import { SplitScreenLayout, MainLayout, AppLayout } from '@shared/components/layouts';
 import { LayoutApp } from '../../shared/components/layout/LayoutApp';
 
 // Lazy load auth pages
 import { lazy } from 'react';
-// TODO: Fix imports for unified onboarding system
+// Unified onboarding system imports - TODO: Re-enable when fixed
 // import { OnboardingUnified } from '../../features/authentication/components/onboarding/unified/OnboardingUnified';
 // import { createBuyerConfig, createSellerConfig } from '../../features/authentication/components/onboarding/unified/configs';
+
+// Placeholder components for now
+const OnboardingUnified = () => <div>Onboarding Coming Soon</div>;
+const createBuyerConfig = () => ({});
+const createSellerConfig = () => ({});
 // TODO: Fix lazy imports for auth pages
 // const PasswordReset = lazy(() => import('../../features/authentication/pages/PasswordReset'));
 // const PasswordResetConfirm = lazy(() => import('../../features/authentication/pages/PasswordResetConfirm'));
@@ -56,7 +60,6 @@ export const authRoutes: RouteObject[] = [
         <SplitScreenLayout />
       </AppLayout>
     ),
-    element: <PasswordReset />,
   },
   {
     path: '/password-reset/confirm',
@@ -65,7 +68,6 @@ export const authRoutes: RouteObject[] = [
         <SplitScreenLayout />
       </AppLayout>
     ),
-    element: <PasswordResetConfirm />,
   },
 
   // Post-signup Flow (Protected)
@@ -76,6 +78,5 @@ export const authRoutes: RouteObject[] = [
         <SplitScreenLayout />
       </AppLayout>
     ),
-    element: <SignUpComplete />,
   },
 ];

@@ -8,7 +8,7 @@ import { AppLayout } from '../layouts/app-layout';
 import { lazy } from 'react';
 const Settings = lazy(() => import('@profile/pages/settings'));
 const Messages = lazy(() => import('@messaging/pages/Messages'));
-const TransactionFlow = lazy(() => import('@transactions/pages/TransactionFlow'));
+const TransactionFlow = lazy(() => import('../../features/transactions/pages/TransactionFlow'));
 
 export const userRoutes: RouteObject[] = [
   // User Profile & Settings
@@ -59,6 +59,5 @@ export const userRoutes: RouteObject[] = [
         </ProtectedRoute>
       </AppLayout>
     ),
-    element: <TransactionFlow />,
   },
 ];

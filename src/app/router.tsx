@@ -1,6 +1,6 @@
 // 🚀 Clean Modern Router - Feature-based routing architecture
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-// import { AppLayout } from './layouts/app-layout';
+import { AppLayout } from '@shared/components/layouts';
 import {
   publicRoutes,
   authRoutes,

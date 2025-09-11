@@ -1,10 +1,14 @@
-// 🎯 Shared Type Definitions - Enterprise TypeScript safety
+// 🔗 Shared Types - Single Source of Truth
+// Location: src/shared/types/index.ts
+// Purpose: Unified export for all shared types
 
-// Re-export all types for easy access
-export type * from './user.types';
-export type * from './api.types';
-export type * from './ui.types';
-export type * from './business.types';
+// Core Platform Entities
+export * from './entities';
 
-// Global utility types
-export type * from './utility.types';
+// API Communication Types
+export * from './api';
+
+// Common utility types
+export type Currency = 'EUR' | 'USD' | 'GBP';
+export type UUID = string;
+export type Timestamp = string;
