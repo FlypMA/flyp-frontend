@@ -21,7 +21,7 @@ export const ApplicationProviders: React.FC<ApplicationProvidersProps> = ({ chil
   return (
     <>
       {/* Global UI Components */}
-      <ScrollToTop />
+      {/* ScrollToTop moved inside Router context to fix useLocation error */}
 
       {/* App Content */}
       {children}

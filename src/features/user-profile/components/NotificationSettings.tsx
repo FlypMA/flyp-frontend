@@ -17,7 +17,7 @@ interface NotificationSettingsProps {
   onSave: (data: any) => Promise<void>;
 }
 
-const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) => {
+export const NotificationSettings: React.FC<NotificationSettingsProps> = ({ onSave }) => {
   const [saving, setSaving] = useState(false);
   const [notifications, setNotifications] = useState({
     // Email notifications

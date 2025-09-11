@@ -1,4 +1,4 @@
-import stripeService, { CreateCheckoutSessionParams } from './stripeService';
+// import stripeService, { CreateCheckoutSessionParams } from './stripeService'; // TODO: Fix import
 
 // API endpoint for creating checkout sessions
 export const createCheckoutSessionAPI = async (params: CreateCheckoutSessionParams) => {

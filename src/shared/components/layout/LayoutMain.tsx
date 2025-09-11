@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
+// import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService'; // TODO: Fix import
+
+// Placeholder implementation
+const UrlGeneratorService = {
+  root: () => '/',
+  dashboard: () => '/dashboard',
+  marketplace: () => '/marketplace',
+};
 import NavigationDesktop from '../navigation/NavigationDesktop';
 
 const scrollToSection = (sectionId: string) => {

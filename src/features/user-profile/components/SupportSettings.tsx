@@ -6,7 +6,11 @@ interface SimpleSupportSettingsProps {
   onSave?: (data: any) => Promise<void>;
 }
 
-const SimpleSupportSettings: React.FC<SimpleSupportSettingsProps> = () => {
+export const SupportSettings: React.FC<SimpleSupportSettingsProps> = ({
+  onSave,
+}: {
+  onSave: (data: any) => Promise<any>;
+}) => {
   const supportOptions = [
     {
       icon: Book,

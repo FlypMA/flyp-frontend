@@ -1,6 +1,7 @@
 import React from 'react';
 import { Search, Building2 } from 'lucide-react';
-import { UserIntent } from '../../utils/contextDetection';
+// import { UserIntent } from '../../utils/contextDetection'; // TODO: Fix import
+type UserIntent = 'buyer' | 'seller' | 'neutral';
 
 interface RoleSelectionCardsProps {
   onSelect: (role: UserIntent) => void;

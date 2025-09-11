@@ -1,13 +1,99 @@
 import React, { useState } from 'react';
 import { Button } from '@heroui/react';
 import { Building2, Save } from 'lucide-react';
-import { CleanInput, CleanSelect, CleanTextarea } from '../../ui';
+// import { CleanInput, CleanSelect, CleanTextarea } from '../../ui'; // TODO: Fix import
+
+// Simple placeholder components
+const CleanInput = ({
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  size,
+  helpText,
+}: {
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+  size?: string;
+  helpText?: string;
+}) => (
+  <div className="space-y-1">
+    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    {helpText && <p className="text-xs text-gray-500">{helpText}</p>}
+  </div>
+);
+
+const CleanSelect = ({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: { value: string; label: string }[];
+  placeholder?: string;
+}) => (
+  <div className="space-y-1">
+    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <select
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      {placeholder && <option value="">{placeholder}</option>}
+      {options.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+const CleanTextarea = ({
+  label,
+  placeholder,
+  value,
+  onChange,
+  rows = 4,
+}: {
+  label: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+  rows?: number;
+}) => (
+  <div className="space-y-1">
+    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <textarea
+      placeholder={placeholder}
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      rows={rows}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+);
 
 interface SimpleBusinessSettingsProps {
   onSave: (data: any) => Promise<any>;
 }
 
-const SimpleBusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave }) => {
+export const BusinessSettings: React.FC<SimpleBusinessSettingsProps> = ({ onSave }) => {
   const [saving, setSaving] = useState(false);
   const [businessData, setBusinessData] = useState({
     companyName: '',

@@ -6,7 +6,7 @@ import { AppLayout } from '../layouts/app-layout';
 
 // Lazy load user pages
 import { lazy } from 'react';
-const Settings = lazy(() => import('@profile/pages/settings'));
+const SettingsWrapper = lazy(() => import('../../features/user-profile/pages/SettingsWrapper'));
 const Messages = lazy(() => import('@messaging/pages/Messages'));
 const TransactionFlow = lazy(() => import('../../features/transactions/pages/TransactionFlow'));
 
@@ -22,14 +22,14 @@ export const userRoutes: RouteObject[] = [
       </AppLayout>
     ),
     children: [
-      { index: true, element: <Settings /> },
-      { path: 'profile', element: <Settings /> },
-      { path: 'settings', element: <Settings /> },
-      { path: 'saved', element: <Settings /> },
-      { path: 'notifications', element: <Settings /> },
-      { path: 'billing', element: <Settings /> },
-      { path: 'security', element: <Settings /> },
-      { path: 'consultation', element: <Settings /> },
+      { index: true, element: <SettingsWrapper initialSection="profile" /> },
+      { path: 'profile', element: <SettingsWrapper initialSection="profile" /> },
+      { path: 'business', element: <SettingsWrapper initialSection="business" /> },
+      { path: 'notifications', element: <SettingsWrapper initialSection="notifications" /> },
+      { path: 'security', element: <SettingsWrapper initialSection="security" /> },
+      { path: 'support', element: <SettingsWrapper initialSection="support" /> },
+      { path: 'billing', element: <SettingsWrapper initialSection="billing" /> },
+      { path: 'saved', element: <SettingsWrapper initialSection="profile" /> },
     ],
   },
 

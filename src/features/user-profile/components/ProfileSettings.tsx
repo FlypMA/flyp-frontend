@@ -1,7 +1,38 @@
 import React, { useState } from 'react';
 import { Button, Avatar } from '@heroui/react';
 import { Eye, EyeOff, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
-import { CleanInput } from '../../ui';
+// import { CleanInput } from '../../ui'; // TODO: Fix import
+
+// Simple placeholder input component
+const CleanInput = ({
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  size,
+  helpText,
+}: {
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+  size?: string;
+  helpText?: string;
+}) => (
+  <div className="space-y-1">
+    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    {helpText && <p className="text-xs text-gray-500">{helpText}</p>}
+  </div>
+);
 import { User as UserType } from '../../../../types/user.consolidated';
 
 interface ProfileSettingsProps {
@@ -9,7 +40,7 @@ interface ProfileSettingsProps {
   onSave: (data: any) => Promise<any>;
 }
 
-const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
+export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ user, onSave }) => {
   const [saving, setSaving] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);

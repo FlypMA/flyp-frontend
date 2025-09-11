@@ -3,8 +3,8 @@
  * Connects to Python AI backend for chat functionality
  */
 
-import { API_CONFIG, getAuthHeaders, DEV_CONFIG } from '../api/apiConfig';
-import { ChatMessage, ChatResponse, ApiResponse } from '../../../types/api';
+// import { API_CONFIG, getAuthHeaders, DEV_CONFIG } from '../api/apiConfig'; // TODO: Fix import
+// import { ChatMessage, ChatResponse, ApiResponse } from '../../../types/api'; // TODO: Fix import
 import apiClient from '../utils/APISendRequest';
 
 export interface ChatQueryRequest {

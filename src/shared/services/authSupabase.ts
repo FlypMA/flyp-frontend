@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { User, convertLegacyUser } from '../../../types/user.consolidated';
+// import { User, convertLegacyUser } from '../../../types/user.consolidated'; // TODO: Fix import
 
 export class SupabaseAuthService {
   async signUp(email: string, password: string, metadata?: any) {

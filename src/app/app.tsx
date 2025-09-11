@@ -9,6 +9,7 @@ import { CoreProviders } from './providers/core-providers';
 import { AuthenticationProviders } from './providers/authentication-providers';
 import { FeatureProviders } from './providers/feature-providers';
 import { ApplicationProviders } from './providers/application-providers';
+import ScrollToTop from '../shared/components/ui/ScrollToTop';
 
 const App: React.FC = () => {
   return (
@@ -16,7 +17,9 @@ const App: React.FC = () => {
       <AuthenticationProviders>
         <FeatureProviders>
           <ApplicationProviders>
-            <RouterProvider router={router} />
+            <RouterProvider router={router}>
+              <ScrollToTop />
+            </RouterProvider>
           </ApplicationProviders>
         </FeatureProviders>
       </AuthenticationProviders>

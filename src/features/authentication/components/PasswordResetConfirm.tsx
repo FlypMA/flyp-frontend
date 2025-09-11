@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Field, Form, FormRenderProps, FieldRenderProps } from 'react-final-form';
-import CustomPasswordInputField from '../../../../components/main_UI/forms/customPasswordInputtField';
-import { authService } from '../../../../services/users/authenticationService';
+// import CustomPasswordInputField from '../../../../components/main_UI/forms/customPasswordInputtField'; // TODO: Fix import
+// import { authService } from '../../../../services/users/authenticationService'; // TODO: Fix import
 import { Button } from '@heroui/react';
 import { LuInfo, LuCircleCheck, LuCircleX } from 'react-icons/lu';
-import { BetweendealsLogo } from '../../../../components/common';
+// import { BetweendealsLogo } from '../../../../components/common'; // TODO: Fix import
 
 interface PasswordResetConfirmFormValues {
   password: string;

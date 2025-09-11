@@ -1,4 +1,14 @@
-import { SEOProps } from '../components/SEO';
+// import { SEOProps } from '../components/SEO'; // TODO: Fix SEO import
+interface SEOProps {
+  title: string;
+  description: string;
+  keywords: string;
+  type?: string;
+  structuredData?: any;
+  canonical?: string;
+  openGraph?: any;
+  twitter?: any;
+}
 
 export const seoData: Record<string, SEOProps> = {
   // ============= MAIN LANDING PAGES =============

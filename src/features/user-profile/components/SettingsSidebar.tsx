@@ -16,7 +16,7 @@ interface SettingsSection {
   category: string;
 }
 
-const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
+export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
   selectedSection,
   onSectionChange,
   className,
