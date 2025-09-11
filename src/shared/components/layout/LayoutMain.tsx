@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../footer';
+
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
 import NavigationDesktop from '../navigation/NavigationDesktop';
 
@@ -43,7 +43,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) 
     <div>
       <NavigationDesktop />
       {children || <Outlet />}
-      {showFooter && <Footer />}
+      {/* TODO: Re-enable Footer when available */}
     </div>
   );
 };

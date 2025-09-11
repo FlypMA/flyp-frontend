@@ -1,7 +1,7 @@
 import { Navbar, NavbarBrand } from '@heroui/react';
 import { Link, Outlet } from 'react-router-dom';
 import Container from '../main_UI/containers/container_default';
-import Footer from '../footer';
+
 import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
 import { BetweendealsLogo } from '../common';
 
@@ -29,7 +29,6 @@ const LogoOnlyLayout = () => {
         </NavbarBrand>
       </Navbar>
       <Outlet />
-      <Footer />
     </div>
   );
 };

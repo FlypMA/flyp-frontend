@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { WebSocketMessage } from '@api/websocket';
+// import { WebSocketMessage } from '@api/websocket'; // TODO: Fix websocket import
 
 interface WebSocketState {
-  messages: WebSocketMessage | null;
+  messages: any | null; // TODO: Define WebSocketMessage type
   connectionStatus: 'connecting' | 'connected' | 'disconnected' | 'error';
 }
 

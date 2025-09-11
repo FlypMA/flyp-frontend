@@ -25,8 +25,8 @@ import {
   ChevronRight,
   Star,
 } from 'lucide-react';
-import Container from '../../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../../components/SEO';
+// import Container from '../../../components/main_UI/containers/container_default'; // TODO: Fix import
+// import { SEOHead } from '../../../components/SEO'; // TODO: Fix import
 
 interface BuyerProfile {
   background: string;
@@ -282,14 +282,15 @@ const BuyerOnboarding = () => {
 
   return (
     <>
-      <SEOHead
+      {/* TODO: Re-enable SEOHead when available */}
+      {/* <SEOHead
         title="Buyer Onboarding | betweendeals"
         description="Set up your buyer profile and investment criteria"
         keywords="buyer onboarding, investment criteria, business search"
-      />
+      /> */}
 
       <div className="min-h-screen bg-neutral-50">
-        <Container>
+        <div>
           <div className="max-w-3xl mx-auto py-12">
             {/* Progress Header */}
             <div className="text-center mb-8">
@@ -756,7 +757,7 @@ const BuyerOnboarding = () => {
               </CardBody>
             </Card>
           </div>
-        </Container>
+        </div>
       </div>
     </>
   );

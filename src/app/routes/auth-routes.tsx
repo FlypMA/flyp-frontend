@@ -33,21 +33,11 @@ export const authRoutes: RouteObject[] = [
     children: [
       {
         path: 'seller',
-        element: (
-          <OnboardingUnified
-            config={createSellerConfig('modern')}
-            onComplete={data => console.log('Seller onboarding complete:', data)}
-          />
-        ),
+        element: <OnboardingUnified />,
       },
       {
         path: 'buyer',
-        element: (
-          <OnboardingUnified
-            config={createBuyerConfig('modern')}
-            onComplete={data => console.log('Buyer onboarding complete:', data)}
-          />
-        ),
+        element: <OnboardingUnified />,
       },
     ],
   },
