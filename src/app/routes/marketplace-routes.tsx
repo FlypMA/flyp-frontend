@@ -20,9 +20,11 @@ export const marketplaceRoutes: RouteObject = {
     { index: true, element: <ListingSearch /> },
     { path: 'search', element: <ListingSearch /> },
     { path: 'advanced-search', element: <ListingSearch /> },
+    { path: 'advanced', element: <ListingSearch /> }, // Legacy alias
 
-    // Individual listings
+    // Individual listings (matching legacy exactly)
     { path: 'listings/:id', element: <ListingDetails /> },
     { path: 'listings/:id/data-room', element: <ListingDetails /> },
+    { path: ':id', element: <ListingDetails /> }, // Legacy alias for direct access
   ],
 };

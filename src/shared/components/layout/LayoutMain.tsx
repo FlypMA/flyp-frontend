@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-// import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService'; // TODO: Fix import
-
-// Placeholder implementation
-const UrlGeneratorService = {
-  root: () => '/',
-  dashboard: () => '/dashboard',
-  marketplace: () => '/marketplace',
-};
-import NavigationDesktop from '../navigation/NavigationDesktop';
+import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService';
+import UnifiedNavigation from '../navigation/UnifiedNavigation';
+import Footer from './Footer';
 
 const scrollToSection = (sectionId: string) => {
   const section = document.getElementById(sectionId);
@@ -47,10 +41,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) 
   };
 
   return (
-    <div>
-      <NavigationDesktop />
-      {children || <Outlet />}
-      {/* TODO: Re-enable Footer when available */}
+    <div className="min-h-screen flex flex-col">
+      <UnifiedNavigation />
+      <main className="flex-1">{children || <Outlet />}</main>
+      {showFooter && <Footer />}
     </div>
   );
 };

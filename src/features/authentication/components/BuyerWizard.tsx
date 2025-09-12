@@ -20,7 +20,7 @@ const OnboardingSuccess: React.FC = () => (
       <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
         <span className="text-4xl">🎉</span>
       </div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Flyp!</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to BetweenDeals!</h2>
       <p className="text-gray-600 mb-8 max-w-md mx-auto">
         Your buyer profile has been created successfully. We'll start matching you with relevant
         business opportunities right away.
@@ -73,7 +73,7 @@ export const BuyerWizard: React.FC = () => {
       <>
         {/* TODO: Re-enable SEOHead when available */}
         {/* <SEOHead
-          title="Welcome to Flyp | Setup Complete"
+          title="Welcome to BetweenDeals | Setup Complete"
           description="Your buyer profile has been successfully created"
           keywords="buyer setup complete, business search, M&A platform"
         /> */}
@@ -141,7 +141,7 @@ export const BuyerWizard: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Flyp</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to BetweenDeals</h1>
             <p className="text-lg text-gray-600">
               Let's set up your buyer profile to find perfect business opportunities
             </p>

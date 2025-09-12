@@ -59,5 +59,19 @@ export const userRoutes: RouteObject[] = [
         </ProtectedRoute>
       </AppLayout>
     ),
+    children: [{ index: true, element: <TransactionFlow /> }],
+  },
+
+  // Transaction alias route (matching legacy exactly)
+  {
+    path: '/transaction/:transactionId',
+    element: (
+      <AppLayout>
+        <ProtectedRoute>
+          <AuthenticatedLayout />
+        </ProtectedRoute>
+      </AppLayout>
+    ),
+    children: [{ index: true, element: <TransactionFlow /> }],
   },
 ];

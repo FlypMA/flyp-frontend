@@ -1,58 +1,25 @@
+// ✍️ Enhanced Signup Modal - Clean implementation with role selection
+// Location: src/features/authentication/components/SignupModal.tsx
+// Purpose: Signup modal with role selection and custom inputs
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
-import { Field, Form, FormRenderProps, FieldRenderProps } from 'react-final-form';
-import { X, ArrowLeft } from 'lucide-react';
-// import { authService } from '../../services/users/authenticationService'; // TODO: Fix import
-// import UrlGeneratorService from '../../services/urlMapping/urlGeneratorService'; // TODO: Fix import
-// import CustomInputField from '../main_UI/forms/customInputField'; // TODO: Fix import
-// import CustomPasswordInputField from '../main_UI/forms/customPasswordInputtField'; // TODO: Fix import
+import { X, ArrowLeft, Info, Building2, Search, ShoppingBag } from 'lucide-react';
+import { useAuthModal } from '../hooks/useAuthModal';
+import { CustomInputField, CustomPasswordInputField } from './forms';
 
-// Placeholder implementations
-const authService = {
-  registerUser: async (data: any) => ({ success: false, message: 'Service not connected' }),
-  validateJWTAndGetUser: async () => ({ isAuthenticated: false, user: null }),
-};
-
-const UrlGeneratorService = {
-  generateOnboardingUrl: (user: any) => '/onboarding',
-  generateDashboardUrl: (user: any) => '/dashboard',
-};
-import { LuInfo } from 'react-icons/lu';
-import { useAuthModal } from '../../../shared/stores/AuthModalContext';
-// import { BetweendealsLogo } from '../common'; // TODO: Fix import
-// import RoleSelectionCards from '../auth/RoleSelectionCards'; // TODO: Fix import
-// import { UserIntent } from '../../utils/contextDetection'; // TODO: Fix import
-
-// Placeholder types and components
-type UserIntent = 'buyer' | 'seller' | 'neutral';
-const BetweendealsLogo = () => <div className="text-xl font-bold text-blue-600">Flyp</div>;
-const RoleSelectionCards = ({ onSelect }: { onSelect: (role: UserIntent) => void }) => (
-  <div className="space-y-4">
-    <button
-      onClick={() => onSelect('buyer')}
-      className="w-full p-4 border rounded-lg hover:bg-gray-50"
-    >
-      I'm looking to buy a business
-    </button>
-    <button
-      onClick={() => onSelect('seller')}
-      className="w-full p-4 border rounded-lg hover:bg-gray-50"
-    >
-      I'm looking to sell my business
-    </button>
-  </div>
-);
-import backgroundImage from '../../../assets/background4.jpg';
+type UserIntent = 'buyer' | 'seller' | 'both';
 
 interface SignupData {
   email: string;
   password: string;
+  role: UserIntent;
 }
 
-interface SignupFormValues {
-  email: string;
-  password: string;
+interface SignupFormErrors {
+  email?: string;
+  password?: string;
 }
 
 const SignupModal: React.FC = () => {
@@ -60,13 +27,20 @@ const SignupModal: React.FC = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+
+  // Form state
+  const [formData, setFormData] = useState<SignupData>({ email: '', password: '', role: 'buyer' });
+  const [errors, setErrors] = useState<SignupFormErrors>({});
+  const [touched, setTouched] = useState<Record<keyof SignupFormErrors, boolean>>({
+    email: false,
+    password: false,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Role selection state
-  const [selectedRole, setSelectedRole] = useState<UserIntent | null>(null);
+  const [selectedRole, setSelectedRole] = useState<UserIntent>('buyer');
   const [showRoleSelection, setShowRoleSelection] = useState(true);
 
   const isOpen = activeModal === 'signup';
@@ -74,39 +48,101 @@ const SignupModal: React.FC = () => {
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
+      setFormData({ email: '', password: '', role: 'buyer' });
+      setErrors({});
+      setTouched({ email: false, password: false });
       setErrorMessage('');
       setShowLoginPrompt(false);
-      setSelectedRole(null);
+      setIsSubmitting(false);
+      setSelectedRole('buyer');
       setShowRoleSelection(true);
     }
   }, [isOpen]);
 
-  // Debug modal state
-  useEffect(() => {
-    console.log('🎭 SignupModal: activeModal =', activeModal, 'isOpen =', isOpen);
-    console.log('🎭 SignupModal: postAuthRedirect =', postAuthRedirect);
-  }, [activeModal, isOpen, postAuthRedirect]);
-
-  // Handle role selection
-  const handleRoleSelect = (role: UserIntent) => {
-    console.log('🎯 Role selected:', role);
-    setSelectedRole(role);
-    setShowRoleSelection(false);
+  // Form validation
+  const validateField = (name: keyof SignupFormErrors, value: string): string | undefined => {
+    switch (name) {
+      case 'email':
+        if (!value) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email';
+        return undefined;
+      case 'password':
+        if (!value) return 'Password is required';
+        if (value.length < 8) return 'Password must be at least 8 characters';
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
+          return 'Password must contain uppercase, lowercase, and number';
+        }
+        return undefined;
+      default:
+        return undefined;
+    }
   };
 
-  // Handle back to role selection
+  const validateForm = (): boolean => {
+    const newErrors: SignupFormErrors = {};
+
+    const emailError = validateField('email', formData.email);
+    const passwordError = validateField('password', formData.password);
+
+    if (emailError) newErrors.email = emailError;
+    if (passwordError) newErrors.password = passwordError;
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle field changes
+  const handleFieldChange =
+    (name: keyof SignupFormErrors) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setFormData(prev => ({ ...prev, [name]: value }));
+
+      // Clear error when user starts typing
+      if (errors[name]) {
+        setErrors(prev => ({ ...prev, [name]: undefined }));
+      }
+
+      // Clear general error message
+      if (errorMessage) {
+        setErrorMessage('');
+        setShowLoginPrompt(false);
+      }
+    };
+
+  const handleFieldBlur =
+    (name: keyof SignupFormErrors) => (e: React.FocusEvent<HTMLInputElement>) => {
+      setTouched(prev => ({ ...prev, [name]: true }));
+
+      const error = validateField(name, formData[name]);
+      if (error) {
+        setErrors(prev => ({ ...prev, [name]: error }));
+      }
+    };
+
+  // Role selection
+  const handleRoleSelect = (role: UserIntent) => {
+    setSelectedRole(role);
+    setFormData(prev => ({ ...prev, role }));
+    setShowRoleSelection(false);
+
+    // Focus email input after role selection
+    setTimeout(() => {
+      emailInputRef.current?.focus();
+    }, 100);
+  };
+
   const handleBackToRoleSelection = () => {
     setShowRoleSelection(true);
-    setSelectedRole(null);
     setErrorMessage('');
     setShowLoginPrompt(false);
   };
 
-  const handleSignup = async ({ email, password }: SignupData) => {
-    console.log('SignupModal: Signing up with role:', selectedRole);
+  // Handle signup submission
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (!email || !password) {
-      setErrorMessage('Both email and password are required.');
+    if (!validateForm()) {
+      setTouched({ email: true, password: true });
       return;
     }
 
@@ -115,425 +151,336 @@ const SignupModal: React.FC = () => {
 
     try {
       console.log('🔑 Attempting signup with role:', selectedRole);
-      // Use selected role or default to buyer
-      const roleForSignup = selectedRole === 'neutral' ? 'buyer' : selectedRole || 'buyer';
-      const response = await authService.createAccount(email, password, email, roleForSignup);
-      console.log('✅ Signup successful:', response);
 
-      // CRITICAL: If createAccount doesn't auto-login, we need to login immediately
-      console.log('🔄 Attempting auto-login after account creation...');
-      try {
-        const loginResponse = await authService.login(email, password);
-        console.log('✅ Auto-login after signup successful:', loginResponse);
+      // TODO: Implement actual authentication service
+      // const response = await authService.createAccount(formData.email, formData.password, selectedRole);
 
-        // Dispatch auth change events immediately after successful login
-        window.dispatchEvent(new CustomEvent('auth-change'));
-        console.log('🔄 Dispatched immediate auth-change event');
-      } catch (loginError) {
-        console.error('❌ Auto-login failed:', loginError);
-        // Show error message and redirect to login
-        setErrorMessage(
-          'Account created successfully, but auto-login failed. Please login manually.'
+      // Mock successful signup for now
+      const mockSuccess = true;
+
+      if (mockSuccess) {
+        console.log('✅ Signup successful');
+
+        // Dispatch login event for navigation sync
+        window.dispatchEvent(
+          new CustomEvent('user-login', {
+            detail: {
+              email: formData.email,
+              name: formData.email.split('@')[0],
+              role: selectedRole,
+            },
+          })
         );
-        setShowLoginPrompt(true);
-        setIsSubmitting(false);
-        return;
-      }
 
-      handleCloseModal();
+        handleCloseModal();
 
-      // Small delay to allow auth state to propagate
-      setTimeout(() => {
-        // FORCE role-based dashboard redirect - ignore postAuthRedirect for signup
-        // postAuthRedirect is often set to /listings/new which isn't appropriate for all roles
-        console.log('🚀 SIGNUP SUCCESS: Forcing role-based dashboard redirect');
-        console.log('👤 User role:', roleForSignup);
-
-        // Always redirect to role-based dashboard after successful signup
+        // Role-based dashboard redirect
         let dashboardUrl: string;
-
-        switch (roleForSignup) {
+        switch (selectedRole) {
           case 'seller':
-            dashboardUrl = UrlGeneratorService.myBusiness(); // '/my-business/' (like Airbnb host mode)
+            dashboardUrl = '/my-business';
             break;
           case 'buyer':
-            dashboardUrl = UrlGeneratorService.listings(); // '/listings/' (browse listings like Airbnb guests)
+            dashboardUrl = '/search';
             break;
-          // Note: 'both' role doesn't come from UserIntent, but if it did:
-          // case 'both':
-          //   dashboardUrl = UrlGeneratorService.sellerDashboard();
-          //   break;
+          case 'both':
+            dashboardUrl = '/dashboard';
+            break;
           default:
-            // Default to general dashboard (buyer dashboard)
-            dashboardUrl = UrlGeneratorService.dashboard(); // '/dashboard'
+            dashboardUrl = '/dashboard';
             break;
         }
 
         console.log('🚀 Navigating to dashboard:', dashboardUrl);
         navigate(dashboardUrl, { replace: true });
-
-        // Final auth-change event for any remaining components
-        console.log('🔄 Final auth-change event dispatch');
-        window.dispatchEvent(new CustomEvent('auth-change'));
-      }, 100); // Reduced delay since we now handle auth immediately
-    } catch (error: any) {
-      console.error('❌ Signup failed in SignupModal:', error);
-      console.error('❌ Error type:', typeof error);
-      console.error('❌ Error details:', {
-        message: error.message,
-        status: error.status,
-        stack: error.stack,
-      });
-
-      let errorMsg = 'Something went wrong. Please try again later.';
-
-      if (error.status) {
-        switch (error.status) {
-          case 400:
-            errorMsg = 'Both email and password are required.';
-            break;
-          case 401:
-            errorMsg = 'Invalid email or password.';
-            break;
-          case 409:
-            // Special handling for user already exists
-            errorMsg = 'An account with this email address already exists.';
-            setShowLoginPrompt(true);
-            break;
-          case 422:
-            errorMsg = 'Please enter a valid email address.';
-            break;
-          case 500:
-            errorMsg = 'A server error occurred. Please try again later.';
-            break;
-          default:
-            errorMsg = `An error occurred (${error.status}). Please try again.`;
-            break;
-        }
       } else {
-        if (error.message.includes('409') || error.message.includes('already exists')) {
-          errorMsg = 'An account with this email address already exists.';
-          setShowLoginPrompt(true);
-        } else if (error.message.includes('401') || error.message.includes('invalid')) {
-          errorMsg = 'Invalid email or password.';
-        } else if (error.message.includes('400')) {
-          errorMsg = 'Both email and password are required.';
-        } else if (error.message.includes('422')) {
-          errorMsg = 'Please enter a valid email address.';
-        } else if (error.message.includes('500')) {
-          errorMsg = 'A server error occurred. Please try again later.';
-        } else if (error.message.includes('Account creation failed')) {
-          errorMsg = error.message;
-        }
+        setErrorMessage('Account creation failed. Please try again.');
       }
+    } catch (error: any) {
+      console.error('❌ Signup failed:', error);
 
-      setErrorMessage(errorMsg);
+      if (error.message?.includes('already exists')) {
+        setErrorMessage('An account with this email address already exists.');
+        setShowLoginPrompt(true);
+      } else {
+        setErrorMessage('Signup failed. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  useEffect(() => {
-    if (isOpen && emailInputRef.current) {
-      setTimeout(() => emailInputRef.current?.focus(), 100);
-    }
-  }, [isOpen]);
-
-  // Clear error message when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setErrorMessage('');
-    }
-  }, [isOpen]);
-
-  // Custom close handler to clear error state
   const handleCloseModal = () => {
-    console.log('🎭 SignupModal: Closing modal');
+    closeModal();
+    setFormData({ email: '', password: '', role: 'buyer' });
+    setErrors({});
+    setTouched({ email: false, password: false });
     setErrorMessage('');
     setShowLoginPrompt(false);
-    closeModal();
-    // Scroll to top of viewport for clean user experience
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSelectedRole('buyer');
+    setShowRoleSelection(true);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const validate = (values: SignupData) => {
-    const errors: Partial<SignupData> = {};
-    if (!values.email) {
-      errors.email = 'Email address is required.';
-    }
-    if (!values.password) {
-      errors.password = 'Password is required.';
-    }
-    return errors;
+  const switchToLogin = () => {
+    openModal('login', postAuthRedirect);
   };
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={handleCloseModal}
-      size="full"
-      backdrop="opaque"
-      radius="none"
-      shadow="lg"
-      isDismissable={true}
-      isKeyboardDismissDisabled={false}
-      hideCloseButton={true}
-      shouldBlockScroll={true}
-      portalContainer={document.body}
+      size="2xl"
       classNames={{
-        wrapper: '!z-[100]',
-        backdrop: '!z-[99] bg-black/80',
-        base: '!z-[101] bg-white',
+        base: 'bg-transparent shadow-none',
+        backdrop: 'bg-black/50 backdrop-blur-sm',
+        wrapper: 'flex items-center justify-center p-4',
       }}
-      motionProps={{
-        variants: {
-          enter: {
-            opacity: 1,
-            transition: {
-              duration: 0.3,
-              ease: 'easeOut',
-            },
-          },
-          exit: {
-            opacity: 0,
-            transition: {
-              duration: 0.2,
-              ease: 'easeIn',
-            },
-          },
-        },
-      }}
+      hideCloseButton
     >
-      <ModalContent className="bg-white m-0 rounded-none">
+      <ModalContent className="bg-transparent shadow-none max-w-4xl w-full">
         <ModalBody className="p-0">
-          <div className="relative min-h-screen">
-            {/* Logo */}
-            <div className="absolute top-6 left-6 z-50">
-              <button
-                onClick={() => {
-                  handleCloseModal();
-                  navigate(UrlGeneratorService.root());
-                }}
-                className="hover:opacity-80 transition-opacity duration-200 p-2 rounded-lg hover:bg-slate-100"
-              >
-                <BetweendealsLogo variant="header" width={40} height={40} className="h-10 w-10" />
-              </button>
+          <div className="flex bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh]">
+            {/* Left Side - Background Image */}
+            <div className="hidden md:flex md:w-1/2 relative">
+              <img
+                src="/src/assets/ad.jpg"
+                alt="BetweenDeals Platform"
+                className="w-full h-full object-cover"
+                style={{ minHeight: '600px' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute bottom-8 left-8 text-white">
+                <h2 className="text-2xl font-bold mb-2">Join BetweenDeals</h2>
+                <p className="text-lg opacity-90">Connect with Europe's leading M&A marketplace</p>
+              </div>
             </div>
 
-            {/* Close Button */}
-            <button
-              onClick={handleCloseModal}
-              className="absolute top-6 right-6 z-50 p-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
-            >
-              <X className="w-5 h-5 text-slate-700" />
-            </button>
+            {/* Right Side - Signup Form */}
+            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center relative overflow-y-auto">
+              {/* Close Button */}
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 z-10"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            {/* Main Content */}
-            <Form<SignupFormValues>
-              onSubmit={handleSignup}
-              validate={validate}
-              render={({
-                handleSubmit,
-                submitting: _submitting,
-                pristine: _pristine,
-                values: _values,
-                errors: _errors,
-              }: FormRenderProps<SignupFormValues>) => {
-                return (
-                  <form data-page="signup" onSubmit={handleSubmit} className="h-full">
-                    <div className="grid md:grid-cols-2 min-h-screen">
-                      {/* Left Side - Role Selection or Form */}
-                      <div className="p-8 flex items-center justify-center bg-white min-h-full">
-                        <div className="max-w-md w-full">
-                          {showRoleSelection ? (
-                            /* Role Selection Mode */
-                            <>
-                              <div className="mb-8">
-                                <h1 className="text-2xl font-semibold text-slate-900 text-left">
-                                  Join Flyp
-                                </h1>
-                                <p className="text-base text-slate-600 mt-2 text-left">
-                                  Already have an account?{' '}
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      console.log(
-                                        '🔄 SignupModal: Login button clicked - opening login modal'
-                                      );
-                                      openModal('login');
-                                    }}
-                                    className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
-                                  >
-                                    Sign in
-                                  </button>
-                                </p>
-                              </div>
-                              <RoleSelectionCards
-                                onSelect={handleRoleSelect}
-                                className="max-w-sm"
-                              />
-                            </>
-                          ) : (
-                            /* Signup Form Mode */
-                            <>
-                              {/* Header */}
-                              <div className="mb-8">
-                                <div className="flex items-center justify-between mb-4">
-                                  <button
-                                    type="button"
-                                    onClick={handleBackToRoleSelection}
-                                    className="flex items-center text-slate-600 hover:text-slate-900 transition-colors text-sm focus:outline-none focus:text-slate-900"
-                                  >
-                                    <ArrowLeft className="w-4 h-4 mr-1" />
-                                    Back
-                                  </button>
-                                  {selectedRole && selectedRole !== 'neutral' && (
-                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                                      {selectedRole === 'buyer'
-                                        ? 'Buyer Account'
-                                        : 'Seller Account'}
-                                    </span>
-                                  )}
-                                </div>
+              {/* Back Button (when in form view) */}
+              {!showRoleSelection && (
+                <button
+                  onClick={handleBackToRoleSelection}
+                  className="absolute top-4 left-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
+                  aria-label="Back to role selection"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+              )}
 
-                                <h1 className="text-4xl font-bold text-slate-900">
-                                  Create your account
-                                </h1>
-                                <p className="text-base text-slate-600 mt-2">
-                                  Already have an account?{' '}
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      console.log(
-                                        '🔄 SignupModal: Login button clicked - opening login modal'
-                                      );
-                                      openModal('login');
-                                    }}
-                                    className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
-                                  >
-                                    Log in
-                                  </button>
-                                </p>
-                              </div>
-                            </>
-                          )}
+              {/* Logo */}
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-2xl font-bold text-gray-900">BetweenDeals</span>
+              </div>
 
-                          {!showRoleSelection && (
-                            <>
-                              <div className="flex flex-col">
-                                {errorMessage && (
-                                  <div
-                                    className={`flex items-start mb-4 border-l-4 p-4 rounded-xl ${
-                                      showLoginPrompt
-                                        ? 'bg-blue-50 border-blue-400 text-blue-700'
-                                        : 'bg-red-600 border-red-600 text-red-700'
-                                    }`}
-                                  >
-                                    <p
-                                      className={`font-bold text-lg mr-2 mt-0.5 ${
-                                        showLoginPrompt ? 'text-blue-600' : 'text-white'
-                                      }`}
-                                    >
-                                      <LuInfo />
-                                    </p>
-                                    <div
-                                      className={`font-normal text-sm ${
-                                        showLoginPrompt ? 'text-blue-800' : 'text-white'
-                                      }`}
-                                    >
-                                      <div className="mb-2">{errorMessage}</div>
-                                      {showLoginPrompt && (
-                                        <div className="mt-3">
-                                          <button
-                                            type="button"
-                                            onClick={() => {
-                                              console.log(
-                                                '🔄 User exists - switching to login modal'
-                                              );
-                                              setErrorMessage('');
-                                              setShowLoginPrompt(false);
-                                              openModal('login');
-                                            }}
-                                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:border-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                          >
-                                            Switch to Login
-                                          </button>
-                                          <span className="text-blue-600 text-sm ml-2">
-                                            or try a different email address
-                                          </span>
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
+              {showRoleSelection ? (
+                /* Role Selection View */
+                <div>
+                  <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">How can we help you?</h1>
+                    <p className="text-gray-600">Choose your primary goal to get started</p>
+                  </div>
 
-                                <section>
-                                  <Field<string>
-                                    name="email"
-                                    render={(props: FieldRenderProps<string>) => (
-                                      <input
-                                        {...props}
-                                        label="Your email address"
-                                        type="email"
-                                        placeholder=" "
-                                        inputRef={emailInputRef}
-                                        className=""
-                                      />
-                                    )}
-                                  />
-                                </section>
-
-                                <section>
-                                  <Field<string>
-                                    name="password"
-                                    render={(props: FieldRenderProps<string>) => (
-                                      <input
-                                        {...props}
-                                        label="Your password"
-                                        inputRef={passwordInputRef}
-                                        className=""
-                                        placeholder=" "
-                                        showPassword={showPassword}
-                                        togglePasswordVisibility={togglePasswordVisibility}
-                                      />
-                                    )}
-                                  />
-                                </section>
-
-                                {/* Create Account Button */}
-                                <Button
-                                  type="submit"
-                                  color="primary"
-                                  size="lg"
-                                  disabled={isSubmitting}
-                                  className="w-full mt-8"
-                                >
-                                  {isSubmitting ? 'Creating account...' : 'Create account'}
-                                </Button>
-                              </div>
-                            </>
-                          )}
+                  <div className="space-y-4">
+                    <button
+                      onClick={() => handleRoleSelect('buyer')}
+                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left group"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                          <Search className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            I'm looking to buy a business
+                          </h3>
+                          <p className="text-gray-600 text-sm">
+                            Access our marketplace of verified businesses for sale across Europe
+                          </p>
                         </div>
                       </div>
+                    </button>
 
-                      {/* Right Side - Image */}
-                      <div className="hidden md:block relative">
-                        <div
-                          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                          style={{ backgroundImage: `url(${backgroundImage})` }}
-                        >
-                          <div className="absolute inset-0 bg-black/20"></div>
+                    <button
+                      onClick={() => handleRoleSelect('seller')}
+                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left group"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                          <ShoppingBag className="w-6 h-6 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            I'm looking to sell my business
+                          </h3>
+                          <p className="text-gray-600 text-sm">
+                            Get your business valued and connect with qualified buyers
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => handleRoleSelect('both')}
+                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left group"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                          <Building2 className="w-6 h-6 text-purple-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            Both - I'm exploring opportunities
+                          </h3>
+                          <p className="text-gray-600 text-sm">
+                            Access the full platform to buy and sell businesses
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Login Link */}
+                  <div className="mt-8 text-center">
+                    <p className="text-gray-600">
+                      Already have an account?{' '}
+                      <button
+                        onClick={switchToLogin}
+                        className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                      >
+                        Sign in here
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                /* Signup Form View */
+                <div>
+                  <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
+                    <p className="text-gray-600">
+                      {selectedRole === 'buyer' && 'Start exploring businesses for sale'}
+                      {selectedRole === 'seller' &&
+                        'Get your business in front of qualified buyers'}
+                      {selectedRole === 'both' && 'Access the full BetweenDeals platform'}
+                    </p>
+                  </div>
+
+                  {/* Selected Role Badge */}
+                  <div className="mb-6 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3 text-sm text-gray-700">
+                      <span className="font-medium">Account type:</span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded font-medium capitalize">
+                        {selectedRole === 'both' ? 'Full Access' : selectedRole}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Error/Info Message */}
+                  {errorMessage && (
+                    <div className="mb-6 p-4 rounded-lg border border-red-200 bg-red-50 text-red-700 flex items-start gap-3">
+                      <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">{errorMessage}</span>
+                    </div>
+                  )}
+
+                  {/* Login Prompt */}
+                  {showLoginPrompt && (
+                    <div className="mb-6 p-4 rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
+                      <div className="flex items-start gap-3">
+                        <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                        <div className="text-sm">
+                          <p>It looks like you already have an account.</p>
+                          <button onClick={switchToLogin} className="font-semibold hover:underline">
+                            Sign in instead
+                          </button>
                         </div>
                       </div>
                     </div>
+                  )}
+
+                  {/* Signup Form */}
+                  <form onSubmit={handleSignup} className="space-y-6">
+                    <CustomInputField
+                      label="Email Address"
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      value={formData.email}
+                      onChange={handleFieldChange('email')}
+                      onBlur={handleFieldBlur('email')}
+                      error={errors.email}
+                      touched={touched.email}
+                      inputRef={emailInputRef}
+                      autoComplete="email"
+                      required
+                    />
+
+                    <CustomPasswordInputField
+                      label="Password"
+                      name="password"
+                      placeholder="Create a strong password"
+                      value={formData.password}
+                      onChange={handleFieldChange('password')}
+                      onBlur={handleFieldBlur('password')}
+                      error={errors.password}
+                      touched={touched.password}
+                      inputRef={passwordInputRef}
+                      autoComplete="new-password"
+                      required
+                      showPasswordStrength={true}
+                    />
+
+                    {/* Create Account Button */}
+                    <Button
+                      type="submit"
+                      isLoading={isSubmitting}
+                      disabled={isSubmitting}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-200"
+                    >
+                      {isSubmitting ? 'Creating account...' : 'Create Account'}
+                    </Button>
                   </form>
-                );
-              }}
-            />
+
+                  {/* Switch to Login */}
+                  <div className="mt-8 text-center">
+                    <p className="text-gray-600">
+                      Already have an account?{' '}
+                      <button
+                        onClick={switchToLogin}
+                        className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                      >
+                        Sign in here
+                      </button>
+                    </p>
+                  </div>
+
+                  {/* Terms */}
+                  <div className="mt-6 text-xs text-gray-500 text-center">
+                    By creating an account, you agree to our{' '}
+                    <a href="/terms-conditions" className="text-blue-600 hover:underline">
+                      Terms of Service
+                    </a>{' '}
+                    and{' '}
+                    <a href="/privacy-policy" className="text-blue-600 hover:underline">
+                      Privacy Policy
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </ModalBody>
       </ModalContent>

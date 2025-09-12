@@ -5,3 +5,4 @@
 export * from './seoData';
 export * from './ui';
 export * from './validation';
+export * from './logos';

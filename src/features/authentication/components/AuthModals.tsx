@@ -1,29 +1,18 @@
-// 🔐 Auth Modals Component - Enhanced Integration
+// 🎭 Auth Modals Container - Centralized modal management
 // Location: src/features/authentication/components/AuthModals.tsx
-// Purpose: Complete authentication modal system
+// Purpose: Container component for all authentication modals
 
 import React from 'react';
-import { useAuthModal } from '../../../shared/stores/AuthModalContext';
-import { LoginModal } from './LoginModal';
+import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
+import { AuthModalProvider } from '../hooks/useAuthModal';
 
-/**
- * Complete Authentication Modal System
- * Integrates all authentication flows: Login, Signup, Password Reset
- */
-export const AuthModals: React.FC = () => {
+const AuthModals: React.FC = () => {
   return (
-    <>
-      {/* Login Modal */}
+    <AuthModalProvider>
       <LoginModal />
-
-      {/* Signup Modal */}
       <SignupModal />
-
-      {/* TODO: Add additional modals as needed */}
-      {/* <PasswordResetModal /> */}
-      {/* <ForgotPasswordModal /> */}
-    </>
+    </AuthModalProvider>
   );
 };
 

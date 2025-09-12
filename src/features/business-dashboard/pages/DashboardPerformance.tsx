@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../../types/user.consolidated';
-import Navigation from '../../../app/components/navigation/Navigation';
-import SellerSidebar from '../../components/navigation/SellerSidebar';
+import Container from '../../../shared/components/ui/Container';
+// TODO: Import when available
+// import Navigation from '../../../app/components/navigation/Navigation';
+// import SellerSidebar from '../../components/navigation/SellerSidebar';
 
 interface PerformanceData {
   totalViews: number;
@@ -89,12 +91,8 @@ const DashboardPerformance = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-
-      <div className="flex">
-        <SellerSidebar selectedTab="performance" />
-
-        <div className="flex-1 px-8 py-8">
+      <Container>
+        <div className="py-8">
           <div className="max-w-6xl space-y-6">
             {/* Page Header */}
             <div>
@@ -317,7 +315,7 @@ const DashboardPerformance = () => {
             </Card>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

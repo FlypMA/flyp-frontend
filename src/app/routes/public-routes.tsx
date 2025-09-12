@@ -1,7 +1,6 @@
 // 🌐 Public Routes - No authentication required
 import { RouteObject } from 'react-router-dom';
-import { MainLayout } from '@shared/components/layouts';
-import { AppLayout } from '../layouts/app-layout';
+import { MainLayout, AppLayout } from '@shared/components/layouts';
 
 // Lazy load pages for better performance
 import { lazy } from 'react';
@@ -9,7 +8,7 @@ const Home = lazy(() => import('../pages/landingPages/home'));
 const About = lazy(() => import('../pages/company/about/About'));
 const Contact = lazy(() => import('../pages/support/contact'));
 const Help = lazy(() => import('../pages/help/Help'));
-const SellersLanding = lazy(() => import('../pages/landingPages/sellers/sellers'));
+const SellersLanding = lazy(() => import('../pages/landingPages/sellers'));
 const ListingSearch = lazy(() => import('@marketplace/pages/ListingSearch'));
 const ListingDetails = lazy(() => import('@marketplace/pages/ListingDetails'));
 
@@ -26,13 +25,12 @@ const Security = lazy(() => import('../pages/legal/security/Security'));
 const ValuationGuide = lazy(() => import('../pages/resources/ValuationGuide'));
 const DueDiligenceChecklist = lazy(() => import('../pages/resources/DueDiligenceChecklist'));
 
+// FAQ page (missing from new app)
+const FAQ = lazy(() => import('../pages/support/FAQ'));
+
 export const publicRoutes: RouteObject = {
   path: '/',
-  element: (
-    <AppLayout>
-      <MainLayout />
-    </AppLayout>
-  ),
+  element: <MainLayout />,
   children: [
     // Home & Landing
     { index: true, element: <Home /> },
@@ -48,6 +46,8 @@ export const publicRoutes: RouteObject = {
     // Support & Help
     { path: 'contact', element: <Contact /> },
     { path: 'help', element: <Help /> },
+    { path: 'faq', element: <FAQ /> },
+    { path: 'support/faq', element: <FAQ /> },
 
     // Legal & Compliance
     { path: 'privacy-policy', element: <PrivacyPolicy /> },
@@ -59,5 +59,7 @@ export const publicRoutes: RouteObject = {
     // Resources
     { path: 'resources/valuation-guide', element: <ValuationGuide /> },
     { path: 'resources/due-diligence', element: <DueDiligenceChecklist /> },
+    { path: 'valuation-guide', element: <ValuationGuide /> }, // Legacy alias
+    { path: 'due-diligence', element: <DueDiligenceChecklist /> }, // Legacy alias
   ],
 };

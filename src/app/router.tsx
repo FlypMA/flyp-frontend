@@ -2,7 +2,7 @@
 import { createBrowserRouter, RouteObject, Outlet } from 'react-router-dom';
 import { AppLayout } from '@shared/components/layouts';
 import ScrollToTop from '../shared/components/ui/ScrollToTop';
-import { AuthModals } from '../features/authentication/components/AuthModals';
+import AuthModals from '../features/authentication/components/AuthModals';
 import {
   publicRoutes,
   authRoutes,
@@ -69,11 +69,7 @@ const routes: RouteObject[] = [
       // ✅ 404 Fallback
       {
         path: '*',
-        element: (
-          <AppLayout>
-            <NoPage />
-          </AppLayout>
-        ),
+        element: <NoPage />,
       },
     ],
   },

@@ -3,9 +3,12 @@
 // Purpose: Export all shared components
 
 export * from './ui';
-export * from './design-system';
-export * from './layout';
-export * from './navigation';
-export * from './forms';
-export * from './feedback';
-export * from './SEO';
+
+// Export individual components
+export { default as Container } from './ui/Container';
+export { default as Heading1 } from './ui/Heading1';
+export { default as Heading2 } from './ui/Heading2';
+export { default as BrandLogo } from './ui/BrandLogo';
+export { default as BetweendealsLogo } from './ui/BetweendealsLogo';
+export { default as UnifiedNavigation } from './navigation/UnifiedNavigation';
+export { default as Footer } from './layout/Footer';

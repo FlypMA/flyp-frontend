@@ -35,9 +35,11 @@ export const businessRoutes: RouteObject = {
     { path: 'listings/:id/analytics', element: <DashboardPerformance /> },
     { path: 'listings/:id/inquiries', element: <DashboardPerformance /> },
 
-    // Business Tools
+    // Business Tools (matching legacy exactly)
     { path: 'valuations', element: <BusinessValuation /> },
+    { path: 'valuation', element: <BusinessValuation /> }, // Legacy alias
     { path: 'documents', element: <DocumentVault /> },
     { path: 'performance', element: <DashboardPerformance /> },
+    { path: 'analytics', element: <DashboardPerformance /> }, // Legacy alias
   ],
 };
