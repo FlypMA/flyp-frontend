@@ -1,11 +1,11 @@
-// ✍️ Enhanced Signup Modal - Clean implementation with role selection
+// ✍️ Enhanced Signup Modal - MVP Version
 // Location: src/features/authentication/components/SignupModal.tsx
 // Purpose: Signup modal with role selection and custom inputs
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
-import { X, ArrowLeft, Info, Building2, Search, ShoppingBag } from 'lucide-react';
+import { X, ArrowLeft, Info, Building2, Search } from 'lucide-react';
 import { useAuthModal } from '../hooks/useAuthModal';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
@@ -150,61 +150,45 @@ const SignupModal: React.FC = () => {
     setErrorMessage('');
 
     try {
-      console.log('🔑 Attempting signup with role:', selectedRole);
+      console.log('📝 Attempting signup with:', { email: formData.email, role: formData.role });
 
       // TODO: Implement actual authentication service
-      // const response = await authService.createAccount(formData.email, formData.password, selectedRole);
+      // const authResult = await authService.signup(formData);
 
       // Mock successful signup for now
-      const mockSuccess = true;
+      const mockSuccess = formData.email && formData.password.length >= 8;
 
       if (mockSuccess) {
         console.log('✅ Signup successful');
 
-        // Dispatch login event for navigation sync
+        // Dispatch signup event for navigation sync
         window.dispatchEvent(
-          new CustomEvent('user-login', {
-            detail: {
-              email: formData.email,
-              name: formData.email.split('@')[0],
-              role: selectedRole,
-            },
+          new CustomEvent('user-signup', {
+            detail: { email: formData.email, role: formData.role },
           })
         );
 
         handleCloseModal();
 
-        // Role-based dashboard redirect
-        let dashboardUrl: string;
-        switch (selectedRole) {
-          case 'seller':
-            dashboardUrl = '/my-business';
-            break;
-          case 'buyer':
-            dashboardUrl = '/search';
-            break;
-          case 'both':
-            dashboardUrl = '/dashboard';
-            break;
-          default:
-            dashboardUrl = '/dashboard';
-            break;
+        // Handle post-auth redirect
+        if (postAuthRedirect) {
+          console.log('🎯 Redirecting to:', postAuthRedirect.url);
+          clearRedirect();
+          navigate(postAuthRedirect.url, {
+            state: postAuthRedirect.state,
+            replace: true,
+          });
+        } else {
+          // Redirect based on role
+          const redirectUrl = formData.role === 'seller' ? '/my-business' : '/listings';
+          navigate(redirectUrl);
         }
-
-        console.log('🚀 Navigating to dashboard:', dashboardUrl);
-        navigate(dashboardUrl, { replace: true });
       } else {
-        setErrorMessage('Account creation failed. Please try again.');
+        setErrorMessage('Signup failed. Please check your information and try again.');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('❌ Signup failed:', error);
-
-      if (error.message?.includes('already exists')) {
-        setErrorMessage('An account with this email address already exists.');
-        setShowLoginPrompt(true);
-      } else {
-        setErrorMessage('Signup failed. Please try again.');
-      }
+      setErrorMessage('Signup failed. Please check your information and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -251,22 +235,24 @@ const SignupModal: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               <div className="absolute bottom-8 left-8 text-white">
                 <h2 className="text-2xl font-bold mb-2">Join BetweenDeals</h2>
-                <p className="text-lg opacity-90">Connect with Europe's leading M&A marketplace</p>
+                <p className="text-lg opacity-90">
+                  Start your journey in the European M&A marketplace
+                </p>
               </div>
             </div>
 
             {/* Right Side - Signup Form */}
-            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center relative overflow-y-auto">
+            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center relative">
               {/* Close Button */}
               <button
                 onClick={handleCloseModal}
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 z-10"
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Back Button (when in form view) */}
+              {/* Back Button (when not in role selection) */}
               {!showRoleSelection && (
                 <button
                   onClick={handleBackToRoleSelection}
@@ -319,7 +305,7 @@ const SignupModal: React.FC = () => {
                     >
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
-                          <ShoppingBag className="w-6 h-6 text-green-600" />
+                          <Building2 className="w-6 h-6 text-green-600" />
                         </div>
                         <div>
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">
@@ -372,42 +358,16 @@ const SignupModal: React.FC = () => {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
                     <p className="text-gray-600">
                       {selectedRole === 'buyer' && 'Start exploring businesses for sale'}
-                      {selectedRole === 'seller' &&
-                        'Get your business in front of qualified buyers'}
+                      {selectedRole === 'seller' && 'Get your business in front of qualified buyers'}
                       {selectedRole === 'both' && 'Access the full BetweenDeals platform'}
                     </p>
                   </div>
 
-                  {/* Selected Role Badge */}
-                  <div className="mb-6 p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center gap-3 text-sm text-gray-700">
-                      <span className="font-medium">Account type:</span>
-                      <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded font-medium capitalize">
-                        {selectedRole === 'both' ? 'Full Access' : selectedRole}
-                      </span>
-                    </div>
-                  </div>
-
                   {/* Error/Info Message */}
                   {errorMessage && (
-                    <div className="mb-6 p-4 rounded-lg border border-red-200 bg-red-50 text-red-700 flex items-start gap-3">
+                    <div className="mb-6 p-4 rounded-lg border bg-red-50 border-red-200 text-red-700 flex items-start gap-3">
                       <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
                       <span className="text-sm">{errorMessage}</span>
-                    </div>
-                  )}
-
-                  {/* Login Prompt */}
-                  {showLoginPrompt && (
-                    <div className="mb-6 p-4 rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
-                      <div className="flex items-start gap-3">
-                        <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                        <div className="text-sm">
-                          <p>It looks like you already have an account.</p>
-                          <button onClick={switchToLogin} className="font-semibold hover:underline">
-                            Sign in instead
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   )}
 
@@ -431,7 +391,7 @@ const SignupModal: React.FC = () => {
                     <CustomPasswordInputField
                       label="Password"
                       name="password"
-                      placeholder="Create a strong password"
+                      placeholder="Create a password"
                       value={formData.password}
                       onChange={handleFieldChange('password')}
                       onBlur={handleFieldBlur('password')}
@@ -443,7 +403,7 @@ const SignupModal: React.FC = () => {
                       showPasswordStrength={true}
                     />
 
-                    {/* Create Account Button */}
+                    {/* Signup Button */}
                     <Button
                       type="submit"
                       isLoading={isSubmitting}
@@ -453,33 +413,33 @@ const SignupModal: React.FC = () => {
                       {isSubmitting ? 'Creating account...' : 'Create Account'}
                     </Button>
                   </form>
-
-                  {/* Switch to Login */}
-                  <div className="mt-8 text-center">
-                    <p className="text-gray-600">
-                      Already have an account?{' '}
-                      <button
-                        onClick={switchToLogin}
-                        className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-                      >
-                        Sign in here
-                      </button>
-                    </p>
-                  </div>
-
-                  {/* Terms */}
-                  <div className="mt-6 text-xs text-gray-500 text-center">
-                    By creating an account, you agree to our{' '}
-                    <a href="/terms-conditions" className="text-blue-600 hover:underline">
-                      Terms of Service
-                    </a>{' '}
-                    and{' '}
-                    <a href="/privacy-policy" className="text-blue-600 hover:underline">
-                      Privacy Policy
-                    </a>
-                  </div>
                 </div>
               )}
+
+              {/* Switch to Login */}
+              <div className="mt-8 text-center">
+                <p className="text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    onClick={switchToLogin}
+                    className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                  >
+                    Sign in
+                  </button>
+                </p>
+              </div>
+
+              {/* Terms */}
+              <div className="mt-6 text-xs text-gray-500 text-center">
+                By creating an account, you agree to our{' '}
+                <a href="/terms-conditions" className="text-blue-600 hover:underline">
+                  Terms of Service
+                </a>{' '}
+                and{' '}
+                <a href="/privacy-policy" className="text-blue-600 hover:underline">
+                  Privacy Policy
+                </a>
+              </div>
             </div>
           </div>
         </ModalBody>

@@ -1,4 +1,4 @@
-// 🔐 Enhanced Login Modal - Clean implementation with legacy functionality
+// 🔐 Enhanced Login Modal - MVP Version
 // Location: src/features/authentication/components/LoginModal.tsx
 // Purpose: Login modal with custom inputs and enhanced UX
 

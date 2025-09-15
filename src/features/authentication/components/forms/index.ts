@@ -1,4 +1,4 @@
-// 📝 Authentication Form Components - Barrel Exports
+// 📝 Forms Components - MVP Version
 // Location: src/features/authentication/components/forms/index.ts
 // Purpose: Export all form components for authentication
 

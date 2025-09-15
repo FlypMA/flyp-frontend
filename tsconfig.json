@@ -6,21 +6,14 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
-    // ⚠️  TEMPORARILY RELAXED FOR BUILD SUCCESS - Re-enable gradually
     "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "exactOptionalPropertyTypes": false,
-    "noImplicitOverride": false,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false,
-
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -29,34 +22,21 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,
     "types": ["vite/client"],
-
-    // ✅ SIMPLIFIED PATH ALIASES - Clear, non-overlapping
     "baseUrl": ".",
     "paths": {
-      // Core app imports
       "@/*": ["src/*"],
-
-      // Feature domains (simplified)
-      "@auth/*": ["src/features/authentication/*"],
-      "@marketplace/*": ["src/features/marketplace/*"],
-      "@business/*": ["src/features/business-dashboard/*"],
-      "@profile/*": ["src/features/user-profile/*"],
-      "@messaging/*": ["src/features/messaging/*"],
-
-      // Shared resources (simplified)
+      "@app/*": ["src/app/*"],
+      "@features/*": ["src/features/*"],
       "@shared/*": ["src/shared/*"],
-      "@components/*": ["src/shared/components/*"],
-      "@hooks/*": ["src/shared/hooks/*"],
-      "@stores/*": ["src/shared/stores/*"],
-      "@services/*": ["src/shared/services/*"],
-      "@utils/*": ["src/shared/utils/*"],
-      "@types/*": ["src/shared/types/*"],
-
-      // Assets & config
-      "@assets/*": ["src/assets/*"],
       "@config/*": ["src/config/*"]
     }
   },
-  "include": ["src", "src/vite-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
+  "include": [
+    "src",
+    "src/vite-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts"
+  ],
   "exclude": ["node_modules", "build", "dist", "coverage"]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "flyp-frontend",
+  "name": "betweendeals-frontend",
   "private": true,
   "version": "1.0.1",
-  "description": "Flyp Web Application - React Frontend for Europe's Premier SME M&A Platform",
+  "description": "BetweenDeals Web Application - React Frontend for Europe's Premier SME M&A Platform",
   "type": "module",
   "packageManager": "yarn@1.22.19",
   "engines": {
@@ -12,8 +12,7 @@
   "scripts": {
     "start": "vite --host --clearScreen false",
     "dev": "vite --host --clearScreen false --mode development",
-    "build": "yarn clean:build && NODE_ENV=production vite build --mode production",
-    "build:with-types": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
+    "build": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
     "vercel-build": "NODE_ENV=production vite build --mode production",
     "build:local": "yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production",
     "build:check": "yarn type-check && yarn build:local",
@@ -74,8 +73,8 @@
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "@types/react-helmet": "^6.1.11",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.5.2",
     "autoprefixer": "^10.4.18",
     "cssnano": "^6.0.1",
@@ -112,9 +111,13 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
       "prettier --write"
     ],
     "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "front-end-docs/**/*.{md,json,yml,yaml}": [
       "prettier --write"
     ]
   },
@@ -128,14 +131,14 @@
     "europe",
     "frontend"
   ],
-  "author": "Flyp Team",
+  "author": "BetweenDeals Team",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "https://github.com/flyp/platform.git"
+    "url": "https://github.com/betweendeals/platform.git"
   },
   "bugs": {
-    "url": "https://github.com/flyp/platform/issues"
+    "url": "https://github.com/betweendeals/platform/issues"
   },
-  "homepage": "https://www.flyp.com"
+  "homepage": "https://www.betweendeals.com"
 }

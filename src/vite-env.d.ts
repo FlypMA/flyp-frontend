@@ -1,12 +1,15 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
+  readonly VITE_APP_TITLE: string;
   readonly VITE_SUPABASE_URL: string;
   readonly VITE_SUPABASE_ANON_KEY: string;
+  readonly VITE_STRIPE_PUBLISHABLE_KEY: string;
   readonly VITE_API_URL: string;
-  readonly VITE_API_URL_DEV: string;
-  readonly VITE_ENVIRONMENT: 'development' | 'production';
-  // Add other environment variables here as needed
+  readonly REACT_APP_SUPABASE_URL: string;
+  readonly REACT_APP_SUPABASE_ANON_KEY: string;
+  readonly REACT_APP_STRIPE_PUBLISHABLE_KEY: string;
+  readonly REACT_APP_API_URL: string;
 }
 
 interface ImportMeta {

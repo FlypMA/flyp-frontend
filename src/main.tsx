@@ -1,53 +1,112 @@
+/**
+ * 🚀 Main Entry Point - BetweenDeals MVP
+ * 
+ * This is the application entry point that:
+ * - Initializes the React application
+ * - Sets up the UI framework (HeroUI)
+ * - Provides development debugging information
+ * - Handles application startup and rendering
+ * 
+ * ARCHITECTURE:
+ * - Uses the app shell from App.tsx (providers, routing, error boundaries)
+ * - Integrates with HeroUI for component library
+ * - Follows MVP principles with essential setup only
+ * - Provides development debugging and environment info
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HeroUIProvider } from '@heroui/react';
-import App from './app/app';
+import App from './App';
 import './index.css';
 
-// Debug info for production
-console.log('🚀 Flyp App starting...');
-console.log('Environment:', import.meta.env.MODE);
-
-// Simple error boundary component
-class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    console.error('🚨 React Error Boundary caught error:', error);
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚨 React Error Details:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div style={{ padding: '20px', textAlign: 'center', fontFamily: 'Inter, sans-serif' }}>
-          <h1>🚨 Something went wrong</h1>
-          <p>Please check the browser console for error details.</p>
-          <p>Environment: {import.meta.env.MODE}</p>
-          <button onClick={() => window.location.reload()}>Reload Page</button>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
+// 🚀 Development Debug Information
+if (import.meta.env.DEV) {
+  console.log('🚀 BetweenDeals MVP starting...');
+  console.log('Environment:', import.meta.env.MODE);
+  console.log('Build time:', new Date().toISOString());
+  console.log('App shell architecture initialized');
 }
 
-// Ensure we're in a browser environment before rendering
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <ErrorBoundary>
+// 🎯 Application Initialization
+const initializeApp = () => {
+  const rootElement = document.getElementById('root');
+  
+  if (!rootElement) {
+    console.error('🚨 Root element not found! Make sure you have a div with id="root" in your HTML.');
+    return;
+  }
+
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    
+    root.render(
       <HeroUIProvider>
         <App />
       </HeroUIProvider>
-    </ErrorBoundary>
-  );
-}
+    );
+
+    if (import.meta.env.DEV) {
+      console.log('✅ Application rendered successfully');
+    }
+  } catch (error) {
+    console.error('🚨 Failed to render application:', error);
+    
+    // Fallback rendering for critical errors
+    rootElement.innerHTML = `
+      <div style="
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: #f9fafb;
+        font-family: system-ui, -apple-system, sans-serif;
+      ">
+        <div style="
+          max-width: 28rem;
+          text-align: center;
+          padding: 2rem;
+          background: white;
+          border-radius: 0.5rem;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        ">
+          <h1 style="
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+          ">🚨 Application Failed to Load</h1>
+          <p style="
+            margin-bottom: 1rem;
+            color: #6b7280;
+          ">The application encountered a critical error during initialization.</p>
+          <p style="
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: #9ca3af;
+          ">Environment: ${import.meta.env.MODE}</p>
+          <button 
+            onclick="window.location.reload()"
+            style="
+              background-color: #dc2626;
+              color: white;
+              padding: 0.5rem 1rem;
+              border-radius: 0.375rem;
+              border: none;
+              cursor: pointer;
+              font-weight: 500;
+            "
+            onmouseover="this.style.backgroundColor='#b91c1c'"
+            onmouseout="this.style.backgroundColor='#dc2626'"
+          >
+            Reload Page
+          </button>
+        </div>
+      </div>
+    `;
+  }
+};
+
+// Initialize the application
+initializeApp();

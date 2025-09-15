@@ -1,6 +1,5 @@
-// 🏢 Listings Components - Barrel Exports
+// 🏢 Listings Feature Components - MVP Version
 // Location: src/features/listings/components/index.ts
-// Purpose: Export all listing-related components
+// Purpose: Export all listings feature components
 
-export { default as ImageGalleryModal } from './ImageGalleryModal';
-export { default as InquiryModal } from './InquiryModal';
+export { default as ListingWizardModal } from './ListingWizardModal';

@@ -1,7 +1,3 @@
-// 🏢 About BetweenDeals - Comprehensive company information page
-// Location: src/app/pages/company/about/About.tsx
-// Purpose: Detailed company background, mission, vision, and team info
-
 import React from 'react';
 import { Button, Card, CardBody } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
@@ -17,25 +13,22 @@ import {
   Heart,
   Target,
 } from 'lucide-react';
-import Container from '../../../../shared/components/ui/Container';
-// TODO: Import SEO and auth components when available
-// import { SEOHead } from '../../../components/SEO';
-// import { seoData } from '../../../constants/seoData';
-// import { useAuthModal } from '../../../contexts/AuthModalContext';
+import Container from '../../../components/main_UI/containers/container_default';
+import { SEOHead } from '../../../components/SEO';
+import { seoData } from '../../../constants/seoData';
+import { useAuthModal } from '../../../contexts/AuthModalContext';
 
 const About = () => {
   const navigate = useNavigate();
-  // const { openModal } = useAuthModal();
+  const { openModal } = useAuthModal();
 
   const handleGetStarted = () => {
-    // TODO: Integrate with auth modal when available
-    navigate('/auth/signup');
+    openModal('signup');
   };
 
   return (
     <>
-      {/* TODO: Add SEO when available */}
-      {/* <SEOHead {...seoData.about} /> */}
+      <SEOHead {...seoData.about} />
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -43,7 +36,7 @@ const About = () => {
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
-                About BetweenDeals
+                About betweendeals
               </h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
                 The next-generation M&A platform modernizing how European SMEs buy and sell
@@ -69,7 +62,7 @@ const About = () => {
 
               <div className="space-y-8 text-lg text-neutral-700 leading-relaxed">
                 <p>
-                  BetweenDeals is being built to solve one of Europe's biggest business challenges:
+                  betweendeals is being built to solve one of Europe's biggest business challenges:
                   the fragmented, inefficient SME M&A market. With 2.8 million SMEs across Europe
                   seeking exit strategies and a €125 billion annual market plagued by 18-24 month
                   sale cycles, we saw an opportunity to modernize an entire industry.
@@ -90,7 +83,7 @@ const About = () => {
                 </p>
 
                 <p>
-                  We're building BetweenDeals because every entrepreneur deserves a transparent,
+                  We're building betweendeals because every entrepreneur deserves a transparent,
                   efficient path to their next chapter – whether that's buying their first business
                   or selling the company they've spent decades building.
                 </p>
@@ -296,7 +289,7 @@ const About = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-8">Our Team</h2>
               <p className="text-lg text-neutral-700 mb-12 leading-relaxed">
-                BetweenDeals is proudly run by a dedicated team of M&A professionals, technology
+                betweendeals is proudly run by a dedicated team of M&A professionals, technology
                 experts, and business specialists based across Europe. Our diverse backgrounds in
                 finance, technology, and entrepreneurship allow us to understand the unique
                 challenges and opportunities in the European M&A market.
