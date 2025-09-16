@@ -31,7 +31,7 @@ import {
   Calendar,
   TrendingUp,
 } from 'lucide-react';
-import { useAuthModal } from '@/app/contexts/AuthModalContext';
+import { useAuth } from '@/app/providers/auth-provider';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -71,7 +71,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   listing,
   isLoading = false,
 }) => {
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [inquiryData, setInquiryData] = useState<InquiryData>({
     buyerName: '',

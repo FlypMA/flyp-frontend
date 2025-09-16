@@ -1,7 +1,7 @@
 /**
  * 🚀 MVP Router - BetweenDeals MVP
  * Complete routing for MVP with all pages and URL generator integration
- * 
+ *
  * MVP APPROACH:
  * - Direct imports (no lazy loading for MVP)
  * - Complete route protection
@@ -20,16 +20,16 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import LayoutSplit from '../layouts/LayoutSplit';
 
 // Route Guard imports
-import { 
-  ProtectedRoute, 
-  RoleProtectedRoute, 
-  SellerRoute, 
-  BuyerRoute, 
-  GuestRoute 
+import {
+  ProtectedRoute,
+  RoleProtectedRoute,
+  SellerRoute,
+  BuyerRoute,
+  GuestRoute,
 } from './route-guards';
 
 // Page imports - Landing Pages
-import HomePage from '../pages/landingPages/home/home';
+import HomePage from '../pages/landingPages/home';
 import SellersPage from '../pages/landingPages/sellers/sellers';
 
 // Page imports - Listings
@@ -49,7 +49,7 @@ import ListingManagement from '../pages/business/management/ListingManagement';
 import SolvencyIntelligence from '../pages/business/reports/SolvencyIntelligence';
 import ValuationTool from '../pages/business/reports/ValuationTool';
 
-// Page imports - Account & Authentication  
+// Page imports - Account & Authentication
 import UserSettings from '../pages/account/users/UserSettings';
 import UserProfile from '../pages/account/users/UserProfile';
 import UserBilling from '../pages/account/users/UserBilling';
@@ -109,24 +109,24 @@ export const router = createBrowserRouter([
       { path: 'contact', element: <Contact /> },
       { path: 'help', element: <Help /> },
       { path: 'faq', element: <FAQ /> },
-      
+
       // Search & Listings
       { path: 'search', element: <ListingSearch /> },
       { path: 'browse', element: <ListingSearch /> },
       { path: 'listings', element: <ListingSearch /> },
       { path: 'listings/:id', element: <ListingDetails /> },
-      
+
       // Resources
       { path: 'resources/valuation-guide', element: <ValuationGuide /> },
       { path: 'resources/due-diligence', element: <DueDiligenceChecklist /> },
-      
+
       // Legal Pages
       { path: 'privacy-policy', element: <PrivacyPolicy /> },
       { path: 'terms-and-conditions', element: <TermsAndConditions /> },
       { path: 'cookie-policy', element: <CookiePolicy /> },
       { path: 'gdpr', element: <GdprCompliance /> },
       { path: 'security', element: <Security /> },
-      
+
       // Test Routes (Development only - should be removed in production)
       { path: 'test/roles', element: <RoleTest /> },
     ],
@@ -140,89 +140,89 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       // Messages (all authenticated users)
-      { 
-        path: 'messages', 
+      {
+        path: 'messages',
         element: (
           <ProtectedRoute>
             <Messages />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'messages/:conversationId', 
+      {
+        path: 'messages/:conversationId',
         element: (
           <ProtectedRoute>
             <Messages />
           </ProtectedRoute>
-        )
+        ),
       },
-      
+
       // User Account Management (all authenticated users)
-      { 
-        path: 'users', 
+      {
+        path: 'users',
         element: (
           <ProtectedRoute>
             <UserProfile />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/profile', 
+      {
+        path: 'users/profile',
         element: (
           <ProtectedRoute>
             <UserProfile />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/settings', 
+      {
+        path: 'users/settings',
         element: (
           <ProtectedRoute>
             <UserSettings />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/billing', 
+      {
+        path: 'users/billing',
         element: (
           <ProtectedRoute>
             <UserBilling />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/security', 
+      {
+        path: 'users/security',
         element: (
           <ProtectedRoute>
             <UserSettings />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/notifications', 
+      {
+        path: 'users/notifications',
         element: (
           <ProtectedRoute>
             <UserNotifications />
           </ProtectedRoute>
-        )
+        ),
       },
-      { 
-        path: 'users/saved', 
+      {
+        path: 'users/saved',
         element: (
           <BuyerRoute>
             <UserProfile />
           </BuyerRoute>
-        )
+        ),
       },
-      
+
       // Transaction Flow (sellers and admins)
-      { 
-        path: 'transaction/:transactionId', 
+      {
+        path: 'transaction/:transactionId',
         element: (
           <SellerRoute>
             <TransactionFlow />
           </SellerRoute>
-        )
+        ),
       },
     ],
   },
@@ -235,131 +235,131 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       // Business Dashboard (sellers, both, admin only)
-      { 
-        path: 'my-business', 
+      {
+        path: 'my-business',
         element: (
           <SellerRoute>
             <BusinessOverview />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/overview', 
+      {
+        path: 'my-business/overview',
         element: (
           <SellerRoute>
             <BusinessOverview />
           </SellerRoute>
-        )
+        ),
       },
-      
+
       // Business Listing Management (sellers only)
-      { 
-        path: 'my-business/listings', 
+      {
+        path: 'my-business/listings',
         element: (
           <SellerRoute>
             <ListingManagement />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/listings/new', 
+      {
+        path: 'my-business/listings/new',
         element: (
           <SellerRoute>
             <CreateListingPage />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/listings/:listingId', 
+      {
+        path: 'my-business/listings/:listingId',
         element: (
           <SellerRoute>
             <EditListingPage />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/listings/:listingId/analytics', 
+      {
+        path: 'my-business/listings/:listingId/analytics',
         element: (
           <SellerRoute>
             <EditListingPage />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/listings/:listingId/inquiries', 
+      {
+        path: 'my-business/listings/:listingId/inquiries',
         element: (
           <SellerRoute>
             <EditListingPage />
           </SellerRoute>
-        )
+        ),
       },
-      
+
       // Business Valuation & Analytics (sellers only)
-      { 
-        path: 'my-business/valuations', 
+      {
+        path: 'my-business/valuations',
         element: (
           <SellerRoute>
             <BusinessValuation />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/analytics', 
+      {
+        path: 'my-business/analytics',
         element: (
           <SellerRoute>
             <DashboardPerformance />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/documents', 
+      {
+        path: 'my-business/documents',
         element: (
           <SellerRoute>
             <DocumentVault />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/performance', 
+      {
+        path: 'my-business/performance',
         element: (
           <SellerRoute>
             <DashboardPerformance />
           </SellerRoute>
-        )
+        ),
       },
-      
+
       // Advanced Business Tools (sellers only)
-      { 
-        path: 'my-business/valuation-tool', 
+      {
+        path: 'my-business/valuation-tool',
         element: (
           <SellerRoute>
             <ValuationTool />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/get-free-valuation', 
+      {
+        path: 'my-business/get-free-valuation',
         element: (
           <SellerRoute>
             <GetFreeValuation />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/liquidation-comparison', 
+      {
+        path: 'my-business/liquidation-comparison',
         element: (
           <SellerRoute>
             <LiquidationComparison />
           </SellerRoute>
-        )
+        ),
       },
-      { 
-        path: 'my-business/solvency-intelligence', 
+      {
+        path: 'my-business/solvency-intelligence',
         element: (
           <SellerRoute>
             <SolvencyIntelligence />
           </SellerRoute>
-        )
+        ),
       },
     ],
   },
@@ -405,8 +405,8 @@ export const router = createBrowserRouter([
     children: [
       // Buyer Onboarding
       { path: 'onboarding/buyer', element: <BuyerOnboarding /> },
-      
-      // Seller Onboarding  
+
+      // Seller Onboarding
       { path: 'onboarding/seller', element: <SellerOnboarding /> },
     ],
   },
@@ -423,7 +423,7 @@ export const router = createBrowserRouter([
       { path: 'account/seller', loader: () => redirect('/my-business') },
       { path: 'account/settings', loader: () => redirect('/users/settings') },
       { path: 'account/profile', loader: () => redirect('/users/profile') },
-      
+
       // Business redirects
       { path: 'business', loader: () => redirect('/my-business') },
       { path: 'business/overview', loader: () => redirect('/my-business/overview') },
@@ -431,30 +431,30 @@ export const router = createBrowserRouter([
       { path: 'business/valuations', loader: () => redirect('/my-business/valuations') },
       { path: 'business/documents', loader: () => redirect('/my-business/documents') },
       { path: 'business/performance', loader: () => redirect('/my-business/performance') },
-      
+
       // Selling/Buying redirects
       { path: 'selling', loader: () => redirect('/my-business') },
       { path: 'buying', loader: () => redirect('/listings') },
       { path: 'browse', loader: () => redirect('/listings') },
-      
+
       // Dashboard redirects
       { path: 'dashboard', loader: () => redirect('/my-business') },
       { path: 'profile', loader: () => redirect('/users/profile') },
-      
+
       // Auth redirects
       { path: 'login', loader: () => redirect('/') }, // Login is modal-based
       { path: 'register', loader: () => redirect('/') }, // Register is modal-based
       { path: 'signup', loader: () => redirect('/') }, // Signup is modal-based
-      
+
       // Resource redirects
       { path: 'valuation-guide', loader: () => redirect('/resources/valuation-guide') },
       { path: 'due-diligence', loader: () => redirect('/resources/due-diligence') },
-      
+
       // Support redirects
       { path: 'support', loader: () => redirect('/help') },
       { path: 'support/contact', loader: () => redirect('/contact') },
       { path: 'support/faq', loader: () => redirect('/faq') },
-      
+
       // 404 Fallback
       { path: '*', element: <NoPage /> },
     ],

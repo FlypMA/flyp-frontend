@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
 import Container from '@/shared/components/layout/container/Container';
-import { useAuthModal } from '../../../contexts/AuthModalContext';
+import { useAuth } from '../../../providers/auth-provider';
 import { authService } from '../../../services/users/authenticationService';
 
 const SellersLandingPage = () => {
   const navigate = useNavigate();
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
 
   // Handle Sell Your Business button click - Smart routing based on authentication
   const handleListBusinessClick = async () => {

@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
 import { X, ArrowLeft, Info, Building2, Search } from 'lucide-react';
-import { useAuthModal } from '../hooks/useAuthModal';
+import { useAuth } from '../../../app/providers/auth-provider';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 type UserIntent = 'buyer' | 'seller' | 'both';
@@ -23,7 +23,7 @@ interface SignupFormErrors {
 }
 
 const SignupModal: React.FC = () => {
-  const { activeModal, closeModal, openModal, postAuthRedirect, clearRedirect } = useAuthModal();
+  const { activeModal, closeModal, openModal, postAuthRedirect, clearRedirect } = useAuth();
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -358,7 +358,8 @@ const SignupModal: React.FC = () => {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
                     <p className="text-gray-600">
                       {selectedRole === 'buyer' && 'Start exploring businesses for sale'}
-                      {selectedRole === 'seller' && 'Get your business in front of qualified buyers'}
+                      {selectedRole === 'seller' &&
+                        'Get your business in front of qualified buyers'}
                       {selectedRole === 'both' && 'Access the full BetweenDeals platform'}
                     </p>
                   </div>

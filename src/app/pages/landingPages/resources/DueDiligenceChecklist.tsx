@@ -21,11 +21,11 @@ import {
 } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { useAuthModal } from '@/app/contexts/AuthModalContext';
+import { useAuth } from '@/app/providers/auth-provider';
 
 const DueDiligenceChecklist = () => {
   const navigate = useNavigate();
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
   const dueDiligenceCategories = [

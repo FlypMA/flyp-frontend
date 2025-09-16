@@ -31,7 +31,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
-import { useAuthModal } from '../../../contexts/AuthModalContext';
+import { useAuth } from '../../../providers/auth-provider';
 import { authService } from '../../../services/users/authenticationService';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
@@ -43,7 +43,7 @@ const Home = () => {
   const [searchType, setSearchType] = useState('businesses'); // 'businesses' or 'franchises'
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
 
   useEffect(() => {
     checkAuthentication();

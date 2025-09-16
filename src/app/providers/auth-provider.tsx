@@ -1,7 +1,7 @@
 /**
  * 🔐 Auth Provider - BetweenDeals MVP
  * Combined authentication and modal management
- * 
+ *
  * MVP APPROACH:
  * - Combined auth state + modal management
  * - Simple user authentication
@@ -12,6 +12,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authService } from '../../shared/services';
 import { User } from '../../shared/types';
+import AuthModals from '../../features/authentication/components/AuthModals';
 
 // =============================================================================
 // TYPES & INTERFACES
@@ -29,15 +30,15 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  
+
   // Auth actions
   checkAuth: () => Promise<void>;
   setUser: (user: User | null) => void;
-  
+
   // Modal state
   activeModal: ModalType;
   postAuthRedirect: PostAuthRedirect | null;
-  
+
   // Modal actions
   openModal: (type: ModalType, redirectInfo?: PostAuthRedirect) => void;
   closeModal: () => void;
@@ -71,7 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUserState] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
+
   // Modal state
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [postAuthRedirect, setPostAuthRedirect] = useState<PostAuthRedirect | null>(null);
@@ -140,15 +141,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     isAuthenticated,
     isLoading,
-    
+
     // Auth actions
     checkAuth,
     setUser,
-    
+
     // Modal state
     activeModal,
     postAuthRedirect,
-    
+
     // Modal actions
     openModal,
     closeModal,
@@ -158,7 +159,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
-      {/* AuthModals will be rendered here when needed */}
+      <AuthModals />
     </AuthContext.Provider>
   );
 };

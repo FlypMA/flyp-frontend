@@ -17,11 +17,11 @@ import {
 } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { useAuthModal } from '@/app/contexts/AuthModalContext';
+import { useAuth } from '@/app/providers/auth-provider';
 
 const ValuationGuide = () => {
   const navigate = useNavigate();
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
 
   return (
     <>

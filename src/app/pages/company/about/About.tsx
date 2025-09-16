@@ -16,11 +16,11 @@ import {
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { useAuthModal } from '../../../contexts/AuthModalContext';
+import { useAuth } from '../../../providers/auth-provider';
 
 const About = () => {
   const navigate = useNavigate();
-  const { openModal } = useAuthModal();
+  const { openModal } = useAuth();
 
   const handleGetStarted = () => {
     openModal('signup');

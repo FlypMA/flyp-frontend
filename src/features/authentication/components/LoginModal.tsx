@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
 import { X, Info, Building2 } from 'lucide-react';
-import { useAuthModal } from '../hooks/useAuthModal';
+import { useAuth } from '../../../app/providers/auth-provider';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 interface LoginData {
@@ -20,7 +20,7 @@ interface LoginFormErrors {
 }
 
 const LoginModal: React.FC = () => {
-  const { activeModal, closeModal, openModal, postAuthRedirect, clearRedirect } = useAuthModal();
+  const { activeModal, closeModal, openModal, postAuthRedirect, clearRedirect } = useAuth();
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
