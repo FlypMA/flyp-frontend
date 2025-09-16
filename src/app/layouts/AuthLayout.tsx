@@ -18,31 +18,32 @@
 */
 
 import React, { useEffect, useState } from 'react';
-import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import { authService, UrlGenerator } from '../../shared/services';
 import { User } from '../../shared/types';
 import { Navigation } from '@/shared/components/layout/navigation';
+import { logger } from '../../shared/utils/logger';
 
 const DEV_BYPASS_AUTH =
-  (import.meta as any).env?.VITE_DEV_BYPASS_AUTH === 'true' || (import.meta as any).env?.DEV === true;
+  (import.meta.env as Record<string, unknown>)?.VITE_DEV_BYPASS_AUTH === 'true' ||
+  (import.meta.env as Record<string, unknown>)?.DEV === true;
 
 const AuthenticatedAccount = () => {
   const [authenticatedUser, setAuthenticatedUser] = useState<User | null>(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true); // Add loading state to prevent premature redirect
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('🔍 AuthenticatedAccount: Starting authentication check...');
-      console.log('🔍 Current location:', location.pathname);
-      console.log('🔍 DEV_BYPASS_AUTH:', DEV_BYPASS_AUTH);
+      logger.debug('🔍 AuthenticatedAccount: Starting authentication check...');
+      logger.debug('🔍 Current location:', location.pathname);
+      logger.debug('🔍 DEV_BYPASS_AUTH:', DEV_BYPASS_AUTH);
 
       setIsAuthChecking(true);
 
       // Development bypass
       if (DEV_BYPASS_AUTH) {
-        console.log('🚨 DEV MODE: Bypassing authentication for development');
+        logger.info('🚨 DEV MODE: Bypassing authentication for development');
         const mockUser: User = {
           id: 'dev-user-123',
           email: 'dev@betweendeals.com',
@@ -63,17 +64,17 @@ const AuthenticatedAccount = () => {
 
       try {
         const authResult = await authService.checkAuthentication();
-        console.log('🔍 AuthenticatedAccount: Auth result:', authResult);
+        logger.debug('🔍 AuthenticatedAccount: Auth result:', authResult);
 
         if (authResult.isAuthenticated && authResult.user) {
-          console.log('✅ Authenticated user detected:', authResult.user);
+          logger.success('Authenticated user detected:', authResult.user);
           setAuthenticatedUser(authResult.user);
         } else {
-          console.log('❌ No authenticated user detected');
+          logger.info('❌ No authenticated user detected');
           setAuthenticatedUser(null);
         }
       } catch (error) {
-        console.error('❌ Auth check error:', error);
+        logger.error('❌ Auth check error:', error);
         setAuthenticatedUser(null);
       } finally {
         setIsAuthChecking(false);
@@ -81,7 +82,7 @@ const AuthenticatedAccount = () => {
     };
 
     fetchData();
-  }, []); // Remove location dependency to prevent loops
+  }, [location.pathname]); // Remove location dependency to prevent loops
 
   // TODO: Implement logout functionality
   // const handleUserLogoutClick = async () => {
@@ -108,7 +109,7 @@ const AuthenticatedAccount = () => {
 
   // Only redirect if auth check is complete and no authenticated user (excluding dev mode)
   if (!isAuthChecking && !authenticatedUser && !DEV_BYPASS_AUTH) {
-    console.log('🚨 No authenticated user after auth check complete, redirecting to home');
+    logger.info('🚨 No authenticated user after auth check complete, redirecting to home');
     return <Navigate to={UrlGenerator.root()} replace />;
   }
 
@@ -126,7 +127,7 @@ const AuthenticatedAccount = () => {
     <div className="min-h-screen flex flex-col">
       {/* Navigation - like legacy UnifiedNavigation for authenticated pages */}
       <Navigation />
-      
+
       {/* Main Content - full width without sidebar */}
       <main className="flex-1">
         <Outlet />

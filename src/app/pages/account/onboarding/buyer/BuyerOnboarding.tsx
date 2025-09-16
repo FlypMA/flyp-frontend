@@ -8,23 +8,10 @@ import {
   SelectItem,
   Textarea,
   Progress,
-  Checkbox,
-  Chip,
 } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Search,
-  Target,
-  Euro,
-  TrendingUp,
-  MapPin,
-  Building2,
-  CheckCircle,
-  Bell,
-  ChevronLeft,
-  ChevronRight,
-  Star,
-} from 'lucide-react';
+import { logger } from '@/shared/utils/logger';
+import { Target, Euro, MapPin, CheckCircle, Bell, ChevronLeft, Star } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 
@@ -231,7 +218,7 @@ const BuyerOnboarding = () => {
 
       navigate('/listings'); // AIRBNB MODEL: Buyers browse listings (no dashboard)
     } catch (error) {
-      console.error('Error completing onboarding:', error);
+      logger.error('Error completing onboarding:', error);
     } finally {
       setIsSubmitting(false);
     }

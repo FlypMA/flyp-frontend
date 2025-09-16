@@ -1,12 +1,12 @@
 /**
  * 🚀 Main Entry Point - BetweenDeals MVP
- * 
+ *
  * This is the application entry point that:
  * - Initializes the React application
  * - Sets up the UI framework (HeroUI)
  * - Provides development debugging information
  * - Handles application startup and rendering
- * 
+ *
  * ARCHITECTURE:
  * - Uses the app shell from App.tsx (providers, routing, error boundaries)
  * - Integrates with HeroUI for component library
@@ -18,35 +18,38 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { HeroUIProvider } from '@heroui/react';
 import App from './App';
+import { logger } from './shared/utils/logger';
 import './index.css';
 
 // 🚀 Development Debug Information
-console.log('🚀 BetweenDeals MVP starting...');
-console.log('Build time:', new Date().toISOString());
-console.log('App shell architecture initialized');
+logger.info('🚀 BetweenDeals MVP starting...');
+logger.info('Build time:', new Date().toISOString());
+logger.info('App shell architecture initialized');
 
 // 🎯 Application Initialization
 const initializeApp = () => {
   const rootElement = document.getElementById('root');
-  
+
   if (!rootElement) {
-    console.error('🚨 Root element not found! Make sure you have a div with id="root" in your HTML.');
+    logger.error(
+      '🚨 Root element not found! Make sure you have a div with id="root" in your HTML.'
+    );
     return;
   }
 
   try {
     const root = ReactDOM.createRoot(rootElement);
-    
+
     root.render(
       <HeroUIProvider>
         <App />
       </HeroUIProvider>
     );
 
-    console.log('✅ Application rendered successfully');
+    logger.success('Application rendered successfully');
   } catch (error) {
-    console.error('🚨 Failed to render application:', error);
-    
+    logger.error('🚨 Failed to render application:', error);
+
     // Fallback rendering for critical errors
     rootElement.innerHTML = `
       <div style="

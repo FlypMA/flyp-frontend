@@ -41,6 +41,12 @@ export default [
         fetch: 'readonly',
         navigator: 'readonly',
         history: 'readonly',
+        // Node.js globals for scripts
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly',
+        globalThis: 'readonly',
       },
     },
     plugins: {
@@ -50,20 +56,21 @@ export default [
       '@typescript-eslint': tseslint,
     },
     rules: {
-      // Disable all problematic rules for now to allow commits
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      'no-console': 'off',
+      // Gradually re-enable rules for better code quality
+      'no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-console': 'warn',
       '@typescript-eslint/no-require-imports': 'off',
       'no-redeclare': 'off',
-      '@typescript-eslint/no-redeclare': 'off',
-      'react-hooks/exhaustive-deps': 'off',
-      'react-refresh/only-export-components': 'off',
-      'no-undef': 'off',
+      '@typescript-eslint/no-redeclare': 'warn',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-refresh/only-export-components': 'warn',
+      'no-undef': 'error',
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/no-unescaped-entities': 'off',
+      'no-async-promise-executor': 'error',
     },
     settings: {
       react: {
@@ -80,6 +87,7 @@ export default [
       'test-*.js',
       '.eslintrc.js',
       '.eslintrc.cjs',
+      'eslint.config.js',
       'vite.config.ts',
       'vitest.config.ts',
       'tailwind.config.ts',

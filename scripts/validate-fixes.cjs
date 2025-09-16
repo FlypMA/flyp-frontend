@@ -6,7 +6,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+// const path = require('path'); // Currently unused
 
 console.log('🔍 Validating HTML Visualization Architecture Fixes...\n');
 

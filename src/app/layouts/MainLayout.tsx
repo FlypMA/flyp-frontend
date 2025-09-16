@@ -21,12 +21,11 @@ Features:
 */
 
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { UrlGenerator } from '../../shared/services';
 import Navigation from '@/shared/components/layout/navigation/main/Navigation';
 import Footer from '@/shared/components/layout/footer/Footer';
-
 
 const scrollToSection = (sectionId: string) => {
   const section = document.getElementById(sectionId);
@@ -43,7 +42,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // TODO: Implement navigation functionality
   const location = useLocation();
   const [sectionToScroll, setSectionToScroll] = useState<string | null>(null);
 
@@ -54,14 +53,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) 
     }
   }, [location, sectionToScroll]);
 
-  const handleNavigationAndScroll = (sectionId: string) => {
-    if (location.pathname !== UrlGenerator.root()) {
-      navigate(UrlGenerator.root(), { replace: true });
-      setSectionToScroll(sectionId);
-    } else {
-      scrollToSection(sectionId);
-    }
-  };
+  // TODO: Implement navigation and scroll functionality
+  // const handleNavigationAndScroll = (sectionId: string) => {
+  //   if (location.pathname !== UrlGenerator.root()) {
+  //     navigate(UrlGenerator.root(), { replace: true });
+  //     setSectionToScroll(sectionId);
+  //   } else {
+  //     scrollToSection(sectionId);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -73,4 +73,3 @@ const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) 
 };
 
 export default MainLayout;
-

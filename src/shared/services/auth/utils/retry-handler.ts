@@ -12,6 +12,7 @@
 // - Development-friendly retry configuration
 
 import { AUTH_ERROR_CODES } from './error-handler';
+import { logger } from '../../../utils/logger';
 
 // =============================================================================
 // RETRY CONFIGURATION
@@ -37,42 +38,42 @@ export class RetryHandler {
     context: string,
     maxAttempts: number = RETRY_CONFIG.MAX_ATTEMPTS
   ): Promise<T> {
-    let lastError: any;
-    
+    let lastError: Error | unknown;
+
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
-        console.log(`🔄 ${context} - Attempt ${attempt}/${maxAttempts}`);
+        logger.debug(`🔄 ${context} - Attempt ${attempt}/${maxAttempts}`);
         const result = await operation();
-        
+
         if (attempt > 1) {
-          console.log(`✅ ${context} - Succeeded on attempt ${attempt}`);
+          logger.success(`${context} - Succeeded on attempt ${attempt}`);
         }
-        
+
         return result;
       } catch (error) {
         lastError = error;
-        
+
         // Check if error is retryable
         if (!this.isRetryableError(error) || attempt === maxAttempts) {
-          console.error(`❌ ${context} - Failed after ${attempt} attempts:`, error);
+          logger.error(`❌ ${context} - Failed after ${attempt} attempts:`, error);
           throw error;
         }
-        
+
         // Calculate delay with exponential backoff
         const delay = this.calculateDelay(attempt);
-        console.warn(`⚠️ ${context} - Attempt ${attempt} failed, retrying in ${delay}ms:`, error);
-        
+        logger.warn(`⚠️ ${context} - Attempt ${attempt} failed, retrying in ${delay}ms:`, error);
+
         await this.sleep(delay);
       }
     }
-    
+
     throw lastError;
   }
 
   /**
    * Check if error is retryable
    */
-  private static isRetryableError(error: any): boolean {
+  private static isRetryableError(error: unknown): boolean {
     const retryableErrors = [
       AUTH_ERROR_CODES.NETWORK_ERROR,
       AUTH_ERROR_CODES.TIMEOUT_ERROR,
@@ -88,10 +89,12 @@ export class RetryHandler {
 
     // Check error message
     const message = error?.message?.toLowerCase() || '';
-    if (message.includes('network') || 
-        message.includes('timeout') || 
-        message.includes('server error') ||
-        message.includes('service unavailable')) {
+    if (
+      message.includes('network') ||
+      message.includes('timeout') ||
+      message.includes('server error') ||
+      message.includes('service unavailable')
+    ) {
       return true;
     }
 
@@ -127,19 +130,20 @@ export class RetryHandler {
     timeoutMs: number = 30000,
     context: string = 'Operation'
   ): Promise<T> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject(new Error(`${context} timed out after ${timeoutMs}ms`));
       }, timeoutMs);
 
-      try {
-        const result = await operation();
-        clearTimeout(timeoutId);
-        resolve(result);
-      } catch (error) {
-        clearTimeout(timeoutId);
-        reject(error);
-      }
+      operation()
+        .then(result => {
+          clearTimeout(timeoutId);
+          resolve(result);
+        })
+        .catch(error => {
+          clearTimeout(timeoutId);
+          reject(error);
+        });
     });
   }
 
