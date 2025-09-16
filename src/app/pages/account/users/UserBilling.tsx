@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button, Badge, Divider } from '@heroui/react';
-import { 
-  CreditCard, 
-  Download, 
-  Calendar, 
-  DollarSign, 
-  CheckCircle, 
+import {
+  CreditCard,
+  Download,
+  Calendar,
+  CheckCircle,
   AlertTriangle,
   Plus,
   Settings,
-  Receipt
+  Receipt,
 } from 'lucide-react';
 import { authService } from '../../../../shared/services/auth/Auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
+import { logger } from '@/shared/utils/logger';
 
 interface Subscription {
   id: string;
@@ -58,9 +58,9 @@ const UserBilling: React.FC = () => {
   useEffect(() => {
     loadUserData();
     loadBillingData();
-  }, []);
+  }, [loadUserData]);
 
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
@@ -69,12 +69,12 @@ const UserBilling: React.FC = () => {
         navigate(UrlGenerator.login());
       }
     } catch (error) {
-      console.error('Failed to load user data:', error);
+      logger.error('Failed to load user data:', error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   const loadBillingData = async () => {
     try {
@@ -152,7 +152,7 @@ const UserBilling: React.FC = () => {
       setPaymentMethods(mockPaymentMethods);
       setInvoices(mockInvoices);
     } catch (error) {
-      console.error('Failed to load billing data:', error);
+      logger.error('Failed to load billing data:', error);
     }
   };
 
@@ -160,25 +160,25 @@ const UserBilling: React.FC = () => {
     try {
       // TODO: Implement cancel subscription API call
       // await AuthenticationService.cancelSubscription();
-      
-      console.log('Subscription cancelled');
+
+      logger.info('Subscription cancelled');
       // Update subscription status
       if (subscription) {
         setSubscription({ ...subscription, status: 'cancelled' });
       }
     } catch (error) {
-      console.error('Failed to cancel subscription:', error);
+      logger.error('Failed to cancel subscription:', error);
     }
   };
 
   const handleUpdatePaymentMethod = () => {
     // TODO: Implement payment method update
-    console.log('Update payment method');
+    logger.info('Update payment method');
   };
 
   const handleDownloadInvoice = (invoiceId: string) => {
     // TODO: Implement invoice download
-    console.log('Download invoice:', invoiceId);
+    logger.info('Download invoice:', invoiceId);
   };
 
   const getStatusColor = (status: string) => {
@@ -315,7 +315,9 @@ const UserBilling: React.FC = () => {
                 ) : (
                   <div className="text-center py-8">
                     <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No Active Subscription</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">
+                      No Active Subscription
+                    </h3>
                     <p className="text-gray-600 mb-4">Choose a plan to get started</p>
                     <Button
                       color="primary"
@@ -349,7 +351,7 @@ const UserBilling: React.FC = () => {
               <CardBody className="pt-0">
                 {paymentMethods.length > 0 ? (
                   <div className="space-y-4">
-                    {paymentMethods.map((method) => (
+                    {paymentMethods.map(method => (
                       <div
                         key={method.id}
                         className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
@@ -367,12 +369,14 @@ const UserBilling: React.FC = () => {
                         </div>
                         <div className="flex items-center space-x-2">
                           {method.isDefault && (
-                            <Badge color="success" size="sm">Default</Badge>
+                            <Badge color="success" size="sm">
+                              Default
+                            </Badge>
                           )}
                           <Button
                             size="sm"
                             variant="light"
-                            onPress={() => console.log('Edit payment method')}
+                            onPress={() => logger.info('Edit payment method')}
                           >
                             Edit
                           </Button>
@@ -384,7 +388,9 @@ const UserBilling: React.FC = () => {
                   <div className="text-center py-8">
                     <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No Payment Methods</h3>
-                    <p className="text-gray-600 mb-4">Add a payment method to manage your subscription</p>
+                    <p className="text-gray-600 mb-4">
+                      Add a payment method to manage your subscription
+                    </p>
                     <Button
                       color="primary"
                       onPress={handleUpdatePaymentMethod}
@@ -407,7 +413,7 @@ const UserBilling: React.FC = () => {
               <CardBody className="pt-0">
                 {invoices.length > 0 ? (
                   <div className="space-y-4">
-                    {invoices.map((invoice) => (
+                    {invoices.map(invoice => (
                       <div
                         key={invoice.id}
                         className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"

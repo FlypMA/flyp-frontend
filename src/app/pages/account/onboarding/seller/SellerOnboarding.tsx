@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Card, Input, Textarea, Slider } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -75,20 +75,20 @@ const SellerOnboarding: React.FC = () => {
     if (autoAdvanceSteps.includes(currentStep) && formData.businessType) {
       setTimeout(() => handleNext(), 800);
     }
-  }, [currentStep, formData.businessType]);
+  }, [currentStep, formData.businessType, handleNext]);
 
-  const updateFormData = (field: keyof SellerFormData, value: any) => {
+  const updateFormData = (field: keyof SellerFormData, value: unknown) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(prev => prev + 1);
     }
-  };
+  }, [currentStep, totalSteps]);
 
   const handleBack = () => {
     if (currentStep > 0) {
@@ -98,35 +98,47 @@ const SellerOnboarding: React.FC = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setCurrentStep(totalSteps - 1); // Go to success page
-      
+
       // Celebration animation
       confetti({
         particleCount: 100,
         spread: 70,
-        origin: { y: 0.6 }
+        origin: { y: 0.6 },
       });
     }, 2000);
   };
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 2: return formData.businessType !== '';
-      case 3: return formData.businessName.trim() !== '';
-      case 4: return formData.industry !== '';
-      case 5: return formData.city.trim() !== '';
-      case 6: return formData.foundedYear !== '';
-      case 7: return formData.description.trim().length > 20;
-      case 8: return formData.employeeCount !== '';
-      case 10: return formData.sellingReason !== '';
-      case 11: return formData.timeline !== '';
-      case 12: return formData.priceExpectations !== '';
-      case 13: return formData.contactEmail.trim() !== '';
-      default: return true;
+      case 2:
+        return formData.businessType !== '';
+      case 3:
+        return formData.businessName.trim() !== '';
+      case 4:
+        return formData.industry !== '';
+      case 5:
+        return formData.city.trim() !== '';
+      case 6:
+        return formData.foundedYear !== '';
+      case 7:
+        return formData.description.trim().length > 20;
+      case 8:
+        return formData.employeeCount !== '';
+      case 10:
+        return formData.sellingReason !== '';
+      case 11:
+        return formData.timeline !== '';
+      case 12:
+        return formData.priceExpectations !== '';
+      case 13:
+        return formData.contactEmail.trim() !== '';
+      default:
+        return true;
     }
   };
 
@@ -144,27 +156,32 @@ const SellerOnboarding: React.FC = () => {
                 Turn your business into your next big opportunity
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Join thousands of successful entrepreneurs who've found the perfect buyers for their businesses on BetweenDeals.
+                Join thousands of successful entrepreneurs who've found the perfect buyers for their
+                businesses on BetweenDeals.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="text-center p-6 bg-gray-50 rounded-2xl">
                 <div className="w-12 h-12 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Euro className="w-6 h-6 text-green-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Get Maximum Value</h3>
-                <p className="text-gray-600 text-sm">Our verified buyers compete for quality businesses</p>
+                <p className="text-gray-600 text-sm">
+                  Our verified buyers compete for quality businesses
+                </p>
               </div>
-              
+
               <div className="text-center p-6 bg-gray-50 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Shield className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Secure Process</h3>
-                <p className="text-gray-600 text-sm">Confidential listings with verified buyer identity</p>
+                <p className="text-gray-600 text-sm">
+                  Confidential listings with verified buyer identity
+                </p>
               </div>
-              
+
               <div className="text-center p-6 bg-gray-50 rounded-2xl">
                 <div className="w-12 h-12 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Zap className="w-6 h-6 text-purple-600" />
@@ -174,8 +191,8 @@ const SellerOnboarding: React.FC = () => {
               </div>
             </div>
 
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               color="primary"
               className="px-8 py-6 text-lg font-semibold"
               onPress={handleNext}
@@ -193,8 +210,10 @@ const SellerOnboarding: React.FC = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Join 1,200+ successful sellers
             </h1>
-            <p className="text-gray-600 mb-8">Real stories from entrepreneurs who found their perfect buyer</p>
-            
+            <p className="text-gray-600 mb-8">
+              Real stories from entrepreneurs who found their perfect buyer
+            </p>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Card className="p-6 text-left">
                 <div className="flex items-center mb-4">
@@ -205,10 +224,13 @@ const SellerOnboarding: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4">
-                  "Sold my 8-person agency for €750k in just 3 weeks. The buyer was perfect - they kept all my team and grew the business."
+                  "Sold my 8-person agency for €750k in just 3 weeks. The buyer was perfect - they
+                  kept all my team and grew the business."
                 </p>
                 <div className="flex text-yellow-500">
-                  {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
                 </div>
               </Card>
 
@@ -221,10 +243,13 @@ const SellerOnboarding: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4">
-                  "Found a buyer who shared my vision for sustainable products. Smooth process, great support team."
+                  "Found a buyer who shared my vision for sustainable products. Smooth process,
+                  great support team."
                 </p>
                 <div className="flex text-yellow-500">
-                  {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
                 </div>
               </Card>
             </div>
@@ -237,12 +262,7 @@ const SellerOnboarding: React.FC = () => {
               <p className="text-blue-800 font-medium">Average deal value in 2023</p>
             </div>
 
-            <Button 
-              size="lg" 
-              color="primary"
-              onPress={handleNext}
-              className="px-8"
-            >
+            <Button size="lg" color="primary" onPress={handleNext} className="px-8">
               I want this success too
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
@@ -271,7 +291,7 @@ const SellerOnboarding: React.FC = () => {
                 { id: 'education', label: 'Education', icon: '📚', color: 'indigo' },
                 { id: 'real-estate', label: 'Real Estate', icon: '🏘️', color: 'yellow' },
                 { id: 'other', label: 'Other', icon: '🎯', color: 'gray' },
-              ].map((type) => (
+              ].map(type => (
                 <button
                   key={type.id}
                   onClick={() => updateFormData('businessType', type.id)}
@@ -305,11 +325,12 @@ const SellerOnboarding: React.FC = () => {
               size="lg"
               placeholder="e.g., Brussels Digital Solutions"
               value={formData.businessName}
-              onChange={(e) => updateFormData('businessName', e.target.value)}
+              onChange={e => updateFormData('businessName', e.target.value)}
               className="text-center text-xl"
               classNames={{
-                input: "text-center text-xl font-medium",
-                inputWrapper: "bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500"
+                input: 'text-center text-xl font-medium',
+                inputWrapper:
+                  'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
               }}
               autoFocus
             />
@@ -320,7 +341,7 @@ const SellerOnboarding: React.FC = () => {
           </div>
         );
 
-      // Step 4: Industry Details  
+      // Step 4: Industry Details
       case 4:
         return (
           <div className="max-w-3xl mx-auto text-center">
@@ -345,8 +366,8 @@ const SellerOnboarding: React.FC = () => {
                 'Professional Services (Legal, Accounting)',
                 'Real Estate Services',
                 'Education & Training',
-                'Other'
-              ].map((industry) => (
+                'Other',
+              ].map(industry => (
                 <button
                   key={industry}
                   onClick={() => updateFormData('industry', industry)}
@@ -382,7 +403,7 @@ const SellerOnboarding: React.FC = () => {
                 </label>
                 <select
                   value={formData.country}
-                  onChange={(e) => updateFormData('country', e.target.value)}
+                  onChange={e => updateFormData('country', e.target.value)}
                   className="clean-select w-full p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none appearance-none cursor-pointer pr-10"
                 >
                   <option value="Belgium">🇧🇪 Belgium</option>
@@ -401,9 +422,10 @@ const SellerOnboarding: React.FC = () => {
                   size="lg"
                   placeholder="e.g., Brussels, Antwerp, Ghent..."
                   value={formData.city}
-                  onChange={(e) => updateFormData('city', e.target.value)}
+                  onChange={e => updateFormData('city', e.target.value)}
                   classNames={{
-                    inputWrapper: "bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500"
+                    inputWrapper:
+                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
                   }}
                   autoFocus
                 />
@@ -462,21 +484,20 @@ const SellerOnboarding: React.FC = () => {
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-8">
               <FileText className="w-16 h-16 text-blue-500 mx-auto mb-6" />
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                Tell us about your business
-              </h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">Tell us about your business</h1>
               <p className="text-gray-600">What makes your business special? What do you do?</p>
             </div>
 
             <Textarea
               placeholder="e.g., We're a digital marketing agency specializing in helping SaaS companies grow their MRR through content marketing and SEO. We've helped 50+ companies increase their organic traffic by 300% on average..."
               value={formData.description}
-              onChange={(e) => updateFormData('description', e.target.value)}
+              onChange={e => updateFormData('description', e.target.value)}
               minRows={6}
               className="text-left"
               classNames={{
-                input: "text-base leading-relaxed",
-                inputWrapper: "bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500"
+                input: 'text-base leading-relaxed',
+                inputWrapper:
+                  'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
               }}
               autoFocus
             />
@@ -516,7 +537,7 @@ const SellerOnboarding: React.FC = () => {
                 { value: '11-25', label: '11-25 people', subtitle: 'Medium company' },
                 { value: '26-50', label: '26-50 people', subtitle: 'Established business' },
                 { value: '50+', label: '50+ people', subtitle: 'Large operation' },
-              ].map((option) => (
+              ].map(option => (
                 <button
                   key={option.value}
                   onClick={() => updateFormData('employeeCount', option.value)}
@@ -549,21 +570,22 @@ const SellerOnboarding: React.FC = () => {
             <div className="bg-gray-50 rounded-2xl p-8 mb-6">
               <div className="text-center mb-6">
                 <div className="text-3xl font-bold text-gray-900 mb-2">
-                  €{formData.revenueRange[0].toLocaleString()} - €{formData.revenueRange[1].toLocaleString()}
+                  €{formData.revenueRange[0].toLocaleString()} - €
+                  {formData.revenueRange[1].toLocaleString()}
                 </div>
                 <div className="text-gray-600">Annual revenue range</div>
               </div>
 
               <Slider
                 value={formData.revenueRange}
-                onChange={(value) => updateFormData('revenueRange', value as number[])}
+                onChange={value => updateFormData('revenueRange', value as number[])}
                 step={25000}
                 minValue={0}
                 maxValue={5000000}
                 className="mb-4"
                 formatOptions={{
-                  style: "currency",
-                  currency: "EUR",
+                  style: 'currency',
+                  currency: 'EUR',
                   minimumFractionDigits: 0,
                   maximumFractionDigits: 0,
                 }}
@@ -590,48 +612,50 @@ const SellerOnboarding: React.FC = () => {
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 Why are you looking to sell?
               </h1>
-              <p className="text-gray-600">Buyers appreciate honesty - it helps them understand your motivation</p>
+              <p className="text-gray-600">
+                Buyers appreciate honesty - it helps them understand your motivation
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { 
-                  value: 'new-venture', 
-                  label: 'Starting a new venture', 
+                {
+                  value: 'new-venture',
+                  label: 'Starting a new venture',
                   subtitle: 'Ready for the next challenge',
-                  icon: '🚀'
+                  icon: '🚀',
                 },
-                { 
-                  value: 'retirement', 
-                  label: 'Planning retirement', 
+                {
+                  value: 'retirement',
+                  label: 'Planning retirement',
                   subtitle: 'Time to enjoy life',
-                  icon: '🏖️'
+                  icon: '🏖️',
                 },
-                { 
-                  value: 'life-change', 
-                  label: 'Life circumstances', 
+                {
+                  value: 'life-change',
+                  label: 'Life circumstances',
                   subtitle: 'Family, health, or personal reasons',
-                  icon: '👨‍👩‍👧‍👦'
+                  icon: '👨‍👩‍👧‍👦',
                 },
-                { 
-                  value: 'scale-needed', 
-                  label: 'Business needs scaling', 
-                  subtitle: 'Needs resources I can\'t provide',
-                  icon: '📈'
+                {
+                  value: 'scale-needed',
+                  label: 'Business needs scaling',
+                  subtitle: "Needs resources I can't provide",
+                  icon: '📈',
                 },
-                { 
-                  value: 'partnership', 
-                  label: 'Looking for partnership', 
+                {
+                  value: 'partnership',
+                  label: 'Looking for partnership',
                   subtitle: 'Want to stay involved',
-                  icon: '🤝'
+                  icon: '🤝',
                 },
-                { 
-                  value: 'other', 
-                  label: 'Other reasons', 
+                {
+                  value: 'other',
+                  label: 'Other reasons',
                   subtitle: 'Something else',
-                  icon: '💭'
+                  icon: '💭',
                 },
-              ].map((reason) => (
+              ].map(reason => (
                 <button
                   key={reason.value}
                   onClick={() => updateFormData('sellingReason', reason.value)}
@@ -666,37 +690,37 @@ const SellerOnboarding: React.FC = () => {
 
             <div className="space-y-4">
               {[
-                { 
-                  value: 'asap', 
-                  label: 'As soon as possible', 
+                {
+                  value: 'asap',
+                  label: 'As soon as possible',
                   subtitle: 'Ready to move quickly',
-                  color: 'red'
+                  color: 'red',
                 },
-                { 
-                  value: '3months', 
-                  label: 'Within 3 months', 
+                {
+                  value: '3months',
+                  label: 'Within 3 months',
                   subtitle: 'Actively looking',
-                  color: 'orange'
+                  color: 'orange',
                 },
-                { 
-                  value: '6months', 
-                  label: 'Within 6 months', 
+                {
+                  value: '6months',
+                  label: 'Within 6 months',
                   subtitle: 'Planning ahead',
-                  color: 'yellow'
+                  color: 'yellow',
                 },
-                { 
-                  value: '1year', 
-                  label: 'Within a year', 
+                {
+                  value: '1year',
+                  label: 'Within a year',
                   subtitle: 'Exploring options',
-                  color: 'green'
+                  color: 'green',
                 },
-                { 
-                  value: 'flexible', 
-                  label: 'I\'m flexible', 
+                {
+                  value: 'flexible',
+                  label: "I'm flexible",
                   subtitle: 'Waiting for the right offer',
-                  color: 'blue'
+                  color: 'blue',
                 },
-              ].map((timeline) => (
+              ].map(timeline => (
                 <button
                   key={timeline.value}
                   onClick={() => updateFormData('timeline', timeline.value)}
@@ -728,32 +752,32 @@ const SellerOnboarding: React.FC = () => {
 
             <div className="space-y-4">
               {[
-                { 
-                  value: 'market-value', 
-                  label: 'I want market value', 
+                {
+                  value: 'market-value',
+                  label: 'I want market value',
                   subtitle: 'Let the market decide',
                 },
-                { 
-                  value: 'quick-sale', 
-                  label: 'I want a quick sale', 
+                {
+                  value: 'quick-sale',
+                  label: 'I want a quick sale',
                   subtitle: 'Willing to negotiate for speed',
                 },
-                { 
-                  value: 'specific-range', 
-                  label: 'I have a specific range', 
+                {
+                  value: 'specific-range',
+                  label: 'I have a specific range',
                   subtitle: 'I know what I want',
                 },
-                { 
-                  value: 'open-offers', 
-                  label: 'Open to all offers', 
-                  subtitle: 'Show me what you\'ve got',
+                {
+                  value: 'open-offers',
+                  label: 'Open to all offers',
+                  subtitle: "Show me what you've got",
                 },
-                { 
-                  value: 'not-sure', 
-                  label: 'Not sure yet', 
+                {
+                  value: 'not-sure',
+                  label: 'Not sure yet',
                   subtitle: 'Need help with valuation',
                 },
-              ].map((price) => (
+              ].map(price => (
                 <button
                   key={price.value}
                   onClick={() => updateFormData('priceExpectations', price.value)}
@@ -793,10 +817,11 @@ const SellerOnboarding: React.FC = () => {
                   size="lg"
                   placeholder="your.email@company.com"
                   value={formData.contactEmail}
-                  onChange={(e) => updateFormData('contactEmail', e.target.value)}
+                  onChange={e => updateFormData('contactEmail', e.target.value)}
                   startContent={<Mail className="w-5 h-5 text-gray-400" />}
                   classNames={{
-                    inputWrapper: "bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500"
+                    inputWrapper:
+                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
                   }}
                   autoFocus
                 />
@@ -811,10 +836,11 @@ const SellerOnboarding: React.FC = () => {
                   size="lg"
                   placeholder="+32 xxx xxx xxx"
                   value={formData.contactPhone}
-                  onChange={(e) => updateFormData('contactPhone', e.target.value)}
+                  onChange={e => updateFormData('contactPhone', e.target.value)}
                   startContent={<Phone className="w-5 h-5 text-gray-400" />}
                   classNames={{
-                    inputWrapper: "bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500"
+                    inputWrapper:
+                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
                   }}
                 />
               </div>
@@ -822,7 +848,8 @@ const SellerOnboarding: React.FC = () => {
 
             <div className="mt-6 p-4 bg-blue-50 rounded-xl">
               <p className="text-blue-800 text-sm">
-                🔒 Your contact information is kept confidential and only shared with verified buyers who show serious interest
+                🔒 Your contact information is kept confidential and only shared with verified
+                buyers who show serious interest
               </p>
             </div>
           </div>
@@ -879,7 +906,8 @@ const SellerOnboarding: React.FC = () => {
             </div>
 
             <div className="mt-8 text-sm text-gray-500">
-              Verification typically takes 24-48 hours and involves uploading basic business documents
+              Verification typically takes 24-48 hours and involves uploading basic business
+              documents
             </div>
           </div>
         );
@@ -892,9 +920,7 @@ const SellerOnboarding: React.FC = () => {
               <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
                 <CheckCircle className="w-10 h-10 text-white" />
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                🎉 Congratulations!
-              </h1>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">🎉 Congratulations!</h1>
               <p className="text-xl text-gray-600 mb-8">
                 Your business listing is ready. Here's what happens next:
               </p>
@@ -906,23 +932,29 @@ const SellerOnboarding: React.FC = () => {
                   <span className="text-blue-600 font-bold">1</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Review & Approve</h3>
-                <p className="text-gray-600 text-sm">We'll review your listing and have it live within 24 hours</p>
+                <p className="text-gray-600 text-sm">
+                  We'll review your listing and have it live within 24 hours
+                </p>
               </div>
-              
+
               <div className="text-center p-6 bg-green-50 rounded-2xl">
                 <div className="w-12 h-12 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-green-600 font-bold">2</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Attract Buyers</h3>
-                <p className="text-gray-600 text-sm">Qualified buyers will start viewing your listing</p>
+                <p className="text-gray-600 text-sm">
+                  Qualified buyers will start viewing your listing
+                </p>
               </div>
-              
+
               <div className="text-center p-6 bg-purple-50 rounded-2xl">
                 <div className="w-12 h-12 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-purple-600 font-bold">3</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Connect & Sell</h3>
-                <p className="text-gray-600 text-sm">We'll facilitate introductions with serious buyers</p>
+                <p className="text-gray-600 text-sm">
+                  We'll facilitate introductions with serious buyers
+                </p>
               </div>
             </div>
 
@@ -949,8 +981,8 @@ const SellerOnboarding: React.FC = () => {
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 color="primary"
                 className="flex-1 px-8 py-6 text-lg font-semibold"
                 onPress={() => navigate('/account/seller')}
@@ -958,9 +990,9 @@ const SellerOnboarding: React.FC = () => {
                 Go to Seller Dashboard
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              
-              <Button 
-                size="lg" 
+
+              <Button
+                size="lg"
                 variant="bordered"
                 className="flex-1 px-8 py-6 text-lg font-semibold"
                 onPress={() => navigate('/help')}
@@ -988,36 +1020,29 @@ const SellerOnboarding: React.FC = () => {
         {/* Progress Bar */}
         {currentStep > 0 && currentStep < totalSteps - 1 && (
           <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-            <div 
+            <div
               className="h-1 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
             <div className="px-6 py-4 flex items-center justify-between">
               <div className="flex items-center">
-                <Button
-                  isIconOnly
-                  variant="ghost"
-                  onPress={handleBack}
-                  className="mr-4"
-                >
+                <Button isIconOnly variant="ghost" onPress={handleBack} className="mr-4">
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
                 <span className="text-sm text-gray-600">
                   Step {currentStep + 1} of {totalSteps}
                 </span>
               </div>
-              <div className="text-sm text-gray-500">
-                {Math.round(progress)}% complete
-              </div>
+              <div className="text-sm text-gray-500">{Math.round(progress)}% complete</div>
             </div>
           </div>
         )}
 
         {/* Main Content */}
-        <div className={`${currentStep > 0 && currentStep < totalSteps - 1 ? 'pt-24' : 'pt-8'} pb-8 px-6`}>
-          <div className="max-w-6xl mx-auto">
-            {renderStep()}
-          </div>
+        <div
+          className={`${currentStep > 0 && currentStep < totalSteps - 1 ? 'pt-24' : 'pt-8'} pb-8 px-6`}
+        >
+          <div className="max-w-6xl mx-auto">{renderStep()}</div>
         </div>
 
         {/* Navigation Footer */}

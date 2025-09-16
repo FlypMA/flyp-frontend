@@ -5,6 +5,7 @@ import { Input } from '@/shared/components/ui/Input';
 import { Card } from '@/shared/components/cards/Card';
 import { useUI } from '@/app/providers/UIProvider';
 import { ArrowLeft, Mail } from 'lucide-react';
+import { logger } from '@/shared/utils/logger';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const ForgotPasswordPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email) {
       addNotification('error', 'Please enter your email address');
       return;
@@ -23,14 +24,15 @@ const ForgotPasswordPage: React.FC = () => {
     setIsLoading(true);
     try {
       // TODO: Implement password reset API call
-      console.log('Password reset requested for:', email);
-      
+      logger.info('Password reset requested for:', email);
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setIsSubmitted(true);
       addNotification('success', 'Password reset email sent!');
     } catch (error) {
+      logger.error('Failed to send reset email:', error);
       addNotification('error', 'Failed to send reset email');
     } finally {
       setIsLoading(false);
@@ -45,26 +47,20 @@ const ForgotPasswordPage: React.FC = () => {
             <Mail className="w-6 h-6 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
-          <p className="text-gray-600 mb-6">
-            We've sent password reset instructions to {email}
-          </p>
+          <p className="text-gray-600 mb-6">We've sent password reset instructions to {email}</p>
           <div className="space-y-3">
             <p className="text-sm text-gray-500">
               Didn't receive the email? Check your spam folder or
             </p>
-            <Button
-              variant="ghost"
-              onClick={() => setIsSubmitted(false)}
-              className="w-full"
-            >
+            <Button variant="ghost" onClick={() => setIsSubmitted(false)} className="w-full">
               Try again
             </Button>
           </div>
         </div>
-        
+
         <div className="mt-6 text-center">
-          <Link 
-            to="/auth/login" 
+          <Link
+            to="/auth/login"
             className="inline-flex items-center text-primary-600 hover:text-primary-500"
           >
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -89,7 +85,7 @@ const ForgotPasswordPage: React.FC = () => {
           type="email"
           label="Email address"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           required
           autoComplete="email"
           placeholder="Enter your email address"
@@ -101,8 +97,8 @@ const ForgotPasswordPage: React.FC = () => {
       </form>
 
       <div className="mt-6 text-center">
-        <Link 
-          to="/auth/login" 
+        <Link
+          to="/auth/login"
           className="inline-flex items-center text-primary-600 hover:text-primary-500"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />

@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button, Badge, Switch } from '@heroui/react';
-import { 
-  Bell, 
-  Mail, 
-  MessageSquare, 
-  TrendingUp, 
-  DollarSign, 
-  Calendar,
+import {
+  Bell,
+  Mail,
+  MessageSquare,
+  TrendingUp,
+  DollarSign,
   Settings,
   CheckCircle,
   XCircle,
-  Clock
 } from 'lucide-react';
 import { authService } from '../../../../shared/services/auth/Auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
+import { logger } from '@/shared/utils/logger';
 
 interface Notification {
   id: string;
@@ -46,9 +45,9 @@ const UserNotifications: React.FC = () => {
   useEffect(() => {
     loadUserData();
     loadNotifications();
-  }, []);
+  }, [loadUserData]);
 
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
@@ -57,18 +56,18 @@ const UserNotifications: React.FC = () => {
         navigate(UrlGenerator.login());
       }
     } catch (error) {
-      console.error('Failed to load user data:', error);
+      logger.error('Failed to load user data:', error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   const loadNotifications = async () => {
     try {
       // TODO: Implement notifications API call
       // const userNotifications = await AuthenticationService.getNotifications();
-      
+
       // Mock data for now
       const mockNotifications: Notification[] = [
         {
@@ -111,16 +110,16 @@ const UserNotifications: React.FC = () => {
           id: '5',
           type: 'marketing',
           title: 'Weekly Market Report',
-          message: 'Check out this week\'s market trends and opportunities.',
+          message: "Check out this week's market trends and opportunities.",
           timestamp: '2024-01-11T08:00:00Z',
           read: true,
           priority: 'low',
         },
       ];
-      
+
       setNotifications(mockNotifications);
     } catch (error) {
-      console.error('Failed to load notifications:', error);
+      logger.error('Failed to load notifications:', error);
     }
   };
 
@@ -128,16 +127,14 @@ const UserNotifications: React.FC = () => {
     try {
       // TODO: Implement mark as read API call
       // await AuthenticationService.markNotificationAsRead(notificationId);
-      
+
       setNotifications(prev =>
         prev.map(notification =>
-          notification.id === notificationId
-            ? { ...notification, read: true }
-            : notification
+          notification.id === notificationId ? { ...notification, read: true } : notification
         )
       );
     } catch (error) {
-      console.error('Failed to mark notification as read:', error);
+      logger.error('Failed to mark notification as read:', error);
     }
   };
 
@@ -145,12 +142,10 @@ const UserNotifications: React.FC = () => {
     try {
       // TODO: Implement mark all as read API call
       // await AuthenticationService.markAllNotificationsAsRead();
-      
-      setNotifications(prev =>
-        prev.map(notification => ({ ...notification, read: true }))
-      );
+
+      setNotifications(prev => prev.map(notification => ({ ...notification, read: true })));
     } catch (error) {
-      console.error('Failed to mark all notifications as read:', error);
+      logger.error('Failed to mark all notifications as read:', error);
     }
   };
 
@@ -158,12 +153,10 @@ const UserNotifications: React.FC = () => {
     try {
       // TODO: Implement delete notification API call
       // await AuthenticationService.deleteNotification(notificationId);
-      
-      setNotifications(prev =>
-        prev.filter(notification => notification.id !== notificationId)
-      );
+
+      setNotifications(prev => prev.filter(notification => notification.id !== notificationId));
     } catch (error) {
-      console.error('Failed to delete notification:', error);
+      logger.error('Failed to delete notification:', error);
     }
   };
 
@@ -208,18 +201,19 @@ const UserNotifications: React.FC = () => {
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 'text-red-600 bg-red-100';
-      case 'medium':
-        return 'text-yellow-600 bg-yellow-100';
-      case 'low':
-        return 'text-green-600 bg-green-100';
-      default:
-        return 'text-gray-600 bg-gray-100';
-    }
-  };
+  // TODO: Implement priority color functionality
+  // const getPriorityColor = (priority: string) => {
+  //   switch (priority) {
+  //     case 'high':
+  //       return 'text-red-600 bg-red-100';
+  //     case 'medium':
+  //       return 'text-yellow-600 bg-yellow-100';
+  //     case 'low':
+  //       return 'text-green-600 bg-green-100';
+  //     default:
+  //       return 'text-gray-600 bg-gray-100';
+  //   }
+  // };
 
   const filteredNotifications = notifications.filter(notification => {
     if (filter === 'unread') return !notification.read;
@@ -292,7 +286,9 @@ const UserNotifications: React.FC = () => {
                     </div>
                     <Switch
                       isSelected={notificationSettings.emailNotifications}
-                      onValueChange={(value) => updateNotificationSetting('emailNotifications', value)}
+                      onValueChange={value =>
+                        updateNotificationSetting('emailNotifications', value)
+                      }
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -302,7 +298,7 @@ const UserNotifications: React.FC = () => {
                     </div>
                     <Switch
                       isSelected={notificationSettings.pushNotifications}
-                      onValueChange={(value) => updateNotificationSetting('pushNotifications', value)}
+                      onValueChange={value => updateNotificationSetting('pushNotifications', value)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -312,17 +308,21 @@ const UserNotifications: React.FC = () => {
                     </div>
                     <Switch
                       isSelected={notificationSettings.messageNotifications}
-                      onValueChange={(value) => updateNotificationSetting('messageNotifications', value)}
+                      onValueChange={value =>
+                        updateNotificationSetting('messageNotifications', value)
+                      }
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium text-gray-900">Listing Updates</p>
-                      <p className="text-sm text-gray-600">Get notified about listing performance</p>
+                      <p className="text-sm text-gray-600">
+                        Get notified about listing performance
+                      </p>
                     </div>
                     <Switch
                       isSelected={notificationSettings.listingUpdates}
-                      onValueChange={(value) => updateNotificationSetting('listingUpdates', value)}
+                      onValueChange={value => updateNotificationSetting('listingUpdates', value)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -332,7 +332,7 @@ const UserNotifications: React.FC = () => {
                     </div>
                     <Switch
                       isSelected={notificationSettings.priceAlerts}
-                      onValueChange={(value) => updateNotificationSetting('priceAlerts', value)}
+                      onValueChange={value => updateNotificationSetting('priceAlerts', value)}
                     />
                   </div>
                 </div>
@@ -392,27 +392,28 @@ const UserNotifications: React.FC = () => {
                     <Bell className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No notifications</h3>
                     <p className="text-gray-600">
-                      {filter === 'unread' 
+                      {filter === 'unread'
                         ? "You're all caught up! No unread notifications."
                         : filter === 'read'
-                        ? "No read notifications to show."
-                        : "You don't have any notifications yet."
-                      }
+                          ? 'No read notifications to show.'
+                          : "You don't have any notifications yet."}
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {filteredNotifications.map((notification) => (
+                    {filteredNotifications.map(notification => (
                       <div
                         key={notification.id}
                         className={`p-4 rounded-lg border transition-all hover:shadow-md ${
-                          notification.read 
-                            ? 'bg-white border-gray-200' 
+                          notification.read
+                            ? 'bg-white border-gray-200'
                             : 'bg-blue-50 border-blue-200'
                         }`}
                       >
                         <div className="flex items-start space-x-3">
-                          <div className={`p-2 rounded-lg ${getNotificationColor(notification.type)}`}>
+                          <div
+                            className={`p-2 rounded-lg ${getNotificationColor(notification.type)}`}
+                          >
                             {getNotificationIcon(notification.type)}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -423,8 +424,13 @@ const UserNotifications: React.FC = () => {
                                 </h4>
                                 <Badge
                                   size="sm"
-                                  color={notification.priority === 'high' ? 'danger' : 
-                                         notification.priority === 'medium' ? 'warning' : 'success'}
+                                  color={
+                                    notification.priority === 'high'
+                                      ? 'danger'
+                                      : notification.priority === 'medium'
+                                        ? 'warning'
+                                        : 'success'
+                                  }
                                 >
                                   {notification.priority}
                                 </Badge>
@@ -438,9 +444,7 @@ const UserNotifications: React.FC = () => {
                                 )}
                               </div>
                             </div>
-                            <p className="text-sm text-gray-600 mt-1">
-                              {notification.message}
-                            </p>
+                            <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
                             <div className="flex items-center space-x-2 mt-3">
                               {!notification.read && (
                                 <Button

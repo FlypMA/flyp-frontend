@@ -4,7 +4,8 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import Heading1 from '@/shared/components/typography/Heading1';
 import { authService } from '../../../../services/users/authenticationService';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
-import { Button } from '@heroui/react';
+import { logger } from '@/shared/utils/logger';
+// import { Button } from '@heroui/react'; // TODO: Implement button functionality
 
 const SignUpComplete: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
@@ -37,6 +38,7 @@ const SignUpComplete: React.FC = () => {
           setMessage(response.error || 'Verification failed');
         }
       } catch (error) {
+        logger.error('Email verification failed:', error);
         setVerificationStatus('error');
         setMessage('Verification failed. Please try again.');
       }
@@ -52,7 +54,7 @@ const SignUpComplete: React.FC = () => {
         await authService.resendVerification(email);
         alert('Verification email has been resent. Please check your inbox.');
       } catch (error) {
-        console.error('Error resending verification email:', error);
+        logger.error('Error resending verification email:', error);
         alert('Failed to resend verification email. Please try again later.');
       } finally {
         setResending(false);

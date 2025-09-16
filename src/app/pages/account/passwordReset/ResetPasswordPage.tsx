@@ -4,7 +4,7 @@ import { Button } from '@heroui/react';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import { Input } from '@heroui/react';
 import { Eye, EyeOff, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
-import { AuthenticationService } from '../../../../shared/services/auth/Auth';
+// import { AuthenticationService } from '../../../../shared/services/auth/Auth'; // TODO: Implement authentication service
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
 interface ResetPasswordFormData {
@@ -104,19 +104,20 @@ const ResetPasswordPage: React.FC = () => {
     try {
       // TODO: Implement password reset API call
       // const result = await AuthenticationService.resetPassword(token, formData.password);
-      
+
       // Simulate API call for now
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       setSuccess(true);
-      
+
       // Redirect to login after 3 seconds
       setTimeout(() => {
         navigate(UrlGenerator.login());
       }, 3000);
-
-    } catch (err: any) {
-      setError(err.message || 'Failed to reset password. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to reset password. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +137,8 @@ const ResetPasswordPage: React.FC = () => {
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Password Reset Successful!</h2>
             <p className="text-gray-600 mb-6">
-              Your password has been successfully reset. You will be redirected to the login page shortly.
+              Your password has been successfully reset. You will be redirected to the login page
+              shortly.
             </p>
             <Button
               className="w-full bg-blue-600 text-white hover:bg-blue-700"
@@ -156,9 +158,7 @@ const ResetPasswordPage: React.FC = () => {
         <CardHeader className="pb-4">
           <div className="w-full text-center">
             <h2 className="text-2xl font-bold text-gray-900">Reset Your Password</h2>
-            <p className="text-gray-600 mt-2">
-              Enter your new password below
-            </p>
+            <p className="text-gray-600 mt-2">Enter your new password below</p>
           </div>
         </CardHeader>
         <CardBody className="pt-0">
@@ -181,7 +181,7 @@ const ResetPasswordPage: React.FC = () => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  onChange={e => handleInputChange('password', e.target.value)}
                   placeholder="Enter your new password"
                   className="pr-10"
                   required
@@ -207,14 +207,18 @@ const ResetPasswordPage: React.FC = () => {
                           passwordStrength.score < 3
                             ? 'bg-red-500'
                             : passwordStrength.score < 5
-                            ? 'bg-yellow-500'
-                            : 'bg-green-500'
+                              ? 'bg-yellow-500'
+                              : 'bg-green-500'
                         }`}
                         style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
                       />
                     </div>
                     <span className={`text-xs font-medium ${getPasswordStrengthColor()}`}>
-                      {passwordStrength.score < 3 ? 'Weak' : passwordStrength.score < 5 ? 'Medium' : 'Strong'}
+                      {passwordStrength.score < 3
+                        ? 'Weak'
+                        : passwordStrength.score < 5
+                          ? 'Medium'
+                          : 'Strong'}
                     </span>
                   </div>
                   <p className={`text-xs mt-1 ${getPasswordStrengthColor()}`}>
@@ -225,7 +229,10 @@ const ResetPasswordPage: React.FC = () => {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Confirm New Password
               </label>
               <div className="relative">
@@ -233,7 +240,7 @@ const ResetPasswordPage: React.FC = () => {
                   id="confirmPassword"
                   type={showConfirmPassword ? 'text' : 'password'}
                   value={formData.confirmPassword}
-                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                  onChange={e => handleInputChange('confirmPassword', e.target.value)}
                   placeholder="Confirm your new password"
                   className="pr-10"
                   required
