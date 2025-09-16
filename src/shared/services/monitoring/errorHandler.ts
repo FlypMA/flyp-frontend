@@ -4,14 +4,32 @@
  * Built by Senior CTO for production-ready error management
  */
 
-import {
-  ErrorResponse,
-  AuthenticationError,
-  AuthorizationError,
-  ValidationErrorResponse,
-  RateLimitError,
-  HttpStatusCode,
-} from '@/types/shared';
+import { ApiError, ValidationError, ApiErrorResponse } from '../../types/api';
+
+// Define missing error types
+export interface AuthenticationError extends ApiError {
+  type: 'AUTHENTICATION_ERROR';
+}
+
+export interface AuthorizationError extends ApiError {
+  type: 'AUTHORIZATION_ERROR';
+}
+
+export interface RateLimitError extends ApiError {
+  type: 'RATE_LIMIT_ERROR';
+  retryAfter?: number;
+}
+
+export interface HttpStatusCode {
+  OK: 200;
+  CREATED: 201;
+  BAD_REQUEST: 400;
+  UNAUTHORIZED: 401;
+  FORBIDDEN: 403;
+  NOT_FOUND: 404;
+  RATE_LIMITED: 429;
+  INTERNAL_SERVER_ERROR: 500;
+}
 
 import { getApiConfig } from '../../../config/api';
 
@@ -20,11 +38,21 @@ const ERROR_CONFIG = {
   maxRetries: 3,
   retryDelay: 1000,
   enableLogging: true,
+  USER_MESSAGES: {
+    GENERIC_ERROR: 'Something went wrong. Please try again.',
+    NETWORK_ERROR: 'Network error. Please check your connection.',
+    AUTH_ERROR: 'Authentication failed. Please log in again.',
+    VALIDATION_ERROR: 'Please check your input and try again.',
+    RATE_LIMIT_ERROR: 'Too many requests. Please try again later.',
+    SERVER_ERROR: 'Server error. Please try again later.',
+    CLIENT_ERROR: 'Invalid request. Please check your input.',
+  },
 };
 
 const MONITORING_CONFIG = {
   enableErrorReporting: true,
   enablePerformanceMonitoring: true,
+  ENABLED: true,
 };
 
 const isDevelopment = (import.meta as any).env?.NODE_ENV === 'development';

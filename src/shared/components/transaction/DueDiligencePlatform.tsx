@@ -11,7 +11,7 @@ import {
   SelectItem,
 } from '@heroui/react';
 import { Button } from '../buttons/Button';
-import Tabs from '../tabs/Tabs';
+import { ModernTabs as Tabs, ModernTabContent as TabContent } from '../tabs/Tabs';
 import {
   FileText,
   MessageSquare,
@@ -92,9 +92,10 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
       id: 'checklist',
       label: 'Checklist',
       icon: <CheckCircle className="w-4 h-4" />,
-      badge: checklist.filter((item: any) => item.completed).length > 0
-        ? `${checklist.filter((item: any) => item.completed).length}/${checklist.length}`
-        : undefined,
+      badge:
+        checklist.filter((item: any) => item.completed).length > 0
+          ? `${checklist.filter((item: any) => item.completed).length}/${checklist.length}`
+          : undefined,
     },
     {
       id: 'messages',
@@ -257,7 +258,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
         className="w-full"
       >
         <div className="mt-6">
-          <Tabs.Content tabId="documents">
+          <TabContent tabId="documents">
             <div className="space-y-6">
               {/* Upload Section */}
               <Card>
@@ -270,7 +271,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 <CardBody>
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
                     <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 mb-4">Drag and drop files here or click to browse</p>
+                    <p className="text-gray-600 mb-4">
+                      Drag and drop files here or click to browse
+                    </p>
                     <Button
                       color="primary"
                       onPress={handleFileUpload}
@@ -290,7 +293,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-3">
-                    {documents.map((doc) => (
+                    {documents.map(doc => (
                       <div
                         key={doc.id}
                         className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
@@ -305,17 +308,21 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Chip
-                            size="sm"
-                            color={getStatusColor(doc.status)}
-                            variant="flat"
-                          >
+                          <Chip size="sm" color={getStatusColor(doc.status)} variant="flat">
                             {doc.status}
                           </Chip>
-                          <Button size="sm" variant="light" startContent={<Eye className="w-4 h-4" />}>
+                          <Button
+                            size="sm"
+                            variant="light"
+                            startContent={<Eye className="w-4 h-4" />}
+                          >
                             View
                           </Button>
-                          <Button size="sm" variant="light" startContent={<Download className="w-4 h-4" />}>
+                          <Button
+                            size="sm"
+                            variant="light"
+                            startContent={<Download className="w-4 h-4" />}
+                          >
                             Download
                           </Button>
                         </div>
@@ -325,9 +332,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardBody>
               </Card>
             </div>
-          </Tabs.Content>
+          </TabContent>
 
-          <Tabs.Content tabId="checklist">
+          <TabContent tabId="checklist">
             <div className="space-y-6">
               <Card>
                 <CardHeader>
@@ -335,7 +342,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-4">
-                    {checklist.map((item) => (
+                    {checklist.map(item => (
                       <div
                         key={item.id}
                         className="flex items-center justify-between p-4 border rounded-lg"
@@ -360,11 +367,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Chip
-                            size="sm"
-                            color={getStatusColor(item.status)}
-                            variant="flat"
-                          >
+                          <Chip size="sm" color={getStatusColor(item.status)} variant="flat">
                             {item.status}
                           </Chip>
                         </div>
@@ -374,9 +377,9 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardBody>
               </Card>
             </div>
-          </Tabs.Content>
+          </TabContent>
 
-          <Tabs.Content tabId="messages">
+          <TabContent tabId="messages">
             <div className="space-y-6">
               <Card>
                 <CardHeader>
@@ -384,7 +387,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardHeader>
                 <CardBody>
                   <div className="space-y-4 max-h-96 overflow-y-auto">
-                    {messages.map((message) => (
+                    {messages.map(message => (
                       <div
                         key={message.id}
                         className="flex items-start gap-3 p-3 border rounded-lg"
@@ -417,7 +420,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                       label="Message"
                       placeholder="Type your message here..."
                       value={newMessage}
-                      onChange={(value) => setNewMessage(value)}
+                      onChange={value => setNewMessage(value)}
                       minRows={3}
                     />
                     <Button
@@ -432,7 +435,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                 </CardBody>
               </Card>
             </div>
-          </Tabs.Content>
+          </TabContent>
         </div>
       </Tabs>
     </div>

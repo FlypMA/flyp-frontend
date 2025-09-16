@@ -532,7 +532,23 @@ const Help: React.FC = () => {
             <div className="space-y-12">
               {filteredCategories.length > 0 ? (
                 filteredCategories.map(category => (
-                  <FAQCategory key={category.id} category={category} allowMultiple={false} />
+                  <FAQCategory
+                    key={category.id}
+                    category={{
+                      title: category.category,
+                      description: category.description,
+                      icon: category.icon,
+                      color: category.color,
+                      faqs: category.questions.map(q => ({
+                        question: q.question,
+                        answer: q.answer,
+                        tags: q.tags,
+                        isPopular: q.isPopular,
+                        isNew: q.isNew,
+                      })),
+                    }}
+                    allowMultiple={false}
+                  />
                 ))
               ) : (
                 <div className="text-center py-12">
