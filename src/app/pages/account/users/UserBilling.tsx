@@ -55,11 +55,6 @@ const UserBilling: React.FC = () => {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
 
-  useEffect(() => {
-    loadUserData();
-    loadBillingData();
-  }, [loadUserData]);
-
   const loadUserData = useCallback(async () => {
     try {
       const authResult = await authService.checkAuth();
@@ -75,6 +70,11 @@ const UserBilling: React.FC = () => {
       setLoading(false);
     }
   }, [navigate]);
+
+  useEffect(() => {
+    loadUserData();
+    loadBillingData();
+  }, [loadUserData]);
 
   const loadBillingData = async () => {
     try {

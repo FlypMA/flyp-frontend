@@ -82,13 +82,28 @@ export class RetryHandler {
       AUTH_ERROR_CODES.TOKEN_REFRESH_FAILED,
     ];
 
+    // Type guard to check if error has code property
+    const hasCode = (err: unknown): err is { code: string } => {
+      return typeof err === 'object' && err !== null && 'code' in err;
+    };
+
+    // Type guard to check if error has message property
+    const hasMessage = (err: unknown): err is { message: string } => {
+      return typeof err === 'object' && err !== null && 'message' in err;
+    };
+
+    // Type guard to check if error has status property
+    const hasStatus = (err: unknown): err is { status: number } => {
+      return typeof err === 'object' && err !== null && 'status' in err;
+    };
+
     // Check error code
-    if (error?.code && retryableErrors.includes(error.code)) {
+    if (hasCode(error) && retryableErrors.includes(error.code as any)) {
       return true;
     }
 
     // Check error message
-    const message = error?.message?.toLowerCase() || '';
+    const message = hasMessage(error) ? error.message.toLowerCase() : '';
     if (
       message.includes('network') ||
       message.includes('timeout') ||
@@ -99,7 +114,7 @@ export class RetryHandler {
     }
 
     // Check HTTP status codes
-    if (error?.status) {
+    if (hasStatus(error)) {
       const retryableStatusCodes = [408, 429, 500, 502, 503, 504];
       return retryableStatusCodes.includes(error.status);
     }

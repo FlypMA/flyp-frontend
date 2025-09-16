@@ -42,11 +42,6 @@ const UserNotifications: React.FC = () => {
     priceAlerts: true,
   });
 
-  useEffect(() => {
-    loadUserData();
-    loadNotifications();
-  }, [loadUserData]);
-
   const loadUserData = useCallback(async () => {
     try {
       const authResult = await authService.checkAuth();
@@ -62,6 +57,11 @@ const UserNotifications: React.FC = () => {
       setLoading(false);
     }
   }, [navigate]);
+
+  useEffect(() => {
+    loadUserData();
+    loadNotifications();
+  }, [loadUserData]);
 
   const loadNotifications = async () => {
     try {

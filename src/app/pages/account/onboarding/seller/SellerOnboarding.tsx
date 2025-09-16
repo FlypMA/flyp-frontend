@@ -70,12 +70,11 @@ const SellerOnboarding: React.FC = () => {
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   // Auto-advance for certain steps
-  useEffect(() => {
-    const autoAdvanceSteps = [2]; // Business type selection
-    if (autoAdvanceSteps.includes(currentStep) && formData.businessType) {
-      setTimeout(() => handleNext(), 800);
+  const handleNext = useCallback(() => {
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(prev => prev + 1);
     }
-  }, [currentStep, formData.businessType, handleNext]);
+  }, [currentStep, totalSteps]);
 
   const updateFormData = (field: keyof SellerFormData, value: unknown) => {
     setFormData(prev => ({
@@ -84,11 +83,12 @@ const SellerOnboarding: React.FC = () => {
     }));
   };
 
-  const handleNext = useCallback(() => {
-    if (currentStep < totalSteps - 1) {
-      setCurrentStep(prev => prev + 1);
+  useEffect(() => {
+    const autoAdvanceSteps = [2]; // Business type selection
+    if (autoAdvanceSteps.includes(currentStep) && formData.businessType) {
+      setTimeout(() => handleNext(), 800);
     }
-  }, [currentStep, totalSteps]);
+  }, [currentStep, formData.businessType, handleNext]);
 
   const handleBack = () => {
     if (currentStep > 0) {
