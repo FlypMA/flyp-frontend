@@ -21,7 +21,7 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { authService, UrlGenerator } from '../../shared/services';
 import { User } from '../../shared/types';
-import { Navigation } from '../../shared/components/layout/navigation';
+import { Navigation } from '@/shared/components/layout/navigation';
 
 const DEV_BYPASS_AUTH =
   (import.meta as any).env?.VITE_DEV_BYPASS_AUTH === 'true' || (import.meta as any).env?.DEV === true;

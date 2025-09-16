@@ -2,7 +2,7 @@
 // Location: src/shared/components/ui/BetweendealsLogo.tsx
 // Purpose: Reusable logo component matching legacy exactly
 
-import React from 'react';
+import * as React from 'react';
 import { logos, getLogoConfig } from './logos';
 
 interface BetweendealsLogoProps {

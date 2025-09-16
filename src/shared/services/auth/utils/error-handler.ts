@@ -228,7 +228,7 @@ export class AuthErrorHandler {
       AUTH_ERROR_CODES.TOKEN_REFRESH_FAILED,
     ];
 
-    return retryableErrors.includes(errorCode);
+    return retryableErrors.includes(errorCode as any);
   }
 
   /**

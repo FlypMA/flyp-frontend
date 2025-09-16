@@ -23,8 +23,8 @@ import {
   CheckCircle,
   Headphones,
 } from 'lucide-react';
-import Container from '../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../components/SEO';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 const NewContact = () => {
   const [formData, setFormData] = useState({

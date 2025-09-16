@@ -2,7 +2,7 @@
 // Location: src/shared/components/ui/Heading2.tsx
 // Purpose: Standard H2 typography component
 
-import React from 'react';
+import * as React from 'react';
 
 interface Heading2Props {
   children: React.ReactNode;

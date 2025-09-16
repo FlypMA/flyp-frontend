@@ -74,6 +74,11 @@ export interface User {
   // MVP-specific fields
   avatar?: string;
   preferences?: UserPreferences;
+  
+  // Additional fields for compatibility
+  location?: string;
+  company?: string;
+  bio?: string;
 }
 
 // =============================================================================

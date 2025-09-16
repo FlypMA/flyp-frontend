@@ -2,7 +2,7 @@
 // Location: src/features/authentication/components/AuthModals.tsx
 // Purpose: Container component for all authentication modals
 
-import React from 'react';
+import * as React from 'react';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
 

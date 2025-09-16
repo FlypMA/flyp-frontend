@@ -2,6 +2,7 @@
 // Location: src/shared/components/navigation/utils/navigation-config.ts
 // Purpose: Centralized navigation configuration matching legacy app exactly
 
+import { normalizeUserRole } from './role-utils';
 import {
   Home,
   Search,
@@ -35,8 +36,8 @@ export interface NavSection {
 }
 
 export interface DropdownMenuItem {
-  icon: React.ComponentType<any>;
-  label: string;
+  icon?: React.ComponentType<any>;
+  label?: string;
   href?: string;
   action?: string;
   divider?: boolean;
@@ -235,12 +236,4 @@ export const getDashboardSidebarSections = () => [
   }
 ];
 
-/**
- * Role normalization - Exact copy from legacy
- */
-export const normalizeUserRole = (role: string): 'buyer' | 'seller' => {
-  if (role === 'seller' || role === 'both' || role === 'admin') {
-    return 'seller';
-  }
-  return 'buyer';
-};
+// normalizeUserRole is now imported from role-utils

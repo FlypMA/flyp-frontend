@@ -8,7 +8,7 @@
  * - Access control testing
  */
 
-import React from 'react';
+import * as React from 'react';
 import { useRoleGuard } from '../../routing/route-guards';
 import { useAuth } from '../../providers/auth-provider';
 

@@ -13,7 +13,7 @@
  * - Follows MVP principles with essential features only
  */
 
-import React from 'react';
+import * as React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { AppProviders } from './app/providers';
 import { router } from './app/routing';

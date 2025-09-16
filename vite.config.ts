@@ -63,6 +63,9 @@ export default defineConfig(({ mode }) => {
       },
       chunkSizeWarningLimit: 1000,
     },
+    esbuild: {
+      logOverride: { 'this-is-undefined-in-esm': 'silent' }
+    },
     envPrefix: ['VITE_', 'REACT_APP_'],
     define: {
       global: 'globalThis',

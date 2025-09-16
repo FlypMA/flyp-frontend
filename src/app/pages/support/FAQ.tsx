@@ -1,5 +1,5 @@
-import React from 'react';
-import { MainLayout } from '../../components/layout';
+import * as React from 'react';
+import { MainLayout } from '@/app/layouts';
 
 const FAQ: React.FC = () => {
   return (

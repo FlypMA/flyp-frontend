@@ -6,8 +6,8 @@
 // ENVIRONMENT DETECTION
 // =============================================================================
 
-export const isDevelopment = import.meta.env.DEV;
-export const isProduction = import.meta.env.PROD;
+export const isDevelopment = (import.meta as any).env?.DEV;
+export const isProduction = (import.meta as any).env?.PROD;
 
 // =============================================================================
 // API CONFIGURATION
@@ -20,14 +20,14 @@ export const isProduction = import.meta.env.PROD;
 export const API_CONFIG = {
   // Supabase Configuration
   SUPABASE: {
-    url: import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co',
-    anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key',
-    isValid: !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY),
+    url: (import.meta as any).env?.VITE_SUPABASE_URL || 'https://placeholder.supabase.co',
+    anonKey: (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key',
+    isValid: !!((import.meta as any).env?.VITE_SUPABASE_URL && (import.meta as any).env?.VITE_SUPABASE_ANON_KEY),
   },
 
   // Custom Backend Configuration (for additional services)
   BACKEND: {
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001',
+    baseURL: (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3001',
     timeout: 30000, // 30 seconds
     retryAttempts: 3,
     retryDelay: 1000, // 1 second
@@ -102,10 +102,10 @@ export const API_CONFIG = {
 
   // Development Configuration
   DEV: {
-    bypassAuth: import.meta.env.VITE_DEV_BYPASS_AUTH === 'true',
-    mockData: import.meta.env.VITE_DEV_MOCK_DATA === 'true',
-    debugLogs: import.meta.env.VITE_DEV_DEBUG_LOGS === 'true',
-    apiDelay: parseInt(import.meta.env.VITE_DEV_API_DELAY || '0'),
+    bypassAuth: (import.meta as any).env?.VITE_DEV_BYPASS_AUTH === 'true',
+    mockData: (import.meta as any).env?.VITE_DEV_MOCK_DATA === 'true',
+    debugLogs: (import.meta as any).env?.VITE_DEV_DEBUG_LOGS === 'true',
+    apiDelay: parseInt((import.meta as any).env?.VITE_DEV_API_DELAY || '0'),
   },
 } as const;
 

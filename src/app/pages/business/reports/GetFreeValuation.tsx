@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
-import SellerSidebar from '../../components/navigation/SellerSidebar';
-import ValuationDashboard from '../../components/valuation/ValuationDashboard';
+import { authService } from '@/shared/services/auth';
+import { User as UserType } from '@/shared/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 interface BusinessValuation {
   id: string;
@@ -133,10 +131,10 @@ const GetFreeValuation = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+        <Navigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="valuation" />
+        <DashboardSidebar user={user} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl">
@@ -148,13 +146,23 @@ const GetFreeValuation = () => {
               </p>
             </div>
 
-            <ValuationDashboard
-              currentValuation={businessValuation}
-              historicalValuations={historicalValuations}
-              onCreateValuation={handleCreateValuation}
-              onUpdateValuation={handleUpdateValuation}
-              onCreateListing={handleCreateListing}
-            />
+            <div className="space-y-6">
+              {businessValuation ? (
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h3 className="text-lg font-semibold mb-4">Current Valuation</h3>
+                  <p className="text-2xl font-bold text-green-600">
+                    €{businessValuation.estimated_value.toLocaleString()}
+                  </p>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Last updated: {new Date(businessValuation.valuation_date).toLocaleDateString()}
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">No valuation available yet.</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

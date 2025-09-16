@@ -2,7 +2,7 @@
 // Location: src/features/business-dashboard/components/DashboardStats.tsx
 // Purpose: Business dashboard statistics and metrics display
 
-import React from 'react';
+import * as React from 'react';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
   Eye,

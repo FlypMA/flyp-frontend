@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import Heading1 from '../../../../components/main_UI/fonts/heading1';
+import Heading1 from '@/shared/components/typography/Heading1';
 import { authService } from '../../../../services/users/authenticationService';
 import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
 import { Button } from '@heroui/react';
@@ -30,11 +30,11 @@ const SignUpComplete: React.FC = () => {
         const response = await authService.verifyEmail(token);
         if (response.success) {
           setVerificationStatus('success');
-          setMessage(response.message || 'Email verified successfully!');
+          setMessage('Email verified successfully!');
           setTimeout(() => navigate(UrlGeneratorService.accountDashboard()), 3000);
         } else {
           setVerificationStatus('error');
-          setMessage(response.message || 'Verification failed');
+          setMessage(response.error || 'Verification failed');
         }
       } catch (error) {
         setVerificationStatus('error');
@@ -49,7 +49,7 @@ const SignUpComplete: React.FC = () => {
     if (email) {
       try {
         setResending(true);
-        await authService.resendVerificationEmail(email);
+        await authService.resendVerification(email);
         alert('Verification email has been resent. Please check your inbox.');
       } catch (error) {
         console.error('Error resending verification email:', error);

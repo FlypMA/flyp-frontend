@@ -73,7 +73,8 @@ const UserSettings: React.FC = () => {
 
   const loadUserData = async () => {
     try {
-      const authResult = await AuthenticationService.checkAuth();
+      const authService = new AuthenticationService();
+      const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
         // TODO: Load user settings from API

@@ -2,7 +2,7 @@
 // Location: src/shared/components/ui/BrandLogo.tsx
 // Purpose: Reusable logo component for branding consistency
 
-import React from 'react';
+import * as React from 'react';
 import { Building2 } from 'lucide-react';
 
 interface BrandLogoProps {

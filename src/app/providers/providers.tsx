@@ -9,7 +9,7 @@
  * - Essential functionality only
  */
 
-import React from 'react';
+import * as React from 'react';
 import { AuthProvider } from './auth-provider';
 import { UIProvider } from './ui-provider';
 

@@ -2,7 +2,7 @@
 // Location: src/shared/components/layout/Footer.tsx
 // Purpose: Footer matching legacy implementation exactly
 
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Globe, Mail, MapPin } from 'lucide-react';
 import BetweendealsLogo from '../../logo/BetweendealsLogo';

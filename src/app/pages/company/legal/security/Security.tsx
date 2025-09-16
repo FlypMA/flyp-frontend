@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardBody, CardHeader, Button } from '@heroui/react';
 import {
   Shield,
@@ -14,8 +14,8 @@ import {
   FileText,
   Mail,
 } from 'lucide-react';
-import Container from '../../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../../components/SEO';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 const Security = () => {
   return (

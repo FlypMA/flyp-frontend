@@ -2,7 +2,7 @@
 // Location: src/app/components/modals/business-listing-modal-container.tsx
 // Purpose: Container for business listing modals
 
-import React from 'react';
+import * as React from 'react';
 import { Modal } from '@heroui/react';
 
 interface BusinessListingModalContainerProps {

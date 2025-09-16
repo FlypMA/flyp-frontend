@@ -11,17 +11,19 @@ import {
   Calendar,
   AlertCircle,
 } from 'lucide-react';
-import { AuthenticationService } from '../../../shared/services/auth/Auth';
-import { User } from '../../../shared/types';
-import { UrlGenerator } from '../../../shared/services';
-import { DashboardStats, DashboardToolbar } from '../../../features/business';
-import { useBusinessMetrics } from '../../../features/business/hooks';
-import type { PerformanceData } from '../../../features/business/types';
+import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { User } from '@/shared/types';
+import { UrlGenerator } from '@/shared/services';
+import { DashboardStats, DashboardToolbar } from '@/features/business';
+import { useBusinessMetrics } from '@/features/business/hooks';
+import type { PerformanceData } from '@/features/business/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 // Types are now imported from business-dashboard features
 
 const DashboardPerformance = () => {
   const navigate = useNavigate();
+  const authService = new AuthenticationService();
   const [user, setUser] = useState<User | null>(null);
   const [performanceData, setPerformanceData] = useState<PerformanceData | null>(null);
   
@@ -84,10 +86,10 @@ const DashboardPerformance = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+        <Navigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="performance" />
+        <DashboardSidebar user={user} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl space-y-6">

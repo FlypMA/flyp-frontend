@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../providers/auth-provider';
-import { Navigation, DashboardSidebar, DashboardSidebarMobile } from '../../shared/components/layout/navigation';
+import { Navigation } from '@/shared/components/layout/navigation';
+import { DashboardSidebar, DashboardSidebarMobile } from '@/shared/components/layout/navigation/dashboard';
 
 export const DashboardLayout: React.FC = () => {
   const { user } = useAuth();

@@ -5,6 +5,14 @@
 // User Types
 export * from './user';
 
+// SEO Types
+export * from './seo';
+
+// API Types
+export * from './api';
+export * from './api-auth';
+export * from './api-business';
+
 // Re-export main types for convenience
 export type {
   User,

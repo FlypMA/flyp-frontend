@@ -12,7 +12,7 @@ import {
   Settings,
   Receipt
 } from 'lucide-react';
-import { AuthenticationService } from '../../../../shared/services/auth/Auth';
+import { authService } from '../../../../shared/services/auth/Auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
@@ -62,7 +62,7 @@ const UserBilling: React.FC = () => {
 
   const loadUserData = async () => {
     try {
-      const authResult = await AuthenticationService.checkAuth();
+      const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
       } else {
@@ -251,12 +251,12 @@ const UserBilling: React.FC = () => {
                     <p className="text-gray-600 text-sm">Your active subscription details</p>
                   </div>
                   {subscription && (
-                    <Badge
-                      color={getStatusColor(subscription.status)}
-                      startContent={getStatusIcon(subscription.status)}
-                    >
-                      {subscription.status.charAt(0).toUpperCase() + subscription.status.slice(1)}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      {getStatusIcon(subscription.status)}
+                      <Badge color={getStatusColor(subscription.status)}>
+                        {subscription.status.charAt(0).toUpperCase() + subscription.status.slice(1)}
+                      </Badge>
+                    </div>
                   )}
                 </div>
               </CardHeader>

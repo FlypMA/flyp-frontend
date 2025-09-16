@@ -13,7 +13,22 @@ import {
   HttpStatusCode,
 } from '@/types/shared';
 
-import { ERROR_CONFIG, MONITORING_CONFIG, isDevelopment, isProduction } from '../../config/api';
+import { getApiConfig } from '../../../config/api';
+
+// Create temporary config objects until proper error config is implemented
+const ERROR_CONFIG = {
+  maxRetries: 3,
+  retryDelay: 1000,
+  enableLogging: true,
+};
+
+const MONITORING_CONFIG = {
+  enableErrorReporting: true,
+  enablePerformanceMonitoring: true,
+};
+
+const isDevelopment = (import.meta as any).env?.NODE_ENV === 'development';
+const isProduction = (import.meta as any).env?.NODE_ENV === 'production';
 
 // =============================================================================
 // INTERFACES & TYPES
@@ -201,7 +216,7 @@ class ErrorRecoveryManager {
     this.registerStrategy('AUTH_ERROR', async () => {
       try {
         // Try to refresh token
-        const authService = await import('../auth/authService');
+        const authService = await import('../auth');
         await authService.default.checkAuth();
         return true;
       } catch {

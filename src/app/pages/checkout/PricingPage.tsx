@@ -191,13 +191,12 @@ const PricingPage: React.FC = () => {
               >
                 {plan.recommended && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <Badge
-                      color="primary"
-                      size="lg"
-                      startContent={<Sparkles className="w-3 h-3" />}
-                    >
-                      Recommended
-                    </Badge>
+                    <div className="flex items-center gap-1">
+                      <Sparkles className="w-3 h-3" />
+                      <Badge color="primary" size="lg">
+                        Recommended
+                      </Badge>
+                    </div>
                   </div>
                 )}
 

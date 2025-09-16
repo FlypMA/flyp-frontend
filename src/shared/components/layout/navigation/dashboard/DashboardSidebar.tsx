@@ -10,7 +10,7 @@
 // - Coming soon features
 // - Responsive design (desktop only)
 
-import React from 'react';
+import * as React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -81,7 +81,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           label: 'My Listings',
           icon: Building2,
           description: 'Manage your business listings',
-          path: UrlGenerator.myListings(),
+          path: UrlGenerator.myBusinessListings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
         {
@@ -158,7 +158,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           label: 'Account Settings',
           icon: Settings,
           description: 'Manage your account preferences',
-          path: UrlGenerator.accountSettings(),
+          path: UrlGenerator.userSettings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],

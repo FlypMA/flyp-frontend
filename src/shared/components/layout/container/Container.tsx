@@ -2,7 +2,7 @@
 // Location: src/shared/components/ui/Container.tsx
 // Purpose: Provides consistent max-width and padding across the app
 
-import React from 'react';
+import * as React from 'react';
 
 interface ContainerProps {
   children: React.ReactNode;

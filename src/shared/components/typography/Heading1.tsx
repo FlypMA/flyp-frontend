@@ -2,7 +2,7 @@
 // Location: src/shared/components/ui/Heading1.tsx
 // Purpose: Standard H1 typography component
 
-import React from 'react';
+import * as React from 'react';
 
 interface Heading1Props {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from '@heroui/react';
 import { Check, CreditCard, Shield, Lock, ArrowLeft, TrendingUp, AlertCircle } from 'lucide-react';
-import Container from '../../components/main_UI/containers/container_default';
+import Container from '@/shared/components/layout/container/Container';
 import { createCheckoutSessionAPI } from '../../services/payments/api';
 
 const planDetails = {
@@ -97,16 +97,10 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
 
     try {
       // Create checkout session
-      const result = await createCheckoutSessionAPI({
-        priceId: priceId,
-        customerInfo: customerInfo,
-        successUrl: '/checkout/success',
-        cancelUrl: '/checkout',
-        trialPeriodDays: 14,
-      });
+      const result = await createCheckoutSessionAPI(priceId);
 
-      if (!result.success) {
-        setError(result.error || 'Failed to create checkout session');
+      if (!result.sessionId || !result.url) {
+        setError('Failed to create checkout session');
         setLoading(false);
         return;
       }
@@ -351,7 +345,7 @@ const Checkout = () => {
     priceMapping[selectedPlan as keyof typeof priceMapping]?.[billing as 'monthly' | 'yearly'] ||
     priceMapping.pro.monthly;
 
-  const planConfig = planDetails[selectedPlan as keyof typeof planDetails] || planDetails.pro;
+  const planConfig = planDetails[selectedPlan as keyof typeof planDetails] || planDetails.professional;
 
   // Price calculation for display
   const basePrices = {

@@ -16,11 +16,10 @@ import {
   Info,
   Target,
 } from 'lucide-react';
-import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
-import SellerSidebar from '../../components/navigation/SellerSidebar';
-import FinancialDisclaimer from '../../components/ui/FinancialDisclaimer';
+import { authService } from '@/shared/services/auth';
+import { User as UserType } from '@/shared/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
+import FinancialDisclaimer from '@/shared/components/disclaimers/FinancialDisclaimer';
 
 interface SolvencyMetrics {
   currentRatio: number; // Current Assets / Current Liabilities
@@ -199,13 +198,10 @@ const SolvencyIntelligence = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+        <Navigation />
 
       <div className="flex">
-        <SellerSidebar
-          selectedTab="solvency"
-          userRole={(user?.userType as 'seller' | 'buyer' | 'admin') || 'seller'}
-        />
+        <DashboardSidebar user={user} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl space-y-8">

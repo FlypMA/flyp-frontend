@@ -98,7 +98,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
           label: 'My Listings',
           icon: Building2,
           description: 'Manage your business listings',
-          path: UrlGenerator.myListings(),
+          path: UrlGenerator.myBusinessListings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
         {
@@ -175,7 +175,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
           label: 'Account Settings',
           icon: Settings,
           description: 'Manage your account preferences',
-          path: UrlGenerator.accountSettings(),
+          path: UrlGenerator.userSettings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],

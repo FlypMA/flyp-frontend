@@ -6,9 +6,23 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, Button } from '@heroui/react';
-import { CleanInput } from '../../components/ui';
-import { FAQCategory } from '../../components/ui';
-import type { FAQCategoryType } from '../../components/ui';
+import { Input } from '@/shared/components/forms/Input';
+import { FAQCategory } from '@/shared/components/FAQ/FAQCategory';
+// Custom FAQ type for this page
+interface FAQCategoryType {
+  id: string;
+  category: string;
+  description: string;
+  icon: React.ReactNode;
+  color?: string;
+  questions: Array<{
+    question: string;
+    answer: string;
+    tags?: string[];
+    isPopular?: boolean;
+    isNew?: boolean;
+  }>;
+}
 import {
   Search,
   HelpCircle,
@@ -27,7 +41,7 @@ import {
   Star,
   Zap,
 } from 'lucide-react';
-import { SEOHead } from '../../components/SEO';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 interface SupportOption {
   id: string;
@@ -421,11 +435,11 @@ const Help: React.FC = () => {
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
               <div className="relative">
-                <CleanInput
+                <Input
                   placeholder="Search for answers... e.g., 'How to list my business'"
                   value={searchQuery}
                   onChange={value => setSearchQuery(value)}
-                  startIcon={<Search className="w-5 h-5 text-gray-400" />}
+                  leftIcon={<Search className="w-5 h-5 text-gray-400" />}
                   className="text-lg"
                   size="lg"
                 />

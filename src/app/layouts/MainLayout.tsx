@@ -24,8 +24,8 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { UrlGenerator } from '../../shared/services';
-import { Navigation } from '../../shared/components/layout/navigation';
-import Footer from '../../shared/components/layout/footer/Footer';
+import Navigation from '@/shared/components/layout/navigation/main/Navigation';
+import Footer from '@/shared/components/layout/footer/Footer';
 
 
 const scrollToSection = (sectionId: string) => {

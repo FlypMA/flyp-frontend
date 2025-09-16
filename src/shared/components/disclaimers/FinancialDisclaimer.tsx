@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardBody, Button } from '@heroui/react';
 import { AlertTriangle, Info, Scale, Shield } from 'lucide-react';
 

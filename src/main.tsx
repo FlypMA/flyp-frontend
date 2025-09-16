@@ -14,19 +14,16 @@
  * - Provides development debugging and environment info
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 import { HeroUIProvider } from '@heroui/react';
 import App from './App';
 import './index.css';
 
 // 🚀 Development Debug Information
-if (import.meta.env.DEV) {
-  console.log('🚀 BetweenDeals MVP starting...');
-  console.log('Environment:', import.meta.env.MODE);
-  console.log('Build time:', new Date().toISOString());
-  console.log('App shell architecture initialized');
-}
+console.log('🚀 BetweenDeals MVP starting...');
+console.log('Build time:', new Date().toISOString());
+console.log('App shell architecture initialized');
 
 // 🎯 Application Initialization
 const initializeApp = () => {
@@ -46,9 +43,7 @@ const initializeApp = () => {
       </HeroUIProvider>
     );
 
-    if (import.meta.env.DEV) {
-      console.log('✅ Application rendered successfully');
-    }
+    console.log('✅ Application rendered successfully');
   } catch (error) {
     console.error('🚨 Failed to render application:', error);
     
@@ -81,11 +76,6 @@ const initializeApp = () => {
             margin-bottom: 1rem;
             color: #6b7280;
           ">The application encountered a critical error during initialization.</p>
-          <p style="
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
-            color: #9ca3af;
-          ">Environment: ${import.meta.env.MODE}</p>
           <button 
             onclick="window.location.reload()"
             style="

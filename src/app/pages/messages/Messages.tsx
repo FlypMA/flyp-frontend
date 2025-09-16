@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, Button, Avatar, Badge, Chip, Divider } from '@heroui/react';
-import { CleanInput } from '../../components/ui';
+import { Input } from '@/shared/components/forms/Input';
 import {
   Search,
   MessageCircle,
@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { authService } from '../../services/users/authenticationService';
 import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
+import UnifiedNavigation from '@/shared/components/layout/navigation/main/Navigation';
 
 interface Conversation {
   id: string;
@@ -301,11 +301,11 @@ const Messages: React.FC = () => {
 
             {/* Search */}
             <div className="mb-4">
-              <CleanInput
+              <Input
                 placeholder="Search conversations..."
                 value={searchQuery}
                 onChange={setSearchQuery}
-                startIcon={<Search className="w-4 h-4 text-gray-400" />}
+                leftIcon={<Search className="w-4 h-4 text-gray-400" />}
                 size="sm"
                 className="search-conversations"
               />

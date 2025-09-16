@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, Card, CardBody } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,9 +13,9 @@ import {
   Heart,
   Target,
 } from 'lucide-react';
-import Container from '../../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../../components/SEO';
-import { seoData } from '../../../constants/seoData';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { seoData } from '@/shared/utils/seo/seoData';
 import { useAuthModal } from '../../../contexts/AuthModalContext';
 
 const About = () => {

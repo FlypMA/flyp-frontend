@@ -1,11 +1,4 @@
-import { SEOProps } from '../4-components/SEO/SEOHead';
-
-export interface SEOValidationResult {
-  isValid: boolean;
-  warnings: string[];
-  errors: string[];
-  suggestions: string[];
-}
+import { SEOProps, SEOValidationResult } from '../../types/seo';
 
 export const validateSEO = (seoProps: SEOProps): SEOValidationResult => {
   const warnings: string[] = [];

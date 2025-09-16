@@ -13,10 +13,9 @@ import {
   FileText,
   Target,
 } from 'lucide-react';
-import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
-import SellerSidebar from '../../components/navigation/SellerSidebar';
+import { authService } from '@/shared/services/auth';
+import { User as UserType } from '@/shared/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 interface Listing {
   id: string;
@@ -129,15 +128,12 @@ const ListingManagement = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
-      <UnifiedNavigation />
+        <Navigation />
 
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar
-          selectedTab="listings"
-          userRole={(user?.userType as 'seller' | 'buyer' | 'admin') || 'seller'}
-        />
+        <DashboardSidebar user={user} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

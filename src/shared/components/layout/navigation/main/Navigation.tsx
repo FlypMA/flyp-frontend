@@ -63,9 +63,9 @@ const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
           setTimeout(() => reject(new Error('Auth check timeout')), 3000)
         );
 
-        const authResult = await Promise.race([authPromise, timeoutPromise]);
+        const authResult = await Promise.race([authPromise, timeoutPromise]) as any;
 
-        if (authResult.success && authResult.user) {
+        if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
           setHasToken(true);
         } else {

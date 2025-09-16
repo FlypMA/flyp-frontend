@@ -117,6 +117,13 @@ class AuthenticationService {
   }
 
   /**
+   * Check authentication status (alias for backward compatibility)
+   */
+  async checkAuth(): Promise<AuthResult> {
+    return await CheckAuthService.checkAuthentication();
+  }
+
+  /**
    * Update user profile
    */
   async updateProfile(userId: string, updates: UpdateProfileRequest): Promise<User> {
@@ -311,7 +318,7 @@ export const authService = new AuthenticationService();
 export default authService;
 
 // Also export the main Auth service for backward compatibility
-export { authService as AuthService } from './Auth';
+export { AuthenticationService, authService as AuthService } from './Auth';
 
 // Export individual services for direct access if needed
 export { LoginService } from './login';

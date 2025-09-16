@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SellerOnboardingModal, { SellerFormData } from '../../components/modals/SellerOnboardingModal';
-import { SEOHead } from '../../components/SEO';
+import SellerOnboardingModal, { SellerFormData } from '@/shared/components/modals/SellerOnboardingModal';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 const CreateListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -7,8 +7,8 @@
 // ENVIRONMENT DETECTION
 // =============================================================================
 
-export const isDevelopment = import.meta.env.DEV;
-export const isProduction = import.meta.env.PROD;
+export const isDevelopment = (import.meta as any).env?.DEV;
+export const isProduction = (import.meta as any).env?.PROD;
 
 // =============================================================================
 // SECURITY CONFIGURATION
@@ -60,7 +60,7 @@ export const SECURITY_CONFIG = {
 
 export const MONITORING_CONFIG = {
   // Enable monitoring in production
-  ENABLED: isProduction || import.meta.env.VITE_ENABLE_MONITORING === 'true',
+  ENABLED: isProduction || (import.meta as any).env?.VITE_ENABLE_MONITORING === 'true',
   
   // Security monitoring
   SECURITY: {

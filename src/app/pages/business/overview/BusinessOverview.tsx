@@ -11,12 +11,13 @@ import {
   ArrowRight,
   Sparkles,
 } from 'lucide-react';
-import { AuthenticationService } from '../../../shared/services/auth/Auth';
-import { User } from '../../../shared/types';
-import { UrlGenerator } from '../../../shared/services';
-import { DashboardStats, ValuationReportCard } from '../../../features/business';
-import { useBusinessMetrics } from '../../../features/business/hooks';
-import type { Listing, ValuationReport } from '../../../features/business/types';
+import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { User } from '@/shared/types';
+import { UrlGenerator } from '@/shared/services';
+import { DashboardStats, ValuationReportCard } from '@/features/business';
+import { useBusinessMetrics } from '@/features/business/hooks';
+import type { Listing, ValuationReport } from '@/features/business/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 // Types are now imported from business-dashboard features
 
@@ -48,7 +49,8 @@ const BusinessOverview = () => {
       // Instant data loading - no loading state
       try {
         // Get authenticated user
-        const authResult = await AuthenticationService.checkAuth();
+        const authService = new AuthenticationService();
+        const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
 
@@ -146,12 +148,12 @@ const BusinessOverview = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
-      <UnifiedNavigation />
+        <Navigation />
 
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="overview" userRole={user?.role as any} />
+        <DashboardSidebar user={user} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">

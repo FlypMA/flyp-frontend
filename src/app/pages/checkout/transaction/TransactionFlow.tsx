@@ -21,10 +21,10 @@ import {
   DueDiligencePlatform,
   OfferManagement,
   SuccessFeeCollection,
-} from '../../components/transaction';
-import { SEOHead } from '../../components/SEO';
-import { seoData } from '../../constants/seoData';
-import Container from '../../components/main_UI/containers/container_default';
+} from '@/shared/components/transaction';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { seoData } from '@/shared/utils/seo/seoData';
+import Container from '@/shared/components/layout/container/Container';
 
 interface TransactionStage {
   id: string;

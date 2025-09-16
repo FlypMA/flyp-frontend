@@ -8,13 +8,12 @@
 // - Mobile menu toggle button
 // - Role-based navigation items
 
-import React from 'react';
+import * as React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
 import { User } from '../../../../types';
 import { UrlGenerator } from '../../../../services';
-import { AuthenticationService } from '../../../../services/auth/Auth';
 import BuyerDropdown from '../dropdown/BuyerDropdown';
 import SellerDropdown from '../dropdown/SellerDropdown';
 import { getDesktopNavigationItems, getDropdownComponent } from '../utils';
@@ -48,14 +47,14 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   };
 
   const handleSignup = () => {
-    navigate(UrlGenerator.register());
+    navigate(UrlGenerator.signup());
   };
 
   const handleSellBusiness = () => {
     if (user) {
       navigate(UrlGenerator.createListing());
     } else {
-      navigate(UrlGenerator.register());
+      navigate(UrlGenerator.signup());
     }
   };
 
@@ -77,11 +76,22 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
       <header className="z-40 flex px-6 gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full">
         {/* Logo Section */}
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
-          <Link to={UrlGenerator.root()} className="flex items-center space-x-3">
-            {/* TODO: Add logo component */}
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">BD</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3">
+            <img
+              src="/betweendeals_logo.svg?v=2024.1"
+              alt="betweendeals - European SME M&A Platform"
+              width="32"
+              height="32"
+              className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
+              loading="lazy"
+              style={{
+                height: '32px',
+                objectFit: 'contain',
+                opacity: 1,
+                visibility: 'visible',
+                display: 'block',
+              }}
+            />
             <span className="text-xl font-bold text-gray-900 ml-2">betweendeals</span>
           </Link>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button } from '@shared/components/ui/Button';
-import { Card } from '@shared/components/ui/Card';
+import { Button } from '@/shared/components/buttons/Button';
+import { Card } from '@/shared/components/cards/Card';
 import { 
   TrendingUp, 
   Eye, 

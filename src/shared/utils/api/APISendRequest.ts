@@ -1,25 +1,62 @@
-// Temporarily removing complex types to fix build
-// import { ApiClient, ApiResponse, ApiRequestConfig } from '@utils-types/api';
+/**
+ * 🔌 API Request Utility - Enhanced with Type Safety
+ * 
+ * Centralized API request handling with proper TypeScript support
+ */
 
-const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+import { ApiClient, ApiResponse, ApiRequestConfig } from '../../types/api';
+import { getApiConfig, getAuthHeader, requiresAuth } from '../../../config/api';
 
-const request = async <T>(endpoint: string, config: RequestInit = {}): Promise<ApiResponse<T>> => {
+const apiConfig = getApiConfig();
+const baseURL = apiConfig.baseURL;
+
+const request = async <T>(endpoint: string, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> => {
   try {
-    const response = await fetch(`${baseURL}${endpoint}`, {
-      ...config,
+    // Add authentication headers if required
+    const authHeaders = requiresAuth(endpoint) ? getAuthHeader() : {};
+    
+    // Prepare request configuration
+    const requestConfig: RequestInit = {
+      method: config.method || 'GET',
       headers: {
         'Content-Type': 'application/json',
+        ...authHeaders,
         ...config.headers,
       },
-    });
+      body: config.body ? JSON.stringify(config.body) : undefined,
+      credentials: config.credentials || 'include',
+      cache: config.cache || 'default',
+      signal: config.signal,
+    };
 
+    // Make the request
+    const response = await fetch(`${baseURL}${endpoint}`, requestConfig);
+    
+    // Parse response
     const data = await response.json();
-    return data;
+    
+    // Return standardized response
+    if (response.ok) {
+      return {
+        success: true,
+        data,
+        statusCode: response.status,
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      return {
+        success: false,
+        error: data.error || data.message || 'Request failed',
+        statusCode: response.status,
+        timestamp: new Date().toISOString(),
+      };
+    }
   } catch (error) {
     console.error('API request failed:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred',
+      timestamp: new Date().toISOString(),
     };
   }
 };

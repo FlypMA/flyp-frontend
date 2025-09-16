@@ -30,12 +30,12 @@ import {
   FileText,
   MapPin,
 } from 'lucide-react';
-import Container from '../../../components/main_UI/containers/container_default';
+import Container from '@/shared/components/layout/container/Container';
 import { useAuthModal } from '../../../contexts/AuthModalContext';
 import { authService } from '../../../services/users/authenticationService';
-import { SEOHead } from '../../../components/SEO';
-import { seoData } from '../../../constants/seoData';
-import { SearchComponent } from '../../../components/common';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { seoData } from '@/shared/utils/seo/seoData';
+import { SearchComponent } from '@/shared/components/filters';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');

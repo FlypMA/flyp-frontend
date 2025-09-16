@@ -504,11 +504,55 @@ export class AuthenticationService {
 
     return SessionManager.getToken();
   }
+
+  /**
+   * Check authentication status (alias for checkAuthentication)
+   */
+  async checkAuth(): Promise<AuthResult> {
+    return await this.checkAuthentication();
+  }
+
+  /**
+   * Resend verification email
+   */
+  async resendVerificationEmail(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const { supabase } = require('../../../config');
+      const { RetryHandler } = require('./utils/retry-handler');
+      
+      const result = await RetryHandler.executeWithRetry(
+        async () => {
+          const { error } = await supabase.auth.resend({
+            type: 'signup',
+            email: email,
+          });
+
+          if (error) {
+            throw error;
+          }
+        },
+        'Resend verification email'
+      );
+
+      return { success: true };
+    } catch (error) {
+      const { AuthErrorHandler } = require('./utils/error-handler');
+      const authError = AuthErrorHandler.handleSupabaseError(error);
+      return {
+        success: false,
+        error: authError.message,
+      };
+    }
+  }
+
+  /**
+   * Resend verification email (alias for backward compatibility)
+   */
+  async resendVerification(email: string): Promise<{ success: boolean; error?: string }> {
+    return await this.resendVerificationEmail(email);
+  }
 }
 
 // Create and export singleton instance
 export const authService = new AuthenticationService();
-
-// Export the class for named imports
-export { AuthenticationService };
 export default authService;

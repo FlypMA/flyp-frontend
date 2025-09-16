@@ -33,8 +33,8 @@ export {
 } from './security-config';
 
 // Supabase Client
-export { supabase } from './Supabase';
-export type { SupabaseClient } from './Supabase';
+export { supabase } from './supabase';
+export type { SupabaseClient } from './supabase';
 
 // Re-export for convenience
 export { default } from './config';

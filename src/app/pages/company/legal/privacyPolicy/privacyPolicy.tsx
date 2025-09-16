@@ -1,9 +1,9 @@
-import React from 'react';
-import Container from '../../../components/main_UI/containers/container_default';
-import Heading1 from '../../../components/main_UI/fonts/heading1';
-import Heading2 from '../../../components/main_UI/fonts/heading2';
-import { SEOHead } from '../../../components/SEO';
-import { getSEOData } from '../../../constants/seoData';
+import * as React from 'react';
+import Container from '@/shared/components/layout/container/Container';
+import Heading1 from '@/shared/components/typography/Heading1';
+import Heading2 from '@/shared/components/typography/Heading2';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const PrivacyPolicy = () => {
   return (

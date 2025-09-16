@@ -5,7 +5,7 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@heroui/react';
 import { Eye, Code, Info, RefreshCw, Download, Maximize, Edit3, Save, X } from 'lucide-react';
-import { User } from '../../../../shared/types';
+import { User } from '@/shared/types';
 
 interface DashboardToolbarProps {
   onRefresh?: () => void;

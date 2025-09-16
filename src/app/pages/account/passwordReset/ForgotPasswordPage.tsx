@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@shared/components/ui/Button';
-import { Input } from '@shared/components/ui/Input';
-import { Card } from '@shared/components/ui/Card';
-import { useUI } from '@app/providers/UIProvider';
+import { Button } from '@/shared/components/buttons/Button';
+import { Input } from '@/shared/components/ui/Input';
+import { Card } from '@/shared/components/cards/Card';
+import { useUI } from '@/app/providers/UIProvider';
 import { ArrowLeft, Mail } from 'lucide-react';
 
 const ForgotPasswordPage: React.FC = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button, Input, Avatar, Divider } from '@heroui/react';
 import { User, Mail, Phone, MapPin, Calendar, Building2, Edit, Save, X } from 'lucide-react';
-import { AuthenticationService } from '../../../../shared/services/auth/Auth';
+import { authService } from '../../../../shared/services/auth/Auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
@@ -27,7 +27,7 @@ const UserProfile: React.FC = () => {
 
   const loadUserData = async () => {
     try {
-      const authResult = await AuthenticationService.checkAuth();
+      const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
         setProfileData({

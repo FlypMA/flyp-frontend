@@ -3,7 +3,7 @@
  * Groups related FAQs with category header and icon
  */
 
-import React from 'react';
+import * as React from 'react';
 import { cn } from '@heroui/react';
 import { FAQAccordion } from './FAQAccordion';
 import type { FAQCategoryProps } from './types';
@@ -82,7 +82,7 @@ export const FAQCategory: React.FC<FAQCategoryProps> = ({
           {/* Category Title and Description */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-1">
-              <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{category.title}</h2>
 
               {/* Questions Count Badge */}
               <span
@@ -91,8 +91,8 @@ export const FAQCategory: React.FC<FAQCategoryProps> = ({
                   badgeColor
                 )}
               >
-                {category.questions.length}{' '}
-                {category.questions.length === 1 ? 'question' : 'questions'}
+                {category.faqs.length}{' '}
+                {category.faqs.length === 1 ? 'question' : 'questions'}
               </span>
             </div>
 
@@ -102,7 +102,7 @@ export const FAQCategory: React.FC<FAQCategoryProps> = ({
       </div>
 
       {/* FAQ Accordion */}
-      <FAQAccordion faqs={category.questions} allowMultiple={allowMultiple} />
+      <FAQAccordion faqs={category.faqs} allowMultiple={allowMultiple} />
     </div>
   );
 };

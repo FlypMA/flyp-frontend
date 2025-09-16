@@ -276,6 +276,17 @@ export class UrlGenerator {
   };
 
   /**
+   * Account dashboard (alias for generateDashboardUrl)
+   */
+  static accountDashboard = (user?: any) => {
+    if (user) {
+      return this.generateDashboardUrl(user);
+    }
+    // Default to business dashboard for compatibility
+    return this.myBusiness();
+  };
+
+  /**
    * Generate search URL with query parameters
    */
   static searchWithQuery = (query: string, filters?: {
@@ -350,6 +361,3 @@ export class UrlGenerator {
 }
 
 export default UrlGenerator;
-
-// Export the class for named imports
-export { UrlGenerator };

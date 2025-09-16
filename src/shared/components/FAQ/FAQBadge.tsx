@@ -3,7 +3,7 @@
  * Clean, modular badge system for Popular/New indicators
  */
 
-import React from 'react';
+import * as React from 'react';
 import { cn } from '@heroui/react';
 import type { FAQBadgeProps } from './types';
 

@@ -29,10 +29,9 @@ import {
   Grid3X3,
   List,
 } from 'lucide-react';
-import { authService } from '../../services/users/authenticationService';
-import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '../../components/navigation/UnifiedNavigation';
-import SellerSidebar from '../../components/navigation/SellerSidebar';
+import { authService } from '@/shared/services/auth';
+import { User as UserType } from '@/shared/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 interface DocumentFile {
   id: string;
@@ -330,10 +329,10 @@ const DocumentVault = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
+        <Navigation />
 
       <div className="flex">
-        <SellerSidebar selectedTab="documents" userRole={user?.role as any} />
+        <DashboardSidebar user={user} />
 
         <div className="flex-1 px-8 py-8">
           <div className="max-w-7xl mx-auto">

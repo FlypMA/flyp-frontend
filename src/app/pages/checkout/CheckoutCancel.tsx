@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button } from '@heroui/react';
 import { XCircle, ArrowLeft, RefreshCw, CreditCard } from 'lucide-react';

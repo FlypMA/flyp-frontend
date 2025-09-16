@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@shared/components/ui/Button';
-import { Card } from '@shared/components/ui/Card';
+import { Button } from '@/shared/components/buttons/Button';
+import { Card } from '@/shared/components/cards/Card';
 import { 
   Building2, 
   Eye, 

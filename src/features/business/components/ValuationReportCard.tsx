@@ -2,7 +2,7 @@
 // Location: src/features/business-dashboard/components/ValuationReportCard.tsx
 // Purpose: Business valuation report display card
 
-import React from 'react';
+import * as React from 'react';
 import { Card, CardBody, CardHeader, Button, Chip } from '@heroui/react';
 import { 
   TrendingUp, 

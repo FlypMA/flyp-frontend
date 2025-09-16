@@ -16,7 +16,7 @@ Features:
 import { Navbar, NavbarBrand } from '@heroui/react';
 import { Link, Outlet } from 'react-router-dom';
 import { UrlGenerator } from '../../shared/services';
-import Footer from '../../shared/components/layout/footer/Footer';
+import Footer from '@/shared/components/layout/footer/Footer';
 
 const LogoOnlyLayout = () => {
   return (

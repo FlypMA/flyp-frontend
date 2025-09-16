@@ -13,7 +13,7 @@ import {
   XCircle,
   Clock
 } from 'lucide-react';
-import { AuthenticationService } from '../../../../shared/services/auth/Auth';
+import { authService } from '../../../../shared/services/auth/Auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
@@ -50,7 +50,7 @@ const UserNotifications: React.FC = () => {
 
   const loadUserData = async () => {
     try {
-      const authResult = await AuthenticationService.checkAuth();
+      const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
       } else {

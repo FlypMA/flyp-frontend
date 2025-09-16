@@ -19,9 +19,9 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
-import Container from '../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../components/SEO';
-import { useAuthModal } from '../../contexts/AuthModalContext';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { useAuthModal } from '@/app/contexts/AuthModalContext';
 
 const DueDiligenceChecklist = () => {
   const navigate = useNavigate();

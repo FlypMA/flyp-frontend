@@ -16,8 +16,8 @@ import {
   Share2,
   CheckCircle,
 } from 'lucide-react';
-import { InquiryModal } from '../../components/ma';
-import ImageGalleryModal from '../../components/modals/ImageGalleryModal';
+import InquiryModal from '@/shared/components/modals/InquiryModal';
+import ImageGalleryModal from '@/shared/components/modals/ImageGalleryModal';
 
 const ListingDetails = () => {
   const { id } = useParams();

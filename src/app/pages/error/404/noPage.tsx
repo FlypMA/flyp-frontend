@@ -1,8 +1,8 @@
-import Container from '../../../components/main_UI/containers/container_default';
-import Heading1 from '../../../components/main_UI/fonts/heading1';
-import HeadingHero from '../../../components/main_UI/fonts/headingHero';
-import { SEOHead } from '../../../components/SEO';
-import { getSEOData } from '../../../constants/seoData';
+import Container from '@/shared/components/layout/container/Container';
+import Heading1 from '@/shared/components/typography/Heading1';
+import HeadingHero from '@/shared/components/typography/HeadingHero';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const NoPage = () => {
   return (

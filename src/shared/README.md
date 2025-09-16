@@ -1,73 +1,130 @@
-# Shared Resources
+# Shared Resources - BetweenDeals MVP
 
-This directory contains reusable resources that can be used across multiple features. These are the building blocks that provide consistency and prevent code duplication.
+This directory contains reusable resources that can be used across multiple features. These are the building blocks that provide consistency and prevent code duplication across the entire M&A platform.
 
 ## 📁 Structure Overview
 
 ```
 shared/
 ├── components/           # Reusable UI components
-│   ├── ui/              # Basic UI primitives (Button, Input, Card)
-│   ├── forms/           # Form-related components (empty in MVP)
-│   ├── layout/          # Layout components (Header, Footer, Sidebar)
-│   └── navigation/      # Navigation components (empty in MVP)
-├── hooks/               # Custom React hooks (empty in MVP)
-├── services/            # API services and utilities (empty in MVP)
-├── types/               # Global TypeScript definitions (empty in MVP)  
-├── utils/               # Utility functions (empty in MVP)
-├── constants/           # Application constants (empty in MVP)
+│   ├── buttons/         # Button components with HeroUI compatibility
+│   ├── buyer/           # Buyer-specific components
+│   ├── cards/           # Card components
+│   ├── disclaimers/     # Legal disclaimer components
+│   ├── FAQ/             # FAQ accordion and related components
+│   ├── filters/         # Filter and search components
+│   ├── forms/           # Form components (Input, Textarea, etc.)
+│   ├── layout/          # Layout components (Container, Footer, Navigation)
+│   ├── listings/        # Business listing components
+│   ├── loading/         # Loading and spinner components
+│   ├── logo/            # Logo and branding components
+│   ├── modals/          # Modal dialog components
+│   ├── search/          # Search functionality components
+│   ├── seo/             # SEO and meta tag components
+│   ├── tabs/            # Tab navigation components
+│   ├── transaction/     # M&A transaction components
+│   ├── typography/      # Typography and heading components
+│   ├── ui/              # Basic UI primitives
+│   └── valuation/       # Business valuation components
+├── design-system/       # Design system and brand assets
+├── services/            # API services and business logic
+│   ├── auth/            # Authentication services
+│   ├── monitoring/      # Error monitoring and logging
+│   └── urls/            # URL generation utilities
+├── types/               # Global TypeScript definitions
+│   ├── api.ts           # Core API types
+│   ├── api-auth.ts      # Authentication API types
+│   ├── api-business.ts  # Business API types
+│   ├── seo.ts           # SEO types
+│   └── user.ts          # User and profile types
+├── utils/               # Utility functions
+│   ├── api/             # API utility functions
+│   ├── seo/             # SEO utility functions
+│   └── ux/              # UX utility components
 └── README.md            # This file
 ```
 
 ## 🧱 UI Components
 
-### Basic UI Primitives (`components/ui/`)
+### Core UI Components
 
-**Button.tsx**
-- Configurable button component with variants (primary, secondary, ghost, danger)
+**Button Components (`components/buttons/`)**
+- HeroUI-compatible button with variants (primary, secondary, outline, ghost, danger, light, bordered, flat)
 - Loading states with spinner
-- Multiple sizes (sm, md, lg)
+- Multiple sizes (xs, sm, md, lg, xl)
+- Icon support (leftIcon, rightIcon, startContent, endContent)
 - Full accessibility support
 
-**Input.tsx**  
-- Text input with label and error states
-- Built-in validation styling
-- Helper text support
-- Consistent styling across the app
+**Form Components (`components/forms/`)**
+- **Input.tsx**: Text input with label, error states, and HeroUI compatibility
+- **AnimatedTextarea.tsx**: Animated textarea with character count
+- **FormField.tsx**: Form field wrapper with validation
+- **StyledSelect.tsx**: Custom styled select component
+- **SwitchShowcase.tsx**: Toggle switch component
+- **TextareaShowcase.tsx**: Textarea component showcase
 
-**Card.tsx**
+**Card Components (`components/cards/`)**
 - Container component for content sections
 - Optional padding configuration
 - Consistent shadow and border styling
 - Responsive design ready
 
-**LoadingSpinner.tsx**
-- Animated loading indicator
+**Loading Components (`components/loading/`)**
+- **LoadingSpinner.tsx**: Animated loading indicator
 - Multiple size variants
 - Consistent with design system
-- Used across the application
+
+### Business-Specific Components
+
+**Buyer Components (`components/buyer/`)**
+- **SaveSearchModal.tsx**: Modal for saving search criteria
+
+**Listing Components (`components/listings/`)**
+- **ListingCard.tsx**: Business listing card component
+
+**Transaction Components (`components/transaction/`)**
+- **DueDiligencePlatform.tsx**: Due diligence workflow component
+- **OfferManagement.tsx**: Offer management interface
+- **SuccessFeeCollection.tsx**: Success fee collection component
+
+**Valuation Components (`components/valuation/`)**
+- **BusinessValuationTool.tsx**: Business valuation calculator
 
 ### Layout Components (`components/layout/`)
 
-**Header.tsx**
-- Main navigation header
-- Authentication state awareness  
-- Role-based menu items
-- Mobile responsive navigation
-- User avatar and dropdown menu
+**Container (`components/layout/container/`)**
+- **Container.tsx**: Standardized page container
 
-**Footer.tsx**
-- Site-wide footer with links
-- Company information
-- Legal and support links
-- Consistent across all pages
+**Footer (`components/layout/footer/`)**
+- **Footer.tsx**: Site-wide footer with links and company information
 
-**Sidebar.tsx**
-- Collapsible navigation sidebar
-- Role-based navigation items
-- Active state indicators
-- Mobile-responsive behavior
-- User profile section
+**Navigation (`components/layout/navigation/`)**
+- **Main Navigation**: Main navigation header with authentication awareness
+- **Dashboard Navigation**: Business dashboard sidebar and mobile navigation
+- **Dropdown Components**: Buyer and seller dropdown menus
+- **Navigation Utils**: Navigation configuration and role utilities
+
+### Specialized Components
+
+**FAQ Components (`components/FAQ/`)**
+- **FAQAccordion.tsx**: Accordion-style FAQ display
+- **FAQItem.tsx**: Individual FAQ item component
+- **FAQCategory.tsx**: FAQ category grouping
+- **FAQBadge.tsx**: FAQ item badges (new, popular)
+
+**Modal Components (`components/modals/`)**
+- **InquiryModal.tsx**: Business inquiry modal
+- **ImageGalleryModal.tsx**: Image gallery modal
+- **NDAModal.tsx**: NDA agreement modal
+- **SellerOnboardingModal.tsx**: Seller onboarding modal
+
+**Typography Components (`components/typography/`)**
+- **Heading1.tsx**: Main heading component
+- **Heading2.tsx**: Secondary heading component
+- **HeadingHero.tsx**: Hero section heading
+
+**SEO Components (`components/seo/`)**
+- **SEOHead.tsx**: SEO meta tags and structured data
 
 ## 🎨 Design System
 
@@ -195,16 +252,51 @@ Shared components should have:
 - Minimal external dependencies
 - Optimized asset loading
 
-## 🔄 Future Additions
+## 🔧 Services and Utilities
 
-Planned shared resources:
+### Authentication Services (`services/auth/`)
+- **Auth.ts**: Main authentication service with Supabase integration
+- **login.ts**: Login service with retry logic and error handling
+- **logout.ts**: Logout service with session cleanup
+- **signup.ts**: User registration service
+- **checkAuth.ts**: Authentication status checking
+- **Utils**: Session management, error handling, retry logic, user data management
+
+### URL Generation (`services/urls/`)
+- **urlGenerator.ts**: Centralized URL generation for all routes
+- Role-based routing for different user types
+- Dynamic parameter handling
+- SEO-friendly URL generation
+
+### Monitoring (`services/monitoring/`)
+- **errorHandler.ts**: Comprehensive error handling and monitoring
+- Error reporting and logging
+- Performance monitoring
+- User feedback collection
+
+### Type Definitions (`types/`)
+- **api.ts**: Core API response and request types
+- **api-auth.ts**: Authentication-specific API types
+- **api-business.ts**: Business and M&A transaction types
+- **seo.ts**: SEO and meta tag types
+- **user.ts**: User profile and role types
+
+### Utilities (`utils/`)
+- **api/**: API request utilities and helpers
+- **seo/**: SEO validation and data utilities
+- **ux/**: UX utility components (ScrollToTop, etc.)
+
+## 🔄 Future Enhancements
+
+Planned additions:
 - [ ] Custom hooks for common patterns
-- [ ] API service utilities
-- [ ] Form validation helpers
+- [ ] Advanced form validation helpers
 - [ ] Date/time utilities
 - [ ] File upload components
 - [ ] Data table components
 - [ ] Chart/visualization components
+- [ ] Real-time WebSocket utilities
+- [ ] Advanced caching utilities
 
 ---
 

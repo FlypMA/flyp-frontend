@@ -25,9 +25,9 @@ import {
   Bookmark,
   Bell,
 } from 'lucide-react';
-import { SearchComponent, PriceRangeSlider } from '../../components/common';
-import ListingCard from '../../components/listings/ListingCard';
-import SaveSearchModal from '../../components/buyer/SaveSearchModal';
+import { SearchComponent, PriceRangeSlider } from '@/shared/components/filters';
+import ListingCard from '@/shared/components/listings/ListingCard';
+import SaveSearchModal from '@/shared/components/buyer/SaveSearchModal';
 
 interface Listing {
   id: string;

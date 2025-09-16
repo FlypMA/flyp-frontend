@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationService } from '../../../shared/services/auth/Auth';
-import { User } from '../../../shared/types';
-import { UrlGenerator } from '../../../shared/services';
-import { DashboardToolbar, ValuationReportCard } from '../../../features/business';
-import { useBusinessValuation } from '../../../features/business/hooks';
-import type { ValuationReport } from '../../../features/business/types';
+import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { User } from '@/shared/types';
+import { UrlGenerator } from '@/shared/services';
+import { DashboardToolbar, ValuationReportCard } from '@/features/business';
+import { useBusinessValuation } from '@/features/business/hooks';
+import type { ValuationReport } from '@/features/business/types';
+import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
 
 // Types are now imported from business-dashboard features
 
 const BusinessValuation = () => {
   const navigate = useNavigate();
+  const authService = new AuthenticationService();
   const [user, setUser] = useState<User | null>(null);
   const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
   
@@ -97,29 +99,40 @@ const BusinessValuation = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
-      <UnifiedNavigation />
+        <Navigation />
 
       {/* Main Layout with Sidebar */}
       <div className="flex">
         {/* Left Sidebar */}
-        <SellerSidebar selectedTab="valuation" userRole={user?.role} />
+        <DashboardSidebar user={user} />
 
         {/* Main Content Area */}
         <div className="flex-1 px-8 py-8">
           <div className="max-w-6xl space-y-6">
-            <ValuationDashboard
-              currentValuation={businessValuation}
-              historicalValuations={[]} // TODO: Add historical data when available
-              onCreateValuation={() => {
-                // TODO: Navigate to valuation wizard or open modal
-                console.log('Create valuation');
-              }}
-              onUpdateValuation={() => {
-                // TODO: Navigate to valuation update wizard
-                console.log('Update valuation');
-              }}
-              onCreateListing={() => navigate('/seller/listings/new')}
-            />
+            {/* Page Header */}
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
+              <p className="mt-2 text-gray-600">
+                Get professional business valuations and track your business value over time.
+              </p>
+            </div>
+
+            {/* Valuation Content */}
+            <div className="space-y-6">
+              {businessValuation ? (
+                <ValuationReportCard
+                  report={businessValuation}
+                  onView={() => console.log('View valuation')}
+                  onDownload={() => console.log('Download valuation')}
+                  onShare={() => console.log('Share valuation')}
+                  onEdit={() => console.log('Edit valuation')}
+                />
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">No valuation reports available yet.</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

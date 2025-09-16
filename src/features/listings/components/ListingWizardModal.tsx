@@ -11,8 +11,7 @@ import {
   Chip,
   Textarea,
 } from '@heroui/react';
-// TODO: Import from shared components when available
-// import { AnimatedInput, AnimatedTextarea } from '../../../shared/components/forms';
+import { Input, AnimatedTextarea } from '@/shared/components/forms';
 import {
   Building2,
   FileText,
@@ -39,8 +38,8 @@ import {
   FileCheck,
   EyeOff,
 } from 'lucide-react';
-import Container from '../../components/main_UI/containers/container_default';
-import { SEOHead } from '../../components/SEO';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 interface BasicInfo {
   title: string;
@@ -406,7 +405,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <AnimatedInput
+                    <Input
                       label="Business Title"
                       placeholder="Enter a compelling title for your listing"
                       value={basicInfo.title}
@@ -414,7 +413,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Industry"
                       placeholder="Select your industry"
                       value={basicInfo.industry}
@@ -422,7 +421,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Business Model"
                       placeholder="Select your business model"
                       value={basicInfo.business_model}
@@ -430,21 +429,21 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Website"
                       placeholder="https://yourbusiness.com"
                       value={basicInfo.website}
                       onChange={value => setBasicInfo(prev => ({ ...prev, website: value }))}
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Founded Year"
                       placeholder="e.g., 2015"
                       value={basicInfo.founded_year}
                       onChange={value => setBasicInfo(prev => ({ ...prev, founded_year: value }))}
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Employee Count"
                       placeholder="Select employee count"
                       value={basicInfo.employee_count}
@@ -452,7 +451,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Country"
                       placeholder="Select country"
                       value={basicInfo.location_country}
@@ -462,7 +461,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="City"
                       placeholder="Enter city"
                       value={basicInfo.location_city}
@@ -494,7 +493,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <AnimatedInput
+                    <Input
                       label="Annual Revenue"
                       placeholder="€1,000,000"
                       value={financialInfo.annual_revenue}
@@ -504,7 +503,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Revenue Trend"
                       placeholder="Growing, Stable, Declining"
                       value={financialInfo.revenue_trend}
@@ -514,7 +513,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       required
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="EBITDA Margin"
                       placeholder="15%"
                       value={financialInfo.ebitda_margin}
@@ -523,7 +522,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       }
                     />
 
-                    <AnimatedInput
+                    <Input
                       label="Asking Price"
                       placeholder="€5,000,000"
                       value={financialInfo.asking_price}
@@ -620,7 +619,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     minRows={3}
                   />
 
-                  <AnimatedInput
+                  <Input
                     label="Preferred Timeline"
                     placeholder="e.g., 3-6 months"
                     value={saleDetails.preferred_timeline}

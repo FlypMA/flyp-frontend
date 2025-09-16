@@ -7,7 +7,7 @@ export {
   authService,
   AuthenticationService,
   default as authenticationService
-} from './auth/Auth';
+} from './auth';
 
 // Supabase Client (from config)
 export { supabase } from '../../config';
@@ -31,3 +31,6 @@ export type {
 
 // URL Generator Service
 export { UrlGenerator, default as UrlGeneratorDefault } from './urls/urlGenerator';
+
+// Re-export for compatibility
+export { UrlGenerator as UrlGeneratorService } from './urls/urlGenerator';

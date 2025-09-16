@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Textarea, Button } from '@heroui/react';
-import { FormField } from '../common';
+import FormField from '@/shared/components/forms/FormField';
 
 /**
  * Textarea Showcase Component

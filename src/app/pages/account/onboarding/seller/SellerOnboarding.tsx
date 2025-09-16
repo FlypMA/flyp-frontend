@@ -24,7 +24,7 @@ import {
   FileText,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { SEOHead } from '../../../components/SEO';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 interface SellerFormData {
   businessType: string;
@@ -981,6 +981,7 @@ const SellerOnboarding: React.FC = () => {
       <SEOHead
         title={`Step ${currentStep + 1} - Sell Your Business | BetweenDeals`}
         description="Complete your seller profile in minutes and start attracting qualified buyers for your business"
+        keywords="sell business, business for sale, seller onboarding, business valuation"
       />
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
