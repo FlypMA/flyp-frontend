@@ -19,6 +19,7 @@
 
 import AuthModals from '@/features/authentication/components/AuthModals';
 import { Navigation } from '@/shared/components/layout/navigation';
+import { ScrollToTop } from '@/shared/utils/ux';
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { authService, UrlGenerator } from '../../shared/services';
@@ -126,6 +127,7 @@ const AuthenticatedAccount = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       {/* Navigation - like legacy UnifiedNavigation for authenticated pages */}
       <Navigation />
 

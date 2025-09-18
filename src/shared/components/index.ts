@@ -1,14 +1,11 @@
 /**
  * Shared Components Export
- * 
+ *
  * Centralized exports for all shared components
  */
 
 // Layout Components
 export * from './layout';
-
-// UI Components
-export * from './ui';
 
 // SEO Components
 export { SEOHead } from './seo/SEOHead';

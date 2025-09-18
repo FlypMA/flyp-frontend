@@ -90,7 +90,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       if (isInputInvalid) {
         return 'border-red-300 focus:border-red-500 focus:ring-red-500';
       }
-      
+
       const colors = {
         default: 'border-gray-300 focus:border-blue-500 focus:ring-blue-500',
         primary: 'border-blue-300 focus:border-blue-500 focus:ring-blue-500',
@@ -105,7 +105,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     // Radius classes
     const getRadiusClasses = () => {
       if (variant === 'underlined') return 'rounded-none';
-      
+
       const radiusMap = {
         none: 'rounded-none',
         sm: 'rounded-sm',
@@ -133,7 +133,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ].join(' ');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e.target.value);
+      if (typeof onChange === 'function') {
+        // Check if onChange expects a string (new signature) or an event (old signature)
+        // We'll try the string version first, then fall back to event
+        try {
+          (onChange as (value: string) => void)(e.target.value);
+        } catch {
+          // If it fails, try with the event
+          (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(e);
+        }
+      }
     };
 
     return (

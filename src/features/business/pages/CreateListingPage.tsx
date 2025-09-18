@@ -1,7 +1,7 @@
 import { useUI } from '@/app/providers/UIProvider';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
-import { Input } from '@/shared/components/ui/Input';
+import { CustomDropdown, Input } from '@/shared/components/forms';
 import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -82,9 +82,7 @@ export const CreateListingPage: React.FC = () => {
     'Aalst',
   ];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -166,39 +164,33 @@ export const CreateListingPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
-                <select
-                  name="industry"
+                <CustomDropdown
+                  label="Industry"
+                  placeholder="Select industry"
+                  options={industries.map(industry => ({
+                    value: industry,
+                    label: industry,
+                  }))}
                   value={formData.industry}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                  required
-                >
-                  <option value="">Select industry</option>
-                  {industries.map(industry => (
-                    <option key={industry} value={industry}>
-                      {industry}
-                    </option>
-                  ))}
-                </select>
+                  onChange={value => setFormData(prev => ({ ...prev, industry: value }))}
+                  required={true}
+                  name="industry"
+                />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                <select
-                  name="location"
+                <CustomDropdown
+                  label="Location"
+                  placeholder="Select location"
+                  options={locations.map(location => ({
+                    value: location,
+                    label: location,
+                  }))}
                   value={formData.location}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                  required
-                >
-                  <option value="">Select location</option>
-                  {locations.map(location => (
-                    <option key={location} value={location}>
-                      {location}
-                    </option>
-                  ))}
-                </select>
+                  onChange={value => setFormData(prev => ({ ...prev, location: value }))}
+                  required={true}
+                  name="location"
+                />
               </div>
             </div>
 
@@ -275,17 +267,24 @@ export const CreateListingPage: React.FC = () => {
             />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Real Estate</label>
-              <select
-                name="realEstate"
+              <CustomDropdown
+                label="Real Estate"
+                placeholder="Select real estate option"
+                options={[
+                  { value: 'included', label: 'Real estate included' },
+                  { value: 'lease', label: 'Leased premises' },
+                  { value: 'separate', label: 'Real estate sold separately' },
+                ]}
                 value={formData.realEstate}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="included">Real estate included</option>
-                <option value="lease">Leased premises</option>
-                <option value="separate">Real estate sold separately</option>
-              </select>
+                onChange={value =>
+                  setFormData(prev => ({
+                    ...prev,
+                    realEstate: value as 'included' | 'lease' | 'separate',
+                  }))
+                }
+                required={true}
+                name="realEstate"
+              />
             </div>
           </div>
         );
@@ -329,18 +328,23 @@ export const CreateListingPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Contact Preference
-              </label>
-              <select
-                name="contactPreference"
+              <CustomDropdown
+                label="Contact Preference"
+                placeholder="Select contact preference"
+                options={[
+                  { value: 'direct', label: 'Direct contact allowed' },
+                  { value: 'anonymous', label: 'Anonymous listing (flyp mediates)' },
+                ]}
                 value={formData.contactPreference}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="direct">Direct contact allowed</option>
-                <option value="anonymous">Anonymous listing (flyp mediates)</option>
-              </select>
+                onChange={value =>
+                  setFormData(prev => ({
+                    ...prev,
+                    contactPreference: value as 'direct' | 'anonymous',
+                  }))
+                }
+                required={true}
+                name="contactPreference"
+              />
             </div>
           </div>
         );

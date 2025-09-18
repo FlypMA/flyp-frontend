@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { CustomDropdown } from '@/shared/components/forms';
+import { Button, Card, CardBody, CardHeader, Divider, Input, Switch } from '@heroui/react';
+import { Bell, Eye, EyeOff, Save, Settings, Shield } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Input, Switch, Select, SelectItem, Divider } from '@heroui/react';
-import { 
-  Settings, 
-  Bell, 
-  Shield, 
-  CreditCard, 
-  Globe, 
-  Moon, 
-  Sun, 
-  Save,
-  Eye,
-  EyeOff,
-  CheckCircle,
-  XCircle
-} from 'lucide-react';
 import { AuthenticationService } from '../../../../shared/services/auth/Auth';
-import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
+import { User as UserType } from '../../../../shared/types';
 
 const UserSettings: React.FC = () => {
   const navigate = useNavigate();
@@ -96,10 +84,10 @@ const UserSettings: React.FC = () => {
     try {
       // TODO: Implement settings save API call
       // await AuthenticationService.updateUserSettings(settings);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       console.log('Settings saved successfully');
     } catch (error) {
       console.error('Failed to save settings:', error);
@@ -118,10 +106,10 @@ const UserSettings: React.FC = () => {
     try {
       // TODO: Implement password change API call
       // await AuthenticationService.changePassword(passwordData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setPasswordData({
         currentPassword: '',
         newPassword: '',
@@ -192,7 +180,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.notifications.emailNotifications}
-              onValueChange={(value) => updateSetting('notifications', 'emailNotifications', value)}
+              onValueChange={value => updateSetting('notifications', 'emailNotifications', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -202,7 +190,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.notifications.listingUpdates}
-              onValueChange={(value) => updateSetting('notifications', 'listingUpdates', value)}
+              onValueChange={value => updateSetting('notifications', 'listingUpdates', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -212,7 +200,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.notifications.messageNotifications}
-              onValueChange={(value) => updateSetting('notifications', 'messageNotifications', value)}
+              onValueChange={value => updateSetting('notifications', 'messageNotifications', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -222,7 +210,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.notifications.priceAlerts}
-              onValueChange={(value) => updateSetting('notifications', 'priceAlerts', value)}
+              onValueChange={value => updateSetting('notifications', 'priceAlerts', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -232,7 +220,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.notifications.marketingEmails}
-              onValueChange={(value) => updateSetting('notifications', 'marketingEmails', value)}
+              onValueChange={value => updateSetting('notifications', 'marketingEmails', value)}
             />
           </div>
         </div>
@@ -246,17 +234,18 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Profile Visibility</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Profile Visibility
-            </label>
-            <Select
-              selectedKeys={[settings.privacy.profileVisibility]}
-              onSelectionChange={(keys) => updateSetting('privacy', 'profileVisibility', Array.from(keys)[0])}
-            >
-              <SelectItem key="public">Public</SelectItem>
-              <SelectItem key="private">Private</SelectItem>
-              <SelectItem key="contacts">Contacts Only</SelectItem>
-            </Select>
+            <CustomDropdown
+              label="Profile Visibility"
+              placeholder="Select visibility"
+              options={[
+                { value: 'public', label: 'Public' },
+                { value: 'private', label: 'Private' },
+                { value: 'contacts', label: 'Contacts Only' },
+              ]}
+              value={settings.privacy.profileVisibility}
+              onChange={value => updateSetting('privacy', 'profileVisibility', value)}
+              name="profileVisibility"
+            />
           </div>
           <div className="flex items-center justify-between">
             <div>
@@ -265,7 +254,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.privacy.showEmail}
-              onValueChange={(value) => updateSetting('privacy', 'showEmail', value)}
+              onValueChange={value => updateSetting('privacy', 'showEmail', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -275,7 +264,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.privacy.showPhone}
-              onValueChange={(value) => updateSetting('privacy', 'showPhone', value)}
+              onValueChange={value => updateSetting('privacy', 'showPhone', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -285,7 +274,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.privacy.allowMessages}
-              onValueChange={(value) => updateSetting('privacy', 'allowMessages', value)}
+              onValueChange={value => updateSetting('privacy', 'allowMessages', value)}
             />
           </div>
         </div>
@@ -299,14 +288,14 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Password</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Current Password
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
             <div className="relative">
               <Input
                 type={showPasswords.current ? 'text' : 'password'}
                 value={passwordData.currentPassword}
-                onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
+                onChange={e =>
+                  setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))
+                }
                 placeholder="Enter current password"
                 endContent={
                   <button
@@ -325,14 +314,12 @@ const UserSettings: React.FC = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              New Password
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
             <div className="relative">
               <Input
                 type={showPasswords.new ? 'text' : 'password'}
                 value={passwordData.newPassword}
-                onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
+                onChange={e => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
                 placeholder="Enter new password"
                 endContent={
                   <button
@@ -358,7 +345,9 @@ const UserSettings: React.FC = () => {
               <Input
                 type={showPasswords.confirm ? 'text' : 'password'}
                 value={passwordData.confirmPassword}
-                onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                onChange={e =>
+                  setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))
+                }
                 placeholder="Confirm new password"
                 endContent={
                   <button
@@ -397,7 +386,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.security.twoFactorAuth}
-              onValueChange={(value) => updateSetting('security', 'twoFactorAuth', value)}
+              onValueChange={value => updateSetting('security', 'twoFactorAuth', value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -407,7 +396,7 @@ const UserSettings: React.FC = () => {
             </div>
             <Switch
               isSelected={settings.security.loginAlerts}
-              onValueChange={(value) => updateSetting('security', 'loginAlerts', value)}
+              onValueChange={value => updateSetting('security', 'loginAlerts', value)}
             />
           </div>
         </div>
@@ -421,17 +410,18 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Appearance</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Theme
-            </label>
-            <Select
-              selectedKeys={[settings.preferences.theme]}
-              onSelectionChange={(keys) => updateSetting('preferences', 'theme', Array.from(keys)[0])}
-            >
-              <SelectItem key="light">Light</SelectItem>
-              <SelectItem key="dark">Dark</SelectItem>
-              <SelectItem key="system">System</SelectItem>
-            </Select>
+            <CustomDropdown
+              label="Theme"
+              placeholder="Select theme"
+              options={[
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'system', label: 'System' },
+              ]}
+              value={settings.preferences.theme}
+              onChange={value => updateSetting('preferences', 'theme', value)}
+              name="theme"
+            />
           </div>
         </div>
       </div>
@@ -440,45 +430,48 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Localization</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Language
-            </label>
-            <Select
-              selectedKeys={[settings.preferences.language]}
-              onSelectionChange={(keys) => updateSetting('preferences', 'language', Array.from(keys)[0])}
-            >
-              <SelectItem key="en">English</SelectItem>
-              <SelectItem key="nl">Nederlands</SelectItem>
-              <SelectItem key="fr">Français</SelectItem>
-              <SelectItem key="de">Deutsch</SelectItem>
-            </Select>
+            <CustomDropdown
+              label="Language"
+              placeholder="Select language"
+              options={[
+                { value: 'en', label: 'English' },
+                { value: 'nl', label: 'Nederlands' },
+                { value: 'fr', label: 'Français' },
+                { value: 'de', label: 'Deutsch' },
+              ]}
+              value={settings.preferences.language}
+              onChange={value => updateSetting('preferences', 'language', value)}
+              name="language"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Timezone
-            </label>
-            <Select
-              selectedKeys={[settings.preferences.timezone]}
-              onSelectionChange={(keys) => updateSetting('preferences', 'timezone', Array.from(keys)[0])}
-            >
-              <SelectItem key="Europe/Brussels">Europe/Brussels</SelectItem>
-              <SelectItem key="Europe/Amsterdam">Europe/Amsterdam</SelectItem>
-              <SelectItem key="Europe/Paris">Europe/Paris</SelectItem>
-              <SelectItem key="Europe/Berlin">Europe/Berlin</SelectItem>
-            </Select>
+            <CustomDropdown
+              label="Timezone"
+              placeholder="Select timezone"
+              options={[
+                { value: 'Europe/Brussels', label: 'Europe/Brussels' },
+                { value: 'Europe/Amsterdam', label: 'Europe/Amsterdam' },
+                { value: 'Europe/Paris', label: 'Europe/Paris' },
+                { value: 'Europe/Berlin', label: 'Europe/Berlin' },
+              ]}
+              value={settings.preferences.timezone}
+              onChange={value => updateSetting('preferences', 'timezone', value)}
+              name="timezone"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Currency
-            </label>
-            <Select
-              selectedKeys={[settings.preferences.currency]}
-              onSelectionChange={(keys) => updateSetting('preferences', 'currency', Array.from(keys)[0])}
-            >
-              <SelectItem key="EUR">EUR (€)</SelectItem>
-              <SelectItem key="USD">USD ($)</SelectItem>
-              <SelectItem key="GBP">GBP (£)</SelectItem>
-            </Select>
+            <CustomDropdown
+              label="Currency"
+              placeholder="Select currency"
+              options={[
+                { value: 'EUR', label: 'EUR (€)' },
+                { value: 'USD', label: 'USD ($)' },
+                { value: 'GBP', label: 'GBP (£)' },
+              ]}
+              value={settings.preferences.currency}
+              onChange={value => updateSetting('preferences', 'currency', value)}
+              name="currency"
+            />
           </div>
         </div>
       </div>
@@ -490,7 +483,9 @@ const UserSettings: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">User Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your account preferences and security settings</p>
+          <p className="text-gray-600 mt-2">
+            Manage your account preferences and security settings
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -499,7 +494,7 @@ const UserSettings: React.FC = () => {
             <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-4">
                 <nav className="space-y-2">
-                  {tabs.map((tab) => {
+                  {tabs.map(tab => {
                     const Icon = tab.icon;
                     return (
                       <button

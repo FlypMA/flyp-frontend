@@ -4,6 +4,7 @@ import {
   DashboardSidebar,
   DashboardSidebarMobile,
 } from '@/shared/components/layout/navigation/dashboard';
+import { ScrollToTop } from '@/shared/utils/ux';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../providers/auth-provider';
@@ -23,6 +24,7 @@ export const DashboardLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       {/* Top Navigation - like legacy UnifiedNavigation */}
       <Navigation />
 

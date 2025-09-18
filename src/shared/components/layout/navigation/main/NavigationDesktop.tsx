@@ -73,7 +73,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/Flyp_logo.svg?v=2024.1"
+              src="/flyp_logo.svg?v=2024.1"
               alt="Flyp - European SME M&A Platform"
               width="32"
               height="32"

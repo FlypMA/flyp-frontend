@@ -58,6 +58,11 @@ interface CustomDropdownProps {
   touched?: boolean;
 
   /**
+   * Name attribute for the dropdown
+   */
+  name?: string;
+
+  /**
    * Custom CSS classes
    */
   className?: string;
@@ -78,6 +83,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   disabled = false,
   error,
   touched = false,
+  name,
   className = '',
   dropdownRef,
 }) => {
@@ -151,6 +157,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           setTimeout(() => setIsFocused(false), 150);
         }}
         disabled={disabled}
+        name={name}
         className={`
           relative px-3 w-full inline-flex shadow-xs outline-solid outline-transparent 
           tap-highlight-transparent border-medium border-default-200 

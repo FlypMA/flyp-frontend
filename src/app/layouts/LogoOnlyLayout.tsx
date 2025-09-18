@@ -14,6 +14,7 @@ Features:
 
 import AuthModals from '@/features/authentication/components/AuthModals';
 import Footer from '@/shared/components/layout/footer/Footer';
+import { ScrollToTop } from '@/shared/utils/ux';
 import { Navbar, NavbarBrand } from '@heroui/react';
 import { Link, Outlet } from 'react-router-dom';
 import { UrlGenerator } from '../../shared/services';
@@ -21,6 +22,7 @@ import { UrlGenerator } from '../../shared/services';
 const LogoOnlyLayout = () => {
   return (
     <div>
+      <ScrollToTop />
       <Navbar
         data-scope="navigation"
         className="bg-white border-b border-neutral-200 shadow-sm py-4"

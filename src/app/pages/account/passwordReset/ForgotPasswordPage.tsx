@@ -1,11 +1,11 @@
+import { useUI } from '@/app/providers/UIProvider';
+import { Button } from '@/shared/components/buttons/Button';
+import { Card } from '@/shared/components/cards/Card';
+import { Input } from '@/shared/components/forms';
+import { logger } from '@/shared/utils/logger';
+import { ArrowLeft, Mail } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/shared/components/buttons/Button';
-import { Input } from '@/shared/components/ui/Input';
-import { Card } from '@/shared/components/cards/Card';
-import { useUI } from '@/app/providers/UIProvider';
-import { ArrowLeft, Mail } from 'lucide-react';
-import { logger } from '@/shared/utils/logger';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');

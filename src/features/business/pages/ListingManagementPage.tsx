@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
-import { Input } from '@/shared/components/ui/Input';
-import { 
+import { CustomDropdown, Input } from '@/shared/components/forms';
+import {
+  Calendar,
+  Edit,
+  Euro,
+  Eye,
+  Filter,
+  MessageCircle,
+  MoreHorizontal,
   Plus,
   Search,
-  Filter,
-  Eye,
-  MessageCircle,
-  Edit,
   Trash2,
-  MoreHorizontal,
-  Euro,
-  Calendar,
-  TrendingUp
+  TrendingUp,
 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Listing {
   id: string;
@@ -34,7 +34,7 @@ interface Listing {
 export const ListingManagementPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  
+
   // Mock data - TODO: Replace with actual API calls
   const [listings] = useState<Listing[]>([
     {
@@ -158,21 +158,24 @@ export const ListingManagementPage: React.FC = () => {
               type="text"
               placeholder="Search listings..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="pl-10"
             />
           </div>
-          <select
+          <CustomDropdown
+            label="Status Filter"
+            placeholder="All Status"
+            options={[
+              { value: 'all', label: 'All Status' },
+              { value: 'active', label: 'Active' },
+              { value: 'draft', label: 'Draft' },
+              { value: 'sold', label: 'Sold' },
+              { value: 'expired', label: 'Expired' },
+            ]}
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-          >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="draft">Draft</option>
-            <option value="sold">Sold</option>
-            <option value="expired">Expired</option>
-          </select>
+            onChange={setStatusFilter}
+            name="statusFilter"
+          />
           <Button variant="secondary">
             <Filter className="h-4 w-4 mr-2" />
             More Filters
@@ -207,13 +210,11 @@ export const ListingManagementPage: React.FC = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredListings.map((listing) => (
+              {filteredListings.map(listing => (
                 <tr key={listing.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {listing.title}
-                      </div>
+                      <div className="text-sm font-medium text-gray-900">{listing.title}</div>
                       <div className="text-sm text-gray-500">
                         {listing.industry} • {listing.location}
                       </div>
@@ -229,7 +230,9 @@ export const ListingManagementPage: React.FC = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(listing.status)}`}>
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(listing.status)}`}
+                    >
                       {listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
                     </span>
                   </td>
@@ -245,7 +248,7 @@ export const ListingManagementPage: React.FC = () => {
                       </span>
                       <span className="flex items-center">
                         <TrendingUp className="h-4 w-4 mr-1" />
-                        {Math.round(listing.inquiries / (listing.views || 1) * 100)}%
+                        {Math.round((listing.inquiries / (listing.views || 1)) * 100)}%
                       </span>
                     </div>
                   </td>

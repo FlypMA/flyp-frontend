@@ -18,11 +18,13 @@ import { Link, Outlet } from 'react-router-dom';
 // import { logos } from '../../../assets/logos';
 // import { Image } from '@heroui/react';
 import AuthModals from '@/features/authentication/components/AuthModals';
+import { ScrollToTop } from '@/shared/utils/ux';
 import { UrlGenerator } from '../../shared/services';
 
 const SplitScreenLayout = () => {
   return (
     <div data-scope="navigation" className="h-screen">
+      <ScrollToTop />
       <div className="absolute pt-10 pl-6">
         <Link to={UrlGenerator.root()}>
           {/* TODO: Implement logo component */}

@@ -1,16 +1,4 @@
-import {
-  Building2,
-  Calculator,
-  FileText,
-  Heart,
-  HelpCircle,
-  LayoutDashboard,
-  LogOut,
-  MessageCircle,
-  Search,
-  Settings,
-  TrendingUp,
-} from 'lucide-react';
+import { Heart, HelpCircle, LayoutDashboard, LogOut, MessageCircle, Settings } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../../../../app/services/users/authenticationService';
@@ -128,8 +116,8 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
 
   const buyerMenuItems = [
     {
-      key: 'browse-businesses',
-      icon: Search,
+      key: 'browse-listings',
+      icon: LayoutDashboard,
       label: 'Browse Businesses',
       action: 'browse-listings',
     },
@@ -174,36 +162,12 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
     },
   ];
 
-  const sellerMenuItems = [
+  const businessOwnerMenuItems = [
     {
-      key: 'my-business',
-      icon: Building2,
-      label: 'My Business',
-      action: 'my-business',
-    },
-    {
-      key: 'my-listings',
+      key: 'business-dashboard',
       icon: LayoutDashboard,
-      label: 'My Listings',
-      action: 'my-listings',
-    },
-    {
-      key: 'valuation',
-      icon: Calculator,
-      label: 'Valuation',
-      action: 'valuation',
-    },
-    {
-      key: 'performance',
-      icon: TrendingUp,
-      label: 'Performance',
-      action: 'performance',
-    },
-    {
-      key: 'documents',
-      icon: FileText,
-      label: 'Documents',
-      action: 'documents',
+      label: 'My Business',
+      action: 'business-dashboard',
     },
     {
       key: 'messages',
@@ -222,12 +186,6 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
       action: 'profile-settings',
     },
     {
-      key: 'help-center',
-      icon: HelpCircle,
-      label: 'Help Center',
-      action: 'help-center',
-    },
-    {
       key: 'divider-2',
       isDivider: true,
     },
@@ -240,7 +198,7 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
     },
   ];
 
-  const menuItems = isSeller ? sellerMenuItems : buyerMenuItems;
+  const menuItems = isSeller ? businessOwnerMenuItems : buyerMenuItems;
 
   const getUserInitials = (user: User) => {
     if (user.name) {

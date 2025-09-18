@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from '@heroui/react';
-import { Check, CreditCard, Shield, Lock, ArrowLeft, TrendingUp, AlertCircle } from 'lucide-react';
+import { CustomDropdown } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
+import { Button, Card, CardBody, CardHeader, Input } from '@heroui/react';
+import { AlertCircle, ArrowLeft, Check, CreditCard, Lock, Shield, TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createCheckoutSessionAPI } from '../../services/payments/api';
 
 const planDetails = {
@@ -197,26 +198,20 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
               />
             </div>
             <div>
-              <Select
+              <CustomDropdown
                 label="Country"
                 placeholder="Select your country"
-                selectedKeys={[customerInfo.country]}
-                onSelectionChange={keys =>
-                  setCustomerInfo({ ...customerInfo, country: Array.from(keys)[0] as string })
-                }
-                isInvalid={!!validationErrors.country}
-                errorMessage={validationErrors.country}
-                classNames={{
-                  trigger: 'bg-zinc-800 text-white border-zinc-700',
-                  label: 'text-zinc-400',
-                  value: 'text-white',
-                  errorMessage: 'text-red-400',
-                }}
-              >
-                {countries.map(country => (
-                  <SelectItem key={country.key}>{country.label}</SelectItem>
-                ))}
-              </Select>
+                options={countries.map(country => ({
+                  value: country.key,
+                  label: country.label,
+                }))}
+                value={customerInfo.country}
+                onChange={value => setCustomerInfo({ ...customerInfo, country: value })}
+                error={validationErrors.country}
+                touched={!!validationErrors.country}
+                required={true}
+                name="country"
+              />
             </div>
           </div>
         </CardBody>
@@ -345,7 +340,8 @@ const Checkout = () => {
     priceMapping[selectedPlan as keyof typeof priceMapping]?.[billing as 'monthly' | 'yearly'] ||
     priceMapping.pro.monthly;
 
-  const planConfig = planDetails[selectedPlan as keyof typeof planDetails] || planDetails.professional;
+  const planConfig =
+    planDetails[selectedPlan as keyof typeof planDetails] || planDetails.professional;
 
   // Price calculation for display
   const basePrices = {

@@ -79,6 +79,26 @@ const ErrorFallback = ({
   </div>
 );
 
+// 🏠 Router Wrapper Component - Includes ScrollToTop functionality
+// Location: src/App.tsx
+// Purpose: Wraps RouterProvider with ScrollToTop component
+
+const RouterWrapper: React.FC = () => {
+  return (
+    <RouterProvider
+      router={router}
+      fallbackElement={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-600 border-t-transparent mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading application...</p>
+          </div>
+        </div>
+      }
+    />
+  );
+};
+
 // 🏠 Main App Component - MVP Version
 // Location: src/App.tsx
 // Purpose: Application root with error boundaries and provider composition
@@ -98,17 +118,7 @@ const App: React.FC = () => {
       }}
     >
       <AppProviders>
-        <RouterProvider
-          router={router}
-          fallbackElement={
-            <div className="flex min-h-screen items-center justify-center">
-              <div className="text-center">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-600 border-t-transparent mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading application...</p>
-              </div>
-            </div>
-          }
-        />
+        <RouterWrapper />
       </AppProviders>
     </ErrorBoundary>
   );

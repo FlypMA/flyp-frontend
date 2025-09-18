@@ -26,6 +26,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import AuthModals from '@/features/authentication/components/AuthModals';
 import Footer from '@/shared/components/layout/footer/Footer';
 import Navigation from '@/shared/components/layout/navigation/main/Navigation';
+import { ScrollToTop } from '@/shared/utils/ux';
 import { UrlGenerator } from '../../shared/services';
 
 const scrollToSection = (sectionId: string) => {
@@ -66,6 +67,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ showFooter = true, children }) 
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <Navigation />
       <main className="flex-1">{children || <Outlet />}</main>
       {showFooter && <Footer />}
