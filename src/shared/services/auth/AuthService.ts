@@ -255,6 +255,16 @@ export class AuthenticationService {
    */
   async checkAuth(): Promise<{ isAuthenticated: boolean; user?: User; error?: string }> {
     try {
+      // First, check if we have a valid session in localStorage
+      const localSession = SessionManager.getSession();
+      if (localSession && localSession.isAuthenticated && localSession.user) {
+        console.log('🔍 Using cached session data');
+        return {
+          isAuthenticated: true,
+          user: localSession.user
+        };
+      }
+
       console.log('🔍 Checking authentication status through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/me');
@@ -305,6 +315,13 @@ export class AuthenticationService {
       user: result.user,
       token: result.isAuthenticated ? 'cookie-based' : undefined,
     };
+  }
+
+  /**
+   * Get cached session data without making API calls
+   */
+  getSession(): AuthResult | null {
+    return SessionManager.getSession();
   }
 
   /**

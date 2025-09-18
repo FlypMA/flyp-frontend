@@ -100,6 +100,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
+  // Check auth only once on initial load
+  const checkAuthOnce = useCallback(async () => {
+    // First try to get cached session
+    const cachedSession = authService.getSession();
+    if (cachedSession && cachedSession.isAuthenticated && cachedSession.user) {
+      console.log('🔍 AuthProvider: Using cached session');
+      setUserState(cachedSession.user);
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return;
+    }
+
+    // If no cached session, check with backend
+    await checkAuth();
+  }, [checkAuth]);
+
   const setUser = useCallback((user: User | null) => {
     setUserState(user);
     setIsAuthenticated(!!user);
@@ -128,8 +144,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // =============================================================================
 
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+    checkAuthOnce();
+  }, [checkAuthOnce]);
 
   // Listen for authentication events from modals
   useEffect(() => {

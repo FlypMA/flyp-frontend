@@ -1,4 +1,3 @@
-import { DashboardStats } from '@/features/business';
 import { useBusinessMetrics } from '@/features/business/hooks';
 import type { Listing, ValuationReport } from '@/features/business/types';
 import { AuthenticationService } from '@/shared/services/auth';
@@ -190,33 +189,6 @@ const BusinessOverview = () => {
                   </div>
                 </div>
 
-                {/* Performance Metrics */}
-                <div className="border-t border-gray-100 pt-8">
-                  <h3 className="text-base font-medium text-gray-900 mb-6">Market Performance</h3>
-                  {metrics && (
-                    <DashboardStats
-                      performanceData={{
-                        totalViews: metrics.listings.views,
-                        totalInquiries: metrics.inquiries.total,
-                        conversionRate: metrics.inquiries.responseRate,
-                        avgTimeOnListing: '3m 24s',
-                        uniqueVisitors: Math.round(metrics.listings.views * 0.7),
-                        returnVisitors: Math.round(metrics.listings.views * 0.3),
-                        topCountries: [
-                          { country: 'Belgium', views: Math.round(metrics.listings.views * 0.4) },
-                          {
-                            country: 'Netherlands',
-                            views: Math.round(metrics.listings.views * 0.3),
-                          },
-                          { country: 'Germany', views: Math.round(metrics.listings.views * 0.2) },
-                        ],
-                        weeklyViews: [45, 52, 48, 61, 55, 67, 58],
-                        weeklyInquiries: [2, 3, 1, 4, 2, 5, 3],
-                      }}
-                      isLoading={metricsLoading}
-                    />
-                  )}
-                </div>
               </CardBody>
             </Card>
           </div>
