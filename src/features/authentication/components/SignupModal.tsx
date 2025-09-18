@@ -7,6 +7,7 @@ import { ArrowLeft, Building2, Info, Search, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
+import { authService } from '../../../app/services/users/authenticationService';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 type UserIntent = 'buyer' | 'seller' | 'both';
@@ -152,21 +153,25 @@ const SignupModal: React.FC = () => {
     try {
       console.log('📝 Attempting signup with:', { email: formData.email, role: formData.role });
 
-      // TODO: Implement actual authentication service
-      // const authResult = await authService.signup(formData);
+      const authResult = await authService.createAccount(
+        formData.email,
+        formData.password,
+        formData.email, // Using email as name for now
+        formData.role
+      );
 
-      // Mock successful signup for now
-      const mockSuccess = formData.email && formData.password.length >= 8;
-
-      if (mockSuccess) {
+      if (authResult.success && authResult.user) {
         console.log('✅ Signup successful');
 
         // Dispatch signup event for navigation sync
         window.dispatchEvent(
           new CustomEvent('user-signup', {
-            detail: { email: formData.email, role: formData.role },
+            detail: authResult.user,
           })
         );
+
+        // Also dispatch general auth change event
+        window.dispatchEvent(new CustomEvent('auth-change'));
 
         handleCloseModal();
 
@@ -181,10 +186,17 @@ const SignupModal: React.FC = () => {
         } else {
           // Redirect based on role
           const redirectUrl = formData.role === 'seller' ? '/my-business' : '/listings';
-          navigate(redirectUrl);
+          navigate(redirectUrl, { replace: true });
         }
       } else {
-        setErrorMessage('Signup failed. Please check your information and try again.');
+        setErrorMessage(
+          authResult.error || 'Signup failed. Please check your information and try again.'
+        );
+
+        // Check if user already exists
+        if (authResult.error?.includes('already exists') || authResult.error?.includes('409')) {
+          setShowLoginPrompt(true);
+        }
       }
     } catch (error) {
       console.error('❌ Signup failed:', error);
@@ -224,229 +236,281 @@ const SignupModal: React.FC = () => {
       portalContainer={document.body}
       classNames={{
         wrapper: '!z-[100]',
+        backdrop: '!z-[99] bg-black/80',
+        base: '!z-[101] bg-white',
+      }}
+      motionProps={{
+        variants: {
+          enter: {
+            opacity: 1,
+            transition: {
+              duration: 0.3,
+              ease: 'easeOut',
+            },
+          },
+          exit: {
+            opacity: 0,
+            transition: {
+              duration: 0.2,
+              ease: 'easeIn',
+            },
+          },
+        },
       }}
     >
-      <ModalContent className="bg-transparent shadow-none max-w-4xl w-full">
+      <ModalContent className="bg-white m-0 rounded-none">
         <ModalBody className="p-0">
-          <div className="flex bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh]">
-            {/* Left Side - Background Image */}
-            <div className="hidden md:flex md:w-1/2 relative">
-              <img
-                src="/src/assets/ad.jpg"
-                alt="flyp Platform"
-                className="w-full h-full object-cover"
-                style={{ minHeight: '600px' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              <div className="absolute bottom-8 left-8 text-white">
-                <h2 className="text-2xl font-bold mb-2">Join flyp</h2>
-                <p className="text-lg opacity-90">
-                  Start your journey in the European M&A marketplace
-                </p>
-              </div>
-            </div>
-
-            {/* Right Side - Signup Form */}
-            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center relative">
-              {/* Close Button */}
-              <button
-                onClick={handleCloseModal}
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
-                aria-label="Close modal"
+          <div className="relative min-h-screen">
+            {/* Logo */}
+            <div className="absolute top-6 left-6 z-50">
+              <a
+                href="/"
+                onClick={e => {
+                  e.preventDefault();
+                  handleCloseModal();
+                  navigate('/');
+                }}
+                className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
               >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Back Button (when not in role selection) */}
-              {!showRoleSelection && (
-                <button
-                  onClick={handleBackToRoleSelection}
-                  className="absolute top-4 left-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
-                  aria-label="Back to role selection"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-              )}
-
-              {/* Logo */}
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-2xl font-bold text-gray-900">flyp</span>
-              </div>
-
-              {showRoleSelection ? (
-                /* Role Selection View */
-                <div>
-                  <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">How can we help you?</h1>
-                    <p className="text-gray-600">Choose your primary goal to get started</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <button
-                      onClick={() => handleRoleSelect('buyer')}
-                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                          <Search className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                            I'm looking to buy a business
-                          </h3>
-                          <p className="text-gray-600 text-sm">
-                            Access our marketplace of verified businesses for sale across Europe
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => handleRoleSelect('seller')}
-                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
-                          <Building2 className="w-6 h-6 text-green-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                            I'm looking to sell my business
-                          </h3>
-                          <p className="text-gray-600 text-sm">
-                            Get your business valued and connect with qualified buyers
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => handleRoleSelect('both')}
-                      className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
-                          <Building2 className="w-6 h-6 text-purple-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                            Both - I'm exploring opportunities
-                          </h3>
-                          <p className="text-gray-600 text-sm">
-                            Access the full platform to buy and sell businesses
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-
-                  {/* Login Link */}
-                  <div className="mt-8 text-center">
-                    <p className="text-gray-600">
-                      Already have an account?{' '}
-                      <button
-                        onClick={switchToLogin}
-                        className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-                      >
-                        Sign in here
-                      </button>
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                /* Signup Form View */
-                <div>
-                  <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
-                    <p className="text-gray-600">
-                      {selectedRole === 'buyer' && 'Start exploring businesses for sale'}
-                      {selectedRole === 'seller' &&
-                        'Get your business in front of qualified buyers'}
-                      {selectedRole === 'both' && 'Access the full flyp platform'}
-                    </p>
-                  </div>
-
-                  {/* Error/Info Message */}
-                  {errorMessage && (
-                    <div className="mb-6 p-4 rounded-lg border bg-red-50 border-red-200 text-red-700 flex items-start gap-3">
-                      <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{errorMessage}</span>
-                    </div>
-                  )}
-
-                  {/* Signup Form */}
-                  <form onSubmit={handleSignup} className="space-y-6">
-                    <CustomInputField
-                      label="Email Address"
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      value={formData.email}
-                      onChange={handleFieldChange('email')}
-                      onBlur={handleFieldBlur('email')}
-                      error={errors.email}
-                      touched={touched.email}
-                      inputRef={emailInputRef}
-                      autoComplete="email"
-                      required
-                    />
-
-                    <CustomPasswordInputField
-                      label="Password"
-                      name="password"
-                      placeholder="Create a password"
-                      value={formData.password}
-                      onChange={handleFieldChange('password')}
-                      onBlur={handleFieldBlur('password')}
-                      error={errors.password}
-                      touched={touched.password}
-                      inputRef={passwordInputRef}
-                      autoComplete="new-password"
-                      required
-                      showPasswordStrength={true}
-                    />
-
-                    {/* Signup Button */}
-                    <Button
-                      type="submit"
-                      isLoading={isSubmitting}
-                      disabled={isSubmitting}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-200"
-                    >
-                      {isSubmitting ? 'Creating account...' : 'Create Account'}
-                    </Button>
-                  </form>
-                </div>
-              )}
-
-              {/* Switch to Login */}
-              <div className="mt-8 text-center">
-                <p className="text-gray-600">
-                  Already have an account?{' '}
-                  <button
-                    onClick={switchToLogin}
-                    className="text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-                  >
-                    Sign in
-                  </button>
-                </p>
-              </div>
-
-              {/* Terms */}
-              <div className="mt-6 text-xs text-gray-500 text-center">
-                By creating an account, you agree to our{' '}
-                <a href="/terms-conditions" className="text-blue-600 hover:underline">
-                  Terms of Service
-                </a>{' '}
-                and{' '}
-                <a href="/privacy-policy" className="text-blue-600 hover:underline">
-                  Privacy Policy
-                </a>
-              </div>
+                <img
+                  src="/flyp_logo.svg?v=2024.1"
+                  alt="flyp - European SME M&A Platform"
+                  width="32"
+                  height="32"
+                  className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
+                  loading="lazy"
+                  style={{
+                    height: '32px',
+                    objectFit: 'contain',
+                    opacity: 1,
+                    visibility: 'visible',
+                    display: 'block',
+                  }}
+                />
+                <span className="text-xl font-bold text-gray-900 ml-2">flyp</span>
+              </a>
             </div>
+
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-6 right-6 z-50 p-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
+            >
+              <X className="w-5 h-5 text-slate-700" />
+            </button>
+
+            {/* Main Content */}
+            <form onSubmit={handleSignup} className="h-full">
+              <div className="grid md:grid-cols-2 min-h-screen">
+                {/* Left Side - Role Selection or Form */}
+                <div className="p-8 flex items-center justify-center bg-white min-h-full">
+                  <div className="max-w-md w-full">
+                    {showRoleSelection ? (
+                      /* Role Selection Mode */
+                      <>
+                        <div className="mb-8">
+                          <h1 className="text-2xl font-semibold text-slate-900 text-left">
+                            Join Flyp
+                          </h1>
+                          <p className="text-base text-slate-600 mt-2 text-left">
+                            Already have an account?{' '}
+                            <button
+                              type="button"
+                              onClick={switchToLogin}
+                              className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
+                            >
+                              Sign in
+                            </button>
+                          </p>
+                        </div>
+                        <div className="space-y-4">
+                          <button
+                            onClick={() => handleRoleSelect('buyer')}
+                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left group"
+                          >
+                            <div className="flex items-start gap-4">
+                              <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                                <Search className="w-6 h-6 text-blue-600" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                                  I'm looking to buy a business
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                  Access our marketplace of verified businesses for sale across
+                                  Europe
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+
+                          <button
+                            onClick={() => handleRoleSelect('seller')}
+                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left group"
+                          >
+                            <div className="flex items-start gap-4">
+                              <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                                <Building2 className="w-6 h-6 text-green-600" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                                  I'm looking to sell my business
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                  Get your business valued and connect with qualified buyers
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+
+                          <button
+                            onClick={() => handleRoleSelect('both')}
+                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left group"
+                          >
+                            <div className="flex items-start gap-4">
+                              <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                                <Building2 className="w-6 h-6 text-purple-600" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                                  Both - I'm exploring opportunities
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                  Access the full platform to buy and sell businesses
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      /* Signup Form Mode */
+                      <>
+                        {/* Header */}
+                        <div className="mb-8">
+                          <div className="flex items-center justify-between mb-4">
+                            <button
+                              type="button"
+                              onClick={handleBackToRoleSelection}
+                              className="flex items-center text-slate-600 hover:text-slate-900 transition-colors text-sm focus:outline-none focus:text-slate-900"
+                            >
+                              <ArrowLeft className="w-4 h-4 mr-1" />
+                              Back
+                            </button>
+                            {selectedRole && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                                {selectedRole === 'buyer' ? 'Buyer Account' : 'Seller Account'}
+                              </span>
+                            )}
+                          </div>
+
+                          <h1 className="text-4xl font-bold text-slate-900">Create your account</h1>
+                        </div>
+
+                        <div className="flex flex-col">
+                          {errorMessage && (
+                            <div
+                              className={`flex items-start mb-4 border-l-4 p-4 rounded-xl ${
+                                showLoginPrompt
+                                  ? 'bg-blue-50 border-blue-400 text-blue-700'
+                                  : 'bg-red-600 border-red-600 text-red-700'
+                              }`}
+                            >
+                              <p
+                                className={`font-bold text-lg mr-2 mt-0.5 ${
+                                  showLoginPrompt ? 'text-blue-600' : 'text-white'
+                                }`}
+                              >
+                                <Info className="w-5 h-5" />
+                              </p>
+                              <div
+                                className={`font-normal text-sm ${
+                                  showLoginPrompt ? 'text-blue-800' : 'text-white'
+                                }`}
+                              >
+                                <div className="mb-2">{errorMessage}</div>
+                                {showLoginPrompt && (
+                                  <div className="mt-3">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setErrorMessage('');
+                                        setShowLoginPrompt(false);
+                                        openModal('login');
+                                      }}
+                                      className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:border-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                    >
+                                      Switch to Login
+                                    </button>
+                                    <span className="text-blue-600 text-sm ml-2">
+                                      or try a different email address
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
+                          <section>
+                            <CustomInputField
+                              label="Your email address"
+                              type="email"
+                              name="email"
+                              placeholder=" "
+                              value={formData.email}
+                              onChange={handleFieldChange('email')}
+                              onBlur={handleFieldBlur('email')}
+                              error={errors.email}
+                              touched={touched.email}
+                              inputRef={emailInputRef}
+                              autoComplete="email"
+                              required
+                            />
+                          </section>
+
+                          <section>
+                            <CustomPasswordInputField
+                              label="Your password"
+                              name="password"
+                              placeholder=" "
+                              value={formData.password}
+                              onChange={handleFieldChange('password')}
+                              onBlur={handleFieldBlur('password')}
+                              error={errors.password}
+                              touched={touched.password}
+                              inputRef={passwordInputRef}
+                              autoComplete="new-password"
+                              required
+                            />
+                          </section>
+
+                          {/* Create Account Button */}
+                          <Button
+                            type="submit"
+                            color="primary"
+                            size="lg"
+                            disabled={isSubmitting}
+                            className="w-full mt-8"
+                          >
+                            {isSubmitting ? 'Creating account...' : 'Create account'}
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right Side - Image */}
+                <div className="hidden md:block relative">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(/src/assets/RecordStore.jpg)` }}
+                  >
+                    <div className="absolute inset-0 bg-black/20"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </ModalBody>
       </ModalContent>

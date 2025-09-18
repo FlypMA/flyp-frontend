@@ -96,9 +96,9 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">BD</span>
+                <span className="text-white font-bold text-sm">F</span>
               </div>
-              <span className="text-lg font-semibold text-gray-900">flyp</span>
+              <span className="text-lg font-semibold text-gray-900">Flyp</span>
             </div>
 
             <button
@@ -209,7 +209,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                 }}
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 px-4 py-3 text-sm font-semibold"
               >
-                Sell your business
+                List your business
               </button>
             </div>
           )}

@@ -2,8 +2,8 @@
 // Location: src/features/authentication/components/forms/CustomPasswordInputField.tsx
 // Purpose: Password input with show/hide functionality and validation
 
-import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 export interface CustomPasswordInputFieldProps {
   label: string;
@@ -116,21 +116,17 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
             ${
               hasContent || isFocused || value
                 ? 'top-2 text-xs text-gray-700'
-                : 'top-4 text-base text-gray-500'
+                : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
             }
-            ${hasError ? 'text-red-500' : ''}
+            ${hasError ? 'text-red-600' : ''}
           `}
         >
           {label}
-          {required && ' *'}
         </label>
-
-        {/* Password Visibility Toggle */}
         <button
           type="button"
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors duration-200"
           onClick={togglePasswordVisibility}
-          aria-label={showPassword ? 'Hide password' : 'Show password'}
+          className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-900 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-50"
         >
           {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
         </button>
@@ -154,13 +150,7 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
         </div>
       )}
 
-      {/* Error Message */}
-      {hasError && (
-        <div className="mt-2 text-sm text-red-500 flex items-center gap-1">
-          <span className="w-4 h-4 text-red-500">⚠</span>
-          {error}
-        </div>
-      )}
+      {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
     </div>
   );
 };

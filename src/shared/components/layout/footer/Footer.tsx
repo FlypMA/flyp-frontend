@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="space-y-6">
               {/* Brand Logo/Name */}
               <div className="flex items-center space-x-4">
-                <div className="p-3 footer-logo-container">
+                <div className="p-3 footer-logo-container bg-white rounded-lg">
                   <FlypLogo variant="footer" />
                 </div>
                 <div>

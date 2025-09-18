@@ -131,6 +131,48 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     checkAuth();
   }, [checkAuth]);
 
+  // Listen for authentication events from modals
+  useEffect(() => {
+    const handleUserLogin = (event: CustomEvent) => {
+      console.log('🔑 AuthProvider: User login event received', event.detail);
+      if (event.detail) {
+        setUserState(event.detail);
+        setIsAuthenticated(true);
+      }
+    };
+
+    const handleUserSignup = (event: CustomEvent) => {
+      console.log('📝 AuthProvider: User signup event received', event.detail);
+      if (event.detail) {
+        setUserState(event.detail);
+        setIsAuthenticated(true);
+      }
+    };
+
+    const handleAuthChange = () => {
+      console.log('🔄 AuthProvider: Auth change event received, rechecking auth');
+      checkAuth();
+    };
+
+    const handleAuthLogout = () => {
+      console.log('🔓 AuthProvider: Auth logout event received');
+      setUserState(null);
+      setIsAuthenticated(false);
+    };
+
+    window.addEventListener('user-login', handleUserLogin as EventListener);
+    window.addEventListener('user-signup', handleUserSignup as EventListener);
+    window.addEventListener('auth-change', handleAuthChange);
+    window.addEventListener('auth-logout', handleAuthLogout);
+
+    return () => {
+      window.removeEventListener('user-login', handleUserLogin as EventListener);
+      window.removeEventListener('user-signup', handleUserSignup as EventListener);
+      window.removeEventListener('auth-change', handleAuthChange);
+      window.removeEventListener('auth-logout', handleAuthLogout);
+    };
+  }, [checkAuth]);
+
   // =============================================================================
   // CONTEXT VALUE
   // =============================================================================

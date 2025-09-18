@@ -15,9 +15,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
 import { User } from '../../../../types';
-import BuyerDropdown from '../dropdown/BuyerDropdown';
-import SellerDropdown from '../dropdown/SellerDropdown';
-import { getDesktopNavigationItems, getDropdownComponent } from '../utils';
+import UserAvatarDropdown from '../dropdown/UserAvatarDropdown';
 
 interface NavigationDesktopProps {
   user: User | null;
@@ -40,8 +38,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   const navigate = useNavigate();
   const { openModal } = useAuth();
 
-  // Get navigation items - exact copy from legacy
-  const navigationItems = getDesktopNavigationItems();
+  // Navigation items are now hardcoded to match legacy app
 
   // Handle authentication actions
   const handleLogin = () => {
@@ -60,16 +57,10 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
     }
   };
 
-  // Render user menu based on role - using utils
+  // Render user menu - using unified dropdown
   const renderUserMenu = () => {
     if (!user) return null;
-
-    const dropdownType = getDropdownComponent(user);
-    return dropdownType === 'seller' ? (
-      <SellerDropdown user={user} />
-    ) : (
-      <BuyerDropdown user={user} />
-    );
+    return <UserAvatarDropdown user={user} />;
   };
 
   return (
@@ -82,8 +73,8 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/flyp_logo.svg?v=2024.1"
-              alt="flyp - European SME M&A Platform"
+              src="/Flyp_logo.svg?v=2024.1"
+              alt="Flyp - European SME M&A Platform"
               width="32"
               height="32"
               className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
@@ -96,27 +87,37 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="text-xl font-bold text-gray-900 ml-2">flyp</span>
+            <span className="text-xl font-bold text-gray-900 ml-2">Flyp</span>
           </Link>
         </div>
 
         {/* Center Navigation - Desktop */}
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block">
           <ul className="h-full flex-row flex-nowrap items-center flex gap-8">
-            {navigationItems.map(item => (
-              <li key={item.href} className="text-medium whitespace-nowrap box-border list-none">
-                <Link
-                  to={item.href}
-                  className={`transition-colors text-sm font-medium ${
-                    location.pathname === item.href
-                      ? 'text-primary-600'
-                      : 'text-neutral-700 hover:text-primary-600'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Link
+                to="/for-sellers"
+                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+              >
+                For Sellers
+              </Link>
+            </li>
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Link
+                to="/search"
+                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+              >
+                For Buyers
+              </Link>
+            </li>
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Link
+                to="/resources/valuation-guide"
+                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+              >
+                Valuation
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -145,7 +146,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     onClick={handleSellBusiness}
                     className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200"
                   >
-                    Sell your business
+                    List your business
                   </button>
                 </>
               )}

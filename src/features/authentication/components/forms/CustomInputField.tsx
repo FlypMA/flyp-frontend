@@ -86,30 +86,16 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
             ${
               hasContent || isFocused || value
                 ? 'top-2 text-xs text-gray-700'
-                : 'top-4 text-base text-gray-500'
+                : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
             }
-            ${hasError ? 'text-red-500' : ''}
+            ${hasError ? 'text-red-600' : ''}
           `}
         >
           {label}
-          {required && ' *'}
         </label>
       </div>
 
-      {/* Error Message */}
-      {hasError && (
-        <div className="mt-2 text-sm text-red-500 flex items-center gap-1">
-          <span className="w-4 h-4 text-red-500">⚠</span>
-          {error}
-        </div>
-      )}
-
-      {/* Helper Text */}
-      {!hasError && type === 'email' && (
-        <div className="mt-2 text-xs text-gray-500">
-          We'll never share your email with anyone else.
-        </div>
-      )}
+      {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
     </div>
   );
 };
