@@ -128,7 +128,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
             <li className="text-medium whitespace-nowrap box-border list-none hidden lg:flex items-center gap-4">
               {user ? (
                 renderUserMenu()
-              ) : isCheckingAuth || (hasToken && !authCheckComplete) ? (
+              ) : isCheckingAuth ? (
                 <div className="flex items-center">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
                     <span className="text-white text-sm font-medium">•</span>
@@ -167,7 +167,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     <Menu className="w-5 h-5" />
                   </Button>
                 </>
-              ) : isCheckingAuth || (hasToken && !authCheckComplete) ? (
+              ) : isCheckingAuth ? (
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
                     <span className="text-white text-sm font-medium">•</span>
