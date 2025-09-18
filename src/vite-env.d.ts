@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_SUPABASE_ANON_KEY: string;
   readonly VITE_STRIPE_PUBLISHABLE_KEY: string;
   readonly VITE_API_URL: string;
+  readonly VITE_NODE_BACKEND_URL: string;
   readonly REACT_APP_SUPABASE_URL: string;
   readonly REACT_APP_SUPABASE_ANON_KEY: string;
   readonly REACT_APP_STRIPE_PUBLISHABLE_KEY: string;

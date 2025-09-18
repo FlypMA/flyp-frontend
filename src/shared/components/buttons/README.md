@@ -10,6 +10,7 @@ The Button component embodies the **Caregiver archetype** through:
 - **Softer radii** for a more approachable feel
 - **Clear visual hierarchy** that guides users gently
 - **Accessible contrast** for all users
+- **Consistent with brand package design tokens**
 
 ## 🎨 **Color Variants**
 
@@ -17,51 +18,67 @@ The Button component embodies the **Caregiver archetype** through:
 
 ```typescript
 <Button variant="primary">Get Started</Button>
+<PrimaryButton>Get Started</PrimaryButton>
 ```
 
 - **Use for**: Main CTAs, primary actions
-- **Color**: Trust Blue (`primary-600`)
+- **Color**: Trust Blue (`#3b82f6`)
 - **Psychology**: Builds confidence and trust
 
 ### **Supportive Actions** - Calm Teal
 
 ```typescript
 <Button variant="supportive">We've Got You</Button>
+<SupportiveButton>We've Got You</SupportiveButton>
 ```
 
 - **Use for**: Supportive CTAs, "we're here to help" actions
-- **Color**: Calm Teal (`calm-600`)
+- **Color**: Calm Teal (`#06b6d4`)
 - **Psychology**: Reassuring, "we've got you" feeling
 
 ### **Gentle Emphasis** - Reassuring Coral
 
 ```typescript
 <Button variant="subtle">Learn More</Button>
+<SubtleButton>Learn More</SubtleButton>
 ```
 
 - **Use for**: Secondary CTAs, gentle emphasis
-- **Color**: Reassuring Coral (`accent-600`)
+- **Color**: Reassuring Coral (`#f25f57`)
 - **Psychology**: Encouraging without being pushy
 
 ### **Secondary Actions** - Neutral
 
 ```typescript
 <Button variant="secondary">Cancel</Button>
+<SecondaryButton>Cancel</SecondaryButton>
 ```
 
 - **Use for**: Secondary actions, alternatives
-- **Color**: Neutral Gray (`neutral-600`)
+- **Color**: Neutral Gray (`#71717a`)
 - **Psychology**: Professional, non-threatening
 
 ### **Outline Actions** - Clean Borders
 
 ```typescript
 <Button variant="outline">Explore Options</Button>
+<OutlineButton>Explore Options</OutlineButton>
 ```
 
 - **Use for**: Exploratory actions, less prominent CTAs
 - **Color**: White background with neutral border
 - **Psychology**: Inviting exploration without pressure
+
+### **Ghost Actions** - Minimal
+
+```typescript
+<Button variant="ghost">Back</Button>
+<GhostButton>Back</GhostButton>
+```
+
+- **Use for**: Low-pressure prompts, minimal actions
+- **Color**: Transparent with hover states
+- **Psychology**: Subtle, non-intrusive
 
 ## 📏 **Sizes**
 
@@ -78,62 +95,74 @@ The Button component embodies the **Caregiver archetype** through:
 ### **Landing Page CTAs**
 
 ```typescript
-// Primary action - main CTA
-<Button variant="primary" size="lg">
-  Start Your Business Sale
-</Button>
+import { CTAActions } from '@/shared/components/buttons';
 
-// Supportive action - secondary CTA
-<Button variant="supportive" size="lg">
-  Get Free Valuation
-</Button>
-```
-
-### **Dashboard Actions**
-
-```typescript
-// Primary dashboard action
-<Button variant="primary">
-  Create Listing
-</Button>
-
-// Supportive action
-<Button variant="supportive">
-  Get Help
-</Button>
-
-// Secondary action
-<Button variant="outline">
-  View Reports
-</Button>
+// Primary action with supportive secondary
+<CTAActions
+  primary={{ label: "Start Your Business Sale", onClick: handleStart }}
+  supportive={{ label: "Get Free Valuation", onClick: handleValuation }}
+/>
 ```
 
 ### **Form Actions**
 
 ```typescript
-// Form submission
-<Button variant="primary" type="submit">
-  Save Changes
-</Button>
+import { FormActions } from '@/shared/components/buttons';
 
-// Form cancellation
-<Button variant="outline" type="button">
-  Cancel
-</Button>
+// Form submission with cancel option
+<FormActions
+  primary={{ label: "Save Changes", type: "submit" }}
+  secondary={{ label: "Cancel", onClick: handleCancel }}
+/>
 ```
 
 ### **Navigation Actions**
 
 ```typescript
-// Primary navigation
-<Button variant="primary" size="sm">
-  Continue
-</Button>
+import { NavigationActions } from '@/shared/components/buttons';
 
-// Secondary navigation
-<Button variant="ghost" size="sm">
-  Back
-</Button>
+// Page navigation with back/continue
+<NavigationActions
+  continue={{ label: "Continue", onClick: handleContinue }}
+  back={{ label: "Back", onClick: handleBack }}
+/>
+```
+
+### **Individual Buttons**
+
+```typescript
+import { 
+  PrimaryButton, 
+  SupportiveButton, 
+  OutlineButton,
+  GhostButton 
+} from '@/shared/components/buttons';
+
+// Dashboard actions
+<PrimaryButton onClick={handleCreate}>
+  Create Listing
+</PrimaryButton>
+
+<SupportiveButton onClick={handleHelp}>
+  Get Help
+</SupportiveButton>
+
+<OutlineButton onClick={handleView}>
+  View Reports
+</OutlineButton>
+```
+
+### **Button Groups**
+
+```typescript
+import { ButtonGroup } from '@/shared/components/buttons';
+
+// Custom button grouping
+<ButtonGroup layout="horizontal" spacing="normal">
+  <PrimaryButton>Save</PrimaryButton>
+  <OutlineButton>Cancel</OutlineButton>
+  <GhostButton>Reset</GhostButton>
+</ButtonGroup>
 ```
 
 ## 🎨 **Brand Guidelines**
@@ -144,7 +173,9 @@ The Button component embodies the **Caregiver archetype** through:
 - ✅ Use `supportive` for "we're here to help" messaging
 - ✅ Use `subtle` for gentle encouragement
 - ✅ Use `outline` for exploratory actions
+- ✅ Use `ghost` for low-pressure prompts
 - ✅ Maintain consistent sizing within the same context
+- ✅ Use button groups for related actions
 
 ### **Don'ts**
 
@@ -152,6 +183,7 @@ The Button component embodies the **Caregiver archetype** through:
 - ❌ Don't use `danger` unless it's truly destructive
 - ❌ Don't mix button sizes randomly
 - ❌ Don't override colors with custom CSS
+- ❌ Don't use harsh, aggressive colors
 
 ## 🔍 **Accessibility**
 
@@ -161,43 +193,52 @@ All buttons include:
 - **Proper contrast ratios** for text readability
 - **Disabled states** with reduced opacity
 - **Loading states** with spinner indicators
+- **ARIA attributes** for screen readers
 
 ## 🚀 **Advanced Usage**
 
 ### **With Icons**
 
 ```typescript
-<Button variant="primary" startContent={<ArrowRight />}>
-  Get Started
-</Button>
+import { ArrowRight, HelpCircle } from 'lucide-react';
 
-<Button variant="supportive" endContent={<HelpCircle />}>
+<PrimaryButton startContent={<ArrowRight />}>
+  Get Started
+</PrimaryButton>
+
+<SupportiveButton endContent={<HelpCircle />}>
   Need Help?
-</Button>
+</SupportiveButton>
 ```
 
 ### **Loading States**
 
 ```typescript
-<Button variant="primary" loading>
+<PrimaryButton loading>
   Processing...
-</Button>
+</PrimaryButton>
+
+<SupportiveButton isLoading>
+  Saving...
+</SupportiveButton>
 ```
 
 ### **Full Width**
 
 ```typescript
-<Button variant="primary" fullWidth>
+<PrimaryButton fullWidth>
   Complete Setup
-</Button>
+</PrimaryButton>
 ```
 
 ### **Icon Only**
 
 ```typescript
-<Button variant="ghost" isIconOnly>
+import { Settings } from 'lucide-react';
+
+<GhostButton isIconOnly>
   <Settings />
-</Button>
+</GhostButton>
 ```
 
 ## 🎯 **Caregiver Brand Psychology**
@@ -215,6 +256,7 @@ All buttons include:
 - **Supportive**: "We're here to help"
 - **Subtle**: "This might be useful"
 - **Outline**: "Explore this option"
+- **Ghost**: "This is available but not urgent"
 
 ### **Emotional Impact**
 
@@ -222,6 +264,33 @@ All buttons include:
 - **Builds trust** through consistent, professional design
 - **Feels supportive** rather than pushy
 - **Guides gently** rather than shouting
+- **Creates emotional safety** through warm, approachable design
+
+## 📚 **Component Architecture**
+
+```
+Button (Base Component)
+├── BrandButton (Specialized Variants)
+│   ├── PrimaryButton
+│   ├── SupportiveButton
+│   ├── SubtleButton
+│   ├── SecondaryButton
+│   ├── OutlineButton
+│   ├── GhostButton
+│   └── DangerButton
+└── ButtonGroup (Layout Patterns)
+    ├── FormActions
+    ├── CTAActions
+    └── NavigationActions
+```
+
+## 🔧 **Technical Details**
+
+- **Built with**: React + TypeScript
+- **Styling**: Tailwind CSS with brand tokens
+- **Accessibility**: WCAG AA compliant
+- **Browser Support**: Modern browsers (ES2020+)
+- **Bundle Size**: ~2KB gzipped
 
 ---
 

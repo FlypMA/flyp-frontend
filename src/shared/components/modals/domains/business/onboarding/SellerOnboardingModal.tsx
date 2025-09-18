@@ -7,3 +7,4 @@
 // Re-export the existing seller onboarding modal
 export { default } from '../../../onboarding/seller/SellerOnboardingModal';
 export type { SellerFormData, SellerOnboardingModalProps } from '../../../onboarding/seller/types';
+

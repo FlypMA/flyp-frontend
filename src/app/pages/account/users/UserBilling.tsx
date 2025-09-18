@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Badge, Divider } from '@heroui/react';
+import { authService } from '@/shared/services/auth';
+import { logger } from '@/shared/utils/logger';
+import { Badge, Button, Card, CardBody, CardHeader, Divider } from '@heroui/react';
 import {
-  CreditCard,
-  Download,
+  AlertTriangle,
   Calendar,
   CheckCircle,
-  AlertTriangle,
+  CreditCard,
+  Download,
   Plus,
-  Settings,
   Receipt,
+  Settings,
 } from 'lucide-react';
-import { authService } from '../../../../shared/services/auth/Auth';
-import { User as UserType } from '../../../../shared/types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
-import { logger } from '@/shared/utils/logger';
+import { User as UserType } from '../../../../shared/types';
 
 interface Subscription {
   id: string;

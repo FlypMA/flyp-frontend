@@ -1,5 +1,6 @@
 import { Input } from '@/shared/components/forms/Input';
 // Navigation is provided by AuthLayout
+import { authService } from '@/shared/services/auth';
 import { Avatar, Badge, Button, Chip, Divider } from '@heroui/react';
 import {
   Building2,
@@ -19,7 +20,6 @@ import {
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../../../shared/services/auth';
 import { User as UserType } from '../../../types/user.consolidated';
 
 interface Conversation {

@@ -3,7 +3,7 @@
 // Purpose: Centralized navigation action handlers
 
 import { NavigateFunction } from 'react-router-dom';
-import { AuthenticationService } from '../../../../services/auth/Auth';
+import { AuthenticationService } from '@/shared/services/auth';
 
 /**
  * Navigation Handler Class

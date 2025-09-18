@@ -1,7 +1,10 @@
-// 🔐 Supabase Client Configuration
-// Location: src/config/supabase.ts
-// Purpose: Supabase client configuration matching legacy app structure
-// EXACT COPY from working legacy app with enhanced error handling
+// 🔐 Supabase Client Configuration - DEPRECATED
+// Location: src/config/supabase.ts  
+// Purpose: Legacy Supabase client - NOW USING BACKEND API FOR SECURITY
+// 
+// ⚠️  SECURITY NOTICE: Direct Supabase access has been moved to backend
+// ⚠️  Frontend now authenticates through backend API for enhanced security
+// ⚠️  This file is kept for compatibility but should not be used for auth
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -89,4 +92,5 @@ try {
 export { supabase };
 
 // Export types for use in other files
-export type { SupabaseClient } from '@supabase/supabase-js';
+  export type { SupabaseClient } from '@supabase/supabase-js';
+

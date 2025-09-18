@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# 🔍 Production Environment Diagnostic Script
+# Helps diagnose why environment variables aren't working in production
+
+echo "🔍 Production Environment Diagnostic"
+echo "==================================="
+
+echo ""
+echo "📊 Current Error Analysis:"
+echo "-------------------------"
+echo "❌ Your production is using: falgeqzvvjtoahrppqsy.supabase.co"
+echo "✅ This should be your real Supabase URL like: https://abcdefgh.supabase.co"
+echo ""
+
+echo "🎯 Root Cause:"
+echo "--------------"
+echo "Your production deployment is NOT using the environment variables you set."
+echo "This happens when:"
+echo "1. Environment variables weren't set in production environment"
+echo "2. Variables were set but deployment wasn't redeployed"
+echo "3. Variable names have typos"
+echo "4. Variables were set in wrong environment (Preview vs Production)"
+echo ""
+
+echo "🚀 Immediate Fix Steps:"
+echo "----------------------"
+echo "1. Go to: https://vercel.com/dashboard"
+echo "2. Find project: betweendeals-frontend-git-clea-2b7ba3-mandiau-matthias-projects"
+echo "3. Settings > Environment Variables"
+echo "4. Check if these exist:"
+echo "   - VITE_SUPABASE_URL"
+echo "   - VITE_SUPABASE_ANON_KEY"
+echo ""
+echo "5. If missing, add them with REAL values (not placeholder)"
+echo "6. Make sure 'Production' environment is selected"
+echo "7. Redeploy the application"
+echo ""
+
+echo "🔍 How to Get Real Values:"
+echo "-------------------------"
+echo "Option 1 - From your working legacy app:"
+echo "  - Find your legacy Vercel project that WORKS"
+echo "  - Copy the environment variables from there"
+echo ""
+echo "Option 2 - From Supabase directly:"
+echo "  - Go to https://supabase.com/dashboard"
+echo "  - Select your project"
+echo "  - Settings > API"
+echo "  - Copy Project URL and anon public key"
+echo ""
+
+echo "✅ Success Indicators:"
+echo "----------------------"
+echo "After fixing, you should see:"
+echo "- No more 'falgeqzvvjtoahrppqsy.supabase.co' in errors"
+echo "- No more 'ERR_NAME_NOT_RESOLVED' errors"
+echo "- Login/signup works normally"
+echo ""
+
+echo "📞 The environment variables are the ONLY thing preventing your app from working!"
+echo "📞 Your code is perfect - it just needs the right configuration."

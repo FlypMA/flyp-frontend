@@ -1,7 +1,7 @@
 import { DashboardStats } from '@/features/business';
 import { useBusinessMetrics } from '@/features/business/hooks';
 import type { Listing, ValuationReport } from '@/features/business/types';
-import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
 import { Button, Card, CardBody } from '@heroui/react';
 import { useEffect, useState } from 'react';

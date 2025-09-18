@@ -1,7 +1,7 @@
 import { ValuationDashboard } from '@/features/business';
 import { useBusinessValuation } from '@/features/business/hooks';
 import type { ValuationReport } from '@/features/business/types';
-import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

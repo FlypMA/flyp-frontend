@@ -32,3 +32,4 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
 // Export individual providers for flexibility
 export { AuthProvider } from './auth-provider';
 export { UIProvider } from './ui-provider';
+

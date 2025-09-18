@@ -13,18 +13,27 @@ import * as React from 'react';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Button variant/color scheme - Caregiver brand variants
+   * 
+   * Brand Psychology:
+   * - primary: Trust Blue - main actions, builds confidence
+   * - supportive: Calm Teal - "we've got you" actions, reduces anxiety
+   * - subtle: Reassuring Coral - gentle emphasis, encouraging
+   * - secondary: Neutral - professional, non-threatening
+   * - outline: Clean borders - exploratory actions
+   * - ghost: Minimal - low-pressure prompts
+   * - danger: Error states - destructive actions only
    */
   variant?:
-    | 'primary'
-    | 'secondary'
-    | 'supportive'
-    | 'subtle'
-    | 'outline'
-    | 'ghost'
-    | 'danger'
-    | 'light'
-    | 'bordered'
-    | 'flat';
+    | 'primary'      // Trust Blue - main CTAs
+    | 'secondary'    // Neutral - secondary actions
+    | 'supportive'   // Calm Teal - supportive CTAs
+    | 'subtle'       // Reassuring Coral - gentle emphasis
+    | 'outline'      // Clean borders - exploratory
+    | 'ghost'        // Minimal - low-pressure
+    | 'danger'       // Error states - destructive only
+    | 'light'        // Subtle background
+    | 'bordered'     // Transparent with border
+    | 'flat';        // Minimal background
 
   /**
    * Button size
@@ -33,16 +42,24 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
   /**
    * Button color (for HeroUI compatibility) - Caregiver brand colors
+   * 
+   * Brand Color Palette:
+   * - primary: Trust Blue (#3b82f6) - confidence & trust
+   * - supportive: Calm Teal (#06b6d4) - supportive & reassuring
+   * - subtle: Reassuring Coral (#f25f57) - gentle emphasis
+   * - success: Success Green (#22c55e) - positive actions
+   * - warning: Warning Amber (#f59e0b) - caution states
+   * - danger: Error Red (#ef4444) - destructive actions
    */
   color?:
-    | 'primary'
-    | 'secondary'
-    | 'supportive'
-    | 'subtle'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'default';
+    | 'primary'      // Trust Blue - confidence & trust
+    | 'secondary'    // Neutral - professional
+    | 'supportive'   // Calm Teal - supportive & reassuring
+    | 'subtle'       // Reassuring Coral - gentle emphasis
+    | 'success'      // Success Green - positive actions
+    | 'warning'      // Warning Amber - caution states
+    | 'danger'       // Error Red - destructive actions
+    | 'default';     // Neutral light - default state
 
   /**
    * Whether the button is disabled

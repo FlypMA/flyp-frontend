@@ -33,37 +33,40 @@ const SESSION_CONFIG = {
 
 export class SessionManager {
   /**
-   * Store authentication session
+   * Store authentication session (HTTP-only cookie pattern)
+   * Note: Actual authentication is via HTTP-only cookies set by backend
+   * This only stores user data locally for UI purposes
    */
   static storeSession(authResult: AuthResult): void {
     try {
-      if (!authResult.isAuthenticated || !authResult.user || !authResult.token) {
+      if (!authResult.isAuthenticated || !authResult.user) {
         console.warn('⚠️ Invalid session data provided');
         return;
       }
 
-      // Store in localStorage for persistence
-      localStorage.setItem(SESSION_CONFIG.TOKEN_KEY, authResult.token);
+      // Only store user data locally (not tokens - those are in HTTP-only cookies)
       localStorage.setItem(SESSION_CONFIG.USER_KEY, JSON.stringify(authResult.user));
+      
+      // Store a flag to indicate we have a session
+      localStorage.setItem('flyp_has_session', 'true');
 
-      // Store in cookie for server-side access
-      this.setCookie(SESSION_CONFIG.COOKIE_NAME, authResult.token, SESSION_CONFIG.EXPIRY_DAYS);
-
-      console.log('✅ Session stored successfully');
+      console.log('✅ Session stored successfully (HTTP-only cookie pattern)');
     } catch (error) {
       console.error('❌ Failed to store session:', error);
     }
   }
 
   /**
-   * Retrieve authentication session
+   * Retrieve authentication session (HTTP-only cookie pattern)
+   * Note: This only returns locally stored user data
+   * Actual authentication validation must be done via backend API
    */
   static getSession(): AuthResult | null {
     try {
-      const token = localStorage.getItem(SESSION_CONFIG.TOKEN_KEY);
       const userStr = localStorage.getItem(SESSION_CONFIG.USER_KEY);
+      const hasSession = localStorage.getItem('flyp_has_session');
 
-      if (!token || !userStr) {
+      if (!userStr || !hasSession) {
         return null;
       }
 
@@ -72,7 +75,7 @@ export class SessionManager {
       return {
         isAuthenticated: true,
         user,
-        token,
+        token: 'cookie-based', // Placeholder - actual auth is via HTTP-only cookies
       };
     } catch (error) {
       console.error('❌ Failed to retrieve session:', error);
@@ -82,19 +85,20 @@ export class SessionManager {
   }
 
   /**
-   * Clear authentication session
+   * Clear authentication session (HTTP-only cookie pattern)
+   * Note: HTTP-only cookies are cleared by backend on logout
    */
   static clearSession(): void {
     try {
-      // Clear localStorage
-      localStorage.removeItem(SESSION_CONFIG.TOKEN_KEY);
+      // Clear localStorage (HTTP-only cookies are cleared by backend)
       localStorage.removeItem(SESSION_CONFIG.USER_KEY);
+      localStorage.removeItem('flyp_has_session');
+      
+      // Clear any legacy tokens if they exist
+      localStorage.removeItem(SESSION_CONFIG.TOKEN_KEY);
       localStorage.removeItem(SESSION_CONFIG.REFRESH_KEY);
 
-      // Clear cookie
-      this.deleteCookie(SESSION_CONFIG.COOKIE_NAME);
-
-      console.log('✅ Session cleared successfully');
+      console.log('✅ Session cleared successfully (HTTP-only cookie pattern)');
     } catch (error) {
       console.error('❌ Failed to clear session:', error);
     }

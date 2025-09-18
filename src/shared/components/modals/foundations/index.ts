@@ -12,3 +12,4 @@ export { default as TwoPanelModal } from './TwoPanelModal';
 export type { default as CenteredModalProps } from './CenteredModal';
 export type { default as FullscreenModalProps } from './FullscreenModal';
 export type { default as TwoPanelModalProps } from './TwoPanelModal';
+

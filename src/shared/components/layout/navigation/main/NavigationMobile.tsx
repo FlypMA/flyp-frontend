@@ -12,7 +12,7 @@ import { ChevronRight, LogOut, X } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
-import { AuthenticationService } from '../../../../services/auth/Auth';
+import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '../../../../types';
 import { createNavigationHandler, getMobileNavigationSections } from '../utils';
 

@@ -1,7 +1,7 @@
 import { Heart, HelpCircle, LayoutDashboard, LogOut, MessageCircle, Settings } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../../../../services/auth';
+import { authService } from '@/shared/services/auth';
 import { UrlGenerator } from '../../../../services/urls/urlGenerator';
 import { User } from '../../../../types';
 

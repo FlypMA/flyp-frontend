@@ -4,7 +4,7 @@ import { seoData } from '@/shared/utils/seo/seoData';
 import { Button, Card, CardBody } from '@heroui/react';
 import { Building2, CheckCircle, Clock, Euro, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../../../../shared/services/auth';
+import { authService } from '@/shared/services/auth';
 import { useAuth } from '../../../providers/auth-provider';
 
 const SellersLandingPage = () => {

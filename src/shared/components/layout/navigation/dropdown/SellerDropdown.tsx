@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { User } from '../../../../types';
 import { UrlGenerator } from '../../../../services';
-import { AuthenticationService } from '../../../../services/auth/Auth';
+import { AuthenticationService } from '@/shared/services/auth';
 import {
   getSellerDropdownItems,
   createNavigationHandler,

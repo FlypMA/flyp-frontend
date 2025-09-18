@@ -9,11 +9,8 @@
 // Main Authentication Service
 export { AuthenticationService, default as authenticationService, authService } from './auth';
 
-// Individual Auth Services (for modular usage)
-export { checkAuth, CheckAuthService } from './auth/checkAuth';
-export { login, LoginService } from './auth/login';
-export { logout, LogoutService } from './auth/logout';
-export { signup, SignupService } from './auth/signup';
+// Individual Auth Services (for modular usage) - REMOVED FOR SECURITY
+// All auth operations now go through the secure AuthService
 
 // =============================================================================
 // CONFIGURATION & CLIENT SERVICES
@@ -60,7 +57,7 @@ export {
   createMockUser,
   devUtils,
   isDevBypassEnabled,
-  shouldBypassProtectedRoute,
+  shouldBypassProtectedRoute
 } from '../utils/dev/devBypass';
 
 // =============================================================================
@@ -79,7 +76,7 @@ export type {
   User,
   UserPreferences,
   UserResponse,
-  UserRole,
+  UserRole
 } from '../types';
 
 // General Types
@@ -92,3 +89,4 @@ export type { Country, Language } from '../types';
 // For backward compatibility with legacy imports
 export { authService as AuthService } from './auth';
 export { UrlGenerator as urlGeneratorService } from './urls/urlGenerator';
+

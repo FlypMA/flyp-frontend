@@ -1,9 +1,9 @@
 import Heading1 from '@/shared/components/typography/Heading1';
+import { authService } from '@/shared/services/auth';
 import { logger } from '@/shared/utils/logger';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { authService } from '../../../../../shared/services/auth';
 import { UrlGenerator } from '../../../../../shared/services/urls/urlGenerator';
 // import { Button } from '@heroui/react'; // TODO: Implement button functionality
 
@@ -99,7 +99,7 @@ const SignUpComplete: React.FC = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden md:block bg-[url('../src/assets/background4.jpg')] bg-cover"></div>
+      <div className="hidden md:block bg-gradient-to-br from-primary-50 to-calm-50"></div>
     </div>
   );
 };

@@ -8,25 +8,15 @@
 // - Account settings and help
 // - Logout functionality
 
-import React, { useState, useRef, useEffect } from 'react';
+import { AuthenticationService } from '@/shared/services/auth';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Heart,
-  MessageCircle,
-  Settings,
-  HelpCircle,
-  LogOut,
-  Search,
-  User as UserIcon,
-} from 'lucide-react';
 import { User } from '../../../../types';
-import { UrlGenerator } from '../../../../services';
-import { AuthenticationService } from '../../../../services/auth/Auth';
 import {
-  getBuyerDropdownItems,
   createNavigationHandler,
-  getUserInitials,
+  getBuyerDropdownItems,
   getUserDisplayRole,
+  getUserInitials,
 } from '../utils';
 
 interface BuyerDropdownProps {

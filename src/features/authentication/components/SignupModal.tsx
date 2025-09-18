@@ -2,12 +2,12 @@
 // Location: src/features/authentication/components/SignupModal.tsx
 // Purpose: Signup modal with role selection and custom inputs
 
+import { authService } from '@/shared/services/auth';
 import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
 import { ArrowLeft, Building2, Info, Search, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
-import { authService } from '../../../shared/services/auth';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 type UserIntent = 'buyer' | 'seller' | 'both';
@@ -504,7 +504,7 @@ const SignupModal: React.FC = () => {
                 <div className="hidden md:block relative">
                   <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(/src/assets/RecordStore.jpg)` }}
+                    style={{ backgroundImage: `url(/RecordStore.jpg)` }}
                   >
                     <div className="absolute inset-0 bg-black/20"></div>
                   </div>

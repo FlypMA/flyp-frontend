@@ -1,5 +1,6 @@
 import { CustomDropdown } from '@/shared/components/forms';
 import { Input } from '@/shared/components/forms/Input';
+import { AuthenticationService } from '@/shared/services/auth';
 import { Button, Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
 import {
   Bell,
@@ -17,7 +18,6 @@ import {
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationService } from '../../../../shared/services/auth/Auth';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 import { User as UserType } from '../../../../shared/types';
 

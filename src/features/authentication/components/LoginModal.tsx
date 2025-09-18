@@ -2,12 +2,12 @@
 // Location: src/features/authentication/components/LoginModal.tsx
 // Purpose: Login modal with custom inputs and enhanced UX
 
+import { authService } from '@/shared/services/auth';
 import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
 import { Info, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
-import { authService } from '../../../shared/services/auth';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 interface LoginData {
@@ -369,7 +369,7 @@ const LoginModal: React.FC = () => {
                 <div className="hidden md:block relative">
                   <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(/src/assets/GroceryStore.jpg)` }}
+                    style={{ backgroundImage: `url(/GroceryStore.jpg)` }}
                   >
                     <div className="absolute inset-0 bg-black/20"></div>
                   </div>

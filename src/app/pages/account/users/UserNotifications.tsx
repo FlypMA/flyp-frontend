@@ -11,7 +11,7 @@ import {
   CheckCircle,
   XCircle,
 } from 'lucide-react';
-import { authService } from '../../../../shared/services/auth/Auth';
+import { authService } from '@/shared/services/auth';
 import { User as UserType } from '../../../../shared/types';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 import { logger } from '@/shared/utils/logger';

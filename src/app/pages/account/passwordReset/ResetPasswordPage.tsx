@@ -4,7 +4,7 @@ import { Button } from '@heroui/react';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import { Input } from '@heroui/react';
 import { Eye, EyeOff, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
-// import { AuthenticationService } from '../../../../shared/services/auth/Auth'; // TODO: Implement authentication service
+// import { AuthenticationService } from '@/shared/services/auth'; // TODO: Implement authentication service
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
 interface ResetPasswordFormData {
