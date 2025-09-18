@@ -70,7 +70,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           label: 'Business Valuation',
           icon: Calculator,
           description: 'Professional business valuation tool',
-          path: UrlGenerator.businessValuations(),
+          path: '/my-business/valuation-tool',
           allowedRoles: ['seller', 'admin', 'both'],
         },
         {
@@ -78,7 +78,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           label: 'Solvency Intelligence',
           icon: TrendingUp,
           description: 'Financial health & loan eligibility',
-          path: '/business/solvency',
+          path: '/my-business/solvency-intelligence',
           allowedRoles: ['seller', 'admin', 'both'],
         },
         {
@@ -86,7 +86,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           label: 'Liquidation Analysis',
           icon: AlertTriangle,
           description: 'Strategic sale vs liquidation',
-          path: '/business/liquidation',
+          path: '/my-business/liquidation-comparison',
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
@@ -100,7 +100,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           icon: FileText,
           description: 'Secure document storage',
           path: UrlGenerator.businessDocuments(),
-          isComingSoon: true,
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
@@ -151,7 +150,10 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
             <div className="space-y-1">
               {section.items.map(item => {
                 const Icon = item.icon;
-                const isActive = location.pathname === item.path;
+                // Improved active state detection - check for exact match or if current path starts with item path
+                const isActive =
+                  location.pathname === item.path ||
+                  (item.path !== '/' && location.pathname.startsWith(item.path));
                 const isDisabled = item.isComingSoon;
 
                 return (

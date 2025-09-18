@@ -54,10 +54,10 @@ const UserProfile: React.FC = () => {
     try {
       // TODO: Implement profile update API call
       // await AuthenticationService.updateProfile(profileData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setEditing(false);
       // Show success message
       console.log('Profile updated successfully');
@@ -126,11 +126,9 @@ const UserProfile: React.FC = () => {
                   name={user.name || user.email}
                   className="w-24 h-24 mx-auto mb-4 text-2xl"
                 />
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  {user.name || 'User'}
-                </h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">{user.name || 'User'}</h2>
                 <p className="text-gray-600 mb-4">{user.email}</p>
-                
+
                 <div className="space-y-2 text-sm text-gray-600">
                   {user.role && (
                     <div className="flex items-center justify-center">
@@ -200,7 +198,7 @@ const UserProfile: React.FC = () => {
                     {editing ? (
                       <Input
                         value={profileData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        onChange={e => handleInputChange('name', e.target.value)}
                         placeholder="Enter your full name"
                         startContent={<User className="w-4 h-4 text-gray-400" />}
                       />
@@ -232,7 +230,7 @@ const UserProfile: React.FC = () => {
                     {editing ? (
                       <Input
                         value={profileData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        onChange={e => handleInputChange('phone', e.target.value)}
                         placeholder="Enter your phone number"
                         startContent={<Phone className="w-4 h-4 text-gray-400" />}
                       />
@@ -246,53 +244,51 @@ const UserProfile: React.FC = () => {
 
                   {/* Location */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Location
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
                     {editing ? (
                       <Input
                         value={profileData.location}
-                        onChange={(e) => handleInputChange('location', e.target.value)}
+                        onChange={e => handleInputChange('location', e.target.value)}
                         placeholder="Enter your location"
                         startContent={<MapPin className="w-4 h-4 text-gray-400" />}
                       />
                     ) : (
                       <div className="flex items-center p-3 bg-gray-50 rounded-lg">
                         <MapPin className="w-4 h-4 text-gray-400 mr-3" />
-                        <span className="text-gray-900">{profileData.location || 'Not provided'}</span>
+                        <span className="text-gray-900">
+                          {profileData.location || 'Not provided'}
+                        </span>
                       </div>
                     )}
                   </div>
 
                   {/* Company */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Company
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Company</label>
                     {editing ? (
                       <Input
                         value={profileData.company}
-                        onChange={(e) => handleInputChange('company', e.target.value)}
+                        onChange={e => handleInputChange('company', e.target.value)}
                         placeholder="Enter your company name"
                         startContent={<Building2 className="w-4 h-4 text-gray-400" />}
                       />
                     ) : (
                       <div className="flex items-center p-3 bg-gray-50 rounded-lg">
                         <Building2 className="w-4 h-4 text-gray-400 mr-3" />
-                        <span className="text-gray-900">{profileData.company || 'Not provided'}</span>
+                        <span className="text-gray-900">
+                          {profileData.company || 'Not provided'}
+                        </span>
                       </div>
                     )}
                   </div>
 
                   {/* Bio */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Bio
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
                     {editing ? (
                       <textarea
                         value={profileData.bio}
-                        onChange={(e) => handleInputChange('bio', e.target.value)}
+                        onChange={e => handleInputChange('bio', e.target.value)}
                         placeholder="Tell us about yourself..."
                         rows={4}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"

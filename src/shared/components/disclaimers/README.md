@@ -9,6 +9,7 @@ This directory contains legal disclaimer components for displaying important leg
 A comprehensive disclaimer component for displaying financial and legal disclaimers with different types and display variants.
 
 **Features:**
+
 - Multiple disclaimer types: `valuation`, `solvency`, `liquidation`, `general`
 - Multiple display variants: `banner`, `modal`, `sidebar`
 - Collapsible/expandable functionality
@@ -17,6 +18,7 @@ A comprehensive disclaimer component for displaying financial and legal disclaim
 - Customizable styling
 
 **Usage:**
+
 ```tsx
 import { FinancialDisclaimer } from '@/shared/components/disclaimers';
 
@@ -24,21 +26,22 @@ import { FinancialDisclaimer } from '@/shared/components/disclaimers';
 <FinancialDisclaimer type="valuation" />
 
 // Collapsible general disclaimer
-<FinancialDisclaimer 
-  type="general" 
-  variant="banner" 
-  isCollapsible={true} 
+<FinancialDisclaimer
+  type="general"
+  variant="banner"
+  isCollapsible={true}
 />
 
 // Modal variant for important disclaimers
-<FinancialDisclaimer 
-  type="solvency" 
-  variant="modal" 
-  className="mb-4" 
+<FinancialDisclaimer
+  type="solvency"
+  variant="modal"
+  className="mb-4"
 />
 ```
 
 **Props:**
+
 - `type`: 'valuation' | 'solvency' | 'liquidation' | 'general' - Type of disclaimer
 - `variant`: 'banner' | 'modal' | 'sidebar' - Display style (default: 'banner')
 - `isCollapsible`: boolean - Whether the disclaimer can be collapsed (default: false)
@@ -60,6 +63,7 @@ import { FinancialDisclaimer } from '@/shared/components/disclaimers';
 ## Legal Compliance
 
 These components help ensure legal compliance by:
+
 - Providing clear disclaimers for financial information
 - Warning users about the limitations of estimates
 - Directing users to seek professional advice

@@ -3,7 +3,6 @@
 // Purpose: Generate consistent URLs across the MVP application
 
 export class UrlGenerator {
-
   // ==============================================================================
   // PUBLIC PAGES
   // ==============================================================================
@@ -35,7 +34,7 @@ export class UrlGenerator {
   static emailVerification = () => '/verify-email';
 
   // ==============================================================================
-  // BUSINESS OWNER DOMAIN - /my-business/* 
+  // BUSINESS OWNER DOMAIN - /my-business/*
   // For business owners managing their companies, signed up as a seller
   // ==============================================================================
 
@@ -52,7 +51,7 @@ export class UrlGenerator {
   static businessPerformance = () => '/my-business/performance';
 
   // ==============================================================================
-  // BUSINESS BUYERS 
+  // BUSINESS BUYERS
   // For business prospectors searching for a new company to acquire, signed up as a buyer
   // ==============================================================================
 
@@ -289,15 +288,18 @@ export class UrlGenerator {
   /**
    * Generate search URL with query parameters
    */
-  static searchWithQuery = (query: string, filters?: {
-    sector?: string;
-    region?: string;
-    priceMin?: number;
-    priceMax?: number;
-  }) => {
+  static searchWithQuery = (
+    query: string,
+    filters?: {
+      sector?: string;
+      region?: string;
+      priceMin?: number;
+      priceMax?: number;
+    }
+  ) => {
     const params = new URLSearchParams();
     params.append('q', query);
-    
+
     if (filters?.sector) params.append('sector', filters.sector);
     if (filters?.region) params.append('region', filters.region);
     if (filters?.priceMin) params.append('priceMin', filters.priceMin.toString());
@@ -316,7 +318,9 @@ export class UrlGenerator {
   /**
    * Generate business dashboard URL with tab
    */
-  static businessWithTab = (tab: 'overview' | 'listings' | 'valuations' | 'documents' | 'performance') => {
+  static businessWithTab = (
+    tab: 'overview' | 'listings' | 'valuations' | 'documents' | 'performance'
+  ) => {
     return `/my-business?tab=${tab}`;
   };
 
@@ -330,7 +334,10 @@ export class UrlGenerator {
   /**
    * Generate listing URL with tab
    */
-  static listingWithTab = (listingId: string, tab: 'overview' | 'analytics' | 'inquiries' | 'documents') => {
+  static listingWithTab = (
+    listingId: string,
+    tab: 'overview' | 'analytics' | 'inquiries' | 'documents'
+  ) => {
     return `/listings/${listingId}?tab=${tab}`;
   };
 
@@ -344,7 +351,10 @@ export class UrlGenerator {
   /**
    * Generate business listing URL with tab
    */
-  static businessListingWithTab = (listingId: string, tab: 'overview' | 'analytics' | 'inquiries' | 'documents') => {
+  static businessListingWithTab = (
+    listingId: string,
+    tab: 'overview' | 'analytics' | 'inquiries' | 'documents'
+  ) => {
     return `/my-business/listings/${listingId}?tab=${tab}`;
   };
 

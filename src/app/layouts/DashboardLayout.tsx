@@ -29,12 +29,9 @@ export const DashboardLayout: React.FC = () => {
         />
 
         {/* Main Content */}
-        <div className="flex flex-1 flex-col md:ml-8">
-          {/* Main Content */}
-          <main className="flex-1 overflow-y-auto p-6">
-            <Outlet />
-          </main>
-        </div>
+        <main className="flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </main>
       </div>
 
       <AuthModals />

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Select, SelectItem, SelectProps } from '@heroui/react';
 
-export interface StyledSelectProps extends Omit<SelectProps, 'classNames' | 'variant' | 'aria-label'> {
+export interface StyledSelectProps
+  extends Omit<SelectProps, 'classNames' | 'variant' | 'aria-label'> {
   options: Array<{ key: string; label: string }>;
   variant?: 'default' | 'outlined' | 'filled';
 }
@@ -30,7 +31,13 @@ const StyledSelect: React.FC<StyledSelectProps> = ({
       label={label}
       placeholder={placeholder}
       classNames={getClassNames()}
-      aria-label={typeof label === 'string' ? label : typeof placeholder === 'string' ? placeholder : undefined}
+      aria-label={
+        typeof label === 'string'
+          ? label
+          : typeof placeholder === 'string'
+            ? placeholder
+            : undefined
+      }
     >
       {options.map(option => (
         <SelectItem

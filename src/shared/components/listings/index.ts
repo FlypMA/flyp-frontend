@@ -1,6 +1,6 @@
 /**
  * Listings Components Export
- * 
+ *
  * Centralized exports for all listing-related components
  */
 

@@ -24,7 +24,7 @@ export class NavigationHandler {
   async handleLogout(): Promise<void> {
     try {
       console.log('🔓 Starting logout process...');
-      
+
       // Set logout flag to prevent auth recheck during logout
       sessionStorage.setItem('user_logged_out', 'true');
 

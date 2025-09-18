@@ -7,10 +7,6 @@ export * from './navigation-handlers';
 export * from './role-utils';
 
 // Re-export types for convenience
-export type {
-  NavItem,
-  NavSection,
-  DropdownMenuItem
-} from './navigation-config';
+export type { NavItem, NavSection, DropdownMenuItem } from './navigation-config';
 
 export type { NavigationHandler } from './navigation-handlers';

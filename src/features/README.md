@@ -31,21 +31,27 @@ feature-name/
 ## 🔄 Feature Principles
 
 ### 1. **Self-Contained**
+
 Each feature contains everything it needs to function:
+
 - UI components specific to the feature
 - Business logic and state management
 - API integration and data handling
 - Type definitions
 
 ### 2. **Minimal Dependencies**
+
 Features should:
+
 - Import from shared components when needed
 - Avoid importing from other features
 - Use shared services for cross-cutting concerns
 - Maintain clear boundaries
 
 ### 3. **Consistent Structure**
+
 All features follow the same organizational pattern:
+
 - Makes it easy for developers to navigate
 - Reduces cognitive load when switching features
 - Enables better code reviews and maintenance
@@ -55,22 +61,23 @@ All features follow the same organizational pattern:
 When creating a new feature:
 
 1. **Create the directory structure**
+
 ```bash
 mkdir src/features/new-feature
 mkdir src/features/new-feature/{components,pages,hooks,services,types}
 ```
 
 2. **Add feature README**
-Document the feature's purpose, components, and API
+   Document the feature's purpose, components, and API
 
 3. **Create index.ts files**
-Export the main components and utilities
+   Export the main components and utilities
 
 4. **Update routing**
-Add routes in `src/app/routing/router.tsx`
+   Add routes in `src/app/routing/router.tsx`
 
 5. **Add navigation**
-Update sidebar/header navigation if needed
+   Update sidebar/header navigation if needed
 
 ## 📦 Feature Exports
 
@@ -131,6 +138,7 @@ When implementing a feature, ensure:
 ## 🎨 UI Consistency
 
 Features should use:
+
 - Shared components from `src/shared/components/`
 - Consistent spacing and typography
 - Standard color palette
@@ -139,6 +147,7 @@ Features should use:
 ## 🔐 Security Considerations
 
 For features handling sensitive data:
+
 - Validate all inputs
 - Sanitize user content
 - Implement proper authentication checks

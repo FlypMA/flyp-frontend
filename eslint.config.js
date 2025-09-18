@@ -80,6 +80,28 @@ export default [
   },
   prettier,
   {
+    files: ['scripts/**/*.js', 'scripts/**/*.cjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly',
+        globalThis: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+      'no-unused-vars': 'warn',
+    },
+  },
+  {
     ignores: [
       'dist',
       'node_modules',
@@ -93,6 +115,7 @@ export default [
       'tailwind.config.ts',
       'postcss.config.js',
       'commitlint.config.js',
+      'tests/**/*',
     ],
   },
 ];

@@ -1,6 +1,6 @@
 /**
  * FAQ Components Export
- * 
+ *
  * Centralized exports for all FAQ-related components
  */
 

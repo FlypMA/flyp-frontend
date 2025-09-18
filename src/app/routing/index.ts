@@ -4,7 +4,7 @@
 
 /**
  * 🚀 Complete Routing System - MVP Version
- * 
+ *
  * Features:
  * - All pages from /pages directory mapped to routes
  * - Complete URL generator integration
@@ -12,7 +12,7 @@
  * - Legacy redirects for compatibility
  * - Route protection for authenticated areas
  * - Organized by route type and layout
- * 
+ *
  * Route Categories:
  * - Public Routes (MainLayout): Landing, search, listings, legal, resources
  * - Authenticated Routes (AuthLayout): Messages, user account management
@@ -27,14 +27,14 @@
 export { router, default as defaultRouter } from './router';
 
 // Route guards for protection
-export { 
-  ProtectedRoute, 
+export {
+  ProtectedRoute,
   RoleProtectedRoute,
   SellerRoute,
   BuyerRoute,
   AdminRoute,
   GuestRoute,
-  useRoleGuard 
+  useRoleGuard,
 } from './route-guards';
 
 // Re-export for convenience

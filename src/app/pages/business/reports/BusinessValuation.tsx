@@ -1,4 +1,4 @@
-import { ValuationReportCard } from '@/features/business';
+import { ValuationDashboard } from '@/features/business';
 import { useBusinessValuation } from '@/features/business/hooks';
 import type { ValuationReport } from '@/features/business/types';
 import { AuthenticationService } from '@/shared/services/auth/Auth';
@@ -14,6 +14,7 @@ const BusinessValuation = () => {
   const authService = new AuthenticationService();
   const [user, setUser] = useState<User | null>(null);
   const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
+  const [historicalValuations, setHistoricalValuations] = useState<ValuationReport[]>([]);
 
   // Use business valuation hook
   const {
@@ -67,6 +68,44 @@ const BusinessValuation = () => {
             ],
             next_review_date: '2024-07-10',
           });
+
+          // Mock historical valuations data
+          setHistoricalValuations([
+            {
+              id: 'valuation-hist-1',
+              estimated_value: 780000,
+              currency: 'EUR',
+              valuation_date: '2023-07-10',
+              confidence_level: 'medium',
+              methodology: 'Comparable Sales Analysis',
+              status: 'completed',
+              last_updated: '2023-07-15',
+              revenue_multiple: 3.0,
+              ebitda_multiple: 7.8,
+              industry_average: 7.2,
+              market_conditions: 'stable',
+              key_drivers: ['Steady revenue growth', 'Good location', 'Established customer base'],
+              risk_factors: ['Market competition', 'Economic uncertainty'],
+              next_review_date: '2024-01-10',
+            },
+            {
+              id: 'valuation-hist-2',
+              estimated_value: 720000,
+              currency: 'EUR',
+              valuation_date: '2023-01-10',
+              confidence_level: 'low',
+              methodology: 'Asset-Based Valuation',
+              status: 'completed',
+              last_updated: '2023-01-15',
+              revenue_multiple: 2.8,
+              ebitda_multiple: 7.2,
+              industry_average: 7.2,
+              market_conditions: 'challenging',
+              key_drivers: ['Asset value', 'Basic operations'],
+              risk_factors: ['Market volatility', 'Limited growth prospects'],
+              next_review_date: '2023-07-10',
+            },
+          ]);
         } else {
           // Redirect to login if not authenticated
           navigate('/');
@@ -96,34 +135,29 @@ const BusinessValuation = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation and sidebar provided by DashboardLayout */}
-      <div className="max-w-6xl mx-auto px-8 py-8 space-y-6">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
-          <p className="mt-2 text-gray-600">
-            Get professional business valuations and track your business value over time.
-          </p>
-        </div>
-
-        {/* Valuation Content */}
-        <div className="space-y-6">
-          {businessValuation ? (
-            <ValuationReportCard
-              report={businessValuation}
-              onView={() => console.log('View valuation')}
-              onDownload={() => console.log('Download valuation')}
-              onShare={() => console.log('Share valuation')}
-              onEdit={() => console.log('Edit valuation')}
-            />
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No valuation reports available yet.</p>
-            </div>
-          )}
-        </div>
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
+        <p className="mt-2 text-gray-600">
+          Get professional business valuations and track your business value over time.
+        </p>
       </div>
+
+      {/* Valuation Dashboard */}
+      <ValuationDashboard
+        currentValuation={businessValuation}
+        historicalValuations={historicalValuations}
+        onCreateValuation={() => {
+          // TODO: Navigate to valuation wizard or open modal
+          console.log('Create valuation');
+        }}
+        onUpdateValuation={() => {
+          // TODO: Navigate to valuation update wizard
+          console.log('Update valuation');
+        }}
+        onCreateListing={() => navigate('/my-business/listings/new')}
+      />
     </div>
   );
 };

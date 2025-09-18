@@ -4,13 +4,13 @@
 
 /**
  * 🧭 Navigation System - Production Ready
- * 
+ *
  * A clean navigation system based on legacy app implementation:
  * - Navigation: Main navigation bar (used in MainLayout)
  * - DashboardSidebar: Desktop sidebar for seller dashboard (used in DashboardLayout)
  * - DashboardSidebarMobile: Mobile sidebar for seller dashboard (used in DashboardLayout)
  * - UserAvatarDropdown: User avatar dropdown (used within Navigation)
- * 
+ *
  * Based on legacy app components:
  * - UnifiedNavigation.tsx -> Navigation.tsx
  * - SellerSidebar.tsx -> DashboardSidebar.tsx

@@ -1,6 +1,6 @@
 /**
  * Error Pages Export
- * 
+ *
  * Centralized exports for all error-related pages
  */
 

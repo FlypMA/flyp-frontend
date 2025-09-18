@@ -9,6 +9,7 @@ This directory contains card components for displaying content in structured con
 A flexible container component for grouping related content with consistent styling and spacing.
 
 **Features:**
+
 - Clean white background with subtle border
 - Rounded corners for modern appearance
 - Optional padding control
@@ -16,6 +17,7 @@ A flexible container component for grouping related content with consistent styl
 - Customizable styling via className
 
 **Usage:**
+
 ```tsx
 import { Card } from '@/shared/components/cards';
 
@@ -37,6 +39,7 @@ import { Card } from '@/shared/components/cards';
 ```
 
 **Props:**
+
 - `children`: ReactNode - Content to display inside the card
 - `className`: string - Additional CSS classes
 - `padding`: boolean - Whether to include default padding (default: true)

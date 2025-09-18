@@ -1,25 +1,52 @@
-# 🎭 Modals - Organized Architecture
+# 🎭 Modal System - Enterprise Architecture
 
-**Scalable, maintainable modal system with clear separation of concerns.**
+**Scalable, maintainable modal system with domain-driven design and clear separation of concerns.**
 
 ## 📁 **Folder Structure**
 
 ```
 modals/
-├── README.md                           # This documentation
 ├── index.ts                           # Main exports
 ├── SellerOnboardingModal.tsx          # Legacy bridge (deprecated)
-├── business-listing-modal-container.tsx
-├── InquiryModal.tsx
-├── NDAModal.tsx
-├── onboarding/                        # Onboarding modals
-│   ├── index.ts                       # Onboarding exports
+├── InquiryModal.tsx                   # Standalone inquiry modal
+├── NDAModal.tsx                       # Standalone NDA modal
+├── foundations/                       # Reusable UI foundations
+│   ├── index.ts
+│   ├── CenteredModal.tsx
+│   ├── FullscreenModal.tsx
+│   └── TwoPanelModal.tsx
+├── domains/                           # Domain-organized modals
+│   ├── authentication/                # Auth-related modals
+│   │   ├── index.ts
+│   │   ├── AuthenticationModal.tsx
+│   │   ├── panels/
+│   │   │   ├── LoginPanel.tsx
+│   │   │   ├── SignupPanel.tsx
+│   │   │   └── WelcomePanel.tsx
+│   │   ├── hooks/
+│   │   ├── types/
+│   │   └── utils/
+│   ├── business/                      # Business-related modals
+│   │   ├── index.ts
+│   │   ├── onboarding/
+│   │   │   ├── BuyerOnboardingModal.tsx
+│   │   │   └── SellerOnboardingModal.tsx
+│   │   ├── management/
+│   │   │   ├── BusinessProfileModal.tsx
+│   │   │   └── ListingManagementModal.tsx
+│   │   └── reports/
+│   │       ├── AnalyticsModal.tsx
+│   │       └── ValuationReportModal.tsx
+│   ├── legal/                         # Legal modals (future)
+│   └── listings/                      # Listing modals (future)
+├── onboarding/                        # Modular onboarding system
+│   ├── index.ts
 │   ├── seller/                        # Seller onboarding
-│   │   ├── index.ts                   # Seller exports
-│   │   ├── README.md                  # Seller documentation
-│   │   ├── SellerOnboardingModal.tsx  # Main modal
-│   │   ├── types.ts                   # TypeScript types
-│   │   ├── utils.ts                   # Utility functions
+│   │   ├── index.ts
+│   │   ├── README.md
+│   │   ├── SellerOnboardingModal.tsx
+│   │   ├── types.ts
+│   │   ├── utils.ts
 │   │   └── steps/                     # Individual steps
 │   │       ├── WelcomeStep.tsx
 │   │       ├── BusinessTypeStep.tsx
@@ -33,20 +60,24 @@ modals/
 │   │       ├── ContactEmailStep.tsx
 │   │       ├── ContactPhoneStep.tsx
 │   │       └── SuccessStep.tsx
-│   └── buyer/                         # Buyer onboarding (future)
-│       └── index.ts                   # Buyer exports (placeholder)
-└── images/                            # Image-related modals
-    ├── index.ts                       # Image exports
-    └── ImageGalleryModal.tsx
+│   └── buyer/                         # Buyer onboarding
+│       └── index.ts
+├── images/                            # Image-related modals
+│   ├── index.ts
+│   └── ImageGalleryModal.tsx
+└── utils/                             # Modal utilities
+    └── modalHelpers.ts
 ```
 
 ## 🎯 **Design Principles**
 
-### **Organized by Function**
+### **Domain-Driven Architecture**
 
-- **`onboarding/`**: All onboarding-related modals
+- **`foundations/`**: Reusable UI foundations for all modals
+- **`domains/`**: Domain-organized modals (authentication, business, legal, listings)
+- **`onboarding/`**: Modular onboarding system with step-by-step components
 - **`images/`**: Image gallery and media modals
-- **Root level**: General business modals
+- **Root level**: Standalone modals that haven't been migrated to domains yet
 
 ### **Scalable Architecture**
 

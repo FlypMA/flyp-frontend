@@ -135,23 +135,26 @@ export const useBusinessMetrics = (): UseBusinessMetricsReturn => {
   }, [fetchMetrics]);
 
   // Export metrics
-  const exportMetrics = useCallback(async (format: 'csv' | 'pdf') => {
-    if (!metrics) return;
+  const exportMetrics = useCallback(
+    async (format: 'csv' | 'pdf') => {
+      if (!metrics) return;
 
-    try {
-      // Simulate export process
-      console.log(`Exporting metrics as ${format.toUpperCase()}...`, metrics);
-      
-      // In a real implementation, this would call an API endpoint
-      // that generates and downloads the file
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log(`Metrics exported successfully as ${format.toUpperCase()}`);
-    } catch (err) {
-      console.error('Export failed:', err);
-      throw new Error(`Failed to export metrics as ${format.toUpperCase()}`);
-    }
-  }, [metrics]);
+      try {
+        // Simulate export process
+        console.log(`Exporting metrics as ${format.toUpperCase()}...`, metrics);
+
+        // In a real implementation, this would call an API endpoint
+        // that generates and downloads the file
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        console.log(`Metrics exported successfully as ${format.toUpperCase()}`);
+      } catch (err) {
+        console.error('Export failed:', err);
+        throw new Error(`Failed to export metrics as ${format.toUpperCase()}`);
+      }
+    },
+    [metrics]
+  );
 
   // Initial load and filter changes
   useEffect(() => {

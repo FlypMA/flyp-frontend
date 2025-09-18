@@ -31,7 +31,7 @@ export type {
   SupabaseAuthUser,
   SupabaseSession,
   SupabaseAuthResponse,
-  SupabaseUserMetadata
+  SupabaseUserMetadata,
 } from './user';
 
 // Re-export type guards and utilities
@@ -54,5 +54,5 @@ export {
   ASKING_PRICE_RANGES,
   EMPLOYEE_COUNT_RANGES,
   BUSINESS_TYPES,
-  LISTING_STATUSES
+  LISTING_STATUSES,
 } from './user';

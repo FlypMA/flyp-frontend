@@ -1,6 +1,6 @@
 /**
  * Search Components Export
- * 
+ *
  * Centralized exports for all search-related components
  */
 

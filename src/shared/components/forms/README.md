@@ -9,6 +9,7 @@ This directory contains a comprehensive set of form components for building user
 The primary input component that serves as the single source of truth for all input implementations across the application.
 
 **Features:**
+
 - Multiple input types: text, email, password, number, tel, etc.
 - Icon support (left and right icons)
 - Error and validation states
@@ -19,11 +20,12 @@ The primary input component that serves as the single source of truth for all in
 - Custom styling via className
 
 **Usage:**
+
 ```tsx
 import { Input } from '@/shared/components/forms';
 
 // Basic input
-<Input 
+<Input
   label="Email Address"
   type="email"
   placeholder="Enter your email"
@@ -53,6 +55,7 @@ import { Input } from '@/shared/components/forms';
 An advanced textarea component with smooth animations and React Final Form integration.
 
 **Features:**
+
 - Smooth label animations
 - React Final Form integration
 - Standalone mode support
@@ -62,6 +65,7 @@ An advanced textarea component with smooth animations and React Final Form integ
 - Customizable styling
 
 **Usage:**
+
 ```tsx
 import { AnimatedTextarea } from '@/shared/components/forms';
 
@@ -89,6 +93,7 @@ import { AnimatedTextarea } from '@/shared/components/forms';
 A wrapper component that provides consistent labeling, validation, and help text for form fields.
 
 **Features:**
+
 - Consistent field labeling
 - Required field indicators
 - Help text display
@@ -97,6 +102,7 @@ A wrapper component that provides consistent labeling, validation, and help text
 - Accessibility support
 
 **Usage:**
+
 ```tsx
 import { FormField, Input } from '@/shared/components/forms';
 
@@ -106,12 +112,8 @@ import { FormField, Input } from '@/shared/components/forms';
   helpText="Enter your company's legal name"
   error={errors.companyName}
 >
-  <Input
-    value={companyName}
-    onChange={setCompanyName}
-    placeholder="Acme Corporation"
-  />
-</FormField>
+  <Input value={companyName} onChange={setCompanyName} placeholder="Acme Corporation" />
+</FormField>;
 ```
 
 ### FormRecovery
@@ -119,6 +121,7 @@ import { FormField, Input } from '@/shared/components/forms';
 A component for handling form recovery and auto-save functionality.
 
 **Features:**
+
 - Auto-save form data
 - Recovery prompts
 - Local storage integration
@@ -126,14 +129,15 @@ A component for handling form recovery and auto-save functionality.
 - User-friendly recovery flow
 
 **Usage:**
+
 ```tsx
 import { FormRecovery } from '@/shared/components/forms';
 
 <FormRecovery
   formId="business-listing"
-  onRecover={(data) => setFormData(data)}
-  onSave={(data) => saveToStorage(data)}
-/>
+  onRecover={data => setFormData(data)}
+  onSave={data => saveToStorage(data)}
+/>;
 ```
 
 ### StyledSelect
@@ -141,6 +145,7 @@ import { FormRecovery } from '@/shared/components/forms';
 A custom styled select component with enhanced functionality.
 
 **Features:**
+
 - Custom styling
 - Search functionality
 - Multi-select support
@@ -149,6 +154,7 @@ A custom styled select component with enhanced functionality.
 - Accessibility compliance
 
 **Usage:**
+
 ```tsx
 import { StyledSelect } from '@/shared/components/forms';
 
@@ -158,7 +164,7 @@ import { StyledSelect } from '@/shared/components/forms';
   value={selectedIndustry}
   onChange={setSelectedIndustry}
   placeholder="Select an industry"
-/>
+/>;
 ```
 
 ### SwitchShowcase
@@ -166,6 +172,7 @@ import { StyledSelect } from '@/shared/components/forms';
 A demonstration component showing various switch configurations and use cases.
 
 **Features:**
+
 - Multiple switch examples
 - Different configurations
 - Interactive demonstrations
@@ -176,6 +183,7 @@ A demonstration component showing various switch configurations and use cases.
 A demonstration component showing various textarea configurations and use cases.
 
 **Features:**
+
 - Multiple textarea examples
 - Different configurations
 - Interactive demonstrations
@@ -212,6 +220,7 @@ Components support various validation patterns:
 ## Usage Patterns
 
 ### Basic Form
+
 ```tsx
 import { FormField, Input, AnimatedTextarea, Button } from '@/shared/components/forms';
 
@@ -220,33 +229,31 @@ const BasicForm = () => (
     <FormField label="Name" required>
       <Input placeholder="Enter your name" />
     </FormField>
-    
+
     <FormField label="Message">
       <AnimatedTextarea placeholder="Enter your message" />
     </FormField>
-    
+
     <Button type="submit">Submit</Button>
   </form>
 );
 ```
 
 ### Advanced Form with Validation
+
 ```tsx
 const AdvancedForm = () => {
   const [errors, setErrors] = useState({});
-  
+
   return (
     <form>
-      <FormField 
-        label="Email" 
-        required 
+      <FormField
+        label="Email"
+        required
         error={errors.email}
         helpText="We'll never share your email"
       >
-        <Input 
-          type="email"
-          error={!!errors.email}
-        />
+        <Input type="email" error={!!errors.email} />
       </FormField>
     </form>
   );

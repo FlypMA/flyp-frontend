@@ -14,9 +14,11 @@ test/
 ## Pages
 
 ### RoleTest
+
 Development testing page for verifying role-based access control and route protection functionality.
 
 **Features:**
+
 - Role-based access control testing
 - User authentication status display
 - Route guard testing
@@ -24,14 +26,16 @@ Development testing page for verifying role-based access control and route prote
 - Development debugging tools
 
 **Usage:**
+
 ```tsx
 import { RoleTest } from '@/app/pages/test';
 
 // Route: /test/role (development only)
-<RoleTest />
+<RoleTest />;
 ```
 
 **Testing Capabilities:**
+
 - **User Authentication**: Display current user information
 - **Role Verification**: Test different user roles and permissions
 - **Route Guards**: Verify route protection functionality
@@ -39,6 +43,7 @@ import { RoleTest } from '@/app/pages/test';
 - **Permission Testing**: Validate user permissions
 
 **Role Testing:**
+
 - **Seller Role**: Test seller-specific access and permissions
 - **Buyer Role**: Test buyer-specific access and permissions
 - **Admin Role**: Test admin access and elevated permissions
@@ -48,6 +53,7 @@ import { RoleTest } from '@/app/pages/test';
 ## Development Features
 
 ### Authentication Testing
+
 - **User Status**: Display current authentication status
 - **User Details**: Show user information and role
 - **Session Testing**: Verify session management
@@ -55,6 +61,7 @@ import { RoleTest } from '@/app/pages/test';
 - **Login State**: Monitor login/logout states
 
 ### Role-Based Testing
+
 - **Role Guards**: Test useRoleGuard hook functionality
 - **Permission Checks**: Verify role-based permissions
 - **Content Access**: Test role-based content display
@@ -62,6 +69,7 @@ import { RoleTest } from '@/app/pages/test';
 - **Navigation Testing**: Test role-based navigation
 
 ### Debug Information
+
 - **User Object**: Display complete user object
 - **Role Information**: Show detailed role information
 - **Permission Matrix**: Display available permissions
@@ -71,6 +79,7 @@ import { RoleTest } from '@/app/pages/test';
 ## Security Considerations
 
 ### Production Safety
+
 - **Development Only**: These pages should not be accessible in production
 - **Access Control**: Restrict access to development environments
 - **Sensitive Information**: Avoid displaying sensitive user data
@@ -78,6 +87,7 @@ import { RoleTest } from '@/app/pages/test';
 - **Cleanup**: Remove or disable in production builds
 
 ### Best Practices
+
 - **Environment Checks**: Verify development environment
 - **Access Logging**: Log access to test pages
 - **Data Sanitization**: Sanitize displayed user data
@@ -87,6 +97,7 @@ import { RoleTest } from '@/app/pages/test';
 ## Testing Workflows
 
 ### Role Testing Workflow
+
 1. **Login as Different Users**: Test with various user roles
 2. **Verify Access Control**: Check role-based access
 3. **Test Route Guards**: Validate route protection
@@ -94,6 +105,7 @@ import { RoleTest } from '@/app/pages/test';
 5. **Test Navigation**: Validate role-based navigation
 
 ### Authentication Testing Workflow
+
 1. **Login/Logout**: Test authentication flows
 2. **Session Management**: Verify session handling
 3. **Token Validation**: Test authentication tokens
@@ -103,6 +115,7 @@ import { RoleTest } from '@/app/pages/test';
 ## Integration Points
 
 ### Authentication Integration
+
 ```tsx
 // Test authentication state
 const { user, isAuthenticated } = useAuth();
@@ -111,6 +124,7 @@ console.log('Authenticated:', isAuthenticated);
 ```
 
 ### Role Guard Integration
+
 ```tsx
 // Test role guards
 const sellerGuard = useRoleGuard(['seller', 'both', 'admin']);
@@ -119,21 +133,23 @@ const adminGuard = useRoleGuard(['admin']);
 ```
 
 ### Route Protection Integration
+
 ```tsx
 // Test route protection
-<Route 
-  path="/test/role" 
+<Route
+  path="/test/role"
   element={
     <RoleProtectedRoute roles={['admin', 'developer']}>
       <RoleTest />
     </RoleProtectedRoute>
-  } 
+  }
 />
 ```
 
 ## Development Guidelines
 
 ### Usage Guidelines
+
 - **Development Only**: Use only in development environments
 - **Testing Purpose**: Use for testing and debugging only
 - **Data Privacy**: Be careful with user data display
@@ -141,6 +157,7 @@ const adminGuard = useRoleGuard(['admin']);
 - **Cleanup**: Remove before production deployment
 
 ### Testing Procedures
+
 - **Regular Testing**: Test role functionality regularly
 - **Edge Cases**: Test edge cases and error states
 - **User Scenarios**: Test realistic user scenarios
@@ -150,6 +167,7 @@ const adminGuard = useRoleGuard(['admin']);
 ## Future Enhancements
 
 ### Planned Features
+
 - **Automated Testing**: Automated role testing
 - **Test Data**: Mock user data for testing
 - **Performance Testing**: Role-based performance testing
@@ -157,6 +175,7 @@ const adminGuard = useRoleGuard(['admin']);
 - **Integration Testing**: End-to-end testing
 
 ### Testing Tools
+
 - **Test Suites**: Comprehensive test suites
 - **Mock Data**: Realistic test data
 - **Automation**: Automated testing workflows
@@ -166,6 +185,7 @@ const adminGuard = useRoleGuard(['admin']);
 ## Maintenance
 
 ### Regular Maintenance
+
 - **Code Updates**: Keep test code updated
 - **Security Reviews**: Regular security reviews
 - **Access Audits**: Audit test page access
@@ -173,6 +193,7 @@ const adminGuard = useRoleGuard(['admin']);
 - **Cleanup**: Regular cleanup of test data
 
 ### Production Deployment
+
 - **Environment Checks**: Verify production environment
 - **Access Control**: Ensure test pages are disabled
 - **Security Review**: Review security implications

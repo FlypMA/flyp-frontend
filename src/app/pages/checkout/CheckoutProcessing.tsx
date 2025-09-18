@@ -18,7 +18,7 @@ const CheckoutProcessing: React.FC = () => {
     'Processing payment',
     'Creating your subscription',
     'Setting up your account',
-    'Finalizing setup'
+    'Finalizing setup',
   ];
 
   useEffect(() => {
@@ -67,13 +67,9 @@ const CheckoutProcessing: React.FC = () => {
           <p className="text-gray-600 mb-6">
             Please wait while we process your subscription. This may take a few moments.
           </p>
-          
+
           <div className="mb-6">
-            <Progress 
-              value={progress} 
-              className="mb-4"
-              color="primary"
-            />
+            <Progress value={progress} className="mb-4" color="primary" />
             <p className="text-sm text-gray-500">{progress}% complete</p>
           </div>
 
@@ -84,9 +80,7 @@ const CheckoutProcessing: React.FC = () => {
                 <div
                   key={index}
                   className={`flex items-center space-x-2 text-sm ${
-                    index <= currentStep
-                      ? 'text-green-600'
-                      : 'text-gray-400'
+                    index <= currentStep ? 'text-green-600' : 'text-gray-400'
                   }`}
                 >
                   {index < currentStep ? (

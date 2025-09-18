@@ -17,12 +17,17 @@ import {
   HelpCircle,
   LogOut,
   Search,
-  User as UserIcon
+  User as UserIcon,
 } from 'lucide-react';
 import { User } from '../../../../types';
 import { UrlGenerator } from '../../../../services';
 import { AuthenticationService } from '../../../../services/auth/Auth';
-import { getBuyerDropdownItems, createNavigationHandler, getUserInitials, getUserDisplayRole } from '../utils';
+import {
+  getBuyerDropdownItems,
+  createNavigationHandler,
+  getUserInitials,
+  getUserDisplayRole,
+} from '../utils';
 
 interface BuyerDropdownProps {
   user: User;
@@ -32,7 +37,7 @@ const BuyerDropdown: React.FC<BuyerDropdownProps> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
+
   // Initialize auth service and navigation handler
   const authService = new AuthenticationService();
   const navigationHandler = createNavigationHandler(navigate, authService);
@@ -102,11 +107,7 @@ const BuyerDropdown: React.FC<BuyerDropdownProps> = ({ user }) => {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-            aria-hidden="true"
-          />
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} aria-hidden="true" />
 
           {/* Dropdown */}
           <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
@@ -114,20 +115,14 @@ const BuyerDropdown: React.FC<BuyerDropdownProps> = ({ user }) => {
             <div className="px-4 py-3 border-b border-gray-200">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">
-                    {getUserInitials(user)}
-                  </span>
+                  <span className="text-white text-sm font-medium">{getUserInitials(user)}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-gray-900 truncate">
                     {user.name || 'User'}
                   </div>
-                  <div className="text-xs text-gray-500 truncate">
-                    {user.email}
-                  </div>
-                  <div className="text-xs text-gray-400 capitalize">
-                    {getUserDisplayRole(user)}
-                  </div>
+                  <div className="text-xs text-gray-500 truncate">{user.email}</div>
+                  <div className="text-xs text-gray-400 capitalize">{getUserDisplayRole(user)}</div>
                 </div>
               </div>
             </div>
@@ -137,11 +132,7 @@ const BuyerDropdown: React.FC<BuyerDropdownProps> = ({ user }) => {
               {menuItems.map((item, index) => {
                 if (item.divider) {
                   return (
-                    <div
-                      key={index}
-                      className="my-2 border-t border-gray-200"
-                      role="separator"
-                    />
+                    <div key={index} className="my-2 border-t border-gray-200" role="separator" />
                   );
                 }
 

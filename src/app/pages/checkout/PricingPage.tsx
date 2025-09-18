@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button, Badge } from '@heroui/react';
-import { 
-  Check, 
-  Star, 
-  Crown, 
-  Zap, 
-  Building2, 
-  Users, 
-  Shield, 
+import {
+  Check,
+  Star,
+  Crown,
+  Zap,
+  Building2,
+  Users,
+  Shield,
   Headphones,
   ArrowRight,
-  Sparkles
+  Sparkles,
 } from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
@@ -137,16 +137,17 @@ const PricingPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Choose Your Plan
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Choose Your Plan</h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Select the perfect plan for your business needs. All plans include our core features with no hidden fees.
+            Select the perfect plan for your business needs. All plans include our core features
+            with no hidden fees.
           </p>
 
           {/* Billing Toggle */}
           <div className="flex items-center justify-center space-x-4 mb-8">
-            <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-gray-900' : 'text-gray-500'}`}>
+            <span
+              className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-gray-900' : 'text-gray-500'}`}
+            >
               Monthly
             </span>
             <button
@@ -161,7 +162,9 @@ const PricingPage: React.FC = () => {
                 }`}
               />
             </button>
-            <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-gray-900' : 'text-gray-500'}`}>
+            <span
+              className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-gray-900' : 'text-gray-500'}`}
+            >
               Yearly
             </span>
             {billingCycle === 'yearly' && (
@@ -174,7 +177,7 @@ const PricingPage: React.FC = () => {
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {plans.map((plan) => {
+          {plans.map(plan => {
             const Icon = plan.icon;
             const savings = getSavings(plan);
             const price = getPrice(plan);
@@ -202,16 +205,24 @@ const PricingPage: React.FC = () => {
 
                 <CardHeader className="pb-4">
                   <div className="text-center w-full">
-                    <div className={`inline-flex p-3 rounded-full mb-4 ${
-                      plan.color === 'blue' ? 'bg-blue-100' :
-                      plan.color === 'purple' ? 'bg-purple-100' :
-                      'bg-yellow-100'
-                    }`}>
-                      <Icon className={`w-8 h-8 ${
-                        plan.color === 'blue' ? 'text-blue-600' :
-                        plan.color === 'purple' ? 'text-purple-600' :
-                        'text-yellow-600'
-                      }`} />
+                    <div
+                      className={`inline-flex p-3 rounded-full mb-4 ${
+                        plan.color === 'blue'
+                          ? 'bg-blue-100'
+                          : plan.color === 'purple'
+                            ? 'bg-purple-100'
+                            : 'bg-yellow-100'
+                      }`}
+                    >
+                      <Icon
+                        className={`w-8 h-8 ${
+                          plan.color === 'blue'
+                            ? 'text-blue-600'
+                            : plan.color === 'purple'
+                              ? 'text-purple-600'
+                              : 'text-yellow-600'
+                        }`}
+                      />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                     <p className="text-gray-600 mb-4">{plan.description}</p>
@@ -223,9 +234,7 @@ const PricingPage: React.FC = () => {
                     </div>
                     <p className="text-sm text-gray-500 mb-4">{billingText}</p>
                     {billingCycle === 'yearly' && savings > 0 && (
-                      <p className="text-sm text-green-600 font-medium">
-                        Save €{savings} per year
-                      </p>
+                      <p className="text-sm text-green-600 font-medium">Save €{savings} per year</p>
                     )}
                   </div>
                 </CardHeader>
@@ -269,7 +278,9 @@ const PricingPage: React.FC = () => {
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-4 px-6 font-semibold text-gray-900">Features</th>
                   <th className="text-center py-4 px-6 font-semibold text-gray-900">Starter</th>
-                  <th className="text-center py-4 px-6 font-semibold text-gray-900">Professional</th>
+                  <th className="text-center py-4 px-6 font-semibold text-gray-900">
+                    Professional
+                  </th>
                   <th className="text-center py-4 px-6 font-semibold text-gray-900">Enterprise</th>
                 </tr>
               </thead>
@@ -311,22 +322,19 @@ const PricingPage: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Frequently Asked Questions
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="text-left">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Can I change my plan later?
               </h3>
               <p className="text-gray-600">
-                Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.
+                Yes, you can upgrade or downgrade your plan at any time. Changes take effect
+                immediately.
               </p>
             </div>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Is there a free trial?
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Is there a free trial?</h3>
               <p className="text-gray-600">
                 Yes, all plans come with a 14-day free trial. No credit card required to start.
               </p>
@@ -340,9 +348,7 @@ const PricingPage: React.FC = () => {
               </p>
             </div>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Can I cancel anytime?
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I cancel anytime?</h3>
               <p className="text-gray-600">
                 Yes, you can cancel your subscription at any time. No cancellation fees.
               </p>

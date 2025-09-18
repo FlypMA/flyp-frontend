@@ -1,6 +1,6 @@
 /**
  * Listings Pages Export
- * 
+ *
  * Centralized exports for all listing-related pages
  */
 

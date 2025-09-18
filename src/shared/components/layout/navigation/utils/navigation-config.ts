@@ -18,7 +18,7 @@ import {
   LayoutDashboard,
   Calculator,
   HelpCircle,
-  LogOut
+  LogOut,
 } from 'lucide-react';
 import { UrlGenerator } from '../../../../services';
 
@@ -68,9 +68,7 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
     },
     {
       title: 'Resources',
-      items: [
-        { label: 'Valuation Guide', href: '/resources/valuation-guide', icon: DollarSign }
-      ],
+      items: [{ label: 'Valuation Guide', href: '/resources/valuation-guide', icon: DollarSign }],
     },
   ];
 
@@ -79,7 +77,7 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
   }
 
   const normalizedRole = normalizeUserRole(userRole);
-  
+
   const authenticatedSections: NavSection[] = [
     {
       title: 'Dashboard',
@@ -145,7 +143,7 @@ export const getBuyerDropdownItems = (): DropdownMenuItem[] => [
   { icon: Shield, label: 'Billing & Subscription', href: '/users/billing' },
   { icon: HelpCircle, label: 'Help Center', href: '/help' },
   { divider: true },
-  { icon: LogOut, label: 'Log Out', action: 'logout', isLogout: true }
+  { icon: LogOut, label: 'Log Out', action: 'logout', isLogout: true },
 ];
 
 /**
@@ -168,7 +166,7 @@ export const getSellerDropdownItems = (): DropdownMenuItem[] => [
   { icon: Shield, label: 'Billing & Subscription', href: '/users/billing' },
   { icon: HelpCircle, label: 'Help Center', href: '/help' },
   { divider: true },
-  { icon: LogOut, label: 'Log Out', action: 'logout', isLogout: true }
+  { icon: LogOut, label: 'Log Out', action: 'logout', isLogout: true },
 ];
 
 /**
@@ -182,9 +180,9 @@ export const getDashboardSidebarSections = () => [
         label: 'Dashboard',
         href: '/my-business',
         icon: LayoutDashboard,
-        description: 'Business overview and metrics'
-      }
-    ]
+        description: 'Business overview and metrics',
+      },
+    ],
   },
   {
     title: 'Valuation & Analysis',
@@ -193,23 +191,23 @@ export const getDashboardSidebarSections = () => [
         label: 'Business Valuation',
         href: '/my-business/valuation',
         icon: Calculator,
-        description: 'Get your business valued'
+        description: 'Get your business valued',
       },
       {
         label: 'Solvency Intelligence',
         href: '/my-business/solvency',
         icon: TrendingUp,
         description: 'Financial health analysis',
-        comingSoon: true
+        comingSoon: true,
       },
       {
         label: 'Liquidation Analysis',
         href: '/my-business/liquidation',
         icon: DollarSign,
         description: 'Asset liquidation scenarios',
-        comingSoon: true
-      }
-    ]
+        comingSoon: true,
+      },
+    ],
   },
   {
     title: 'Documents & Compliance',
@@ -219,9 +217,9 @@ export const getDashboardSidebarSections = () => [
         href: '/my-business/documents',
         icon: FileText,
         description: 'Secure document storage',
-        comingSoon: true
-      }
-    ]
+        comingSoon: true,
+      },
+    ],
   },
   {
     title: 'Listing Management',
@@ -230,10 +228,10 @@ export const getDashboardSidebarSections = () => [
         label: 'Listing Management',
         href: '/my-business/listings',
         icon: Building2,
-        description: 'Manage your business listings'
-      }
-    ]
-  }
+        description: 'Manage your business listings',
+      },
+    ],
+  },
 ];
 
 // normalizeUserRole is now imported from role-utils

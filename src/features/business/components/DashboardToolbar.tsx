@@ -38,16 +38,30 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
   // Generate unique report names based on report ID
   const generateUniqueReportName = useCallback(() => {
     const trendWords = [
-      'Wave', 'Pulse', 'Flow', 'Surge', 'Spike', 'Shift', 'Boom', 'Peak', 'Rise',
-      'Growth', 'Momentum', 'Trend', 'Insight', 'Analysis', 'Overview', 'Summary'
+      'Wave',
+      'Pulse',
+      'Flow',
+      'Surge',
+      'Spike',
+      'Shift',
+      'Boom',
+      'Peak',
+      'Rise',
+      'Growth',
+      'Momentum',
+      'Trend',
+      'Insight',
+      'Analysis',
+      'Overview',
+      'Summary',
     ];
-    
+
     const randomWord = trendWords[Math.floor(Math.random() * trendWords.length)];
-    const timestamp = new Date().toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric' 
+    const timestamp = new Date().toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
     });
-    
+
     return `${randomWord} Report - ${timestamp}`;
   }, []);
 
@@ -95,20 +109,15 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
                 <input
                   type="text"
                   value={customReportName}
-                  onChange={(e) => setCustomReportName(e.target.value)}
+                  onChange={e => setCustomReportName(e.target.value)}
                   className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   autoFocus
-                  onKeyDown={(e) => {
+                  onKeyDown={e => {
                     if (e.key === 'Enter') handleSaveName();
                     if (e.key === 'Escape') handleCancelEdit();
                   }}
                 />
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleSaveName}
-                  className="p-1 h-8 w-8"
-                >
+                <Button size="sm" variant="ghost" onClick={handleSaveName} className="p-1 h-8 w-8">
                   <Save className="w-4 h-4 text-green-600" />
                 </Button>
                 <Button
@@ -123,12 +132,7 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
             ) : (
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl font-semibold text-gray-900">{reportName}</h1>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleEditName}
-                  className="p-1 h-8 w-8"
-                >
+                <Button size="sm" variant="ghost" onClick={handleEditName} className="p-1 h-8 w-8">
                   <Edit3 className="w-4 h-4 text-gray-500" />
                 </Button>
                 <Button
@@ -146,7 +150,7 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
 
           {/* Tabs */}
           <div className="flex space-x-1">
-            {tabs.map((tab) => {
+            {tabs.map(tab => {
               const Icon = tab.icon;
               return (
                 <button
@@ -211,12 +215,8 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
                 </span>
               </div>
               <div className="hidden sm:block">
-                <div className="text-sm font-medium text-gray-900">
-                  {user.name || 'User'}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {user.role}
-                </div>
+                <div className="text-sm font-medium text-gray-900">{user.name || 'User'}</div>
+                <div className="text-xs text-gray-500">{user.role}</div>
               </div>
             </div>
           )}

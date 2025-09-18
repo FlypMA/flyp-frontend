@@ -1,6 +1,6 @@
 /**
  * FAQ Component Types
- * 
+ *
  * Type definitions for FAQ-related components
  */
 
@@ -15,32 +15,32 @@ export interface FAQItem {
    * Unique identifier
    */
   id?: string;
-  
+
   /**
    * FAQ question
    */
   question: string;
-  
+
   /**
    * FAQ answer
    */
   answer: React.ReactNode;
-  
+
   /**
    * Optional badge
    */
   badge?: 'new' | 'popular';
-  
+
   /**
    * Whether this item is new
    */
   isNew?: boolean;
-  
+
   /**
    * Whether this item is popular
    */
   isPopular?: boolean;
-  
+
   /**
    * Optional tags
    */
@@ -52,12 +52,12 @@ export interface FAQAccordionProps {
    * Array of FAQ items
    */
   faqs: FAQItem[];
-  
+
   /**
    * Whether multiple items can be open at once
    */
   allowMultiple?: boolean;
-  
+
   /**
    * Additional CSS classes
    */
@@ -69,7 +69,7 @@ export interface FAQBadgeProps {
    * Badge type
    */
   type?: 'new' | 'popular';
-  
+
   /**
    * Additional CSS classes
    */
@@ -87,12 +87,12 @@ export interface FAQCategoryProps {
     color?: string;
     faqs: FAQItem[];
   };
-  
+
   /**
    * Whether multiple items can be open at once
    */
   allowMultiple?: boolean;
-  
+
   /**
    * Additional CSS classes
    */
@@ -104,17 +104,17 @@ export interface FAQItemProps {
    * FAQ item data
    */
   faq: FAQItem;
-  
+
   /**
    * Whether this item is currently open
    */
   isOpen: boolean;
-  
+
   /**
    * Toggle handler
    */
   onToggle: () => void;
-  
+
   /**
    * Additional CSS classes
    */

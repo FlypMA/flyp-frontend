@@ -1,6 +1,6 @@
 /**
  * 🔌 API Request Utility - Enhanced with Type Safety
- * 
+ *
  * Centralized API request handling with proper TypeScript support
  */
 
@@ -10,11 +10,14 @@ import { getApiConfig, getAuthHeader, requiresAuth } from '../../../config/api';
 const apiConfig = getApiConfig();
 const baseURL = apiConfig.baseURL;
 
-const request = async <T>(endpoint: string, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> => {
+const request = async <T>(
+  endpoint: string,
+  config: ApiRequestConfig = {}
+): Promise<ApiResponse<T>> => {
   try {
     // Add authentication headers if required
     const authHeaders = requiresAuth(endpoint) ? getAuthHeader() : {};
-    
+
     // Prepare request configuration
     const requestConfig: RequestInit = {
       method: config.method || 'GET',
@@ -31,10 +34,10 @@ const request = async <T>(endpoint: string, config: ApiRequestConfig = {}): Prom
 
     // Make the request
     const response = await fetch(`${baseURL}${endpoint}`, requestConfig);
-    
+
     // Parse response
     const data = await response.json();
-    
+
     // Return standardized response
     if (response.ok) {
       return {

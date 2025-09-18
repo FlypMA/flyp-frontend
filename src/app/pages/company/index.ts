@@ -1,6 +1,6 @@
 /**
  * Company Pages Export
- * 
+ *
  * Centralized exports for all company-related pages
  */
 

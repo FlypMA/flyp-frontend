@@ -4,18 +4,18 @@
 
 import * as React from 'react';
 import { Card, CardBody, CardHeader, Button, Chip } from '@heroui/react';
-import { 
-  TrendingUp, 
-  Calendar, 
-  DollarSign, 
-  BarChart3, 
-  FileText, 
+import {
+  TrendingUp,
+  Calendar,
+  DollarSign,
+  BarChart3,
+  FileText,
   Eye,
   Download,
   Share2,
   AlertCircle,
   CheckCircle,
-  Clock
+  Clock,
 } from 'lucide-react';
 
 interface ValuationReport {
@@ -120,12 +120,8 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
               <BarChart3 className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Business Valuation Report
-              </h3>
-              <p className="text-sm text-gray-500">
-                {formatDate(report.valuation_date)}
-              </p>
+              <h3 className="text-lg font-semibold text-gray-900">Business Valuation Report</h3>
+              <p className="text-sm text-gray-500">{formatDate(report.valuation_date)}</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -137,11 +133,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             >
               {report.status.replace('_', ' ')}
             </Chip>
-            <Chip
-              color={getConfidenceColor(report.confidence_level)}
-              variant="flat"
-              size="sm"
-            >
+            <Chip color={getConfidenceColor(report.confidence_level)} variant="flat" size="sm">
               {report.confidence_level} confidence
             </Chip>
           </div>
@@ -170,17 +162,13 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
           {report.revenue_multiple && (
             <div className="bg-gray-50 p-3 rounded-lg">
               <div className="text-sm text-gray-600">Revenue Multiple</div>
-              <div className="text-lg font-semibold text-gray-900">
-                {report.revenue_multiple}x
-              </div>
+              <div className="text-lg font-semibold text-gray-900">{report.revenue_multiple}x</div>
             </div>
           )}
           {report.ebitda_multiple && (
             <div className="bg-gray-50 p-3 rounded-lg">
               <div className="text-sm text-gray-600">EBITDA Multiple</div>
-              <div className="text-lg font-semibold text-gray-900">
-                {report.ebitda_multiple}x
-              </div>
+              <div className="text-lg font-semibold text-gray-900">{report.ebitda_multiple}x</div>
             </div>
           )}
         </div>
@@ -247,9 +235,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
               <Calendar className="w-4 h-4 text-gray-600" />
               <span className="text-sm font-medium text-gray-600">Next Review</span>
             </div>
-            <p className="text-sm text-gray-700">
-              {formatDate(report.next_review_date)}
-            </p>
+            <p className="text-sm text-gray-700">{formatDate(report.next_review_date)}</p>
           </div>
         )}
 
@@ -285,11 +271,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
           </div>
           {report.status === 'draft' && (
-            <Button
-              size="sm"
-              color="primary"
-              onClick={() => onEdit?.(report.id)}
-            >
+            <Button size="sm" color="primary" onClick={() => onEdit?.(report.id)}>
               Edit Report
             </Button>
           )}

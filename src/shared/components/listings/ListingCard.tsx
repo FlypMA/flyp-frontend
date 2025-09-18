@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Card,
-  CardBody,
-  Button,
-  Tooltip,
-} from '@heroui/react';
+import { Card, CardBody, Button, Tooltip } from '@heroui/react';
 import {
   Building2,
   MapPin,

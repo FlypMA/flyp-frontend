@@ -4,14 +4,14 @@
 
 /**
  * Dashboard Sidebar System
- * 
+ *
  * A complete dashboard sidebar system for seller business management.
  * Provides both desktop and mobile versions with role-based navigation.
- * 
+ *
  * Components:
  * - DashboardSidebar: Desktop collapsible sidebar for seller dashboard
  * - DashboardSidebarMobile: Mobile-optimized sidebar for seller dashboard
- * 
+ *
  * Features:
  * - Collapsible sidebar with smooth animations
  * - Business management navigation sections

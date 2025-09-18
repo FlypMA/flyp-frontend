@@ -4,10 +4,10 @@
 
 /**
  * Main Navigation Components
- * 
+ *
  * The main navigation system provides the primary navigation bar
  * for all pages in the application.
- * 
+ *
  * Components:
  * - Navigation: Main navigation bar with authentication and user avatar dropdown
  */

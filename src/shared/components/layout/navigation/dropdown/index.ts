@@ -4,9 +4,9 @@
 
 /**
  * User Avatar Dropdown Components
- * 
+ *
  * Role-specific dropdown components based on legacy user_avatar_dropdown.tsx
- * 
+ *
  * Components:
  * - BuyerDropdown: Buyer-focused navigation dropdown
  * - SellerDropdown: Seller-focused navigation dropdown

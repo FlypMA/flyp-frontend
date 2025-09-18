@@ -208,16 +208,16 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
 
   const handleAcceptOffer = (offer: Offer) => {
     // Update offer status
-    setOffers(prev => prev.map(o => 
-      o.id === offer.id ? { ...o, status: 'accepted' as const } : o
-    ));
+    setOffers(prev =>
+      prev.map(o => (o.id === offer.id ? { ...o, status: 'accepted' as const } : o))
+    );
   };
 
   const handleRejectOffer = (offer: Offer) => {
     // Update offer status
-    setOffers(prev => prev.map(o => 
-      o.id === offer.id ? { ...o, status: 'rejected' as const } : o
-    ));
+    setOffers(prev =>
+      prev.map(o => (o.id === offer.id ? { ...o, status: 'rejected' as const } : o))
+    );
   };
 
   return (
@@ -273,7 +273,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
       {/* Offers Tab */}
       {activeTab === 'offers' && (
         <div className="space-y-4">
-          {offers.map((offer) => (
+          {offers.map(offer => (
             <Card key={offer.id}>
               <CardBody>
                 <div className="flex items-center justify-between">
@@ -286,14 +286,11 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                         {formatCurrency(offer.amount, offer.currency)}
                       </h3>
                       <p className="text-sm text-gray-600">
-                        {offer.offerType} • {offer.paymentTerms} • Due {new Date(offer.closingDate).toLocaleDateString()}
+                        {offer.offerType} • {offer.paymentTerms} • Due{' '}
+                        {new Date(offer.closingDate).toLocaleDateString()}
                       </p>
                       <div className="flex items-center gap-2 mt-1">
-                        <Chip
-                          size="sm"
-                          color={getStatusColor(offer.status)}
-                          variant="flat"
-                        >
+                        <Chip size="sm" color={getStatusColor(offer.status)} variant="flat">
                           {offer.status.replace('_', ' ')}
                         </Chip>
                         <span className="text-xs text-gray-500">
@@ -351,7 +348,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
       {/* Transactions Tab */}
       {activeTab === 'transactions' && (
         <div className="space-y-4">
-          {transactions.map((transaction) => (
+          {transactions.map(transaction => (
             <Card key={transaction.id}>
               <CardBody>
                 <div className="space-y-4">
@@ -361,12 +358,10 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                         <BarChart3 className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold">
-                          Transaction #{transaction.id}
-                        </h3>
+                        <h3 className="text-lg font-semibold">Transaction #{transaction.id}</h3>
                         <p className="text-sm text-gray-600">
-                          {formatCurrency(transaction.finalAmount, transaction.currency)} • 
-                          Closing {new Date(transaction.closingDate).toLocaleDateString()}
+                          {formatCurrency(transaction.finalAmount, transaction.currency)} • Closing{' '}
+                          {new Date(transaction.closingDate).toLocaleDateString()}
                         </p>
                         <div className="flex items-center gap-2 mt-1">
                           <Chip
@@ -377,7 +372,8 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                             {transaction.status.replace('_', ' ')}
                           </Chip>
                           <span className="text-xs text-gray-500">
-                            Success Fee: {formatCurrency(transaction.successFee)} ({transaction.successFeePercentage}%)
+                            Success Fee: {formatCurrency(transaction.successFee)} (
+                            {transaction.successFeePercentage}%)
                           </span>
                         </div>
                       </div>
@@ -387,7 +383,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                   {/* Milestones */}
                   <div className="space-y-2">
                     <h4 className="font-medium text-sm text-gray-700">Milestones</h4>
-                    {transaction.milestones.map((milestone) => (
+                    {transaction.milestones.map(milestone => (
                       <div
                         key={milestone.id}
                         className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -424,7 +420,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
       {/* Create Offer Modal */}
       <Modal isOpen={showOfferModal} onClose={() => setShowOfferModal(false)} size="2xl">
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader>
                 <h3 className="text-lg font-semibold">Create New Offer</h3>
@@ -442,24 +438,14 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                     <SelectItem key="stock">Stock</SelectItem>
                     <SelectItem key="mixed">Mixed</SelectItem>
                   </Select>
-                  <Input
-                    label="Payment Terms"
-                    placeholder="30 days"
-                  />
-                  <Input
-                    label="Closing Date"
-                    type="date"
-                  />
+                  <Input label="Payment Terms" placeholder="30 days" />
+                  <Input label="Closing Date" type="date" />
                   <AnimatedTextarea
                     label="Conditions"
                     placeholder="List any conditions for this offer..."
                     minRows={3}
                   />
-                  <AnimatedTextarea
-                    label="Notes"
-                    placeholder="Additional notes..."
-                    minRows={2}
-                  />
+                  <AnimatedTextarea label="Notes" placeholder="Additional notes..." minRows={2} />
                 </div>
               </ModalBody>
               <ModalFooter>
@@ -478,7 +464,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
       {/* Counter Offer Modal */}
       <Modal isOpen={showCounterModal} onClose={() => setShowCounterModal(false)} size="2xl">
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader>
                 <h3 className="text-lg font-semibold">Make Counter Offer</h3>
@@ -488,7 +474,8 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                   <div className="p-4 bg-gray-50 rounded-lg">
                     <h4 className="font-medium mb-2">Original Offer</h4>
                     <p className="text-sm text-gray-600">
-                      {selectedOffer && formatCurrency(selectedOffer.amount, selectedOffer.currency)}
+                      {selectedOffer &&
+                        formatCurrency(selectedOffer.amount, selectedOffer.currency)}
                     </p>
                   </div>
                   <Input

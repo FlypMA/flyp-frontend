@@ -153,13 +153,13 @@ class AuthenticationService {
     const { supabase } = require('../supabaseClient');
     return supabase.auth.onAuthStateChange((event: any, session: any) => {
       console.log('🔄 Auth state changed:', event, session?.user?.id);
-      
+
       // Update local session when auth state changes
       if (event === 'SIGNED_IN' && session?.user) {
         const { convertSupabaseUserToUser } = require('../../types');
         const { UserDataManager } = require('./utils/user-data-manager');
-        
-        UserDataManager.getPublicUserData(session.user.id).then((publicUserData) => {
+
+        UserDataManager.getPublicUserData(session.user.id).then(publicUserData => {
           const user = convertSupabaseUserToUser(session.user, publicUserData || undefined);
           SessionManager.storeSession({
             isAuthenticated: true,
@@ -170,7 +170,7 @@ class AuthenticationService {
       } else if (event === 'SIGNED_OUT') {
         SessionManager.clearSession();
       }
-      
+
       callback(event, session);
     });
   }
@@ -182,19 +182,16 @@ class AuthenticationService {
     try {
       const { supabase } = require('../../../config');
       const { RetryHandler } = require('./utils/retry-handler');
-      
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/reset-password`,
-          });
 
-          if (error) {
-            throw error;
-          }
-        },
-        'Reset password'
-      );
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+
+        if (error) {
+          throw error;
+        }
+      }, 'Reset password');
 
       return { success: true };
     } catch (error) {
@@ -214,19 +211,16 @@ class AuthenticationService {
     try {
       const { supabase } = require('../../../config');
       const { RetryHandler } = require('./utils/retry-handler');
-      
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.updateUser({
-            password: newPassword,
-          });
 
-          if (error) {
-            throw error;
-          }
-        },
-        'Update password'
-      );
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
+
+        if (error) {
+          throw error;
+        }
+      }, 'Update password');
 
       return { success: true };
     } catch (error) {
@@ -242,7 +236,9 @@ class AuthenticationService {
   /**
    * Verify email
    */
-  async verifyEmail(token: string): Promise<{ success: boolean; user?: User; token?: string; error?: string }> {
+  async verifyEmail(
+    token: string
+  ): Promise<{ success: boolean; user?: User; token?: string; error?: string }> {
     const result = await SignupService.verifyEmail(token);
     return {
       success: result.success,

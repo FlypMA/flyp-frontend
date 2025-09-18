@@ -94,11 +94,11 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
 
   const generateSearchName = (criteria: SearchCriteria): string => {
     const parts = [];
-    
+
     if (criteria.sector) parts.push(criteria.sector);
     if (criteria.country) parts.push(criteria.country);
     if (criteria.region) parts.push(criteria.region);
-    
+
     if (criteria.priceRange) {
       const [min, max] = criteria.priceRange;
       if (min > 0 || max < 50000000) {
@@ -118,17 +118,17 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
 
   const formatCriteriaText = (criteria: SearchCriteria): string => {
     const parts = [];
-    
+
     if (criteria.searchQuery) parts.push(`"${criteria.searchQuery}"`);
     if (criteria.sector) parts.push(criteria.sector);
     if (criteria.country) parts.push(criteria.country);
     if (criteria.region) parts.push(criteria.region);
-    
+
     if (criteria.priceRange) {
       const [min, max] = criteria.priceRange;
       parts.push(`${formatPrice(min)} - ${formatPrice(max)}`);
     }
-    
+
     if (criteria.employeeRange) {
       const [min, max] = criteria.employeeRange;
       parts.push(`${min}-${max} employees`);
@@ -205,7 +205,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                   label="Search Name"
                   placeholder="e.g., Tech Companies Belgium €1-5M"
                   value={searchData.name}
-                  onChange={(e) => setSearchData(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={e => setSearchData(prev => ({ ...prev, name: e.target.value }))}
                   startContent={<Search className="w-4 h-4 text-gray-400" />}
                   variant="bordered"
                   isRequired
@@ -224,13 +224,12 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                       <p className="text-gray-600 text-sm mb-3">
                         {formatCriteriaText(searchData.criteria)}
                       </p>
-                      
+
                       {/* Criteria Details */}
                       <div className="flex flex-wrap gap-2">
                         {searchData.criteria.searchQuery && (
                           <Chip size="sm" variant="flat" color="primary">
-                            <Search className="w-3 h-3 mr-1" />
-                            "{searchData.criteria.searchQuery}"
+                            <Search className="w-3 h-3 mr-1" />"{searchData.criteria.searchQuery}"
                           </Chip>
                         )}
                         {searchData.criteria.sector && (
@@ -248,13 +247,15 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                         {searchData.criteria.priceRange && (
                           <Chip size="sm" variant="flat">
                             <Euro className="w-3 h-3 mr-1" />
-                            {formatPrice(searchData.criteria.priceRange[0])} - {formatPrice(searchData.criteria.priceRange[1])}
+                            {formatPrice(searchData.criteria.priceRange[0])} -{' '}
+                            {formatPrice(searchData.criteria.priceRange[1])}
                           </Chip>
                         )}
                         {searchData.criteria.employeeRange && (
                           <Chip size="sm" variant="flat">
                             <Users className="w-3 h-3 mr-1" />
-                            {searchData.criteria.employeeRange[0]}-{searchData.criteria.employeeRange[1]} employees
+                            {searchData.criteria.employeeRange[0]}-
+                            {searchData.criteria.employeeRange[1]} employees
                           </Chip>
                         )}
                       </div>
@@ -289,7 +290,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                 <Select
                   placeholder="Choose frequency"
                   selectedKeys={[searchData.alert_frequency]}
-                  onSelectionChange={(keys) => {
+                  onSelectionChange={keys => {
                     const frequency = Array.from(keys)[0] as SavedSearch['alert_frequency'];
                     setSearchData(prev => ({ ...prev, alert_frequency: frequency }));
                   }}
@@ -298,13 +299,17 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                   <SelectItem key="immediate" startContent={<Bell className="w-4 h-4" />}>
                     <div>
                       <div className="font-medium">Immediate</div>
-                      <div className="text-xs text-gray-500">Get notified as soon as new matches are found</div>
+                      <div className="text-xs text-gray-500">
+                        Get notified as soon as new matches are found
+                      </div>
                     </div>
                   </SelectItem>
                   <SelectItem key="daily" startContent={<Calendar className="w-4 h-4" />}>
                     <div>
                       <div className="font-medium">Daily</div>
-                      <div className="text-xs text-gray-500">Receive a daily summary of new matches</div>
+                      <div className="text-xs text-gray-500">
+                        Receive a daily summary of new matches
+                      </div>
                     </div>
                   </SelectItem>
                   <SelectItem key="weekly" startContent={<Calendar className="w-4 h-4" />}>
@@ -316,7 +321,9 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                   <SelectItem key="off" startContent={<Bell className="w-4 h-4 opacity-50" />}>
                     <div>
                       <div className="font-medium">No Alerts</div>
-                      <div className="text-xs text-gray-500">Save search but don't send notifications</div>
+                      <div className="text-xs text-gray-500">
+                        Save search but don't send notifications
+                      </div>
                     </div>
                   </SelectItem>
                 </Select>
@@ -337,7 +344,9 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                 </div>
                 <Switch
                   isSelected={searchData.email_enabled}
-                  onValueChange={(value) => setSearchData(prev => ({ ...prev, email_enabled: value }))}
+                  onValueChange={value =>
+                    setSearchData(prev => ({ ...prev, email_enabled: value }))
+                  }
                   isDisabled={searchData.alert_frequency === 'off'}
                 />
               </div>
@@ -355,7 +364,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                 </div>
                 <Switch
                   isSelected={searchData.is_active}
-                  onValueChange={(value) => setSearchData(prev => ({ ...prev, is_active: value }))}
+                  onValueChange={value => setSearchData(prev => ({ ...prev, is_active: value }))}
                 />
               </div>
 
@@ -369,8 +378,8 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                         <h4 className="font-medium text-blue-900 mb-1">Alert Preview</h4>
                         <p className="text-sm text-blue-700">
                           You'll receive {searchData.alert_frequency} notifications
-                          {searchData.email_enabled ? ' via email' : ' in the app'}
-                          {' '}when businesses matching "{searchData.name}" criteria are found.
+                          {searchData.email_enabled ? ' via email' : ' in the app'} when businesses
+                          matching "{searchData.name}" criteria are found.
                         </p>
                       </div>
                     </div>
@@ -388,12 +397,12 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                 Back to Details
               </Button>
             )}
-            
+
             <div className="flex gap-2 ml-auto">
               <Button variant="light" onPress={handleClose}>
                 Cancel
               </Button>
-              
+
               {step === 'criteria' ? (
                 <Button
                   color="primary"

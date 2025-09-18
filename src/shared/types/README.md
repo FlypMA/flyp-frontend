@@ -14,11 +14,13 @@ src/shared/types/
 **File**: `user.ts`
 
 ### Purpose
+
 Provides comprehensive type definitions for user management, authentication, and business data in the MVP application.
 
 ### Key Features
 
 #### Core Types
+
 - **User**: Main user interface with all business and profile data
 - **UserRole**: User role enumeration ('buyer', 'seller', 'both', 'admin')
 - **AuthProvider**: Authentication provider types
@@ -26,6 +28,7 @@ Provides comprehensive type definitions for user management, authentication, and
 - **Country**: Supported countries
 
 #### Authentication Types
+
 - **LoginRequest**: Login request payload
 - **RegisterRequest**: Registration request payload
 - **AuthResponse**: Authentication response
@@ -34,11 +37,13 @@ Provides comprehensive type definitions for user management, authentication, and
 - **UpdateBusinessInfoRequest**: Business info update payload
 
 #### Utility Types
+
 - **PublicUserFields**: Public user data subset
 - **RequiredUserFields**: Required user fields
 - **BusinessUserFields**: Business-specific user fields
 
 #### Type Guards
+
 - `isSellerUser()`: Check if user is a seller
 - `isBuyerUser()`: Check if user is a buyer
 - `isAdminUser()`: Check if user is an admin
@@ -46,6 +51,7 @@ Provides comprehensive type definitions for user management, authentication, and
 - `isVerifiedUser()`: Check if user is verified
 
 #### Constants
+
 - **USER_ROLES**: Available user roles
 - **COUNTRIES**: Supported countries
 - **LANGUAGES**: Supported languages
@@ -73,7 +79,7 @@ const user: User = {
   auth_provider: 'email',
   language_preference: 'en',
   created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z'
+  updated_at: '2024-01-01T00:00:00Z',
 };
 
 // Use type guards
@@ -98,6 +104,7 @@ These types are based on the production-ready types from the data room (`/data/m
 ### Type Safety
 
 All types are fully typed with TypeScript, providing:
+
 - **Compile-time validation** of user data
 - **IntelliSense support** in IDEs
 - **Runtime type guards** for safe type checking

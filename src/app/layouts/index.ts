@@ -11,10 +11,5 @@ import MainLayout from './MainLayout';
 import LogoOnlyLayout from './LogoOnlyLayout';
 import SplitScreenLayout from './LayoutSplit';
 
-export {
-  AuthenticatedAccount,
-  MainLayout,
-  LogoOnlyLayout,
-  SplitScreenLayout,
-};
+export { AuthenticatedAccount, MainLayout, LogoOnlyLayout, SplitScreenLayout };
 export default MainLayout;

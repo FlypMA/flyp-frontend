@@ -12,7 +12,7 @@ export {
   getUIConfig,
   isDevelopment,
   isProduction,
-  logConfig
+  logConfig,
 } from './config';
 
 // API Configuration
@@ -23,14 +23,11 @@ export {
   isApiAvailable,
   getRequestHeaders,
   API_ERROR_CONFIG,
-  logApiConfig
+  logApiConfig,
 } from './api-config';
 
 // Security Configuration
-export {
-  SECURITY_CONFIG,
-  MONITORING_CONFIG
-} from './security-config';
+export { SECURITY_CONFIG, MONITORING_CONFIG } from './security-config';
 
 // Supabase Client
 export { supabase } from './supabase';

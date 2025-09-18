@@ -37,31 +37,31 @@ export const AUTH_ERROR_CODES = {
   // Network errors
   NETWORK_ERROR: 'NETWORK_ERROR',
   TIMEOUT_ERROR: 'TIMEOUT_ERROR',
-  
+
   // Authentication errors
   INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
   USER_NOT_FOUND: 'USER_NOT_FOUND',
   EMAIL_NOT_VERIFIED: 'EMAIL_NOT_VERIFIED',
   ACCOUNT_DISABLED: 'ACCOUNT_DISABLED',
-  
+
   // Registration errors
   EMAIL_ALREADY_EXISTS: 'EMAIL_ALREADY_EXISTS',
   WEAK_PASSWORD: 'WEAK_PASSWORD',
   INVALID_EMAIL: 'INVALID_EMAIL',
-  
+
   // Session errors
   SESSION_EXPIRED: 'SESSION_EXPIRED',
   INVALID_TOKEN: 'INVALID_TOKEN',
   TOKEN_REFRESH_FAILED: 'TOKEN_REFRESH_FAILED',
-  
+
   // Permission errors
   INSUFFICIENT_PERMISSIONS: 'INSUFFICIENT_PERMISSIONS',
   ACCESS_DENIED: 'ACCESS_DENIED',
-  
+
   // Server errors
   SERVER_ERROR: 'SERVER_ERROR',
   SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE',
-  
+
   // Unknown errors
   UNKNOWN_ERROR: 'UNKNOWN_ERROR',
 } as const;
@@ -103,7 +103,8 @@ export class AuthErrorHandler {
 
     // Map Supabase error codes to our error codes
     const errorCode = this.mapSupabaseErrorCode(error);
-    const message = AUTH_ERROR_MESSAGES[errorCode] || AUTH_ERROR_MESSAGES[AUTH_ERROR_CODES.UNKNOWN_ERROR];
+    const message =
+      AUTH_ERROR_MESSAGES[errorCode] || AUTH_ERROR_MESSAGES[AUTH_ERROR_CODES.UNKNOWN_ERROR];
 
     return {
       code: errorCode,

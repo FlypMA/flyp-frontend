@@ -8,7 +8,9 @@ const CheckoutPending: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState<'pending' | 'processing' | 'completed' | 'failed'>('pending');
+  const [status, setStatus] = useState<'pending' | 'processing' | 'completed' | 'failed'>(
+    'pending'
+  );
 
   const sessionId = searchParams.get('session_id');
   const orderId = searchParams.get('order_id');
@@ -89,14 +91,10 @@ const CheckoutPending: React.FC = () => {
           {getStatusIcon()}
           <h2 className="text-2xl font-bold text-gray-900 mb-4">{getStatusMessage()}</h2>
           <p className="text-gray-600 mb-6">{getStatusDescription()}</p>
-          
+
           {status === 'pending' || status === 'processing' ? (
             <div className="mb-6">
-              <Progress 
-                value={progress} 
-                className="mb-2"
-                color="primary"
-              />
+              <Progress value={progress} className="mb-2" color="primary" />
               <p className="text-sm text-gray-500">{progress}% complete</p>
             </div>
           ) : null}

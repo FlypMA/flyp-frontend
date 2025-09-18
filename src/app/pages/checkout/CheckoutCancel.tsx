@@ -28,7 +28,7 @@ const CheckoutCancel: React.FC = () => {
           <p className="text-gray-600 mb-6">
             Your checkout process was cancelled. No charges have been made to your account.
           </p>
-          
+
           <div className="space-y-3">
             <Button
               className="w-full bg-blue-600 text-white hover:bg-blue-700"

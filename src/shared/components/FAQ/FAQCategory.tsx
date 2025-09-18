@@ -91,8 +91,7 @@ export const FAQCategory: React.FC<FAQCategoryProps> = ({
                   badgeColor
                 )}
               >
-                {category.faqs.length}{' '}
-                {category.faqs.length === 1 ? 'question' : 'questions'}
+                {category.faqs.length} {category.faqs.length === 1 ? 'question' : 'questions'}
               </span>
             </div>
 

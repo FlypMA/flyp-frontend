@@ -355,13 +355,13 @@ const ListingSearch = () => {
         {/* Header - Caregiver Approach for Buyers */}
         <div className="mb-12 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6 leading-tight">
-            Ready to buy your first business?
-            <span className="block text-calm-600 mt-2">We'll guide you to the right one</span>
+            Find your next business
+            <span className="block text-calm-600 mt-2">We've got you — every step of the way</span>
           </h1>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            Buying a business is exciting — and yes, a little overwhelming. We're here to help you
-            find verified opportunities, understand what to look for, and make confident decisions
-            every step of the way.
+            Whether you're growing your portfolio or buying your first business, we're here to guide
+            you through verified opportunities with care, transparency, and the support you need to
+            succeed.
           </p>
 
           {/* Trust indicators for buyers */}
@@ -372,7 +372,7 @@ const ListingSearch = () => {
             </div>
             <div className="flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-calm-600" />
-              <span>Expert guidance available</span>
+              <span>Personal guidance available</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-success-600" />
@@ -387,7 +387,7 @@ const ListingSearch = () => {
             value={filters.searchQuery}
             onChange={value => handleFilterChange('searchQuery', value)}
             onSearch={handleSearch}
-            placeholder="Search businesses, sectors, locations..."
+            placeholder="e.g. Restaurant in Brussels, Tech company, Manufacturing..."
             size="large"
             buttonText="Search"
           />

@@ -9,6 +9,7 @@ This directory contains business valuation tools and components for calculating 
 A comprehensive business valuation tool that calculates business values based on multiple financial metrics and industry factors.
 
 **Features:**
+
 - Multi-factor valuation calculation
 - Industry-specific multipliers
 - EBITDA-based valuation
@@ -21,6 +22,7 @@ A comprehensive business valuation tool that calculates business values based on
 - Detailed results breakdown
 
 **Usage:**
+
 ```tsx
 import { BusinessValuationTool } from '@/shared/components/valuation';
 
@@ -32,6 +34,7 @@ import { BusinessValuationTool } from '@/shared/components/valuation';
 ```
 
 **Valuation Inputs:**
+
 - **Sector**: Business industry/sector
 - **Annual Revenue**: Total annual revenue
 - **EBITDA**: Earnings before interest, taxes, depreciation, and amortization
@@ -44,12 +47,14 @@ import { BusinessValuationTool } from '@/shared/components/valuation';
 - **Recurring Revenue**: Percentage of recurring revenue
 
 **Valuation Methods:**
+
 1. **EBITDA Multiple**: Based on industry EBITDA multiples
 2. **Revenue Multiple**: Based on industry revenue multiples
 3. **Asset-Based**: Based on company assets and debt
 4. **Growth-Adjusted**: Adjusted for growth rate and market position
 
 **Results:**
+
 - **Low Estimate**: Conservative valuation
 - **Mid Estimate**: Most likely valuation
 - **High Estimate**: Optimistic valuation
@@ -59,21 +64,25 @@ import { BusinessValuationTool } from '@/shared/components/valuation';
 ## Valuation Logic
 
 ### EBITDA Multiple Method
+
 - Uses industry-specific EBITDA multiples
 - Adjusts for company size and growth
 - Considers market position and stability
 
 ### Revenue Multiple Method
+
 - Applies industry revenue multiples
 - Adjusts for profitability and growth
 - Considers recurring revenue percentage
 
 ### Asset-Based Method
+
 - Calculates net asset value
 - Adjusts for intangible assets
 - Considers debt and liabilities
 
 ### Growth-Adjusted Method
+
 - Applies growth rate multipliers
 - Considers market position premium
 - Adjusts for business maturity
@@ -128,6 +137,7 @@ This tool provides estimates for informational purposes only and should not be c
 ## Integration
 
 The component integrates with:
+
 - **Form Components**: Custom Input and Button components
 - **UI Components**: Cards, Progress bars, and Chips
 - **Icons**: Lucide React icons for visual elements

@@ -9,6 +9,7 @@ This directory contains interactive filter components for data filtering and sea
 A dual-handle range slider component for selecting price ranges with customizable min/max values and step sizes.
 
 **Features:**
+
 - Dual-handle range selection
 - Customizable min/max values
 - Step size control
@@ -19,6 +20,7 @@ A dual-handle range slider component for selecting price ranges with customizabl
 - Touch/mobile support
 
 **Usage:**
+
 ```tsx
 import { PriceRangeSlider } from '@/shared/components/filters';
 
@@ -43,6 +45,7 @@ import { PriceRangeSlider } from '@/shared/components/filters';
 ```
 
 **Props:**
+
 - `min`: number - Minimum value (default: 0)
 - `max`: number - Maximum value (default: 1000000)
 - `step`: number - Step size (default: 1)
@@ -59,6 +62,7 @@ import { PriceRangeSlider } from '@/shared/components/filters';
 A demonstration component showing various configurations and use cases of the PriceRangeSlider.
 
 **Features:**
+
 - Multiple slider examples
 - Different configurations
 - Interactive demonstrations
@@ -66,11 +70,12 @@ A demonstration component showing various configurations and use cases of the Pr
 - Best practices showcase
 
 **Usage:**
+
 ```tsx
 import { PriceRangeSliderShowcase } from '@/shared/components/filters';
 
 // Display showcase for development/testing
-<PriceRangeSliderShowcase />
+<PriceRangeSliderShowcase />;
 ```
 
 ## Use Cases

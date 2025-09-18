@@ -1,6 +1,6 @@
 /**
  * Landing Pages Export
- * 
+ *
  * Centralized exports for all landing page components
  */
 

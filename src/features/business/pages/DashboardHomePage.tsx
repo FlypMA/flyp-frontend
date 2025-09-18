@@ -2,15 +2,15 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
-import { 
-  Building2, 
-  Eye, 
-  MessageCircle, 
-  TrendingUp, 
+import {
+  Building2,
+  Eye,
+  MessageCircle,
+  TrendingUp,
   Plus,
   Users,
   Euro,
-  Calendar
+  Calendar,
 } from 'lucide-react';
 
 export const DashboardHomePage: React.FC = () => {
@@ -23,7 +23,11 @@ export const DashboardHomePage: React.FC = () => {
   };
 
   const recentActivity = [
-    { type: 'view', message: 'Your listing "Restaurant in Brussels" was viewed', time: '2 hours ago' },
+    {
+      type: 'view',
+      message: 'Your listing "Restaurant in Brussels" was viewed',
+      time: '2 hours ago',
+    },
     { type: 'inquiry', message: 'New inquiry from John Smith', time: '4 hours ago' },
     { type: 'message', message: 'Reply from potential buyer', time: '1 day ago' },
     { type: 'view', message: 'Your listing "Tech Consulting" was viewed', time: '2 days ago' },
@@ -79,7 +83,9 @@ export const DashboardHomePage: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Total Views</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalViews.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {stats.totalViews.toLocaleString()}
+              </p>
             </div>
           </div>
         </Card>
@@ -123,23 +129,27 @@ export const DashboardHomePage: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {listings.map((listing) => (
-              <div key={listing.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+            {listings.map(listing => (
+              <div
+                key={listing.id}
+                className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow"
+              >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="font-medium text-gray-900">{listing.title}</h3>
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    listing.status === 'active' 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-gray-100 text-gray-800'
-                  }`}>
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-medium ${
+                      listing.status === 'active'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
                     {listing.status}
                   </span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
                   <div className="flex items-center">
-                    <Euro className="h-4 w-4 mr-1" />
-                    €{listing.price.toLocaleString()}
+                    <Euro className="h-4 w-4 mr-1" />€{listing.price.toLocaleString()}
                   </div>
                   <div className="flex items-center">
                     <Eye className="h-4 w-4 mr-1" />
@@ -150,20 +160,24 @@ export const DashboardHomePage: React.FC = () => {
                     {listing.inquiries} inquiries
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-gray-500 flex items-center">
                     <Calendar className="h-3 w-3 mr-1" />
                     Listed {new Date(listing.createdAt).toLocaleDateString()}
                   </p>
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="sm">View</Button>
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm">
+                      View
+                    </Button>
+                    <Button variant="ghost" size="sm">
+                      Edit
+                    </Button>
                   </div>
                 </div>
               </div>
             ))}
-            
+
             <Link to="/dashboard/listings">
               <Button variant="ghost" size="sm" className="w-full">
                 View All Listings
@@ -175,18 +189,26 @@ export const DashboardHomePage: React.FC = () => {
         {/* Recent Activity */}
         <Card>
           <h2 className="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h2>
-          
+
           <div className="space-y-4">
             {recentActivity.map((activity, index) => (
               <div key={index} className="flex items-start space-x-3">
-                <div className={`p-1.5 rounded-full ${
-                  activity.type === 'view' ? 'bg-blue-100' :
-                  activity.type === 'inquiry' ? 'bg-green-100' :
-                  activity.type === 'message' ? 'bg-yellow-100' : 'bg-gray-100'
-                }`}>
+                <div
+                  className={`p-1.5 rounded-full ${
+                    activity.type === 'view'
+                      ? 'bg-blue-100'
+                      : activity.type === 'inquiry'
+                        ? 'bg-green-100'
+                        : activity.type === 'message'
+                          ? 'bg-yellow-100'
+                          : 'bg-gray-100'
+                  }`}
+                >
                   {activity.type === 'view' && <Eye className="h-3 w-3 text-blue-600" />}
                   {activity.type === 'inquiry' && <Users className="h-3 w-3 text-green-600" />}
-                  {activity.type === 'message' && <MessageCircle className="h-3 w-3 text-yellow-600" />}
+                  {activity.type === 'message' && (
+                    <MessageCircle className="h-3 w-3 text-yellow-600" />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-gray-900">{activity.message}</p>
@@ -195,7 +217,7 @@ export const DashboardHomePage: React.FC = () => {
               </div>
             ))}
           </div>
-          
+
           <Button variant="ghost" size="sm" className="w-full mt-4">
             View All Activity
           </Button>
@@ -213,7 +235,7 @@ export const DashboardHomePage: React.FC = () => {
             </div>
           </Card>
         </Link>
-        
+
         <Link to="/dashboard/analytics">
           <Card className="hover:shadow-md transition-shadow cursor-pointer">
             <div className="text-center">
@@ -223,7 +245,7 @@ export const DashboardHomePage: React.FC = () => {
             </div>
           </Card>
         </Link>
-        
+
         <Link to="/messages">
           <Card className="hover:shadow-md transition-shadow cursor-pointer">
             <div className="text-center">

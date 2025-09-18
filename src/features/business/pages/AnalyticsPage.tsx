@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
-import { 
-  TrendingUp, 
-  Eye, 
-  MessageCircle, 
-  Users,
-  Calendar,
-  Download,
-  RefreshCw
-} from 'lucide-react';
+import { TrendingUp, Eye, MessageCircle, Users, Calendar, Download, RefreshCw } from 'lucide-react';
 
 export const AnalyticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState('30d');
@@ -84,7 +76,7 @@ export const AnalyticsPage: React.FC = () => {
         <div className="flex items-center space-x-3">
           <select
             value={timeRange}
-            onChange={(e) => setTimeRange(e.target.value)}
+            onChange={e => setTimeRange(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
           >
             <option value="7d">Last 7 days</option>
@@ -112,7 +104,9 @@ export const AnalyticsPage: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Total Views</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.overview.totalViews.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {analytics.overview.totalViews.toLocaleString()}
+              </p>
               <p className="text-xs text-green-600 flex items-center mt-1">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +12% vs last period
@@ -128,7 +122,9 @@ export const AnalyticsPage: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Inquiries</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.overview.totalInquiries}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {analytics.overview.totalInquiries}
+              </p>
               <p className="text-xs text-green-600 flex items-center mt-1">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +25% vs last period
@@ -144,7 +140,9 @@ export const AnalyticsPage: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Conversion Rate</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.overview.conversionRate}%</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {analytics.overview.conversionRate}%
+              </p>
               <p className="text-xs text-green-600 flex items-center mt-1">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +0.8% vs last period
@@ -160,7 +158,10 @@ export const AnalyticsPage: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600">Avg. View Time</p>
-              <p className="text-2xl font-bold text-gray-900">{Math.floor(analytics.overview.averageViewTime / 60)}m {analytics.overview.averageViewTime % 60}s</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {Math.floor(analytics.overview.averageViewTime / 60)}m{' '}
+                {analytics.overview.averageViewTime % 60}s
+              </p>
               <p className="text-xs text-green-600 flex items-center mt-1">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 +15s vs last period
@@ -186,13 +187,15 @@ export const AnalyticsPage: React.FC = () => {
             {analytics.trends.views.map((view, index) => (
               <div key={index} className="flex flex-col items-center space-y-1 flex-1">
                 <div className="flex flex-col items-end w-full space-y-1">
-                  <div 
+                  <div
                     className="bg-blue-600 w-full rounded-t"
                     style={{ height: `${(view / Math.max(...analytics.trends.views)) * 200}px` }}
                   ></div>
-                  <div 
+                  <div
                     className="bg-green-600 w-full rounded-t"
-                    style={{ height: `${(analytics.trends.inquiries[index] / Math.max(...analytics.trends.inquiries)) * 50}px` }}
+                    style={{
+                      height: `${(analytics.trends.inquiries[index] / Math.max(...analytics.trends.inquiries)) * 50}px`,
+                    }}
                   ></div>
                 </div>
                 <span className="text-xs text-gray-500">{index + 1}</span>
@@ -208,12 +211,12 @@ export const AnalyticsPage: React.FC = () => {
             <div>
               <h4 className="text-sm font-medium text-gray-700 mb-2">By Country</h4>
               <div className="space-y-2">
-                {analytics.demographics.countries.map((country) => (
+                {analytics.demographics.countries.map(country => (
                   <div key={country.name} className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">{country.name}</span>
                     <div className="flex items-center space-x-2">
                       <div className="w-20 h-2 bg-gray-200 rounded-full">
-                        <div 
+                        <div
                           className="h-2 bg-primary-600 rounded-full"
                           style={{ width: `${country.percentage}%` }}
                         ></div>
@@ -224,16 +227,16 @@ export const AnalyticsPage: React.FC = () => {
                 ))}
               </div>
             </div>
-            
+
             <div className="border-t pt-4">
               <h4 className="text-sm font-medium text-gray-700 mb-2">By Buyer Type</h4>
               <div className="space-y-2">
-                {analytics.demographics.buyerTypes.map((type) => (
+                {analytics.demographics.buyerTypes.map(type => (
                   <div key={type.name} className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">{type.name}</span>
                     <div className="flex items-center space-x-2">
                       <div className="w-20 h-2 bg-gray-200 rounded-full">
-                        <div 
+                        <div
                           className="h-2 bg-green-600 rounded-full"
                           style={{ width: `${type.percentage}%` }}
                         ></div>
@@ -252,7 +255,9 @@ export const AnalyticsPage: React.FC = () => {
       <Card>
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-gray-900">Listing Performance</h3>
-          <Button variant="ghost" size="sm">View All</Button>
+          <Button variant="ghost" size="sm">
+            View All
+          </Button>
         </div>
 
         <div className="overflow-x-auto">
@@ -277,7 +282,7 @@ export const AnalyticsPage: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {analytics.listings.map((listing) => (
+              {analytics.listings.map(listing => (
                 <tr key={listing.id}>
                   <td className="px-4 py-4">
                     <div className="text-sm font-medium text-gray-900">{listing.title}</div>

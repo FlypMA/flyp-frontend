@@ -1,6 +1,6 @@
 /**
  * Typography Components Export
- * 
+ *
  * Centralized exports for all typography-related components
  */
 

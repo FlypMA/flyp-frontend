@@ -9,7 +9,7 @@ import { User } from '../../../../types';
  */
 export const normalizeUserRole = (user: User | string): 'buyer' | 'seller' => {
   const role = typeof user === 'string' ? user : user?.role;
-  
+
   if (role === 'seller' || role === 'both' || role === 'admin') {
     return 'seller';
   }

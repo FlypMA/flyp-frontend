@@ -1,6 +1,6 @@
 /**
  * SEO Head Component
- * 
+ *
  * Provides SEO meta tags and structured data for pages.
  * Uses react-helmet for dynamic head management.
  */
@@ -55,27 +55,27 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       {author && <meta name="author" content={author} />}
-      
+
       {/* Robots */}
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
-      
+
       {/* Canonical URL */}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-      
+
       {/* Open Graph */}
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={ogDescription} />
       <meta property="og:type" content={ogType} />
       {ogUrl && <meta property="og:url" content={ogUrl} />}
       {ogImage && <meta property="og:image" content={ogImage} />}
-      
+
       {/* Twitter Card */}
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={twitterTitle} />
       <meta name="twitter:description" content={twitterDescription} />
       {twitterImage && <meta name="twitter:image" content={twitterImage} />}
       {twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
-      
+
       {/* Article Meta */}
       {type === 'article' && publishedTime && (
         <meta property="article:published_time" content={publishedTime} />
@@ -83,14 +83,12 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       {type === 'article' && modifiedTime && (
         <meta property="article:modified_time" content={modifiedTime} />
       )}
-      
+
       {/* Structured Data */}
       {structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       )}
-      
+
       {children}
     </Helmet>
   );

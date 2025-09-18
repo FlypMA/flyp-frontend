@@ -6,13 +6,11 @@ interface CardProps {
   padding?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({ 
-  children, 
-  className = '', 
-  padding = true 
-}) => {
+export const Card: React.FC<CardProps> = ({ children, className = '', padding = true }) => {
   return (
-    <div className={`bg-white rounded-lg border border-gray-200 shadow-sm ${padding ? 'p-6' : ''} ${className}`}>
+    <div
+      className={`bg-white rounded-lg border border-gray-200 shadow-sm ${padding ? 'p-6' : ''} ${className}`}
+    >
       {children}
     </div>
   );

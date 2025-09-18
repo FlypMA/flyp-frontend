@@ -334,7 +334,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                   <span className="text-sm text-gray-600">{revenueMetrics.completionRate}%</span>
                 </div>
                 <Progress value={revenueMetrics.completionRate} color="success" />
-                
+
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Average Fee Amount</span>
                   <span className="text-sm text-gray-600">
@@ -351,8 +351,11 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
             </CardHeader>
             <CardBody>
               <div className="space-y-3">
-                {successFees.slice(0, 3).map((fee) => (
-                  <div key={fee.id} className="flex items-center justify-between p-3 border rounded-lg">
+                {successFees.slice(0, 3).map(fee => (
+                  <div
+                    key={fee.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-green-100 rounded-lg">
                         <Receipt className="w-4 h-4 text-green-600" />
@@ -366,11 +369,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                         </p>
                       </div>
                     </div>
-                    <Chip
-                      size="sm"
-                      color={getStatusColor(fee.status)}
-                      variant="flat"
-                    >
+                    <Chip size="sm" color={getStatusColor(fee.status)} variant="flat">
                       {fee.status}
                     </Chip>
                   </div>
@@ -384,7 +383,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
       {/* Fees Tab */}
       {activeTab === 'fees' && (
         <div className="space-y-4">
-          {successFees.map((fee) => (
+          {successFees.map(fee => (
             <Card key={fee.id}>
               <CardBody>
                 <div className="flex items-center justify-between">
@@ -397,15 +396,11 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                         {formatCurrency(fee.feeAmount, fee.currency)}
                       </h3>
                       <p className="text-sm text-gray-600">
-                        {fee.feePercentage}% of {formatCurrency(fee.transactionAmount)} • 
-                        Invoice: {fee.invoiceNumber}
+                        {fee.feePercentage}% of {formatCurrency(fee.transactionAmount)} • Invoice:{' '}
+                        {fee.invoiceNumber}
                       </p>
                       <div className="flex items-center gap-2 mt-1">
-                        <Chip
-                          size="sm"
-                          color={getStatusColor(fee.status)}
-                          variant="flat"
-                        >
+                        <Chip size="sm" color={getStatusColor(fee.status)} variant="flat">
                           {fee.status}
                         </Chip>
                         <span className="text-xs text-gray-500">
@@ -444,7 +439,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
       {/* Payment Methods Tab */}
       {activeTab === 'payments' && (
         <div className="space-y-4">
-          {paymentMethods.map((method) => (
+          {paymentMethods.map(method => (
             <Card key={method.id}>
               <CardBody>
                 <div className="flex items-center justify-between">
@@ -454,9 +449,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">{method.name}</h3>
-                      <p className="text-sm text-gray-600">
-                        {method.accountNumber || 'Connected'}
-                      </p>
+                      <p className="text-sm text-gray-600">{method.accountNumber || 'Connected'}</p>
                       {method.isDefault && (
                         <Chip size="sm" color="success" variant="flat">
                           Default
@@ -484,7 +477,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
       {/* Payment Modal */}
       <Modal isOpen={showPaymentModal} onClose={() => setShowPaymentModal(false)} size="lg">
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader>
                 <h3 className="text-lg font-semibold">Process Payment</h3>
@@ -500,13 +493,13 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                         <p>Due Date: {new Date(selectedFee.dueDate).toLocaleDateString()}</p>
                       </div>
                     </div>
-                    
+
                     <Select label="Payment Method" placeholder="Select payment method">
-                      {paymentMethods.map((method) => (
+                      {paymentMethods.map(method => (
                         <SelectItem key={method.id}>{method.name}</SelectItem>
                       ))}
                     </Select>
-                    
+
                     <AnimatedTextarea
                       label="Payment Notes"
                       placeholder="Optional notes..."

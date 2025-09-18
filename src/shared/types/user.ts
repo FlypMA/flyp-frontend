@@ -26,45 +26,45 @@ export interface User {
   email: string;
   name: string;
   phone?: string;
-  
+
   // Role Management
   role: UserRole;
-  
+
   // Business Information (sellers only)
   company_name?: string;
   company_description?: string;
-  
+
   // Enhanced Business Data (MVP Critical Fields)
   industry?: string;
   business_type?: string;
   years_in_operation?: number;
-  
+
   // Financial & Size Indicators
   revenue_range?: string;
   asking_price_range?: string;
   employee_count_range?: string;
-  
+
   // Business Status & Marketing
   business_verified?: boolean;
   listing_status?: 'draft' | 'active' | 'under_offer' | 'sold' | 'withdrawn';
   business_highlights?: string;
   reason_for_selling?: string;
-  
+
   // Location
   city?: string;
   country: Country;
-  
+
   // Verification
   email_verified: boolean;
   verification_token?: string;
   verification_token_expires_at?: string;
-  
+
   // Authentication
   auth_provider: AuthProvider;
-  
+
   // Preferences
   language_preference: Language;
-  
+
   // Audit Fields
   created_at: string;
   updated_at: string;
@@ -74,7 +74,7 @@ export interface User {
   // MVP-specific fields
   avatar?: string;
   preferences?: UserPreferences;
-  
+
   // Additional fields for compatibility
   location?: string;
   company?: string;
@@ -271,23 +271,17 @@ export const INDUSTRIES = [
   'Technology',
   'Manufacturing',
   'Business Consulting',
-  'Food & Beverage', 
+  'Food & Beverage',
   'E-commerce',
   'Healthcare',
   'Education',
   'Real Estate',
   'Financial Services',
   'Transportation',
-  'Other'
+  'Other',
 ] as const;
 
-export const REVENUE_RANGES = [
-  '<€100K',
-  '€100K-€500K',
-  '€500K-€1M',
-  '€1M-€5M', 
-  '€5M+',
-] as const;
+export const REVENUE_RANGES = ['<€100K', '€100K-€500K', '€500K-€1M', '€1M-€5M', '€5M+'] as const;
 
 export const ASKING_PRICE_RANGES = [
   '<€100K',
@@ -297,29 +291,17 @@ export const ASKING_PRICE_RANGES = [
   '€5M+',
 ] as const;
 
-export const EMPLOYEE_COUNT_RANGES = [
-  '1-5',
-  '6-20',
-  '21-50',
-  '51-100',
-  '100+',
-] as const;
+export const EMPLOYEE_COUNT_RANGES = ['1-5', '6-20', '21-50', '51-100', '100+'] as const;
 
 export const BUSINESS_TYPES = [
   'Sole Proprietorship',
   'Partnership',
   'LLC',
   'Corporation',
-  'Other'
+  'Other',
 ] as const;
 
-export const LISTING_STATUSES = [
-  'draft',
-  'active',
-  'under_offer',
-  'sold',
-  'withdrawn'
-] as const;
+export const LISTING_STATUSES = ['draft', 'active', 'under_offer', 'sold', 'withdrawn'] as const;
 
 // =============================================================================
 // SUPABASE AUTH TYPES
@@ -408,7 +390,7 @@ export const convertSupabaseUserToUser = (
   publicUserData?: Partial<User>
 ): User => {
   const metadata = supabaseUser.user_metadata as SupabaseUserMetadata;
-  
+
   return {
     id: supabaseUser.id,
     email: supabaseUser.email || '',
@@ -440,7 +422,7 @@ export const convertSupabaseUserToUser = (
     deleted_at: undefined,
     avatar: metadata.avatar_url || undefined,
     preferences: undefined,
-    
+
     // Override with public user data if available
     ...publicUserData,
   };

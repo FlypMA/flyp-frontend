@@ -1,48 +1,46 @@
 /**
- * 🎭 Modals - Main Index
+ * 🎭 Modal System - Enterprise Architecture
  * Location: src/shared/components/modals/index.ts
- * Purpose: Centralized exports for all modal components
+ * Purpose: Main export file for the entire modal system
  */
 
-// Business modals
-export { default as BusinessListingModalContainer } from './business-listing-modal-container';
+// ===== FOUNDATION COMPONENTS =====
+// Reusable UI foundations for all modals
+export { CenteredModal, FullscreenModal, TwoPanelModal } from './foundations';
+
+// ===== DOMAIN COMPONENTS =====
+
+// Authentication Domain
+export {
+  AuthenticationModal,
+  LoginPanel,
+  SignupPanel,
+  WelcomePanel,
+} from './domains/authentication';
+
+// Business Domain
+export {
+  AnalyticsModal,
+  BusinessProfileModal,
+  BuyerOnboardingModal,
+  ListingManagementModal,
+  SellerOnboardingModal,
+  ValuationReportModal,
+} from './domains/business';
+
+// ===== STANDALONE MODALS =====
+// Modals that haven't been migrated to domain structure yet
 export { default as InquiryModal } from './InquiryModal';
 export { default as NDAModal } from './NDAModal';
 
-// Legacy seller onboarding (for backward compatibility)
-export { default as SellerOnboardingModal } from './SellerOnboardingModal';
+// ===== IMAGE MODALS =====
+export { ImageGalleryModal } from './images';
 
-// Image modals
-export * from './images';
+// ===== TYPE EXPORTS =====
+export type { AuthenticationType } from './domains/authentication';
 
-// Onboarding modals (new organized structure)
-export * from './onboarding';
+// ===== UTILITY EXPORTS =====
+export * from './utils/modalHelpers';
 
-// Re-export main onboarding components for convenience
-export {
-  // Individual step components
-  BusinessDescriptionStep,
-  BusinessNameStep,
-  BusinessTypeStep,
-  clearDraft,
-  ContactEmailStep,
-  ContactPhoneStep,
-  EmployeeCountStep,
-  formatCurrency,
-  FoundedYearStep,
-  getStepDescription,
-  getStepTitle,
-  // Utilities
-  isStepValid,
-  loadDraft,
-  LocationStep,
-  RevenueRangeStep,
-  saveDraft,
-  SellerOnboardingModal as SellerOnboardingModalV2,
-  SellingReasonStep,
-  SuccessStep,
-  triggerConfetti,
-  WelcomeStep,
-  type SellerFormData,
-  type SellerOnboardingModalProps,
-} from './onboarding/seller';
+// ===== LEGACY COMPATIBILITY =====
+// Backward compatibility exports (SellerOnboardingModal is already exported from domains/business)

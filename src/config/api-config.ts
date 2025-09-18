@@ -22,7 +22,10 @@ export const API_CONFIG = {
   SUPABASE: {
     url: (import.meta as any).env?.VITE_SUPABASE_URL || 'https://placeholder.supabase.co',
     anonKey: (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key',
-    isValid: !!((import.meta as any).env?.VITE_SUPABASE_URL && (import.meta as any).env?.VITE_SUPABASE_ANON_KEY),
+    isValid: !!(
+      (import.meta as any).env?.VITE_SUPABASE_URL &&
+      (import.meta as any).env?.VITE_SUPABASE_ANON_KEY
+    ),
   },
 
   // Custom Backend Configuration (for additional services)
@@ -93,7 +96,7 @@ export const API_CONFIG = {
   REQUEST: {
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
     timeout: 30000,
     retryAttempts: 3,
@@ -118,14 +121,14 @@ export const API_CONFIG = {
  */
 export const getApiUrl = (endpoint: string, params?: Record<string, string>): string => {
   let url = `${API_CONFIG.BACKEND.baseURL}${endpoint}`;
-  
+
   // Replace URL parameters
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       url = url.replace(`:${key}`, encodeURIComponent(value));
     });
   }
-  
+
   return url;
 };
 
@@ -152,11 +155,11 @@ export const isApiAvailable = (): boolean => {
  */
 export const getRequestHeaders = (token?: string): Record<string, string> => {
   const headers = { ...API_CONFIG.REQUEST.headers };
-  
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
-  
+
   return headers;
 };
 
@@ -169,13 +172,13 @@ export const API_ERROR_CONFIG = {
   retryAttempts: 3,
   retryDelay: 1000,
   retryBackoff: 2,
-  
+
   // Timeout configuration
   timeout: 30000,
-  
+
   // Error codes that should trigger retry
   retryableErrors: [408, 429, 500, 502, 503, 504],
-  
+
   // Error messages
   messages: {
     networkError: 'Network error. Please check your connection.',

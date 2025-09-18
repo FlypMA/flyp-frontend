@@ -9,6 +9,7 @@ This directory contains loading and spinner components for providing visual feed
 A simple, customizable loading spinner component with multiple size options.
 
 **Features:**
+
 - Multiple sizes: `sm`, `md`, `lg`
 - Smooth CSS animation
 - Customizable styling
@@ -16,6 +17,7 @@ A simple, customizable loading spinner component with multiple size options.
 - Consistent with design system colors
 
 **Usage:**
+
 ```tsx
 import { LoadingSpinner } from '@/shared/components/loading';
 
@@ -28,9 +30,9 @@ import { LoadingSpinner } from '@/shared/components/loading';
 <LoadingSpinner size="lg" />
 
 // With custom styling
-<LoadingSpinner 
-  size="lg" 
-  className="text-blue-600" 
+<LoadingSpinner
+  size="lg"
+  className="text-blue-600"
 />
 
 // In a button
@@ -41,10 +43,12 @@ import { LoadingSpinner } from '@/shared/components/loading';
 ```
 
 **Props:**
+
 - `size`: 'sm' | 'md' | 'lg' - Size of the spinner (default: 'md')
 - `className`: string - Additional CSS classes
 
 **Size Specifications:**
+
 - `sm`: 16px × 16px (h-4 w-4)
 - `md`: 32px × 32px (h-8 w-8) - Default
 - `lg`: 48px × 48px (h-12 w-12)

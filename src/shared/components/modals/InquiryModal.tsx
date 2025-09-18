@@ -66,8 +66,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   listing,
   isLoading = false,
 }) => {
-  const { openModal } = useAuth();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const { openModal, isAuthenticated, user } = useAuth();
   const [inquiryData, setInquiryData] = useState<InquiryData>({
     buyerName: '',
     buyerEmail: '',
@@ -86,21 +85,19 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Check authentication status
+  // Pre-populate form with user data when authenticated
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('auth_token') || localStorage.getItem('flyp_auth');
-      const user = localStorage.getItem('flyp_user');
-      setIsAuthenticated(!!(token && user));
-    };
-
-    checkAuth();
-
-    // Check auth status when modal opens
-    if (isOpen) {
-      checkAuth();
+    if (isAuthenticated && user) {
+      setInquiryData(prev => ({
+        ...prev,
+        buyerName: user.name || '',
+        buyerEmail: user.email || '',
+        buyerPhone: user.phone || '',
+        companyName: user.company_name || '',
+        position: '', // Position not available in User type
+      }));
     }
-  }, [isOpen]);
+  }, [isAuthenticated, user]);
 
   const formatPrice = (price?: number, currency = 'EUR') => {
     if (!price) return 'Price on request';

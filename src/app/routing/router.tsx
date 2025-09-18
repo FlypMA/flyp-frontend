@@ -36,7 +36,6 @@ import ListingSearch from '../pages/listings/ListingSearch';
 import DocumentVault from '../pages/business/data-room/DocumentVault';
 import ListingManagement from '../pages/business/management/ListingManagement';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
-import DashboardPerformance from '../pages/business/overview/DashboardPerformance';
 import BusinessValuation from '../pages/business/reports/BusinessValuation';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import LiquidationComparison from '../pages/business/reports/LiquidationComparison';
@@ -301,7 +300,7 @@ export const router = createBrowserRouter([
         path: 'my-business/analytics',
         element: (
           <SellerRoute>
-            <DashboardPerformance />
+            <BusinessOverview />
           </SellerRoute>
         ),
       },
@@ -317,7 +316,7 @@ export const router = createBrowserRouter([
         path: 'my-business/performance',
         element: (
           <SellerRoute>
-            <DashboardPerformance />
+            <BusinessOverview />
           </SellerRoute>
         ),
       },

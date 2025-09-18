@@ -19,9 +19,11 @@ account/
 ### Onboarding Pages
 
 #### BuyerOnboarding
+
 Comprehensive onboarding flow for buyers to set up their profiles and preferences.
 
 **Features:**
+
 - Multi-step onboarding process
 - Investment preferences setup
 - Industry interests selection
@@ -30,17 +32,20 @@ Comprehensive onboarding flow for buyers to set up their profiles and preference
 - Profile completion tracking
 
 **Usage:**
+
 ```tsx
 import { BuyerOnboarding } from '@/app/pages/account';
 
 // Route: /onboarding/buyer
-<BuyerOnboarding />
+<BuyerOnboarding />;
 ```
 
 #### SellerOnboarding
+
 Onboarding flow for sellers to set up their business profiles and listing preferences.
 
 **Features:**
+
 - Business information collection
 - Listing preferences setup
 - Contact information verification
@@ -49,17 +54,20 @@ Onboarding flow for sellers to set up their business profiles and listing prefer
 - Marketing preferences
 
 **Usage:**
+
 ```tsx
 import { SellerOnboarding } from '@/app/pages/account';
 
 // Route: /onboarding/seller
-<SellerOnboarding />
+<SellerOnboarding />;
 ```
 
 #### SignUpComplete
+
 Post-registration completion page with next steps and verification.
 
 **Features:**
+
 - Email verification status
 - Next steps guidance
 - Account activation
@@ -67,19 +75,22 @@ Post-registration completion page with next steps and verification.
 - Quick start actions
 
 **Usage:**
+
 ```tsx
 import { SignUpComplete } from '@/app/pages/account';
 
 // Route: /signup/complete
-<SignUpComplete />
+<SignUpComplete />;
 ```
 
 ### Password Reset Pages
 
 #### ForgotPasswordPage
+
 Password reset request page for users who have forgotten their passwords.
 
 **Features:**
+
 - Email input validation
 - Password reset request submission
 - Success/error feedback
@@ -87,17 +98,20 @@ Password reset request page for users who have forgotten their passwords.
 - Alternative recovery options
 
 **Usage:**
+
 ```tsx
 import { ForgotPasswordPage } from '@/app/pages/account';
 
 // Route: /forgot-password
-<ForgotPasswordPage />
+<ForgotPasswordPage />;
 ```
 
 #### ResetPasswordPage
+
 Password reset form for users with valid reset tokens.
 
 **Features:**
+
 - Token validation
 - New password input
 - Password strength validation
@@ -105,19 +119,22 @@ Password reset form for users with valid reset tokens.
 - Security requirements
 
 **Usage:**
+
 ```tsx
 import { ResetPasswordPage } from '@/app/pages/account';
 
 // Route: /reset-password/:token
-<ResetPasswordPage />
+<ResetPasswordPage />;
 ```
 
 ### User Management Pages
 
 #### UserProfile
+
 User profile management page for viewing and editing personal information.
 
 **Features:**
+
 - Profile information display
 - Editable profile fields
 - Avatar upload
@@ -126,17 +143,20 @@ User profile management page for viewing and editing personal information.
 - Account verification status
 
 **Usage:**
+
 ```tsx
 import { UserProfile } from '@/app/pages/account';
 
 // Route: /account/profile
-<UserProfile />
+<UserProfile />;
 ```
 
 #### UserSettings
+
 Comprehensive user settings page for account configuration.
 
 **Features:**
+
 - Account preferences
 - Notification settings
 - Privacy controls
@@ -145,17 +165,20 @@ Comprehensive user settings page for account configuration.
 - Account deletion
 
 **Usage:**
+
 ```tsx
 import { UserSettings } from '@/app/pages/account';
 
 // Route: /account/settings
-<UserSettings />
+<UserSettings />;
 ```
 
 #### UserBilling
+
 Billing and subscription management page.
 
 **Features:**
+
 - Subscription status
 - Payment methods
 - Billing history
@@ -164,17 +187,20 @@ Billing and subscription management page.
 - Payment failure handling
 
 **Usage:**
+
 ```tsx
 import { UserBilling } from '@/app/pages/account';
 
 // Route: /account/billing
-<UserBilling />
+<UserBilling />;
 ```
 
 #### UserNotifications
+
 Notification preferences and management page.
 
 **Features:**
+
 - Notification categories
 - Delivery preferences
 - Frequency settings
@@ -183,11 +209,12 @@ Notification preferences and management page.
 - Unsubscribe options
 
 **Usage:**
+
 ```tsx
 import { UserNotifications } from '@/app/pages/account';
 
 // Route: /account/notifications
-<UserNotifications />
+<UserNotifications />;
 ```
 
 ## Authentication & Authorization
