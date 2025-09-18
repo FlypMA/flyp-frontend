@@ -1,7 +1,20 @@
 import { CustomDropdown } from '@/shared/components/forms';
 import { Input } from '@/shared/components/forms/Input';
 import { Button, Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
-import { Bell, Eye, EyeOff, Save, Settings, Shield } from 'lucide-react';
+import {
+  Bell,
+  Building2,
+  Camera,
+  CheckCircle,
+  Edit3,
+  Eye,
+  EyeOff,
+  Globe,
+  Save,
+  Settings,
+  Shield,
+  User,
+} from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationService } from '../../../../shared/services/auth/Auth';
@@ -13,8 +26,17 @@ const UserSettings: React.FC = () => {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState('notifications');
+  const [activeTab, setActiveTab] = useState('about');
   const [settings, setSettings] = useState({
+    about: {
+      name: '',
+      location: '',
+      age: '',
+      languages: ['English', 'Nederlands'],
+      bio: '',
+      company: '',
+      position: '',
+    },
     notifications: {
       emailNotifications: true,
       pushNotifications: true,
@@ -56,6 +78,12 @@ const UserSettings: React.FC = () => {
     confirm: false,
   });
 
+  // Mock businesses owned data
+  const [businessesOwned] = useState([
+    { id: 1, name: 'Tech Solutions BV', industry: 'Technology', status: 'Active' },
+    { id: 2, name: 'Green Energy Co', industry: 'Renewable Energy', status: 'Sold' },
+  ]);
+
   useEffect(() => {
     loadUserData();
   }, []);
@@ -66,9 +94,17 @@ const UserSettings: React.FC = () => {
       const authResult = await authService.checkAuth();
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
-        // TODO: Load user settings from API
-        // const userSettings = await AuthenticationService.getUserSettings();
-        // setSettings(userSettings);
+        // Pre-populate about section with user data
+        setSettings(prev => ({
+          ...prev,
+          about: {
+            ...prev.about,
+            name: authResult.user.name || '',
+            location: 'Neerpelt, België', // Mock location
+            age: '32', // Mock age
+            company: authResult.user.company_name || '',
+          },
+        }));
       } else {
         navigate(UrlGenerator.login());
       }
@@ -163,11 +199,150 @@ const UserSettings: React.FC = () => {
   }
 
   const tabs = [
+    { id: 'about', label: 'About me', icon: User },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'privacy', label: 'Privacy', icon: Shield },
     { id: 'security', label: 'Security', icon: Shield },
     { id: 'preferences', label: 'Preferences', icon: Settings },
   ];
+
+  const renderAboutSection = () => (
+    <div className="space-y-6">
+      {/* Profile Image Section */}
+      <div className="flex items-center gap-6">
+        <div className="relative">
+          <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+            {user?.avatar ? (
+              <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <User className="w-12 h-12 text-gray-400" />
+            )}
+          </div>
+          <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+            <Camera className="w-4 h-4" />
+          </button>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">Profile Photo</h3>
+          <p className="text-sm text-gray-600">Upload a photo to personalize your profile</p>
+        </div>
+      </div>
+
+      <Divider />
+
+      {/* Basic Information */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Input
+              label="Full Name"
+              value={settings.about.name}
+              onChange={e => updateSetting('about', 'name', e.target.value)}
+              placeholder="Enter your full name"
+            />
+          </div>
+          <div>
+            <Input
+              label="Location"
+              value={settings.about.location}
+              onChange={e => updateSetting('about', 'location', e.target.value)}
+              placeholder="Enter your location"
+            />
+          </div>
+          <div>
+            <Input
+              label="Age"
+              type="number"
+              value={settings.about.age}
+              onChange={e => updateSetting('about', 'age', e.target.value)}
+              placeholder="Enter your age"
+            />
+          </div>
+          <div>
+            <Input
+              label="Company"
+              value={settings.about.company}
+              onChange={e => updateSetting('about', 'company', e.target.value)}
+              placeholder="Enter your company"
+            />
+          </div>
+        </div>
+      </div>
+
+      <Divider />
+
+      {/* Languages */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Languages</h3>
+        <div className="space-y-2">
+          {settings.about.languages.map((language, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-700">{language}</span>
+            </div>
+          ))}
+          <Button
+            variant="bordered"
+            size="sm"
+            startContent={<Edit3 className="w-4 h-4" />}
+            className="mt-2"
+          >
+            Edit Languages
+          </Button>
+        </div>
+      </div>
+
+      <Divider />
+
+      {/* Identity Verification */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Identity Verification</h3>
+        <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
+          <CheckCircle className="w-6 h-6 text-green-600" />
+          <div>
+            <p className="font-medium text-green-900">Identity Verified</p>
+            <p className="text-sm text-green-700">Your identity has been verified</p>
+          </div>
+        </div>
+      </div>
+
+      <Divider />
+
+      {/* Businesses Owned */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Businesses Owned</h3>
+        <div className="space-y-3">
+          {businessesOwned.map(business => (
+            <div key={business.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+              <Building2 className="w-5 h-5 text-gray-400" />
+              <div className="flex-1">
+                <p className="font-medium text-gray-900">{business.name}</p>
+                <p className="text-sm text-gray-600">{business.industry}</p>
+              </div>
+              <span
+                className={`px-2 py-1 text-xs rounded-full ${
+                  business.status === 'Active'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-gray-100 text-gray-800'
+                }`}
+              >
+                {business.status}
+              </span>
+            </div>
+          ))}
+          <Button
+            variant="bordered"
+            size="sm"
+            startContent={<Edit3 className="w-4 h-4" />}
+            className="mt-2"
+          >
+            Manage Businesses
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderNotificationsSettings = () => (
     <div className="space-y-6">
@@ -482,7 +657,7 @@ const UserSettings: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Settings Sidebar */}
+          {/* Settings Navigation */}
           <div className="lg:col-span-1">
             <Card className="border border-gray-200 shadow-sm">
               <CardBody className="p-4">
@@ -531,6 +706,7 @@ const UserSettings: React.FC = () => {
                 </div>
               </CardHeader>
               <CardBody className="pt-0">
+                {activeTab === 'about' && renderAboutSection()}
                 {activeTab === 'notifications' && renderNotificationsSettings()}
                 {activeTab === 'privacy' && renderPrivacySettings()}
                 {activeTab === 'security' && renderSecuritySettings()}

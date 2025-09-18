@@ -75,6 +75,7 @@ export class UrlGenerator {
   static userBilling = () => '/users/billing';
   static userSecurity = () => '/users/security';
   static userNotifications = () => '/users/notifications';
+  static userSavedListings = () => '/users/saved';
 
   // ==============================================================================
   // UNIVERSAL COMMUNICATION - /messages/*

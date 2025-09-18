@@ -1,6 +1,7 @@
 // 🔐 Supabase Client Configuration
 // Location: src/config/supabase.ts
 // Purpose: Supabase client configuration matching legacy app structure
+// EXACT COPY from working legacy app with enhanced error handling
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -13,10 +14,32 @@ const getSupabaseConfig = () => {
   const finalUrl = supabaseUrl || 'https://placeholder.supabase.co';
   const finalKey = supabaseAnonKey || 'placeholder-anon-key';
 
+  // Enhanced production error detection
+  const isProduction = import.meta.env.PROD;
+  const hasValidConfig = !!supabaseUrl && !!supabaseAnonKey;
+
+  if (isProduction && !hasValidConfig) {
+    console.error('🚨 CRITICAL: Supabase environment variables are missing in production!');
+    console.error('Required: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+    console.error('Current URL:', finalUrl);
+    console.error(
+      'Available env vars:',
+      Object.keys(import.meta.env).filter(key => key.startsWith('VITE_'))
+    );
+
+    // Show user-friendly error in production
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        const message = `🚨 Configuration Error: Authentication service is not configured.\n\nMissing environment variables:\n- VITE_SUPABASE_URL\n- VITE_SUPABASE_ANON_KEY\n\nPlease contact your system administrator.`;
+        alert(message);
+      }, 1000);
+    }
+  }
+
   return {
     url: finalUrl,
     key: finalKey,
-    isValid: !!supabaseUrl && !!supabaseAnonKey,
+    isValid: hasValidConfig,
   };
 };
 

@@ -2,25 +2,25 @@
 // Location: src/shared/components/navigation/utils/navigation-config.ts
 // Purpose: Centralized navigation configuration matching legacy app exactly
 
-import { normalizeUserRole } from './role-utils';
 import {
-  Home,
-  Search,
   Building2,
-  TrendingUp,
+  Calculator,
   DollarSign,
   FileText,
+  Heart,
+  HelpCircle,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  MessageCircle,
+  Search,
   Settings,
   Shield,
-  MessageCircle,
-  Heart,
+  TrendingUp,
   Users,
-  LayoutDashboard,
-  Calculator,
-  HelpCircle,
-  LogOut,
 } from 'lucide-react';
-import { UrlGenerator } from '../../../../services';
+import React from 'react';
+import { normalizeUserRole } from './role-utils';
 
 export interface NavItem {
   label: string;

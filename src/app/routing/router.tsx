@@ -51,6 +51,9 @@ import UserNotifications from '../pages/account/users/UserNotifications';
 import UserProfile from '../pages/account/users/UserProfile';
 import UserSettings from '../pages/account/users/UserSettings';
 
+// Page imports - Users
+import { SavedListings } from '../pages/users';
+
 // Page imports - Checkout
 import CheckoutPage from '../pages/checkout/checkout';
 import CheckoutSuccess from '../pages/checkout/success/CheckoutSuccess';
@@ -180,6 +183,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <UserBilling />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'users/saved',
+        element: (
+          <ProtectedRoute>
+            <SavedListings />
           </ProtectedRoute>
         ),
       },
