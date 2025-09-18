@@ -1,10 +1,10 @@
+import Heading1 from '@/shared/components/typography/Heading1';
+import { logger } from '@/shared/utils/logger';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import Heading1 from '@/shared/components/typography/Heading1';
-import { authService } from '../../../../services/users/authenticationService';
-import UrlGeneratorService from '../../../../services/urlMapping/urlGeneratorService';
-import { logger } from '@/shared/utils/logger';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { authService } from '../../../../../shared/services/auth';
+import { UrlGenerator } from '../../../../../shared/services/urls/urlGenerator';
 // import { Button } from '@heroui/react'; // TODO: Implement button functionality
 
 const SignUpComplete: React.FC = () => {
@@ -32,7 +32,7 @@ const SignUpComplete: React.FC = () => {
         if (response.success) {
           setVerificationStatus('success');
           setMessage('Email verified successfully!');
-          setTimeout(() => navigate(UrlGeneratorService.accountDashboard()), 3000);
+          setTimeout(() => navigate(UrlGenerator.accountDashboard()), 3000);
         } else {
           setVerificationStatus('error');
           setMessage(response.error || 'Verification failed');
@@ -91,7 +91,7 @@ const SignUpComplete: React.FC = () => {
           )}
 
           <Link
-            to={UrlGeneratorService.accountDashboard()}
+            to={UrlGenerator.accountDashboard()}
             className="mt-4 w-full bg-white hover:bg-zinc-100 text-black py-3 px-6 rounded-lg font-medium transition-all text-center inline-block"
             data-conversion="CTA - Get started"
           >

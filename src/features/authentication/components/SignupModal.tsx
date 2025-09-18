@@ -7,7 +7,7 @@ import { ArrowLeft, Building2, Info, Search, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
-import { authService } from '../../../app/services/users/authenticationService';
+import { authService } from '../../../shared/services/auth';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
 type UserIntent = 'buyer' | 'seller' | 'both';

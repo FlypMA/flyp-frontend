@@ -11,13 +11,17 @@
 // - Development bypass for testing
 // - User metadata management with Supabase Auth
 
-import { User, UserRole } from '../../types';
 import { supabase } from '../../../config';
-import { SessionManager } from './utils/session-manager';
+import {
+  convertSupabaseUserToUser,
+  convertUserToSupabaseMetadata,
+  User,
+  UserRole,
+} from '../../types';
 import { AuthErrorHandler } from './utils/error-handler';
 import { RetryHandler } from './utils/retry-handler';
+import { SessionManager } from './utils/session-manager';
 import { UserDataManager } from './utils/user-data-manager';
-import { convertSupabaseUserToUser, convertUserToSupabaseMetadata } from '../../types';
 
 // =============================================================================
 // SIGNUP TYPES
@@ -50,10 +54,10 @@ export class SignupService {
    */
   static async signup(request: SignupRequest): Promise<SignupResponse> {
     try {
-      console.log('📝 Creating new account:', { 
-        email: request.email, 
-        name: request.name, 
-        role: request.role 
+      console.log('📝 Creating new account:', {
+        email: request.email,
+        name: request.name,
+        role: request.role,
       });
 
       const result = await RetryHandler.executeWithRetryAndTimeout(
@@ -113,10 +117,10 @@ export class SignupService {
       return result;
     } catch (error) {
       console.error('❌ Account creation failed:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'signup');
-      
+
       return AuthErrorHandler.createErrorResponse(authError);
     }
   }
@@ -173,50 +177,47 @@ export class SignupService {
     try {
       console.log('📧 Verifying email with token');
 
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { data, error } = await supabase.auth.verifyOtp({
-            token_hash: token,
-            type: 'email',
-          });
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { data, error } = await supabase.auth.verifyOtp({
+          token_hash: token,
+          type: 'email',
+        });
 
-          if (error) {
-            throw error;
-          }
+        if (error) {
+          throw error;
+        }
 
-          if (!data.user || !data.session) {
-            throw new Error('No user or session data returned from email verification');
-          }
+        if (!data.user || !data.session) {
+          throw new Error('No user or session data returned from email verification');
+        }
 
-          // Get additional user data
-          const publicUserData = await UserDataManager.getPublicUserData(data.user.id);
-          const user = convertSupabaseUserToUser(data.user, publicUserData || undefined);
+        // Get additional user data
+        const publicUserData = await UserDataManager.getPublicUserData(data.user.id);
+        const user = convertSupabaseUserToUser(data.user, publicUserData || undefined);
 
-          // Store session
-          SessionManager.storeSession({
-            isAuthenticated: true,
-            user,
-            token: data.session.access_token,
-          });
+        // Store session
+        SessionManager.storeSession({
+          isAuthenticated: true,
+          user,
+          token: data.session.access_token,
+        });
 
-          return {
-            success: true,
-            user,
-            token: data.session.access_token,
-            requiresEmailVerification: false,
-          };
-        },
-        'Email verification'
-      );
+        return {
+          success: true,
+          user,
+          token: data.session.access_token,
+          requiresEmailVerification: false,
+        };
+      }, 'Email verification');
 
       console.log('✅ Email verification successful');
       return result;
     } catch (error) {
       console.error('❌ Email verification failed:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'verifyEmail');
-      
+
       return AuthErrorHandler.createErrorResponse(authError);
     }
   }
@@ -228,28 +229,25 @@ export class SignupService {
     try {
       console.log('📧 Resending email verification:', email);
 
-      await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.resend({
-            type: 'signup',
-            email: email,
-          });
+      await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.resend({
+          type: 'signup',
+          email: email,
+        });
 
-          if (error) {
-            throw error;
-          }
-        },
-        'Resend email verification'
-      );
+        if (error) {
+          throw error;
+        }
+      }, 'Resend email verification');
 
       console.log('✅ Email verification resent successfully');
       return { success: true };
     } catch (error) {
       console.error('❌ Failed to resend email verification:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'resendVerification');
-      
+
       return {
         success: false,
         error: authError.message,
@@ -282,3 +280,6 @@ export class SignupService {
     }
   }
 }
+
+// Export convenience function for direct usage
+export const signup = SignupService.signup;

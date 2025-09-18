@@ -5,6 +5,7 @@ import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
   AlertTriangle,
   Building2,
+  CheckCircle,
   CheckSquare,
   ChevronDown,
   ChevronUp,
@@ -163,26 +164,34 @@ const DueDiligenceChecklist = () => {
       />
 
       <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-neutral-50 via-white to-primary-50 py-20">
+        {/* Hero Section - Caregiver Approach */}
+        <div className="bg-gradient-to-br from-neutral-100 via-white to-calm-50 py-20">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <div className="flex justify-center mb-6">
-                <div className="p-4 bg-primary-100 rounded-full">
-                  <Shield className="w-12 h-12 text-primary-600" />
+                <div className="p-4 bg-calm-100 rounded-full">
+                  <Shield className="w-12 h-12 text-calm-600" />
                 </div>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
-                Due Diligence Checklist
+                Your Due Diligence Companion
+                <span className="block text-calm-600 text-3xl md:text-4xl mt-2">
+                  We'll help you check everything that matters
+                </span>
               </h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
-                Comprehensive checklist covering all essential aspects of business due diligence.
-                Ensure thorough investigation before completing your M&A transaction.
+                Due diligence sounds scary, but it's just about making sure you know what you're
+                buying. This checklist breaks it down into manageable steps, so you can feel
+                confident about your decision.
               </p>
-              <div className="flex justify-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Chip color="primary" variant="flat" className="text-lg px-6 py-2 rounded-full">
-                  Professional Guide
+                  Free • Step-by-step guide
                 </Chip>
+                <div className="flex items-center gap-2 text-sm text-neutral-500">
+                  <CheckCircle className="w-4 h-4 text-success-600" />
+                  <span>Used by 500+ buyers</span>
+                </div>
               </div>
             </div>
           </Container>
@@ -191,33 +200,53 @@ const DueDiligenceChecklist = () => {
         <Container>
           <div className="py-20">
             <div className="max-w-4xl mx-auto">
-              {/* Introduction */}
+              {/* Introduction - Caregiver Approach */}
               <div className="mb-16">
                 <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-                  Why Due Diligence Matters
+                  Think of This as Your Safety Net
                 </h2>
                 <div className="prose prose-lg max-w-none text-neutral-700">
                   <p className="mb-6">
-                    Due diligence is the comprehensive investigation of a business before completing
-                    an M&A transaction. It helps identify risks, validate assumptions, and ensure
-                    you're making an informed investment decision.
+                    Due diligence is really just a fancy way of saying "let's make sure everything
+                    checks out before you buy." It's like getting a home inspection before buying a
+                    house — you want to know what you're getting into, right?
                   </p>
+
+                  <Card className="border border-calm-200 bg-calm-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-6 h-6 text-calm-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-calm-900 mb-2">
+                            Don't Feel Overwhelmed
+                          </h4>
+                          <p className="text-calm-800">
+                            You don't have to do this alone. Many buyers work with professionals for
+                            the technical parts. This checklist just helps you understand what
+                            should be covered.
+                          </p>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
                 </div>
               </div>
 
-              {/* Benefits Grid */}
+              {/* Benefits Grid - Caregiver Messaging */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <Card className="border border-neutral-200 hover:shadow-lg transition-shadow rounded-xl">
                   <CardBody className="p-6 text-center">
                     <div className="flex justify-center mb-4">
-                      <div className="p-3 bg-primary-100 rounded-full">
-                        <Shield className="w-8 h-8 text-primary-600" />
+                      <div className="p-3 bg-calm-100 rounded-full">
+                        <Shield className="w-8 h-8 text-calm-600" />
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold text-neutral-900 mb-3">Risk Mitigation</h3>
+                    <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                      Avoid Nasty Surprises
+                    </h3>
                     <p className="text-neutral-600">
-                      Identify potential risks, liabilities, and red flags before completing the
-                      transaction to avoid costly surprises.
+                      Find out about any problems before you buy, so you can make an informed
+                      decision or negotiate a better deal.
                     </p>
                   </CardBody>
                 </Card>
@@ -230,11 +259,11 @@ const DueDiligenceChecklist = () => {
                       </div>
                     </div>
                     <h3 className="text-xl font-semibold text-neutral-900 mb-3">
-                      Value Validation
+                      Feel Confident About the Price
                     </h3>
                     <p className="text-neutral-600">
-                      Confirm the business valuation and ensure you're paying a fair price based on
-                      accurate financial information.
+                      Make sure the numbers add up and you're paying a fair price for what you're
+                      actually getting.
                     </p>
                   </CardBody>
                 </Card>
@@ -468,34 +497,38 @@ const DueDiligenceChecklist = () => {
                 </CardBody>
               </Card>
 
-              {/* CTA Section */}
-              <Card className="border border-primary-200 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl">
+              {/* CTA Section - Caregiver Approach */}
+              <Card className="border border-calm-200 bg-gradient-to-r from-calm-50 to-calm-100 rounded-xl">
                 <CardBody className="p-8 text-center">
-                  <h2 className="text-2xl font-bold text-primary-900 mb-4">
-                    Need Professional Due Diligence Support?
+                  <h2 className="text-2xl font-bold text-calm-900 mb-4">
+                    Feeling overwhelmed? We're here to help
                   </h2>
-                  <p className="text-primary-800 mb-6 max-w-2xl mx-auto">
-                    Our network of certified due diligence professionals can help you conduct
-                    thorough investigations and provide expert analysis for your M&A transaction.
+                  <p className="text-calm-800 mb-6 max-w-2xl mx-auto">
+                    This checklist is a great start, but every business is different. If you're
+                    looking at a specific opportunity and want someone to walk through it with you,
+                    our team is here to support you.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
                       color="primary"
                       size="lg"
-                      className="rounded-xl font-semibold"
-                      onPress={() => openModal('signup')}
+                      className="rounded-xl font-semibold bg-calm-600 hover:bg-calm-700"
+                      onPress={() => navigate('/contact')}
                     >
-                      Get Expert Support
+                      Talk to our team
                     </Button>
                     <Button
                       variant="bordered"
                       size="lg"
-                      className="border-2 border-primary-600 text-primary-700 rounded-xl font-semibold"
-                      onPress={() => navigate('/contact')}
+                      className="border-2 border-accent-600 text-accent-700 hover:bg-accent-50 rounded-xl font-semibold"
+                      onPress={() => navigate('/search')}
                     >
-                      Contact Expert
+                      Browse businesses
                     </Button>
                   </div>
+                  <p className="text-sm text-calm-700 mt-4">
+                    No pressure, no sales pitch — just friendly guidance when you need it
+                  </p>
                 </CardBody>
               </Card>
             </div>

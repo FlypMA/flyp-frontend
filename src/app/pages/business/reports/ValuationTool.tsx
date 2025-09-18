@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { authService } from '@/shared/services/auth';
+import { User as UserType } from '@/shared/types';
 import {
   Button,
   Card,
@@ -9,27 +9,13 @@ import {
   Select,
   SelectItem,
   Slider,
-  Tabs,
   Tab,
+  Tabs,
 } from '@heroui/react';
-import {
-  Calculator,
-  TrendingUp,
-  Building2,
-  DollarSign,
-  BarChart3,
-  FileText,
-  Download,
-  RefreshCw,
-  Info,
-  ArrowRight,
-  Target,
-  CheckCircle,
-  AlertTriangle,
-} from 'lucide-react';
-import { authService } from '@/shared/services/auth';
-import { User as UserType } from '@/shared/types';
-import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
+import { ArrowRight, Calculator, Download, FileText, RefreshCw, TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// Navigation and sidebar are provided by DashboardLayout
 
 interface ValuationInputs {
   annualRevenue: number;
@@ -261,246 +247,236 @@ const ValuationTool = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-        <Navigation />
-      <div className="flex">
-        <DashboardSidebar user={user} />
-        <div className="flex-1 px-8 py-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Valuation Tool</h1>
-                  <p className="text-lg text-gray-600">
-                    Get a professional valuation using multiple industry-standard methods
-                  </p>
-                </div>
-                <Button
-                  color="primary"
-                  startContent={
-                    <RefreshCw className={`w-4 h-4 ${isCalculating ? 'animate-spin' : ''}`} />
-                  }
-                  onPress={calculateValuation}
-                  isLoading={isCalculating}
-                >
-                  {isCalculating ? 'Calculating...' : 'Recalculate'}
-                </Button>
-              </div>
+      {/* Navigation and sidebar provided by DashboardLayout */}
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Valuation Tool</h1>
+              <p className="text-lg text-gray-600">
+                Get a professional valuation using multiple industry-standard methods
+              </p>
+            </div>
+            <Button
+              color="primary"
+              startContent={
+                <RefreshCw className={`w-4 h-4 ${isCalculating ? 'animate-spin' : ''}`} />
+              }
+              onPress={calculateValuation}
+              isLoading={isCalculating}
+            >
+              {isCalculating ? 'Calculating...' : 'Recalculate'}
+            </Button>
+          </div>
+        </div>
+
+        <Tabs
+          selectedKey={activeTab}
+          onSelectionChange={key => setActiveTab(key as string)}
+          className="mb-8"
+          variant="underlined"
+          color="primary"
+        >
+          <Tab key="input" title="Business Data">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Financial Information */}
+              <Card className="border border-gray-200 shadow-sm">
+                <CardHeader>
+                  <h3 className="text-xl font-semibold text-gray-900">Financial Information</h3>
+                </CardHeader>
+                <CardBody className="space-y-6">
+                  <Input
+                    label="Annual Revenue (€)"
+                    placeholder="450,000"
+                    value={inputs.annualRevenue.toString()}
+                    onChange={e => handleInputChange('annualRevenue', e.target.value)}
+                    startContent="€"
+                  />
+                  <Input
+                    label="EBITDA (€)"
+                    placeholder="135,000"
+                    value={inputs.ebitda.toString()}
+                    onChange={e => handleInputChange('ebitda', e.target.value)}
+                    startContent="€"
+                  />
+                  <Input
+                    label="Annual Cash Flow (€)"
+                    placeholder="125,000"
+                    value={inputs.cashFlow.toString()}
+                    onChange={e => handleInputChange('cashFlow', e.target.value)}
+                    startContent="€"
+                  />
+                  <Input
+                    label="Total Assets (€)"
+                    placeholder="320,000"
+                    value={inputs.totalAssets.toString()}
+                    onChange={e => handleInputChange('totalAssets', e.target.value)}
+                    startContent="€"
+                  />
+                </CardBody>
+              </Card>
+
+              {/* Business Details */}
+              <Card className="border border-gray-200 shadow-sm">
+                <CardHeader>
+                  <h3 className="text-xl font-semibold text-gray-900">Business Profile</h3>
+                </CardHeader>
+                <CardBody className="space-y-6">
+                  <Select
+                    label="Industry"
+                    placeholder="Select your industry"
+                    selectedKeys={[inputs.industry]}
+                    onSelectionChange={value => handleInputChange('industry', String(value))}
+                  >
+                    {Object.entries(industryMultiples).map(([key, value]) => (
+                      <SelectItem key={key}>{value.description}</SelectItem>
+                    ))}
+                  </Select>
+                  <Input
+                    label="Years in Business"
+                    type="number"
+                    placeholder="16"
+                    value={inputs.yearsInBusiness.toString()}
+                    onChange={e => handleInputChange('yearsInBusiness', e.target.value)}
+                  />
+                  <div className="space-y-4">
+                    <label className="text-sm font-medium text-gray-700">
+                      Revenue Growth Rate: {inputs.revenueGrowthRate}%
+                    </label>
+                    <Slider
+                      size="md"
+                      step={1}
+                      minValue={-10}
+                      maxValue={20}
+                      value={inputs.revenueGrowthRate}
+                      onChange={value =>
+                        handleInputChange(
+                          'revenueGrowthRate',
+                          Array.isArray(value) ? value[0] : value
+                        )
+                      }
+                      className="max-w-md"
+                      color="primary"
+                    />
+                  </div>
+                </CardBody>
+              </Card>
             </div>
 
-            <Tabs
-              selectedKey={activeTab}
-              onSelectionChange={key => setActiveTab(key as string)}
-              className="mb-8"
-              variant="underlined"
-              color="primary"
-            >
-              <Tab key="input" title="Business Data">
-                <div className="grid lg:grid-cols-2 gap-8">
-                  {/* Financial Information */}
-                  <Card className="border border-gray-200 shadow-sm">
-                    <CardHeader>
-                      <h3 className="text-xl font-semibold text-gray-900">Financial Information</h3>
-                    </CardHeader>
-                    <CardBody className="space-y-6">
-                      <Input
-                        label="Annual Revenue (€)"
-                        placeholder="450,000"
-                        value={inputs.annualRevenue.toString()}
-                        onChange={e => handleInputChange('annualRevenue', e.target.value)}
-                        startContent="€"
-                      />
-                      <Input
-                        label="EBITDA (€)"
-                        placeholder="135,000"
-                        value={inputs.ebitda.toString()}
-                        onChange={e => handleInputChange('ebitda', e.target.value)}
-                        startContent="€"
-                      />
-                      <Input
-                        label="Annual Cash Flow (€)"
-                        placeholder="125,000"
-                        value={inputs.cashFlow.toString()}
-                        onChange={e => handleInputChange('cashFlow', e.target.value)}
-                        startContent="€"
-                      />
-                      <Input
-                        label="Total Assets (€)"
-                        placeholder="320,000"
-                        value={inputs.totalAssets.toString()}
-                        onChange={e => handleInputChange('totalAssets', e.target.value)}
-                        startContent="€"
-                      />
-                    </CardBody>
-                  </Card>
+            <div className="flex justify-center mt-8">
+              <Button
+                color="primary"
+                size="lg"
+                startContent={<Calculator className="w-5 h-5" />}
+                onPress={calculateValuation}
+                isLoading={isCalculating}
+                className="px-12"
+              >
+                Calculate Business Value
+              </Button>
+            </div>
+          </Tab>
 
-                  {/* Business Details */}
-                  <Card className="border border-gray-200 shadow-sm">
-                    <CardHeader>
-                      <h3 className="text-xl font-semibold text-gray-900">Business Profile</h3>
-                    </CardHeader>
-                    <CardBody className="space-y-6">
-                      <Select
-                        label="Industry"
-                        placeholder="Select your industry"
-                        selectedKeys={[inputs.industry]}
-                        onSelectionChange={value => handleInputChange('industry', String(value))}
-                      >
-                        {Object.entries(industryMultiples).map(([key, value]) => (
-                          <SelectItem key={key}>{value.description}</SelectItem>
-                        ))}
-                      </Select>
-                      <Input
-                        label="Years in Business"
-                        type="number"
-                        placeholder="16"
-                        value={inputs.yearsInBusiness.toString()}
-                        onChange={e => handleInputChange('yearsInBusiness', e.target.value)}
-                      />
-                      <div className="space-y-4">
-                        <label className="text-sm font-medium text-gray-700">
-                          Revenue Growth Rate: {inputs.revenueGrowthRate}%
-                        </label>
-                        <Slider
-                          size="md"
-                          step={1}
-                          minValue={-10}
-                          maxValue={20}
-                          value={inputs.revenueGrowthRate}
-                          onChange={value =>
-                            handleInputChange(
-                              'revenueGrowthRate',
-                              Array.isArray(value) ? value[0] : value
-                            )
-                          }
-                          className="max-w-md"
-                          color="primary"
-                        />
-                      </div>
-                    </CardBody>
-                  </Card>
-                </div>
-
-                <div className="flex justify-center mt-8">
-                  <Button
-                    color="primary"
-                    size="lg"
-                    startContent={<Calculator className="w-5 h-5" />}
-                    onPress={calculateValuation}
-                    isLoading={isCalculating}
-                    className="px-12"
-                  >
-                    Calculate Business Value
-                  </Button>
-                </div>
-              </Tab>
-
-              <Tab key="results" title="Valuation Results">
-                {valuationResults.length === 0 ? (
-                  <div className="text-center py-16">
-                    <Calculator className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No Valuation Yet</h3>
-                    <p className="text-gray-600 mb-6">
-                      Enter your business data and run the valuation to see results
+          <Tab key="results" title="Valuation Results">
+            {valuationResults.length === 0 ? (
+              <div className="text-center py-16">
+                <Calculator className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No Valuation Yet</h3>
+                <p className="text-gray-600 mb-6">
+                  Enter your business data and run the valuation to see results
+                </p>
+                <Button
+                  color="primary"
+                  onPress={() => setActiveTab('input')}
+                  endContent={<ArrowRight className="w-4 h-4" />}
+                >
+                  Go to Business Data
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {/* Summary Card */}
+                <Card className="border border-gray-200 shadow-sm">
+                  <CardBody className="p-8 text-center">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                      Estimated Business Value
+                    </h2>
+                    <div className="flex items-center justify-center space-x-3 mb-4">
+                      <TrendingUp className="w-8 h-8 text-gray-600" />
+                      <span className="text-5xl font-bold text-gray-900">
+                        €{averageValuation.toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="text-lg text-gray-600 mb-6">
+                      Weighted average of {valuationResults.length} valuation methods
                     </p>
-                    <Button
-                      color="primary"
-                      onPress={() => setActiveTab('input')}
-                      endContent={<ArrowRight className="w-4 h-4" />}
-                    >
-                      Go to Business Data
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="space-y-8">
-                    {/* Summary Card */}
-                    <Card className="border border-gray-200 shadow-sm">
-                      <CardBody className="p-8 text-center">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                          Estimated Business Value
-                        </h2>
-                        <div className="flex items-center justify-center space-x-3 mb-4">
-                          <TrendingUp className="w-8 h-8 text-gray-600" />
-                          <span className="text-5xl font-bold text-gray-900">
-                            €{averageValuation.toLocaleString()}
+
+                    <div className="flex justify-center space-x-4">
+                      <Button
+                        color="primary"
+                        startContent={<FileText className="w-4 h-4" />}
+                        onPress={() => navigate('/my-business/listings')}
+                      >
+                        Create Listing
+                      </Button>
+                      <Button variant="bordered" startContent={<Download className="w-4 h-4" />}>
+                        Download Report
+                      </Button>
+                    </div>
+                  </CardBody>
+                </Card>
+
+                {/* Individual Methods */}
+                <div className="grid lg:grid-cols-2 gap-6">
+                  {valuationResults.map((result, index) => (
+                    <Card key={index} className="border border-gray-200 shadow-sm">
+                      <CardHeader>
+                        <div className="flex items-center justify-between w-full">
+                          <h3 className="text-lg font-semibold text-gray-900">{result.method}</h3>
+                          <span
+                            className={`text-sm font-medium px-2 py-1 rounded-full bg-gray-100 ${
+                              result.confidence === 'high'
+                                ? 'text-green-600'
+                                : result.confidence === 'medium'
+                                  ? 'text-gray-600'
+                                  : 'text-red-600'
+                            }`}
+                          >
+                            {result.confidence.toUpperCase()}
                           </span>
                         </div>
-                        <p className="text-lg text-gray-600 mb-6">
-                          Weighted average of {valuationResults.length} valuation methods
-                        </p>
-
-                        <div className="flex justify-center space-x-4">
-                          <Button
-                            color="primary"
-                            startContent={<FileText className="w-4 h-4" />}
-                            onPress={() => navigate('/my-business/listings')}
-                          >
-                            Create Listing
-                          </Button>
-                          <Button
-                            variant="bordered"
-                            startContent={<Download className="w-4 h-4" />}
-                          >
-                            Download Report
-                          </Button>
+                      </CardHeader>
+                      <CardBody>
+                        <div className="mb-4">
+                          <div className="text-3xl font-bold text-gray-900 mb-1">
+                            €{result.value.toLocaleString()}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Range: €{result.lowRange.toLocaleString()} - €
+                            {result.highRange.toLocaleString()}
+                          </div>
+                        </div>
+                        <p className="text-gray-700 mb-4">{result.explanation}</p>
+                        <div>
+                          <h4 className="font-medium text-gray-900 mb-2">Key Assumptions:</h4>
+                          <ul className="text-sm text-gray-600 space-y-1">
+                            {result.assumptions.map((assumption, idx) => (
+                              <li key={idx} className="flex items-start space-x-2">
+                                <span className="text-gray-400 mt-1">•</span>
+                                <span>{assumption}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       </CardBody>
                     </Card>
-
-                    {/* Individual Methods */}
-                    <div className="grid lg:grid-cols-2 gap-6">
-                      {valuationResults.map((result, index) => (
-                        <Card key={index} className="border border-gray-200 shadow-sm">
-                          <CardHeader>
-                            <div className="flex items-center justify-between w-full">
-                              <h3 className="text-lg font-semibold text-gray-900">
-                                {result.method}
-                              </h3>
-                              <span
-                                className={`text-sm font-medium px-2 py-1 rounded-full bg-gray-100 ${
-                                  result.confidence === 'high'
-                                    ? 'text-green-600'
-                                    : result.confidence === 'medium'
-                                      ? 'text-gray-600'
-                                      : 'text-red-600'
-                                }`}
-                              >
-                                {result.confidence.toUpperCase()}
-                              </span>
-                            </div>
-                          </CardHeader>
-                          <CardBody>
-                            <div className="mb-4">
-                              <div className="text-3xl font-bold text-gray-900 mb-1">
-                                €{result.value.toLocaleString()}
-                              </div>
-                              <div className="text-sm text-gray-600">
-                                Range: €{result.lowRange.toLocaleString()} - €
-                                {result.highRange.toLocaleString()}
-                              </div>
-                            </div>
-                            <p className="text-gray-700 mb-4">{result.explanation}</p>
-                            <div>
-                              <h4 className="font-medium text-gray-900 mb-2">Key Assumptions:</h4>
-                              <ul className="text-sm text-gray-600 space-y-1">
-                                {result.assumptions.map((assumption, idx) => (
-                                  <li key={idx} className="flex items-start space-x-2">
-                                    <span className="text-gray-400 mt-1">•</span>
-                                    <span>{assumption}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </CardBody>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </Tab>
-            </Tabs>
-          </div>
-        </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Tab>
+        </Tabs>
       </div>
     </div>
   );

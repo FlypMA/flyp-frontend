@@ -1,36 +1,94 @@
-// 🔧 Shared Services - MVP Version
+// 🔧 Shared Services - Centralized Service Exports
 // Location: src/shared/services/index.ts
-// Purpose: Centralized exports for all shared services
+// Purpose: Single source of truth for all shared services
 
-// Authentication Service (Modular)
-export {
-  authService,
-  AuthenticationService,
-  default as authenticationService
-} from './auth';
+// =============================================================================
+// AUTHENTICATION SERVICES
+// =============================================================================
+
+// Main Authentication Service
+export { AuthenticationService, default as authenticationService, authService } from './auth';
+
+// Individual Auth Services (for modular usage)
+export { checkAuth, CheckAuthService } from './auth/checkAuth';
+export { login, LoginService } from './auth/login';
+export { logout, LogoutService } from './auth/logout';
+export { signup, SignupService } from './auth/signup';
+
+// =============================================================================
+// CONFIGURATION & CLIENT SERVICES
+// =============================================================================
 
 // Supabase Client (from config)
 export { supabase } from '../../config';
 
-// Types (re-exported from shared types)
-export type {
-  User,
-  UserRole,
-  AuthProvider,
-  Language,
-  Country,
-  LoginRequest,
-  RegisterRequest,
-  AuthResponse,
-  AuthResult,
-  UpdateProfileRequest,
-  UpdateBusinessInfoRequest,
-  UserResponse,
-  UserPreferences
-} from '../types';
+// =============================================================================
+// URL & NAVIGATION SERVICES
+// =============================================================================
 
 // URL Generator Service
 export { UrlGenerator, default as UrlGeneratorDefault } from './urls/urlGenerator';
 
 // Re-export for compatibility
 export { UrlGenerator as UrlGeneratorService } from './urls/urlGenerator';
+
+// =============================================================================
+// PAYMENT SERVICES
+// =============================================================================
+
+// Payment Services
+export * from './payments';
+export { paymentsApi } from './payments';
+
+// Individual Payment Functions
+export { createCheckoutSessionAPI } from './payments/api';
+
+// =============================================================================
+// MONITORING & ERROR HANDLING
+// =============================================================================
+
+// Error Handling Service
+export { errorHandler } from './monitoring/errorHandler';
+
+// =============================================================================
+// UTILITY SERVICES
+// =============================================================================
+
+// Development Utilities (re-exported from utils)
+export {
+  checkAuthWithBypass,
+  createMockUser,
+  devUtils,
+  isDevBypassEnabled,
+  shouldBypassProtectedRoute,
+} from '../utils/dev/devBypass';
+
+// =============================================================================
+// TYPE EXPORTS
+// =============================================================================
+
+// Authentication Types
+export type {
+  AuthProvider,
+  AuthResponse,
+  AuthResult,
+  LoginRequest,
+  RegisterRequest,
+  UpdateBusinessInfoRequest,
+  UpdateProfileRequest,
+  User,
+  UserPreferences,
+  UserResponse,
+  UserRole,
+} from '../types';
+
+// General Types
+export type { Country, Language } from '../types';
+
+// =============================================================================
+// LEGACY COMPATIBILITY EXPORTS
+// =============================================================================
+
+// For backward compatibility with legacy imports
+export { authService as AuthService } from './auth';
+export { UrlGenerator as urlGeneratorService } from './urls/urlGenerator';

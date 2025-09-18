@@ -13,6 +13,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserRole, isAdminUser, isBuyerUser, isSellerUser } from '../../shared/types';
+import { shouldBypassProtectedRoute } from '../../shared/utils/dev/devBypass';
 import { useAuth } from '../providers/auth-provider';
 
 // =============================================================================
@@ -125,6 +126,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const { user, isLoading } = useAuth();
 
+  // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
+  if (shouldBypassProtectedRoute()) {
+    return <>{children}</>;
+  }
+
   // Show loading state while checking authentication
   if (isLoading) {
     return <LoadingScreen message="Verifying authentication..." />;
@@ -150,6 +156,11 @@ export const RoleProtectedRoute: React.FC<RoleProtectedRouteProps> = ({
   fallbackTo,
 }) => {
   const { user, isLoading } = useAuth();
+
+  // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
+  if (shouldBypassProtectedRoute()) {
+    return <>{children}</>;
+  }
 
   // Show loading state while checking authentication
   if (isLoading) {

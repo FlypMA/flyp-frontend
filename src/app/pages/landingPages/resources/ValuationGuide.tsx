@@ -1,15 +1,17 @@
 import { useAuth } from '@/app/providers/auth-provider';
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
+import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
+  AlertTriangle,
   BarChart,
-  Briefcase,
-  Building2,
   Calculator,
   CheckCircle,
-  FileText,
-  PieChart,
+  DollarSign,
+  Heart,
+  MessageSquare,
+  Shield,
   Target,
   TrendingUp,
 } from 'lucide-react';
@@ -22,59 +24,92 @@ const ValuationGuide = () => {
   return (
     <>
       <SEOHead
-        title="Business Valuation Guide | flyp M&A Platform"
-        description="Complete guide to business valuation for M&A transactions. Learn valuation methods, multiples, and how to value your SME business for sale in Europe."
-        keywords="business valuation, company valuation, M&A valuation, EBITDA multiples, discounted cash flow, business worth, SME valuation"
+        title="What's Your Business Really Worth? | flyp Business Valuation Guide"
+        description="Discover your business's true value and why selling is better than liquidating. A caring guide for business owners ready to understand their life's work."
+        keywords="business valuation, business worth, sell vs liquidate, business value, SME valuation, business owner guide, exit strategy"
       />
 
       <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-neutral-50 via-white to-primary-50 py-20">
+        {/* Hero Section - Caregiver Approach for Business Owners */}
+        <div className="bg-gradient-to-br from-neutral-100 via-white to-calm-50 py-20">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <div className="flex justify-center mb-6">
-                <div className="p-4 bg-primary-100 rounded-full">
-                  <Calculator className="w-12 h-12 text-primary-600" />
+                <div className="p-4 bg-calm-100 rounded-full">
+                  <Heart className="w-12 h-12 text-calm-600" />
                 </div>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
-                Business Valuation Guide
+                What's Your Business
+                <span className="block text-calm-600 text-3xl md:text-4xl mt-2">Really Worth?</span>
               </h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
-                Learn how to accurately value your business for M&A transactions. Comprehensive
-                guide covering all major valuation methods and industry best practices.
+                After years of building your business, you deserve to know its true value. We'll
+                help you understand why your life's work is worth more than you might think — and
+                why selling is almost always better than liquidating.
               </p>
-              <div className="flex justify-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Chip color="primary" variant="flat" className="text-lg px-6 py-2 rounded-full">
-                  Free Expert Guide
+                  Free • For business owners
                 </Chip>
+                <div className="flex items-center gap-2 text-sm text-neutral-500">
+                  <CheckCircle className="w-4 h-4 text-success-600" />
+                  <span>Written with care by M&A experts</span>
+                </div>
               </div>
             </div>
           </Container>
         </div>
 
-        {/* Table of Contents */}
+        {/* Why This Matters - Emotional Connection */}
         <Container>
           <div className="py-20">
             <div className="max-w-4xl mx-auto">
+              {/* Emotional Hook - Liquidation vs Sale */}
+              <Card className="border border-accent-200 bg-accent-50 mb-12 rounded-xl">
+                <CardBody className="p-8">
+                  <div className="flex items-start gap-4">
+                    <AlertTriangle className="w-8 h-8 text-accent-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <h2 className="text-2xl font-bold text-accent-900 mb-4">
+                        Don't Let Your Life's Work Go for Pennies
+                      </h2>
+                      <p className="text-accent-800 text-lg mb-4">
+                        We've seen too many business owners think their only option is to liquidate
+                        — selling equipment, closing doors, and walking away with a fraction of what
+                        their business is actually worth.
+                      </p>
+                      <p className="text-accent-800 text-lg">
+                        <strong>Your business is worth more than its parts.</strong> Much more. And
+                        we're here to show you exactly how much.
+                      </p>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+
+              {/* Table of Contents - Reframed for Business Owners */}
               <Card className="border border-neutral-200 mb-12 rounded-xl">
                 <CardHeader>
-                  <h2 className="text-2xl font-bold text-neutral-900">Table of Contents</h2>
+                  <h2 className="text-2xl font-bold text-neutral-900">What We'll Cover Together</h2>
+                  <p className="text-neutral-600 mt-2">
+                    A step-by-step guide to understanding your business value
+                  </p>
                 </CardHeader>
                 <CardBody>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[
-                      { title: '1. Introduction to Business Valuation', icon: FileText },
-                      { title: '2. Revenue Multiple Method', icon: TrendingUp },
-                      { title: '3. EBITDA Multiple Method', icon: BarChart },
-                      { title: '4. Discounted Cash Flow (DCF)', icon: Calculator },
-                      { title: '5. Asset-Based Valuation', icon: Building2 },
-                      { title: '6. Industry-Specific Multiples', icon: Target },
-                      { title: '7. Valuation Adjustments', icon: PieChart },
-                      { title: '8. Market Comparables', icon: Briefcase },
+                      { title: '1. Why Your Business Has Hidden Value', icon: Heart },
+                      { title: '2. The Real Cost of Liquidation', icon: AlertTriangle },
+                      { title: '3. How We Value Your Business', icon: Calculator },
+                      { title: '4. Revenue-Based Valuation', icon: TrendingUp },
+                      { title: '5. Profit-Based Valuation (EBITDA)', icon: BarChart },
+                      { title: '6. What Makes Your Business Special', icon: Target },
+                      { title: '7. Getting the Right Valuation', icon: Shield },
+                      { title: '8. Your Next Steps', icon: CheckCircle },
                     ].map((item, index) => (
                       <div key={index} className="flex items-center gap-3">
-                        <item.icon className="w-5 h-5 text-primary-600" />
+                        <item.icon className="w-5 h-5 text-calm-600" />
                         <span className="text-neutral-700">{item.title}</span>
                       </div>
                     ))}
@@ -82,28 +117,31 @@ const ValuationGuide = () => {
                 </CardBody>
               </Card>
 
-              {/* Introduction */}
+              {/* Section 1: Hidden Value */}
               <div className="mb-16">
                 <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-                  1. Introduction to Business Valuation
+                  1. Why Your Business Has Hidden Value
                 </h2>
                 <div className="prose prose-lg max-w-none text-neutral-700">
                   <p className="mb-6">
-                    Business valuation is both an art and a science. It involves determining the
-                    economic value of a business using various financial metrics, market conditions,
-                    and industry-specific factors. For M&A transactions, accurate valuation is
-                    crucial for both buyers and sellers to ensure fair pricing and successful deals.
+                    You've spent years building something special. Your business has customers who
+                    trust you, systems that work, and a reputation in your community. That's not
+                    just "stuff" — that's real, valuable assets that someone would pay good money
+                    for.
                   </p>
 
-                  <Card className="border border-primary-200 bg-primary-50 mb-6 rounded-xl">
+                  <Card className="border border-calm-200 bg-calm-50 mb-6 rounded-xl">
                     <CardBody className="p-6">
                       <div className="flex items-start gap-3">
-                        <CheckCircle className="w-6 h-6 text-primary-600 mt-1 flex-shrink-0" />
+                        <Heart className="w-6 h-6 text-calm-600 mt-1 flex-shrink-0" />
                         <div>
-                          <h4 className="font-semibold text-primary-900 mb-2">Key Point</h4>
-                          <p className="text-primary-800">
-                            Multiple valuation methods should always be used together to arrive at a
-                            comprehensive and accurate business value range.
+                          <h4 className="font-semibold text-calm-900 mb-2">
+                            Your Business is More Than Equipment
+                          </h4>
+                          <p className="text-calm-800">
+                            When you liquidate, you're only selling the physical stuff. When you
+                            sell your business, you're selling the relationships, the systems, the
+                            brand, and the future income. That's where the real value is.
                           </p>
                         </div>
                       </div>
@@ -111,290 +149,556 @@ const ValuationGuide = () => {
                   </Card>
 
                   <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                    Why Accurate Valuation Matters
+                    What Makes Your Business Valuable
                   </h3>
-                  <ul className="space-y-2 mb-6">
-                    <li className="flex items-start gap-2">
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
-                      <span>Ensures fair pricing for both buyers and sellers</span>
+                      <div>
+                        <strong>Your Customer Relationships:</strong> People know and trust your
+                        business
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
-                      <span>Facilitates faster deal closure and negotiations</span>
+                      <div>
+                        <strong>Your Systems & Processes:</strong> You've figured out how to make
+                        money consistently
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
-                      <span>Reduces risk of valuation disputes during due diligence</span>
+                      <div>
+                        <strong>Your Team & Knowledge:</strong> The expertise you've built over the
+                        years
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
+                    <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
-                      <span>Helps secure financing and investor interest</span>
+                      <div>
+                        <strong>Your Future Income:</strong> The money your business will make for
+                        years to come
+                      </div>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              {/* Revenue Multiple Method */}
+              {/* Section 2: The Real Cost of Liquidation */}
               <div className="mb-16">
                 <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-                  2. Revenue Multiple Method
+                  2. The Real Cost of Liquidation
                 </h2>
                 <div className="prose prose-lg max-w-none text-neutral-700">
                   <p className="mb-6">
-                    The Revenue Multiple Method values a business based on its annual revenue
-                    multiplied by an industry-specific multiple. This method is particularly useful
-                    for businesses with strong revenue growth or in industries where revenue is a
-                    key value driver.
+                    We understand why liquidation might seem like the easier option. It feels
+                    simple: sell the equipment, close the doors, done. But let's talk about what
+                    you're really giving up.
                   </p>
 
-                  <Card className="border border-neutral-200 mb-6 rounded-xl">
-                    <CardHeader>
-                      <h4 className="text-lg font-semibold text-neutral-900">Formula</h4>
-                    </CardHeader>
-                    <CardBody>
-                      <div className="bg-neutral-100 p-4 rounded-xl text-center">
-                        <code className="text-lg font-mono text-neutral-900">
-                          Business Value = Annual Revenue × Revenue Multiple
-                        </code>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <Card className="border border-error-200 bg-error-50 rounded-xl">
+                      <CardHeader>
+                        <h3 className="text-lg font-semibold text-error-900 flex items-center gap-2">
+                          <AlertTriangle className="w-5 h-5" />
+                          Liquidation Reality
+                        </h3>
+                      </CardHeader>
+                      <CardBody>
+                        <ul className="space-y-2 text-error-800">
+                          <li>• Equipment sells for 10-30% of original value</li>
+                          <li>• Inventory often sold at deep discounts</li>
+                          <li>• Customer relationships lost forever</li>
+                          <li>• Years of goodwill worth nothing</li>
+                          <li>• Future income stream = €0</li>
+                        </ul>
+                      </CardBody>
+                    </Card>
+
+                    <Card className="border border-success-200 bg-success-50 rounded-xl">
+                      <CardHeader>
+                        <h3 className="text-lg font-semibold text-success-900 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5" />
+                          Selling Your Business
+                        </h3>
+                      </CardHeader>
+                      <CardBody>
+                        <ul className="space-y-2 text-success-800">
+                          <li>• Get paid for future profits (2-6x annual profit)</li>
+                          <li>• Customer relationships have value</li>
+                          <li>• Brand and reputation worth money</li>
+                          <li>• Systems and processes valued</li>
+                          <li>• Your legacy continues</li>
+                        </ul>
+                      </CardBody>
+                    </Card>
+                  </div>
+
+                  <Card className="border border-accent-200 bg-accent-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <DollarSign className="w-6 h-6 text-accent-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-accent-900 mb-2">Real Example</h4>
+                          <p className="text-accent-800 mb-3">
+                            A printing business with €500K in annual profit: Liquidation might get
+                            you €100K for equipment. Selling the business could get you €1.5-3M
+                            (3-6x profit multiple).
+                            <strong> That's a €1.4-2.9M difference.</strong>
+                          </p>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Section 3: How We Value Your Business */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
+                  3. How We Value Your Business
+                </h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    Don't worry — you don't need to become a valuation expert. But it helps to
+                    understand the basics of how we determine what your business is worth. We use
+                    proven methods that buyers and sellers trust.
+                  </p>
+
+                  <Card className="border border-calm-200 bg-calm-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <Shield className="w-6 h-6 text-calm-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-calm-900 mb-2">
+                            Why Proper Valuation Matters
+                          </h4>
+                          <p className="text-calm-800">
+                            A proper valuation protects you from selling too low and helps buyers
+                            feel confident they're paying a fair price. It's the foundation of any
+                            successful business sale.
+                          </p>
+                        </div>
                       </div>
                     </CardBody>
                   </Card>
 
                   <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                    Typical Revenue Multiples by Industry
+                    The Two Main Ways We Value Businesses
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <Card className="border border-neutral-200 rounded-xl">
+                      <CardHeader>
+                        <h4 className="text-lg font-semibold text-neutral-900 flex items-center gap-2">
+                          <TrendingUp className="w-5 h-5 text-primary-600" />
+                          Revenue-Based
+                        </h4>
+                      </CardHeader>
+                      <CardBody>
+                        <p className="text-neutral-700 mb-3">
+                          We look at how much money your business brings in each year and multiply
+                          it by what similar businesses sell for.
+                        </p>
+                        <div className="bg-neutral-100 p-3 rounded-lg text-center">
+                          <code className="text-sm font-mono">
+                            Your Annual Revenue × Industry Multiple
+                          </code>
+                        </div>
+                      </CardBody>
+                    </Card>
+
+                    <Card className="border border-neutral-200 rounded-xl">
+                      <CardHeader>
+                        <h4 className="text-lg font-semibold text-neutral-900 flex items-center gap-2">
+                          <BarChart className="w-5 h-5 text-success-600" />
+                          Profit-Based
+                        </h4>
+                      </CardHeader>
+                      <CardBody>
+                        <p className="text-neutral-700 mb-3">
+                          We look at how much profit your business makes and multiply it by what
+                          buyers typically pay for that level of profit.
+                        </p>
+                        <div className="bg-neutral-100 p-3 rounded-lg text-center">
+                          <code className="text-sm font-mono">
+                            Your Annual Profit × Profit Multiple
+                          </code>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 4: Revenue-Based Valuation */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
+                  4. Revenue-Based Valuation: What Your Sales Are Worth
+                </h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    This method is simple: we take your annual revenue (all the money coming in) and
+                    multiply it by what businesses like yours typically sell for.
+                  </p>
+
+                  <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                    What Different Types of Businesses Are Worth
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium">Technology/SaaS</span>
-                          <span className="text-primary-600 font-bold">3-8x</span>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-medium">Service Businesses</span>
+                          <span className="text-primary-600 font-bold">1-3x Revenue</span>
                         </div>
+                        <p className="text-sm text-neutral-600">
+                          Consulting, agencies, professional services
+                        </p>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium">Professional Services</span>
-                          <span className="text-primary-600 font-bold">1-3x</span>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-medium">Retail Businesses</span>
+                          <span className="text-primary-600 font-bold">0.5-1.5x Revenue</span>
                         </div>
+                        <p className="text-sm text-neutral-600">Shops, restaurants, e-commerce</p>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center mb-2">
                           <span className="font-medium">Manufacturing</span>
-                          <span className="text-primary-600 font-bold">0.5-2x</span>
+                          <span className="text-primary-600 font-bold">0.5-2x Revenue</span>
                         </div>
+                        <p className="text-sm text-neutral-600">
+                          Production, distribution, logistics
+                        </p>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium">Retail/E-commerce</span>
-                          <span className="text-primary-600 font-bold">0.5-1.5x</span>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-medium">Technology</span>
+                          <span className="text-primary-600 font-bold">2-6x Revenue</span>
                         </div>
+                        <p className="text-sm text-neutral-600">Software, SaaS, tech services</p>
                       </CardBody>
                     </Card>
                   </div>
-                </div>
-              </div>
 
-              {/* EBITDA Multiple Method */}
-              <div className="mb-16">
-                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-                  3. EBITDA Multiple Method & Sector Expansion
-                </h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
-                  <p className="mb-6">
-                    The EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization)
-                    multiple method is one of the most widely used valuation approaches in M&A. It
-                    provides a clearer view of operational performance by removing the effects of
-                    financing and accounting decisions.
-                  </p>
-
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
-                    <h3 className="text-xl font-semibold text-blue-800 mb-4">
-                      🔍 What are Multiples?
-                    </h3>
-                    <p className="text-blue-700 mb-4">
-                      <strong>
-                        Multiples are financial ratios used to determine company value by comparing
-                        to similar companies or transactions.
-                      </strong>
-                      They provide a market-based approach to valuation by analyzing what investors
-                      are willing to pay for companies with similar characteristics.
-                    </p>
-                    <p className="text-blue-700">
-                      A common multiple is the EBITDA multiple, where enterprise value is divided by
-                      EBITDA. This multiple varies significantly across sectors due to differences
-                      in growth rates, profitability patterns, capital requirements, and market
-                      dynamics.
-                    </p>
-                  </div>
-
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
-                    <h3 className="text-xl font-semibold text-amber-800 mb-4">
-                      📊 Sector Expansion for Multiples (Uitbreiding Sectoren)
-                    </h3>
-                    <p className="text-amber-700 mb-4">
-                      The "expansion of sectors" in multiples refers to applying the multiple-method
-                      to companies active in sectors where fewer comparable, traded companies exist.
-                      This requires more research and adjustment of multiples to account for
-                      sector-specific characteristics.
-                    </p>
-                    <p className="text-amber-700 mb-4">
-                      <strong>High-Growth Sectors like SaaS:</strong> Sectors with significant
-                      market potential and high profitability, such as fast-growing
-                      software-as-a-service (SaaS) companies, often command higher multiples due to:
-                    </p>
-                    <ul className="text-amber-700 space-y-2 ml-6">
-                      <li>
-                        • <strong>Predictable Revenue:</strong> Recurring subscription models
-                        provide stable cash flows
-                      </li>
-                      <li>
-                        • <strong>Scalability:</strong> Low marginal costs for additional customers
-                      </li>
-                      <li>
-                        • <strong>Customer Metrics:</strong> Low churn rates and high lifetime value
-                        (LTV)
-                      </li>
-                      <li>
-                        • <strong>Growth Efficiency:</strong> Favorable customer acquisition cost
-                        (CAC) to LTV ratios
-                      </li>
-                      <li>
-                        • <strong>Market Position:</strong> First-mover advantages and network
-                        effects
-                      </li>
-                    </ul>
-                  </div>
-
-                  <Card className="border border-neutral-200 mb-6 rounded-xl">
-                    <CardHeader>
-                      <h4 className="text-lg font-semibold text-neutral-900">Formula</h4>
-                    </CardHeader>
-                    <CardBody>
-                      <div className="bg-neutral-100 p-4 rounded-xl text-center mb-4">
-                        <code className="text-lg font-mono text-neutral-900">
-                          Business Value = EBITDA × EBITDA Multiple
-                        </code>
-                      </div>
-                      <div className="text-sm text-neutral-600">
-                        <p>
-                          <strong>EBITDA</strong> = Net Income + Interest + Taxes + Depreciation +
-                          Amortization
+                  <Card className="border border-primary-200 bg-primary-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <h4 className="font-semibold text-primary-900 mb-3">Quick Example</h4>
+                      <p className="text-primary-800 mb-3">
+                        Let's say you own a marketing agency that brings in €800,000 per year.
+                        Service businesses typically sell for 1-3x revenue.
+                      </p>
+                      <div className="bg-white p-4 rounded-lg">
+                        <p className="text-primary-900">
+                          <strong>Conservative estimate:</strong> €800,000 × 1.5 ={' '}
+                          <span className="text-success-600 font-bold">€1.2M</span>
+                          <br />
+                          <strong>Strong business:</strong> €800,000 × 2.5 ={' '}
+                          <span className="text-success-600 font-bold">€2M</span>
                         </p>
                       </div>
                     </CardBody>
                   </Card>
+                </div>
+              </div>
+
+              {/* Section 5: Profit-Based Valuation (EBITDA) */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
+                  5. Profit-Based Valuation: What Your Profits Are Worth
+                </h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    This is often the most accurate way to value your business. We look at your
+                    actual profit (the money you keep after all expenses) and multiply it by what
+                    buyers typically pay for that level of profitability.
+                  </p>
+
+                  <Card className="border border-calm-200 bg-calm-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <BarChart className="w-6 h-6 text-calm-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-calm-900 mb-2">
+                            Why Profit Matters Most
+                          </h4>
+                          <p className="text-calm-800">
+                            Revenue is nice, but profit is what buyers really care about. It shows
+                            them how much money they'll actually make from your business. Higher
+                            profits = higher value.
+                          </p>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
 
                   <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                    EBITDA Multiples by Business Size (Revenue & EBITDA Analysis)
+                    What Your Profit Level Is Worth
                   </h3>
-                  <div className="bg-gray-50 p-4 rounded-xl mb-4">
-                    <p className="text-sm text-gray-700">
-                      <strong>Revenue & EBITDA Relationship:</strong> While revenue shows business
-                      scale, EBITDA reveals operational efficiency. Both metrics are essential -
-                      revenue indicates market size and growth potential, while EBITDA demonstrates
-                      profitability and cash generation capability.
-                    </p>
-                  </div>
                   <div className="space-y-4 mb-6">
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="font-medium">Micro Businesses (€0-1M revenue)</span>
-                          <span className="text-primary-600 font-bold">2-4x EBITDA</span>
+                          <span className="font-medium">Small Profit (€50K-200K/year)</span>
+                          <span className="text-primary-600 font-bold">2-4x Profit</span>
                         </div>
                         <div className="text-sm text-neutral-600">
-                          Typically owner-operated with limited scalability
+                          Usually owner-operated, buyer takes over your role
                         </div>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="font-medium">Small Businesses (€1-10M revenue)</span>
-                          <span className="text-primary-600 font-bold">3-6x EBITDA</span>
+                          <span className="font-medium">Good Profit (€200K-500K/year)</span>
+                          <span className="text-primary-600 font-bold">3-5x Profit</span>
                         </div>
                         <div className="text-sm text-neutral-600">
-                          Established operations with some management depth
+                          Solid business with some systems in place
                         </div>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="font-medium">Medium Businesses (€10-50M revenue)</span>
-                          <span className="text-primary-600 font-bold">4-8x EBITDA</span>
+                          <span className="font-medium">Strong Profit (€500K-1M/year)</span>
+                          <span className="text-primary-600 font-bold">4-6x Profit</span>
                         </div>
                         <div className="text-sm text-neutral-600">
-                          Professional management and scalable operations
+                          Well-run business with management team
                         </div>
                       </CardBody>
                     </Card>
                     <Card className="border border-neutral-200 rounded-xl">
                       <CardBody className="p-4">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="font-medium">Large Businesses (€50M+ revenue)</span>
-                          <span className="text-primary-600 font-bold">6-12x EBITDA</span>
+                          <span className="font-medium">Excellent Profit (€1M+/year)</span>
+                          <span className="text-primary-600 font-bold">5-8x Profit</span>
                         </div>
                         <div className="text-sm text-neutral-600">
-                          Institutional quality with strong market position
+                          Premium business with strong market position
                         </div>
                       </CardBody>
                     </Card>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-                    Practical Valuation Example
-                  </h3>
-                  <Card className="border border-neutral-200 mb-6 rounded-xl">
+                  <Card className="border border-success-200 bg-success-50 mb-6 rounded-xl">
                     <CardBody className="p-6">
-                      <div className="bg-neutral-50 p-4 rounded-xl mb-4">
-                        <h4 className="font-semibold text-neutral-900 mb-2">Sample Business</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <p>
-                              <strong>Annual Revenue:</strong> €5,000,000
-                            </p>
-                            <p>
-                              <strong>EBITDA:</strong> €1,700,000
-                            </p>
-                            <p>
-                              <strong>Industry:</strong> Professional Services
-                            </p>
-                          </div>
-                          <div>
-                            <p>
-                              <strong>Revenue Multiple:</strong> 2.0x
-                            </p>
-                            <p>
-                              <strong>EBITDA Multiple:</strong> 5.5x
-                            </p>
-                            <p>
-                              <strong>Growth Rate:</strong> 15% annually
-                            </p>
-                          </div>
+                      <h4 className="font-semibold text-success-900 mb-3">Real Example</h4>
+                      <p className="text-success-800 mb-3">
+                        Your construction company makes €400,000 profit per year. That puts you in
+                        the "good profit" category (3-5x multiple).
+                      </p>
+                      <div className="bg-white p-4 rounded-lg">
+                        <p className="text-success-900">
+                          <strong>Conservative:</strong> €400,000 × 3 ={' '}
+                          <span className="text-primary-600 font-bold">€1.2M</span>
+                          <br />
+                          <strong>Strong business:</strong> €400,000 × 5 ={' '}
+                          <span className="text-primary-600 font-bold">€2M</span>
+                        </p>
+                      </div>
+                    </CardBody>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Section 6: What Makes Your Business Special */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
+                  6. What Makes Your Business Special
+                </h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    Not all businesses are the same, even if they make similar profits. Some things
+                    about your business can make it worth more (or less) than the standard
+                    multiples. Here's what buyers look for:
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <Card className="border border-success-200 bg-success-50 rounded-xl">
+                      <CardHeader>
+                        <h3 className="text-lg font-semibold text-success-900 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5" />
+                          What Increases Your Value
+                        </h3>
+                      </CardHeader>
+                      <CardBody>
+                        <ul className="space-y-3 text-success-800">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Loyal customers</strong> who keep coming back
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Good team</strong> that can run things without you
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Growing market</strong> with room to expand
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Unique advantages</strong> competitors can't copy
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Steady income</strong> you can predict
+                            </div>
+                          </li>
+                        </ul>
+                      </CardBody>
+                    </Card>
+
+                    <Card className="border border-error-200 bg-error-50 rounded-xl">
+                      <CardHeader>
+                        <h3 className="text-lg font-semibold text-error-900 flex items-center gap-2">
+                          <AlertTriangle className="w-5 h-5" />
+                          What Decreases Your Value
+                        </h3>
+                      </CardHeader>
+                      <CardBody>
+                        <ul className="space-y-3 text-error-800">
+                          <li className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-error-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Too dependent on you</strong> — business stops without you
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-error-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Few big customers</strong> — losing one hurts badly
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-error-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Declining industry</strong> — market getting smaller
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-error-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Old equipment</strong> — needs major investment
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-error-600 mt-1 flex-shrink-0" />
+                            <div>
+                              <strong>Legal problems</strong> — lawsuits or compliance issues
+                            </div>
+                          </li>
+                        </ul>
+                      </CardBody>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 7: Getting the Right Valuation */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
+                  7. Getting the Right Valuation
+                </h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    Here's the thing: you can't just pick a number and hope for the best. A proper
+                    valuation needs to be done right, or buyers won't take you seriously.
+                  </p>
+
+                  <Card className="border border-calm-200 bg-calm-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <Shield className="w-6 h-6 text-calm-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-calm-900 mb-2">
+                            Why Professional Valuation Matters
+                          </h4>
+                          <p className="text-calm-800 mb-3">
+                            A professional valuation gives you credibility with buyers and protects
+                            you from selling too low. It's like getting your house appraised before
+                            selling — you need to know what it's really worth.
+                          </p>
                         </div>
                       </div>
+                    </CardBody>
+                  </Card>
 
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-primary-50 rounded-xl">
-                          <span className="font-medium">Revenue Multiple (2.0x):</span>
-                          <span className="text-primary-600 font-bold">€10.0M</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-success-50 rounded-xl">
-                          <span className="font-medium">EBITDA Multiple (5.5x):</span>
-                          <span className="text-success-600 font-bold">€9.4M</span>
-                        </div>
-                        <div className="text-sm text-neutral-600 mt-4 p-3 bg-amber-50 rounded-xl">
-                          <strong>Note:</strong> In this case, the EBITDA multiple method provides a
-                          more accurate valuation as it accounts for the business's profitability
-                          and operational efficiency, which is crucial for professional services
-                          companies.
+                  <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                    What a Good Valuation Includes
+                  </h3>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Analysis of your financials</strong> — making sure the numbers are
+                        clean and accurate
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Comparison to similar businesses</strong> — what others like yours
+                        have sold for
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Market conditions</strong> — is it a good time to sell in your
+                        industry?
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-success-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Risk assessment</strong> — what could affect your business value?
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Section 8: Your Next Steps */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold text-neutral-900 mb-6">8. Your Next Steps</h2>
+                <div className="prose prose-lg max-w-none text-neutral-700">
+                  <p className="mb-6">
+                    Now you understand why your business is worth more than just liquidating it. The
+                    question is: what do you do next?
+                  </p>
+
+                  <Card className="border border-accent-200 bg-accent-50 mb-6 rounded-xl">
+                    <CardBody className="p-6">
+                      <div className="flex items-start gap-3">
+                        <MessageSquare className="w-6 h-6 text-accent-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-accent-900 mb-2">We're Here to Help</h4>
+                          <p className="text-accent-800 mb-3">
+                            Every business is different, and yours has its own story. We'd love to
+                            help you understand exactly what your business is worth and guide you
+                            through the process of selling it properly.
+                          </p>
+                          <p className="text-accent-800">
+                            <strong>No pressure, no obligation.</strong> Just honest guidance from
+                            people who care about getting you the value you deserve.
+                          </p>
                         </div>
                       </div>
                     </CardBody>
@@ -402,110 +706,42 @@ const ValuationGuide = () => {
                 </div>
               </div>
 
-              {/* Valuation Adjustments */}
-              <div className="mb-16">
-                <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-                  7. Valuation Adjustments
-                </h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
-                  <p className="mb-6">
-                    Raw valuation multiples often need adjustments based on specific business
-                    characteristics, market conditions, and risk factors. These adjustments can
-                    significantly impact the final business value.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <Card className="border border-neutral-200 rounded-xl">
-                      <CardHeader>
-                        <h3 className="text-lg font-semibold text-neutral-900">Value Enhancers</h3>
-                      </CardHeader>
-                      <CardBody>
-                        <ul className="space-y-2">
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
-                            <span className="text-sm">Recurring revenue streams</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
-                            <span className="text-sm">Strong management team</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
-                            <span className="text-sm">Diversified customer base</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
-                            <span className="text-sm">Proprietary technology/IP</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-4 h-4 text-success-600 mt-1 flex-shrink-0" />
-                            <span className="text-sm">Scalable business model</span>
-                          </li>
-                        </ul>
-                      </CardBody>
-                    </Card>
-
-                    <Card className="border border-neutral-200 rounded-xl">
-                      <CardHeader>
-                        <h3 className="text-lg font-semibold text-neutral-900">Value Detractors</h3>
-                      </CardHeader>
-                      <CardBody>
-                        <ul className="space-y-2">
-                          <li className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-red-600 rounded-full mt-1 flex-shrink-0"></div>
-                            <span className="text-sm">Customer concentration risk</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-red-600 rounded-full mt-1 flex-shrink-0"></div>
-                            <span className="text-sm">Owner dependency</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-red-600 rounded-full mt-1 flex-shrink-0"></div>
-                            <span className="text-sm">Declining market trends</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-red-600 rounded-full mt-1 flex-shrink-0"></div>
-                            <span className="text-sm">Outdated technology/equipment</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-red-600 rounded-full mt-1 flex-shrink-0"></div>
-                            <span className="text-sm">Regulatory/legal issues</span>
-                          </li>
-                        </ul>
-                      </CardBody>
-                    </Card>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Section */}
-              <Card className="border border-primary-200 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl">
+              {/* CTA Section - Caregiver Approach */}
+              <Card className="border border-calm-200 bg-gradient-to-br from-calm-50 via-white to-neutral-100 rounded-xl">
                 <CardBody className="p-8 text-center">
-                  <h2 className="text-2xl font-bold text-primary-900 mb-4">
-                    Need Professional Valuation Services?
+                  <div className="flex justify-center mb-6">
+                    <div className="p-3 bg-calm-100 rounded-full">
+                      <Heart className="w-8 h-8 text-calm-600" />
+                    </div>
+                  </div>
+                  <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+                    Ready to Discover Your Business's True Worth?
                   </h2>
-                  <p className="text-primary-800 mb-6 max-w-2xl mx-auto">
-                    Our network of certified business appraisers and M&A professionals can provide
-                    detailed valuations for your business. Get started with a free consultation.
+                  <p className="text-neutral-700 mb-6 max-w-2xl mx-auto">
+                    Don't let your life's work go for pennies. Get a free, no-obligation valuation
+                    and see what your business is really worth. We'll guide you through every step.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
-                      color="primary"
+                      variant="supportive"
                       size="lg"
-                      className="rounded-xl font-semibold"
+                      className="px-8 py-3"
                       onPress={() => openModal('signup')}
                     >
-                      Get Free Valuation
+                      Get My Free Valuation
                     </Button>
                     <Button
-                      variant="bordered"
+                      variant="outline"
                       size="lg"
-                      className="border-2 border-primary-600 text-primary-700 rounded-xl font-semibold"
+                      className="px-8 py-3"
                       onPress={() => navigate('/contact')}
                     >
-                      Contact Expert
+                      Talk to Our Team
                     </Button>
                   </div>
+                  <p className="text-sm text-neutral-500 mt-4">
+                    Free consultation • No pressure • Just honest guidance
+                  </p>
                 </CardBody>
               </Card>
             </div>

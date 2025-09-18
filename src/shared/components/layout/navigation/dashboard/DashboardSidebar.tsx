@@ -1,37 +1,30 @@
-// 🏢 Dashboard Sidebar - MVP Version
+// 🏢 Dashboard Sidebar - Legacy Design
 // Location: src/shared/components/navigation/dashboard/DashboardSidebar.tsx
-// Purpose: Collapsible sidebar for seller dashboard with business management navigation
+// Purpose: Seller dashboard sidebar with legacy design and copy
 //
 // FEATURES:
-// - Collapsible sidebar with smooth animations
+// - Legacy design matching the original app
 // - Role-based navigation items
 // - Active state highlighting
 // - Business management sections
 // - Coming soon features
 // - Responsive design (desktop only)
 
-import * as React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Building2, 
-  FileText, 
-  Calculator, 
-  TrendingUp, 
-  MessageCircle,
-  BarChart3,
-  Settings,
-  ChevronLeft,
-  ChevronRight
+import { cn } from '@heroui/react';
+import {
+  AlertTriangle,
+  Building2,
+  Calculator,
+  FileText,
+  LayoutDashboard,
+  TrendingUp,
 } from 'lucide-react';
+import * as React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
-import { User } from '../../../../types';
-import { getDashboardSidebarSections } from '../utils';
 
 interface DashboardSidebarProps {
-  isCollapsed?: boolean;
-  onToggle?: () => void;
-  user?: User;
   className?: string;
 }
 
@@ -50,14 +43,10 @@ interface NavItem {
   allowedRoles?: string[];
 }
 
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
-  isCollapsed = false,
-  onToggle,
-  user,
-  className = ''
-}) => {
+const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   const navSections: NavSection[] = [
     {
@@ -74,91 +63,57 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       ],
     },
     {
-      title: 'Listings & Sales',
-      items: [
-        {
-          key: 'listings',
-          label: 'My Listings',
-          icon: Building2,
-          description: 'Manage your business listings',
-          path: UrlGenerator.myBusinessListings(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-        {
-          key: 'create-listing',
-          label: 'Create Listing',
-          icon: Building2,
-          description: 'List your business for sale',
-          path: UrlGenerator.createListing(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-      ],
-    },
-    {
-      title: 'Analytics & Reports',
-      items: [
-        {
-          key: 'analytics',
-          label: 'Business Analytics',
-          icon: BarChart3,
-          description: 'Performance metrics and insights',
-          path: UrlGenerator.businessAnalytics(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-        {
-          key: 'performance',
-          label: 'Performance',
-          icon: TrendingUp,
-          description: 'Business performance tracking',
-          path: UrlGenerator.businessPerformance(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-      ],
-    },
-    {
-      title: 'Tools & Resources',
+      title: 'Reports & Analysis',
       items: [
         {
           key: 'valuation',
           label: 'Business Valuation',
           icon: Calculator,
-          description: 'Professional business valuation',
-          path: UrlGenerator.valuationGuide(),
+          description: 'Professional business valuation tool',
+          path: UrlGenerator.businessValuations(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
+        {
+          key: 'solvency',
+          label: 'Solvency Intelligence',
+          icon: TrendingUp,
+          description: 'Financial health & loan eligibility',
+          path: '/business/solvency',
+          allowedRoles: ['seller', 'admin', 'both'],
+        },
+        {
+          key: 'liquidation',
+          label: 'Liquidation Analysis',
+          icon: AlertTriangle,
+          description: 'Strategic sale vs liquidation',
+          path: '/business/liquidation',
+          allowedRoles: ['seller', 'admin', 'both'],
+        },
+      ],
+    },
+    {
+      title: 'Data Room',
+      items: [
         {
           key: 'documents',
           label: 'Document Vault',
           icon: FileText,
           description: 'Secure document storage',
-          path: '/business/documents',
+          path: UrlGenerator.businessDocuments(),
           isComingSoon: true,
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
     },
     {
-      title: 'Communication',
+      title: 'Business Management',
       items: [
         {
-          key: 'messages',
-          label: 'Messages',
-          icon: MessageCircle,
-          description: 'Buyer inquiries and communication',
-          path: UrlGenerator.messages(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      items: [
-        {
-          key: 'settings',
-          label: 'Account Settings',
-          icon: Settings,
-          description: 'Manage your account preferences',
-          path: UrlGenerator.userSettings(),
+          key: 'listings',
+          label: 'Listing Management',
+          icon: Building2,
+          description: 'Manage your sale listing',
+          path: UrlGenerator.myBusinessListings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
@@ -175,129 +130,75 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     }))
     .filter(section => section.items.length > 0);
 
-  const handleItemClick = (path: string, isComingSoon?: boolean) => {
-    if (!isComingSoon) {
-      navigate(path);
-    }
-  };
-
   return (
-    <div
-      className={`fixed hidden md:flex inset-y-0 left-0 bg-white border-r border-gray-200 shadow-lg transition-all duration-300 z-20 ${
-        isCollapsed ? 'w-16' : 'w-64'
-      } ${className}`}
+    <nav
+      className={cn(
+        'flex flex-col bg-white border-r border-gray-200 shadow-sm',
+        'min-h-screen w-80 sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto',
+        className
+      )}
     >
-      {/* Header */}
-      <div className="flex flex-col h-full">
-        {/* Logo and Toggle */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          {!isCollapsed && (
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">BD</span>
-              </div>
-              <span className="text-lg font-semibold text-gray-900">Dashboard</span>
-            </div>
-          )}
-          
-          {onToggle && (
-            <button
-              onClick={onToggle}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            >
-              {isCollapsed ? (
-                <ChevronRight className="w-5 h-5 text-gray-500" />
-              ) : (
-                <ChevronLeft className="w-5 h-5 text-gray-500" />
-              )}
-            </button>
-          )}
-        </div>
+      {/* Navigation Sections */}
+      <div className="flex-1 py-6">
+        {filteredNavSections.map((section, sectionIndex) => (
+          <div key={section.title} className={cn('px-6', sectionIndex > 0 && 'mt-8')}>
+            {/* Section Title */}
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
+              {section.title}
+            </h3>
 
-        {/* Navigation Sections */}
-        <div className="flex-1 overflow-y-auto py-4">
-          {filteredNavSections.map((section, sectionIndex) => (
-            <div key={section.title} className={sectionIndex > 0 ? 'mt-6' : ''}>
-              {/* Section Title */}
-              {!isCollapsed && (
-                <h3 className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                  {section.title}
-                </h3>
-              )}
+            {/* Section Items */}
+            <div className="space-y-1">
+              {section.items.map(item => {
+                const Icon = item.icon;
+                const isActive = location.pathname === item.path;
+                const isDisabled = item.isComingSoon;
 
-              {/* Section Items */}
-              <div className="space-y-1 px-2">
-                {section.items.map(item => {
-                  const Icon = item.icon;
-                  const isActive = location.pathname === item.path;
-                  const isDisabled = item.isComingSoon;
-
-                  return (
-                    <button
-                      key={item.key}
-                      onClick={() => handleItemClick(item.path, item.isComingSoon)}
-                      disabled={isDisabled}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700 border border-primary-200'
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                      } ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                      title={isCollapsed ? item.label : undefined}
-                    >
-                      <Icon
-                        className={`w-5 h-5 flex-shrink-0 ${
-                          isActive ? 'text-primary-600' : 'text-gray-500'
-                        }`}
-                      />
-                      
-                      {!isCollapsed && (
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium truncate">
-                            {item.label}
-                            {isDisabled && (
-                              <span className="ml-2 text-xs text-gray-400 font-normal">
-                                (Coming Soon)
-                              </span>
-                            )}
-                          </div>
-                          {item.description && (
-                            <div className="text-xs text-gray-500 mt-0.5 truncate">
-                              {item.description}
-                            </div>
-                          )}
-                        </div>
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => !isDisabled && navigate(item.path)}
+                    disabled={isDisabled}
+                    className={cn(
+                      'w-full flex items-start gap-3 px-3 py-3 rounded-lg text-left transition-all duration-150',
+                      'hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+                      isActive && 'bg-primary-50 border-primary-200 shadow-sm',
+                      isDisabled && 'opacity-50 cursor-not-allowed hover:bg-transparent'
+                    )}
+                  >
+                    <Icon
+                      className={cn(
+                        'w-5 h-5 mt-0.5 flex-shrink-0',
+                        isActive ? 'text-primary-600' : 'text-gray-500'
                       )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
+                    />
 
-        {/* User Info (Bottom) */}
-        {!isCollapsed && user && (
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">
-                  {user.name?.charAt(0) || user.email?.charAt(0) || 'U'}
-                </span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-gray-900 truncate">
-                  {user.name || 'User'}
-                </div>
-                <div className="text-xs text-gray-500 truncate">
-                  {user.role}
-                </div>
-              </div>
+                    <div className="flex-1 min-w-0">
+                      <div
+                        className={cn(
+                          'text-sm font-medium',
+                          isActive ? 'text-primary-700' : 'text-gray-900'
+                        )}
+                      >
+                        {item.label}
+                        {isDisabled && (
+                          <span className="ml-2 text-xs text-gray-400 font-normal">
+                            (Coming Soon)
+                          </span>
+                        )}
+                      </div>
+                      {item.description && (
+                        <div className="text-xs text-gray-500 mt-1">{item.description}</div>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
-        )}
+        ))}
       </div>
-    </div>
+    </nav>
   );
 };
 

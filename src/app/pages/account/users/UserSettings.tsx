@@ -1,5 +1,6 @@
 import { CustomDropdown } from '@/shared/components/forms';
-import { Button, Card, CardBody, CardHeader, Divider, Input, Switch } from '@heroui/react';
+import { Input } from '@/shared/components/forms/Input';
+import { Button, Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
 import { Bell, Eye, EyeOff, Save, Settings, Shield } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -288,82 +289,74 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Password</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
-            <div className="relative">
-              <Input
-                type={showPasswords.current ? 'text' : 'password'}
-                value={passwordData.currentPassword}
-                onChange={e =>
-                  setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))
-                }
-                placeholder="Enter current password"
-                endContent={
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility('current')}
-                    className="focus:outline-none"
-                  >
-                    {showPasswords.current ? (
-                      <EyeOff className="w-4 h-4 text-gray-400" />
-                    ) : (
-                      <Eye className="w-4 h-4 text-gray-400" />
-                    )}
-                  </button>
-                }
-              />
-            </div>
+            <Input
+              label="Current Password"
+              type={showPasswords.current ? 'text' : 'password'}
+              value={passwordData.currentPassword}
+              onChange={e =>
+                setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))
+              }
+              placeholder="Enter current password"
+              rightIcon={
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility('current')}
+                  className="focus:outline-none"
+                >
+                  {showPasswords.current ? (
+                    <EyeOff className="w-4 h-4 text-gray-400" />
+                  ) : (
+                    <Eye className="w-4 h-4 text-gray-400" />
+                  )}
+                </button>
+              }
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
-            <div className="relative">
-              <Input
-                type={showPasswords.new ? 'text' : 'password'}
-                value={passwordData.newPassword}
-                onChange={e => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-                placeholder="Enter new password"
-                endContent={
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility('new')}
-                    className="focus:outline-none"
-                  >
-                    {showPasswords.new ? (
-                      <EyeOff className="w-4 h-4 text-gray-400" />
-                    ) : (
-                      <Eye className="w-4 h-4 text-gray-400" />
-                    )}
-                  </button>
-                }
-              />
-            </div>
+            <Input
+              label="New Password"
+              type={showPasswords.new ? 'text' : 'password'}
+              value={passwordData.newPassword}
+              onChange={e => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
+              placeholder="Enter new password"
+              rightIcon={
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility('new')}
+                  className="focus:outline-none"
+                >
+                  {showPasswords.new ? (
+                    <EyeOff className="w-4 h-4 text-gray-400" />
+                  ) : (
+                    <Eye className="w-4 h-4 text-gray-400" />
+                  )}
+                </button>
+              }
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Confirm New Password
-            </label>
-            <div className="relative">
-              <Input
-                type={showPasswords.confirm ? 'text' : 'password'}
-                value={passwordData.confirmPassword}
-                onChange={e =>
-                  setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))
-                }
-                placeholder="Confirm new password"
-                endContent={
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility('confirm')}
-                    className="focus:outline-none"
-                  >
-                    {showPasswords.confirm ? (
-                      <EyeOff className="w-4 h-4 text-gray-400" />
-                    ) : (
-                      <Eye className="w-4 h-4 text-gray-400" />
-                    )}
-                  </button>
-                }
-              />
-            </div>
+            <Input
+              label="Confirm New Password"
+              type={showPasswords.confirm ? 'text' : 'password'}
+              value={passwordData.confirmPassword}
+              onChange={e =>
+                setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))
+              }
+              placeholder="Confirm new password"
+              rightIcon={
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility('confirm')}
+                  className="focus:outline-none"
+                >
+                  {showPasswords.confirm ? (
+                    <EyeOff className="w-4 h-4 text-gray-400" />
+                  ) : (
+                    <Eye className="w-4 h-4 text-gray-400" />
+                  )}
+                </button>
+              }
+            />
           </div>
           <Button
             color="primary"

@@ -11,14 +11,12 @@
 // - Comprehensive error handling with retry logic
 // - Session state management
 
-import { User, AuthResult } from '../../types';
-import { supabase } from '../../../config';
-import { SessionManager } from './utils/session-manager';
+import { getApiConfig, isDevelopment, supabase } from '../../../config';
+import { AuthResult, convertSupabaseUserToUser, User } from '../../types';
 import { AuthErrorHandler } from './utils/error-handler';
 import { RetryHandler } from './utils/retry-handler';
+import { SessionManager } from './utils/session-manager';
 import { UserDataManager } from './utils/user-data-manager';
-import { convertSupabaseUserToUser } from '../../types';
-import { getApiConfig, isDevelopment } from '../../../config';
 
 // =============================================================================
 // CHECK AUTH SERVICE
@@ -51,7 +49,10 @@ export class CheckAuthService {
       // Validate session with Supabase
       const result = await RetryHandler.executeWithRetry(
         async () => {
-          const { data: { session }, error } = await supabase.auth.getSession();
+          const {
+            data: { session },
+            error,
+          } = await supabase.auth.getSession();
 
           if (error) {
             throw error;
@@ -65,7 +66,7 @@ export class CheckAuthService {
 
           // Get fresh user data from public.users table
           const publicUserData = await UserDataManager.getPublicUserData(session.user.id);
-          
+
           // Convert Supabase user to our User interface
           const user = convertSupabaseUserToUser(session.user, publicUserData || undefined);
 
@@ -88,13 +89,13 @@ export class CheckAuthService {
       return result;
     } catch (error) {
       console.error('❌ Authentication check failed:', error);
-      
+
       // Clear invalid session
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'checkAuthentication');
-      
+
       return { isAuthenticated: false };
     }
   }
@@ -143,8 +144,11 @@ export class CheckAuthService {
    */
   static async validateSession(): Promise<boolean> {
     try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
       if (error || !session?.user) {
         SessionManager.clearSession();
         return false;
@@ -167,7 +171,10 @@ export class CheckAuthService {
 
       const result = await RetryHandler.executeWithRetry(
         async () => {
-          const { data: { session }, error } = await supabase.auth.refreshSession();
+          const {
+            data: { session },
+            error,
+          } = await supabase.auth.refreshSession();
 
           if (error) {
             throw error;
@@ -199,12 +206,12 @@ export class CheckAuthService {
       return result;
     } catch (error) {
       console.error('❌ Session refresh failed:', error);
-      
+
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'refreshSession');
-      
+
       return { isAuthenticated: false };
     }
   }
@@ -221,7 +228,7 @@ export class CheckAuthService {
 
       // Decode JWT token to check expiration
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = JSON.parse(window.atob(token.split('.')[1]));
         const now = Math.floor(Date.now() / 1000);
         return payload.exp < now;
       } catch (error) {
@@ -234,3 +241,6 @@ export class CheckAuthService {
     }
   }
 }
+
+// Export convenience function for direct usage
+export const checkAuth = CheckAuthService.checkAuthentication;

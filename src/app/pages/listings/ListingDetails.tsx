@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, CardHeader, Chip, Divider, useDisclosure } from '@heroui/react';
+import { ImageGalleryModal } from '@/shared/components/modals/images';
+import InquiryModal from '@/shared/components/modals/InquiryModal';
+import { Button, Card, CardBody, CardHeader, Divider, useDisclosure } from '@heroui/react';
 import {
   ArrowLeft,
-  MapPin,
   Building2,
-  Users,
-  Calendar,
-  TrendingUp,
-  Shield,
-  MessageSquare,
-  Heart,
-  Eye,
-  FileText,
-  Share2,
   CheckCircle,
+  Eye,
+  Heart,
+  MapPin,
+  MessageSquare,
+  Share2,
+  Shield,
+  TrendingUp,
 } from 'lucide-react';
-import InquiryModal from '@/shared/components/modals/InquiryModal';
-import ImageGalleryModal from '@/shared/components/modals/ImageGalleryModal';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [listing, setListing] = useState<any>(null);
-  // Loading states removed for smooth UX
+  const [isLoading, setIsLoading] = useState(true);
   const [isImageGalleryOpen, setIsImageGalleryOpen] = useState(false);
   const [initialImageIndex, setInitialImageIndex] = useState(0);
 
@@ -33,10 +30,10 @@ const ListingDetails = () => {
   }, [id]);
 
   const loadListingDetails = async () => {
-    // Instant data loading - no loading state
+    setIsLoading(true);
     try {
       // TODO: Replace with actual API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100)); // Minimal delay for demo
 
       // Mock listing data
       setListing({
@@ -52,25 +49,31 @@ const ListingDetails = () => {
         images: [
           {
             id: '1',
-            storage_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-            thumbnail_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            storage_url:
+              'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url:
+              'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
             is_primary: true,
-            alt_text: 'Premium restaurant interior with elegant dining setup'
+            alt_text: 'Premium restaurant interior with elegant dining setup',
           },
           {
             id: '2',
-            storage_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-            thumbnail_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            storage_url:
+              'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url:
+              'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
             is_primary: false,
-            alt_text: 'Restaurant exterior view'
+            alt_text: 'Restaurant exterior view',
           },
           {
             id: '3',
-            storage_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-            thumbnail_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+            storage_url:
+              'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+            thumbnail_url:
+              'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
             is_primary: false,
-            alt_text: 'Delicious gourmet food presentation'
-          }
+            alt_text: 'Delicious gourmet food presentation',
+          },
         ],
         description: `This premium restaurant chain represents an exceptional opportunity to acquire a well-established business in the heart of Brussels. With three strategically located restaurants in high-traffic areas, this business has built a loyal customer base over 8 years of operation.
 
@@ -121,7 +124,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     } catch (error) {
       console.error('Error loading listing details:', error);
     } finally {
-      // No loading state to manage
+      setIsLoading(false);
     }
   };
 
@@ -140,13 +143,27 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     setIsImageGalleryOpen(true);
   };
 
-  // Loading screens removed for smooth UX
+  // Show loading state while fetching data
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-4xl mx-auto p-6 text-center pt-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading listing details...</p>
+        </div>
+      </div>
+    );
+  }
 
+  // Show not found only after loading is complete and no listing found
   if (!listing) {
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto p-6 text-center pt-20">
           <h2 className="text-2xl font-bold text-neutral-900 mb-4">Listing not found</h2>
+          <p className="text-gray-600 mb-6">
+            The listing you're looking for doesn't exist or has been removed.
+          </p>
           <Button color="primary" onPress={() => navigate('/search')}>
             Back to Search
           </Button>
@@ -271,7 +288,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
             <div className="grid grid-cols-4 gap-2 h-[400px] md:h-[480px] rounded-xl overflow-hidden">
               {/* Large primary image - takes up 2 columns */}
               {primaryImage && (
-                <div 
+                <div
                   className="col-span-4 md:col-span-2 relative cursor-pointer group"
                   onClick={() => handleImageClick(0)}
                 >
@@ -302,28 +319,28 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
-                    
+
                     {/* Show all photos overlay on last image if there are more */}
                     {index === 3 && additionalImages.length > 4 && (
-                      <div 
+                      <div
                         className="absolute inset-0 bg-black/50 flex items-center justify-center transition-all duration-300 group-hover:bg-black/60"
-                        onClick={(e) => {
+                        onClick={e => {
                           e.stopPropagation();
                           handleImageClick(0);
                         }}
                       >
                         <div className="text-center text-white">
-                          <svg 
-                            className="w-8 h-8 mx-auto mb-2" 
-                            fill="none" 
-                            stroke="currentColor" 
+                          <svg
+                            className="w-8 h-8 mx-auto mb-2"
+                            fill="none"
+                            stroke="currentColor"
                             viewBox="0 0 24 24"
                           >
-                            <path 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round" 
-                              strokeWidth={2} 
-                              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" 
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
                             />
                           </svg>
                           <div className="text-sm font-semibold">
@@ -336,18 +353,29 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                 ))}
 
                 {/* Fill empty slots if we have fewer than 4 additional images */}
-                {additionalImages.length < 4 && Array.from({ length: 4 - additionalImages.length }).map((_, index) => (
-                  <div
-                    key={`empty-${index}`}
-                    className="bg-gray-100 flex items-center justify-center"
-                  >
-                    <div className="text-gray-400">
-                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
+                {additionalImages.length < 4 &&
+                  Array.from({ length: 4 - additionalImages.length }).map((_, index) => (
+                    <div
+                      key={`empty-${index}`}
+                      className="bg-gray-100 flex items-center justify-center"
+                    >
+                      <div className="text-gray-400">
+                        <svg
+                          className="w-12 h-12"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1}
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
 
@@ -358,9 +386,16 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                 className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
                 </svg>
-                <span className="text-sm font-medium">View all {(listing.images || []).length} photos</span>
+                <span className="text-sm font-medium">
+                  View all {(listing.images || []).length} photos
+                </span>
               </button>
             </div>
           </div>
@@ -448,7 +483,6 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                 </div>
               </CardBody>
             </Card>
-
 
             {/* Description */}
             <Card>

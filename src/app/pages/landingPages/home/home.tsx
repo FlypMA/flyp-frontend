@@ -1,8 +1,9 @@
+import { Button } from '@/shared/components/buttons';
 import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Button, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import {
   Car,
   Coffee,
@@ -15,8 +16,8 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../../../../shared/services/auth';
 import { useAuth } from '../../../providers/auth-provider';
-import { authService } from '../../../services/users/authenticationService';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,20 +61,20 @@ const Home = () => {
       <SEOHead {...seoData.home} />
 
       <div className="min-h-screen bg-white">
-        {/* Hero Section - Marketplace Style */}
-        <div className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20 lg:py-32">
+        {/* Hero Section - Caregiver Style */}
+        <div className="relative bg-gradient-to-br from-neutral-100 via-white to-calm-50 py-20 lg:py-32">
           <Container>
             <div className="max-w-7xl mx-auto">
               {/* Main Hero Content */}
               <div className="text-center mb-12">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 mb-6 leading-tight tracking-tight">
-                  Find verified businesses
-                  <span className="block text-primary-600">for sale in Belgium</span>
+                  Selling your business?
+                  <span className="block text-primary-600">We've got you covered</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-neutral-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                  Belgium's trusted platform for SME mergers & acquisitions. Connect with qualified
-                  buyers and sellers.
+                  From stress to success — we guide business owners through every step of selling,
+                  with care, transparency, and the expertise to protect what you've built.
                 </p>
 
                 {/* Enhanced Search Bar */}
@@ -113,15 +114,16 @@ const Home = () => {
         </div>
 
         {/* Popular Categories Section */}
-        <div className="py-20 bg-gradient-to-b from-white to-slate-50">
+        <div className="py-20 bg-gradient-to-b from-white to-neutral-100">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                  Popular Business Categories
+                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
+                  We Help Owners in Every Sector
                 </h2>
-                <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                  Discover verified opportunities across Europe's most active sectors
+                <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+                  From restaurants to tech companies — we understand your industry and connect you
+                  with the right buyers who value what you've created.
                 </p>
               </div>
 
@@ -210,52 +212,73 @@ const Home = () => {
           </Container>
         </div>
 
-        {/* Main CTA Section */}
-        <div className="py-20 bg-gray-50">
+        {/* Main CTA Section - Caregiver Approach */}
+        <div className="py-20 bg-neutral-100">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
-                Buy or sell your
+              <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-8 leading-tight">
+                Ready to take the next step?
                 <br />
-                business online
+                <span className="text-calm-600">We're here to help</span>
               </h2>
-              <p className="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
-                With over 10,000 entrepreneurs & investors, flyp is the largest acquisition platform
-                in Belgium. Thousands of entrepreneurs, buyers, investors and advisers visit the
-                website every day. If you want to successfully sell a business or take over a
-                business, sign up now.
+              <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+                Whether you're ready to sell your life's work or looking to acquire your first
+                business, we provide the guidance, support, and expertise to make it happen safely
+                and successfully. Join thousands of business owners who trust flyp with their most
+                important decisions.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
                   size="lg"
                   onPress={() => navigate('/search')}
-                  className="font-medium px-8 py-3 h-14 text-base bg-white text-slate-700 hover:bg-gray-100 border border-slate-300 hover:border-slate-400 rounded-lg transition-all duration-200"
+                  className="font-semibold px-8 py-3 h-14 text-base bg-white text-neutral-700 hover:bg-neutral-50 border border-neutral-300 hover:border-neutral-400 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
                 >
-                  I want to buy a business
+                  Explore businesses for sale
                 </Button>
                 <Button
                   size="lg"
                   onPress={() => openModal('signup')}
-                  className="font-medium px-8 py-3 h-14 text-base bg-blue-600 hover:bg-blue-700 text-white border border-blue-600 hover:border-blue-700 rounded-lg transition-all duration-200"
+                  className="font-semibold px-8 py-3 h-14 text-base bg-primary-600 hover:bg-primary-700 text-white border border-primary-600 hover:border-primary-700 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
                 >
-                  I want to sell a business
+                  Get help selling my business
                 </Button>
+              </div>
+
+              {/* Trust indicators */}
+              <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-neutral-500">
+                <div className="flex items-center gap-2">
+                  <HeartHandshake className="w-5 h-5 text-calm-600" />
+                  <span>Personal guidance every step</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 bg-success-100 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-success-600 rounded-full"></div>
+                  </div>
+                  <span>Verified buyers & sellers only</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 bg-primary-100 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-primary-600 rounded-full"></div>
+                  </div>
+                  <span>Free confidential valuations</span>
+                </div>
               </div>
             </div>
           </Container>
         </div>
 
         {/* Recent Sold Businesses Section */}
-        <div className="py-20 bg-gradient-to-br from-slate-50 to-green-50">
+        <div className="py-20 bg-gradient-to-br from-neutral-100 to-success-50">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                  Recent Successful Sales
+                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
+                  Success Stories That Matter
                 </h2>
-                <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                  Real businesses sold through our platform with verified success stories
+                <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+                  Real business owners who trusted us with their life's work — and found the perfect
+                  new owners to carry their legacy forward.
                 </p>
               </div>
 
@@ -288,11 +311,11 @@ const Home = () => {
                 ].map((business, index) => (
                   <Card
                     key={index}
-                    className="border border-slate-200 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-300 transform hover:-translate-y-1"
+                    className="border border-neutral-200 rounded-2xl bg-white shadow-sm hover:shadow-lg hover:shadow-neutral-200/50 hover:border-neutral-300 transition-all duration-300 transform hover:-translate-y-1"
                   >
                     <CardBody className="p-6">
-                      <div className="bg-success-100 text-success-700 text-xs font-bold px-3 py-1.5 rounded-full inline-block mb-4 shadow-sm">
-                        SOLD
+                      <div className="bg-success-100 text-success-700 text-xs font-semibold px-3 py-1.5 rounded-full inline-block mb-4 shadow-sm">
+                        ✓ SUCCESSFULLY SOLD
                       </div>
                       <h4 className="font-semibold text-neutral-900 text-sm mb-2">
                         {business.name}
@@ -308,26 +331,44 @@ const Home = () => {
           </Container>
         </div>
 
-        {/* About Us Section */}
+        {/* About Us Section - Caregiver Story */}
         <div className="py-20 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">About flyp</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
+                  Why We Do What We Do
+                </h2>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
-                  Born from the need to modernize European M&A, flyp.com started as a platform to
-                  connect serious business buyers and sellers across Europe. Since our early days,
-                  our passion for facilitating successful business transactions has grown
-                  exponentially.
+                  We understand that selling a business isn't just a transaction — it's one of
+                  life's biggest decisions. That's why we created flyp: to be the caring guide that
+                  business owners need during this important journey.
                 </p>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
-                  We're building Belgium's most trusted SME M&A platform, connecting entrepreneurs,
-                  investors, and business professionals with verified opportunities.
+                  Every business represents years of hard work, dreams, and dedication. We honor
+                  that by providing the personal attention, expert guidance, and genuine care that
+                  every business owner deserves when it's time to move on.
                 </p>
-                <p className="text-lg text-neutral-600 leading-relaxed">
-                  From cafes in Brussels to tech companies in Antwerp, we're focused on facilitating
-                  successful business transactions across Belgium.
+                <p className="text-lg text-neutral-600 leading-relaxed mb-8">
+                  From family restaurants in Brussels to innovative startups in Antwerp, we're here
+                  to ensure your business finds the right new owner — someone who will respect and
+                  continue the legacy you've built.
                 </p>
+
+                {/* Supportive CTA */}
+                <div className="mt-12">
+                  <Button
+                    variant="supportive"
+                    size="lg"
+                    onPress={() => openModal('signup')}
+                    className="px-8 py-3 h-14 text-base"
+                  >
+                    Talk to our team — we're here to help
+                  </Button>
+                  <p className="text-sm text-neutral-500 mt-3">
+                    Free consultation • No pressure • Just honest guidance
+                  </p>
+                </div>
               </div>
             </div>
           </Container>

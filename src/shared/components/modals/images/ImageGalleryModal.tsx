@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import { Modal, ModalContent } from '@heroui/react';
-import { Button } from '../buttons/Button';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Button } from '../../buttons/Button';
 
 interface ImageGalleryImage {
   id: string;
@@ -18,11 +18,11 @@ interface ImageGalleryModalProps {
   initialImageIndex?: number;
 }
 
-const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  images, 
-  initialImageIndex = 0 
+const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
+  isOpen,
+  onClose,
+  images,
+  initialImageIndex = 0,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
 
@@ -33,7 +33,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       switch (event.key) {
         case 'Escape':
           onClose();
@@ -52,11 +52,11 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
   }, [isOpen, currentImageIndex]);
 
   const handleNext = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    setCurrentImageIndex(prev => (prev + 1) % images.length);
   };
 
   const handlePrevious = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImageIndex(prev => (prev - 1 + images.length) % images.length);
   };
 
   const handleThumbnailClick = (index: number) => {
@@ -87,7 +87,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
             opacity: 1,
             transition: {
               duration: 0.3,
-              ease: "easeOut",
+              ease: 'easeOut',
             },
           },
           exit: {
@@ -95,10 +95,10 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
             opacity: 0,
             transition: {
               duration: 0.2,
-              ease: "easeIn",
+              ease: 'easeIn',
             },
           },
-        }
+        },
       }}
     >
       <ModalContent className="h-full max-h-full m-0 bg-black border-0 shadow-none">

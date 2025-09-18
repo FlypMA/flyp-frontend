@@ -1,40 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import type { PerformanceData } from '@/features/business/types';
+import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { User } from '@/shared/types';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
+  Activity,
+  AlertCircle,
+  BarChart,
+  Calendar,
   Eye,
   MessageSquare,
   TrendingUp,
-  BarChart,
-  Activity,
   Users,
-  Calendar,
-  AlertCircle,
 } from 'lucide-react';
-import { AuthenticationService } from '@/shared/services/auth/Auth';
-import { User } from '@/shared/types';
-import { UrlGenerator } from '@/shared/services';
-import { DashboardStats, DashboardToolbar } from '@/features/business';
-import { useBusinessMetrics } from '@/features/business/hooks';
-import type { PerformanceData } from '@/features/business/types';
-import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// Navigation and sidebar are provided by DashboardLayout
 
 // Types are now imported from business-dashboard features
 
 const DashboardPerformance = () => {
   const navigate = useNavigate();
-  const authService = new AuthenticationService();
   const [user, setUser] = useState<User | null>(null);
   const [performanceData, setPerformanceData] = useState<PerformanceData | null>(null);
-  
-  // Use business metrics hook
-  const { metrics, isLoading: metricsLoading, refreshMetrics, updateFilters } = useBusinessMetrics();
   // Loading states removed for smooth UX
 
   useEffect(() => {
     const initializePage = async () => {
       // Instant data loading - no loading state
       try {
+        const authService = new AuthenticationService();
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
@@ -59,8 +53,8 @@ const DashboardPerformance = () => {
         } else {
           navigate('/');
         }
-      } catch (error) {
-        console.error('Error initializing page:', error);
+      } catch {
+        // Error initializing page - handled silently for UX
         navigate('/');
       } finally {
         // No loading state to manage
@@ -86,234 +80,223 @@ const DashboardPerformance = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-        <Navigation />
-
-      <div className="flex">
-        <DashboardSidebar user={user} />
-
-        <div className="flex-1 px-8 py-8">
-          <div className="max-w-6xl space-y-6">
-            {/* Page Header */}
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard & Performance</h1>
-              <p className="text-gray-600">
-                Track your business listing performance and buyer engagement
-              </p>
-            </div>
-
-            {/* Key Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardBody className="p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <Eye className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">
-                        {performanceData.totalViews}
-                      </p>
-                      <p className="text-sm text-gray-600">Total Views</p>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card>
-                <CardBody className="p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                      <MessageSquare className="w-6 h-6 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">
-                        {performanceData.totalInquiries}
-                      </p>
-                      <p className="text-sm text-gray-600">Inquiries</p>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card>
-                <CardBody className="p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <TrendingUp className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">
-                        {performanceData.conversionRate}%
-                      </p>
-                      <p className="text-sm text-gray-600">Conversion Rate</p>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card>
-                <CardBody className="p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                      <Activity className="w-6 h-6 text-orange-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">
-                        {performanceData.avgTimeOnListing}
-                      </p>
-                      <p className="text-sm text-gray-600">Avg. Time on Page</p>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </div>
-
-            {/* Charts and Detailed Analytics */}
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Weekly Performance Chart */}
-              <Card>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center space-x-2">
-                    <BarChart className="w-5 h-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Weekly Performance</h3>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Views This Week</h4>
-                      <div className="flex items-end space-x-2 h-20">
-                        {performanceData.weeklyViews.map((views, index) => (
-                          <div key={index} className="flex flex-col items-center flex-1">
-                            <div
-                              className="w-full bg-blue-200 rounded-t"
-                              style={{
-                                height: `${(views / Math.max(...performanceData.weeklyViews)) * 100}%`,
-                              }}
-                            ></div>
-                            <span className="text-xs text-gray-500 mt-1">
-                              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index]}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">
-                        Inquiries This Week
-                      </h4>
-                      <div className="flex items-end space-x-2 h-16">
-                        {performanceData.weeklyInquiries.map((inquiries, index) => (
-                          <div key={index} className="flex flex-col items-center flex-1">
-                            <div
-                              className="w-full bg-green-200 rounded-t"
-                              style={{
-                                height: `${inquiries === 0 ? 5 : (inquiries / Math.max(...performanceData.weeklyInquiries)) * 100}%`,
-                              }}
-                            ></div>
-                            <span className="text-xs text-gray-500 mt-1">
-                              {['M', 'T', 'W', 'T', 'F', 'S', 'S'][index]}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              {/* Visitor Analytics */}
-              <Card>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-5 h-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Visitor Analytics</h3>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-2xl font-bold text-gray-900">
-                          {performanceData.uniqueVisitors}
-                        </p>
-                        <p className="text-sm text-gray-600">Unique Visitors</p>
-                      </div>
-                      <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-2xl font-bold text-gray-900">
-                          {performanceData.returnVisitors}
-                        </p>
-                        <p className="text-sm text-gray-600">Return Visitors</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-3">Top Countries</h4>
-                      <div className="space-y-2">
-                        {performanceData.topCountries.map((country, index) => (
-                          <div key={country.country} className="flex items-center justify-between">
-                            <span className="text-sm text-gray-700">{country.country}</span>
-                            <div className="flex items-center space-x-2">
-                              <div className="w-20 h-2 bg-gray-200 rounded-full">
-                                <div
-                                  className="h-full bg-blue-500 rounded-full"
-                                  style={{
-                                    width: `${(country.views / performanceData.totalViews) * 100}%`,
-                                  }}
-                                ></div>
-                              </div>
-                              <span className="text-sm font-medium text-gray-900 w-8">
-                                {country.views}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </div>
-
-            {/* Performance Insights */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <Calendar className="w-5 h-5 text-gray-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Performance Insights</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
-                    <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-green-800 mb-1">Strong Interest</h4>
-                    <p className="text-sm text-green-700">
-                      Your conversion rate is above industry average (3.2%)
-                    </p>
-                  </div>
-
-                  <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <Eye className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-blue-800 mb-1">Good Visibility</h4>
-                    <p className="text-sm text-blue-700">
-                      Your listing is getting consistent daily views
-                    </p>
-                  </div>
-
-                  <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <MessageSquare className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-purple-800 mb-1">Quality Inquiries</h4>
-                    <p className="text-sm text-purple-700">
-                      Buyers are spending time reviewing your business
-                    </p>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
+      {/* Navigation and sidebar provided by DashboardLayout */}
+      <div className="max-w-6xl mx-auto px-8 py-8 space-y-6">
+        {/* Page Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard & Performance</h1>
+          <p className="text-gray-600">
+            Track your business listing performance and buyer engagement
+          </p>
         </div>
+
+        {/* Key Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card>
+            <CardBody className="p-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <Eye className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">{performanceData.totalViews}</p>
+                  <p className="text-sm text-gray-600">Total Views</p>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody className="p-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                  <MessageSquare className="w-6 h-6 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {performanceData.totalInquiries}
+                  </p>
+                  <p className="text-sm text-gray-600">Inquiries</p>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody className="p-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {performanceData.conversionRate}%
+                  </p>
+                  <p className="text-sm text-gray-600">Conversion Rate</p>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody className="p-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                  <Activity className="w-6 h-6 text-orange-600" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {performanceData.avgTimeOnListing}
+                  </p>
+                  <p className="text-sm text-gray-600">Avg. Time on Page</p>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+
+        {/* Charts and Detailed Analytics */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Weekly Performance Chart */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center space-x-2">
+                <BarChart className="w-5 h-5 text-gray-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Weekly Performance</h3>
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Views This Week</h4>
+                  <div className="flex items-end space-x-2 h-20">
+                    {performanceData.weeklyViews.map((views, index) => (
+                      <div key={index} className="flex flex-col items-center flex-1">
+                        <div
+                          className="w-full bg-blue-200 rounded-t"
+                          style={{
+                            height: `${(views / Math.max(...performanceData.weeklyViews)) * 100}%`,
+                          }}
+                        ></div>
+                        <span className="text-xs text-gray-500 mt-1">
+                          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Inquiries This Week</h4>
+                  <div className="flex items-end space-x-2 h-16">
+                    {performanceData.weeklyInquiries.map((inquiries, index) => (
+                      <div key={index} className="flex flex-col items-center flex-1">
+                        <div
+                          className="w-full bg-green-200 rounded-t"
+                          style={{
+                            height: `${inquiries === 0 ? 5 : (inquiries / Math.max(...performanceData.weeklyInquiries)) * 100}%`,
+                          }}
+                        ></div>
+                        <span className="text-xs text-gray-500 mt-1">
+                          {['M', 'T', 'W', 'T', 'F', 'S', 'S'][index]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+
+          {/* Visitor Analytics */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center space-x-2">
+                <Users className="w-5 h-5 text-gray-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Visitor Analytics</h3>
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <p className="text-2xl font-bold text-gray-900">
+                      {performanceData.uniqueVisitors}
+                    </p>
+                    <p className="text-sm text-gray-600">Unique Visitors</p>
+                  </div>
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <p className="text-2xl font-bold text-gray-900">
+                      {performanceData.returnVisitors}
+                    </p>
+                    <p className="text-sm text-gray-600">Return Visitors</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-3">Top Countries</h4>
+                  <div className="space-y-2">
+                    {performanceData.topCountries.map(country => (
+                      <div key={country.country} className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">{country.country}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-20 h-2 bg-gray-200 rounded-full">
+                            <div
+                              className="h-full bg-blue-500 rounded-full"
+                              style={{
+                                width: `${(country.views / performanceData.totalViews) * 100}%`,
+                              }}
+                            ></div>
+                          </div>
+                          <span className="text-sm font-medium text-gray-900 w-8">
+                            {country.views}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+
+        {/* Performance Insights */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center space-x-2">
+              <Calendar className="w-5 h-5 text-gray-600" />
+              <h3 className="text-lg font-semibold text-gray-900">Performance Insights</h3>
+            </div>
+          </CardHeader>
+          <CardBody>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
+                <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-green-800 mb-1">Strong Interest</h4>
+                <p className="text-sm text-green-700">
+                  Your conversion rate is above industry average (3.2%)
+                </p>
+              </div>
+
+              <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <Eye className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-blue-800 mb-1">Good Visibility</h4>
+                <p className="text-sm text-blue-700">
+                  Your listing is getting consistent daily views
+                </p>
+              </div>
+
+              <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <MessageSquare className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                <h4 className="font-semibold text-purple-800 mb-1">Quality Inquiries</h4>
+                <p className="text-sm text-purple-700">
+                  Buyers are spending time reviewing your business
+                </p>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

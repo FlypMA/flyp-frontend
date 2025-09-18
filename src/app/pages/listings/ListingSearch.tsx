@@ -1,33 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Chip,
-  Select,
-  SelectItem,
-  Pagination,
-} from '@heroui/react';
-import {
-  Search,
-  Filter,
-  MapPin,
-  Eye,
-  Heart,
-  Building2,
-  TrendingUp,
-  Star,
-  Shield,
-  MessageSquare,
-  ArrowRight,
-  Bookmark,
-  Bell,
-} from 'lucide-react';
-import { SearchComponent, PriceRangeSlider } from '@/shared/components/filters';
-import ListingCard from '@/shared/components/listings/ListingCard';
 import SaveSearchModal from '@/shared/components/buyer/SaveSearchModal';
+import { PriceRangeSlider, SearchComponent } from '@/shared/components/filters';
+import ListingCard from '@/shared/components/listings/ListingCard';
+import { Button, Card, CardBody, Pagination } from '@heroui/react';
+import { Bell, Building2, CheckCircle, MessageSquare, Search, Shield } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Listing {
   id: string;
@@ -46,14 +23,18 @@ interface Listing {
   requires_nda: boolean;
   years_in_business?: number;
   business_age?: number;
-  revenue_range?: string | {
-    min?: number;
-    max?: number;
-  };
-  ebitda_range?: string | {
-    min?: number;
-    max?: number;
-  };
+  revenue_range?:
+    | string
+    | {
+        min?: number;
+        max?: number;
+      };
+  ebitda_range?:
+    | string
+    | {
+        min?: number;
+        max?: number;
+      };
   highlights?: string[];
   images?: {
     id: string;
@@ -114,18 +95,22 @@ const ListingSearch = () => {
           images: [
             {
               id: '1',
-              storage_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
               is_primary: true,
-              alt_text: 'Premium restaurant interior with elegant dining setup'
+              alt_text: 'Premium restaurant interior with elegant dining setup',
             },
             {
               id: '2',
-              storage_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
               is_primary: false,
-              alt_text: 'Restaurant exterior view'
-            }
+              alt_text: 'Restaurant exterior view',
+            },
           ],
           views: 245,
           inquiries: 12,
@@ -149,11 +134,13 @@ const ListingSearch = () => {
           images: [
             {
               id: '3',
-              storage_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
               is_primary: true,
-              alt_text: 'Modern tech office workspace'
-            }
+              alt_text: 'Modern tech office workspace',
+            },
           ],
           views: 189,
           inquiries: 8,
@@ -185,11 +172,13 @@ const ListingSearch = () => {
           images: [
             {
               id: '3',
-              storage_url: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
               is_primary: true,
-              alt_text: 'Manufacturing facility'
-            }
+              alt_text: 'Manufacturing facility',
+            },
           ],
         },
         {
@@ -205,11 +194,13 @@ const ListingSearch = () => {
           images: [
             {
               id: '4',
-              storage_url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
               is_primary: true,
-              alt_text: 'Creative office space'
-            }
+              alt_text: 'Creative office space',
+            },
           ],
           views: 98,
           inquiries: 4,
@@ -233,11 +224,13 @@ const ListingSearch = () => {
           images: [
             {
               id: '5',
-              storage_url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
-              thumbnail_url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
+              storage_url:
+                'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop&crop=center&auto=format&q=80',
+              thumbnail_url:
+                'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop&crop=center&auto=format&q=80',
               is_primary: true,
-              alt_text: 'Modern retail warehouse and fulfillment center'
-            }
+              alt_text: 'Modern retail warehouse and fulfillment center',
+            },
           ],
           views: 134,
           inquiries: 9,
@@ -315,7 +308,7 @@ const ListingSearch = () => {
       // TODO: Replace with actual API call
       console.log('Saving search:', searchData);
       // await searchService.saveSearch(searchData);
-      
+
       // Show success notification
       // toast.success('Search saved successfully!');
     } catch (error) {
@@ -326,7 +319,7 @@ const ListingSearch = () => {
 
   const getCurrentSearchCriteria = () => {
     const criteria: any = {};
-    
+
     if (filters.searchQuery) criteria.searchQuery = filters.searchQuery;
     if (filters.sector) criteria.sector = filters.sector;
     if (filters.country) criteria.country = filters.country;
@@ -338,34 +331,54 @@ const ListingSearch = () => {
     }
     if (filters.anonymous) criteria.anonymous = true;
     if (filters.requiresNda) criteria.requiresNda = true;
-    
+
     return criteria;
   };
 
   const hasActiveFilters = () => {
-    return filters.searchQuery || 
-           filters.sector || 
-           filters.country || 
-           filters.priceRange[0] > 0 || 
-           filters.priceRange[1] < 10000000 ||
-           filters.revenueRange[0] > 0 || 
-           filters.revenueRange[1] < 50000000 ||
-           filters.anonymous || 
-           filters.requiresNda;
+    return (
+      filters.searchQuery ||
+      filters.sector ||
+      filters.country ||
+      filters.priceRange[0] > 0 ||
+      filters.priceRange[1] < 10000000 ||
+      filters.revenueRange[0] > 0 ||
+      filters.revenueRange[1] < 50000000 ||
+      filters.anonymous ||
+      filters.requiresNda
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-100 via-white to-calm-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Header - Caregiver Approach for Buyers */}
         <div className="mb-12 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            Find Your Next Business
+          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6 leading-tight">
+            Ready to buy your first business?
+            <span className="block text-calm-600 mt-2">We'll guide you to the right one</span>
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover quality SME acquisition opportunities in Belgium. Verified businesses ready for
-            acquisition.
+          <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+            Buying a business is exciting — and yes, a little overwhelming. We're here to help you
+            find verified opportunities, understand what to look for, and make confident decisions
+            every step of the way.
           </p>
+
+          {/* Trust indicators for buyers */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-neutral-500">
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-success-600" />
+              <span>All businesses verified</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-calm-600" />
+              <span>Expert guidance available</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-success-600" />
+              <span>No pressure, just support</span>
+            </div>
+          </div>
         </div>
 
         {/* Enhanced Search Bar - Clean Component */}
@@ -638,31 +651,47 @@ const ListingSearch = () => {
         {/* Results */}
         {/* Loading screens removed for smooth UX */}
         {listings.length === 0 ? (
-          <Card>
+          <Card className="border border-neutral-200">
             <CardBody className="text-center py-12">
               <Building2
-                className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                className="w-16 h-16 text-neutral-400 mx-auto mb-4"
                 style={{ stroke: 'currentColor', fill: 'none' }}
               />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No businesses found</h3>
-              <p className="text-gray-600 mb-4">Try adjusting your search criteria or filters</p>
-              <Button
-                onPress={() => {
-                  setFilters({
-                    searchQuery: '',
-                    sector: '',
-                    country: '',
-                    priceRange: [0, 10000000],
-                    revenueRange: [0, 50000000],
-                    anonymous: '',
-                    requiresNda: '',
-                    sortBy: 'published_at',
-                  });
-                  setSearchParams(new URLSearchParams());
-                }}
-              >
-                Clear all filters
-              </Button>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                No businesses match your search yet
+              </h3>
+              <p className="text-neutral-600 mb-6 max-w-md mx-auto">
+                Don't worry — this happens! Let's try broadening your search or removing some
+                filters. We're here to help you find the perfect opportunity.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    setFilters({
+                      searchQuery: '',
+                      sector: '',
+                      country: '',
+                      priceRange: [0, 10000000],
+                      revenueRange: [0, 50000000],
+                      anonymous: '',
+                      requiresNda: '',
+                      sortBy: 'published_at',
+                    });
+                    setSearchParams(new URLSearchParams());
+                  }}
+                  className="bg-primary-600 hover:bg-primary-700"
+                >
+                  Show all businesses
+                </Button>
+                <Button
+                  variant="bordered"
+                  onPress={() => navigate('/contact')}
+                  className="border-calm-600 text-calm-600 hover:bg-calm-50"
+                >
+                  Get help finding businesses
+                </Button>
+              </div>
             </CardBody>
           </Card>
         ) : (
@@ -673,15 +702,22 @@ const ListingSearch = () => {
                 const transformedListing = {
                   ...listing,
                   status: 'active',
-                  highlights: listing.requires_nda || listing.anonymous || listing.years_in_business ? [
-                    ...(listing.requires_nda ? ['NDA Required'] : []),
-                    ...(listing.anonymous ? ['Confidential'] : []),
-                  ] : undefined,
+                  highlights:
+                    listing.requires_nda || listing.anonymous || listing.years_in_business
+                      ? [
+                          ...(listing.requires_nda ? ['NDA Required'] : []),
+                          ...(listing.anonymous ? ['Confidential'] : []),
+                        ]
+                      : undefined,
                   business_age: listing.years_in_business,
-                  revenue_range: typeof listing.revenue_range === 'string' ? 
-                    { min: 0, max: 1000000 } : listing.revenue_range,
-                  ebitda_range: typeof listing.ebitda_range === 'string' ?
-                    { min: 0, max: 200000 } : listing.ebitda_range,
+                  revenue_range:
+                    typeof listing.revenue_range === 'string'
+                      ? { min: 0, max: 1000000 }
+                      : listing.revenue_range,
+                  ebitda_range:
+                    typeof listing.ebitda_range === 'string'
+                      ? { min: 0, max: 200000 }
+                      : listing.ebitda_range,
                 };
 
                 return (
@@ -690,12 +726,12 @@ const ListingSearch = () => {
                     listing={transformedListing}
                     currentUserRole="buyer"
                     viewMode="card"
-                    onSave={(listingId) => {
+                    onSave={listingId => {
                       // TODO: Implement save functionality
                       console.log('Save listing:', listingId);
                     }}
                     onInquiry={async (listingId, inquiryData) => {
-                      // TODO: Implement inquiry functionality  
+                      // TODO: Implement inquiry functionality
                       console.log('Inquiry for listing:', listingId, inquiryData);
                     }}
                   />

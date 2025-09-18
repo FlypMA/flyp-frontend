@@ -24,13 +24,12 @@ import {
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
-import { User } from '../../../../types';
 
 interface DashboardSidebarMobileProps {
   isOpen: boolean;
   onClose: () => void;
-  user?: User;
   className?: string;
 }
 
@@ -52,9 +51,9 @@ interface NavItem {
 const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
   isOpen,
   onClose,
-  user,
   className = '',
 }) => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 

@@ -1,11 +1,26 @@
-// 🔐 Supabase Client - MVP Version
-// Location: src/config/Supabase.ts
-// Purpose: Supabase client configuration for MVP frontend
+// 🔐 Supabase Client Configuration
+// Location: src/config/supabase.ts
+// Purpose: Supabase client configuration matching legacy app structure
 
 import { createClient } from '@supabase/supabase-js';
-import { getSupabaseConfig } from './api-config';
 
-// Get configuration from centralized config
+// Function to safely get environment variables with fallbacks
+const getSupabaseConfig = () => {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+  // Use placeholder values if environment variables are missing
+  const finalUrl = supabaseUrl || 'https://placeholder.supabase.co';
+  const finalKey = supabaseAnonKey || 'placeholder-anon-key';
+
+  return {
+    url: finalUrl,
+    key: finalKey,
+    isValid: !!supabaseUrl && !!supabaseAnonKey,
+  };
+};
+
+// Get configuration
 const config = getSupabaseConfig();
 
 // Create Supabase client with error handling
@@ -19,11 +34,11 @@ try {
       detectSessionInUrl: config.isValid,
     },
   });
-  
+
   console.log('✅ Supabase client initialized successfully');
 } catch (error) {
   console.warn('⚠️ Supabase client creation failed, using mock client:', error);
-  
+
   // Create a mock client that won't crash the app
   supabase = {
     auth: {

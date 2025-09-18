@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, Button, Avatar, Badge, Chip, Divider } from '@heroui/react';
 import { Input } from '@/shared/components/forms/Input';
+// Navigation is provided by AuthLayout
+import { Avatar, Badge, Button, Chip, Divider } from '@heroui/react';
 import {
-  Search,
-  MessageCircle,
-  Send,
-  MoreVertical,
-  Phone,
-  Video,
-  Paperclip,
-  Smile,
-  Filter,
-  Archive,
-  Pin,
-  Star,
-  Clock,
-  CheckCheck,
   Building2,
-  User,
+  CheckCheck,
   Euro,
   MapPin,
+  MessageCircle,
+  MoreVertical,
+  Paperclip,
+  Phone,
+  Pin,
+  Search,
+  Send,
+  Smile,
+  User,
+  Video,
 } from 'lucide-react';
-import { authService } from '../../services/users/authenticationService';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../../../shared/services/auth';
 import { User as UserType } from '../../../types/user.consolidated';
-import UnifiedNavigation from '@/shared/components/layout/navigation/main/Navigation';
 
 interface Conversation {
   id: string;
@@ -285,8 +281,7 @@ const Messages: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedNavigation />
-
+      {/* Navigation provided by AuthLayout */}
       <div className="h-[calc(100vh-4rem)] flex">
         {/* Conversations Sidebar */}
         <div className="w-96 bg-white border-r border-gray-200 flex flex-col">

@@ -12,11 +12,13 @@ import * as React from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Button variant/color scheme
+   * Button variant/color scheme - Caregiver brand variants
    */
   variant?:
     | 'primary'
     | 'secondary'
+    | 'supportive'
+    | 'subtle'
     | 'outline'
     | 'ghost'
     | 'danger'
@@ -30,9 +32,17 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
   /**
-   * Button color (for HeroUI compatibility)
+   * Button color (for HeroUI compatibility) - Caregiver brand colors
    */
-  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'supportive'
+    | 'subtle'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'default';
 
   /**
    * Whether the button is disabled

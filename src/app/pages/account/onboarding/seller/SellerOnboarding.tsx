@@ -1,5 +1,7 @@
+import AnimatedTextarea from '@/shared/components/forms/AnimatedTextarea';
+import { Input } from '@/shared/components/forms/Input';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, Input, Slider, Textarea } from '@heroui/react';
+import { Button, Card, Slider } from '@heroui/react';
 import confetti from 'canvas-confetti';
 import {
   ArrowLeft,
@@ -322,16 +324,10 @@ const SellerOnboarding: React.FC = () => {
             </div>
 
             <Input
-              size="lg"
               placeholder="e.g., Brussels Digital Solutions"
               value={formData.businessName}
               onChange={e => updateFormData('businessName', e.target.value)}
-              className="text-center text-xl"
-              classNames={{
-                input: 'text-center text-xl font-medium',
-                inputWrapper:
-                  'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
-              }}
+              className="text-center text-xl [&_input]:text-center [&_input]:text-xl [&_input]:font-medium [&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
               autoFocus
             />
 
@@ -419,14 +415,10 @@ const SellerOnboarding: React.FC = () => {
                   City
                 </label>
                 <Input
-                  size="lg"
                   placeholder="e.g., Brussels, Antwerp, Ghent..."
                   value={formData.city}
                   onChange={e => updateFormData('city', e.target.value)}
-                  classNames={{
-                    inputWrapper:
-                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
-                  }}
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
                   autoFocus
                 />
               </div>
@@ -488,18 +480,13 @@ const SellerOnboarding: React.FC = () => {
               <p className="text-gray-600">What makes your business special? What do you do?</p>
             </div>
 
-            <Textarea
+            <AnimatedTextarea
+              label="Business Description"
               placeholder="e.g., We're a digital marketing agency specializing in helping SaaS companies grow their MRR through content marketing and SEO. We've helped 50+ companies increase their organic traffic by 300% on average..."
               value={formData.description}
-              onChange={e => updateFormData('description', e.target.value)}
+              onChange={value => updateFormData('description', value)}
               minRows={6}
-              className="text-left"
-              classNames={{
-                input: 'text-base leading-relaxed',
-                inputWrapper:
-                  'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
-              }}
-              autoFocus
+              className="text-left [&_textarea]:text-base [&_textarea]:leading-relaxed [&_textarea]:bg-gray-50 [&_textarea]:border-2 [&_textarea]:border-gray-200 hover:[&_textarea]:border-gray-300 focus-within:[&_textarea]:border-blue-500"
             />
 
             <div className="mt-4 text-sm text-gray-500">
@@ -814,15 +801,11 @@ const SellerOnboarding: React.FC = () => {
                 </label>
                 <Input
                   type="email"
-                  size="lg"
                   placeholder="your.email@company.com"
                   value={formData.contactEmail}
                   onChange={e => updateFormData('contactEmail', e.target.value)}
-                  startContent={<Mail className="w-5 h-5 text-gray-400" />}
-                  classNames={{
-                    inputWrapper:
-                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
-                  }}
+                  leftIcon={<Mail className="w-5 h-5 text-gray-400" />}
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
                   autoFocus
                 />
               </div>
@@ -833,15 +816,11 @@ const SellerOnboarding: React.FC = () => {
                 </label>
                 <Input
                   type="tel"
-                  size="lg"
                   placeholder="+32 xxx xxx xxx"
                   value={formData.contactPhone}
                   onChange={e => updateFormData('contactPhone', e.target.value)}
-                  startContent={<Phone className="w-5 h-5 text-gray-400" />}
-                  classNames={{
-                    inputWrapper:
-                      'bg-gray-50 border-2 border-gray-200 hover:border-gray-300 focus-within:border-blue-500',
-                  }}
+                  leftIcon={<Phone className="w-5 h-5 text-gray-400" />}
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
                 />
               </div>
             </div>

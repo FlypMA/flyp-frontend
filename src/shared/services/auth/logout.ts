@@ -11,9 +11,9 @@
 // - Development bypass support
 
 import { supabase } from '../../../config';
-import { SessionManager } from './utils/session-manager';
 import { AuthErrorHandler } from './utils/error-handler';
 import { RetryHandler } from './utils/retry-handler';
+import { SessionManager } from './utils/session-manager';
 
 // =============================================================================
 // LOGOUT TYPES
@@ -43,7 +43,7 @@ export class LogoutService {
       await RetryHandler.executeWithRetry(
         async () => {
           const { error } = await supabase.auth.signOut();
-          
+
           if (error) {
             throw error;
           }
@@ -56,13 +56,13 @@ export class LogoutService {
       return { success: true };
     } catch (error) {
       console.error('❌ Logout failed:', error);
-      
+
       // Even if Supabase logout fails, we should clear local session
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'logout');
-      
+
       return {
         success: false,
         error: authError.message,
@@ -76,9 +76,9 @@ export class LogoutService {
   static forceLogout(): LogoutResponse {
     try {
       console.log('🔓 Force logging out user');
-      
+
       SessionManager.clearSession();
-      
+
       console.log('✅ Force logout successful');
       return { success: true };
     } catch (error) {
@@ -104,7 +104,7 @@ export class LogoutService {
       await RetryHandler.executeWithRetry(
         async () => {
           const { error } = await supabase.auth.signOut();
-          
+
           if (error) {
             throw error;
           }
@@ -117,13 +117,13 @@ export class LogoutService {
       return { success: true };
     } catch (error) {
       console.error('❌ Logout from all devices failed:', error);
-      
+
       // Clear local session even if Supabase call fails
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'logoutFromAllDevices');
-      
+
       return {
         success: false,
         error: authError.message,
@@ -138,3 +138,6 @@ export class LogoutService {
     return !SessionManager.hasSession();
   }
 }
+
+// Export convenience function for direct usage
+export const logout = LogoutService.logout;

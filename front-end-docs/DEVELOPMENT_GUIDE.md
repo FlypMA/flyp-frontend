@@ -1,628 +1,483 @@
-# 🛠️ **Frontend Development Guide**
+# 🛠️ Development Guide
 
-**Essential Guidelines for flyp Development Teams**
+**Complete development workflow and best practices for the Flyp frontend**
 
-**Updated:** September 11, 2025  
-**Target Audience:** Frontend Developers, Team Leads, New Team Members  
-**Purpose:** Practical development guidelines and best practices
+**Updated:** September 2025  
+**Status:** ✅ Production Ready
 
 ---
 
-## 🚀 **Getting Started**
+## 🚀 Quick Start
 
-### **📋 Prerequisites**
+### **Prerequisites**
 
-- Node.js 18+
-- npm or yarn
-- VS Code (recommended) with extensions:
-  - ESLint
-  - Prettier
-  - TypeScript Hero
-  - Auto Rename Tag
+- Node.js 20+
+- Yarn 1.22+
+- VS Code (recommended)
 
-### **⚡ Quick Setup**
+### **Setup**
 
 ```bash
-# Clone and setup
+# Clone and install
 git clone [repository-url]
 cd flyp-frontend
-npm install
+yarn install
+
+# Environment setup
+cp .env.example .env.local
+# Edit .env.local with your Supabase credentials
 
 # Start development
-npm run dev
-
-# Open in browser: http://localhost:3000
+yarn dev
 ```
 
 ---
 
-## 🏗️ **Feature Development Workflow**
+## 🏗️ Development Workflow
 
-### **1. Creating a New Feature**
+### **1. Environment Setup**
 
-#### **Step 1: Create Feature Structure**
+Create `.env.local` with required variables:
 
 ```bash
-# Create feature directory
-mkdir -p src/features/your-feature/{components,pages,services,hooks,types}
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# Create index file
-touch src/features/your-feature/index.ts
+# Development Settings
+VITE_DEV_BYPASS_AUTH=false
+VITE_ENVIRONMENT=development
 ```
 
-#### **Step 2: Feature Index Template**
+### **2. Feature Development Process**
 
-```typescript
-// src/features/your-feature/index.ts
-export { YourMainComponent } from './components/YourMainComponent';
-export { YourPage } from './pages/YourPage';
-export { yourService } from './services/yourService';
-export type { YourFeatureTypes } from './types/yourFeature.types';
+#### **Creating a New Feature**
 
-// Re-export everything for convenience
-export * from './components';
-export * from './pages';
-export * from './services';
-export * from './types';
+```bash
+# Create feature branch
+git checkout -b feature/new-feature-name
+
+# Create feature structure
+mkdir -p src/features/new-feature/{components,hooks}
 ```
 
-#### **Step 3: Add to Main Features Export**
+#### **Feature Structure Example**
 
-```typescript
-// src/features/index.ts
-export * from './your-feature';
+```bash
+src/features/authentication/
+├── components/
+│   ├── LoginModal.tsx
+│   ├── SignupModal.tsx
+│   └── forms/
+│       ├── CustomInputField.tsx
+│       └── CustomPasswordInputField.tsx
+├── hooks/
+│   └── useAuthModal.tsx
+└── index.ts
 ```
 
-### **2. Component Development**
+### **3. Component Development**
 
-#### **Component Template**
+#### **Shared Component Creation**
 
 ```typescript
-// src/features/your-feature/components/YourComponent.tsx
-import React from 'react';
-import { Button, Input } from '@shared/components/design-system';
-
-interface YourComponentProps {
-  title: string;
-  onAction: () => void;
+// src/shared/components/forms/Input.tsx
+interface InputProps {
+  label?: string;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  error?: string;
 }
 
-export const YourComponent: React.FC<YourComponentProps> = ({
-  title,
-  onAction,
+export const Input: React.FC<InputProps> = ({
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  required = false,
+  error
 }) => {
   return (
-    <div className="your-component">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <Button onClick={onAction} variant="primary">
-        Take Action
-      </Button>
-    </div>
-  );
-};
-```
-
-#### **Page Component Template**
-
-```typescript
-// src/features/your-feature/pages/YourPage.tsx
-import React from 'react';
-import { YourComponent } from '../components/YourComponent';
-
-export const YourPage: React.FC = () => {
-  const handleAction = () => {
-    // Page-level logic
-  };
-
-  return (
-    <div className="page-container">
-      <YourComponent
-        title="Your Feature"
-        onAction={handleAction}
+    <div className="w-full">
+      {label && (
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          error ? 'border-red-500' : ''
+        }`}
       />
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 };
 ```
 
-### **3. Service Development**
-
-#### **Service Template**
+#### **Feature Component Creation**
 
 ```typescript
-// src/features/your-feature/services/yourService.ts
-import { apiClient } from '@shared/services/apiClient';
-import { YourFeatureData } from '../types/yourFeature.types';
+// src/features/authentication/components/LoginModal.tsx
+import { useState } from 'react';
+import { Modal } from '@heroui/react';
+import { Input } from '@/shared/components/forms';
+import { authService } from '@/shared/services/auth';
 
-export const yourService = {
-  async fetchData(): Promise<YourFeatureData[]> {
-    const response = await apiClient.get('/your-endpoint');
-    return response.data;
-  },
+interface LoginModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-  async createItem(data: Partial<YourFeatureData>): Promise<YourFeatureData> {
-    const response = await apiClient.post('/your-endpoint', data);
-    return response.data;
-  },
-
-  async updateItem(id: string, data: Partial<YourFeatureData>): Promise<YourFeatureData> {
-    const response = await apiClient.put(`/your-endpoint/${id}`, data);
-    return response.data;
-  },
-
-  async deleteItem(id: string): Promise<void> {
-    await apiClient.delete(`/your-endpoint/${id}`);
-  },
-};
-```
-
----
-
-## 🎨 **Component Guidelines**
-
-### **🔧 When to Create Shared vs Feature Components**
-
-#### **✅ Create in `shared/components/` when:**
-
-- Component is reused across 3+ features
-- Part of design system (buttons, inputs, modals)
-- Common UI patterns (layouts, navigation)
-- No feature-specific business logic
-
-#### **✅ Create in `features/[feature]/components/` when:**
-
-- Contains feature-specific business logic
-- Uses feature-specific data structures
-- Part of feature-specific user workflows
-- Unlikely to be reused elsewhere
-
-### **🎯 Component Patterns**
-
-#### **Container/Presentational Pattern**
-
-```typescript
-// Container Component (handles logic)
-export const LoginContainer: React.FC = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const { login, isLoading } = useAuth();
+export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(credentials);
-  };
+    setIsSubmitting(true);
 
-  return (
-    <LoginForm
-      credentials={credentials}
-      onCredentialsChange={setCredentials}
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-    />
-  );
-};
-
-// Presentational Component (handles UI)
-interface LoginFormProps {
-  credentials: LoginCredentials;
-  onCredentialsChange: (credentials: LoginCredentials) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  isLoading: boolean;
-}
-
-export const LoginForm: React.FC<LoginFormProps> = ({
-  credentials,
-  onCredentialsChange,
-  onSubmit,
-  isLoading,
-}) => {
-  return (
-    <form onSubmit={onSubmit}>
-      {/* Form UI */}
-    </form>
-  );
-};
-```
-
-#### **Custom Hook Pattern**
-
-```typescript
-// src/features/authentication/hooks/useAuth.ts
-export const useAuth = () => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const login = async (credentials: LoginCredentials) => {
-    setIsLoading(true);
     try {
-      const user = await authService.login(credentials);
-      setUser(user);
+      await authService.login(formData.email, formData.password);
+      onClose();
+    } catch (error) {
+      console.error('Login failed:', error);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  return { user, login, isLoading };
-};
-```
-
----
-
-## 🎯 **State Management Guidelines**
-
-### **📊 State Organization Levels**
-
-#### **1. Component State (useState)**
-
-```typescript
-// ✅ Use for: UI state, form inputs, local toggles
-const [isOpen, setIsOpen] = useState(false);
-const [formData, setFormData] = useState({ name: '', email: '' });
-```
-
-#### **2. Feature State (Context/Custom Hooks)**
-
-```typescript
-// ✅ Use for: Feature-wide state, complex business logic
-const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [permissions, setPermissions] = useState([]);
-
   return (
-    <AuthContext.Provider value={{ user, permissions, setUser }}>
-      {children}
-    </AuthContext.Provider>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Input
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+          required
+        />
+        <Input
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+          required
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+        >
+          {isSubmitting ? 'Logging in...' : 'Log in'}
+        </button>
+      </form>
+    </Modal>
   );
 };
 ```
 
-#### **3. Global State (App-level Context/Store)**
-
-```typescript
-// ✅ Use for: App-wide state, cross-feature data
-// Handled by app-level providers in src/app/providers/
-```
-
 ---
 
-## 🧪 **Testing Guidelines**
+## 🎨 Styling Guidelines
 
-### **📋 Testing Strategy**
-
-#### **Component Testing**
+### **Tailwind CSS Usage**
 
 ```typescript
-// YourComponent.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { YourComponent } from './YourComponent';
+// ✅ Good: Use Tailwind utility classes
+<button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+  Submit
+</button>
 
-describe('YourComponent', () => {
-  test('renders title correctly', () => {
-    render(<YourComponent title="Test Title" onAction={jest.fn()} />);
-    expect(screen.getByText('Test Title')).toBeInTheDocument();
-  });
+// ✅ Good: Conditional classes
+<div className={`p-4 rounded-lg ${isError ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+  {message}
+</div>
 
-  test('calls onAction when button clicked', () => {
-    const mockAction = jest.fn();
-    render(<YourComponent title="Test" onAction={mockAction} />);
-
-    fireEvent.click(screen.getByText('Take Action'));
-    expect(mockAction).toHaveBeenCalledTimes(1);
-  });
-});
+// ❌ Avoid: Inline styles
+<button style={{ backgroundColor: '#3B82F6', padding: '8px 16px' }}>
+  Submit
+</button>
 ```
 
-#### **Service Testing**
-
-```typescript
-// yourService.test.ts
-import { yourService } from './yourService';
-import { apiClient } from '@shared/services/apiClient';
-
-jest.mock('@shared/services/apiClient');
-const mockedApiClient = apiClient as jest.Mocked<typeof apiClient>;
-
-describe('yourService', () => {
-  test('fetchData returns data correctly', async () => {
-    const mockData = [{ id: '1', name: 'Test' }];
-    mockedApiClient.get.mockResolvedValue({ data: mockData });
-
-    const result = await yourService.fetchData();
-
-    expect(result).toEqual(mockData);
-    expect(mockedApiClient.get).toHaveBeenCalledWith('/your-endpoint');
-  });
-});
-```
-
----
-
-## 🎨 **Styling Guidelines**
-
-### **🎯 Tailwind CSS Patterns**
-
-#### **Component Styling**
-
-```typescript
-// ✅ Use Tailwind utility classes
-export const Card = ({ children, variant = 'default' }) => {
-  const baseClasses = 'rounded-lg border p-6';
-  const variantClasses = {
-    default: 'bg-white border-gray-200',
-    highlighted: 'bg-blue-50 border-blue-200',
-    error: 'bg-red-50 border-red-200',
-  };
-
-  return (
-    <div className={`${baseClasses} ${variantClasses[variant]}`}>
-      {children}
-    </div>
-  );
-};
-```
-
-#### **Responsive Design**
+### **Responsive Design**
 
 ```typescript
 // ✅ Mobile-first responsive design
-<div className="
-  grid grid-cols-1 gap-4     // Mobile: single column
-  md:grid-cols-2             // Tablet: two columns
-  lg:grid-cols-3             // Desktop: three columns
-  xl:grid-cols-4             // Large: four columns
-">
-```
-
-### **🎨 Design System Usage**
-
-```typescript
-// ✅ Use design system components
-import { Button, Input, Modal } from '@shared/components/design-system';
-import { colors, typography } from '@shared/components/design-system/tokens';
-
-// ✅ Use design tokens
-const customStyle = {
-  color: colors.primary[600],
-  fontSize: typography.fontSize.lg,
-};
+<div className="w-full md:w-1/2 lg:w-1/3 p-4">
+  <div className="bg-white rounded-lg shadow-md p-6">
+    Content
+  </div>
+</div>
 ```
 
 ---
 
-## 📦 **Performance Guidelines**
+## 🔧 Available Scripts
 
-### **⚡ Optimization Techniques**
+| Command           | Description                       |
+| ----------------- | --------------------------------- |
+| `yarn dev`        | Start development server with HMR |
+| `yarn build`      | Build optimized production bundle |
+| `yarn type-check` | Run TypeScript type checking      |
+| `yarn lint`       | Lint code with ESLint             |
+| `yarn lint:fix`   | Fix linting issues automatically  |
+| `yarn format`     | Format code with Prettier         |
+| `yarn test`       | Run unit tests with Vitest        |
+| `yarn preview`    | Preview production build locally  |
 
-#### **Code Splitting**
+---
 
-```typescript
-// ✅ Lazy load pages
-const DashboardPage = lazy(() =>
-  import('@features/business-dashboard/pages/DashboardPage')
-);
+## 🧪 Testing Strategy
 
-// ✅ Use Suspense wrapper
-<Suspense fallback={<LoadingSpinner />}>
-  <Routes>
-    <Route path="/dashboard" element={<DashboardPage />} />
-  </Routes>
-</Suspense>
-```
-
-#### **Component Optimization**
+### **Component Testing**
 
 ```typescript
-// ✅ Memoize expensive components
-export const ExpensiveList = React.memo(({ items }) => {
-  return (
-    <div>
-      {items.map(item => (
-        <ExpensiveItem key={item.id} item={item} />
-      ))}
-    </div>
-  );
+// src/shared/components/forms/__tests__/Input.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Input } from '../Input';
+
+describe('Input', () => {
+  it('renders with label', () => {
+    render(
+      <Input
+        label="Email"
+        value=""
+        onChange={() => {}}
+      />
+    );
+    expect(screen.getByText('Email')).toBeInTheDocument();
+  });
+
+  it('calls onChange when value changes', () => {
+    const handleChange = jest.fn();
+    render(
+      <Input
+        label="Email"
+        value=""
+        onChange={handleChange}
+      />
+    );
+
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'test@example.com' }
+    });
+
+    expect(handleChange).toHaveBeenCalled();
+  });
 });
+```
 
-// ✅ Memoize expensive calculations
-const processedData = useMemo(() => {
-  return items.map(item => expensiveProcessing(item));
-}, [items]);
+### **Feature Testing**
+
+```typescript
+// src/features/authentication/__tests__/LoginModal.test.tsx
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { LoginModal } from '../components/LoginModal';
+
+// Mock auth service
+jest.mock('@/shared/services/auth', () => ({
+  authService: {
+    login: jest.fn()
+  }
+}));
+
+describe('LoginModal', () => {
+  it('submits login form', async () => {
+    const onClose = jest.fn();
+
+    render(<LoginModal isOpen={true} onClose={onClose} />);
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' }
+    });
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' }
+    });
+
+    fireEvent.click(screen.getByText('Log in'));
+
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
+});
 ```
 
 ---
 
-## 🔧 **Common Development Tasks**
+## 📋 Code Quality Standards
 
-### **🔄 Adding Routes**
-
-```typescript
-// 1. Create route in appropriate feature
-// src/features/your-feature/routes.tsx
-export const yourFeatureRoutes = [
-  {
-    path: '/your-feature',
-    element: <YourFeaturePage />,
-  },
-  {
-    path: '/your-feature/:id',
-    element: <YourFeatureDetailPage />,
-  },
-];
-
-// 2. Add to main router
-// src/app/routes/index.ts
-import { yourFeatureRoutes } from '@features/your-feature/routes';
-
-export const routes = [
-  ...authRoutes,
-  ...marketplaceRoutes,
-  ...yourFeatureRoutes, // Add here
-];
-```
-
-### **🌐 API Integration**
+### **TypeScript Best Practices**
 
 ```typescript
-// 1. Define API types
-interface ApiResponse<T> {
-  data: T;
-  status: number;
-  message?: string;
+// ✅ Good: Proper interface definitions
+interface User {
+  id: string;
+  email: string;
+  role: 'buyer' | 'seller';
+  createdAt: Date;
 }
 
-// 2. Create service method
-export const fetchUserData = async (userId: string): Promise<User> => {
-  const response = await apiClient.get<ApiResponse<User>>(`/users/${userId}`);
-  return response.data.data;
+// ✅ Good: Type-safe function signatures
+const updateUser = (userId: string, updates: Partial<User>): Promise<User> => {
+  // Implementation
 };
 
-// 3. Use in component
-const UserProfile = ({ userId }: { userId: string }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+// ✅ Good: Generic types for reusability
+interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
+}
+```
 
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const userData = await fetchUserData(userId);
-        setUser(userData);
-      } catch (error) {
-        console.error('Failed to load user:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+### **Import Organization**
 
-    loadUser();
-  }, [userId]);
+```typescript
+// 1. External libraries
+import React, { useState, useEffect } from 'react';
+import { Modal, Button } from '@heroui/react';
 
-  if (loading) return <LoadingSpinner />;
-  if (!user) return <ErrorMessage />;
+// 2. Internal shared
+import { Input } from '@/shared/components/forms';
+import { authService } from '@/shared/services/auth';
 
-  return <UserDetails user={user} />;
+// 3. Feature-specific
+import { useAuthModal } from '../hooks/useAuthModal';
+
+// 4. Relative imports
+import './LoginModal.css';
+```
+
+### **Component Structure**
+
+```typescript
+// 1. Imports
+// 2. Types/Interfaces
+// 3. Component definition
+// 4. Default export
+
+interface LoginModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+  // Hooks
+  const [formData, setFormData] = useState({ email: '', password: '' });
+
+  // Event handlers
+  const handleSubmit = async (e: React.FormEvent) => {
+    // Implementation
+  };
+
+  // Render
+  return (
+    // JSX
+  );
 };
+
+export default LoginModal;
 ```
 
 ---
 
-## 🚀 **Deployment Preparation**
+## 🔍 Debugging Guide
 
-### **🔍 Pre-deployment Checklist**
+### **Common Issues**
+
+#### **Environment Variables Not Loading**
 
 ```bash
-# 1. Run all quality checks
-npm run lint          # Check code quality
-npm run type-check    # Verify TypeScript
-npm run test          # Run test suite
-npm run build         # Test production build
-
-# 2. Performance checks
-npm run analyze       # Bundle size analysis
-npm run lighthouse    # Performance audit
-
-# 3. Security checks
-npm audit             # Dependency vulnerabilities
-npm run security-check # Custom security rules
+# Problem: VITE_SUPABASE_URL is undefined
+# Solution: Ensure .env.local exists and restart dev server
+yarn dev
 ```
 
-### **🏗️ Build Optimization**
+#### **Import Path Issues**
 
 ```typescript
-// vite.config.ts optimization
+// Problem: Cannot resolve '@/shared/components'
+// Solution: Check vite.config.ts path aliases
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['@heroui/react'],
-        },
-      },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });
 ```
 
----
-
-## 🆘 **Troubleshooting**
-
-### **🔧 Common Issues**
-
-#### **Import Resolution**
+#### **TypeScript Errors**
 
 ```typescript
-// ❌ Problem: Module not found
-import { Component } from '../../../shared/components/Component';
-
-// ✅ Solution: Use path aliases
-import { Component } from '@shared/components/Component';
-```
-
-#### **Type Errors**
-
-```typescript
-// ❌ Problem: Type 'unknown' error
-const data = await apiCall();
-
-// ✅ Solution: Proper typing
-const data: YourDataType = await apiCall();
-```
-
-#### **Build Errors**
-
-```bash
-# Common build issues and solutions
-npm run clean         # Clear build cache
-npm install           # Reinstall dependencies
-npm run type-check    # Check for TypeScript errors
-```
-
----
-
-## 📚 **Additional Resources**
-
-### **📖 Documentation Links**
-
-- **Main README:** Repository overview and quick start
-- **Architecture Guide:** `HYBRID_ARCHITECTURE_STRATEGY.md`
-- **Naming Conventions:** `CLEAN_NAMING_CONVENTION.md`
-- **Development Setup:** `DEVELOPMENT_CONFIGURATION_SUCCESS_REPORT.md`
-
-### **🛠️ Useful VS Code Snippets**
-
-```json
-// .vscode/snippets.json
-{
-  "React Functional Component": {
-    "prefix": "rfc",
-    "body": [
-      "import React from 'react';",
-      "",
-      "interface ${1:Component}Props {",
-      "  $2",
-      "}",
-      "",
-      "export const ${1:Component}: React.FC<${1:Component}Props> = ({",
-      "  $3",
-      "}) => {",
-      "  return (",
-      "    <div>",
-      "      $4",
-      "    </div>",
-      "  );",
-      "};"
-    ]
-  }
+// Problem: Property 'user' does not exist on type '{}'
+// Solution: Proper typing for context
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<void>;
 }
 ```
 
 ---
 
-**Status:** ✅ **Ready for Development**  
-**Architecture:** 🏗️ **Feature-First + Hybrid Components**  
-**Quality:** 🏆 **Enterprise Standards**
+## 🚀 Performance Tips
 
-**Follow this guide for consistent, high-quality development that aligns with our enterprise-grade architecture standards.**
+### **Bundle Optimization**
+
+```typescript
+// ✅ Good: Lazy loading for routes
+const BusinessOverview = lazy(() => import('@/app/pages/business/overview/BusinessOverview'));
+
+// ✅ Good: Code splitting with dynamic imports
+const loadFeature = () => import('@/features/authentication');
+```
+
+### **Component Optimization**
+
+```typescript
+// ✅ Good: Memoization for expensive operations
+const ExpensiveComponent = React.memo(({ data }) => {
+  const processedData = useMemo(() => {
+    return data.map(item => expensiveOperation(item));
+  }, [data]);
+
+  return <div>{processedData}</div>;
+});
+```
+
+---
+
+## 📚 Resources
+
+### **Documentation**
+
+- [React 18 Documentation](https://react.dev/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Vite Guide](https://vitejs.dev/guide/)
+- [Supabase Docs](https://supabase.com/docs)
+
+### **VS Code Extensions**
+
+- TypeScript and JavaScript Language Features
+- Tailwind CSS IntelliSense
+- ESLint
+- Prettier - Code formatter
+- Auto Rename Tag
+
+---
+
+**This guide covers the essential development practices for building and maintaining the Flyp frontend application efficiently.**

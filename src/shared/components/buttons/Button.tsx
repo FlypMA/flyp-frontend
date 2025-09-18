@@ -38,22 +38,49 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const baseClasses = [
     'inline-flex items-center justify-center',
-    'font-medium rounded-md',
+    'font-semibold', // Caregiver brand uses semibold for buttons
     'transition-all duration-200',
     'focus:outline-none focus:ring-2 focus:ring-offset-2',
     'disabled:opacity-50 disabled:cursor-not-allowed',
   ].join(' ');
 
   const variantClasses = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
-    secondary: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
+    // Primary - Trust Blue (main actions)
+    primary:
+      'bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500 shadow-sm hover:shadow-md',
+
+    // Secondary - Neutral (secondary actions)
+    secondary:
+      'bg-neutral-600 hover:bg-neutral-700 text-white focus:ring-neutral-500 shadow-sm hover:shadow-md',
+
+    // Supportive - Calm Teal (supportive actions, "we've got you")
+    supportive:
+      'bg-calm-600 hover:bg-calm-700 text-white focus:ring-calm-500 shadow-sm hover:shadow-md',
+
+    // Subtle - Reassuring Coral (gentle emphasis, secondary CTAs)
+    subtle:
+      'bg-accent-600 hover:bg-accent-700 text-white focus:ring-accent-500 shadow-sm hover:shadow-md',
+
+    // Outline - Clean borders with proper contrast
     outline:
-      'border-2 border-gray-300 hover:border-gray-400 text-gray-700 bg-white focus:ring-gray-500',
-    ghost: 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500',
-    danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-    light: 'bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500',
-    bordered: 'border-2 border-gray-300 hover:border-gray-400 text-gray-700 bg-transparent focus:ring-gray-500',
-    flat: 'bg-gray-50 hover:bg-gray-100 text-gray-700 focus:ring-gray-500',
+      'border-2 border-neutral-300 hover:border-neutral-400 text-neutral-700 bg-white hover:bg-neutral-50 focus:ring-neutral-500',
+
+    // Ghost - Minimal, text-only with hover states
+    ghost: 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:ring-neutral-500',
+
+    // Danger - Error states
+    danger:
+      'bg-error-600 hover:bg-error-700 text-white focus:ring-error-500 shadow-sm hover:shadow-md',
+
+    // Light - Subtle background
+    light: 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 focus:ring-neutral-500',
+
+    // Bordered - Transparent with border
+    bordered:
+      'border-2 border-neutral-300 hover:border-neutral-400 text-neutral-700 bg-transparent hover:bg-neutral-50 focus:ring-neutral-500',
+
+    // Flat - Minimal background
+    flat: 'bg-neutral-50 hover:bg-neutral-100 text-neutral-700 focus:ring-neutral-500',
   };
 
   const sizeClasses = {
@@ -64,35 +91,59 @@ export const Button: React.FC<ButtonProps> = ({
     xl: 'px-6 py-3 text-base',
   };
 
-  // Handle color prop override
+  // Handle color prop override - Caregiver brand colors
   const getColorClasses = () => {
     if (color) {
       const colorClasses = {
-        primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
-        secondary: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
-        success: 'bg-green-600 hover:bg-green-700 text-white focus:ring-green-500',
-        warning: 'bg-yellow-600 hover:bg-yellow-700 text-white focus:ring-yellow-500',
-        danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-        default: 'bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500',
+        // Primary - Trust Blue (main actions)
+        primary:
+          'bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500 shadow-sm hover:shadow-md',
+
+        // Secondary - Neutral (secondary actions)
+        secondary:
+          'bg-neutral-600 hover:bg-neutral-700 text-white focus:ring-neutral-500 shadow-sm hover:shadow-md',
+
+        // Supportive - Calm Teal (supportive actions, "we've got you")
+        supportive:
+          'bg-calm-600 hover:bg-calm-700 text-white focus:ring-calm-500 shadow-sm hover:shadow-md',
+
+        // Subtle - Reassuring Coral (gentle emphasis, secondary CTAs)
+        subtle:
+          'bg-accent-600 hover:bg-accent-700 text-white focus:ring-accent-500 shadow-sm hover:shadow-md',
+
+        // Success - Green (positive actions)
+        success:
+          'bg-success-600 hover:bg-success-700 text-white focus:ring-success-500 shadow-sm hover:shadow-md',
+
+        // Warning - Amber (caution actions)
+        warning:
+          'bg-warning-600 hover:bg-warning-700 text-white focus:ring-warning-500 shadow-sm hover:shadow-md',
+
+        // Danger - Red (destructive actions)
+        danger:
+          'bg-error-600 hover:bg-error-700 text-white focus:ring-error-500 shadow-sm hover:shadow-md',
+
+        // Default - Neutral light
+        default: 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 focus:ring-neutral-500',
       };
       return colorClasses[color] || colorClasses.default;
     }
     return variantClasses[variant];
   };
 
-  // Handle radius prop
+  // Handle radius prop - Caregiver brand uses softer radii
   const getRadiusClasses = () => {
     if (radius) {
       const radiusClasses = {
         none: 'rounded-none',
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
+        sm: 'rounded-lg',
+        md: 'rounded-xl',
+        lg: 'rounded-2xl',
         full: 'rounded-full',
       };
       return radiusClasses[radius];
     }
-    return 'rounded-md'; // default
+    return 'rounded-xl'; // default - softer for Caregiver brand
   };
 
   // Handle icon-only styling

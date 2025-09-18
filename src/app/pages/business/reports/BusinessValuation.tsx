@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthenticationService } from '@/shared/services/auth/Auth';
-import { User } from '@/shared/types';
-import { UrlGenerator } from '@/shared/services';
-import { DashboardToolbar, ValuationReportCard } from '@/features/business';
+import { ValuationReportCard } from '@/features/business';
 import { useBusinessValuation } from '@/features/business/hooks';
 import type { ValuationReport } from '@/features/business/types';
-import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
+import { AuthenticationService } from '@/shared/services/auth/Auth';
+import { User } from '@/shared/types';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// Navigation and sidebar are provided by DashboardLayout
 
 // Types are now imported from business-dashboard features
 
@@ -15,16 +14,16 @@ const BusinessValuation = () => {
   const authService = new AuthenticationService();
   const [user, setUser] = useState<User | null>(null);
   const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
-  
+
   // Use business valuation hook
-  const { 
-    inputs, 
-    results, 
-    isLoading: valuationLoading, 
-    calculateValuation, 
+  const {
+    inputs,
+    results,
+    isLoading: valuationLoading,
+    calculateValuation,
     updateInputs,
     saveValuation,
-    exportValuation 
+    exportValuation,
   } = useBusinessValuation();
   // Loading states removed for smooth UX
 
@@ -98,42 +97,31 @@ const BusinessValuation = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation Header */}
-        <Navigation />
+      {/* Navigation and sidebar provided by DashboardLayout */}
+      <div className="max-w-6xl mx-auto px-8 py-8 space-y-6">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
+          <p className="mt-2 text-gray-600">
+            Get professional business valuations and track your business value over time.
+          </p>
+        </div>
 
-      {/* Main Layout with Sidebar */}
-      <div className="flex">
-        {/* Left Sidebar */}
-        <DashboardSidebar user={user} />
-
-        {/* Main Content Area */}
-        <div className="flex-1 px-8 py-8">
-          <div className="max-w-6xl space-y-6">
-            {/* Page Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
-              <p className="mt-2 text-gray-600">
-                Get professional business valuations and track your business value over time.
-              </p>
+        {/* Valuation Content */}
+        <div className="space-y-6">
+          {businessValuation ? (
+            <ValuationReportCard
+              report={businessValuation}
+              onView={() => console.log('View valuation')}
+              onDownload={() => console.log('Download valuation')}
+              onShare={() => console.log('Share valuation')}
+              onEdit={() => console.log('Edit valuation')}
+            />
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No valuation reports available yet.</p>
             </div>
-
-            {/* Valuation Content */}
-            <div className="space-y-6">
-              {businessValuation ? (
-                <ValuationReportCard
-                  report={businessValuation}
-                  onView={() => console.log('View valuation')}
-                  onDownload={() => console.log('Download valuation')}
-                  onShare={() => console.log('Share valuation')}
-                  onEdit={() => console.log('Edit valuation')}
-                />
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">No valuation reports available yet.</p>
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

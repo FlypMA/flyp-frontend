@@ -105,18 +105,11 @@ export class LoginService {
     try {
       console.log('🚨 DEV MODE: Bypassing authentication for development');
 
-      const mockUser: User = {
-        id: 'dev-user-123',
-        email: email || 'dev@flyp.com',
-        name: 'Development User',
-        role: 'seller',
-        email_verified: true,
-        country: 'BE',
-        auth_provider: 'email',
-        language_preference: 'en',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
+      // Import the dev bypass utilities
+      const { createMockUser } = await import('../../utils/dev/devBypass');
+
+      // Create mock user with role determined from email
+      const mockUser = createMockUser(email);
 
       // Store session
       SessionManager.storeSession({
@@ -125,7 +118,7 @@ export class LoginService {
         token: 'dev-mock-token',
       });
 
-      console.log('✅ Dev login successful:', mockUser.id);
+      console.log('✅ Dev login successful:', mockUser.id, 'Role:', mockUser.role);
 
       return {
         success: true,
@@ -162,3 +155,6 @@ export class LoginService {
     return SessionManager.getToken();
   }
 }
+
+// Export convenience function for direct usage
+export const login = LoginService.login;

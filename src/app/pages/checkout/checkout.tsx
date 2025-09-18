@@ -1,10 +1,11 @@
 import { CustomDropdown } from '@/shared/components/forms';
+import { Input } from '@/shared/components/forms/Input';
 import Container from '@/shared/components/layout/container/Container';
-import { Button, Card, CardBody, CardHeader, Input } from '@heroui/react';
+import { Button, Card, CardBody, CardHeader } from '@heroui/react';
 import { AlertCircle, ArrowLeft, Check, CreditCard, Lock, Shield, TrendingUp } from 'lucide-react';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { createCheckoutSessionAPI } from '../../services/payments/api';
+import { createCheckoutSessionAPI } from '../../../shared/services/payments';
 
 const planDetails = {
   starter: {
@@ -157,13 +158,8 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
                 value={customerInfo.name}
                 onChange={e => setCustomerInfo({ ...customerInfo, name: e.target.value })}
                 required
-                isInvalid={!!validationErrors.name}
-                errorMessage={validationErrors.name}
-                classNames={{
-                  input: 'bg-zinc-800 text-white',
-                  label: 'text-zinc-400',
-                  errorMessage: 'text-red-400',
-                }}
+                error={validationErrors.name}
+                className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400 [&_.error]:text-red-400"
               />
             </div>
             <div>
@@ -174,13 +170,8 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
                 value={customerInfo.email}
                 onChange={e => setCustomerInfo({ ...customerInfo, email: e.target.value })}
                 required
-                isInvalid={!!validationErrors.email}
-                errorMessage={validationErrors.email}
-                classNames={{
-                  input: 'bg-zinc-800 text-white',
-                  label: 'text-zinc-400',
-                  errorMessage: 'text-red-400',
-                }}
+                error={validationErrors.email}
+                className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400 [&_.error]:text-red-400"
               />
             </div>
           </div>
@@ -191,10 +182,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
                 placeholder="Your Agency"
                 value={customerInfo.company}
                 onChange={e => setCustomerInfo({ ...customerInfo, company: e.target.value })}
-                classNames={{
-                  input: 'bg-zinc-800 text-white',
-                  label: 'text-zinc-400',
-                }}
+                className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400"
               />
             </div>
             <div>

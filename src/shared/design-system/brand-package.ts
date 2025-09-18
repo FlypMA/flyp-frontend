@@ -1,79 +1,106 @@
 /**
- * flyp.com Brand Design System
- * Inspired by Airbnb's clean, trustworthy design principles
- * Optimized for professional M&A platform users
+ * flyp.com Brand Design System — Caregiver Adaptation
+ * - Warm, calm, trustworthy UI for sellers & buyers
+ * - Airbnb clarity + Acquire-style professionalism
+ * - Accessibility-first, emotionally safe interactions
  */
 
 export const BrandColors = {
-  // Primary Brand Colors
+  // Primary Brand (Trust Blue) — unchanged core identity
   primary: {
-    50: '#eff6ff', // Lightest blue
-    100: '#dbeafe', // Very light blue
-    200: '#bfdbfe', // Light blue
-    300: '#93c5fd', // Medium light blue
-    400: '#60a5fa', // Medium blue
-    500: '#3b82f6', // Primary blue (main brand color)
-    600: '#2563eb', // Darker blue
-    700: '#1d4ed8', // Dark blue
-    800: '#1e40af', // Very dark blue
-    900: '#1e3a8a', // Darkest blue
+    50: '#eff6ff',
+    100: '#dbeafe',
+    200: '#bfdbfe',
+    300: '#93c5fd',
+    400: '#60a5fa',
+    500: '#3b82f6', // main action
+    600: '#2563eb',
+    700: '#1d4ed8',
+    800: '#1e40af',
+    900: '#1e3a8a',
     DEFAULT: '#3b82f6',
   },
 
-  // Neutral Colors (White background, Black text)
-  neutral: {
-    50: '#ffffff', // Pure white (backgrounds)
-    100: '#f9fafb', // Off white
-    200: '#f3f4f6', // Light gray
-    300: '#e5e7eb', // Medium light gray
-    400: '#9ca3af', // Medium gray
-    500: '#6b7280', // Text gray
-    600: '#4b5563', // Dark gray
-    700: '#374151', // Darker gray
-    800: '#1f2937', // Very dark gray
-    900: '#111827', // Almost black (main text)
-    950: '#000000', // Pure black
-    DEFAULT: '#111827',
+  // Support (Calm Teal) — caregiving, soothing, 'we've got you'
+  calm: {
+    50: '#ecfeff',
+    100: '#cffafe',
+    200: '#a5f3fc',
+    300: '#67e8f9',
+    400: '#22d3ee',
+    500: '#06b6d4', // supportive CTA, tabs, info highlights
+    600: '#0891b2',
+    700: '#0e7490',
+    800: '#155e75',
+    900: '#164e63',
+    DEFAULT: '#06b6d4',
   },
 
-  // Success Colors
+  // Accent (Reassuring Coral) — encouragement & positive prompts (not errors)
+  accent: {
+    50: '#fff5f3',
+    100: '#ffe4e0',
+    200: '#fec6c1',
+    300: '#fda59e',
+    400: '#fb7b71',
+    500: '#f25f57', // gentle emphasis (secondary CTAs, empty-states)
+    600: '#de5049',
+    700: '#b83e38',
+    800: '#8f302b',
+    900: '#6f2622',
+    DEFAULT: '#f25f57',
+  },
+
+  // Neutral — warmed slightly for comfort; keep strong contrast for text
+  neutral: {
+    50: '#ffffff', // base backgrounds (can use 100 for app canvas)
+    100: '#fafaf9', // warm off-white
+    200: '#f4f4f5',
+    300: '#e7e5e4',
+    400: '#a1a1aa',
+    500: '#71717a',
+    600: '#52525b',
+    700: '#3f3f46',
+    800: '#27272a',
+    900: '#18181b', // main text on light
+    950: '#0b0b0c',
+    DEFAULT: '#18181b',
+  },
+
+  // Semantic
   success: {
     50: '#f0fdf4',
     100: '#dcfce7',
     200: '#bbf7d0',
     300: '#86efac',
     400: '#4ade80',
-    500: '#22c55e', // Success green
+    500: '#22c55e',
     600: '#16a34a',
     700: '#15803d',
     800: '#166534',
     900: '#14532d',
     DEFAULT: '#22c55e',
   },
-
-  // Warning Colors
   warning: {
     50: '#fffbeb',
     100: '#fef3c7',
     200: '#fde68a',
     300: '#fcd34d',
     400: '#fbbf24',
-    500: '#f59e0b', // Warning yellow
+    500: '#f59e0b',
     600: '#d97706',
     700: '#b45309',
     800: '#92400e',
     900: '#78350f',
     DEFAULT: '#f59e0b',
   },
-
-  // Error Colors
   error: {
     50: '#fef2f2',
     100: '#fee2e2',
     200: '#fecaca',
     300: '#fca5a5',
     400: '#f87171',
-    500: '#ef4444', // Error red
+    500: '#ef4444',
     600: '#dc2626',
     700: '#b91c1c',
     800: '#991b1b',
@@ -81,18 +108,22 @@ export const BrandColors = {
     DEFAULT: '#ef4444',
   },
 
-  // M&A Specific Colors
+  // M&A cues
   business: {
-    trust: '#1e40af', // Deep blue for trust
-    growth: '#059669', // Green for growth
-    premium: '#7c3aed', // Purple for premium
-    secure: '#1f2937', // Dark gray for security
+    trust: '#1e40af', // deep trust
+    growth: '#059669', // growth
+    premium: '#7c3aed', // premium
+    secure: '#1f2937', // secure/dark
   },
+
+  // Accessibility helpers
+  focus: '#2563eb33', // translucent focus ring
+  overlay: 'rgba(2, 6, 23, 0.55)', // modal scrim
 } as const;
 
 export const Typography = {
-  // Font Families (Airbnb-inspired)
   fontFamily: {
+    // Humanist, highly legible UI type
     sans: [
       'Inter',
       'system-ui',
@@ -105,32 +136,30 @@ export const Typography = {
     display: ['Inter', 'system-ui', 'sans-serif'],
     mono: ['JetBrains Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
   },
-
-  // Font Sizes
+  // Comfortable reading rhythm
   fontSize: {
-    xs: ['0.75rem', { lineHeight: '1rem' }],
-    sm: ['0.875rem', { lineHeight: '1.25rem' }],
-    base: ['1rem', { lineHeight: '1.5rem' }],
+    xs: ['0.75rem', { lineHeight: '1.125rem' }],
+    sm: ['0.875rem', { lineHeight: '1.375rem' }],
+    base: ['1rem', { lineHeight: '1.625rem' }],
     lg: ['1.125rem', { lineHeight: '1.75rem' }],
-    xl: ['1.25rem', { lineHeight: '1.75rem' }],
+    xl: ['1.25rem', { lineHeight: '1.85rem' }],
     '2xl': ['1.5rem', { lineHeight: '2rem' }],
     '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-    '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+    '4xl': ['2.25rem', { lineHeight: '2.6rem' }],
     '5xl': ['3rem', { lineHeight: '1' }],
+    // keep large display sizes for marketing pages
     '6xl': ['3.75rem', { lineHeight: '1' }],
     '7xl': ['4.5rem', { lineHeight: '1' }],
     '8xl': ['6rem', { lineHeight: '1' }],
     '9xl': ['8rem', { lineHeight: '1' }],
   },
-
-  // Font Weights
   fontWeight: {
     thin: '100',
     extralight: '200',
     light: '300',
     normal: '400',
-    medium: '500',
-    semibold: '600',
+    medium: '500', // default body
+    semibold: '600', // headings, buttons
     bold: '700',
     extrabold: '800',
     black: '900',
@@ -138,59 +167,60 @@ export const Typography = {
 } as const;
 
 export const Spacing = {
-  // Airbnb-inspired spacing scale
+  // Space to breathe (anxiety-reducing)
   spacing: {
     '0': '0px',
-    '1': '0.25rem', // 4px
-    '2': '0.5rem', // 8px
-    '3': '0.75rem', // 12px
-    '4': '1rem', // 16px
-    '5': '1.25rem', // 20px
-    '6': '1.5rem', // 24px
-    '8': '2rem', // 32px
-    '10': '2.5rem', // 40px
-    '12': '3rem', // 48px
-    '16': '4rem', // 64px
-    '20': '5rem', // 80px
-    '24': '6rem', // 96px
-    '32': '8rem', // 128px
-    '40': '10rem', // 160px
-    '48': '12rem', // 192px
-    '56': '14rem', // 224px
-    '64': '16rem', // 256px
+    '1': '0.25rem',
+    '2': '0.5rem',
+    '3': '0.75rem',
+    '4': '1rem',
+    '5': '1.25rem',
+    '6': '1.5rem',
+    '8': '2rem',
+    '10': '2.5rem',
+    '12': '3rem',
+    '16': '4rem',
+    '20': '5rem',
+    '24': '6rem',
+    '32': '8rem',
+    '40': '10rem',
+    '48': '12rem',
+    '56': '14rem',
+    '64': '16rem',
   },
 } as const;
 
 export const BorderRadius = {
+  // Softer corners = safer feel
   borderRadius: {
     none: '0',
-    sm: '0.125rem', // 2px
-    DEFAULT: '0.25rem', // 4px
-    md: '0.375rem', // 6px
-    lg: '0.5rem', // 8px
-    xl: '0.75rem', // 12px
-    '2xl': '1rem', // 16px
+    sm: '0.25rem', // 4px
+    DEFAULT: '0.5rem', // 8px
+    md: '0.625rem', // 10px
+    lg: '0.75rem', // 12px
+    xl: '1rem', // 16px
+    '2xl': '1.25rem', // 20px
     '3xl': '1.5rem', // 24px
     full: '9999px',
   },
 } as const;
 
 export const BoxShadow = {
+  // Soft, diffuse shadows to avoid harshness
   boxShadow: {
-    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-    DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
+    sm: '0 1px 2px 0 rgb(2 6 23 / 0.05)',
+    DEFAULT: '0 1px 3px 0 rgb(2 6 23 / 0.08), 0 1px 2px -1px rgb(2 6 23 / 0.06)',
+    md: '0 6px 12px -2px rgb(2 6 23 / 0.08), 0 2px 6px -2px rgb(2 6 23 / 0.06)',
+    lg: '0 12px 20px -4px rgb(2 6 23 / 0.12), 0 6px 12px -6px rgb(2 6 23 / 0.08)',
+    xl: '0 20px 28px -6px rgb(2 6 23 / 0.16), 0 10px 16px -8px rgb(2 6 23 / 0.10)',
+    '2xl': '0 28px 56px -10px rgb(2 6 23 / 0.24)',
+    inner: 'inset 0 2px 4px 0 rgb(2 6 23 / 0.04)',
     none: 'none',
   },
 } as const;
 
-// Component-specific design tokens
+// Component Tokens — caregiving patterns (guide, don't shout)
 export const Components = {
-  // Button styles (Airbnb-inspired)
   button: {
     primary: {
       backgroundColor: BrandColors.primary[500],
@@ -201,6 +231,15 @@ export const Components = {
       hover: {
         backgroundColor: BrandColors.primary[600],
         boxShadow: BoxShadow.boxShadow.md,
+      },
+      focus: {
+        outline: `3px solid ${BrandColors.focus}`,
+      },
+      disabled: {
+        backgroundColor: BrandColors.primary[300],
+        color: BrandColors.neutral[100],
+        boxShadow: BoxShadow.boxShadow.none,
+        cursor: 'not-allowed',
       },
     },
     secondary: {
@@ -213,67 +252,180 @@ export const Components = {
         backgroundColor: BrandColors.neutral[100],
         borderColor: BrandColors.neutral[400],
       },
+      focus: { outline: `3px solid ${BrandColors.focus}` },
+    },
+    supportive: {
+      // Caregiver: gentle nudge actions (e.g., "Talk to an advisor")
+      backgroundColor: BrandColors.calm[500],
+      color: BrandColors.neutral[50],
+      borderRadius: BorderRadius.borderRadius.lg,
+      fontWeight: Typography.fontWeight.semibold,
+      hover: { backgroundColor: BrandColors.calm[600] },
+      focus: { outline: `3px solid ${BrandColors.focus}` },
+    },
+    subtle: {
+      // Link/tertiary — low-pressure prompts
+      backgroundColor: 'transparent',
+      color: BrandColors.accent[600],
+      border: `1px solid transparent`,
+      borderRadius: BorderRadius.borderRadius.lg,
+      hover: { backgroundColor: BrandColors.accent[50] },
+      focus: { outline: `3px solid ${BrandColors.focus}` },
+    },
+    danger: {
+      backgroundColor: BrandColors.error[500],
+      color: BrandColors.neutral[50],
+      borderRadius: BorderRadius.borderRadius.lg,
+      hover: { backgroundColor: BrandColors.error[600] },
+      focus: { outline: `3px solid ${BrandColors.focus}` },
     },
   },
 
-  // Card styles
   card: {
-    backgroundColor: BrandColors.neutral[50],
-    borderRadius: BorderRadius.borderRadius.xl,
-    boxShadow: BoxShadow.boxShadow.md,
-    border: `1px solid ${BrandColors.neutral[200]}`,
-    hover: {
-      boxShadow: BoxShadow.boxShadow.lg,
-      transform: 'translateY(-2px)',
+    base: {
+      backgroundColor: BrandColors.neutral[50],
+      borderRadius: BorderRadius.borderRadius.xl,
+      boxShadow: BoxShadow.boxShadow.md,
+      border: `1px solid ${BrandColors.neutral[200]}`,
+    },
+    interactive: {
+      hover: {
+        boxShadow: BoxShadow.boxShadow.lg,
+        transform: 'translateY(-2px)',
+      },
+      focus: {
+        boxShadow: BoxShadow.boxShadow.xl,
+        outline: `3px solid ${BrandColors.focus}`,
+      },
+    },
+    info: {
+      // calming info panels
+      backgroundColor: BrandColors.calm[50],
+      border: `1px solid ${BrandColors.calm[200]}`,
+    },
+    warning: {
+      backgroundColor: BrandColors.warning[50],
+      border: `1px solid ${BrandColors.warning[200]}`,
+    },
+    success: {
+      backgroundColor: BrandColors.success[50],
+      border: `1px solid ${BrandColors.success[200]}`,
     },
   },
 
-  // Input styles
   input: {
-    borderRadius: BorderRadius.borderRadius.lg,
-    border: `1px solid ${BrandColors.neutral[300]}`,
-    backgroundColor: BrandColors.neutral[50],
-    color: BrandColors.neutral[900],
-    fontSize: Typography.fontSize.base,
-    padding: `${Spacing.spacing[3]} ${Spacing.spacing[4]}`,
-    focus: {
-      borderColor: BrandColors.primary[500],
-      boxShadow: `0 0 0 3px ${BrandColors.primary[100]}`,
+    base: {
+      borderRadius: BorderRadius.borderRadius.lg,
+      border: `1px solid ${BrandColors.neutral[300]}`,
+      backgroundColor: BrandColors.neutral[50],
+      color: BrandColors.neutral[900],
+      fontSize: Typography.fontSize.base[0],
+      padding: `${Spacing.spacing[3]} ${Spacing.spacing[4]}`,
+      placeholderColor: BrandColors.neutral[400],
+      focus: {
+        borderColor: BrandColors.primary[500],
+        boxShadow: `0 0 0 3px ${BrandColors.primary[100]}`,
+      },
+    },
+    valid: {
+      border: `1px solid ${BrandColors.success[400]}`,
+    },
+    invalid: {
+      border: `1px solid ${BrandColors.error[400]}`,
+      helpTextColor: BrandColors.error[600],
+      helpTextBg: BrandColors.error[50],
+    },
+    disabled: {
+      backgroundColor: BrandColors.neutral[200],
+      color: BrandColors.neutral[500],
+      cursor: 'not-allowed',
     },
   },
+
+  // Badges (trust cues)
+  badge: {
+    verified: {
+      backgroundColor: BrandColors.success[100],
+      color: BrandColors.success[700],
+      border: `1px solid ${BrandColors.success[300]}`,
+      iconColor: BrandColors.success[600],
+      borderRadius: BorderRadius.borderRadius.full,
+      paddingX: Spacing.spacing[3],
+      paddingY: Spacing.spacing[1],
+    },
+    secure: {
+      backgroundColor: BrandColors.neutral[100],
+      color: BrandColors.business.secure,
+      border: `1px solid ${BrandColors.neutral[300]}`,
+      iconColor: BrandColors.business.secure,
+      borderRadius: BorderRadius.borderRadius.full,
+    },
+  },
+
+  // Toasts & helpers
+  toast: {
+    info: {
+      bg: BrandColors.calm[50],
+      border: `1px solid ${BrandColors.calm[200]}`,
+      color: BrandColors.calm[800],
+    },
+    success: {
+      bg: BrandColors.success[50],
+      border: `1px solid ${BrandColors.success[200]}`,
+      color: BrandColors.success[800],
+    },
+    error: {
+      bg: BrandColors.error[50],
+      border: `1px solid ${BrandColors.error[200]}`,
+      color: BrandColors.error[800],
+    },
+  },
+
+  modal: {
+    overlay: BrandColors.overlay,
+    panel: {
+      backgroundColor: BrandColors.neutral[50],
+      borderRadius: BorderRadius.borderRadius.xl,
+      boxShadow: BoxShadow.boxShadow['2xl'],
+      border: `1px solid ${BrandColors.neutral[200]}`,
+    },
+  },
+
+  tooltip: {
+    backgroundColor: BrandColors.neutral[800],
+    color: BrandColors.neutral[50],
+    borderRadius: BorderRadius.borderRadius.md,
+    shadow: BoxShadow.boxShadow.sm,
+  },
 } as const;
 
-// Usage Guidelines
+// Usage & UX principles tuned for Caregiver
 export const DesignPrinciples = {
-  // Airbnb-inspired principles for M&A platform
   principles: [
-    'Trust First: Every design decision should build user confidence',
-    'Clarity: Information hierarchy must be crystal clear',
-    'Professional: Maintain business-appropriate sophistication',
-    'Accessible: Ensure all users can navigate confidently',
-    'Consistent: Maintain visual and interaction patterns',
-    'Human: Make complex M&A processes feel approachable',
+    'Trust First: remove uncertainty with transparency & consistency',
+    'Calm by Design: whitespace, soft corners, gentle motion',
+    'Clarity > Clever: plain language, clear hierarchy',
+    'Guide the Journey: progressive steps, checklists, status',
+    'Accessible Always: WCAG AA contrast, keyboard focus, ARIA',
+    'Human Support: microcopy that reassures and explains',
   ],
-
-  // Color Usage Guidelines
   colorUsage: {
-    primary: 'Use for primary actions, links, and key UI elements',
-    neutral: 'Use for text, backgrounds, and subtle UI elements',
-    success: 'Use for positive actions, confirmations, and success states',
-    warning: 'Use for cautions, pending states, and important notices',
-    error: 'Use for errors, deletions, and critical warnings',
-    business: 'Use for M&A-specific features and trust indicators',
+    primary: 'Primary actions, key nav, progress',
+    calm: 'Supportive CTAs, tabs, informative accents',
+    accent: 'Friendly prompts, empty-states, highlights (not errors)',
+    neutral: 'Backgrounds, text, dividers',
+    success: 'Confirmation states, positive badges',
+    warning: 'Non-blocking cautions and pending states',
+    error: 'Blocking errors, destructive actions',
+    business: 'Trust/secure highlights, premium markers',
   },
-
-  // Typography Guidelines
   typographyUsage: {
-    display: 'Use for headlines, hero sections, and primary messaging',
-    sans: 'Use for body text, UI elements, and general content',
-    mono: 'Use for code, data, and technical information',
+    display: 'Hero headlines, section intros',
+    sans: 'Body, forms, UI labels, components',
+    mono: 'Data, code, numeric tables',
   },
 } as const;
 
-// Export default theme configuration
 export const flypTheme = {
   colors: BrandColors,
   typography: Typography,
@@ -283,5 +435,8 @@ export const flypTheme = {
   components: Components,
   principles: DesignPrinciples,
 } as const;
+
+// Legacy export for backward compatibility
+export const BetweendealsTheme = flypTheme;
 
 export default flypTheme;

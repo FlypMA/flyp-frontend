@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, CardHeader, Progress, Chip } from '@heroui/react';
-import {
-  TrendingUp,
-  TrendingDown,
-  AlertTriangle,
-  CheckCircle,
-  Calculator,
-  Bell,
-  BarChart3,
-  ArrowUp,
-  ArrowDown,
-  Wallet,
-  Building2,
-  Info,
-  Target,
-} from 'lucide-react';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import { Navigation, DashboardSidebar } from '@/shared/components/layout/navigation';
+import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import {
+  BarChart3,
+  Bell,
+  Calculator,
+  CheckCircle,
+  Info,
+  Target,
+  TrendingUp,
+  Wallet,
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// Navigation and sidebar are provided by DashboardLayout
 import FinancialDisclaimer from '@/shared/components/disclaimers/FinancialDisclaimer';
 
 interface SolvencyMetrics {
@@ -198,312 +193,303 @@ const SolvencyIntelligence = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-        <Navigation />
+      {/* Navigation and sidebar provided by DashboardLayout */}
+      <div className="max-w-7xl mx-auto px-8 py-8 space-y-8">
+        {/* Header */}
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Solvency Intelligence Hub</h1>
+          <p className="text-gray-600">
+            Monitor your business financial health and bank loan eligibility
+          </p>
+        </div>
 
-      <div className="flex">
-        <DashboardSidebar user={user} />
+        {/* Financial Analysis Disclaimer */}
+        <FinancialDisclaimer
+          type="solvency"
+          variant="banner"
+          isCollapsible={true}
+          className="mb-6"
+        />
 
-        <div className="flex-1 px-8 py-8">
-          <div className="max-w-7xl space-y-8">
-            {/* Header */}
-            <div className="text-center">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Solvency Intelligence Hub</h1>
-              <p className="text-gray-600">
-                Monitor your business financial health and bank loan eligibility
-              </p>
-            </div>
-
-            {/* Financial Analysis Disclaimer */}
-            <FinancialDisclaimer
-              type="solvency"
-              variant="banner"
-              isCollapsible={true}
-              className="mb-6"
-            />
-
-            {/* Overall Score Card */}
-            <Card className={`border-2 ${getSolvencyBgColor(solvencyData.solvencyScore)}`}>
-              <CardBody className="p-8">
-                <div className="flex items-center justify-between">
+        {/* Overall Score Card */}
+        <Card className={`border-2 ${getSolvencyBgColor(solvencyData.solvencyScore)}`}>
+          <CardBody className="p-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Overall Solvency Score</h2>
+                <div className="flex items-center space-x-4">
+                  <span
+                    className={`text-5xl font-bold ${getSolvencyColor(solvencyData.solvencyScore)}`}
+                  >
+                    {solvencyData.solvencyScore}/100
+                  </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                      Overall Solvency Score
-                    </h2>
-                    <div className="flex items-center space-x-4">
-                      <span
-                        className={`text-5xl font-bold ${getSolvencyColor(solvencyData.solvencyScore)}`}
-                      >
-                        {solvencyData.solvencyScore}/100
-                      </span>
+                    <span
+                      className={`px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 ${
+                        solvencyData.bankLoanEligibility === 'excellent'
+                          ? 'text-green-600'
+                          : solvencyData.bankLoanEligibility === 'good'
+                            ? 'text-gray-900'
+                            : solvencyData.bankLoanEligibility === 'fair'
+                              ? 'text-gray-700'
+                              : 'text-red-600'
+                      }`}
+                    >
+                      {solvencyData.bankLoanEligibility.toUpperCase()} RATING
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <div className="flex items-center space-x-2 mb-2">
+                  <BarChart3 className="w-5 h-5 text-gray-600" />
+                  <span className="text-lg font-semibold text-gray-900">
+                    Better than {Math.round(solvencyData.industryRanking)}% of{' '}
+                    {user.business_type || 'Food & Beverage'} businesses
+                  </span>
+                </div>
+                <div className="w-64">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-gray-900 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${Math.min(solvencyData.industryRanking, 100)}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
+
+        {/* Key Ratios Grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Current Ratio */}
+          <Card className="border border-gray-200 shadow-sm">
+            <CardHeader>
+              <div className="flex items-center justify-between w-full">
+                <h3 className="font-semibold text-gray-900">Current Ratio</h3>
+                {isInSweetSpot(solvencyData.currentRatio, 'current') && (
+                  <Target className="w-5 h-5 text-green-600" />
+                )}
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 mb-2">
+                  {solvencyData.currentRatio.toFixed(2)}
+                </div>
+                <div className="text-sm text-gray-600 mb-4">
+                  Current Assets ÷ Current Liabilities
+                </div>
+                {isInSweetSpot(solvencyData.currentRatio, 'current') && (
+                  <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
+                    🎯 Bank Loan Sweet Spot (1.2-2.5)
+                  </div>
+                )}
+                <div className="mt-3 text-xs text-gray-500">
+                  Working Capital: €{solvencyData.workingCapital.toLocaleString()}
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+
+          {/* Quick Ratio */}
+          <Card className="border border-gray-200 shadow-sm">
+            <CardHeader>
+              <div className="flex items-center justify-between w-full">
+                <h3 className="font-semibold text-gray-900">Quick Ratio</h3>
+                {isInSweetSpot(solvencyData.quickRatio, 'quick') && (
+                  <Target className="w-5 h-5 text-green-600" />
+                )}
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 mb-2">
+                  {solvencyData.quickRatio.toFixed(2)}
+                </div>
+                <div className="text-sm text-gray-600 mb-4">
+                  (Current Assets - Inventory) ÷ Current Liabilities
+                </div>
+                {isInSweetSpot(solvencyData.quickRatio, 'quick') && (
+                  <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
+                    🎯 Bank Loan Sweet Spot (1.0-2.0)
+                  </div>
+                )}
+              </div>
+            </CardBody>
+          </Card>
+
+          {/* Debt-to-Equity */}
+          <Card className="border border-gray-200 shadow-sm">
+            <CardHeader>
+              <div className="flex items-center justify-between w-full">
+                <h3 className="font-semibold text-gray-900">Debt-to-Equity</h3>
+                {isInSweetSpot(solvencyData.debtToEquity, 'debt') && (
+                  <Target className="w-5 h-5 text-green-600" />
+                )}
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 mb-2">
+                  {(solvencyData.debtToEquity * 100).toFixed(0)}%
+                </div>
+                <div className="text-sm text-gray-600 mb-4">Total Debt ÷ Total Equity</div>
+                {isInSweetSpot(solvencyData.debtToEquity, 'debt') && (
+                  <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
+                    🎯 Healthy Range (25-45%)
+                  </div>
+                )}
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+
+        {/* Bank Loan Eligibility */}
+        <Card className="border border-gray-200 shadow-sm">
+          <CardBody className="p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-4">
+                  <Wallet className="w-8 h-8 text-gray-600" />
+                  <h3 className="text-2xl font-bold text-gray-900">Bank Loan Calculator</h3>
+                </div>
+                <p className="text-gray-700 mb-6">
+                  Based on your current solvency ratios, you can qualify for:
+                </p>
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-gray-900 mb-2">
+                      €{maxLoanAmount.toLocaleString()}
+                    </div>
+                    <div className="text-gray-600 font-medium mb-4">Maximum Loan Amount</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span
-                          className={`px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 ${
+                        <span className="text-gray-600">Interest Rate Range:</span>
+                        <div className="font-semibold">
+                          {solvencyData.bankLoanEligibility === 'excellent'
+                            ? '2.5% - 4.5%'
+                            : solvencyData.bankLoanEligibility === 'good'
+                              ? '4.5% - 6.5%'
+                              : solvencyData.bankLoanEligibility === 'fair'
+                                ? '6.5% - 9.5%'
+                                : '9.5%+'}
+                        </div>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Approval Probability:</span>
+                        <div
+                          className={`font-semibold ${
                             solvencyData.bankLoanEligibility === 'excellent'
                               ? 'text-green-600'
-                              : solvencyData.bankLoanEligibility === 'good'
-                                ? 'text-gray-900'
-                                : solvencyData.bankLoanEligibility === 'fair'
-                                  ? 'text-gray-700'
-                                  : 'text-red-600'
+                              : 'text-gray-900'
                           }`}
                         >
-                          {solvencyData.bankLoanEligibility.toUpperCase()} RATING
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <BarChart3 className="w-5 h-5 text-gray-600" />
-                      <span className="text-lg font-semibold text-gray-900">
-                        Better than {Math.round(solvencyData.industryRanking)}% of{' '}
-                        {user.business_type || 'Food & Beverage'} businesses
-                      </span>
-                    </div>
-                    <div className="w-64">
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-gray-900 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${Math.min(solvencyData.industryRanking, 100)}%` }}
-                        ></div>
+                          {solvencyData.bankLoanEligibility === 'excellent'
+                            ? '85-95%'
+                            : solvencyData.bankLoanEligibility === 'good'
+                              ? '70-85%'
+                              : solvencyData.bankLoanEligibility === 'fair'
+                                ? '45-70%'
+                                : '15-45%'}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </CardBody>
-            </Card>
+              </div>
 
-            {/* Key Ratios Grid */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Current Ratio */}
-              <Card className="border border-gray-200 shadow-sm">
-                <CardHeader>
-                  <div className="flex items-center justify-between w-full">
-                    <h3 className="font-semibold text-gray-900">Current Ratio</h3>
-                    {isInSweetSpot(solvencyData.currentRatio, 'current') && (
-                      <Target className="w-5 h-5 text-green-600" />
-                    )}
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">
-                      {solvencyData.currentRatio.toFixed(2)}
-                    </div>
-                    <div className="text-sm text-gray-600 mb-4">
-                      Current Assets ÷ Current Liabilities
-                    </div>
-                    {isInSweetSpot(solvencyData.currentRatio, 'current') && (
-                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
-                        🎯 Bank Loan Sweet Spot (1.2-2.5)
-                      </div>
-                    )}
-                    <div className="mt-3 text-xs text-gray-500">
-                      Working Capital: €{solvencyData.workingCapital.toLocaleString()}
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              {/* Quick Ratio */}
-              <Card className="border border-gray-200 shadow-sm">
-                <CardHeader>
-                  <div className="flex items-center justify-between w-full">
-                    <h3 className="font-semibold text-gray-900">Quick Ratio</h3>
-                    {isInSweetSpot(solvencyData.quickRatio, 'quick') && (
-                      <Target className="w-5 h-5 text-green-600" />
-                    )}
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">
-                      {solvencyData.quickRatio.toFixed(2)}
-                    </div>
-                    <div className="text-sm text-gray-600 mb-4">
-                      (Current Assets - Inventory) ÷ Current Liabilities
-                    </div>
-                    {isInSweetSpot(solvencyData.quickRatio, 'quick') && (
-                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
-                        🎯 Bank Loan Sweet Spot (1.0-2.0)
-                      </div>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
-
-              {/* Debt-to-Equity */}
-              <Card className="border border-gray-200 shadow-sm">
-                <CardHeader>
-                  <div className="flex items-center justify-between w-full">
-                    <h3 className="font-semibold text-gray-900">Debt-to-Equity</h3>
-                    {isInSweetSpot(solvencyData.debtToEquity, 'debt') && (
-                      <Target className="w-5 h-5 text-green-600" />
-                    )}
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">
-                      {(solvencyData.debtToEquity * 100).toFixed(0)}%
-                    </div>
-                    <div className="text-sm text-gray-600 mb-4">Total Debt ÷ Total Equity</div>
-                    {isInSweetSpot(solvencyData.debtToEquity, 'debt') && (
-                      <div className="bg-gray-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
-                        🎯 Healthy Range (25-45%)
-                      </div>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
+              <div className="ml-8">
+                <Button
+                  color="primary"
+                  size="lg"
+                  onPress={() => setShowLoanCalculator(true)}
+                  className="px-8"
+                  startContent={<Calculator className="w-5 h-5" />}
+                >
+                  Get Pre-Qualification
+                </Button>
+              </div>
             </div>
+          </CardBody>
+        </Card>
 
-            {/* Bank Loan Eligibility */}
-            <Card className="border border-gray-200 shadow-sm">
-              <CardBody className="p-8">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <Wallet className="w-8 h-8 text-gray-600" />
-                      <h3 className="text-2xl font-bold text-gray-900">Bank Loan Calculator</h3>
-                    </div>
-                    <p className="text-gray-700 mb-6">
-                      Based on your current solvency ratios, you can qualify for:
+        {/* Monthly Alerts */}
+        <Card className="border border-gray-200 shadow-sm">
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+              <Bell className="w-6 h-6 text-gray-600" />
+              <h3 className="text-xl font-semibold text-gray-900">Smart Alerts & Monitoring</h3>
+            </div>
+          </CardHeader>
+          <CardBody>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Recent Alerts</h4>
+
+                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Current ratio improved to {solvencyData.currentRatio.toFixed(2)}
                     </p>
-                    <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-gray-900 mb-2">
-                          €{maxLoanAmount.toLocaleString()}
-                        </div>
-                        <div className="text-gray-600 font-medium mb-4">Maximum Loan Amount</div>
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="text-gray-600">Interest Rate Range:</span>
-                            <div className="font-semibold">
-                              {solvencyData.bankLoanEligibility === 'excellent'
-                                ? '2.5% - 4.5%'
-                                : solvencyData.bankLoanEligibility === 'good'
-                                  ? '4.5% - 6.5%'
-                                  : solvencyData.bankLoanEligibility === 'fair'
-                                    ? '6.5% - 9.5%'
-                                    : '9.5%+'}
-                            </div>
-                          </div>
-                          <div>
-                            <span className="text-gray-600">Approval Probability:</span>
-                            <div
-                              className={`font-semibold ${
-                                solvencyData.bankLoanEligibility === 'excellent'
-                                  ? 'text-green-600'
-                                  : 'text-gray-900'
-                              }`}
-                            >
-                              {solvencyData.bankLoanEligibility === 'excellent'
-                                ? '85-95%'
-                                : solvencyData.bankLoanEligibility === 'good'
-                                  ? '70-85%'
-                                  : solvencyData.bankLoanEligibility === 'fair'
-                                    ? '45-70%'
-                                    : '15-45%'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="ml-8">
-                    <Button
-                      color="primary"
-                      size="lg"
-                      onPress={() => setShowLoanCalculator(true)}
-                      className="px-8"
-                      startContent={<Calculator className="w-5 h-5" />}
-                    >
-                      Get Pre-Qualification
-                    </Button>
+                    <p className="text-xs text-green-600">
+                      Your ratio is now in the bank loan sweet spot! 2 days ago
+                    </p>
                   </div>
                 </div>
-              </CardBody>
-            </Card>
 
-            {/* Monthly Alerts */}
-            <Card className="border border-gray-200 shadow-sm">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <Bell className="w-6 h-6 text-gray-600" />
-                  <h3 className="text-xl font-semibold text-gray-900">Smart Alerts & Monitoring</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="font-medium text-gray-900">Recent Alerts</h4>
-
-                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          Current ratio improved to {solvencyData.currentRatio.toFixed(2)}
-                        </p>
-                        <p className="text-xs text-green-600">
-                          Your ratio is now in the bank loan sweet spot! 2 days ago
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      <TrendingUp className="w-5 h-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          Cash flow increased by €2,400 last month
-                        </p>
-                        <p className="text-xs text-green-600">
-                          This improves your loan eligibility • 1 week ago
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      <Info className="w-5 h-5 text-gray-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          Industry benchmark update available
-                        </p>
-                        <p className="text-xs text-gray-600">
-                          See how you compare to other Food & Beverage businesses • 3 days ago
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="font-medium text-gray-900">Improvement Recommendations</h4>
-
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h5 className="font-medium text-gray-900 mb-2">Quick Wins</h5>
-                      <ul className="text-sm text-gray-700 space-y-1">
-                        <li>• Reduce inventory by €5K to improve quick ratio</li>
-                        <li>• Pay down €10K of current debt to boost score</li>
-                        <li>• Maintain current cash flow trend</li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                      <h5 className="font-medium text-gray-900 mb-2">Strategic Actions</h5>
-                      <ul className="text-sm text-gray-700 space-y-1">
-                        <li>• Consider equipment financing vs cash purchase</li>
-                        <li>• Optimize payment terms with suppliers</li>
-                        <li>• Schedule quarterly solvency reviews</li>
-                      </ul>
-                    </div>
+                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <TrendingUp className="w-5 h-5 text-green-600 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Cash flow increased by €2,400 last month
+                    </p>
+                    <p className="text-xs text-green-600">
+                      This improves your loan eligibility • 1 week ago
+                    </p>
                   </div>
                 </div>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
+
+                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <Info className="w-5 h-5 text-gray-600 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Industry benchmark update available
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      See how you compare to other Food & Beverage businesses • 3 days ago
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Improvement Recommendations</h4>
+
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <h5 className="font-medium text-gray-900 mb-2">Quick Wins</h5>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Reduce inventory by €5K to improve quick ratio</li>
+                    <li>• Pay down €10K of current debt to boost score</li>
+                    <li>• Maintain current cash flow trend</li>
+                  </ul>
+                </div>
+
+                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <h5 className="font-medium text-gray-900 mb-2">Strategic Actions</h5>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Consider equipment financing vs cash purchase</li>
+                    <li>• Optimize payment terms with suppliers</li>
+                    <li>• Schedule quarterly solvency reviews</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

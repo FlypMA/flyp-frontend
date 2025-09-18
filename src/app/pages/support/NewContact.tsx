@@ -1,15 +1,8 @@
+import AnimatedTextarea from '@/shared/components/forms/AnimatedTextarea';
+import { Input } from '@/shared/components/forms/Input';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Select,
-  SelectItem,
-  Textarea,
-} from '@heroui/react';
+import { Button, Card, CardBody, CardHeader, Select, SelectItem } from '@heroui/react';
 import {
   ArrowRight,
   Building2,
@@ -255,18 +248,16 @@ const NewContact = () => {
                         label="Full Name"
                         placeholder="Enter your full name"
                         value={formData.name}
-                        onValueChange={value => setFormData({ ...formData, name: value })}
-                        isRequired
-                        variant="bordered"
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        required
                       />
                       <Input
                         label="Email Address"
                         placeholder="Enter your email"
                         type="email"
                         value={formData.email}
-                        onValueChange={value => setFormData({ ...formData, email: value })}
-                        isRequired
-                        variant="bordered"
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        required
                       />
                     </div>
 
@@ -275,15 +266,13 @@ const NewContact = () => {
                         label="Company Name"
                         placeholder="Enter your company name"
                         value={formData.company}
-                        onValueChange={value => setFormData({ ...formData, company: value })}
-                        variant="bordered"
+                        onChange={e => setFormData({ ...formData, company: e.target.value })}
                       />
                       <Input
                         label="Phone Number"
                         placeholder="Enter your phone number"
                         value={formData.phone}
-                        onValueChange={value => setFormData({ ...formData, phone: value })}
-                        variant="bordered"
+                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
 
@@ -292,9 +281,8 @@ const NewContact = () => {
                         label="Subject"
                         placeholder="Brief subject line"
                         value={formData.subject}
-                        onValueChange={value => setFormData({ ...formData, subject: value })}
-                        isRequired
-                        variant="bordered"
+                        onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                        required
                       />
                       <Select
                         label="Category"
@@ -313,14 +301,17 @@ const NewContact = () => {
                       </Select>
                     </div>
 
-                    <Textarea
+                    <AnimatedTextarea
                       label="Message"
                       placeholder="Please describe how we can help you..."
                       value={formData.message}
-                      onValueChange={value => setFormData({ ...formData, message: value })}
-                      isRequired
-                      variant="bordered"
+                      onChange={value => setFormData({ ...formData, message: value })}
+                      required
                       minRows={6}
+                      maxRows={12}
+                      autoResize={true}
+                      characterLimit={1000}
+                      description="Please provide as much detail as possible to help us assist you better."
                     />
 
                     <div className="flex justify-center">
