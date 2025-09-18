@@ -9,7 +9,7 @@
  * - No complex features
  */
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { authService } from '../../shared/services';
 import { User } from '../../shared/types';
 
@@ -76,6 +76,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [postAuthRedirect, setPostAuthRedirect] = useState<PostAuthRedirect | null>(null);
 
+  // Track if we've already checked authentication to prevent repeated calls
+  const hasCheckedAuth = useRef<boolean>(false);
+
   // =============================================================================
   // AUTH FUNCTIONS
   // =============================================================================
@@ -102,12 +105,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Optimized check that only runs once on mount
   const checkAuthOnce = useCallback(async () => {
-    // Check if we already have a user or if we're already loading
-    if (user || isLoading) {
+    // Prevent multiple calls
+    if (hasCheckedAuth.current) {
       return;
     }
 
+    hasCheckedAuth.current = true;
     setIsLoading(true);
+    
     try {
       const authResult = await authService.checkAuthentication();
       if (authResult.isAuthenticated && authResult.user) {
@@ -124,11 +129,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [user, isLoading]);
+  }, []);
 
   const setUser = useCallback((user: User | null) => {
     setUserState(user);
     setIsAuthenticated(!!user);
+    // Reset auth check flag when user changes
+    hasCheckedAuth.current = false;
   }, []);
 
   // =============================================================================
@@ -164,6 +171,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (event.detail) {
         setUserState(event.detail);
         setIsAuthenticated(true);
+        hasCheckedAuth.current = false; // Reset flag for future checks
       }
     };
 
@@ -172,11 +180,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (event.detail) {
         setUserState(event.detail);
         setIsAuthenticated(true);
+        hasCheckedAuth.current = false; // Reset flag for future checks
       }
     };
 
     const handleAuthChange = () => {
       console.log('🔄 AuthProvider: Auth change event received, rechecking auth');
+      hasCheckedAuth.current = false; // Reset flag to allow recheck
       checkAuth();
     };
 
@@ -184,6 +194,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('🔓 AuthProvider: Auth logout event received');
       setUserState(null);
       setIsAuthenticated(false);
+      hasCheckedAuth.current = false; // Reset flag for future checks
     };
 
     window.addEventListener('user-login', handleUserLogin as EventListener);

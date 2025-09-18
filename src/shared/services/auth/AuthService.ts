@@ -46,6 +46,7 @@ interface ApiResponse<T = any> {
  */
 export class AuthenticationService {
   private baseURL: string;
+  private _hasLoggedNoSession: boolean = false;
 
   constructor() {
     const backendUrl = import.meta.env.VITE_NODE_BACKEND_URL || 'http://localhost:3000';
@@ -268,7 +269,11 @@ export class AuthenticationService {
       // If no local session, check if we have any indication of a session
       const hasSessionFlag = localStorage.getItem('flyp_has_session');
       if (!hasSessionFlag) {
-        console.log('🔍 No session flag found, user not authenticated');
+        // Only log once per session to avoid spam
+        if (!this._hasLoggedNoSession) {
+          console.log('🔍 No session flag found, user not authenticated');
+          this._hasLoggedNoSession = true;
+        }
         return {
           isAuthenticated: false,
           error: 'No session found'
@@ -296,6 +301,7 @@ export class AuthenticationService {
           token: 'cookie-based', // Placeholder - actual auth is via HTTP-only cookies
         };
         SessionManager.storeSession(authResult);
+        this._hasLoggedNoSession = false; // Reset flag since we found a session
       }
 
       return {
