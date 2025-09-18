@@ -100,21 +100,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  // Check auth only once on initial load
+  // Optimized check that only runs once on mount
   const checkAuthOnce = useCallback(async () => {
-    // First try to get cached session
-    const cachedSession = authService.getSession();
-    if (cachedSession && cachedSession.isAuthenticated && cachedSession.user) {
-      console.log('🔍 AuthProvider: Using cached session');
-      setUserState(cachedSession.user);
-      setIsAuthenticated(true);
-      setIsLoading(false);
+    // Check if we already have a user or if we're already loading
+    if (user || isLoading) {
       return;
     }
 
-    // If no cached session, check with backend
-    await checkAuth();
-  }, [checkAuth]);
+    setIsLoading(true);
+    try {
+      const authResult = await authService.checkAuthentication();
+      if (authResult.isAuthenticated && authResult.user) {
+        setUserState(authResult.user);
+        setIsAuthenticated(true);
+      } else {
+        setUserState(null);
+        setIsAuthenticated(false);
+      }
+    } catch (err) {
+      console.error('AuthProvider: Auth check failed:', err);
+      setUserState(null);
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [user, isLoading]);
 
   const setUser = useCallback((user: User | null) => {
     setUserState(user);

@@ -265,6 +265,16 @@ export class AuthenticationService {
         };
       }
 
+      // If no local session, check if we have any indication of a session
+      const hasSessionFlag = localStorage.getItem('flyp_has_session');
+      if (!hasSessionFlag) {
+        console.log('🔍 No session flag found, user not authenticated');
+        return {
+          isAuthenticated: false,
+          error: 'No session found'
+        };
+      }
+
       console.log('🔍 Checking authentication status through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/me');
