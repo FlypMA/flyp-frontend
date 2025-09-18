@@ -150,10 +150,28 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
             <div className="space-y-1">
               {section.items.map(item => {
                 const Icon = item.icon;
-                // Improved active state detection - check for exact match or if current path starts with item path
-                const isActive =
-                  location.pathname === item.path ||
-                  (item.path !== '/' && location.pathname.startsWith(item.path));
+                // Precise active state detection - only exact matches or specific parent paths
+                const isActive = (() => {
+                  // Exact match
+                  if (location.pathname === item.path) {
+                    return true;
+                  }
+
+                  // Special case: Dashboard should only be active on exact business overview path
+                  if (item.key === 'overview') {
+                    return location.pathname === UrlGenerator.myBusiness();
+                  }
+
+                  // For other items, only match if current path starts with item path AND has additional segments
+                  // This prevents parent paths from being active when on child paths
+                  if (item.path !== '/' && location.pathname.startsWith(item.path)) {
+                    const remainingPath = location.pathname.slice(item.path.length);
+                    // Only consider active if there's a trailing slash or additional path segments
+                    return remainingPath === '' || remainingPath.startsWith('/');
+                  }
+
+                  return false;
+                })();
                 const isDisabled = item.isComingSoon;
 
                 return (
