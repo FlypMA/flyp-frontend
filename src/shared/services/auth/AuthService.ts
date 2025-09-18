@@ -48,7 +48,14 @@ export class AuthenticationService {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = import.meta.env.VITE_NODE_BACKEND_URL || 'http://localhost:3000';
+    const backendUrl = import.meta.env.VITE_NODE_BACKEND_URL || 'http://localhost:3000';
+    
+    // Ensure the URL has a protocol (fix for production deployment)
+    if (backendUrl && !backendUrl.startsWith('http://') && !backendUrl.startsWith('https://')) {
+      this.baseURL = `https://${backendUrl}`;
+    } else {
+      this.baseURL = backendUrl;
+    }
   }
 
   /**
