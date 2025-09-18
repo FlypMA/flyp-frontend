@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useUI } from '@/app/providers/UIProvider';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
 import { Input } from '@/shared/components/ui/Input';
-import { useUI } from '@/app/providers/UIProvider';
-import { Save, ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ListingFormData {
   // Basic Information
@@ -13,21 +13,21 @@ interface ListingFormData {
   industry: string;
   location: string;
   yearEstablished: string;
-  
-  // Financial Information  
+
+  // Financial Information
   askingPrice: string;
   annualRevenue: string;
   netProfit: string;
   grossMargin: string;
-  
+
   // Business Details
   employees: string;
   realEstate: 'included' | 'lease' | 'separate';
-  
+
   // Additional Information
   highlights: string;
   reasonForSelling: string;
-  
+
   // Contact preferences
   contactPreference: 'direct' | 'anonymous';
 }
@@ -37,7 +37,7 @@ export const CreateListingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { addNotification } = useUI();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState<ListingFormData>({
     title: '',
     description: '',
@@ -82,7 +82,9 @@ export const CreateListingPage: React.FC = () => {
     'Aalst',
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -164,9 +166,7 @@ export const CreateListingPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Industry
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
                 <select
                   name="industry"
                   value={formData.industry}
@@ -176,15 +176,15 @@ export const CreateListingPage: React.FC = () => {
                 >
                   <option value="">Select industry</option>
                   {industries.map(industry => (
-                    <option key={industry} value={industry}>{industry}</option>
+                    <option key={industry} value={industry}>
+                      {industry}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                 <select
                   name="location"
                   value={formData.location}
@@ -194,7 +194,9 @@ export const CreateListingPage: React.FC = () => {
                 >
                   <option value="">Select location</option>
                   {locations.map(location => (
-                    <option key={location} value={location}>{location}</option>
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -273,9 +275,7 @@ export const CreateListingPage: React.FC = () => {
             />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Real Estate
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Real Estate</label>
               <select
                 name="realEstate"
                 value={formData.realEstate}
@@ -299,9 +299,7 @@ export const CreateListingPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Key Highlights
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Key Highlights</label>
               <textarea
                 name="highlights"
                 value={formData.highlights}
@@ -311,7 +309,8 @@ export const CreateListingPage: React.FC = () => {
                 placeholder="List the main selling points of your business (one per line)..."
               />
               <p className="text-sm text-gray-500 mt-1">
-                Example: Prime location with high foot traffic, Loyal customer base, Recently renovated
+                Example: Prime location with high foot traffic, Loyal customer base, Recently
+                renovated
               </p>
             </div>
 
@@ -340,7 +339,7 @@ export const CreateListingPage: React.FC = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="direct">Direct contact allowed</option>
-                <option value="anonymous">Anonymous listing (BetweenDeals mediates)</option>
+                <option value="anonymous">Anonymous listing (flyp mediates)</option>
               </select>
             </div>
           </div>
@@ -358,20 +357,35 @@ export const CreateListingPage: React.FC = () => {
               <h3 className="font-semibold text-gray-900 mb-4">Listing Preview</h3>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900">{formData.title || 'Business Title'}</h4>
-                  <p className="text-gray-600 text-sm">{formData.industry} • {formData.location}</p>
+                  <h4 className="font-medium text-gray-900">
+                    {formData.title || 'Business Title'}
+                  </h4>
+                  <p className="text-gray-600 text-sm">
+                    {formData.industry} • {formData.location}
+                  </p>
                 </div>
-                
-                <p className="text-gray-600">{formData.description || 'Business description will appear here...'}</p>
-                
+
+                <p className="text-gray-600">
+                  {formData.description || 'Business description will appear here...'}
+                </p>
+
                 <div className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200 text-sm">
                   <div>
                     <p className="text-gray-500">Asking Price</p>
-                    <p className="font-semibold">€{formData.askingPrice ? parseInt(formData.askingPrice).toLocaleString() : '0'}</p>
+                    <p className="font-semibold">
+                      €
+                      {formData.askingPrice ? parseInt(formData.askingPrice).toLocaleString() : '0'}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-500">Revenue</p>
-                    <p className="font-semibold">€{formData.annualRevenue ? parseInt(formData.annualRevenue).toLocaleString() : '0'}/yr</p>
+                    <p className="font-semibold">
+                      €
+                      {formData.annualRevenue
+                        ? parseInt(formData.annualRevenue).toLocaleString()
+                        : '0'}
+                      /yr
+                    </p>
                   </div>
                 </div>
               </div>
@@ -400,10 +414,12 @@ export const CreateListingPage: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-gray-500">Step {currentStep} of 4</span>
-          <span className="text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% complete</span>
+          <span className="text-sm text-gray-500">
+            {Math.round((currentStep / 4) * 100)}% complete
+          </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
+          <div
             className="bg-primary-600 h-2 rounded-full transition-all duration-300"
             style={{ width: `${(currentStep / 4) * 100}%` }}
           />
@@ -423,17 +439,13 @@ export const CreateListingPage: React.FC = () => {
               </Button>
             )}
           </div>
-          
+
           <div className="flex items-center space-x-3">
-            <Button
-              variant="secondary"
-              onClick={handleSaveDraft}
-              loading={isLoading}
-            >
+            <Button variant="secondary" onClick={handleSaveDraft} loading={isLoading}>
               <Save className="h-4 w-4 mr-2" />
               Save Draft
             </Button>
-            
+
             {currentStep < 4 ? (
               <Button onClick={handleNext}>
                 Next

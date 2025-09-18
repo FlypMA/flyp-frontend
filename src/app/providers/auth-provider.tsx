@@ -1,5 +1,5 @@
 /**
- * 🔐 Auth Provider - BetweenDeals MVP
+ * 🔐 Auth Provider - flyp MVP
  * Combined authentication and modal management
  *
  * MVP APPROACH:
@@ -9,10 +9,9 @@
  * - No complex features
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { authService } from '../../shared/services';
 import { User } from '../../shared/types';
-import AuthModals from '../../features/authentication/components/AuthModals';
 
 // =============================================================================
 // TYPES & INTERFACES
@@ -156,10 +155,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     clearRedirect,
   };
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-      <AuthModals />
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

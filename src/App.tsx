@@ -1,5 +1,5 @@
 /**
- * 🏠 App Component - BetweenDeals MVP
+ * 🏠 App Component - flyp MVP
  *
  * This is the root component of the application that:
  * - Sets up the application shell (providers, routing, error boundaries)
@@ -14,10 +14,10 @@
  */
 
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { RouterProvider } from 'react-router-dom';
 import { AppProviders } from './app/providers';
 import { router } from './app/routing';
-import { ErrorBoundary } from 'react-error-boundary';
 import { logger } from './shared/utils/logger';
 
 // 🚨 Error Fallback Component - MVP Version

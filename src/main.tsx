@@ -1,5 +1,5 @@
 /**
- * 🚀 Main Entry Point - BetweenDeals MVP
+ * 🚀 Main Entry Point - flyp MVP
  *
  * This is the application entry point that:
  * - Initializes the React application
@@ -14,15 +14,14 @@
  * - Provides development debugging and environment info
  */
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
 import { HeroUIProvider } from '@heroui/react';
+import * as ReactDOM from 'react-dom/client';
 import App from './App';
-import { logger } from './shared/utils/logger';
 import './index.css';
+import { logger } from './shared/utils/logger';
 
 // 🚀 Development Debug Information
-logger.info('🚀 BetweenDeals MVP starting...');
+logger.info('🚀 flyp MVP starting...');
 logger.info('Build time:', new Date().toISOString());
 logger.info('App shell architecture initialized');
 

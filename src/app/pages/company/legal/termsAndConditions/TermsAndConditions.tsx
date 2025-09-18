@@ -1,8 +1,7 @@
-import * as React from 'react';
 import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 import Heading1 from '@/shared/components/typography/Heading1';
 import Heading2 from '@/shared/components/typography/Heading2';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const TermsAndConditions = () => {
@@ -16,16 +15,16 @@ const TermsAndConditions = () => {
         <div className="space-y-8 text-gray-800 leading-relaxed">
           <Heading2 className="text-gray-900">1. Acceptance of Terms</Heading2>
           <p className="text-gray-700">
-            Welcome to betweendeals, a digital M&A platform that facilitates business sales and
-            acquisitions across Europe. These Terms and Conditions ("Terms") govern your access to
-            and use of betweendeals' website, services, and applications (collectively, the
-            "Service"). By accessing or using our Service, you agree to be bound by these Terms.
+            Welcome to flyp, a digital M&A platform that facilitates business sales and acquisitions
+            across Europe. These Terms and Conditions ("Terms") govern your access to and use of
+            flyp' website, services, and applications (collectively, the "Service"). By accessing or
+            using our Service, you agree to be bound by these Terms.
           </p>
 
           <Heading2 className="text-gray-900">2. Description of Service</Heading2>
           <p className="text-gray-700">
-            betweendeals provides a digital M&A platform that facilitates business sales and
-            acquisitions, including but not limited to:
+            flyp provides a digital M&A platform that facilitates business sales and acquisitions,
+            including but not limited to:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-2 text-gray-700">
             <li>Business listing and discovery services</li>
@@ -108,11 +107,10 @@ const TermsAndConditions = () => {
 
           <Heading2 className="text-gray-900">8. Intellectual Property Rights</Heading2>
           <p className="text-gray-700">
-            The Service and its original content, features, and functionality are owned by
-            betweendeals and are protected by international copyright, trademark, patent, trade
-            secret, and other intellectual property laws. You retain ownership of business
-            information you submit, but grant us necessary licenses to provide our Service and
-            facilitate transactions.
+            The Service and its original content, features, and functionality are owned by flyp and
+            are protected by international copyright, trademark, patent, trade secret, and other
+            intellectual property laws. You retain ownership of business information you submit, but
+            grant us necessary licenses to provide our Service and facilitate transactions.
           </p>
 
           <Heading2 className="text-gray-900">9. User Conduct and Prohibited Uses</Heading2>
@@ -146,15 +144,15 @@ const TermsAndConditions = () => {
           <Heading2 className="text-gray-900">12. Disclaimers and Limitation of Liability</Heading2>
           <p className="text-gray-700">
             THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. TO THE MAXIMUM EXTENT
-            PERMITTED BY LAW, BETWEENDEALS DISCLAIMS ALL WARRANTIES AND SHALL NOT BE LIABLE FOR ANY
+            PERMITTED BY LAW, flyp DISCLAIMS ALL WARRANTIES AND SHALL NOT BE LIABLE FOR ANY
             INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES. We do not guarantee the success
             of any transaction or the accuracy of business information provided by users.
           </p>
 
           <Heading2 className="text-gray-900">13. Indemnification</Heading2>
           <p className="text-gray-700">
-            You agree to indemnify and hold harmless betweendeals from any claims, damages, or
-            expenses arising from your use of the Service, violation of these Terms, breach of
+            You agree to indemnify and hold harmless flyp from any claims, damages, or expenses
+            arising from your use of the Service, violation of these Terms, breach of
             confidentiality agreements, or infringement of any rights of another party.
           </p>
 
@@ -184,10 +182,10 @@ const TermsAndConditions = () => {
           <p className="text-gray-700">For questions about these Terms, please contact us at:</p>
           <div className="ml-4 text-gray-700">
             <p>
-              <strong>Email:</strong> legal@betweendeals.com
+              <strong>Email:</strong> legal@flyp.com
             </p>
             <p>
-              <strong>Address:</strong> betweendeals, Belgium
+              <strong>Address:</strong> flyp, Belgium
             </p>
           </div>
 
@@ -200,7 +198,7 @@ const TermsAndConditions = () => {
           <Heading2 className="text-gray-900">19. Entire Agreement</Heading2>
           <p className="text-gray-700">
             These Terms, together with our Privacy Policy and any additional agreements for specific
-            transactions, constitute the entire agreement between you and betweendeals regarding the
+            transactions, constitute the entire agreement between you and flyp regarding the
             Service.
           </p>
         </div>
@@ -208,9 +206,9 @@ const TermsAndConditions = () => {
         <div className="mt-12 p-6 bg-gray-50 border border-gray-200 rounded-lg">
           <p className="text-sm text-gray-600">
             <strong>Note:</strong> These Terms and Conditions are designed to provide a solid legal
-            foundation for betweendeals' M&A platform. For production use, we recommend review by
-            qualified legal counsel to ensure compliance with all applicable jurisdictions and
-            business requirements.
+            foundation for flyp' M&A platform. For production use, we recommend review by qualified
+            legal counsel to ensure compliance with all applicable jurisdictions and business
+            requirements.
           </p>
         </div>
       </div>

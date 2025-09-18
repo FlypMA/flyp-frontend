@@ -1,14 +1,15 @@
 # Logo Components
 
-This directory contains logo components and configurations for the BetweenDeals brand identity.
+This directory contains logo components and configurations for the flyp brand identity.
 
 ## Components
 
-### BetweendealsLogo
+### flypLogo
 
-The main logo component for displaying the BetweenDeals brand logo with various variants and configurations.
+The main logo component for displaying the flyp brand logo with various variants and configurations.
 
 **Features:**
+
 - Multiple variants: `header`, `footer`, `sidebar`, `mobile`
 - Customizable dimensions
 - Responsive design
@@ -18,37 +19,39 @@ The main logo component for displaying the BetweenDeals brand logo with various 
 - Cache busting for logo updates
 
 **Usage:**
+
 ```tsx
-import { BetweendealsLogo } from '@/shared/components/logo';
+import { flypLogo } from '@/shared/components/logo';
 
 // Basic logo
-<BetweendealsLogo />
+<flypLogo />
 
 // Header variant with custom size
-<BetweendealsLogo 
-  variant="header" 
-  width={120} 
-  height={40} 
+<flypLogo
+  variant="header"
+  width={120}
+  height={40}
 />
 
 // Footer variant
-<BetweendealsLogo variant="footer" />
+<flypLogo variant="footer" />
 
 // With click handler
-<BetweendealsLogo 
+<flypLogo
   onClick={() => navigate('/')}
   className="cursor-pointer hover:opacity-80"
 />
 
 // As a link
-<BetweendealsLogo 
-  asLink 
-  href="/" 
+<flypLogo
+  asLink
+  href="/"
   variant="sidebar"
 />
 ```
 
 **Props:**
+
 - `variant`: 'header' | 'footer' | 'sidebar' | 'mobile' - Logo variant
 - `width`: number - Custom width override
 - `height`: number | 'auto' - Custom height override
@@ -63,6 +66,7 @@ import { BetweendealsLogo } from '@/shared/components/logo';
 A generic brand logo component for displaying various brand logos with consistent styling.
 
 **Features:**
+
 - Generic brand logo support
 - Customizable dimensions
 - Alt text support
@@ -70,15 +74,11 @@ A generic brand logo component for displaying various brand logos with consisten
 - Responsive design
 
 **Usage:**
+
 ```tsx
 import { BrandLogo } from '@/shared/components/logo';
 
-<BrandLogo 
-  src="/partner-logo.svg"
-  alt="Partner Company"
-  width={100}
-  height={50}
-/>
+<BrandLogo src="/partner-logo.svg" alt="Partner Company" width={100} height={50} />;
 ```
 
 ### Logo Configuration (logos.ts)
@@ -86,6 +86,7 @@ import { BrandLogo } from '@/shared/components/logo';
 Centralized logo configuration and utilities for consistent logo usage across the platform.
 
 **Features:**
+
 - Centralized logo paths
 - Cache busting support
 - Variant configurations
@@ -93,6 +94,7 @@ Centralized logo configuration and utilities for consistent logo usage across th
 - Favicon references
 
 **Usage:**
+
 ```tsx
 import { logos, getLogoConfig } from '@/shared/components/logo';
 
@@ -106,21 +108,25 @@ const config = getLogoConfig('header');
 ## Logo Variants
 
 ### Header Variant
+
 - **Use Case**: Main navigation, top of page
 - **Default Size**: 120px × 40px
 - **Context**: Primary brand presence
 
 ### Footer Variant
+
 - **Use Case**: Footer sections, bottom of page
 - **Default Size**: 100px × 35px
 - **Context**: Secondary brand presence
 
 ### Sidebar Variant
+
 - **Use Case**: Dashboard sidebar, navigation panels
 - **Default Size**: 80px × 30px
 - **Context**: Compact brand presence
 
 ### Mobile Variant
+
 - **Use Case**: Mobile navigation, small screens
 - **Default Size**: 100px × 35px
 - **Context**: Mobile-optimized display
@@ -129,7 +135,7 @@ const config = getLogoConfig('header');
 
 - **Consistent Sizing**: Standardized dimensions across variants
 - **Responsive Design**: Adapts to different screen sizes
-- **Brand Guidelines**: Follows BetweenDeals brand standards
+- **Brand Guidelines**: Follows flyp brand standards
 - **Accessibility**: Proper alt text and semantic markup
 
 ## Cache Busting
@@ -138,7 +144,7 @@ The logo system includes cache busting to ensure users always see the latest log
 
 ```tsx
 // Logo path includes version parameter
-const logoPath = '/betweendeals_logo.svg?v=2024.2';
+const logoPath = '/flyp_logo.svg?v=2024.2';
 ```
 
 ## Accessibility

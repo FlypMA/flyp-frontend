@@ -1,4 +1,4 @@
-# BetweenDeals MVP Frontend
+# flyp MVP Frontend
 
 A modern React TypeScript application for Belgium's premier SME M&A platform. This MVP focuses on core functionality needed for business buyers and sellers to connect, browse listings, and conduct transactions.
 
@@ -7,6 +7,7 @@ A modern React TypeScript application for Belgium's premier SME M&A platform. Th
 This application includes everything needed for a production-ready MVP:
 
 ### Core Features
+
 - **Landing Pages**: Home, About, Pricing
 - **Authentication**: Login, Register, Password Reset
 - **Marketplace**: Browse businesses, detailed views, advanced search
@@ -15,6 +16,7 @@ This application includes everything needed for a production-ready MVP:
 - **Messaging**: Real-time conversations between buyers and sellers
 
 ### Architecture Highlights
+
 - **Feature-First Structure**: Organized by business domains, not technical layers
 - **Modern React**: React 18, TypeScript, Vite for optimal development experience
 - **Design System**: Consistent UI components with Tailwind CSS and HeroUI
@@ -68,22 +70,26 @@ src/
 ## 🛠 Technology Stack
 
 ### Core Framework
+
 - **React 18** - Latest React with concurrent features
 - **TypeScript** - Full type safety and better DX
 - **Vite** - Lightning-fast build tool and dev server
 
 ### UI & Styling
+
 - **Tailwind CSS** - Utility-first CSS framework
 - **HeroUI** - React component library
 - **Lucide Icons** - Beautiful, customizable icons
 - **Framer Motion** - Animation library
 
 ### State & Data
+
 - **React Context** - Built-in state management
 - **Zustand** - Lightweight state management for complex scenarios
 - **Axios** - HTTP client for API communication
 
 ### Development
+
 - **ESLint** - Code linting and quality
 - **Prettier** - Code formatting
 - **Vitest** - Fast unit testing framework
@@ -91,24 +97,28 @@ src/
 ## 📱 Features Overview
 
 ### Authentication System
+
 - JWT-based authentication
 - Social login integration ready
 - Password reset functionality
 - Role-based access (buyer/seller)
 
 ### Business Marketplace
+
 - Advanced search and filtering
 - Business listing cards with key metrics
 - Detailed business profiles
 - Save/favorite functionality
 
 ### Seller Dashboard
+
 - Create and manage business listings
 - Performance analytics and insights
 - Inquiry management
 - Revenue tracking
 
 ### Messaging System
+
 - Real-time conversations
 - File attachments
 - Message status indicators
@@ -117,6 +127,7 @@ src/
 ## 🎨 Design System
 
 The application uses a consistent design system with:
+
 - **Color Palette**: Primary blues with semantic colors
 - **Typography**: Inter font family with consistent scales
 - **Components**: Reusable UI primitives
@@ -129,7 +140,7 @@ Create a `.env` file in the root directory:
 
 ```env
 # API Configuration
-VITE_API_BASE_URL=https://api.betweendeals.be
+VITE_API_BASE_URL=https://api.flyp.be
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
@@ -141,17 +152,21 @@ VITE_ENABLE_ANALYTICS=false
 ## 📦 Deployment
 
 ### Production Build
+
 ```bash
 yarn build
 ```
 
 ### Preview Build
+
 ```bash
 yarn build:preview
 ```
 
 ### Vercel Deployment
+
 The application is configured for Vercel deployment with:
+
 - Automatic deployments from main branch
 - Environment variable management
 - Edge function support for API routes
@@ -180,11 +195,13 @@ The application is configured for Vercel deployment with:
 ### Common Issues
 
 **Build fails with TypeScript errors:**
+
 ```bash
 yarn type-check
 ```
 
 **Styling issues:**
+
 ```bash
 # Clear Tailwind cache
 rm -rf node_modules/.cache
@@ -192,6 +209,7 @@ yarn dev
 ```
 
 **Port conflicts:**
+
 ```bash
 # Use different port
 yarn dev --port 3001
@@ -200,6 +218,7 @@ yarn dev --port 3001
 ## 📞 Support
 
 For technical support or questions:
+
 - Create an issue in the repository
 - Contact the development team
 - Check the documentation in `/docs`

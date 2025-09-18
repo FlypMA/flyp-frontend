@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { Card, CardBody, CardHeader, Button } from '@heroui/react';
-import { Shield, FileText, Eye, Lock, Download, Mail, UserCheck } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Download, Eye, FileText, Lock, Mail, Shield, UserCheck } from 'lucide-react';
 
 const GdprCompliance = () => {
   return (
     <>
       <SEOHead
-        title="GDPR Compliance | Data Protection | betweendeals"
-        description="Learn about betweendeals' commitment to GDPR compliance and data protection. Your rights under GDPR and how we protect your personal data."
+        title="GDPR Compliance | Data Protection | flyp"
+        description="Learn about flyp' commitment to GDPR compliance and data protection. Your rights under GDPR and how we protect your personal data."
         keywords="GDPR compliance, data protection, privacy rights, personal data, EU regulation, data security"
       />
 
@@ -37,7 +36,7 @@ const GdprCompliance = () => {
                 <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-6">
                     <p className="text-primary-800 font-medium">
-                      betweendeals is fully committed to compliance with the General Data Protection
+                      flyp is fully committed to compliance with the General Data Protection
                       Regulation (GDPR) and protecting the privacy rights of all users within the
                       European Union and European Economic Area.
                     </p>
@@ -306,7 +305,7 @@ const GdprCompliance = () => {
                       </h3>
                       <div className="flex items-center gap-3">
                         <Mail className="w-5 h-5 text-primary-600" />
-                        <span>dpo@betweendeals.com</span>
+                        <span>dpo@flyp.com</span>
                       </div>
                     </div>
 

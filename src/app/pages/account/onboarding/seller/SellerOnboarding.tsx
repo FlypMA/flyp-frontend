@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Card, Input, Textarea, Slider } from '@heroui/react';
-import { useNavigate } from 'react-router-dom';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { Button, Card, Input, Slider, Textarea } from '@heroui/react';
+import confetti from 'canvas-confetti';
 import {
   ArrowLeft,
   ArrowRight,
-  CheckCircle,
+  Award,
   Building2,
-  Users,
-  MapPin,
   Calendar,
-  Star,
-  TrendingUp,
-  Heart,
-  Zap,
-  Target,
+  CheckCircle,
   Clock,
   Euro,
-  Sparkles,
-  Award,
-  Shield,
-  Phone,
-  Mail,
   FileText,
+  Heart,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
+  Sparkles,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface SellerFormData {
   businessType: string;
@@ -157,7 +157,7 @@ const SellerOnboarding: React.FC = () => {
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 Join thousands of successful entrepreneurs who've found the perfect buyers for their
-                businesses on BetweenDeals.
+                businesses on flyp.
               </p>
             </div>
 
@@ -1011,7 +1011,7 @@ const SellerOnboarding: React.FC = () => {
   return (
     <>
       <SEOHead
-        title={`Step ${currentStep + 1} - Sell Your Business | BetweenDeals`}
+        title={`Step ${currentStep + 1} - Sell Your Business | flyp`}
         description="Complete your seller profile in minutes and start attracting qualified buyers for your business"
         keywords="sell business, business for sale, seller onboarding, business valuation"
       />

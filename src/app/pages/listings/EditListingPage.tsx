@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import SellerOnboardingModal, { SellerFormData } from '@/shared/components/modals/SellerOnboardingModal';
+import SellerOnboardingModal, {
+  SellerFormData,
+} from '@/shared/components/modals/SellerOnboardingModal';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const EditListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +25,7 @@ const EditListingPage: React.FC = () => {
       try {
         // TODO: Replace with actual API call to fetch listing data
         console.log('Loading listing data for ID:', listingId);
-        
+
         // Mock data for now - replace with actual API call
         const mockListingData: SellerFormData = {
           businessType: 'technology',
@@ -32,7 +34,8 @@ const EditListingPage: React.FC = () => {
           country: 'Belgium',
           city: 'Brussels',
           foundedYear: '2018',
-          description: 'A innovative technology company specializing in software solutions for small and medium businesses. We have built a strong reputation for quality service and have a loyal customer base of over 500 active clients.',
+          description:
+            'A innovative technology company specializing in software solutions for small and medium businesses. We have built a strong reputation for quality service and have a loyal customer base of over 500 active clients.',
           employeeCount: '6-20',
           revenueRange: [500000, 2000000],
           sellingReason: 'retirement',
@@ -65,30 +68,30 @@ const EditListingPage: React.FC = () => {
 
   const handleListingSave = async (data: SellerFormData) => {
     console.log('💾 Saving listing changes:', data);
-    
+
     try {
-      // TODO: Replace with actual API call to update listing  
+      // TODO: Replace with actual API call to update listing
       // const response = await fetch(`/api/listings/${listingId}`, {
       //   method: 'PUT',
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify(data)
       // });
-      
+
       console.log('🌐 Sending save request for listing:', listingId);
-      
+
       // Mock API call with realistic delay
       await new Promise(resolve => setTimeout(resolve, 1200));
-      
+
       console.log('✅ Listing saved successfully');
-      
+
       // Close modal and navigate back with success message
       setIsModalOpen(false);
-      navigate('/business/overview', { 
-        state: { 
+      navigate('/business/overview', {
+        state: {
           message: 'Your business listing has been saved successfully!',
           type: 'success',
-          listingData: data 
-        }
+          listingData: data,
+        },
       });
     } catch (error) {
       console.error('❌ Error saving listing:', error);
@@ -103,11 +106,11 @@ const EditListingPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Edit Business Listing | BetweenDeals"
-        description="Update your business listing on BetweenDeals. Modify your listing details to attract the right buyers."
-        keywords="edit business listing, update listing, business for sale, BetweenDeals"
+        title="Edit Business Listing | flyp"
+        description="Update your business listing on flyp. Modify your listing details to attract the right buyers."
+        keywords="edit business listing, update listing, business for sale, flyp"
       />
-      
+
       <SellerOnboardingModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
@@ -115,7 +118,7 @@ const EditListingPage: React.FC = () => {
         existingData={existingData}
         isEditMode={true}
       />
-      
+
       {/* Fallback content if modal is not open */}
       {!isModalOpen && (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">

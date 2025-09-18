@@ -1,6 +1,6 @@
 # 🏢 Business Dashboard Pages - MVP Version
 
-**Comprehensive business dashboard and management system for sellers on the BetweenDeals M&A platform.**
+**Comprehensive business dashboard and management system for sellers on the flyp M&A platform.**
 
 ## 📁 **Folder Structure**
 
@@ -30,9 +30,11 @@ business/
 ## 🎯 **Page Categories & Purpose**
 
 ### **1. Overview (`/overview/`)**
+
 **Business dashboard and performance monitoring**
 
 #### **BusinessOverview.tsx**
+
 - **Purpose**: Main business dashboard for sellers
 - **Route**: `/my-business`
 - **Features**:
@@ -44,6 +46,7 @@ business/
   - ✅ **Ready to Sell CTA**: Guide users to next steps
 
 #### **DashboardPerformance.tsx**
+
 - **Purpose**: Detailed performance analytics
 - **Route**: `/business/performance`
 - **Features**:
@@ -54,9 +57,11 @@ business/
   - ✅ **Real-time Updates**: Live performance data
 
 ### **2. Reports & Analysis (`/reports/`)**
+
 **Business analysis and valuation tools**
 
 #### **BusinessValuation.tsx**
+
 - **Purpose**: Professional business valuation
 - **Route**: `/business/valuation`
 - **Features**:
@@ -67,6 +72,7 @@ business/
   - ✅ **Export Options**: PDF and Excel export
 
 #### **SolvencyIntelligence.tsx**
+
 - **Purpose**: Financial health and solvency analysis
 - **Route**: `/business/solvency`
 - **Features**:
@@ -77,6 +83,7 @@ business/
   - ✅ **Trend Analysis**: Historical financial trends
 
 #### **LiquidationComparison.tsx**
+
 - **Purpose**: Strategic sale vs liquidation analysis
 - **Route**: `/business/liquidation`
 - **Features**:
@@ -87,6 +94,7 @@ business/
   - ✅ **Decision Support**: Strategic recommendations
 
 #### **ValuationTool.tsx**
+
 - **Purpose**: Advanced valuation calculator
 - **Route**: `/business/valuation-tool`
 - **Features**:
@@ -97,6 +105,7 @@ business/
   - ✅ **Detailed Reports**: Comprehensive valuation reports
 
 #### **GetFreeValuation.tsx**
+
 - **Purpose**: Free valuation request form
 - **Route**: `/business/free-valuation`
 - **Features**:
@@ -107,9 +116,11 @@ business/
   - ✅ **Professional Service**: Expert valuation team
 
 ### **3. Data Room (`/data-room/`)**
+
 **Document management and secure storage**
 
 #### **DocumentVault.tsx**
+
 - **Purpose**: Secure document storage and management
 - **Route**: `/business/documents`
 - **Features**:
@@ -122,9 +133,11 @@ business/
   - ✅ **Audit Trail**: Document access logging
 
 ### **4. Management (`/management/`)**
+
 **Business listing and transaction management**
 
 #### **ListingManagement.tsx**
+
 - **Purpose**: Manage business sale listings
 - **Route**: `/business/listings`
 - **Features**:
@@ -138,11 +151,13 @@ business/
 ## 🔄 **User Journey & Navigation**
 
 ### **Business Owner Dashboard Flow**:
+
 ```
 Login → Business Overview → Choose Action → Specific Tool/Page
 ```
 
 ### **Navigation Structure** (Based on Legacy SellerSidebar):
+
 ```
 Business Overview
 ├── Dashboard (/my-business)
@@ -165,6 +180,7 @@ Business Management
 ## 🎨 **UI/UX Features**
 
 ### **Design Elements**:
+
 - ✅ **Modern Dashboard**: Clean, professional business interface
 - ✅ **Data Visualization**: Charts, graphs, and metrics
 - ✅ **Card-Based Layout**: Organized information cards
@@ -173,6 +189,7 @@ Business Management
 - ✅ **Interactive Elements**: Hover effects and animations
 
 ### **Business-Specific Features**:
+
 - ✅ **Financial Metrics**: Revenue, profit, valuation displays
 - ✅ **Performance Analytics**: Views, inquiries, conversion tracking
 - ✅ **Document Management**: Secure file handling
@@ -181,6 +198,7 @@ Business Management
 - ✅ **Market Analysis**: Industry benchmarks and comparisons
 
 ### **Responsive Design**:
+
 - ✅ **Mobile-First**: Optimized for mobile business users
 - ✅ **Tablet Support**: Responsive tablet layout
 - ✅ **Desktop Enhancement**: Full-featured desktop experience
@@ -190,12 +208,14 @@ Business Management
 ## 🔧 **Technical Implementation**
 
 ### **Components Used**:
+
 - **HeroUI Components**: Card, Button, Input, Select, Progress, Chip, Tabs
 - **Lucide Icons**: Business and financial icons
 - **React Hooks**: useState, useEffect, useNavigate, useCallback
 - **Business Features**: Integration with business-dashboard features
 
 ### **State Management**:
+
 - **Business State**: Company information and metrics
 - **Performance State**: Analytics and performance data
 - **Document State**: File management and organization
@@ -203,6 +223,7 @@ Business Management
 - **Listing State**: Listing management and status
 
 ### **Data Integration**:
+
 - **Business Metrics**: Performance and analytics data
 - **Financial Data**: Revenue, profit, valuation information
 - **Document Storage**: Secure file management
@@ -210,6 +231,7 @@ Business Management
 - **API Integration**: Backend service integration
 
 ### **Business Logic**:
+
 - **Valuation Calculations**: Multi-method business valuation
 - **Financial Analysis**: Ratio calculations and risk assessment
 - **Performance Tracking**: Metrics and analytics
@@ -219,11 +241,13 @@ Business Management
 ## 📱 **Responsive Design**
 
 ### **Breakpoints**:
+
 - **Mobile**: 320px - 768px (stacked layout, simplified interface)
 - **Tablet**: 768px - 1024px (two-column layout, touch-optimized)
 - **Desktop**: 1024px+ (multi-column layout, full features)
 
 ### **Mobile Optimizations**:
+
 - ✅ **Simplified Navigation**: Streamlined mobile interface
 - ✅ **Touch-Friendly**: Large touch targets
 - ✅ **Swipe Gestures**: Mobile-friendly interactions
@@ -233,6 +257,7 @@ Business Management
 ## 🚀 **Business Features**
 
 ### **Core Capabilities**:
+
 - **Business Valuation**: Professional valuation tools
 - **Financial Analysis**: Comprehensive financial health assessment
 - **Performance Tracking**: Real-time business metrics
@@ -241,6 +266,7 @@ Business Management
 - **Market Analysis**: Industry benchmarks and comparisons
 
 ### **Advanced Features**:
+
 - **Risk Assessment**: Financial risk indicators
 - **Scenario Modeling**: What-if analysis
 - **Export Capabilities**: PDF and Excel reports
@@ -251,6 +277,7 @@ Business Management
 ## 📊 **Business Metrics**
 
 ### **Key Performance Indicators**:
+
 - **Listing Performance**: Views, inquiries, conversion rates
 - **Financial Health**: Revenue, profit, cash flow
 - **Valuation Accuracy**: Valuation vs market value
@@ -259,6 +286,7 @@ Business Management
 - **Conversion Rates**: Free to paid valuation conversion
 
 ### **Analytics Integration**:
+
 - **Google Analytics**: User behavior tracking
 - **Business Metrics**: Custom business analytics
 - **Performance Monitoring**: Real-time performance data
@@ -269,6 +297,7 @@ Business Management
 ## 🔗 **Integration Points**
 
 ### **Business Features Integration**:
+
 ```typescript
 // Business dashboard features
 import { DashboardStats, ValuationReportCard } from '../../../features/business';
@@ -280,6 +309,7 @@ const { inputs, results, calculateValuation } = useBusinessValuation();
 ```
 
 ### **URL Generator Integration**:
+
 ```typescript
 // Business page URLs
 UrlGenerator.businessOverview(); // /my-business
@@ -288,6 +318,7 @@ UrlGenerator.listingManagement(); // /business/listings
 ```
 
 ### **Authentication Integration**:
+
 ```typescript
 // User authentication
 const authResult = await AuthenticationService.checkAuth();
@@ -299,6 +330,7 @@ if (authResult.isAuthenticated && authResult.user) {
 ## 📞 **Support & Documentation**
 
 ### **User Support**:
+
 - **Help Center**: Comprehensive help documentation
 - **Video Tutorials**: Step-by-step video guides
 - **Live Chat**: Real-time support assistance
@@ -306,6 +338,7 @@ if (authResult.isAuthenticated && authResult.user) {
 - **Phone Support**: Direct phone assistance
 
 ### **Business Resources**:
+
 - **Valuation Guide**: Business valuation best practices
 - **Financial Templates**: Ready-to-use financial templates
 - **Market Reports**: Industry and market analysis
@@ -314,4 +347,4 @@ if (authResult.isAuthenticated && authResult.user) {
 
 ---
 
-**Business Dashboard Pages - Complete business management and analysis system for the BetweenDeals M&A platform.**
+**Business Dashboard Pages - Complete business management and analysis system for the flyp M&A platform.**

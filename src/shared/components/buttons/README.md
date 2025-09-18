@@ -1,6 +1,6 @@
 # Button Components
 
-This directory contains the unified button component system for the BetweenDeals application.
+This directory contains the unified button component system for the flyp application.
 
 ## Components
 
@@ -9,6 +9,7 @@ This directory contains the unified button component system for the BetweenDeals
 The primary button component that serves as the single source of truth for all button implementations across the application.
 
 **Features:**
+
 - Multiple variants: `primary`, `secondary`, `outline`, `ghost`, `danger`, `light`, `bordered`, `flat`
 - Multiple sizes: `xs`, `sm`, `md`, `lg`, `xl`
 - Loading state with spinner animation
@@ -20,6 +21,7 @@ The primary button component that serves as the single source of truth for all b
 - onPress prop for mobile compatibility
 
 **Usage:**
+
 ```tsx
 import { Button } from '@/shared/components/buttons';
 
@@ -42,6 +44,7 @@ import { Button } from '@/shared/components/buttons';
 ```
 
 **Props:**
+
 - `variant`: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'light' | 'bordered' | 'flat'
 - `size`: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 - `color`: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'

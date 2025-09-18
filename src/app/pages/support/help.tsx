@@ -1,13 +1,32 @@
 /**
- * BetweenDeals Help Center
+ * flyp Help Center
  * Clean, modular implementation with new FAQ system
  */
 
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, Button } from '@heroui/react';
-import { Input } from '@/shared/components/forms/Input';
 import { FAQCategory } from '@/shared/components/FAQ/FAQCategory';
+import { Input } from '@/shared/components/forms/Input';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { Button, Card, CardBody } from '@heroui/react';
+import {
+  BookOpen,
+  Building2,
+  Clock,
+  DollarSign,
+  FileText,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  Phone,
+  Search,
+  Settings,
+  Shield,
+  Star,
+  TrendingUp,
+  Users,
+  Zap,
+} from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // Custom FAQ type for this page
 interface FAQCategoryType {
   id: string;
@@ -23,25 +42,6 @@ interface FAQCategoryType {
     isNew?: boolean;
   }>;
 }
-import {
-  Search,
-  HelpCircle,
-  Mail,
-  Phone,
-  MessageCircle,
-  Building2,
-  TrendingUp,
-  Shield,
-  Users,
-  DollarSign,
-  FileText,
-  Settings,
-  Clock,
-  BookOpen,
-  Star,
-  Zap,
-} from 'lucide-react';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
 
 interface SupportOption {
   id: string;
@@ -64,32 +64,32 @@ const Help: React.FC = () => {
     {
       id: 'getting-started',
       category: 'Getting Started',
-      description: 'Essential information to help you begin your journey on BetweenDeals',
+      description: 'Essential information to help you begin your journey on flyp',
       icon: <Star className="w-6 h-6" />,
       color: 'blue',
       questions: [
         {
-          question: 'What is BetweenDeals and how does it work?',
+          question: 'What is flyp and how does it work?',
           answer:
-            "BetweenDeals is Belgium's premier digital marketplace for buying and selling established businesses. We connect entrepreneurs, business owners, and investors through our secure, AI-powered platform. Our comprehensive system handles listing creation, buyer-seller matching, due diligence support, secure communications, and transaction facilitation - making business acquisitions faster, safer, and more efficient.",
+            "flyp is Belgium's premier digital marketplace for buying and selling established businesses. We connect entrepreneurs, business owners, and investors through our secure, AI-powered platform. Our comprehensive system handles listing creation, buyer-seller matching, due diligence support, secure communications, and transaction facilitation - making business acquisitions faster, safer, and more efficient.",
           tags: ['platform', 'overview', 'marketplace'],
           isPopular: true,
         },
         {
-          question: 'How do I create an account on BetweenDeals?',
+          question: 'How do I create an account on flyp?',
           answer:
             'Creating an account is simple: Click "Sign Up" on our homepage, provide your email and basic information, verify your email address, and complete your profile. For sellers, we require additional business verification to ensure marketplace quality.',
           tags: ['registration', 'account', 'signup'],
           isNew: true,
         },
         {
-          question: 'Is BetweenDeals free to use?',
+          question: 'Is flyp free to use?',
           answer:
-            'BetweenDeals offers a freemium model. Basic browsing and initial contact with sellers is free for buyers. For sellers, listing your business is free, but we charge a success fee only when your business sells. Premium features like enhanced visibility and advanced analytics require a subscription.',
+            'flyp offers a freemium model. Basic browsing and initial contact with sellers is free for buyers. For sellers, listing your business is free, but we charge a success fee only when your business sells. Premium features like enhanced visibility and advanced analytics require a subscription.',
           tags: ['pricing', 'free', 'subscription'],
         },
         {
-          question: 'What types of businesses can I find on BetweenDeals?',
+          question: 'What types of businesses can I find on flyp?',
           answer:
             'Our platform features a diverse range of established businesses including restaurants, retail stores, tech companies, service businesses, manufacturing operations, and more. All listings are verified and represent legitimate business opportunities in Belgium and beyond.',
           tags: ['business-types', 'listings', 'variety'],
@@ -131,7 +131,7 @@ const Help: React.FC = () => {
         {
           question: 'How does financing work for business purchases?',
           answer:
-            'BetweenDeals partners with banks and alternative lenders to offer various financing options including SBA loans, asset-based financing, and seller financing. Our financing partners are pre-qualified and understand business acquisitions.',
+            'flyp partners with banks and alternative lenders to offer various financing options including SBA loans, asset-based financing, and seller financing. Our financing partners are pre-qualified and understand business acquisitions.',
           tags: ['financing', 'loans', 'funding'],
         },
       ],
@@ -171,7 +171,7 @@ const Help: React.FC = () => {
         {
           question: 'What are your fees for selling?',
           answer:
-            'BetweenDeals charges a success fee only when your business sells, typically 3-8% depending on transaction size. No upfront fees, no monthly charges. Additional services like professional valuation or marketing upgrades have separate fees.',
+            'flyp charges a success fee only when your business sells, typically 3-8% depending on transaction size. No upfront fees, no monthly charges. Additional services like professional valuation or marketing upgrades have separate fees.',
           tags: ['fees', 'commission', 'pricing'],
           isNew: true,
         },
@@ -180,7 +180,7 @@ const Help: React.FC = () => {
     {
       id: 'platform-features',
       category: 'Platform Features',
-      description: 'Discover all the tools and features available on BetweenDeals',
+      description: 'Discover all the tools and features available on flyp',
       icon: <Zap className="w-6 h-6" />,
       color: 'orange',
       questions: [
@@ -294,7 +294,7 @@ const Help: React.FC = () => {
         {
           question: 'Do you provide legal advice?',
           answer:
-            'BetweenDeals does not provide legal advice. However, we partner with qualified business attorneys who specialize in M&A transactions. All users are encouraged to consult independent legal counsel.',
+            'flyp does not provide legal advice. However, we partner with qualified business attorneys who specialize in M&A transactions. All users are encouraged to consult independent legal counsel.',
           tags: ['legal', 'advice', 'attorneys'],
         },
         {
@@ -411,9 +411,9 @@ const Help: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <SEOHead
-        title="Help Center - BetweenDeals"
-        description="Find answers to common questions about buying and selling businesses on BetweenDeals. Get support for account management, transactions, and platform features."
-        keywords="help, support, FAQ, business marketplace, BetweenDeals assistance"
+        title="Help Center - flyp"
+        description="Find answers to common questions about buying and selling businesses on flyp. Get support for account management, transactions, and platform features."
+        keywords="help, support, FAQ, business marketplace, flyp assistance"
       />
 
       {/* Hero Section */}
@@ -605,7 +605,7 @@ const Help: React.FC = () => {
                     className={`w-full bg-${option.color}-600 text-white hover:bg-${option.color}-700`}
                     onClick={() => {
                       if (option.id === 'email-support') {
-                        window.location.href = 'mailto:support@betweendeals.be';
+                        window.location.href = 'mailto:support@flyp.be';
                       } else if (option.id === 'phone-support') {
                         navigate('/contact');
                       }
@@ -626,7 +626,7 @@ const Help: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of entrepreneurs using BetweenDeals to buy and sell businesses
+            Join thousands of entrepreneurs using flyp to buy and sell businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

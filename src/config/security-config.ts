@@ -1,5 +1,5 @@
 /**
- * 🔒 Security Configuration - BetweenDeals MVP
+ * 🔒 Security Configuration - flyp MVP
  * Security settings for the MVP application
  */
 
@@ -16,11 +16,11 @@ export const isProduction = (import.meta as any).env?.PROD;
 
 export const SECURITY_CONFIG = {
   // Token storage
-  TOKEN_STORAGE_KEY: 'betweendeals_token',
-  REFRESH_TOKEN_KEY: 'betweendeals_refresh_token',
+  TOKEN_STORAGE_KEY: 'flyp_token',
+  REFRESH_TOKEN_KEY: 'flyp_refresh_token',
   TOKEN_REFRESH_THRESHOLD: 300000, // 5 minutes
   REQUEST_ID_HEADER: 'X-Request-ID',
-  
+
   // Content Security Policy
   CONTENT_SECURITY_POLICY: {
     'default-src': ["'self'"],
@@ -35,7 +35,7 @@ export const SECURITY_CONFIG = {
     'worker-src': ["'self'", 'blob:'],
     'child-src': ["'self'", 'blob:'],
   },
-  
+
   // File upload security
   ALLOWED_FILE_TYPES: [
     'image/jpeg',
@@ -61,7 +61,7 @@ export const SECURITY_CONFIG = {
 export const MONITORING_CONFIG = {
   // Enable monitoring in production
   ENABLED: isProduction || (import.meta as any).env?.VITE_ENABLE_MONITORING === 'true',
-  
+
   // Security monitoring
   SECURITY: {
     REPORT_VIOLATIONS: true,

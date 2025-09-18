@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardBody, Chip, Switch } from '@heroui/react';
-import {
-  Building2,
-  Globe,
-  Shield,
-  TrendingUp,
-  Users,
-  Award,
-  ArrowRight,
-  CheckCircle,
-  Star,
-  HandHeart,
-  Briefcase,
-  Target,
-  Lock,
-  Coffee,
-  Laptop,
-  Wrench,
-  ShoppingCart,
-  Car,
-  Hotel,
-  Factory,
-  HeartHandshake,
-  Euro,
-  Eye,
-  Calendar,
-  Mail,
-  FileText,
-  MapPin,
-} from 'lucide-react';
+import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
-import { useAuth } from '../../../providers/auth-provider';
-import { authService } from '../../../services/users/authenticationService';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { SearchComponent } from '@/shared/components/filters';
+import { Button, Card, CardBody } from '@heroui/react';
+import {
+  Car,
+  Coffee,
+  Factory,
+  HeartHandshake,
+  Hotel,
+  Laptop,
+  ShoppingCart,
+  Wrench,
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../providers/auth-provider';
+import { authService } from '../../../services/users/authenticationService';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -239,10 +220,10 @@ const Home = () => {
                 business online
               </h2>
               <p className="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
-                With over 10,000 entrepreneurs & investors, betweendeals is the largest acquisition
-                platform in Belgium. Thousands of entrepreneurs, buyers, investors and advisers
-                visit the website every day. If you want to successfully sell a business or take
-                over a business, sign up now.
+                With over 10,000 entrepreneurs & investors, flyp is the largest acquisition platform
+                in Belgium. Thousands of entrepreneurs, buyers, investors and advisers visit the
+                website every day. If you want to successfully sell a business or take over a
+                business, sign up now.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -332,14 +313,12 @@ const Home = () => {
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
-                  About betweendeals
-                </h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">About flyp</h2>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
-                  Born from the need to modernize European M&A, betweendeals.com started as a
-                  platform to connect serious business buyers and sellers across Europe. Since our
-                  early days, our passion for facilitating successful business transactions has
-                  grown exponentially.
+                  Born from the need to modernize European M&A, flyp.com started as a platform to
+                  connect serious business buyers and sellers across Europe. Since our early days,
+                  our passion for facilitating successful business transactions has grown
+                  exponentially.
                 </p>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
                   We're building Belgium's most trusted SME M&A platform, connecting entrepreneurs,

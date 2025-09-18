@@ -2,21 +2,20 @@
 // Location: src/shared/services/Auth.ts
 // Purpose: Supabase-based authentication service for MVP
 
+import { getApiConfig, isDevelopment, supabase } from '../../../config';
 import {
-  User,
-  UserRole,
   AuthResult,
-  UpdateProfileRequest,
   SupabaseSession,
   SupabaseUserMetadata,
+  UpdateProfileRequest,
+  User,
+  UserRole,
   convertSupabaseUserToUser,
-  convertUserToSupabaseMetadata
+  convertUserToSupabaseMetadata,
 } from '../../types';
-import { supabase } from '../../../config';
-import { getApiConfig, isDevelopment } from '../../../config';
-import { SessionManager } from './utils/session-manager';
 import { AuthErrorHandler } from './utils/error-handler';
 import { RetryHandler } from './utils/retry-handler';
+import { SessionManager } from './utils/session-manager';
 import { UserDataManager } from './utils/user-data-manager';
 
 /**
@@ -83,7 +82,7 @@ export class AuthenticationService {
               user,
               token: data.session.access_token,
             });
-            
+
             return {
               success: true,
               user,
@@ -105,10 +104,10 @@ export class AuthenticationService {
       return result;
     } catch (error) {
       console.error('❌ Account creation failed:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'createAccount');
-      
+
       return AuthErrorHandler.createErrorResponse(authError);
     }
   }
@@ -140,7 +139,7 @@ export class AuthenticationService {
 
           // Get additional user data from public.users table
           const publicUserData = await UserDataManager.getPublicUserData(data.user.id);
-          
+
           // Convert Supabase user to our User interface
           const user = convertSupabaseUserToUser(data.user, publicUserData || undefined);
 
@@ -166,10 +165,10 @@ export class AuthenticationService {
       return result;
     } catch (error) {
       console.error('❌ Login failed:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'login');
-      
+
       return AuthErrorHandler.createErrorResponse(authError);
     }
   }
@@ -180,11 +179,11 @@ export class AuthenticationService {
   async logout(): Promise<void> {
     try {
       console.log('🔓 Logging out from Supabase');
-      
+
       await RetryHandler.executeWithRetry(
         async () => {
           const { error } = await supabase.auth.signOut();
-          
+
           if (error) {
             throw error;
           }
@@ -192,20 +191,20 @@ export class AuthenticationService {
         'User logout',
         10000 // 10 second timeout
       );
-      
+
       // Clear session
       SessionManager.clearSession();
-      
+
       console.log('✅ Logout successful');
     } catch (error) {
       console.error('❌ Logout failed:', error);
-      
+
       // Clear session even if logout fails
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'logout');
-      
+
       throw error;
     }
   }
@@ -225,7 +224,7 @@ export class AuthenticationService {
         console.log('🚨 DEV MODE: Bypassing authentication check for development');
         const mockUser: User = {
           id: 'dev-user-123',
-          email: 'dev@betweendeals.com',
+          email: 'dev@flyp.com',
           name: 'Development User',
           role: 'seller',
           email_verified: true,
@@ -247,9 +246,12 @@ export class AuthenticationService {
       const storedSession = SessionManager.getSession();
       if (storedSession) {
         console.log('🎫 Found stored session, validating with Supabase');
-        
+
         // Validate session with Supabase
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
 
         if (error) {
           console.error('❌ Supabase session check error:', error);
@@ -265,7 +267,7 @@ export class AuthenticationService {
 
         // Get additional user data from public.users table
         const publicUserData = await UserDataManager.getPublicUserData(session.user.id);
-        
+
         // Convert Supabase user to our User interface
         const user = convertSupabaseUserToUser(session.user, publicUserData || undefined);
 
@@ -285,7 +287,10 @@ export class AuthenticationService {
 
       // No stored session, check Supabase session directly
       console.log('🔍 No stored session, checking Supabase session directly');
-      const { data: { session }, error } = await supabase.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
 
       if (error) {
         console.error('❌ Supabase session check error:', error);
@@ -299,7 +304,7 @@ export class AuthenticationService {
 
       // Get additional user data from public.users table
       const publicUserData = await UserDataManager.getPublicUserData(session.user.id);
-      
+
       // Convert Supabase user to our User interface
       const user = convertSupabaseUserToUser(session.user, publicUserData || undefined);
 
@@ -317,13 +322,13 @@ export class AuthenticationService {
       return authResult;
     } catch (error) {
       console.error('❌ Authentication check failed:', error);
-      
+
       // Clear invalid session
       SessionManager.clearSession();
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'checkAuthentication');
-      
+
       return { isAuthenticated: false };
     }
   }
@@ -335,21 +340,18 @@ export class AuthenticationService {
     try {
       console.log('📝 Updating user profile:', { userId, updates });
 
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          return await UserDataManager.updateUserInBothTables(userId, updates);
-        },
-        `Update user profile for ${userId}`
-      );
+      const result = await RetryHandler.executeWithRetry(async () => {
+        return await UserDataManager.updateUserInBothTables(userId, updates);
+      }, `Update user profile for ${userId}`);
 
       console.log('✅ Profile updated successfully');
       return result;
     } catch (error) {
       console.error('❌ Profile update failed:', error);
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'updateProfile');
-      
+
       throw error;
     }
   }
@@ -361,25 +363,21 @@ export class AuthenticationService {
     try {
       console.log('🏢 Updating business info:', { userId, businessData });
 
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          return await UserDataManager.updateBusinessInfo(userId, businessData);
-        },
-        `Update business info for ${userId}`
-      );
+      const result = await RetryHandler.executeWithRetry(async () => {
+        return await UserDataManager.updateBusinessInfo(userId, businessData);
+      }, `Update business info for ${userId}`);
 
       console.log('✅ Business info updated successfully');
       return result;
     } catch (error) {
       console.error('❌ Business info update failed:', error);
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'updateBusinessInfo');
-      
+
       throw error;
     }
   }
-
 
   /**
    * Listen to authentication state changes
@@ -396,30 +394,30 @@ export class AuthenticationService {
    */
   async getCurrentUser(): Promise<User | null> {
     try {
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { data: { user }, error } = await supabase.auth.getUser();
-          
-          if (error || !user) {
-            return null;
-          }
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
 
-          // Get additional user data from public.users table
-          const publicUserData = await UserDataManager.getPublicUserData(user.id);
-          
-          // Convert Supabase user to our User interface
-          return convertSupabaseUserToUser(user, publicUserData || undefined);
-        },
-        'Get current user'
-      );
+        if (error || !user) {
+          return null;
+        }
+
+        // Get additional user data from public.users table
+        const publicUserData = await UserDataManager.getPublicUserData(user.id);
+
+        // Convert Supabase user to our User interface
+        return convertSupabaseUserToUser(user, publicUserData || undefined);
+      }, 'Get current user');
 
       return result;
     } catch (error) {
       console.error('❌ Error getting current user:', error);
-      
+
       const authError = AuthErrorHandler.handleGenericError(error);
       AuthErrorHandler.logError(authError, 'getCurrentUser');
-      
+
       return null;
     }
   }
@@ -429,26 +427,23 @@ export class AuthenticationService {
    */
   async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
     try {
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/reset-password`,
-          });
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
 
-          if (error) {
-            throw error;
-          }
+        if (error) {
+          throw error;
+        }
 
-          return { success: true };
-        },
-        'Reset password'
-      );
+        return { success: true };
+      }, 'Reset password');
 
       return result;
     } catch (error) {
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'resetPassword');
-      
+
       return {
         success: false,
         error: authError.message,
@@ -461,26 +456,23 @@ export class AuthenticationService {
    */
   async updatePassword(newPassword: string): Promise<{ success: boolean; error?: string }> {
     try {
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.updateUser({
-            password: newPassword,
-          });
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
 
-          if (error) {
-            throw error;
-          }
+        if (error) {
+          throw error;
+        }
 
-          return { success: true };
-        },
-        'Update password'
-      );
+        return { success: true };
+      }, 'Update password');
 
       return result;
     } catch (error) {
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'updatePassword');
-      
+
       return {
         success: false,
         error: authError.message,
@@ -519,20 +511,17 @@ export class AuthenticationService {
     try {
       const { supabase } = require('../../../config');
       const { RetryHandler } = require('./utils/retry-handler');
-      
-      const result = await RetryHandler.executeWithRetry(
-        async () => {
-          const { error } = await supabase.auth.resend({
-            type: 'signup',
-            email: email,
-          });
 
-          if (error) {
-            throw error;
-          }
-        },
-        'Resend verification email'
-      );
+      const result = await RetryHandler.executeWithRetry(async () => {
+        const { error } = await supabase.auth.resend({
+          type: 'signup',
+          email: email,
+        });
+
+        if (error) {
+          throw error;
+        }
+      }, 'Resend verification email');
 
       return { success: true };
     } catch (error) {

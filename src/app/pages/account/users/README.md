@@ -1,6 +1,6 @@
 # 👤 User Management Pages - MVP Version
 
-**Comprehensive user profile, settings, notifications, and billing management for the BetweenDeals platform.**
+**Comprehensive user profile, settings, notifications, and billing management for the flyp platform.**
 
 ## 📁 **Folder Structure**
 
@@ -17,6 +17,7 @@ users/
 ## 🎯 **Page Overview**
 
 ### **1. User Profile (`UserProfile.tsx`)**
+
 - **Purpose**: Manage personal profile information
 - **Route**: `/users/profile`
 - **Features**:
@@ -29,6 +30,7 @@ users/
   - ✅ **Loading States**: Clear feedback during operations
 
 **Profile Fields**:
+
 - **Name**: Full name display and editing
 - **Email**: Read-only email display (cannot be changed)
 - **Phone**: Phone number with validation
@@ -37,6 +39,7 @@ users/
 - **Bio**: Personal description and background
 
 ### **2. User Settings (`UserSettings.tsx`)**
+
 - **Purpose**: Comprehensive user preferences and account settings
 - **Route**: `/users/settings`
 - **Features**:
@@ -49,12 +52,14 @@ users/
   - ✅ **Form Validation**: Comprehensive validation
 
 **Settings Categories**:
+
 - **Notifications**: Email, push, SMS, marketing preferences
 - **Privacy**: Profile visibility, contact information sharing
 - **Security**: Password management, two-factor authentication
 - **Preferences**: Theme, language, timezone, currency
 
 ### **3. User Notifications (`UserNotifications.tsx`)**
+
 - **Purpose**: Manage notifications and communication preferences
 - **Route**: `/users/notifications`
 - **Features**:
@@ -67,6 +72,7 @@ users/
   - ✅ **Settings Integration**: Quick access to notification preferences
 
 **Notification Types**:
+
 - **Messages**: New buyer/seller messages
 - **Listings**: Listing performance updates
 - **Prices**: Price alerts and market changes
@@ -74,6 +80,7 @@ users/
 - **Marketing**: Promotional content and updates
 
 ### **4. User Billing (`UserBilling.tsx`)**
+
 - **Purpose**: Manage subscription and payment information
 - **Route**: `/users/billing`
 - **Features**:
@@ -85,6 +92,7 @@ users/
   - ✅ **Invoice Downloads**: PDF invoice access
 
 **Billing Features**:
+
 - **Current Subscription**: Plan details, pricing, billing cycle
 - **Payment Methods**: Multiple payment options, default selection
 - **Billing History**: Past invoices and payment records
@@ -93,6 +101,7 @@ users/
 ## 🔄 **User Management Flow**
 
 ### **User Journey Flow**:
+
 ```
 User Login
     ↓
@@ -108,6 +117,7 @@ Active Platform Usage
 ```
 
 ### **Settings Management Flow**:
+
 ```
 Access Settings
     ↓
@@ -121,6 +131,7 @@ Confirmation & Update
 ```
 
 ### **Notification Management Flow**:
+
 ```
 Receive Notification
     ↓
@@ -136,6 +147,7 @@ Configure Future Notifications
 ## 🎨 **UI/UX Features**
 
 ### **Design Elements**:
+
 - ✅ **Modern UI**: Clean, professional design
 - ✅ **Card-Based Layout**: Organized information display
 - ✅ **Tabbed Interface**: Easy navigation between sections
@@ -145,6 +157,7 @@ Configure Future Notifications
 - ✅ **Error Handling**: User-friendly error messages
 
 ### **Interactive Elements**:
+
 - ✅ **Edit Mode Toggle**: Switch between view and edit modes
 - ✅ **Form Controls**: Input fields, switches, selects
 - ✅ **Action Buttons**: Save, cancel, delete operations
@@ -153,6 +166,7 @@ Configure Future Notifications
 - ✅ **Modal Dialogs**: Confirmation and detail views
 
 ### **Responsive Design**:
+
 - ✅ **Mobile-First**: Optimized for mobile devices
 - ✅ **Tablet Support**: Responsive tablet layout
 - ✅ **Desktop Enhancement**: Enhanced desktop experience
@@ -162,12 +176,14 @@ Configure Future Notifications
 ## 🔧 **Technical Implementation**
 
 ### **Components Used**:
+
 - **HeroUI Components**: Card, Button, Input, Switch, Select, Badge, Divider
 - **Lucide Icons**: Various icons for visual enhancement
 - **React Hooks**: useState, useEffect, useNavigate
 - **Form Handling**: Controlled components with validation
 
 ### **State Management**:
+
 - **User State**: Current user information
 - **Form State**: Controlled form inputs with validation
 - **Settings State**: User preferences and configurations
@@ -175,12 +191,14 @@ Configure Future Notifications
 - **Billing State**: Subscription and payment information
 
 ### **API Integration**:
+
 - **Authentication Service**: User authentication and profile management
 - **Settings API**: User preferences and configurations
 - **Notifications API**: Notification management
 - **Billing API**: Subscription and payment management
 
 ### **Validation**:
+
 - **Client-Side**: Real-time form validation
 - **Required Fields**: Mandatory field validation
 - **Format Validation**: Email, phone, URL validation
@@ -190,11 +208,13 @@ Configure Future Notifications
 ## 📱 **Responsive Design**
 
 ### **Breakpoints**:
+
 - **Mobile**: 320px - 768px (single column, stacked layout)
 - **Tablet**: 768px - 1024px (centered card layout)
 - **Desktop**: 1024px+ (full-width layout)
 
 ### **Mobile Optimizations**:
+
 - ✅ **Touch-Friendly**: Large touch targets
 - ✅ **Simplified Layout**: Streamlined mobile interface
 - ✅ **Keyboard Support**: Proper mobile keyboard handling
@@ -204,6 +224,7 @@ Configure Future Notifications
 ## 🚀 **Future Enhancements**
 
 ### **Planned Features**:
+
 - **Profile Pictures**: Avatar upload and management
 - **Social Integration**: Connect social media accounts
 - **Advanced Security**: Biometric authentication
@@ -212,6 +233,7 @@ Configure Future Notifications
 - **Multi-Language**: Support for multiple languages
 
 ### **Technical Improvements**:
+
 - **Performance**: Optimized loading and rendering
 - **Accessibility**: Enhanced accessibility features
 - **Testing**: Comprehensive test coverage
@@ -221,12 +243,14 @@ Configure Future Notifications
 ## 📊 **Usage Statistics**
 
 ### **User Engagement**:
+
 - **Profile Completion**: 85%+ completion rate
 - **Settings Usage**: 70%+ users customize settings
 - **Notification Engagement**: 60%+ users manage notifications
 - **Billing Management**: 90%+ users manage billing
 
 ### **User Behavior**:
+
 - **Mobile Usage**: 65% mobile, 35% desktop
 - **Settings Frequency**: Average 2-3 settings changes per month
 - **Notification Preferences**: 80% users customize notifications
@@ -235,6 +259,7 @@ Configure Future Notifications
 ## 🔗 **Integration Points**
 
 ### **Authentication Service**:
+
 ```typescript
 // User profile management
 await AuthenticationService.updateProfile(profileData);
@@ -246,6 +271,7 @@ await AuthenticationService.getUserSettings();
 ```
 
 ### **URL Generator**:
+
 ```typescript
 // Generate user URLs
 UrlGenerator.userProfile(); // /users/profile
@@ -255,6 +281,7 @@ UrlGenerator.userBilling(); // /users/billing
 ```
 
 ### **Navigation**:
+
 ```typescript
 // Navigate between user pages
 navigate(UrlGenerator.userProfile());
@@ -264,12 +291,14 @@ navigate(UrlGenerator.userSettings());
 ## 📞 **Support & Troubleshooting**
 
 ### **Common Issues**:
+
 - **Profile Updates**: Ensure all required fields are completed
 - **Settings Changes**: Changes are saved automatically
 - **Notification Issues**: Check notification preferences
 - **Billing Problems**: Verify payment method information
 
 ### **Error Messages**:
+
 - **"Please complete all required fields"**: Fill in mandatory fields
 - **"Invalid email format"**: Check email address format
 - **"Payment method failed"**: Verify payment information
@@ -277,4 +306,4 @@ navigate(UrlGenerator.userSettings());
 
 ---
 
-**User Management Pages - Comprehensive user account management for the BetweenDeals platform.**
+**User Management Pages - Comprehensive user account management for the flyp platform.**

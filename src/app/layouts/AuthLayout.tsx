@@ -17,11 +17,12 @@
   - Redirects unauthenticated users to home
 */
 
-import React, { useEffect, useState } from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import AuthModals from '@/features/authentication/components/AuthModals';
+import { Navigation } from '@/shared/components/layout/navigation';
+import { useEffect, useState } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { authService, UrlGenerator } from '../../shared/services';
 import { User } from '../../shared/types';
-import { Navigation } from '@/shared/components/layout/navigation';
 import { logger } from '../../shared/utils/logger';
 
 const DEV_BYPASS_AUTH =
@@ -46,7 +47,7 @@ const AuthenticatedAccount = () => {
         logger.info('🚨 DEV MODE: Bypassing authentication for development');
         const mockUser: User = {
           id: 'dev-user-123',
-          email: 'dev@betweendeals.com',
+          email: 'dev@flyp.com',
           name: 'Development User',
           role: 'seller',
           email_verified: true,
@@ -132,6 +133,8 @@ const AuthenticatedAccount = () => {
       <main className="flex-1">
         <Outlet />
       </main>
+
+      <AuthModals />
     </div>
   );
 };

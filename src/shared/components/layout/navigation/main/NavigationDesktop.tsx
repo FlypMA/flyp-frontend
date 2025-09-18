@@ -8,12 +8,13 @@
 // - Mobile menu toggle button
 // - Role-based navigation items
 
-import * as React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@heroui/react';
 import { Menu } from 'lucide-react';
-import { User } from '../../../../types';
+import * as React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
+import { User } from '../../../../types';
 import BuyerDropdown from '../dropdown/BuyerDropdown';
 import SellerDropdown from '../dropdown/SellerDropdown';
 import { getDesktopNavigationItems, getDropdownComponent } from '../utils';
@@ -33,28 +34,29 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   hasToken,
   authCheckComplete,
   onMobileMenuToggle,
-  className = ''
+  className = '',
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { openModal } = useAuth();
 
   // Get navigation items - exact copy from legacy
   const navigationItems = getDesktopNavigationItems();
 
   // Handle authentication actions
   const handleLogin = () => {
-    navigate(UrlGenerator.login());
+    openModal('login');
   };
 
   const handleSignup = () => {
-    navigate(UrlGenerator.signup());
+    openModal('signup');
   };
 
   const handleSellBusiness = () => {
     if (user) {
       navigate(UrlGenerator.createListing());
     } else {
-      navigate(UrlGenerator.signup());
+      openModal('signup');
     }
   };
 
@@ -63,9 +65,11 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
     if (!user) return null;
 
     const dropdownType = getDropdownComponent(user);
-    return dropdownType === 'seller' ? 
-      <SellerDropdown user={user} /> : 
-      <BuyerDropdown user={user} />;
+    return dropdownType === 'seller' ? (
+      <SellerDropdown user={user} />
+    ) : (
+      <BuyerDropdown user={user} />
+    );
   };
 
   return (
@@ -78,8 +82,8 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/betweendeals_logo.svg?v=2024.1"
-              alt="betweendeals - European SME M&A Platform"
+              src="/flyp_logo.svg?v=2024.1"
+              alt="flyp - European SME M&A Platform"
               width="32"
               height="32"
               className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
@@ -92,7 +96,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="text-xl font-bold text-gray-900 ml-2">betweendeals</span>
+            <span className="text-xl font-bold text-gray-900 ml-2">flyp</span>
           </Link>
         </div>
 
@@ -131,22 +135,18 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 </div>
               ) : (
                 <>
-                  <Button
-                    variant="light"
-                    size="sm"
+                  <button
                     onClick={handleLogin}
-                    className="text-neutral-700 hover:text-primary-600"
+                    className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-neutral-100"
                   >
                     Log in
-                  </Button>
-                  <Button
-                    color="primary"
-                    size="sm"
+                  </button>
+                  <button
                     onClick={handleSellBusiness}
-                    className="bg-primary-600 hover:bg-primary-700 text-white"
+                    className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 duration-200"
                   >
                     Sell your business
-                  </Button>
+                  </button>
                 </>
               )}
             </li>

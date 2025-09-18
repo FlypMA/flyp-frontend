@@ -1,6 +1,6 @@
 # 🚀 Account Onboarding Pages - MVP Version
 
-**User onboarding flows for buyers and sellers on the BetweenDeals platform.**
+**User onboarding flows for buyers and sellers on the flyp platform.**
 
 ## 📁 **Folder Structure**
 
@@ -22,6 +22,7 @@ onboarding/
 ## 🎯 **Page Overview**
 
 ### **1. Buyer Onboarding (`buyer/BuyerOnboarding.tsx`)**
+
 - **Purpose**: Guide buyers through their profile setup
 - **Route**: `/onboarding/buyer`
 - **Features**:
@@ -34,6 +35,7 @@ onboarding/
   - ✅ **Responsive Design**: Mobile-first approach
 
 **Buyer Onboarding Steps**:
+
 1. **Welcome & Introduction**: Platform overview
 2. **Investment Preferences**: Budget range and investment type
 3. **Sector Interests**: Industry preferences
@@ -42,6 +44,7 @@ onboarding/
 6. **Profile Completion**: Final setup and confirmation
 
 ### **2. Seller Onboarding (`seller/SellerOnboarding.tsx`)**
+
 - **Purpose**: Comprehensive seller profile and business listing setup
 - **Route**: `/onboarding/seller`
 - **Features**:
@@ -55,6 +58,7 @@ onboarding/
   - ✅ **Responsive Design**: Mobile-first approach
 
 **Seller Onboarding Steps**:
+
 1. **Welcome**: Introduction to selling process
 2. **Business Type**: Type of business being sold
 3. **Industry Selection**: Business sector and industry
@@ -71,6 +75,7 @@ onboarding/
 14. **Success & Next Steps**: Completion and next actions
 
 ### **3. Signup Complete (`signUpComplete/SignUpComplete.tsx`)**
+
 - **Purpose**: Email verification completion page
 - **Route**: `/signup/complete?token=<token>&email=<email>`
 - **Features**:
@@ -83,6 +88,7 @@ onboarding/
 ## 🔄 **Onboarding Flow Architecture**
 
 ### **User Journey Flow**:
+
 ```
 User Registration
     ↓
@@ -96,6 +102,7 @@ Dashboard Access
 ```
 
 ### **Buyer Onboarding Flow**:
+
 ```
 1. Welcome & Introduction
     ↓
@@ -113,6 +120,7 @@ Dashboard Access
 ```
 
 ### **Seller Onboarding Flow**:
+
 ```
 1. Welcome
     ↓
@@ -148,6 +156,7 @@ Dashboard Access
 ## 🎨 **UI/UX Features**
 
 ### **Design Elements**:
+
 - ✅ **Modern UI**: Clean, professional design
 - ✅ **Progress Indicators**: Visual progress tracking
 - ✅ **Step Navigation**: Back/forward navigation
@@ -157,6 +166,7 @@ Dashboard Access
 - ✅ **Error Handling**: User-friendly error messages
 
 ### **Interactive Elements**:
+
 - ✅ **Step-by-Step Wizard**: Guided form completion
 - ✅ **Progress Bar**: Visual progress indication
 - ✅ **Form Validation**: Real-time validation
@@ -165,6 +175,7 @@ Dashboard Access
 - ✅ **Auto-Save**: Form data persistence
 
 ### **Responsive Design**:
+
 - ✅ **Mobile-First**: Optimized for mobile devices
 - ✅ **Tablet Support**: Responsive tablet layout
 - ✅ **Desktop Enhancement**: Enhanced desktop experience
@@ -174,12 +185,14 @@ Dashboard Access
 ## 🔧 **Technical Implementation**
 
 ### **Components Used**:
+
 - **HeroUI Components**: Card, Button, Input, Select, Textarea, Progress, Checkbox, Chip
 - **Lucide Icons**: Various icons for visual enhancement
 - **React Hooks**: useState, useEffect, useNavigate
 - **Form Handling**: Controlled components with validation
 
 ### **State Management**:
+
 - **Form State**: Controlled form inputs with validation
 - **Step State**: Current step tracking
 - **Loading States**: Loading indicators for async operations
@@ -187,6 +200,7 @@ Dashboard Access
 - **Progress State**: Progress tracking and display
 
 ### **Validation**:
+
 - **Client-Side**: Real-time form validation
 - **Required Fields**: Mandatory field validation
 - **Format Validation**: Email, phone, URL validation
@@ -194,6 +208,7 @@ Dashboard Access
 - **Error Messages**: User-friendly error feedback
 
 ### **Navigation**:
+
 - **Step Navigation**: Back/forward step navigation
 - **Progress Tracking**: Visual progress indication
 - **Auto-Redirect**: Automatic redirect after completion
@@ -203,11 +218,13 @@ Dashboard Access
 ## 📱 **Responsive Design**
 
 ### **Breakpoints**:
+
 - **Mobile**: 320px - 768px (single column, stacked layout)
 - **Tablet**: 768px - 1024px (centered card layout)
 - **Desktop**: 1024px+ (full-width layout)
 
 ### **Mobile Optimizations**:
+
 - ✅ **Touch-Friendly**: Large touch targets
 - ✅ **Simplified Layout**: Streamlined mobile interface
 - ✅ **Keyboard Support**: Proper mobile keyboard handling
@@ -217,6 +234,7 @@ Dashboard Access
 ## 🚀 **Future Enhancements**
 
 ### **Planned Features**:
+
 - **A/B Testing**: Different onboarding flows
 - **Personalization**: Customized onboarding based on user type
 - **Analytics**: Detailed onboarding analytics
@@ -225,6 +243,7 @@ Dashboard Access
 - **Progress Persistence**: Save and resume onboarding
 
 ### **Technical Improvements**:
+
 - **Performance**: Optimized loading and rendering
 - **Accessibility**: Enhanced accessibility features
 - **Testing**: Comprehensive test coverage
@@ -234,12 +253,14 @@ Dashboard Access
 ## 📊 **Usage Statistics**
 
 ### **Onboarding Performance**:
+
 - **Completion Rate**: 85%+ completion rate
 - **Average Time**: 8-12 minutes for seller, 3-5 minutes for buyer
 - **Drop-off Points**: Step 3 (seller), Step 2 (buyer)
 - **Success Rate**: 90%+ successful completions
 
 ### **User Behavior**:
+
 - **Mobile Usage**: 70% mobile, 30% desktop
 - **Completion Time**: Varies by user type and complexity
 - **Return Rate**: Low return rate (successful completion)
@@ -248,6 +269,7 @@ Dashboard Access
 ## 🔗 **Integration Points**
 
 ### **Authentication Service**:
+
 ```typescript
 // Email verification
 await AuthenticationService.verifyEmail(token);
@@ -257,6 +279,7 @@ await AuthenticationService.createUserProfile(profileData);
 ```
 
 ### **URL Generator**:
+
 ```typescript
 // Generate onboarding URLs
 UrlGenerator.buyerOnboarding(); // /onboarding/buyer
@@ -265,6 +288,7 @@ UrlGenerator.signupComplete(); // /signup/complete
 ```
 
 ### **Navigation**:
+
 ```typescript
 // Navigate to dashboard
 navigate(UrlGenerator.getDashboardForRole(user.role));
@@ -273,12 +297,14 @@ navigate(UrlGenerator.getDashboardForRole(user.role));
 ## 📞 **Support & Troubleshooting**
 
 ### **Common Issues**:
+
 - **Form Validation**: Ensure all required fields are completed
 - **Step Navigation**: Use back/forward buttons for navigation
 - **Email Verification**: Check spam folder for verification emails
 - **Progress Loss**: Form data is auto-saved between steps
 
 ### **Error Messages**:
+
 - **"Please complete all required fields"**: Fill in mandatory fields
 - **"Invalid email format"**: Check email address format
 - **"Verification failed"**: Request new verification email
@@ -286,4 +312,4 @@ navigate(UrlGenerator.getDashboardForRole(user.role));
 
 ---
 
-**Account Onboarding Pages - Comprehensive user onboarding flows for the BetweenDeals platform.**
+**Account Onboarding Pages - Comprehensive user onboarding flows for the flyp platform.**

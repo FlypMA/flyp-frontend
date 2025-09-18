@@ -1,9 +1,9 @@
 /**
- * 🔐 Authentication API Types - BetweenDeals MVP
- * 
+ * 🔐 Authentication API Types - flyp MVP
+ *
  * Authentication and authorization API type definitions for secure
  * user management and access control.
- * 
+ *
  * @author Senior CTO
  * @version 1.0.0
  */
@@ -229,7 +229,13 @@ export interface VerificationResult {
  */
 export interface SecurityEvent {
   id: string;
-  type: 'login' | 'logout' | 'password_change' | 'email_change' | 'failed_login' | 'suspicious_activity';
+  type:
+    | 'login'
+    | 'logout'
+    | 'password_change'
+    | 'email_change'
+    | 'failed_login'
+    | 'suspicious_activity';
   timestamp: string;
   ipAddress: string;
   userAgent: string;

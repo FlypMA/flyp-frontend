@@ -1,5 +1,5 @@
 /**
- * 🪵 Logger Utility - BetweenDeals MVP
+ * 🪵 Logger Utility - flyp MVP
  *
  * Centralized logging utility that can be easily controlled
  * for development vs production environments.

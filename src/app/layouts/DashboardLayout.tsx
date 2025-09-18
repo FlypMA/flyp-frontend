@@ -1,8 +1,12 @@
+import AuthModals from '@/features/authentication/components/AuthModals';
+import { Navigation } from '@/shared/components/layout/navigation';
+import {
+  DashboardSidebar,
+  DashboardSidebarMobile,
+} from '@/shared/components/layout/navigation/dashboard';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../providers/auth-provider';
-import { Navigation } from '@/shared/components/layout/navigation';
-import { DashboardSidebar, DashboardSidebarMobile } from '@/shared/components/layout/navigation/dashboard';
 
 export const DashboardLayout: React.FC = () => {
   const { user } = useAuth();
@@ -21,15 +25,11 @@ export const DashboardLayout: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       {/* Top Navigation - like legacy UnifiedNavigation */}
       <Navigation />
-      
+
       {/* Dashboard Content with Sidebar */}
       <div className="flex flex-1 bg-gray-50">
         {/* Desktop Sidebar */}
-        <DashboardSidebar
-          isCollapsed={isSidebarCollapsed}
-          onToggle={toggleSidebar}
-          user={user}
-        />
+        <DashboardSidebar isCollapsed={isSidebarCollapsed} onToggle={toggleSidebar} user={user} />
 
         {/* Mobile Sidebar */}
         <DashboardSidebarMobile
@@ -39,9 +39,11 @@ export const DashboardLayout: React.FC = () => {
         />
 
         {/* Main Content */}
-        <div className={`flex flex-1 flex-col transition-all duration-300 ${
-          isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
-        }`}>
+        <div
+          className={`flex flex-1 flex-col transition-all duration-300 ${
+            isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
+          }`}
+        >
           {/* Header */}
           <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -52,10 +54,15 @@ export const DashboardLayout: React.FC = () => {
                 aria-label="Open sidebar"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
-              
+
               <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
             </div>
 
@@ -68,12 +75,8 @@ export const DashboardLayout: React.FC = () => {
                   </span>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-sm font-medium text-gray-900">
-                    {user.name || 'User'}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {user.role}
-                  </div>
+                  <div className="text-sm font-medium text-gray-900">{user.name || 'User'}</div>
+                  <div className="text-xs text-gray-500">{user.role}</div>
                 </div>
               </div>
             )}
@@ -85,6 +88,8 @@ export const DashboardLayout: React.FC = () => {
           </main>
         </div>
       </div>
+
+      <AuthModals />
     </div>
   );
 };

@@ -34,12 +34,14 @@ authentication/
 ## 🎭 Core Components
 
 ### **AuthModals Container**
+
 - **File**: `components/AuthModals.tsx`
 - **Purpose**: Centralized container for all authentication modals
 - **Usage**: Renders both LoginModal and SignupModal components
 - **Integration**: Used in app layouts for global modal access
 
 ### **LoginModal**
+
 - **File**: `components/LoginModal.tsx`
 - **Purpose**: Enhanced login modal with custom inputs and validation
 - **Features**:
@@ -51,6 +53,7 @@ authentication/
   - Switch to signup functionality
 
 ### **SignupModal**
+
 - **File**: `components/SignupModal.tsx`
 - **Purpose**: Signup modal with role selection and custom inputs
 - **Features**:
@@ -62,6 +65,7 @@ authentication/
   - Back navigation from form to role selection
 
 ### **Custom Form Components**
+
 - **CustomInputField**: Floating label input with validation states
 - **CustomPasswordInputField**: Password input with show/hide toggle and strength indicator
 - **Features**: Smooth animations, accessibility support, real-time validation
@@ -69,6 +73,7 @@ authentication/
 ## 🎯 Authentication Flow
 
 ### **Modal-Based Authentication**
+
 1. **Trigger**: User clicks login/signup button anywhere in app
 2. **Modal Opens**: AuthModals container renders appropriate modal
 3. **Role Selection** (Signup only): User selects buyer/seller/both
@@ -78,6 +83,7 @@ authentication/
 7. **Error**: Error message displayed, user can retry
 
 ### **State Management**
+
 - **useAuthModal Hook**: Manages modal state (login, signup, null)
 - **Post-Auth Redirects**: Supports redirecting users after authentication
 - **Context Provider**: Global modal state management
@@ -86,6 +92,7 @@ authentication/
 ## 🔗 Integration with Shared Auth Services
 
 ### **Authentication Service Integration**
+
 The authentication feature integrates seamlessly with the shared auth services:
 
 ```typescript
@@ -98,7 +105,7 @@ const authService = new AuthenticationService();
 // Login flow
 const authResult = await authService.login(formData);
 
-// Signup flow  
+// Signup flow
 const authResult = await authService.signup(formData);
 
 // Authentication checking
@@ -106,6 +113,7 @@ const authResult = await authService.checkAuthentication();
 ```
 
 ### **Shared Services Used**
+
 - **`Auth.ts`**: Main authentication service (legacy-compatible)
 - **`SessionManager`**: Cookie and localStorage management
 - **`UserDataManager`**: User data operations with Supabase
@@ -113,6 +121,7 @@ const authResult = await authService.checkAuthentication();
 - **`RetryHandler`**: Retry logic with exponential backoff
 
 ### **Authentication Flow Integration**
+
 1. **Form Submission**: Components collect user input
 2. **Service Call**: AuthenticationService handles API communication
 3. **Session Management**: SessionManager stores tokens and user data
@@ -123,6 +132,7 @@ const authResult = await authService.checkAuthentication();
 ## 🎨 UI/UX Features
 
 ### **Design System**
+
 - **Split-screen modals** with background images
 - **Floating label inputs** with smooth animations
 - **Role-based messaging** and color themes
@@ -132,6 +142,7 @@ const authResult = await authService.checkAuthentication();
 - **Responsive design** for all device sizes
 
 ### **Accessibility**
+
 - **ARIA labels** for screen readers
 - **Keyboard navigation** support
 - **Focus management** for modal interactions
@@ -139,6 +150,7 @@ const authResult = await authService.checkAuthentication();
 - **High contrast** error states and feedback
 
 ### **User Experience**
+
 - **Seamless modal transitions** between login and signup
 - **Role selection** with clear descriptions and icons
 - **Post-auth redirects** to appropriate dashboards
@@ -148,10 +160,11 @@ const authResult = await authService.checkAuthentication();
 ## 🔧 Technical Implementation
 
 ### **Modal Management**
+
 ```typescript
 // useAuthModal hook provides:
 interface AuthModalContextType {
-  activeModal: ModalType;           // 'login' | 'signup' | null
+  activeModal: ModalType; // 'login' | 'signup' | null
   postAuthRedirect: PostAuthRedirect | null;
   openModal: (type: ModalType, redirectInfo?: PostAuthRedirect) => void;
   closeModal: () => void;
@@ -160,6 +173,7 @@ interface AuthModalContextType {
 ```
 
 ### **Form Validation**
+
 - **Real-time validation** with field-level error display
 - **Touched state management** for better UX
 - **Password strength** calculation and display
@@ -167,6 +181,7 @@ interface AuthModalContextType {
 - **Required field validation** with visual indicators
 
 ### **State Management**
+
 - **Context Provider**: Global modal state
 - **Local State**: Form inputs, validation, loading states
 - **Event Dispatching**: Custom events for navigation sync
@@ -175,16 +190,19 @@ interface AuthModalContextType {
 ## 🎯 Role-Based Features
 
 ### **Role Selection**
+
 - **Buyer**: "I'm looking to buy a business" (Search icon, blue theme)
 - **Seller**: "I'm looking to sell my business" (Building2 icon, green theme)
 - **Both**: "Both - I'm exploring opportunities" (Building2 icon, purple theme)
 
 ### **Role-Based Redirects**
+
 - **Buyer**: Redirects to `/listings` (marketplace)
 - **Seller**: Redirects to `/my-business` (dashboard)
 - **Both**: Redirects to `/my-business` (dashboard)
 
 ### **Role-Based Messaging**
+
 - **Signup Form**: Different messaging based on selected role
 - **Post-Auth**: Different welcome messages and navigation
 - **Dashboard**: Role-specific dashboard access
@@ -192,18 +210,21 @@ interface AuthModalContextType {
 ## 🔗 Integration Points
 
 ### **App Integration**
+
 - **Layouts**: AuthModals included in MainLayout and AuthLayout
 - **Navigation**: Login/signup buttons trigger modal opening
 - **Routing**: Post-auth redirects to appropriate routes
 - **Providers**: AuthModalProvider wraps app for global state
 
 ### **Service Integration**
+
 - **AuthenticationService**: Handles all auth operations
 - **SessionManager**: Manages tokens and user sessions
 - **UserDataManager**: Handles user data operations
 - **ErrorHandler**: Provides consistent error messaging
 
 ### **Event System**
+
 - **Custom Events**: `user-login`, `user-signup` for navigation sync
 - **Modal Events**: `auth-change`, `auth-logout` for state updates
 - **Navigation Events**: Post-auth redirect handling
@@ -211,6 +232,7 @@ interface AuthModalContextType {
 ## 🧪 Testing Strategy
 
 ### **Component Testing**
+
 - **Modal rendering** and state management
 - **Form validation** and error handling
 - **Role selection** and navigation
@@ -218,6 +240,7 @@ interface AuthModalContextType {
 - **Accessibility** compliance
 
 ### **Integration Testing**
+
 - **Auth service** integration
 - **Session management** flow
 - **Error handling** scenarios
@@ -227,6 +250,7 @@ interface AuthModalContextType {
 ## 🚀 Future Enhancements
 
 ### **Planned Features**
+
 - [ ] **Social Authentication** (Google, LinkedIn)
 - [ ] **Multi-factor Authentication** (2FA)
 - [ ] **Email Verification** flow
@@ -236,6 +260,7 @@ interface AuthModalContextType {
 - [ ] **SSO Integration** for enterprise
 
 ### **Architecture Improvements**
+
 - [ ] **Additional modal types** (password reset, email verification)
 - [ ] **Enhanced form components** (file upload, date picker)
 - [ ] **Advanced validation** (async validation, cross-field validation)
@@ -244,9 +269,10 @@ interface AuthModalContextType {
 ## 📝 Configuration
 
 ### **Environment Variables**
+
 ```env
 # Authentication
-VITE_AUTH_BASE_URL=https://api.betweendeals.be/auth
+VITE_AUTH_BASE_URL=https://api.flyp.be/auth
 VITE_SESSION_TIMEOUT=3600000
 VITE_DEV_BYPASS_AUTH=false
 
@@ -256,29 +282,33 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 ### **Modal Configuration**
+
 ```typescript
 // Modal styling and behavior
 const modalConfig = {
-  size: "2xl",
-  backdrop: "bg-black/50 backdrop-blur-sm",
+  size: '2xl',
+  backdrop: 'bg-black/50 backdrop-blur-sm',
   hideCloseButton: true,
-  maxHeight: "90vh"
+  maxHeight: '90vh',
 };
 ```
 
 ## 🔄 State Management Architecture
 
 ### **Global State (Context)**
+
 - **AuthModalContext**: Modal state and post-auth redirects
 - **Authentication State**: Managed by shared auth services
 - **Navigation State**: React Router integration
 
 ### **Local State (Components)**
+
 - **Form State**: Input values, validation, touched states
 - **UI State**: Loading, error messages, modal visibility
 - **Role State**: Selected role, role selection visibility
 
 ### **Persistence**
+
 - **Session Storage**: Authentication tokens and user data
 - **Local Storage**: User preferences and form data
 - **URL State**: Redirect parameters and navigation state
@@ -286,6 +316,7 @@ const modalConfig = {
 ## 🎯 Legacy App Compatibility
 
 ### **Exact Feature Matching**
+
 - ✅ **Same UI/UX** as legacy app
 - ✅ **Same form validation** logic
 - ✅ **Same role selection** flow
@@ -294,6 +325,7 @@ const modalConfig = {
 - ✅ **Same authentication** flow
 
 ### **Enhanced Features**
+
 - ✅ **Better TypeScript** support
 - ✅ **Cleaner architecture** with proper separation
 - ✅ **Improved accessibility** with ARIA labels
@@ -317,4 +349,4 @@ const modalConfig = {
 - ✅ **Provides accessibility** compliance
 - ✅ **Ready for production** use
 
-**This feature serves as the foundation for secure user access to the BetweenDeals platform, providing the same user experience as the legacy app with enhanced architecture and maintainability.**
+**This feature serves as the foundation for secure user access to the flyp platform, providing the same user experience as the legacy app with enhanced architecture and maintainability.**

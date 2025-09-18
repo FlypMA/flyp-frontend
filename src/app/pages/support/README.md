@@ -1,6 +1,6 @@
 # 📞 Support Pages - MVP Version
 
-**Customer support and help center pages for the BetweenDeals platform.**
+**Customer support and help center pages for the flyp platform.**
 
 ## 📁 **Folder Structure**
 
@@ -17,6 +17,7 @@ support/
 ## 🎯 **Page Overview**
 
 ### **1. Contact Page (`contact.tsx` → `NewContact.tsx`)**
+
 - **Purpose**: Direct customer support and contact forms
 - **Route**: `/contact`
 - **Features**:
@@ -27,6 +28,7 @@ support/
   - ✅ **Support Types**: General, listing, buying, technical, billing, partnership
 
 **Key Components**:
+
 - Contact form with validation
 - Support category selection
 - Professional M&A support options
@@ -34,22 +36,25 @@ support/
 - Multiple contact methods (email, phone)
 
 ### **2. FAQ Page (`faq.tsx`)**
+
 - **Purpose**: Simple frequently asked questions page
 - **Route**: `/faq`
 - **Features**:
   - ✅ **Basic FAQ**: Common questions and answers
   - ✅ **Simple Layout**: Clean, easy-to-read format
-  - ✅ **Platform Information**: How BetweenDeals works
+  - ✅ **Platform Information**: How flyp works
   - ✅ **Quick Answers**: Fast access to common information
 
 **Content Areas**:
-- How BetweenDeals works
+
+- How flyp works
 - How to list a business
 - How to buy a business
 - Pricing information
 - Security and privacy
 
 ### **3. Help Center (`help.tsx`)**
+
 - **Purpose**: Comprehensive self-service help center
 - **Route**: `/help`
 - **Features**:
@@ -60,6 +65,7 @@ support/
   - ✅ **Interactive Interface**: Modern, user-friendly design
 
 **FAQ Categories**:
+
 - **Getting Started**: Platform basics and account setup
 - **Buying a Business**: For business buyers
 - **Selling a Business**: For business sellers
@@ -86,18 +92,21 @@ User needs help
 ## 📊 **Support Strategy**
 
 ### **Tier 1: Self-Service (`/help`)**
+
 - **Target**: Users who want quick answers
 - **Content**: FAQ, knowledge base, guides
 - **Response**: Immediate (self-service)
 - **Complexity**: Simple to moderate questions
 
 ### **Tier 2: Direct Support (`/contact`)**
+
 - **Target**: Users who need expert help
 - **Content**: Contact forms, direct communication
 - **Response**: 24-hour response guarantee
 - **Complexity**: Complex M&A support, technical issues
 
 ### **Tier 3: Simple FAQ (`/faq`)**
+
 - **Target**: Users who want basic information
 - **Content**: Common questions and answers
 - **Response**: Immediate (static content)
@@ -106,6 +115,7 @@ User needs help
 ## 🎯 **Key Features**
 
 ### **Contact Form Categories**:
+
 - **General Inquiry**: General questions about the platform
 - **Listing Support**: Help with creating/managing listings
 - **Buying Support**: Assistance for business buyers
@@ -114,12 +124,14 @@ User needs help
 - **Partnership Opportunities**: Business partnership inquiries
 
 ### **Support Types**:
+
 - **Selling Your Business**: Help with listing creation and optimization
 - **Due Diligence**: Support with document review and valuation
 - **Buying Support**: Assistance finding and evaluating businesses
 - **Technical Issues**: Platform functionality and technical problems
 
 ### **Response Guarantees**:
+
 - **Email Support**: Professional help via email
 - **Phone Support**: Direct expert consultation
 - **Response Time**: 24-hour response guarantee
@@ -128,18 +140,21 @@ User needs help
 ## 🔧 **Technical Implementation**
 
 ### **Components Used**:
+
 - **HeroUI Components**: Card, Button, Input, Textarea, Select
 - **Lucide Icons**: Mail, Phone, MessageCircle, Building2, etc.
 - **SEO Components**: SEOHead for meta tags
 - **Layout Components**: MainLayout for consistent structure
 
 ### **Form Handling**:
+
 - **State Management**: React useState for form data
 - **Validation**: Client-side form validation
 - **Submission**: Simulated form submission with loading states
 - **Categories**: Dropdown selection for support type
 
 ### **Styling**:
+
 - **Tailwind CSS**: Utility-first styling
 - **Responsive Design**: Mobile-first approach
 - **Professional Look**: Clean, business-focused design
@@ -148,11 +163,13 @@ User needs help
 ## 📈 **Usage Statistics**
 
 ### **Page Priorities**:
+
 1. **Help Center** (`/help`) - Primary self-service destination
 2. **Contact Form** (`/contact`) - Direct support requests
 3. **Simple FAQ** (`/faq`) - Basic information access
 
 ### **User Intent Mapping**:
+
 - **Quick Answers** → `/help` (search FAQ)
 - **Basic Info** → `/faq` (read common questions)
 - **Expert Help** → `/contact` (fill contact form)
@@ -161,6 +178,7 @@ User needs help
 ## 🚀 **Future Enhancements**
 
 ### **Planned Features**:
+
 - **Live Chat Integration**: Real-time chat support
 - **Knowledge Base Expansion**: More detailed help articles
 - **Video Tutorials**: Step-by-step video guides
@@ -170,6 +188,7 @@ User needs help
 - **Multi-language Support**: Support in multiple languages
 
 ### **Analytics Integration**:
+
 - **Search Analytics**: Track what users search for
 - **Contact Form Analytics**: Monitor support request types
 - **User Journey Tracking**: Understand support flow
@@ -178,16 +197,18 @@ User needs help
 ## 📞 **Contact Information**
 
 ### **Support Channels**:
-- **Email**: hello@betweendeals.com
+
+- **Email**: hello@flyp.com
 - **Phone**: +32 (0) 123 456 789
 - **Response Time**: 24 hours
 - **Languages**: English, Dutch, French
 
 ### **Business Hours**:
+
 - **Monday - Friday**: 9:00 AM - 6:00 PM CET
 - **Saturday**: 10:00 AM - 4:00 PM CET
 - **Sunday**: Closed
 
 ---
 
-**Support Pages - Providing comprehensive customer support for the BetweenDeals M&A platform.**
+**Support Pages - Providing comprehensive customer support for the flyp M&A platform.**

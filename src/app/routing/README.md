@@ -1,4 +1,4 @@
-# 🚀 MVP Routing - BetweenDeals MVP
+# 🚀 MVP Routing - flyp MVP
 
 ## 📋 **Overview**
 
@@ -16,6 +16,7 @@ src/app/routing/
 ## 🛣️ **Routes**
 
 ### **Public Routes**
+
 - `/` - Home page
 - `/about` - About page
 - `/contact` - Contact page
@@ -26,10 +27,12 @@ src/app/routing/
 - `/register` - Register page
 
 ### **Protected Routes**
+
 - `/dashboard` - User dashboard (requires auth)
 - `/profile` - User profile (requires auth)
 
 ### **Legacy Redirects**
+
 - `/account` → `/profile`
 - `/account/seller` → `/dashboard`
 - `/account/settings` → `/profile`
@@ -40,21 +43,25 @@ src/app/routing/
 ## 🛡️ **Route Protection**
 
 ### **ProtectedRoute**
+
 ```typescript
 <ProtectedRoute>
   <DashboardPage />
 </ProtectedRoute>
 ```
+
 - Requires authentication
 - Redirects to `/login` if not authenticated
 - Shows loading state while checking auth
 
 ### **GuestRoute**
+
 ```typescript
 <GuestRoute>
   <LoginPage />
 </GuestRoute>
 ```
+
 - For login/register pages
 - Redirects to `/dashboard` if already authenticated
 - Shows loading state while checking auth
@@ -62,6 +69,7 @@ src/app/routing/
 ## 🚀 **Usage**
 
 ### **Basic Setup**
+
 ```typescript
 import { router } from '@app/routing/router';
 
@@ -71,6 +79,7 @@ function App() {
 ```
 
 ### **Adding New Routes**
+
 1. Import your page component
 2. Add route to router.tsx
 3. Wrap with protection if needed
@@ -101,6 +110,7 @@ function App() {
 ## 🔄 **When to Scale Up**
 
 When your MVP grows beyond 10-15 routes, consider:
+
 - Lazy loading for performance
 - Role-based protection
 - Feature-based organization

@@ -2,10 +2,10 @@
 // Location: src/features/authentication/components/LoginModal.tsx
 // Purpose: Login modal with custom inputs and enhanced UX
 
+import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
+import { Building2, Info, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal, ModalContent, ModalBody, Button } from '@heroui/react';
-import { X, Info, Building2 } from 'lucide-react';
 import { useAuth } from '../../../app/providers/auth-provider';
 import { CustomInputField, CustomPasswordInputField } from './forms';
 
@@ -184,13 +184,18 @@ const LoginModal: React.FC = () => {
     <Modal
       isOpen={isOpen}
       onClose={handleCloseModal}
-      size="2xl"
+      size="full"
+      backdrop="opaque"
+      radius="none"
+      shadow="lg"
+      isDismissable={true}
+      isKeyboardDismissDisabled={false}
+      hideCloseButton={true}
+      shouldBlockScroll={true}
+      portalContainer={document.body}
       classNames={{
-        base: 'bg-transparent shadow-none',
-        backdrop: 'bg-black/50 backdrop-blur-sm',
-        wrapper: 'flex items-center justify-center p-4',
+        wrapper: '!z-[100]',
       }}
-      hideCloseButton
     >
       <ModalContent className="bg-transparent shadow-none max-w-4xl w-full">
         <ModalBody className="p-0">
@@ -199,13 +204,13 @@ const LoginModal: React.FC = () => {
             <div className="hidden md:flex md:w-1/2 relative">
               <img
                 src="/src/assets/ad.jpg"
-                alt="BetweenDeals Platform"
+                alt="flyp Platform"
                 className="w-full h-full object-cover"
                 style={{ minHeight: '600px' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               <div className="absolute bottom-8 left-8 text-white">
-                <h2 className="text-2xl font-bold mb-2">Welcome back to BetweenDeals</h2>
+                <h2 className="text-2xl font-bold mb-2">Welcome back to flyp</h2>
                 <p className="text-lg opacity-90">
                   Continue your journey in the European M&A marketplace
                 </p>
@@ -228,7 +233,7 @@ const LoginModal: React.FC = () => {
                 <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-2xl font-bold text-gray-900">BetweenDeals</span>
+                <span className="text-2xl font-bold text-gray-900">flyp</span>
               </div>
 
               {/* Header */}

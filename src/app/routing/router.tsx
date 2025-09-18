@@ -1,5 +1,5 @@
 /**
- * 🚀 MVP Router - BetweenDeals MVP
+ * 🚀 MVP Router - flyp MVP
  * Complete routing for MVP with all pages and URL generator integration
  *
  * MVP APPROACH:
@@ -13,50 +13,44 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 // Layout imports
-import MainLayout from '../layouts/MainLayout';
 import AuthLayout from '../layouts/AuthLayout';
 import { DashboardLayout } from '../layouts/DashboardLayout';
-import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import LayoutSplit from '../layouts/LayoutSplit';
+import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
+import MainLayout from '../layouts/MainLayout';
 
 // Route Guard imports
-import {
-  ProtectedRoute,
-  RoleProtectedRoute,
-  SellerRoute,
-  BuyerRoute,
-  GuestRoute,
-} from './route-guards';
+import { BuyerRoute, ProtectedRoute, SellerRoute } from './route-guards';
 
 // Page imports - Landing Pages
 import HomePage from '../pages/landingPages/home';
 import SellersPage from '../pages/landingPages/sellers/sellers';
 
 // Page imports - Listings
-import ListingSearch from '../pages/listings/ListingSearch';
-import ListingDetails from '../pages/listings/ListingDetails';
 import CreateListingPage from '../pages/listings/CreateListingPage';
 import EditListingPage from '../pages/listings/EditListingPage';
+import ListingDetails from '../pages/listings/ListingDetails';
+import ListingSearch from '../pages/listings/ListingSearch';
 
 // Page imports - Business Dashboard
-import BusinessOverview from '../pages/business/overview/BusinessOverview';
-import BusinessValuation from '../pages/business/reports/BusinessValuation';
-import DashboardPerformance from '../pages/business/overview/DashboardPerformance';
 import DocumentVault from '../pages/business/data-room/DocumentVault';
+import ListingManagement from '../pages/business/management/ListingManagement';
+import BusinessOverview from '../pages/business/overview/BusinessOverview';
+import DashboardPerformance from '../pages/business/overview/DashboardPerformance';
+import BusinessValuation from '../pages/business/reports/BusinessValuation';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import LiquidationComparison from '../pages/business/reports/LiquidationComparison';
-import ListingManagement from '../pages/business/management/ListingManagement';
 import SolvencyIntelligence from '../pages/business/reports/SolvencyIntelligence';
 import ValuationTool from '../pages/business/reports/ValuationTool';
 
 // Page imports - Account & Authentication
-import UserSettings from '../pages/account/users/UserSettings';
-import UserProfile from '../pages/account/users/UserProfile';
-import UserBilling from '../pages/account/users/UserBilling';
-import UserNotifications from '../pages/account/users/UserNotifications';
+import SignUpComplete from '../pages/account/onboarding/signUpComplete/SignUpComplete';
 import ForgotPasswordPage from '../pages/account/passwordReset/ForgotPasswordPage';
 import ResetPasswordPage from '../pages/account/passwordReset/ResetPasswordPage';
-import SignUpComplete from '../pages/account/onboarding/signUpComplete/SignUpComplete';
+import UserBilling from '../pages/account/users/UserBilling';
+import UserNotifications from '../pages/account/users/UserNotifications';
+import UserProfile from '../pages/account/users/UserProfile';
+import UserSettings from '../pages/account/users/UserSettings';
 
 // Page imports - Checkout
 import CheckoutPage from '../pages/checkout/checkout';
@@ -64,18 +58,18 @@ import CheckoutSuccess from '../pages/checkout/success/CheckoutSuccess';
 
 // Page imports - Company & Legal
 import About from '../pages/company/about/About';
-import Help from '../pages/support/help';
-import Contact from '../pages/support/contact';
-import FAQ from '../pages/support/FAQ';
-import PrivacyPolicy from '../pages/company/legal/privacyPolicy/privacyPolicy';
-import TermsAndConditions from '../pages/company/legal/termsAndConditions/TermsAndConditions';
 import CookiePolicy from '../pages/company/legal/cookiePolicy/CookiePolicy';
 import GdprCompliance from '../pages/company/legal/gdpr/GdprCompliance';
+import PrivacyPolicy from '../pages/company/legal/privacyPolicy/privacyPolicy';
 import Security from '../pages/company/legal/security/Security';
+import TermsAndConditions from '../pages/company/legal/termsAndConditions/TermsAndConditions';
+import Contact from '../pages/support/contact';
+import FAQ from '../pages/support/FAQ';
+import Help from '../pages/support/help';
 
 // Page imports - Resources
-import ValuationGuide from '../pages/landingPages/resources/ValuationGuide';
 import DueDiligenceChecklist from '../pages/landingPages/resources/DueDiligenceChecklist';
+import ValuationGuide from '../pages/landingPages/resources/ValuationGuide';
 
 // Page imports - Messages & Communication
 import Messages from '../pages/messages/Messages';

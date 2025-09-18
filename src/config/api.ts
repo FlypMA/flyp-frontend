@@ -1,9 +1,9 @@
 /**
- * 🔌 API Configuration - BetweenDeals MVP
- * 
+ * 🔌 API Configuration - flyp MVP
+ *
  * Centralized API configuration and client setup for consistent
  * API interactions across the application.
- * 
+ *
  * @author Senior CTO
  * @version 1.0.0
  */
@@ -22,7 +22,7 @@ export const API_BASE_CONFIG: ApiClientConfig = {
   timeout: 30000, // 30 seconds
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept: 'application/json',
   },
   retry: {
     attempts: 3,
@@ -55,7 +55,7 @@ export const DEFAULT_REQUEST_CONFIG: ApiRequestConfig = {
   validateResponse: true,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept: 'application/json',
   },
 };
 
@@ -86,13 +86,13 @@ export const PROD_CONFIG: Partial<ApiClientConfig> = {
  */
 export const getApiConfig = (): ApiClientConfig => {
   const env = (import.meta as any).env?.NODE_ENV || 'development';
-  
+
   const baseConfig = { ...API_BASE_CONFIG };
-  
+
   if (env === 'production') {
     return { ...baseConfig, ...PROD_CONFIG };
   }
-  
+
   return { ...baseConfig, ...DEV_CONFIG };
 };
 
@@ -115,7 +115,7 @@ export const API_ENDPOINTS = {
     VERIFY_EMAIL: '/api/auth/verify-email',
     RESEND_VERIFICATION: '/api/auth/resend-verification',
   },
-  
+
   // Users
   USERS: {
     PROFILE: '/api/users/profile',
@@ -126,7 +126,7 @@ export const API_ENDPOINTS = {
     VERIFICATION: '/api/users/verification',
     SECURITY: '/api/users/security',
   },
-  
+
   // Business Listings
   LISTINGS: {
     LIST: '/api/listings',
@@ -139,7 +139,7 @@ export const API_ENDPOINTS = {
     INQUIRIES: (id: string) => `/api/listings/${id}/inquiries`,
     FEATURED: '/api/listings/featured',
   },
-  
+
   // Valuations
   VALUATIONS: {
     CREATE: '/api/valuations',
@@ -147,7 +147,7 @@ export const API_ENDPOINTS = {
     LIST: '/api/valuations',
     REPORT: (id: string) => `/api/valuations/${id}/report`,
   },
-  
+
   // Transactions
   TRANSACTIONS: {
     LIST: '/api/transactions',
@@ -159,7 +159,7 @@ export const API_ENDPOINTS = {
     DUE_DILIGENCE: '/api/transactions/due-diligence',
     OFFERS: '/api/transactions/offers',
   },
-  
+
   // Messages
   MESSAGES: {
     CONVERSATIONS: '/api/messages/conversations',
@@ -167,7 +167,7 @@ export const API_ENDPOINTS = {
     SEND: '/api/messages/send',
     MARK_READ: (id: string) => `/api/messages/${id}/read`,
   },
-  
+
   // File Upload
   UPLOAD: {
     IMAGES: '/api/upload/images',
@@ -175,7 +175,7 @@ export const API_ENDPOINTS = {
     AVATAR: '/api/upload/avatar',
     BUSINESS_DOCS: '/api/upload/business-documents',
   },
-  
+
   // Analytics
   ANALYTICS: {
     DASHBOARD: '/api/analytics/dashboard',
@@ -183,7 +183,7 @@ export const API_ENDPOINTS = {
     USER: '/api/analytics/user',
     PERFORMANCE: '/api/analytics/performance',
   },
-  
+
   // Payments
   PAYMENTS: {
     PLANS: '/api/payments/plans',
@@ -203,14 +203,14 @@ export const API_ENDPOINTS = {
  */
 export const buildUrl = (endpoint: string, params?: Record<string, any>): string => {
   if (!params) return endpoint;
-  
+
   const url = new URL(endpoint, API_BASE_CONFIG.baseURL);
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
       url.searchParams.append(key, String(value));
     }
   });
-  
+
   return url.pathname + url.search;
 };
 
@@ -220,9 +220,9 @@ export const buildUrl = (endpoint: string, params?: Record<string, any>): string
 export const getAuthHeader = (): Record<string, string> => {
   const token = localStorage.getItem('auth_token');
   if (!token) return {};
-  
+
   return {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
   };
 };
 
@@ -237,7 +237,7 @@ export const requiresAuth = (endpoint: string): boolean => {
     API_ENDPOINTS.LISTINGS.LIST,
     API_ENDPOINTS.LISTINGS.SEARCH,
   ];
-  
+
   return !publicEndpoints.some(publicEndpoint => {
     // Handle both static strings and function-generated endpoints
     if (typeof publicEndpoint === 'string') {

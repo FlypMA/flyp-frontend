@@ -3,7 +3,7 @@ import { SEOProps } from '../../types/seo';
 export const seoData: Record<string, SEOProps> = {
   // ============= MAIN LANDING PAGES =============
   home: {
-    title: 'betweendeals | European SME M&A Platform - Buy & Sell Businesses',
+    title: 'flyp | European SME M&A Platform - Buy & Sell Businesses',
     description:
       "Europe's most trusted platform for buying and selling SME businesses. Connect with qualified buyers and sellers across 15+ countries. Confidential, secure M&A transactions with expert support.",
     keywords:
@@ -12,18 +12,18 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': ['WebSite', 'Organization'],
-      name: 'betweendeals',
-      alternateName: 'betweendeals.com',
-      url: 'https://www.betweendeals.com',
+      name: 'flyp',
+      alternateName: 'flyp.com',
+      url: 'https://www.flyp.com',
       description:
         'European SME M&A platform connecting business buyers and sellers across 15+ countries',
       foundingDate: '2019',
       areaServed: ['Europe', 'European Union'],
       serviceType: ['Business Brokerage', 'M&A Advisory', 'Transaction Platform'],
-      sameAs: ['https://www.linkedin.com/company/betweendeals', 'https://twitter.com/betweendeals'],
+      sameAs: ['https://www.linkedin.com/company/flyp', 'https://twitter.com/flyp'],
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://www.betweendeals.com/search?q={search_term_string}',
+        target: 'https://www.flyp.com/search?q={search_term_string}',
         'query-input': 'required name=search_term_string',
       },
       offers: {
@@ -38,7 +38,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   sellers: {
-    title: 'For Business Sellers - Sell Your Business Confidentially | betweendeals',
+    title: 'For Business Sellers - Sell Your Business Confidentially | flyp',
     description:
       "List your business for sale on Europe's leading M&A platform. Reach qualified buyers, maintain complete confidentiality, and maximize your business value with professional tools and expert support.",
     keywords:
@@ -47,18 +47,18 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'betweendeals for Sellers',
+      name: 'flyp for Sellers',
       description: 'Sell your business confidentially to qualified buyers across Europe',
-      url: 'https://www.betweendeals.com/for-sellers',
+      url: 'https://www.flyp.com/for-sellers',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'betweendeals',
+        name: 'flyp',
       },
     },
   },
 
   buyers: {
-    title: 'For Business Buyers - Find Your Next Acquisition | betweendeals',
+    title: 'For Business Buyers - Find Your Next Acquisition | flyp',
     description:
       'Discover verified business opportunities across Europe. Access confidential listings, connect with serious sellers, and find your perfect acquisition with comprehensive due diligence tools.',
     keywords:
@@ -67,18 +67,18 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'betweendeals for Buyers',
+      name: 'flyp for Buyers',
       description: 'Find and acquire verified businesses across Europe',
-      url: 'https://www.betweendeals.com/search',
+      url: 'https://www.flyp.com/search',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'betweendeals',
+        name: 'flyp',
       },
     },
   },
 
   pricing: {
-    title: 'Pricing Plans - Transparent M&A Platform Costs | betweendeals',
+    title: 'Pricing Plans - Transparent M&A Platform Costs | flyp',
     description:
       'Simple, transparent pricing for business sales and acquisitions. Success-based fees with no upfront costs. Compare our plans and start your M&A journey today.',
     keywords:
@@ -87,19 +87,19 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'betweendeals Pricing',
+      name: 'flyp Pricing',
       description: 'Transparent pricing for M&A transactions and business listings',
-      url: 'https://www.betweendeals.com/pricing',
+      url: 'https://www.flyp.com/pricing',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'betweendeals',
+        name: 'flyp',
       },
     },
   },
 
   // ============= SEARCH & LISTINGS =============
   search: {
-    title: 'Browse Business Opportunities - European SME Marketplace | betweendeals',
+    title: 'Browse Business Opportunities - European SME Marketplace | flyp',
     description:
       'Search thousands of verified business opportunities across Europe. Filter by industry, location, revenue, and price to find your perfect acquisition target.',
     keywords:
@@ -108,7 +108,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   listingDetails: {
-    title: 'Business Details - Confidential Listing | betweendeals',
+    title: 'Business Details - Confidential Listing | flyp',
     description:
       'View detailed information about this business opportunity. Access financials, operations data, and connect with the seller through our secure platform.',
     keywords:
@@ -118,7 +118,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= DASHBOARDS =============
   sellerDashboard: {
-    title: 'Seller Dashboard - Manage Your Business Listings | betweendeals',
+    title: 'Seller Dashboard - Manage Your Business Listings | flyp',
     description:
       'Manage your business listings, track inquiries, review offers, and monitor your sale progress. Complete M&A tools for business sellers.',
     keywords:
@@ -128,7 +128,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   buyerDashboard: {
-    title: 'Buyer Dashboard - Track Your Acquisitions | betweendeals',
+    title: 'Buyer Dashboard - Track Your Acquisitions | flyp',
     description:
       'Manage your saved searches, track business opportunities, monitor due diligence progress, and communicate with sellers.',
     keywords:
@@ -139,7 +139,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= TRANSACTION & PROCESS =============
   transactionFlow: {
-    title: 'Transaction Management - M&A Process Tools | betweendeals',
+    title: 'Transaction Management - M&A Process Tools | flyp',
     description:
       'Comprehensive transaction management tools for M&A deals. Track due diligence, manage offers, handle documentation, and complete your business acquisition or sale.',
     keywords:
@@ -149,7 +149,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   createListing: {
-    title: 'List Your Business for Sale - Create Listing | betweendeals',
+    title: 'List Your Business for Sale - Create Listing | flyp',
     description:
       'Create a professional business listing to attract qualified buyers. Our guided process helps you present your business professionally while maintaining confidentiality.',
     keywords:
@@ -160,34 +160,34 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= LEGAL PAGES =============
   privacy: {
-    title: 'Privacy Policy - Data Protection & Security | betweendeals',
+    title: 'Privacy Policy - Data Protection & Security | flyp',
     description:
-      'Learn how betweendeals protects your personal data and business information. Our commitment to privacy and security in M&A transactions.',
+      'Learn how flyp protects your personal data and business information. Our commitment to privacy and security in M&A transactions.',
     keywords:
       'privacy policy, data protection, GDPR compliance, business confidentiality, information security, data privacy',
     type: 'website',
   },
 
   terms: {
-    title: 'Terms & Conditions - Platform Usage Terms | betweendeals',
+    title: 'Terms & Conditions - Platform Usage Terms | flyp',
     description:
-      'Terms and conditions for using the betweendeals M&A platform. User agreements, platform rules, and legal framework for business transactions.',
+      'Terms and conditions for using the flyp M&A platform. User agreements, platform rules, and legal framework for business transactions.',
     keywords:
       'terms of service, platform terms, user agreement, legal terms, usage conditions, M&A platform rules',
     type: 'website',
   },
 
   cookies: {
-    title: 'Cookie Policy - Website Cookies & Tracking | betweendeals',
+    title: 'Cookie Policy - Website Cookies & Tracking | flyp',
     description:
-      'Information about how betweendeals uses cookies and tracking technologies to improve your experience on our M&A platform.',
+      'Information about how flyp uses cookies and tracking technologies to improve your experience on our M&A platform.',
     keywords:
       'cookie policy, website cookies, tracking cookies, privacy settings, cookie preferences, website analytics',
     type: 'website',
   },
 
   security: {
-    title: 'Security & Data Protection - Secure M&A Platform | betweendeals',
+    title: 'Security & Data Protection - Secure M&A Platform | flyp',
     description:
       'Learn about our comprehensive security measures protecting your business data and transactions. Bank-level security for M&A deals.',
     keywords:
@@ -196,7 +196,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   gdpr: {
-    title: 'GDPR Compliance - European Data Protection | betweendeals',
+    title: 'GDPR Compliance - European Data Protection | flyp',
     description:
       'Our commitment to GDPR compliance and European data protection standards. How we handle and protect your personal and business data.',
     keywords:
@@ -206,16 +206,16 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= SUPPORT & RESOURCES =============
   help: {
-    title: 'Help Center - M&A Platform Support | betweendeals',
+    title: 'Help Center - M&A Platform Support | flyp',
     description:
-      'Get help with using the betweendeals platform. Guides, tutorials, and support for buyers and sellers in M&A transactions.',
+      'Get help with using the flyp platform. Guides, tutorials, and support for buyers and sellers in M&A transactions.',
     keywords:
       'help center, platform support, M&A help, user guides, transaction support, platform tutorials, customer support',
     type: 'website',
   },
 
   contact: {
-    title: 'Contact Us - M&A Platform Support & Sales | betweendeals',
+    title: 'Contact Us - M&A Platform Support & Sales | flyp',
     description:
       'Get in touch with our M&A experts. Support for buyers and sellers, platform questions, and professional advisory services.',
     keywords:
@@ -224,9 +224,9 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   faq: {
-    title: 'Frequently Asked Questions - M&A Platform FAQ | betweendeals',
+    title: 'Frequently Asked Questions - M&A Platform FAQ | flyp',
     description:
-      'Common questions about buying and selling businesses on betweendeals. Get answers about our platform, fees, process, and security.',
+      'Common questions about buying and selling businesses on flyp. Get answers about our platform, fees, process, and security.',
     keywords:
       'FAQ, frequently asked questions, M&A questions, platform FAQ, business sale questions, buyer questions, seller questions',
     type: 'website',
@@ -234,7 +234,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= RESOURCES =============
   valuationGuide: {
-    title: 'Business Valuation Guide - How to Value Your Business | betweendeals',
+    title: 'Business Valuation Guide - How to Value Your Business | flyp',
     description:
       'Comprehensive guide to business valuation methods, tools, and best practices. Learn how to accurately value your business for sale.',
     keywords:
@@ -247,17 +247,17 @@ export const seoData: Record<string, SEOProps> = {
       description: 'Comprehensive guide to business valuation methods and best practices',
       author: {
         '@type': 'Organization',
-        name: 'betweendeals',
+        name: 'flyp',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'betweendeals',
+        name: 'flyp',
       },
     },
   },
 
   dueDiligenceChecklist: {
-    title: 'Due Diligence Checklist - M&A Due Diligence Guide | betweendeals',
+    title: 'Due Diligence Checklist - M&A Due Diligence Guide | flyp',
     description:
       'Complete due diligence checklist for business acquisitions. Essential documents, financial review, and legal considerations for M&A transactions.',
     keywords:
@@ -270,28 +270,28 @@ export const seoData: Record<string, SEOProps> = {
       description: 'Complete checklist for conducting due diligence in M&A transactions',
       author: {
         '@type': 'Organization',
-        name: 'betweendeals',
+        name: 'flyp',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'betweendeals',
+        name: 'flyp',
       },
     },
   },
 
   // ============= COMPANY =============
   about: {
-    title: 'About betweendeals - Next-Generation M&A Platform | betweendeals',
+    title: 'About flyp - Next-Generation M&A Platform | flyp',
     description:
-      'Learn about betweendeals, the next-generation M&A platform launching in 2025. Our mission to modernize European SME transactions with AI-powered technology.',
+      'Learn about flyp, the next-generation M&A platform launching in 2025. Our mission to modernize European SME transactions with AI-powered technology.',
     keywords:
-      'about betweendeals, startup, M&A platform, European M&A, digital transformation, 2025 launch, AI-powered matching, beta waitlist',
+      'about flyp, startup, M&A platform, European M&A, digital transformation, 2025 launch, AI-powered matching, beta waitlist',
     type: 'website',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'betweendeals',
-      url: 'https://www.betweendeals.com',
+      name: 'flyp',
+      url: 'https://www.flyp.com',
       description:
         'Next-generation M&A platform launching 2025 to modernize European SME transactions',
       foundingDate: '2024',
@@ -302,17 +302,17 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= ERROR PAGES =============
   notFound: {
-    title: 'Page Not Found - 404 Error | betweendeals',
+    title: 'Page Not Found - 404 Error | flyp',
     description:
-      'The page you are looking for could not be found. Return to the betweendeals homepage to continue browsing business opportunities.',
-    keywords: '404 error, page not found, missing page, betweendeals error',
+      'The page you are looking for could not be found. Return to the flyp homepage to continue browsing business opportunities.',
+    keywords: '404 error, page not found, missing page, flyp error',
     type: 'website',
     noIndex: true,
   },
 
   // ============= ONBOARDING =============
   sellerOnboarding: {
-    title: 'Seller Registration - Join betweendeals as a Business Seller',
+    title: 'Seller Registration - Join flyp as a Business Seller',
     description:
       "Complete your seller registration to list your business on Europe's leading M&A platform. Verify your identity and start reaching qualified buyers.",
     keywords:
@@ -322,7 +322,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   buyerOnboarding: {
-    title: 'Buyer Registration - Join betweendeals as a Business Buyer',
+    title: 'Buyer Registration - Join flyp as a Business Buyer',
     description:
       'Complete your buyer registration to access exclusive business opportunities. Verify your investment capacity and connect with business sellers.',
     keywords:
@@ -333,9 +333,9 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= CHECKOUT =============
   checkoutSuccess: {
-    title: 'Payment Successful - Thank You | betweendeals',
+    title: 'Payment Successful - Thank You | flyp',
     description:
-      'Your payment has been processed successfully. Thank you for choosing betweendeals for your M&A transaction.',
+      'Your payment has been processed successfully. Thank you for choosing flyp for your M&A transaction.',
     keywords: 'payment success, transaction complete, payment confirmation, thank you page',
     type: 'website',
     noIndex: true, // Private checkout result
@@ -373,7 +373,7 @@ export const generateListingSEO = (listing: {
   const locationText = listing.location ? ` in ${listing.location}` : '';
 
   return {
-    title: `${listing.title}${priceText} | Business for Sale${locationText} | betweendeals`,
+    title: `${listing.title}${priceText} | Business for Sale${locationText} | flyp`,
     description:
       listing.description ||
       `${listing.title} - Premium business opportunity for sale${locationText}. View detailed financials, operations data, and connect with the seller through our secure M&A platform.`,
@@ -391,7 +391,7 @@ export const generateListingSEO = (listing: {
         availability: 'https://schema.org/InStock',
         seller: {
           '@type': 'Organization',
-          name: 'betweendeals',
+          name: 'flyp',
         },
       },
       category: listing.industry,
@@ -414,7 +414,7 @@ export const generateSearchSEO = (filters: {
   const searchTerm = parts.length > 0 ? parts.join(' ') : 'Business Opportunities';
 
   return {
-    title: `${searchTerm} | Search Results | betweendeals`,
+    title: `${searchTerm} | Search Results | flyp`,
     description: `Find ${searchTerm.toLowerCase()} on Europe's leading M&A platform. Browse verified business opportunities${filters.location ? ` in ${filters.location}` : ' across Europe'} with comprehensive due diligence information.`,
     keywords: `${searchTerm}, business search, SME opportunities, ${filters.industry || 'business'} for sale, M&A marketplace, investment opportunities`,
     type: 'website',

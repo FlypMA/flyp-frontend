@@ -30,6 +30,7 @@ The navigation system provides a modular, production-ready navigation experience
 ### **Main Navigation System**
 
 #### **Navigation.tsx (Orchestrator)**
+
 - **Purpose**: Main navigation orchestrator that handles both desktop and mobile
 - **Based on**: Legacy UnifiedNavigation.tsx logic
 - **Features**:
@@ -39,6 +40,7 @@ The navigation system provides a modular, production-ready navigation experience
   - Orchestrates NavigationDesktop and NavigationMobile
 
 #### **NavigationDesktop.tsx**
+
 - **Purpose**: Desktop navigation bar
 - **Based on**: Legacy UnifiedNavigation.tsx desktop logic
 - **Features**:
@@ -48,6 +50,7 @@ The navigation system provides a modular, production-ready navigation experience
   - Navigation items (For Sellers, For Buyers, Valuation Guide)
 
 #### **NavigationMobile.tsx**
+
 - **Purpose**: Mobile navigation sidebar
 - **Based on**: Legacy MobileNavigation.tsx
 - **Features**:
@@ -59,6 +62,7 @@ The navigation system provides a modular, production-ready navigation experience
 ### **User Avatar Dropdown System**
 
 #### **BuyerDropdown.tsx**
+
 - **Purpose**: Buyer-specific user avatar dropdown
 - **Based on**: Legacy user_avatar_dropdown.tsx buyer logic
 - **Features**:
@@ -67,6 +71,7 @@ The navigation system provides a modular, production-ready navigation experience
   - Logout functionality
 
 #### **SellerDropdown.tsx**
+
 - **Purpose**: Seller-specific user avatar dropdown
 - **Based on**: Legacy user_avatar_dropdown.tsx seller logic
 - **Features**:
@@ -79,6 +84,7 @@ The navigation system provides a modular, production-ready navigation experience
 ### **Dashboard Sidebar System**
 
 #### **DashboardSidebar.tsx**
+
 - **Purpose**: Desktop collapsible sidebar for seller dashboard
 - **Features**:
   - Business management navigation sections
@@ -87,6 +93,7 @@ The navigation system provides a modular, production-ready navigation experience
   - Coming soon features
 
 #### **DashboardSidebarMobile.tsx**
+
 - **Purpose**: Mobile-optimized sidebar for seller dashboard
 - **Features**:
   - Mobile-optimized with slide-in animation
@@ -96,6 +103,7 @@ The navigation system provides a modular, production-ready navigation experience
 ## 🔧 Usage
 
 ### **Basic Usage**
+
 ```typescript
 import { Navigation, DashboardSidebar, BuyerDropdown, SellerDropdown } from './navigation';
 
@@ -114,6 +122,7 @@ import { Navigation, DashboardSidebar, BuyerDropdown, SellerDropdown } from './n
 ```
 
 ### **Layout Integration**
+
 ```typescript
 // In MainLayout.tsx
 import { Navigation } from './navigation';
@@ -146,14 +155,16 @@ const DashboardLayout = () => (
 ## 🎨 Legacy App Mapping
 
 ### **Component Mapping**
-| Legacy Component | MVP Component | Purpose |
-|------------------|---------------|---------|
-| `UnifiedNavigation.tsx` | `Navigation.tsx` + `NavigationDesktop.tsx` | Main navigation orchestration |
-| `MobileNavigation.tsx` | `NavigationMobile.tsx` | Mobile sidebar navigation |
-| `user_avatar_dropdown.tsx` | `BuyerDropdown.tsx` + `SellerDropdown.tsx` | Role-specific user dropdowns |
-| `SellerSidebar.tsx` | `DashboardSidebar.tsx` | Desktop dashboard sidebar |
+
+| Legacy Component           | MVP Component                              | Purpose                       |
+| -------------------------- | ------------------------------------------ | ----------------------------- |
+| `UnifiedNavigation.tsx`    | `Navigation.tsx` + `NavigationDesktop.tsx` | Main navigation orchestration |
+| `MobileNavigation.tsx`     | `NavigationMobile.tsx`                     | Mobile sidebar navigation     |
+| `user_avatar_dropdown.tsx` | `BuyerDropdown.tsx` + `SellerDropdown.tsx` | Role-specific user dropdowns  |
+| `SellerSidebar.tsx`        | `DashboardSidebar.tsx`                     | Desktop dashboard sidebar     |
 
 ### **Feature Mapping**
+
 - ✅ **Authentication state management** - Matches legacy UnifiedNavigation
 - ✅ **Role-based navigation** - Matches legacy user_avatar_dropdown
 - ✅ **Mobile navigation** - Matches legacy MobileNavigation
@@ -162,6 +173,7 @@ const DashboardLayout = () => (
 ## 🔗 Service Integration
 
 ### **Authentication Service**
+
 ```typescript
 import { authService } from '../../services';
 
@@ -173,6 +185,7 @@ await authService.logout();
 ```
 
 ### **URL Generator Service**
+
 ```typescript
 import { UrlGenerator } from '../../services';
 
@@ -188,6 +201,7 @@ const urls = {
 ## 🎯 Role-Based Navigation
 
 ### **Buyer Navigation**
+
 - Browse Businesses
 - Saved Items
 - Messages
@@ -195,6 +209,7 @@ const urls = {
 - Help Center
 
 ### **Seller Navigation**
+
 - Business Dashboard
 - My Listings
 - Business Valuation
@@ -206,6 +221,7 @@ const urls = {
 - Help Center
 
 ### **Hybrid (Both) Navigation**
+
 - All seller features
 - All buyer features
 - Unified experience
@@ -213,12 +229,14 @@ const urls = {
 ## 📱 Responsive Design
 
 ### **Desktop (≥1024px)**
+
 - Full navigation bar with center navigation items
 - Role-specific user avatar dropdowns
 - Collapsible dashboard sidebar
 - Hover effects and keyboard navigation
 
 ### **Mobile (<1024px)**
+
 - Mobile navigation sidebar with slide-in animation
 - Touch-friendly navigation items
 - Mobile dashboard sidebar
@@ -227,11 +245,13 @@ const urls = {
 ## 🚀 Performance Optimizations
 
 ### **Code Splitting**
+
 - Modular components for tree shaking
 - Role-specific dropdowns loaded as needed
 - Optimized bundle size
 
 ### **Re-render Optimization**
+
 - Proper state management in orchestrator
 - Efficient event handlers
 - Focused component updates
@@ -239,6 +259,7 @@ const urls = {
 ## 🔧 Customization
 
 ### **Adding New Navigation Items**
+
 ```typescript
 // In NavigationDesktop.tsx
 const getNavigationItems = () => {
@@ -252,6 +273,7 @@ const getNavigationItems = () => {
 ```
 
 ### **Adding New Dropdown Items**
+
 ```typescript
 // In BuyerDropdown.tsx or SellerDropdown.tsx
 const menuItems = [
@@ -265,25 +287,28 @@ const menuItems = [
 ### **Common Issues**
 
 #### **Navigation not showing**
+
 - Check if Navigation component is imported correctly
 - Verify authentication service integration
 - Check console for errors
 
 #### **Dropdown not working**
+
 - Ensure user prop is passed correctly
 - Check role-based dropdown selection logic
 - Verify click outside handlers
 
 #### **Mobile navigation issues**
+
 - Check mobile menu state management
 - Verify body scroll prevention
 - Ensure proper z-index values
 
 ## 📚 Related Documentation
 
-- [Legacy UnifiedNavigation.tsx](../../../betweendeals-frontend-legacy/src/app/components/navigation/UnifiedNavigation.tsx)
-- [Legacy MobileNavigation.tsx](../../../betweendeals-frontend-legacy/src/app/components/navigation/MobileNavigation.tsx)
-- [Legacy user_avatar_dropdown.tsx](../../../betweendeals-frontend-legacy/src/app/components/account/account_UI/navigation/user_avatar_dropdown.tsx)
+- [Legacy UnifiedNavigation.tsx](../../../flyp-frontend-legacy/src/app/components/navigation/UnifiedNavigation.tsx)
+- [Legacy MobileNavigation.tsx](../../../flyp-frontend-legacy/src/app/components/navigation/MobileNavigation.tsx)
+- [Legacy user_avatar_dropdown.tsx](../../../flyp-frontend-legacy/src/app/components/account/account_UI/navigation/user_avatar_dropdown.tsx)
 
 ## 🤝 Contributing
 
@@ -297,4 +322,4 @@ When modifying navigation components:
 
 ## 📄 License
 
-This navigation system is part of the BetweenDeals MVP application and follows the same licensing terms.
+This navigation system is part of the flyp MVP application and follows the same licensing terms.

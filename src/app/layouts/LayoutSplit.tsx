@@ -17,6 +17,7 @@ import { Link, Outlet } from 'react-router-dom';
 // TODO: Implement logos and Image components
 // import { logos } from '../../../assets/logos';
 // import { Image } from '@heroui/react';
+import AuthModals from '@/features/authentication/components/AuthModals';
 import { UrlGenerator } from '../../shared/services';
 
 const SplitScreenLayout = () => {
@@ -31,6 +32,7 @@ const SplitScreenLayout = () => {
         </Link>
       </div>
       <Outlet />
+      <AuthModals />
     </div>
   );
 };

@@ -1,16 +1,15 @@
-import * as React from 'react';
-import { Card, CardBody, CardHeader } from '@heroui/react';
-import { Cookie, Shield, Settings, Eye } from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { Card, CardBody, CardHeader } from '@heroui/react';
+import { Cookie, Eye, Settings, Shield } from 'lucide-react';
 
 const CookiePolicy = () => {
   return (
     <>
       <SEOHead
-        title="Cookie Policy | betweendeals M&A Platform"
-        description="Learn about how betweendeals uses cookies to improve your experience on our M&A platform. Detailed information about cookie types and your choices."
-        keywords="cookie policy, privacy, data protection, website cookies, tracking, betweendeals"
+        title="Cookie Policy | flyp M&A Platform"
+        description="Learn about how flyp uses cookies to improve your experience on our M&A platform. Detailed information about cookie types and your choices."
+        keywords="cookie policy, privacy, data protection, website cookies, tracking, flyp"
       />
 
       <div className="min-h-screen bg-white">
@@ -35,9 +34,9 @@ const CookiePolicy = () => {
                 <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-6">
                     <p className="text-primary-800 font-medium">
-                      This Cookie Policy explains how betweendeals ("we," "us," or "our") uses
-                      cookies and similar technologies when you visit our website and platform. This
-                      policy should be read together with our Privacy Policy.
+                      This Cookie Policy explains how flyp ("we," "us," or "our") uses cookies and
+                      similar technologies when you visit our website and platform. This policy
+                      should be read together with our Privacy Policy.
                     </p>
                   </CardBody>
                 </Card>
@@ -282,7 +281,7 @@ const CookiePolicy = () => {
                       please contact us:
                     </p>
                     <div className="text-neutral-600">
-                      <p>Email: privacy@betweendeals.com</p>
+                      <p>Email: privacy@flyp.com</p>
                       <p>Address: Brussels, Belgium</p>
                     </div>
                   </CardBody>

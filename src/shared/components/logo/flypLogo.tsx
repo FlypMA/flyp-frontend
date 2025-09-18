@@ -1,11 +1,11 @@
-// 🏢 BetweenDeals Logo Component - Exact legacy implementation
-// Location: src/shared/components/ui/BetweendealsLogo.tsx
+// 🏢 flyp Logo Component - Exact legacy implementation
+// Location: src/shared/components/ui/flypLogo.tsx
 // Purpose: Reusable logo component matching legacy exactly
 
 import * as React from 'react';
-import { logos, getLogoConfig } from './logos';
+import { getLogoConfig, logos } from './logos';
 
-interface BetweendealsLogoProps {
+interface FlypLogoProps {
   /**
    * Logo variant/context for different use cases
    */
@@ -48,7 +48,7 @@ interface BetweendealsLogoProps {
 }
 
 /**
- * BetweendealsLogo Component
+ * flypLogo Component
  *
  * A reusable logo component that provides consistent branding across the platform.
  * Supports different variants for various contexts (header, footer, sidebar, mobile).
@@ -56,16 +56,16 @@ interface BetweendealsLogoProps {
  * @example
  * ```tsx
  * // Header usage
- * <BetweendealsLogo variant="header" clickable />
+ * <flypLogo variant="header" clickable />
  *
  * // Footer usage
- * <BetweendealsLogo variant="footer" />
+ * <flypLogo variant="footer" />
  *
  * // Custom size
- * <BetweendealsLogo width={150} height="auto" />
+ * <flypLogo width={150} height="auto" />
  * ```
  */
-const BetweendealsLogo: React.FC<BetweendealsLogoProps> = ({
+const FlypLogo: React.FC<FlypLogoProps> = ({
   variant = 'header',
   width,
   height,
@@ -144,4 +144,4 @@ const BetweendealsLogo: React.FC<BetweendealsLogoProps> = ({
   return logoElement;
 };
 
-export default BetweendealsLogo;
+export default FlypLogo;

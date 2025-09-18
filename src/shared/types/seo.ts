@@ -1,7 +1,7 @@
 /**
  * SEO Types and Interfaces
- * 
- * Centralized SEO type definitions for the BetweenDeals platform.
+ *
+ * Centralized SEO type definitions for the flyp platform.
  * Used across components, pages, and utilities for consistent SEO handling.
  */
 

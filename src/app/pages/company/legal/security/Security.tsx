@@ -1,28 +1,27 @@
-import * as React from 'react';
-import { Card, CardBody, CardHeader, Button } from '@heroui/react';
-import {
-  Shield,
-  Lock,
-  Eye,
-  Server,
-  UserCheck,
-  AlertTriangle,
-  CheckCircle,
-  Key,
-  Database,
-  Wifi,
-  FileText,
-  Mail,
-} from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import {
+  AlertTriangle,
+  CheckCircle,
+  Database,
+  Eye,
+  FileText,
+  Key,
+  Lock,
+  Mail,
+  Server,
+  Shield,
+  UserCheck,
+  Wifi,
+} from 'lucide-react';
 
 const Security = () => {
   return (
     <>
       <SEOHead
-        title="Security & Data Protection | betweendeals M&A Platform"
-        description="Learn about betweendeals' comprehensive security measures, data protection protocols, and compliance standards for M&A transactions."
+        title="Security & Data Protection | flyp M&A Platform"
+        description="Learn about flyp' comprehensive security measures, data protection protocols, and compliance standards for M&A transactions."
         keywords="data security, cybersecurity, encryption, secure platform, data protection, M&A security, business confidentiality"
       />
 
@@ -50,10 +49,9 @@ const Security = () => {
                 <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-6">
                     <p className="text-primary-800 font-medium">
-                      Security is at the core of everything we do at betweendeals. As Europe's
-                      leading M&A platform, we understand that business transactions involve highly
-                      sensitive and confidential information that requires the highest levels of
-                      protection.
+                      Security is at the core of everything we do at flyp. As Europe's leading M&A
+                      platform, we understand that business transactions involve highly sensitive
+                      and confidential information that requires the highest levels of protection.
                     </p>
                   </CardBody>
                 </Card>
@@ -462,7 +460,7 @@ const Security = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Button color="primary" startContent={<Mail className="w-4 h-4" />}>
-                        security@betweendeals.com
+                        security@flyp.com
                       </Button>
                       <Button
                         variant="bordered"

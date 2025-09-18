@@ -1,10 +1,10 @@
 /**
- * 🚨 COMPREHENSIVE ERROR HANDLING & MONITORING - BetweenDeals M&A Platform
+ * 🚨 COMPREHENSIVE ERROR HANDLING & MONITORING - flyp M&A Platform
  * Enterprise-grade error handling with user feedback, logging, and recovery strategies
  * Built by Senior CTO for production-ready error management
  */
 
-import { ApiError, ValidationError, ApiErrorResponse } from '../../types/api';
+import { ApiError } from '../../types/api';
 
 // Define missing error types
 export interface AuthenticationError extends ApiError {
@@ -30,8 +30,6 @@ export interface HttpStatusCode {
   RATE_LIMITED: 429;
   INTERNAL_SERVER_ERROR: 500;
 }
-
-import { getApiConfig } from '../../../config/api';
 
 // Create temporary config objects until proper error config is implemented
 const ERROR_CONFIG = {
@@ -770,5 +768,5 @@ export class ErrorHandler {
 // =============================================================================
 
 export const errorHandler = ErrorHandler.getInstance();
-export { UserFeedbackManager, BreadcrumbManager, ErrorRecoveryManager };
+export { BreadcrumbManager, ErrorRecoveryManager, UserFeedbackManager };
 export default errorHandler;

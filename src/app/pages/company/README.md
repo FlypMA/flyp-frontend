@@ -1,6 +1,6 @@
 # Company Pages
 
-This directory contains company information, legal, and compliance pages for the BetweenDeals platform.
+This directory contains company information, legal, and compliance pages for the flyp platform.
 
 ## Directory Structure
 
@@ -20,9 +20,11 @@ company/
 ### About Pages
 
 #### About
-Comprehensive company information page showcasing BetweenDeals' mission, values, and services.
+
+Comprehensive company information page showcasing flyp' mission, values, and services.
 
 **Features:**
+
 - Company mission and vision
 - Team information and values
 - Service overview and benefits
@@ -31,14 +33,16 @@ Comprehensive company information page showcasing BetweenDeals' mission, values,
 - SEO optimization
 
 **Usage:**
+
 ```tsx
 import { About } from '@/app/pages/company';
 
 // Route: /about
-<About />
+<About />;
 ```
 
 **Content Sections:**
+
 - Hero section with company introduction
 - Mission and vision statements
 - Team and company values
@@ -49,9 +53,11 @@ import { About } from '@/app/pages/company';
 ### Legal Pages
 
 #### Terms and Conditions
+
 Comprehensive terms and conditions page covering platform usage, user responsibilities, and legal obligations.
 
 **Features:**
+
 - Complete terms and conditions
 - User responsibilities and obligations
 - Platform usage guidelines
@@ -60,14 +66,16 @@ Comprehensive terms and conditions page covering platform usage, user responsibi
 - Regular updates and versioning
 
 **Usage:**
+
 ```tsx
 import { TermsAndConditions } from '@/app/pages/company';
 
 // Route: /terms-and-conditions
-<TermsAndConditions />
+<TermsAndConditions />;
 ```
 
 **Key Sections:**
+
 - Service description and scope
 - User accounts and responsibilities
 - Business listings and transactions
@@ -78,9 +86,11 @@ import { TermsAndConditions } from '@/app/pages/company';
 - Governing law and jurisdiction
 
 #### Privacy Policy
+
 Detailed privacy policy covering data collection, usage, and protection practices.
 
 **Features:**
+
 - Data collection practices
 - Data usage and processing
 - User rights and controls
@@ -89,14 +99,16 @@ Detailed privacy policy covering data collection, usage, and protection practice
 - GDPR compliance information
 
 **Usage:**
+
 ```tsx
 import { PrivacyPolicy } from '@/app/pages/company';
 
 // Route: /privacy-policy
-<PrivacyPolicy />
+<PrivacyPolicy />;
 ```
 
 **Key Sections:**
+
 - Information collection
 - Data usage and processing
 - Data sharing and disclosure
@@ -107,9 +119,11 @@ import { PrivacyPolicy } from '@/app/pages/company';
 - Policy updates and changes
 
 #### Cookie Policy
+
 Cookie usage and management policy for website functionality and analytics.
 
 **Features:**
+
 - Cookie types and purposes
 - Cookie management options
 - Third-party cookies
@@ -118,23 +132,27 @@ Cookie usage and management policy for website functionality and analytics.
 - Analytics and tracking
 
 **Usage:**
+
 ```tsx
 import { CookiePolicy } from '@/app/pages/company';
 
 // Route: /cookie-policy
-<CookiePolicy />
+<CookiePolicy />;
 ```
 
 **Cookie Categories:**
+
 - Essential cookies (required for functionality)
 - Performance cookies (analytics and optimization)
 - Functionality cookies (user preferences)
 - Marketing cookies (advertising and targeting)
 
 #### GDPR Compliance
+
 General Data Protection Regulation compliance information and user rights.
 
 **Features:**
+
 - GDPR compliance overview
 - User rights and data protection
 - Data processing activities
@@ -143,14 +161,16 @@ General Data Protection Regulation compliance information and user rights.
 - Right to erasure
 
 **Usage:**
+
 ```tsx
 import { GdprCompliance } from '@/app/pages/company';
 
 // Route: /gdpr-compliance
-<GdprCompliance />
+<GdprCompliance />;
 ```
 
 **GDPR Rights:**
+
 - Right to access personal data
 - Right to rectification
 - Right to erasure
@@ -160,9 +180,11 @@ import { GdprCompliance } from '@/app/pages/company';
 - Rights related to automated decision-making
 
 #### Security
-Information security practices and measures implemented by BetweenDeals.
+
+Information security practices and measures implemented by flyp.
 
 **Features:**
+
 - Security measures and practices
 - Data encryption and protection
 - Access controls and authentication
@@ -171,14 +193,16 @@ Information security practices and measures implemented by BetweenDeals.
 - User security responsibilities
 
 **Usage:**
+
 ```tsx
 import { Security } from '@/app/pages/company';
 
 // Route: /security
-<Security />
+<Security />;
 ```
 
 **Security Measures:**
+
 - Data encryption in transit and at rest
 - Secure authentication and authorization
 - Regular security assessments
@@ -189,12 +213,14 @@ import { Security } from '@/app/pages/company';
 ## Design and User Experience
 
 ### Consistent Styling
+
 - **Typography**: Consistent heading hierarchy and text styling
 - **Layout**: Clean, readable layout with proper spacing
 - **Navigation**: Easy navigation between legal pages
 - **Accessibility**: Screen reader friendly and keyboard navigable
 
 ### Content Organization
+
 - **Structured Content**: Well-organized sections with clear headings
 - **Readable Format**: Proper paragraph spacing and bullet points
 - **Visual Hierarchy**: Clear distinction between sections and subsections
@@ -203,12 +229,14 @@ import { Security } from '@/app/pages/company';
 ## SEO and Performance
 
 ### SEO Optimization
+
 - **Meta Tags**: Proper title, description, and keyword tags
 - **Structured Data**: Schema markup for legal documents
 - **Internal Linking**: Links to related pages and sections
 - **Content Quality**: Comprehensive, valuable content
 
 ### Performance
+
 - **Fast Loading**: Optimized for quick page load times
 - **Mobile Responsive**: Fully responsive design
 - **Accessibility**: WCAG 2.1 AA compliance
@@ -217,12 +245,14 @@ import { Security } from '@/app/pages/company';
 ## Legal Compliance
 
 ### Regulatory Requirements
+
 - **GDPR Compliance**: European data protection regulations
 - **CCPA Compliance**: California consumer privacy act
 - **Industry Standards**: Financial services compliance
 - **International Laws**: Multi-jurisdictional compliance
 
 ### Regular Updates
+
 - **Version Control**: Document versioning and change tracking
 - **Update Notifications**: User notification of policy changes
 - **Legal Review**: Regular legal review and updates
@@ -231,12 +261,14 @@ import { Security } from '@/app/pages/company';
 ## Integration Points
 
 ### Navigation Integration
+
 - **Footer Links**: Legal pages linked in site footer
 - **User Account**: Legal documents accessible from user account
 - **Registration Flow**: Terms acceptance during registration
 - **Cookie Consent**: Cookie policy integration with consent management
 
 ### Content Management
+
 - **CMS Integration**: Content management system integration
 - **Version Control**: Document versioning and history
 - **Translation Support**: Multi-language support for legal documents
@@ -245,12 +277,14 @@ import { Security } from '@/app/pages/company';
 ## Maintenance and Updates
 
 ### Content Updates
+
 - **Regular Reviews**: Quarterly legal document reviews
 - **Change Tracking**: Document change history and notifications
 - **User Communication**: Clear communication of policy changes
 - **Legal Consultation**: Regular legal consultation and updates
 
 ### Technical Maintenance
+
 - **Link Checking**: Regular broken link checking
 - **Performance Monitoring**: Page load time monitoring
 - **Accessibility Testing**: Regular accessibility audits

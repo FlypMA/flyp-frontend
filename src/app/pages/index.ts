@@ -1,6 +1,6 @@
 /**
- * Pages Export - BetweenDeals MVP
- * 
+ * Pages Export - flyp MVP
+ *
  * Centralized exports for all page components
  */
 

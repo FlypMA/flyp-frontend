@@ -1,6 +1,6 @@
 # 💳 Checkout & Subscription Pages - MVP Version
 
-**Comprehensive checkout, payment processing, and subscription management for the BetweenDeals M&A platform.**
+**Comprehensive checkout, payment processing, and subscription management for the flyp M&A platform.**
 
 ## 📁 **Folder Structure**
 
@@ -25,6 +25,7 @@ checkout/
 ## 🎯 **Page Overview**
 
 ### **1. Main Checkout (`checkout.tsx`)**
+
 - **Purpose**: Primary checkout and payment processing
 - **Route**: `/checkout`
 - **Features**:
@@ -36,11 +37,13 @@ checkout/
   - ✅ **Loading States**: Clear feedback during processing
 
 **M&A Platform Plans**:
+
 - **Starter**: Individual business owners (€29/month)
 - **Professional**: Growing businesses (€79/month)
 - **Enterprise**: Large businesses and brokers (€199/month)
 
 ### **2. Pricing Page (`PricingPage.tsx`)**
+
 - **Purpose**: Display pricing plans and features
 - **Route**: `/pricing`
 - **Features**:
@@ -53,6 +56,7 @@ checkout/
 ### **3. Checkout Status Pages**
 
 #### **Checkout Cancel (`CheckoutCancel.tsx`)**
+
 - **Purpose**: Handle cancelled checkout process
 - **Route**: `/checkout/cancel`
 - **Features**:
@@ -61,6 +65,7 @@ checkout/
   - ✅ **Support Information**: Contact support details
 
 #### **Checkout Failed (`CheckoutFailed.tsx`)**
+
 - **Purpose**: Handle failed payment processing
 - **Route**: `/checkout/failed`
 - **Features**:
@@ -70,6 +75,7 @@ checkout/
   - ✅ **Support Integration**: Direct support contact
 
 #### **Checkout Pending (`CheckoutPending.tsx`)**
+
 - **Purpose**: Handle pending payment status
 - **Route**: `/checkout/pending`
 - **Features**:
@@ -79,6 +85,7 @@ checkout/
   - ✅ **Session Tracking**: Session and order ID display
 
 #### **Checkout Processing (`CheckoutProcessing.tsx`)**
+
 - **Purpose**: Handle payment processing workflow
 - **Route**: `/checkout/processing`
 - **Features**:
@@ -88,6 +95,7 @@ checkout/
   - ✅ **Auto-Completion**: Automatic success redirect
 
 ### **4. Success Page (`success/CheckoutSuccess.tsx`)**
+
 - **Purpose**: Confirm successful payment and subscription
 - **Route**: `/checkout/success`
 - **Features**:
@@ -97,6 +105,7 @@ checkout/
   - ✅ **Support Information**: Help and support options
 
 ### **5. Transaction Flow (`transaction/TransactionFlow.tsx`)**
+
 - **Purpose**: Complete transaction management workflow
 - **Route**: `/transaction`
 - **Features**:
@@ -107,6 +116,7 @@ checkout/
   - ✅ **Completion Tracking**: Transaction status monitoring
 
 ### **6. Subscription Plans (`subscription/SubscriptionPlans.tsx`)**
+
 - **Purpose**: Comprehensive subscription management
 - **Route**: `/subscription/plans`
 - **Features**:
@@ -119,16 +129,19 @@ checkout/
 ## 🔄 **Checkout Flow Architecture**
 
 ### **Complete Checkout Journey**:
+
 ```
 User selects plan → Pricing page → Checkout form → Payment processing → Success confirmation
 ```
 
 ### **Payment Processing Flow**:
+
 ```
 Payment Initiated → Processing → Pending → Success/Failed/Cancelled
 ```
 
 ### **Subscription Management Flow**:
+
 ```
 Plan Selection → Checkout → Payment → Subscription Activation → Account Setup
 ```
@@ -136,6 +149,7 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 🎨 **UI/UX Features**
 
 ### **Design Elements**:
+
 - ✅ **Modern UI**: Clean, professional design
 - ✅ **Progress Indicators**: Visual progress tracking
 - ✅ **Status Badges**: Clear status communication
@@ -145,6 +159,7 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 - ✅ **Success States**: Confirmation of successful actions
 
 ### **Interactive Elements**:
+
 - ✅ **Plan Selection**: Interactive plan comparison
 - ✅ **Billing Toggle**: Monthly/yearly pricing switch
 - ✅ **Form Controls**: Input fields, selects, buttons
@@ -153,6 +168,7 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 - ✅ **Action Buttons**: Clear call-to-action buttons
 
 ### **Responsive Design**:
+
 - ✅ **Mobile-First**: Optimized for mobile devices
 - ✅ **Tablet Support**: Responsive tablet layout
 - ✅ **Desktop Enhancement**: Enhanced desktop experience
@@ -162,12 +178,14 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 🔧 **Technical Implementation**
 
 ### **Components Used**:
+
 - **HeroUI Components**: Card, Button, Input, Select, Progress, Badge, Switch
 - **Lucide Icons**: Various icons for visual enhancement
 - **React Hooks**: useState, useEffect, useNavigate, useSearchParams
 - **Form Handling**: Controlled components with validation
 
 ### **State Management**:
+
 - **Checkout State**: Plan selection and billing options
 - **Payment State**: Payment processing and status
 - **Form State**: Controlled form inputs with validation
@@ -175,12 +193,14 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 - **Error State**: Error handling and user feedback
 
 ### **Payment Integration**:
+
 - **Stripe Integration**: Secure payment processing
 - **Session Management**: Checkout session handling
 - **Webhook Support**: Payment status updates
 - **Error Handling**: Payment failure management
 
 ### **Validation**:
+
 - **Client-Side**: Real-time form validation
 - **Required Fields**: Mandatory field validation
 - **Format Validation**: Email, phone, card validation
@@ -190,11 +210,13 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 📱 **Responsive Design**
 
 ### **Breakpoints**:
+
 - **Mobile**: 320px - 768px (single column, stacked layout)
 - **Tablet**: 768px - 1024px (centered card layout)
 - **Desktop**: 1024px+ (full-width layout)
 
 ### **Mobile Optimizations**:
+
 - ✅ **Touch-Friendly**: Large touch targets
 - ✅ **Simplified Layout**: Streamlined mobile interface
 - ✅ **Keyboard Support**: Proper mobile keyboard handling
@@ -204,6 +226,7 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 🚀 **Future Enhancements**
 
 ### **Planned Features**:
+
 - **Multiple Payment Methods**: PayPal, bank transfer, crypto
 - **Subscription Management**: Pause, resume, modify plans
 - **Invoice Management**: Download, view, manage invoices
@@ -212,6 +235,7 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 - **Localization**: Multi-language support
 
 ### **Technical Improvements**:
+
 - **Performance**: Optimized loading and rendering
 - **Security**: Enhanced payment security
 - **Analytics**: Payment and conversion tracking
@@ -221,12 +245,14 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 📊 **Usage Statistics**
 
 ### **Checkout Performance**:
+
 - **Conversion Rate**: 15-25% checkout completion
 - **Average Time**: 3-5 minutes checkout process
 - **Drop-off Points**: Payment form, plan selection
 - **Success Rate**: 95%+ successful payments
 
 ### **User Behavior**:
+
 - **Mobile Usage**: 60% mobile, 40% desktop
 - **Plan Selection**: 70% Professional, 20% Starter, 10% Enterprise
 - **Billing Preference**: 60% monthly, 40% yearly
@@ -235,12 +261,13 @@ Plan Selection → Checkout → Payment → Subscription Activation → Account 
 ## 🔗 **Integration Points**
 
 ### **Payment Service**:
+
 ```typescript
 // Checkout session creation
 await createCheckoutSessionAPI({
   plan: selectedPlan,
   billing: billingCycle,
-  customerInfo: customerData
+  customerInfo: customerData,
 });
 
 // Payment status verification
@@ -248,6 +275,7 @@ await verifyPaymentStatus(sessionId);
 ```
 
 ### **URL Generator**:
+
 ```typescript
 // Generate checkout URLs
 UrlGenerator.checkout(); // /checkout
@@ -256,6 +284,7 @@ UrlGenerator.subscriptionPlans(); // /subscription/plans
 ```
 
 ### **Navigation**:
+
 ```typescript
 // Navigate to checkout
 navigate(UrlGenerator.checkout(), { state: { plan, billing } });
@@ -264,12 +293,14 @@ navigate(UrlGenerator.checkout(), { state: { plan, billing } });
 ## 📞 **Support & Troubleshooting**
 
 ### **Common Issues**:
+
 - **Payment Declined**: Check card details and funds
 - **Processing Delays**: Wait for payment confirmation
 - **Plan Selection**: Choose appropriate plan for needs
 - **Billing Issues**: Verify billing information
 
 ### **Error Messages**:
+
 - **"Payment failed"**: Check payment method and try again
 - **"Session expired"**: Restart checkout process
 - **"Invalid plan"**: Select a valid subscription plan
@@ -277,4 +308,4 @@ navigate(UrlGenerator.checkout(), { state: { plan, billing } });
 
 ---
 
-**Checkout & Subscription Pages - Complete payment and subscription management for the BetweenDeals M&A platform.**
+**Checkout & Subscription Pages - Complete payment and subscription management for the flyp M&A platform.**

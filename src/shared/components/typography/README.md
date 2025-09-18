@@ -9,6 +9,7 @@ This directory contains typography components for consistent text styling and hi
 A standardized H1 heading component for primary page titles and main headings.
 
 **Features:**
+
 - Responsive typography (3xl on mobile, 4xl on desktop)
 - Consistent font weight and color
 - Proper spacing and line height
@@ -16,11 +17,12 @@ A standardized H1 heading component for primary page titles and main headings.
 - Semantic HTML structure
 
 **Usage:**
+
 ```tsx
 import { Heading1 } from '@/shared/components/typography';
 
 // Basic heading
-<Heading1>Welcome to BetweenDeals</Heading1>
+<Heading1>Welcome to flyp</Heading1>
 
 // With custom styling
 <Heading1 className="text-center text-blue-600">
@@ -29,10 +31,12 @@ import { Heading1 } from '@/shared/components/typography';
 ```
 
 **Props:**
+
 - `children`: ReactNode - Heading content
 - `className`: string - Additional CSS classes
 
 **Default Styling:**
+
 - Font size: `text-3xl md:text-4xl` (responsive)
 - Font weight: `font-bold`
 - Color: `text-slate-900`
@@ -44,12 +48,14 @@ import { Heading1 } from '@/shared/components/typography';
 A standardized H2 heading component for section titles and secondary headings.
 
 **Features:**
+
 - Responsive typography
 - Consistent styling with Heading1
 - Proper semantic structure
 - Customizable appearance
 
 **Usage:**
+
 ```tsx
 import { Heading2 } from '@/shared/components/typography';
 
@@ -58,6 +64,7 @@ import { Heading2 } from '@/shared/components/typography';
 ```
 
 **Props:**
+
 - `children`: ReactNode - Heading content
 - `className`: string - Additional CSS classes
 
@@ -66,12 +73,14 @@ import { Heading2 } from '@/shared/components/typography';
 A large, impactful heading component for hero sections and prominent page titles.
 
 **Features:**
+
 - Extra large responsive typography (5xl to 7xl)
 - Bold font weight for maximum impact
 - Perfect for hero sections and landing pages
 - Customizable styling
 
 **Usage:**
+
 ```tsx
 import { HeadingHero } from '@/shared/components/typography';
 
@@ -85,10 +94,12 @@ import { HeadingHero } from '@/shared/components/typography';
 ```
 
 **Props:**
+
 - `children`: ReactNode - Heading content
 - `className`: string - Additional CSS classes
 
 **Default Styling:**
+
 - Font size: `text-5xl md:text-6xl lg:text-7xl` (highly responsive)
 - Font weight: `font-bold`
 
@@ -127,18 +138,21 @@ All heading components are designed with mobile-first responsive typography:
 ## Use Cases
 
 ### HeadingHero
+
 - Landing page hero sections
 - Main page titles
 - Promotional banners
 - Marketing pages
 
 ### Heading1
+
 - Page section titles
 - Main content headings
 - Dashboard section headers
 - Form section titles
 
 ### Heading2
+
 - Subsection headings
 - Card titles
 - Sidebar headings

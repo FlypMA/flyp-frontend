@@ -34,12 +34,14 @@ src/shared/services/auth/
 ## 🏗️ Architecture Overview
 
 ### **Modular Design**
+
 - **Single Responsibility**: Each module handles one specific aspect of authentication
 - **Separation of Concerns**: Clear boundaries between different operations
 - **Testability**: Each module can be tested independently
 - **Maintainability**: Easy to update and extend individual components
 
 ### **Key Features**
+
 - ✅ **Cookie-based Session Management**: Persistent sessions with proper cookie handling
 - ✅ **Supabase Integration**: Full integration with Supabase Auth
 - ✅ **Error Handling**: Comprehensive error handling with retry logic
@@ -94,9 +96,11 @@ const session = SessionManager.getSession();
 ## 🔧 Core Modules
 
 ### **Main Auth Service (`Auth.ts`)**
+
 The primary authentication service that provides the same API as the legacy app, now fully modularized with helper classes.
 
 **Features:**
+
 - Legacy-compatible API for easy migration
 - **Modular Architecture**: Uses SessionManager, AuthErrorHandler, RetryHandler, and UserDataManager
 - **Robust Error Handling**: Comprehensive error handling with retry logic
@@ -115,12 +119,14 @@ await authService.logout();
 ```
 
 **Modular Components Used:**
+
 - **SessionManager**: Handles cookie and localStorage session persistence
 - **AuthErrorHandler**: Centralized error handling and user-friendly messages
 - **RetryHandler**: Exponential backoff retry logic for network resilience
 - **UserDataManager**: User data operations with Supabase public.users table
 
 ### **Main Orchestrator (`index.ts`)**
+
 Orchestrates all authentication operations and provides a unified API.
 
 ```typescript
@@ -137,9 +143,11 @@ await authService.logout();
 ```
 
 ### **Login Service (`login.ts`)**
+
 Handles user login with email and password.
 
 **Features:**
+
 - Supabase authentication
 - Session storage
 - Development bypass
@@ -150,14 +158,16 @@ import { LoginService } from '@shared/services/auth';
 
 const result = await LoginService.login({
   email: 'user@example.com',
-  password: 'password123'
+  password: 'password123',
 });
 ```
 
 ### **Logout Service (`logout.ts`)**
+
 Handles user logout and session cleanup.
 
 **Features:**
+
 - Supabase sign out
 - Session cleanup
 - Force logout option
@@ -172,9 +182,11 @@ await LogoutService.logoutFromAllDevices();
 ```
 
 ### **Check Auth Service (`checkAuth.ts`)**
+
 Handles authentication status checking and session validation.
 
 **Features:**
+
 - Session validation
 - Token refresh
 - Expiration checking
@@ -189,9 +201,11 @@ const token = CheckAuthService.getCurrentToken();
 ```
 
 ### **Signup Service (`signup.ts`)**
+
 Handles user registration and email verification.
 
 **Features:**
+
 - User registration
 - Email verification
 - Resend verification
@@ -204,16 +218,18 @@ const result = await SignupService.signup({
   email: 'user@example.com',
   password: 'password123',
   name: 'John Doe',
-  role: 'buyer'
+  role: 'buyer',
 });
 ```
 
 ## 🛠️ Utility Modules
 
 ### **Session Manager (`utils/session-manager.ts`)**
+
 Handles session persistence with cookies and localStorage.
 
 **Features:**
+
 - Cookie management
 - localStorage persistence
 - Session validation
@@ -233,9 +249,11 @@ SessionManager.clearSession();
 ```
 
 ### **Error Handler (`utils/error-handler.ts`)**
+
 Centralized error handling for authentication operations.
 
 **Features:**
+
 - Supabase error mapping
 - User-friendly error messages
 - Error logging
@@ -249,9 +267,11 @@ const response = AuthErrorHandler.createErrorResponse(error);
 ```
 
 ### **Retry Handler (`utils/retry-handler.ts`)**
+
 Handles retry logic with exponential backoff.
 
 **Features:**
+
 - Exponential backoff
 - Timeout handling
 - Retryable error detection
@@ -260,16 +280,15 @@ Handles retry logic with exponential backoff.
 ```typescript
 import { RetryHandler } from '@shared/services/auth';
 
-const result = await RetryHandler.executeWithRetry(
-  () => someOperation(),
-  'Operation context'
-);
+const result = await RetryHandler.executeWithRetry(() => someOperation(), 'Operation context');
 ```
 
 ### **User Data Manager (`utils/user-data-manager.ts`)**
+
 Handles user data operations with Supabase.
 
 **Features:**
+
 - Public users table operations
 - Profile updates
 - Business info updates
@@ -285,17 +304,20 @@ await UserDataManager.updateUserProfile(userId, updates);
 ## 🍪 Session Management
 
 ### **Cookie Configuration**
-- **Name**: `betweendeals_session`
+
+- **Name**: `flyp_session`
 - **Expiry**: 7 days
 - **Security**: Secure in production, SameSite=Lax
 - **Path**: Root path for global access
 
 ### **localStorage Keys**
-- `betweendeals_token`: Authentication token
-- `betweendeals_user`: User data
-- `betweendeals_refresh`: Refresh token (if needed)
+
+- `flyp_token`: Authentication token
+- `flyp_user`: User data
+- `flyp_refresh`: Refresh token (if needed)
 
 ### **Session Flow**
+
 1. **Login**: Store session in both cookie and localStorage
 2. **Check Auth**: Validate session with Supabase
 3. **Refresh**: Update session with fresh data
@@ -304,12 +326,14 @@ await UserDataManager.updateUserProfile(userId, updates);
 ## 🔄 Error Handling
 
 ### **Error Types**
+
 - **Network Errors**: Retryable with exponential backoff
 - **Authentication Errors**: User-friendly messages
 - **Server Errors**: Retryable with limits
 - **Validation Errors**: Immediate feedback
 
 ### **Retry Logic**
+
 - **Max Attempts**: 3 retries
 - **Base Delay**: 1 second
 - **Backoff**: Exponential (2x multiplier)
@@ -318,6 +342,7 @@ await UserDataManager.updateUserProfile(userId, updates);
 ## 🚀 Usage Examples
 
 ### **Complete Authentication Flow**
+
 ```typescript
 import { authService } from '@shared/services/auth';
 
@@ -330,10 +355,7 @@ const signupResult = await authService.createAccount(
 );
 
 // 2. Login
-const loginResult = await authService.login(
-  'user@example.com',
-  'password123'
-);
+const loginResult = await authService.login('user@example.com', 'password123');
 
 // 3. Check authentication
 const authResult = await authService.checkAuthentication();
@@ -341,7 +363,7 @@ const authResult = await authService.checkAuthentication();
 // 4. Update profile
 await authService.updateProfile(userId, {
   name: 'John Smith',
-  city: 'Brussels'
+  city: 'Brussels',
 });
 
 // 5. Logout
@@ -349,6 +371,7 @@ await authService.logout();
 ```
 
 ### **Session Management**
+
 ```typescript
 import { authService } from '@shared/services/auth';
 
@@ -366,6 +389,7 @@ const refreshed = await authService.refreshSession();
 ```
 
 ### **Error Handling**
+
 ```typescript
 import { authService } from '@shared/services/auth';
 
@@ -418,27 +442,28 @@ try {
 
 ### **Core Services**
 
-| File | Purpose | Lines | Key Features |
-|------|---------|-------|--------------|
-| **`Auth.ts`** | Main authentication service (recommended) | 511 | Legacy-compatible API, modular with helper classes |
-| **`index.ts`** | Alternative modular orchestrator | 315 | Orchestrates individual services, unified API |
-| **`login.ts`** | Dedicated login operations | 158 | Email/password auth, session management, error handling |
-| **`logout.ts`** | Dedicated logout operations | 133 | Session cleanup, force logout, multi-device logout |
-| **`signup.ts`** | User registration service | 276 | Account creation, email verification, auto-login |
-| **`checkAuth.ts`** | Authentication status checking | 227 | Session validation, user data retrieval, token management |
+| File               | Purpose                                   | Lines | Key Features                                              |
+| ------------------ | ----------------------------------------- | ----- | --------------------------------------------------------- |
+| **`Auth.ts`**      | Main authentication service (recommended) | 511   | Legacy-compatible API, modular with helper classes        |
+| **`index.ts`**     | Alternative modular orchestrator          | 315   | Orchestrates individual services, unified API             |
+| **`login.ts`**     | Dedicated login operations                | 158   | Email/password auth, session management, error handling   |
+| **`logout.ts`**    | Dedicated logout operations               | 133   | Session cleanup, force logout, multi-device logout        |
+| **`signup.ts`**    | User registration service                 | 276   | Account creation, email verification, auto-login          |
+| **`checkAuth.ts`** | Authentication status checking            | 227   | Session validation, user data retrieval, token management |
 
 ### **Utility Modules**
 
-| File | Purpose | Lines | Key Features |
-|------|---------|-------|--------------|
-| **`session-manager.ts`** | Session persistence | 172 | Cookies + localStorage, secure config, cross-tab sync |
-| **`error-handler.ts`** | Error handling | 248 | User-friendly messages, Supabase errors, categorization |
-| **`retry-handler.ts`** | Retry logic | 153 | Exponential backoff, timeout handling, network resilience |
-| **`user-data-manager.ts`** | User data operations | 257 | Supabase integration, profile updates, business info |
+| File                       | Purpose              | Lines | Key Features                                              |
+| -------------------------- | -------------------- | ----- | --------------------------------------------------------- |
+| **`session-manager.ts`**   | Session persistence  | 172   | Cookies + localStorage, secure config, cross-tab sync     |
+| **`error-handler.ts`**     | Error handling       | 248   | User-friendly messages, Supabase errors, categorization   |
+| **`retry-handler.ts`**     | Retry logic          | 153   | Exponential backoff, timeout handling, network resilience |
+| **`user-data-manager.ts`** | User data operations | 257   | Supabase integration, profile updates, business info      |
 
 ## 🔄 Modular Architecture Benefits
 
 ### **Before Refactoring**
+
 - ❌ Monolithic 582-line file
 - ❌ Duplicate cookie management code
 - ❌ Inconsistent error handling
@@ -446,6 +471,7 @@ try {
 - ❌ Direct Supabase calls without abstraction
 
 ### **After Refactoring**
+
 - ✅ **Modular Design**: Uses helper classes for specific responsibilities
 - ✅ **SessionManager**: Centralized session management with cookies and localStorage
 - ✅ **AuthErrorHandler**: Consistent error handling with user-friendly messages
@@ -468,17 +494,20 @@ try {
 ## 🏆 Recommendations
 
 ### **For MVP Development (✅ Recommended)**
+
 - ✅ Use **`Auth.ts`** as your main authentication service
 - ✅ Import from `@shared/services/auth/Auth`
 - ✅ Leverage the modular helper classes internally
 - ✅ Same API as legacy app for easy migration
 
 ### **For Complex Applications (Alternative)**
+
 - 🔄 Use **`index.ts`** orchestrator for maximum modularity
 - 🔄 Import individual services as needed
 - 🔄 More complex but highly maintainable
 
 ### **For Direct Service Usage**
+
 - 🛠️ Import individual services for specific needs
 - 🛠️ Use utility classes directly for custom implementations
 - 🛠️ Good for advanced use cases and custom logic

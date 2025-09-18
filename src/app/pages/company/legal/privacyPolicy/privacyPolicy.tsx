@@ -1,8 +1,7 @@
-import * as React from 'react';
 import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 import Heading1 from '@/shared/components/typography/Heading1';
 import Heading2 from '@/shared/components/typography/Heading2';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const PrivacyPolicy = () => {
@@ -16,10 +15,9 @@ const PrivacyPolicy = () => {
         <div className="space-y-8 text-gray-800 leading-relaxed">
           <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-blue-900">
-              <strong>Your Privacy Matters:</strong> This Privacy Policy explains how betweendeals
-              collects, uses, and protects your personal information when you use our M&A platform.
-              We are committed to transparency and giving you complete control over your business
-              data.
+              <strong>Your Privacy Matters:</strong> This Privacy Policy explains how flyp collects,
+              uses, and protects your personal information when you use our M&A platform. We are
+              committed to transparency and giving you complete control over your business data.
             </p>
           </div>
 
@@ -184,8 +182,8 @@ const PrivacyPolicy = () => {
               How to Exercise Your Rights:
             </h3>
             <p className="text-gray-700">
-              Contact us at privacy@betweendeals.com or use the data management tools in your
-              account settings. We will respond to requests within 30 days.
+              Contact us at privacy@flyp.com or use the data management tools in your account
+              settings. We will respond to requests within 30 days.
             </p>
           </div>
 
@@ -262,10 +260,10 @@ const PrivacyPolicy = () => {
           </p>
           <div className="ml-4 space-y-2 text-gray-700">
             <p>
-              <strong>Email:</strong> privacy@betweendeals.com
+              <strong>Email:</strong> privacy@flyp.com
             </p>
             <p>
-              <strong>Address:</strong> betweendeals, Belgium
+              <strong>Address:</strong> flyp, Belgium
             </p>
           </div>
 
@@ -279,9 +277,9 @@ const PrivacyPolicy = () => {
         <div className="mt-12 p-6 bg-gray-50 border border-gray-200 rounded-lg">
           <p className="text-sm text-gray-600">
             <strong>Note:</strong> This Privacy Policy is designed to meet modern privacy
-            requirements including GDPR for betweendeals' M&A platform. For production use, we
-            recommend review by qualified privacy counsel to ensure full compliance with all
-            applicable jurisdictions and evolving privacy regulations.
+            requirements including GDPR for flyp' M&A platform. For production use, we recommend
+            review by qualified privacy counsel to ensure full compliance with all applicable
+            jurisdictions and evolving privacy regulations.
           </p>
         </div>
       </div>

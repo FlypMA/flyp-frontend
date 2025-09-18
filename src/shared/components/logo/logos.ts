@@ -1,26 +1,26 @@
 /**
- * betweendeals Logo Configuration
+ * flyp Logo Configuration
  * Centralized logo imports and exports for consistent usage across the platform
  */
 
 // Import the main logo from public directory with cache busting
-const betweendealsLogo = '/betweendeals_logo.svg?v=2024.2';
+const flypLogo = '/flyp_logo.svg?v=2024.2';
 
 // Export logo configurations for different use cases
 export const logos = {
   // Main logo for headers, navigation, and general use
-  main: betweendealsLogo,
+  main: flypLogo,
 
   // For dark backgrounds (same logo, different styling context)
-  white: betweendealsLogo,
+  white: flypLogo,
 
   // For light backgrounds (same logo, different styling context)
-  black: betweendealsLogo,
+  black: flypLogo,
 
   // For different sizes and contexts
-  header: betweendealsLogo,
-  footer: betweendealsLogo,
-  sidebar: betweendealsLogo,
+  header: flypLogo,
+  footer: flypLogo,
+  sidebar: flypLogo,
 
   // Favicon references (for documentation purposes)
   favicon: '/favicon.svg',
@@ -30,42 +30,42 @@ export const logos = {
 };
 
 // Export individual logo references for specific imports
-export const mainLogo = betweendealsLogo;
-export const headerLogo = betweendealsLogo;
-export const footerLogo = betweendealsLogo;
+export const mainLogo = flypLogo;
+export const headerLogo = flypLogo;
+export const footerLogo = flypLogo;
 
 // Logo configuration with sizing information
 export const logoConfig = {
   // Standard header sizes - 48px professional logo
   header: {
-    src: betweendealsLogo,
+    src: flypLogo,
     width: 48,
     height: 48,
-    alt: 'betweendeals - European SME M&A Platform',
+    alt: 'flyp - European SME M&A Platform',
   },
 
   // Footer sizes - 48px to match header
   footer: {
-    src: betweendealsLogo,
+    src: flypLogo,
     width: 48,
     height: 48,
-    alt: 'betweendeals',
+    alt: 'flyp',
   },
 
   // Sidebar sizes
   sidebar: {
-    src: betweendealsLogo,
+    src: flypLogo,
     width: 40,
     height: 40,
-    alt: 'betweendeals',
+    alt: 'flyp',
   },
 
   // Mobile header sizes - 48px for consistency
   mobile: {
-    src: betweendealsLogo,
+    src: flypLogo,
     width: 48,
     height: 48,
-    alt: 'betweendeals',
+    alt: 'flyp',
   },
 };
 

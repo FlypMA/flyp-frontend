@@ -1,30 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, Button, Progress, Chip, Tabs, Tab, Badge } from '@heroui/react';
-import {
-  Search,
-  FileText,
-  DollarSign,
-  CheckCircle,
-  Clock,
-  AlertTriangle,
-  ArrowRight,
-  Users,
-  Shield,
-  TrendingUp,
-  BarChart3,
-  Calendar,
-  MapPin,
-  Building2,
-} from 'lucide-react';
-import { useParams, useNavigate } from 'react-router-dom';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 import {
   DueDiligencePlatform,
   OfferManagement,
   SuccessFeeCollection,
 } from '@/shared/components/transaction';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
-import Container from '@/shared/components/layout/container/Container';
+import { Badge, Button, Card, CardBody, Chip, Progress, Tab, Tabs } from '@heroui/react';
+import {
+  AlertTriangle,
+  CheckCircle,
+  DollarSign,
+  FileText,
+  Search,
+  Shield,
+  TrendingUp,
+} from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface TransactionStage {
   id: string;
@@ -212,7 +205,7 @@ const TransactionFlow: React.FC = () => {
     <>
       <SEOHead
         {...seoData.transactionFlow}
-        title={`Transaction ${transaction.id} | betweendeals`}
+        title={`Transaction ${transaction.id} | flyp`}
         description={`Track the progress of transaction ${transaction.id} for ${transaction.listingTitle}`}
       />
 

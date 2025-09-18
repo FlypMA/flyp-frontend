@@ -2,14 +2,12 @@
 // Location: src/shared/components/layout/Footer.tsx
 // Purpose: Footer matching legacy implementation exactly
 
-import * as React from 'react';
+import { Globe, Mail, MapPin, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Shield, Globe, Mail, MapPin } from 'lucide-react';
-import BetweendealsLogo from '../../logo/BetweendealsLogo';
 import { UrlGenerator } from '../../../services';
+import FlypLogo from '../../logo/flypLogo';
 
 const Footer = () => {
-
   return (
     <footer className="bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto px-4 py-16">
@@ -21,10 +19,10 @@ const Footer = () => {
               {/* Brand Logo/Name */}
               <div className="flex items-center space-x-4">
                 <div className="p-3 footer-logo-container">
-                  <BetweendealsLogo variant="footer" />
+                  <FlypLogo variant="footer" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">betweendeals</h3>
+                  <h3 className="text-xl font-bold text-white">flyp</h3>
                   <p className="text-sm text-neutral-400">European M&A Platform</p>
                 </div>
               </div>
@@ -122,7 +120,7 @@ const Footer = () => {
             <div className="mt-6 space-y-2 text-xs text-neutral-400">
               <div className="flex items-center gap-2">
                 <Mail className="w-3 h-3" />
-                <span>hello@betweendeals.com</span>
+                <span>hello@flyp.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-3 h-3" />
@@ -135,10 +133,7 @@ const Footer = () => {
         {/* Legal Links */}
         <div className="border-t border-neutral-800 pt-8 mb-8">
           <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-400">
-            <Link
-              to={UrlGenerator.privacyPolicy()}
-              className="hover:text-white transition-colors"
-            >
+            <Link to={UrlGenerator.privacyPolicy()} className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
             <Link
@@ -163,9 +158,7 @@ const Footer = () => {
         <div className="border-t border-neutral-800 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <div className="text-neutral-400 text-sm">
-              © 2025 betweendeals. All rights reserved.
-            </div>
+            <div className="text-neutral-400 text-sm">© 2025 flyp. All rights reserved.</div>
 
             {/* Additional Info */}
             <div className="text-neutral-400 text-xs text-center lg:text-right">

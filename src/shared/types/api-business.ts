@@ -1,9 +1,9 @@
 /**
- * 🏢 Business API Types - BetweenDeals MVP
- * 
+ * 🏢 Business API Types - flyp MVP
+ *
  * Business-specific API type definitions for listings, valuations,
  * transactions, and M&A operations.
- * 
+ *
  * @author Senior CTO
  * @version 1.0.0
  */
@@ -176,7 +176,7 @@ export interface ValuationResult {
 /**
  * Transaction Status
  */
-export type TransactionStatus = 
+export type TransactionStatus =
   | 'inquiry'
   | 'nda_signed'
   | 'due_diligence'

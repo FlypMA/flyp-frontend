@@ -13,10 +13,10 @@ interface AppConfig {
   appName: string;
   version: string;
   environment: 'development' | 'staging' | 'production';
-  
+
   // API Configuration
   api: typeof API_CONFIG;
-  
+
   // App Settings
   settings: {
     defaultLanguage: string;
@@ -25,7 +25,7 @@ interface AppConfig {
     supportedLanguages: string[];
     supportedCountries: string[];
   };
-  
+
   // Feature Flags
   features: {
     enableAnalytics: boolean;
@@ -34,7 +34,7 @@ interface AppConfig {
     enableNotifications: boolean;
     enableDarkMode: boolean;
   };
-  
+
   // UI Configuration
   ui: {
     theme: 'light' | 'dark' | 'system';
@@ -50,13 +50,13 @@ interface AppConfig {
 
 const config: AppConfig = {
   // Basic App Info
-  appName: 'BetweenDeals MVP',
+  appName: 'flyp MVP',
   version: '1.0.0',
   environment: ((import.meta as any).env?.MODE as AppConfig['environment']) || 'development',
-  
+
   // API Configuration
   api: API_CONFIG,
-  
+
   // App Settings
   settings: {
     defaultLanguage: 'en',
@@ -65,7 +65,7 @@ const config: AppConfig = {
     supportedLanguages: ['en', 'nl', 'fr'],
     supportedCountries: ['BE', 'NL', 'FR', 'DE', 'US'],
   },
-  
+
   // Feature Flags
   features: {
     enableAnalytics: (import.meta as any).env?.VITE_ENABLE_ANALYTICS === 'true',
@@ -74,10 +74,11 @@ const config: AppConfig = {
     enableNotifications: (import.meta as any).env?.VITE_ENABLE_NOTIFICATIONS === 'true',
     enableDarkMode: (import.meta as any).env?.VITE_ENABLE_DARK_MODE === 'true',
   },
-  
+
   // UI Configuration
   ui: {
-    theme: ((import.meta as any).env?.VITE_DEFAULT_THEME as 'light' | 'dark' | 'system') || 'system',
+    theme:
+      ((import.meta as any).env?.VITE_DEFAULT_THEME as 'light' | 'dark' | 'system') || 'system',
     sidebarCollapsed: (import.meta as any).env?.VITE_SIDEBAR_COLLAPSED === 'true',
     animationsEnabled: (import.meta as any).env?.VITE_ANIMATIONS_ENABLED !== 'false',
     compactMode: (import.meta as any).env?.VITE_COMPACT_MODE === 'true',

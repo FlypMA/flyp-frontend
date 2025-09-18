@@ -1,5 +1,6 @@
 # 🛠️ **Frontend Development Guide**
-**Essential Guidelines for BetweenDeals Development Teams**
+
+**Essential Guidelines for flyp Development Teams**
 
 **Updated:** September 11, 2025  
 **Target Audience:** Frontend Developers, Team Leads, New Team Members  
@@ -10,7 +11,8 @@
 ## 🚀 **Getting Started**
 
 ### **📋 Prerequisites**
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 - VS Code (recommended) with extensions:
   - ESLint
@@ -19,10 +21,11 @@
   - Auto Rename Tag
 
 ### **⚡ Quick Setup**
+
 ```bash
 # Clone and setup
 git clone [repository-url]
-cd betweendeals-frontend
+cd flyp-frontend
 npm install
 
 # Start development
@@ -38,6 +41,7 @@ npm run dev
 ### **1. Creating a New Feature**
 
 #### **Step 1: Create Feature Structure**
+
 ```bash
 # Create feature directory
 mkdir -p src/features/your-feature/{components,pages,services,hooks,types}
@@ -47,6 +51,7 @@ touch src/features/your-feature/index.ts
 ```
 
 #### **Step 2: Feature Index Template**
+
 ```typescript
 // src/features/your-feature/index.ts
 export { YourMainComponent } from './components/YourMainComponent';
@@ -62,6 +67,7 @@ export * from './types';
 ```
 
 #### **Step 3: Add to Main Features Export**
+
 ```typescript
 // src/features/index.ts
 export * from './your-feature';
@@ -70,6 +76,7 @@ export * from './your-feature';
 ### **2. Component Development**
 
 #### **Component Template**
+
 ```typescript
 // src/features/your-feature/components/YourComponent.tsx
 import React from 'react';
@@ -96,6 +103,7 @@ export const YourComponent: React.FC<YourComponentProps> = ({
 ```
 
 #### **Page Component Template**
+
 ```typescript
 // src/features/your-feature/pages/YourPage.tsx
 import React from 'react';
@@ -108,7 +116,7 @@ export const YourPage: React.FC = () => {
 
   return (
     <div className="page-container">
-      <YourComponent 
+      <YourComponent
         title="Your Feature"
         onAction={handleAction}
       />
@@ -120,6 +128,7 @@ export const YourPage: React.FC = () => {
 ### **3. Service Development**
 
 #### **Service Template**
+
 ```typescript
 // src/features/your-feature/services/yourService.ts
 import { apiClient } from '@shared/services/apiClient';
@@ -154,12 +163,14 @@ export const yourService = {
 ### **🔧 When to Create Shared vs Feature Components**
 
 #### **✅ Create in `shared/components/` when:**
+
 - Component is reused across 3+ features
 - Part of design system (buttons, inputs, modals)
 - Common UI patterns (layouts, navigation)
 - No feature-specific business logic
 
 #### **✅ Create in `features/[feature]/components/` when:**
+
 - Contains feature-specific business logic
 - Uses feature-specific data structures
 - Part of feature-specific user workflows
@@ -168,6 +179,7 @@ export const yourService = {
 ### **🎯 Component Patterns**
 
 #### **Container/Presentational Pattern**
+
 ```typescript
 // Container Component (handles logic)
 export const LoginContainer: React.FC = () => {
@@ -212,6 +224,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 ```
 
 #### **Custom Hook Pattern**
+
 ```typescript
 // src/features/authentication/hooks/useAuth.ts
 export const useAuth = () => {
@@ -239,6 +252,7 @@ export const useAuth = () => {
 ### **📊 State Organization Levels**
 
 #### **1. Component State (useState)**
+
 ```typescript
 // ✅ Use for: UI state, form inputs, local toggles
 const [isOpen, setIsOpen] = useState(false);
@@ -246,6 +260,7 @@ const [formData, setFormData] = useState({ name: '', email: '' });
 ```
 
 #### **2. Feature State (Context/Custom Hooks)**
+
 ```typescript
 // ✅ Use for: Feature-wide state, complex business logic
 const AuthContext = createContext();
@@ -253,7 +268,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [permissions, setPermissions] = useState([]);
-  
+
   return (
     <AuthContext.Provider value={{ user, permissions, setUser }}>
       {children}
@@ -263,6 +278,7 @@ export const AuthProvider = ({ children }) => {
 ```
 
 #### **3. Global State (App-level Context/Store)**
+
 ```typescript
 // ✅ Use for: App-wide state, cross-feature data
 // Handled by app-level providers in src/app/providers/
@@ -275,6 +291,7 @@ export const AuthProvider = ({ children }) => {
 ### **📋 Testing Strategy**
 
 #### **Component Testing**
+
 ```typescript
 // YourComponent.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -289,7 +306,7 @@ describe('YourComponent', () => {
   test('calls onAction when button clicked', () => {
     const mockAction = jest.fn();
     render(<YourComponent title="Test" onAction={mockAction} />);
-    
+
     fireEvent.click(screen.getByText('Take Action'));
     expect(mockAction).toHaveBeenCalledTimes(1);
   });
@@ -297,6 +314,7 @@ describe('YourComponent', () => {
 ```
 
 #### **Service Testing**
+
 ```typescript
 // yourService.test.ts
 import { yourService } from './yourService';
@@ -311,7 +329,7 @@ describe('yourService', () => {
     mockedApiClient.get.mockResolvedValue({ data: mockData });
 
     const result = await yourService.fetchData();
-    
+
     expect(result).toEqual(mockData);
     expect(mockedApiClient.get).toHaveBeenCalledWith('/your-endpoint');
   });
@@ -325,6 +343,7 @@ describe('yourService', () => {
 ### **🎯 Tailwind CSS Patterns**
 
 #### **Component Styling**
+
 ```typescript
 // ✅ Use Tailwind utility classes
 export const Card = ({ children, variant = 'default' }) => {
@@ -344,17 +363,19 @@ export const Card = ({ children, variant = 'default' }) => {
 ```
 
 #### **Responsive Design**
+
 ```typescript
 // ✅ Mobile-first responsive design
 <div className="
   grid grid-cols-1 gap-4     // Mobile: single column
-  md:grid-cols-2             // Tablet: two columns  
+  md:grid-cols-2             // Tablet: two columns
   lg:grid-cols-3             // Desktop: three columns
   xl:grid-cols-4             // Large: four columns
 ">
 ```
 
 ### **🎨 Design System Usage**
+
 ```typescript
 // ✅ Use design system components
 import { Button, Input, Modal } from '@shared/components/design-system';
@@ -374,9 +395,10 @@ const customStyle = {
 ### **⚡ Optimization Techniques**
 
 #### **Code Splitting**
+
 ```typescript
 // ✅ Lazy load pages
-const DashboardPage = lazy(() => 
+const DashboardPage = lazy(() =>
   import('@features/business-dashboard/pages/DashboardPage')
 );
 
@@ -389,6 +411,7 @@ const DashboardPage = lazy(() =>
 ```
 
 #### **Component Optimization**
+
 ```typescript
 // ✅ Memoize expensive components
 export const ExpensiveList = React.memo(({ items }) => {
@@ -412,6 +435,7 @@ const processedData = useMemo(() => {
 ## 🔧 **Common Development Tasks**
 
 ### **🔄 Adding Routes**
+
 ```typescript
 // 1. Create route in appropriate feature
 // src/features/your-feature/routes.tsx
@@ -438,6 +462,7 @@ export const routes = [
 ```
 
 ### **🌐 API Integration**
+
 ```typescript
 // 1. Define API types
 interface ApiResponse<T> {
@@ -484,6 +509,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
 ## 🚀 **Deployment Preparation**
 
 ### **🔍 Pre-deployment Checklist**
+
 ```bash
 # 1. Run all quality checks
 npm run lint          # Check code quality
@@ -501,6 +527,7 @@ npm run security-check # Custom security rules
 ```
 
 ### **🏗️ Build Optimization**
+
 ```typescript
 // vite.config.ts optimization
 export default defineConfig({
@@ -525,6 +552,7 @@ export default defineConfig({
 ### **🔧 Common Issues**
 
 #### **Import Resolution**
+
 ```typescript
 // ❌ Problem: Module not found
 import { Component } from '../../../shared/components/Component';
@@ -534,6 +562,7 @@ import { Component } from '@shared/components/Component';
 ```
 
 #### **Type Errors**
+
 ```typescript
 // ❌ Problem: Type 'unknown' error
 const data = await apiCall();
@@ -543,6 +572,7 @@ const data: YourDataType = await apiCall();
 ```
 
 #### **Build Errors**
+
 ```bash
 # Common build issues and solutions
 npm run clean         # Clear build cache
@@ -555,12 +585,14 @@ npm run type-check    # Check for TypeScript errors
 ## 📚 **Additional Resources**
 
 ### **📖 Documentation Links**
+
 - **Main README:** Repository overview and quick start
 - **Architecture Guide:** `HYBRID_ARCHITECTURE_STRATEGY.md`
 - **Naming Conventions:** `CLEAN_NAMING_CONVENTION.md`
 - **Development Setup:** `DEVELOPMENT_CONFIGURATION_SUCCESS_REPORT.md`
 
 ### **🛠️ Useful VS Code Snippets**
+
 ```json
 // .vscode/snippets.json
 {
@@ -594,4 +626,3 @@ npm run type-check    # Check for TypeScript errors
 **Quality:** 🏆 **Enterprise Standards**
 
 **Follow this guide for consistent, high-quality development that aligns with our enterprise-grade architecture standards.**
-

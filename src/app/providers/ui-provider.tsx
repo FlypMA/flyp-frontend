@@ -1,7 +1,7 @@
 /**
- * 🎨 UI Provider - BetweenDeals MVP
+ * 🎨 UI Provider - flyp MVP
  * Basic UI state management
- * 
+ *
  * MVP APPROACH:
  * - Simple UI state only
  * - Sidebar, notifications, loading
@@ -25,11 +25,11 @@ interface UIContextType {
   // Sidebar state
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
-  
+
   // Loading state
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
-  
+
   // Notifications
   notifications: Notification[];
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
@@ -75,9 +75,9 @@ export const UIProvider: React.FC<UIProviderProps> = ({ children }) => {
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     const id = Math.random().toString(36).substr(2, 9);
     const notification: Notification = { id, type, message };
-    
+
     setNotifications(prev => [...prev, notification]);
-    
+
     // Auto-remove after 5 seconds
     setTimeout(() => {
       removeNotification(id);
@@ -96,20 +96,16 @@ export const UIProvider: React.FC<UIProviderProps> = ({ children }) => {
     // Sidebar state
     isSidebarOpen,
     toggleSidebar,
-    
+
     // Loading state
     isLoading,
     setIsLoading,
-    
+
     // Notifications
     notifications,
     addNotification,
     removeNotification,
   };
 
-  return (
-    <UIContext.Provider value={contextValue}>
-      {children}
-    </UIContext.Provider>
-  );
+  return <UIContext.Provider value={contextValue}>{children}</UIContext.Provider>;
 };

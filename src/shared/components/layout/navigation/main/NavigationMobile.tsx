@@ -8,28 +8,13 @@
 // - Smooth animations
 // - Body scroll prevention
 
+import { ChevronRight, LogOut, X } from 'lucide-react';
 import React, { useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Button, Divider } from '@heroui/react';
-import {
-  X,
-  Home,
-  Search,
-  Building2,
-  TrendingUp,
-  FileText,
-  Settings,
-  LogOut,
-  ChevronRight,
-  Heart,
-  MessageCircle,
-  Calculator,
-  LayoutDashboard
-} from 'lucide-react';
-import { User } from '../../../../types';
-import { UrlGenerator } from '../../../../services';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../../app/providers/auth-provider';
 import { AuthenticationService } from '../../../../services/auth/Auth';
-import { getMobileNavigationSections, createNavigationHandler } from '../utils';
+import { User } from '../../../../types';
+import { createNavigationHandler, getMobileNavigationSections } from '../utils';
 
 interface NavigationMobileProps {
   user?: User | null;
@@ -53,7 +38,8 @@ interface NavSection {
 const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onToggle }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const { openModal } = useAuth();
+
   // Initialize auth service and navigation handler
   const authService = new AuthenticationService();
   const navigationHandler = createNavigationHandler(navigate, authService);
@@ -112,9 +98,9 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">BD</span>
               </div>
-              <span className="text-lg font-semibold text-gray-900">betweendeals</span>
+              <span className="text-lg font-semibold text-gray-900">flyp</span>
             </div>
-            
+
             <button
               onClick={onToggle}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -137,12 +123,8 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                   <div className="text-sm font-medium text-gray-900 truncate">
                     {user.name || 'User'}
                   </div>
-                  <div className="text-xs text-gray-500 truncate">
-                    {user.email}
-                  </div>
-                  <div className="text-xs text-gray-400 capitalize">
-                    {user.role}
-                  </div>
+                  <div className="text-xs text-gray-500 truncate">{user.email}</div>
+                  <div className="text-xs text-gray-400 capitalize">{user.role}</div>
                 </div>
               </div>
             </div>
@@ -173,12 +155,12 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                             : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
-                        <Icon className={`w-5 h-5 flex-shrink-0 ${
-                          isActive ? 'text-primary-600' : 'text-gray-500'
-                        }`} />
-                        <span className="flex-1 text-sm font-medium">
-                          {item.label}
-                        </span>
+                        <Icon
+                          className={`w-5 h-5 flex-shrink-0 ${
+                            isActive ? 'text-primary-600' : 'text-gray-500'
+                          }`}
+                        />
+                        <span className="flex-1 text-sm font-medium">{item.label}</span>
                         {item.badge && (
                           <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full">
                             {item.badge}
@@ -199,7 +181,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
           </div>
 
           {/* Footer */}
-          {user && (
+          {user ? (
             <div className="p-4 border-t border-gray-200">
               <button
                 onClick={handleLogout}
@@ -207,6 +189,27 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
               >
                 <LogOut className="w-5 h-5" />
                 <span className="text-sm font-medium">Log Out</span>
+              </button>
+            </div>
+          ) : (
+            <div className="p-6 space-y-3">
+              <button
+                onClick={() => {
+                  onToggle();
+                  openModal('login');
+                }}
+                className="w-full text-slate-700 hover:bg-slate-100 rounded-xl transition-all duration-200 px-4 py-3 text-sm font-medium"
+              >
+                Log in
+              </button>
+              <button
+                onClick={() => {
+                  onToggle();
+                  openModal('signup');
+                }}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 px-4 py-3 text-sm font-semibold"
+              >
+                Sell your business
               </button>
             </div>
           )}

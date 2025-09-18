@@ -1,4 +1,4 @@
-# App Shell - BetweenDeals MVP
+# App Shell - flyp MVP
 
 The app folder contains the foundational architecture that supports all features in the MVP frontend. This is the **application shell** that provides the core infrastructure for the entire application.
 
@@ -30,11 +30,13 @@ app/
 ### **Application Shell Components**
 
 #### **1. Providers (`/providers/`)**
+
 - **`providers.tsx`**: Main provider composition that wraps the entire app
 - **`auth-provider.tsx`**: Combined authentication state and modal management
 - **`ui-provider.tsx`**: Global UI state (sidebar, notifications, loading)
 
 #### **2. Layouts (`/layouts/`)**
+
 - **`MainLayout.tsx`**: Standard layout with header and footer
 - **`AuthLayout.tsx`**: Centered layout for authentication pages
 - **`DashboardLayout.tsx`**: Sidebar layout for dashboard pages
@@ -42,12 +44,14 @@ app/
 - **`LayoutSplit.tsx`**: Split screen layout for specific flows
 
 #### **3. Routing (`/routing/`)**
+
 - **`router.tsx`**: Main route configuration with all application routes
 - **`route-guards.tsx`**: Authentication guards for protected routes
 
 ## 🎯 **Purpose & Scope**
 
 ### **What This App Shell Provides**
+
 - ✅ **Global State Management**: Authentication and UI state
 - ✅ **Layout System**: Consistent page layouts across the app
 - ✅ **Route Protection**: Authentication-based route guards
@@ -55,6 +59,7 @@ app/
 - ✅ **Type Safety**: Full TypeScript support
 
 ### **What This App Shell Does NOT Include**
+
 - ❌ **Business Logic**: Feature-specific functionality
 - ❌ **Page Components**: Individual page implementations
 - ❌ **API Services**: Data fetching and API integration
@@ -64,6 +69,7 @@ app/
 ## 🔧 **Usage**
 
 ### **Provider Composition**
+
 ```typescript
 import { AppProviders } from '@app/providers/providers';
 
@@ -77,6 +83,7 @@ function App() {
 ```
 
 ### **Layout Usage**
+
 ```typescript
 import { MainLayout, AuthLayout, DashboardLayout } from '@app/layouts';
 
@@ -91,6 +98,7 @@ import { MainLayout, AuthLayout, DashboardLayout } from '@app/layouts';
 ```
 
 ### **Route Protection**
+
 ```typescript
 import { ProtectedRoute, GuestRoute } from '@app/routing/route-guards';
 

@@ -2,8 +2,8 @@
 // Location: src/shared/components/ui/BrandLogo.tsx
 // Purpose: Reusable logo component for branding consistency
 
-import * as React from 'react';
 import { Building2 } from 'lucide-react';
+import * as React from 'react';
 
 interface BrandLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -57,7 +57,7 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
       </div>
       {showText && (
         <span className={`${textSizeClasses[size]} font-bold ${textColorClasses[variant]}`}>
-          BetweenDeals
+          flyp
         </span>
       )}
     </div>

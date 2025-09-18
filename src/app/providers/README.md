@@ -1,4 +1,4 @@
-# 🚀 MVP Providers - BetweenDeals MVP
+# 🚀 MVP Providers - flyp MVP
 
 ## 📋 **Overview**
 
@@ -22,19 +22,14 @@ Combined authentication and modal management:
 import { useAuth } from '@app/providers/auth-provider';
 
 function MyComponent() {
-  const { 
-    user, 
-    isAuthenticated, 
-    isLoading,
-    openModal, 
-    closeModal 
-  } = useAuth();
+  const { user, isAuthenticated, isLoading, openModal, closeModal } = useAuth();
 
   // Your component logic
 }
 ```
 
 ### **Features**
+
 - ✅ **User Authentication**: Login/logout state
 - ✅ **Modal Management**: Login/signup modals
 - ✅ **Post-Auth Redirects**: Redirect after login
@@ -48,18 +43,14 @@ Basic UI state management:
 import { useUI } from '@app/providers/ui-provider';
 
 function MyComponent() {
-  const { 
-    isSidebarOpen, 
-    toggleSidebar,
-    addNotification,
-    notifications 
-  } = useUI();
+  const { isSidebarOpen, toggleSidebar, addNotification, notifications } = useUI();
 
   // Your component logic
 }
 ```
 
 ### **Features**
+
 - ✅ **Sidebar State**: Open/close sidebar
 - ✅ **Loading States**: Global loading indicator
 - ✅ **Notifications**: Success/error messages
@@ -68,6 +59,7 @@ function MyComponent() {
 ## 🚀 **Usage**
 
 ### **Basic Setup**
+
 ```typescript
 import { AppProviders } from '@app/providers/providers';
 
@@ -81,6 +73,7 @@ function App() {
 ```
 
 ### **Individual Providers**
+
 ```typescript
 import { AuthProvider, UIProvider } from '@app/providers/providers';
 
@@ -106,6 +99,7 @@ function CustomApp() {
 ## 🔄 **When to Scale Up**
 
 When your MVP grows, consider adding:
+
 - **SecurityProvider**: For enterprise security
 - **BusinessModalProvider**: For complex business flows
 - **Provider Registry**: For provider management

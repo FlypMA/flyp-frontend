@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import SellerOnboardingModal, { SellerFormData } from '@/shared/components/modals/SellerOnboardingModal';
+import SellerOnboardingModal, {
+  SellerFormData,
+} from '@/shared/components/modals/SellerOnboardingModal';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,36 +22,36 @@ const CreateListingPage: React.FC = () => {
 
   const handleOnboardingComplete = (data: SellerFormData) => {
     console.log('Business listing created with data:', data);
-    
+
     // Here you would typically:
     // 1. Send the data to your API to create the listing
     // 2. Show success notification
     // 3. Redirect to the appropriate page
-    
+
     // For now, close modal and navigate to business overview
     setIsModalOpen(false);
-    navigate('/my-business/overview', { 
-      state: { 
+    navigate('/my-business/overview', {
+      state: {
         message: 'Business listing created successfully!',
-        listingData: data 
-      }
+        listingData: data,
+      },
     });
   };
 
   return (
     <>
       <SEOHead
-        title="Create Business Listing | BetweenDeals"
-        description="List your business for sale on BetweenDeals. Complete our guided process to create a professional listing that attracts qualified buyers."
-        keywords="sell business, create listing, business for sale, BetweenDeals listing"
+        title="Create Business Listing | flyp"
+        description="List your business for sale on flyp. Complete our guided process to create a professional listing that attracts qualified buyers."
+        keywords="sell business, create listing, business for sale, flyp listing"
       />
-      
+
       <SellerOnboardingModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onComplete={handleOnboardingComplete}
       />
-      
+
       {/* Fallback content or loading indicator if modal takes time to load */}
       {!isModalOpen && (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">

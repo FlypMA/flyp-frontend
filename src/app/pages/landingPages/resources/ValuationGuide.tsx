@@ -1,23 +1,19 @@
-import * as React from 'react';
-import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Calculator,
-  TrendingUp,
-  Building2,
-  Euro,
-  BarChart,
-  Target,
-  CheckCircle,
-  ArrowRight,
-  FileText,
-  PieChart,
-  DollarSign,
-  Briefcase,
-} from 'lucide-react';
+import { useAuth } from '@/app/providers/auth-provider';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { useAuth } from '@/app/providers/auth-provider';
+import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
+import {
+  BarChart,
+  Briefcase,
+  Building2,
+  Calculator,
+  CheckCircle,
+  FileText,
+  PieChart,
+  Target,
+  TrendingUp,
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ValuationGuide = () => {
   const navigate = useNavigate();
@@ -26,7 +22,7 @@ const ValuationGuide = () => {
   return (
     <>
       <SEOHead
-        title="Business Valuation Guide | betweendeals M&A Platform"
+        title="Business Valuation Guide | flyp M&A Platform"
         description="Complete guide to business valuation for M&A transactions. Learn valuation methods, multiples, and how to value your SME business for sale in Europe."
         keywords="business valuation, company valuation, M&A valuation, EBITDA multiples, discounted cash flow, business worth, SME valuation"
       />

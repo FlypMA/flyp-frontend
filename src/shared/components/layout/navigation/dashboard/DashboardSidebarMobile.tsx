@@ -11,19 +11,19 @@
 // - Business management sections
 // - Coming soon features
 
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Building2, 
-  FileText, 
-  Calculator, 
-  TrendingUp, 
-  MessageCircle,
+import {
   BarChart3,
+  Building2,
+  Calculator,
+  FileText,
+  LayoutDashboard,
+  MessageCircle,
   Settings,
-  X
+  TrendingUp,
+  X,
 } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../services';
 import { User } from '../../../../types';
 
@@ -53,7 +53,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
   isOpen,
   onClose,
   user,
-  className = ''
+  className = '',
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -224,12 +224,10 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">Dashboard</h2>
-                {user && (
-                  <p className="text-sm text-gray-500">{user.name || user.email}</p>
-                )}
+                {user && <p className="text-sm text-gray-500">{user.name || user.email}</p>}
               </div>
             </div>
-            
+
             <button
               onClick={onClose}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -271,7 +269,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
                             isActive ? 'text-primary-600' : 'text-gray-500'
                           }`}
                         />
-                        
+
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium">
                             {item.label}
@@ -282,9 +280,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
                             )}
                           </div>
                           {item.description && (
-                            <div className="text-xs text-gray-500 mt-0.5">
-                              {item.description}
-                            </div>
+                            <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
                           )}
                         </div>
                       </button>
@@ -297,9 +293,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
 
           {/* Footer */}
           <div className="p-4 border-t border-gray-200">
-            <div className="text-xs text-gray-500 text-center">
-              BetweenDeals Dashboard
-            </div>
+            <div className="text-xs text-gray-500 text-center">flyp Dashboard</div>
           </div>
         </div>
       </div>

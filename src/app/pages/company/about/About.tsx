@@ -1,21 +1,9 @@
-import * as React from 'react';
-import { Button, Card, CardBody } from '@heroui/react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Building2,
-  Users,
-  Globe,
-  Shield,
-  TrendingUp,
-  Award,
-  ArrowRight,
-  CheckCircle,
-  Heart,
-  Target,
-} from 'lucide-react';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
+import { Card, CardBody } from '@heroui/react';
+import { Award, CheckCircle, Globe, Heart, Shield, Target, TrendingUp, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../providers/auth-provider';
 
 const About = () => {
@@ -35,9 +23,7 @@ const About = () => {
         <div className="bg-gradient-to-br from-neutral-50 via-white to-primary-50 py-20">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
-                About betweendeals
-              </h1>
+              <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">About flyp</h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
                 The next-generation M&A platform modernizing how European SMEs buy and sell
                 businesses. Launching 2025 to transform a €125B fragmented market.
@@ -62,8 +48,8 @@ const About = () => {
 
               <div className="space-y-8 text-lg text-neutral-700 leading-relaxed">
                 <p>
-                  betweendeals is being built to solve one of Europe's biggest business challenges:
-                  the fragmented, inefficient SME M&A market. With 2.8 million SMEs across Europe
+                  flyp is being built to solve one of Europe's biggest business challenges: the
+                  fragmented, inefficient SME M&A market. With 2.8 million SMEs across Europe
                   seeking exit strategies and a €125 billion annual market plagued by 18-24 month
                   sale cycles, we saw an opportunity to modernize an entire industry.
                 </p>
@@ -83,9 +69,9 @@ const About = () => {
                 </p>
 
                 <p>
-                  We're building betweendeals because every entrepreneur deserves a transparent,
-                  efficient path to their next chapter – whether that's buying their first business
-                  or selling the company they've spent decades building.
+                  We're building flyp because every entrepreneur deserves a transparent, efficient
+                  path to their next chapter – whether that's buying their first business or selling
+                  the company they've spent decades building.
                 </p>
               </div>
             </div>
@@ -289,10 +275,10 @@ const About = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-8">Our Team</h2>
               <p className="text-lg text-neutral-700 mb-12 leading-relaxed">
-                betweendeals is proudly run by a dedicated team of M&A professionals, technology
-                experts, and business specialists based across Europe. Our diverse backgrounds in
-                finance, technology, and entrepreneurship allow us to understand the unique
-                challenges and opportunities in the European M&A market.
+                flyp is proudly run by a dedicated team of M&A professionals, technology experts,
+                and business specialists based across Europe. Our diverse backgrounds in finance,
+                technology, and entrepreneurship allow us to understand the unique challenges and
+                opportunities in the European M&A market.
               </p>
               <p className="text-neutral-600">
                 We're always looking to improve our platform and service. Whether you're looking to

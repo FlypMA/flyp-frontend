@@ -1,37 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/app/providers/auth-provider';
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Select,
-  SelectItem,
   Card,
   CardBody,
   Checkbox,
-  Divider,
   Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Select,
+  SelectItem,
 } from '@heroui/react';
-import { Button } from '../buttons/Button';
-import { Input } from '../forms/Input';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
 import {
-  MessageSquare,
-  User,
   Building2,
-  Euro,
-  Mail,
-  Phone,
   FileText,
-  X,
-  UserPlus,
   Lock,
-  MapPin,
-  Calendar,
-  TrendingUp,
+  Mail,
+  MessageSquare,
+  Phone,
+  User,
+  UserPlus,
+  X,
 } from 'lucide-react';
-import { useAuth } from '@/app/providers/auth-provider';
+import React, { useEffect, useState } from 'react';
+import { Button } from '../buttons/Button';
+import AnimatedTextarea from '../forms/AnimatedTextarea';
+import { Input } from '../forms/Input';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -94,8 +89,8 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   // Check authentication status
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem('auth_token') || localStorage.getItem('betweendeals_auth');
-      const user = localStorage.getItem('betweendeals_user');
+      const token = localStorage.getItem('auth_token') || localStorage.getItem('flyp_auth');
+      const user = localStorage.getItem('flyp_user');
       setIsAuthenticated(!!(token && user));
     };
 

@@ -1,7 +1,7 @@
 // 🔐 Login Service - MVP Version
 // Location: src/shared/services/auth/login.ts
 // Purpose: Dedicated service for handling user login operations with Supabase Auth
-// 
+//
 // Features:
 // - Email/password authentication with Supabase
 // - Session management with cookies and localStorage
@@ -10,13 +10,12 @@
 // - User data integration from public.users table
 // - Legacy-compatible API for easy migration
 
-import { User } from '../../types';
 import { supabase } from '../../../config';
-import { SessionManager } from './utils/session-manager';
+import { convertSupabaseUserToUser, User } from '../../types';
 import { AuthErrorHandler } from './utils/error-handler';
 import { RetryHandler } from './utils/retry-handler';
+import { SessionManager } from './utils/session-manager';
 import { UserDataManager } from './utils/user-data-manager';
-import { convertSupabaseUserToUser } from '../../types';
 
 // =============================================================================
 // LOGIN TYPES
@@ -65,7 +64,7 @@ export class LoginService {
 
           // Get additional user data from public.users table
           const publicUserData = await UserDataManager.getPublicUserData(data.user.id);
-          
+
           // Convert Supabase user to our User interface
           const user = convertSupabaseUserToUser(data.user, publicUserData || undefined);
 
@@ -91,10 +90,10 @@ export class LoginService {
       return result;
     } catch (error) {
       console.error('❌ Login failed:', error);
-      
+
       const authError = AuthErrorHandler.handleSupabaseError(error);
       AuthErrorHandler.logError(authError, 'login');
-      
+
       return AuthErrorHandler.createErrorResponse(authError);
     }
   }
@@ -108,7 +107,7 @@ export class LoginService {
 
       const mockUser: User = {
         id: 'dev-user-123',
-        email: email || 'dev@betweendeals.com',
+        email: email || 'dev@flyp.com',
         name: 'Development User',
         role: 'seller',
         email_verified: true,

@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import Container from '@/shared/components/layout/container/Container';
+import { SEOHead } from '@/shared/components/seo/SEOHead';
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   Input,
-  Textarea,
   Select,
   SelectItem,
+  Textarea,
 } from '@heroui/react';
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  MessageCircle,
-  Building2,
-  Users,
-  FileText,
-  Shield,
   ArrowRight,
+  Building2,
   CheckCircle,
-  Headphones,
+  Clock,
+  FileText,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
+  Users,
 } from 'lucide-react';
-import Container from '@/shared/components/layout/container/Container';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
+import React, { useState } from 'react';
 
 const NewContact = () => {
   const [formData, setFormData] = useState({
@@ -106,9 +104,9 @@ const NewContact = () => {
   return (
     <>
       <SEOHead
-        title="Contact Us | betweendeals M&A Platform"
+        title="Contact Us | flyp M&A Platform"
         description="Get in touch with our M&A experts. Professional support for buyers, sellers, and partners across Europe. Response within 24 hours."
-        keywords="contact betweendeals, M&A support, customer service, business support, help center"
+        keywords="contact flyp, M&A support, customer service, business support, help center"
       />
 
       <div className="min-h-screen bg-white">
@@ -154,10 +152,10 @@ const NewContact = () => {
                   <h3 className="text-xl font-semibold text-neutral-900 mb-2">Email Support</h3>
                   <p className="text-neutral-600 mb-4">Get professional help via email</p>
                   <a
-                    href="mailto:hello@betweendeals.com"
+                    href="mailto:hello@flyp.com"
                     className="text-primary-600 hover:text-primary-700 font-semibold"
                   >
-                    hello@betweendeals.com
+                    hello@flyp.com
                   </a>
                   <div className="mt-3 flex items-center justify-center gap-2 text-sm text-neutral-500">
                     <Clock className="w-4 h-4" />

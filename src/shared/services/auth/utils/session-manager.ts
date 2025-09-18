@@ -11,17 +11,17 @@
 // - Secure cookie configuration (HTTPS, SameSite, etc.)
 // - Session validation and cleanup
 
-import { User, AuthResult } from '../../../types';
+import { AuthResult, User } from '../../../types';
 
 // =============================================================================
 // SESSION CONFIGURATION
 // =============================================================================
 
 const SESSION_CONFIG = {
-  COOKIE_NAME: 'betweendeals_session',
-  TOKEN_KEY: 'betweendeals_token',
-  USER_KEY: 'betweendeals_user',
-  REFRESH_KEY: 'betweendeals_refresh',
+  COOKIE_NAME: 'flyp_session',
+  TOKEN_KEY: 'flyp_token',
+  USER_KEY: 'flyp_user',
+  REFRESH_KEY: 'flyp_refresh',
   EXPIRY_DAYS: 7, // 7 days
   SECURE: process.env.NODE_ENV === 'production',
   SAME_SITE: 'lax' as const,
@@ -48,7 +48,7 @@ export class SessionManager {
 
       // Store in cookie for server-side access
       this.setCookie(SESSION_CONFIG.COOKIE_NAME, authResult.token, SESSION_CONFIG.EXPIRY_DAYS);
-      
+
       console.log('✅ Session stored successfully');
     } catch (error) {
       console.error('❌ Failed to store session:', error);
@@ -68,7 +68,7 @@ export class SessionManager {
       }
 
       const user: User = JSON.parse(userStr);
-      
+
       return {
         isAuthenticated: true,
         user,
@@ -93,7 +93,7 @@ export class SessionManager {
 
       // Clear cookie
       this.deleteCookie(SESSION_CONFIG.COOKIE_NAME);
-      
+
       console.log('✅ Session cleared successfully');
     } catch (error) {
       console.error('❌ Failed to clear session:', error);
@@ -147,14 +147,16 @@ export class SessionManager {
   private static setCookie(name: string, value: string, days: number): void {
     const expires = new Date();
     expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    
+
     const cookieString = [
       `${name}=${value}`,
       `expires=${expires.toUTCString()}`,
       `path=/`,
       SESSION_CONFIG.SECURE ? 'secure' : '',
       `samesite=${SESSION_CONFIG.SAME_SITE}`,
-    ].filter(Boolean).join('; ');
+    ]
+      .filter(Boolean)
+      .join('; ');
 
     document.cookie = cookieString;
   }

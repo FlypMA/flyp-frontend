@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
-import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
-import { useNavigate } from 'react-router-dom';
-import {
-  CheckSquare,
-  FileText,
-  Shield,
-  DollarSign,
-  Users,
-  Building2,
-  Scale,
-  TrendingUp,
-  AlertTriangle,
-  Download,
-  ArrowRight,
-  Clock,
-  Target,
-  Eye,
-  ChevronDown,
-  ChevronUp,
-} from 'lucide-react';
+import { useAuth } from '@/app/providers/auth-provider';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { useAuth } from '@/app/providers/auth-provider';
+import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
+import {
+  AlertTriangle,
+  Building2,
+  CheckSquare,
+  ChevronDown,
+  ChevronUp,
+  DollarSign,
+  Eye,
+  FileText,
+  Scale,
+  Shield,
+  Target,
+  TrendingUp,
+  Users,
+} from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DueDiligenceChecklist = () => {
   const navigate = useNavigate();
@@ -160,7 +157,7 @@ const DueDiligenceChecklist = () => {
   return (
     <>
       <SEOHead
-        title="Due Diligence Checklist | betweendeals M&A Platform"
+        title="Due Diligence Checklist | flyp M&A Platform"
         description="Comprehensive due diligence checklist for M&A transactions. Cover financial, legal, operational, and commercial aspects to ensure successful deals."
         keywords="due diligence, M&A checklist, financial due diligence, legal due diligence, operational due diligence, business acquisition"
       />

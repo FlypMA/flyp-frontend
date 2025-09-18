@@ -1,5 +1,5 @@
 /**
- * betweendeals.com Brand Design System
+ * flyp.com Brand Design System
  * Inspired by Airbnb's clean, trustworthy design principles
  * Optimized for professional M&A platform users
  */
@@ -274,7 +274,7 @@ export const DesignPrinciples = {
 } as const;
 
 // Export default theme configuration
-export const BetweendealsTheme = {
+export const flypTheme = {
   colors: BrandColors,
   typography: Typography,
   spacing: Spacing,
@@ -284,4 +284,4 @@ export const BetweendealsTheme = {
   principles: DesignPrinciples,
 } as const;
 
-export default BetweendealsTheme;
+export default flypTheme;

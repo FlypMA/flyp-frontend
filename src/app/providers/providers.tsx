@@ -1,7 +1,7 @@
 /**
- * 🚀 MVP Providers - BetweenDeals MVP
+ * 🚀 MVP Providers - flyp MVP
  * Simple provider composition for MVP
- * 
+ *
  * MVP APPROACH:
  * - Basic provider composition only
  * - No enterprise features
@@ -24,9 +24,7 @@ interface AppProvidersProps {
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <AuthProvider>
-      <UIProvider>
-        {children}
-      </UIProvider>
+      <UIProvider>{children}</UIProvider>
     </AuthProvider>
   );
 };
