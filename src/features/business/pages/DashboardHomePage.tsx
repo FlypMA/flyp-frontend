@@ -167,10 +167,10 @@ export const DashboardHomePage: React.FC = () => {
                     Listed {new Date(listing.createdAt).toLocaleDateString()}
                   </p>
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="tertiary" size="sm">
                       View
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="tertiary" size="sm">
                       Edit
                     </Button>
                   </div>
@@ -179,7 +179,7 @@ export const DashboardHomePage: React.FC = () => {
             ))}
 
             <Link to="/dashboard/listings">
-              <Button variant="ghost" size="sm" className="w-full">
+              <Button variant="tertiary" size="sm" className="w-full">
                 View All Listings
               </Button>
             </Link>
@@ -218,7 +218,7 @@ export const DashboardHomePage: React.FC = () => {
             ))}
           </div>
 
-          <Button variant="ghost" size="sm" className="w-full mt-4">
+          <Button variant="tertiary" size="sm" className="w-full mt-4">
             View All Activity
           </Button>
         </Card>

@@ -1,90 +1,253 @@
 # Form Components
 
-This directory contains a comprehensive set of form components for building user interfaces with consistent styling and behavior.
+This directory contains a comprehensive set of form components for building user interfaces with consistent styling and behavior. All components follow the same design system with floating labels, smooth animations, and consistent validation states.
 
 ## Components
 
-### Input
+### CustomInputField
 
-The primary input component that serves as the single source of truth for all input implementations across the application.
+The primary input component for text, email, and other standard input types.
 
 **Features:**
-
-- Multiple input types: text, email, password, number, tel, etc.
-- Icon support (left and right icons)
+- Floating label animation
 - Error and validation states
-- Help text and descriptions
-- Multiple sizes: sm, md, lg
-- Full width option
 - Disabled and required states
-- Custom styling via className
+- Consistent styling with rounded corners
+- Smooth focus transitions
 
 **Usage:**
 
 ```tsx
-import { Input } from '@/shared/components/forms';
+import { CustomInputField } from '@/shared/components/forms';
 
-// Basic input
-<Input
+<CustomInputField
   label="Email Address"
   type="email"
   placeholder="Enter your email"
+  value={email}
+  onChange={handleEmailChange}
+  onBlur={handleEmailBlur}
+  name="email"
   required
-/>
-
-// With icons and validation
-<Input
-  label="Password"
-  type="password"
-  leftIcon={<LockIcon />}
-  error="Password must be at least 8 characters"
-  required
-/>
-
-// With help text
-<Input
-  label="Phone Number"
-  type="tel"
-  placeholder="+32 123 456 789"
-  description="Include country code"
+  error={errors.email}
+  touched={touched.email}
 />
 ```
 
-### AnimatedTextarea
+### CustomPasswordInputField
 
-An advanced textarea component with smooth animations and React Final Form integration.
+Specialized password input with visibility toggle and optional strength indicator.
 
 **Features:**
-
-- Smooth label animations
-- React Final Form integration
-- Standalone mode support
-- Auto-resize functionality
-- Min/max rows control
-- Error and validation states
-- Customizable styling
+- Show/hide password toggle
+- Optional password strength indicator
+- All standard input features
+- Enhanced security UX
 
 **Usage:**
 
 ```tsx
-import { AnimatedTextarea } from '@/shared/components/forms';
+import { CustomPasswordInputField } from '@/shared/components/forms';
 
-// Standalone mode
-<AnimatedTextarea
-  label="Message"
-  placeholder="Enter your message..."
-  minRows={3}
-  maxRows={8}
-  value={message}
-  onChange={setMessage}
+<CustomPasswordInputField
+  label="Password"
+  placeholder="Enter your password"
+  value={password}
+  onChange={handlePasswordChange}
+  onBlur={handlePasswordBlur}
+  name="password"
+  showPasswordStrength
+  required
 />
+```
 
-// React Final Form integration
-<AnimatedTextarea
-  variant="react-final-form"
+### CustomNumberInputField
+
+Number input with formatting, validation, and currency support.
+
+**Features:**
+- Min/max validation
+- Currency formatting
+- Prefix/suffix support
+- Decimal control
+- Step increment support
+
+**Usage:**
+
+```tsx
+import { CustomNumberInputField } from '@/shared/components/forms';
+
+<CustomNumberInputField
+  label="Price"
+  placeholder="0.00"
+  value={price}
+  onChange={handlePriceChange}
+  onBlur={handlePriceBlur}
+  name="price"
+  prefix="$"
+  formatAsCurrency
+  min={0}
+  step={0.01}
+/>
+```
+
+### CustomTextarea
+
+Enhanced textarea component with floating label and auto-resize functionality.
+
+**Features:**
+- Floating label animation
+- Auto-resize functionality
+- Min/max height control
+- Error and validation states
+- Consistent styling
+
+**Usage:**
+
+```tsx
+import { CustomTextarea } from '@/shared/components/forms';
+
+<CustomTextarea
   label="Description"
-  field={field}
-  meta={meta}
+  placeholder="Enter your description..."
+  value={description}
+  onChange={handleDescriptionChange}
+  onBlur={handleDescriptionBlur}
+  name="description"
+  minHeight={120}
+  maxHeight={300}
+  autoResize
+  required
+/>
+```
+
+### CustomDropdown
+
+Enhanced dropdown component with floating label and search functionality.
+
+**Features:**
+- Floating label animation
+- Search functionality
+- Keyboard navigation
+- Error and validation states
+- Consistent styling
+
+**Usage:**
+
+```tsx
+import { CustomDropdown } from '@/shared/components/forms';
+
+<CustomDropdown
+  label="Industry"
+  placeholder="Select an industry"
+  options={industryOptions}
+  value={selectedIndustry}
+  onChange={setSelectedIndustry}
+  name="industry"
+  required
+/>
+```
+
+### CustomCheckbox
+
+Enhanced checkbox component with consistent styling and validation.
+
+**Features:**
+- Custom checkbox styling
+- Error and validation states
+- Description text support
+- Consistent design system
+
+**Usage:**
+
+```tsx
+import { CustomCheckbox } from '@/shared/components/forms';
+
+<CustomCheckbox
+  label="I agree to the terms and conditions"
+  checked={agreed}
+  onChange={handleAgreementChange}
+  onBlur={handleAgreementBlur}
+  name="agreement"
+  required
+  description="By checking this box, you agree to our terms of service"
+/>
+```
+
+### CustomRadio
+
+Enhanced radio button component with consistent styling.
+
+**Features:**
+- Custom radio button styling
+- Error and validation states
+- Description text support
+- Consistent design system
+
+**Usage:**
+
+```tsx
+import { CustomRadio } from '@/shared/components/forms';
+
+<CustomRadio
+  label="Option 1"
+  value="option1"
+  checked={selectedOption === 'option1'}
+  onChange={handleOptionChange}
+  name="options"
+  required
+/>
+```
+
+### CustomSwitch
+
+Enhanced switch component with consistent styling.
+
+**Features:**
+- Custom switch styling
+- Error and validation states
+- Description text support
+- Consistent design system
+
+**Usage:**
+
+```tsx
+import { CustomSwitch } from '@/shared/components/forms';
+
+<CustomSwitch
+  label="Enable notifications"
+  checked={notificationsEnabled}
+  onChange={handleNotificationChange}
+  name="notifications"
+  description="Receive email notifications about updates"
+/>
+```
+
+### CustomFileInput
+
+Enhanced file input component with drag and drop support.
+
+**Features:**
+- Drag and drop functionality
+- File preview and removal
+- File size validation
+- Multiple file support
+- Consistent styling
+
+**Usage:**
+
+```tsx
+import { CustomFileInput } from '@/shared/components/forms';
+
+<CustomFileInput
+  label="Upload Documents"
+  placeholder="Choose files or drag and drop"
+  onChange={handleFileChange}
+  name="documents"
+  accept=".pdf,.doc,.docx"
+  multiple
+  maxSize={10}
+  description="Maximum file size: 10MB"
 />
 ```
 
@@ -93,7 +256,6 @@ import { AnimatedTextarea } from '@/shared/components/forms';
 A wrapper component that provides consistent labeling, validation, and help text for form fields.
 
 **Features:**
-
 - Consistent field labeling
 - Required field indicators
 - Help text display
@@ -104,7 +266,7 @@ A wrapper component that provides consistent labeling, validation, and help text
 **Usage:**
 
 ```tsx
-import { FormField, Input } from '@/shared/components/forms';
+import { FormField, CustomInputField } from '@/shared/components/forms';
 
 <FormField
   label="Company Name"
@@ -112,8 +274,15 @@ import { FormField, Input } from '@/shared/components/forms';
   helpText="Enter your company's legal name"
   error={errors.companyName}
 >
-  <Input value={companyName} onChange={setCompanyName} placeholder="Acme Corporation" />
-</FormField>;
+  <CustomInputField
+    type="text"
+    placeholder="Acme Corporation"
+    value={companyName}
+    onChange={handleCompanyNameChange}
+    onBlur={handleCompanyNameBlur}
+    name="companyName"
+  />
+</FormField>
 ```
 
 ### FormRecovery
@@ -121,7 +290,6 @@ import { FormField, Input } from '@/shared/components/forms';
 A component for handling form recovery and auto-save functionality.
 
 **Features:**
-
 - Auto-save form data
 - Recovery prompts
 - Local storage integration
@@ -137,57 +305,8 @@ import { FormRecovery } from '@/shared/components/forms';
   formId="business-listing"
   onRecover={data => setFormData(data)}
   onSave={data => saveToStorage(data)}
-/>;
+/>
 ```
-
-### StyledSelect
-
-A custom styled select component with enhanced functionality.
-
-**Features:**
-
-- Custom styling
-- Search functionality
-- Multi-select support
-- Custom options rendering
-- Keyboard navigation
-- Accessibility compliance
-
-**Usage:**
-
-```tsx
-import { StyledSelect } from '@/shared/components/forms';
-
-<StyledSelect
-  label="Industry"
-  options={industries}
-  value={selectedIndustry}
-  onChange={setSelectedIndustry}
-  placeholder="Select an industry"
-/>;
-```
-
-### SwitchShowcase
-
-A demonstration component showing various switch configurations and use cases.
-
-**Features:**
-
-- Multiple switch examples
-- Different configurations
-- Interactive demonstrations
-- Best practices showcase
-
-### TextareaShowcase
-
-A demonstration component showing various textarea configurations and use cases.
-
-**Features:**
-
-- Multiple textarea examples
-- Different configurations
-- Interactive demonstrations
-- Best practices showcase
 
 ## Design System Integration
 

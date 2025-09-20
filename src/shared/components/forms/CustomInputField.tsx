@@ -1,121 +1,53 @@
-// 📝 Custom Input Field - Clean HeroUI-styled input with floating label
+// 📝 Custom Input Field - Enhanced input with floating label
 // Location: src/shared/components/forms/CustomInputField.tsx
-// Purpose: Reusable form input with HeroUI styling and floating label
+// Purpose: Reusable input field with smooth animations and validation states
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
-interface CustomInputFieldProps {
-  /**
-   * Label for the input field
-   */
-  label: string;
-
-  /**
-   * Input type (text, email, password, etc.)
-   */
+export interface CustomInputFieldProps {
+  label?: string;
   type?: string;
-
-  /**
-   * Placeholder text
-   */
   placeholder?: string;
-
-  /**
-   * Current value
-   */
-  value: string;
-
-  /**
-   * Change handler
-   */
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-
-  /**
-   * Blur handler
-   */
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-
-  /**
-   * Focus handler
-   */
-  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-
-  /**
-   * Input name attribute
-   */
-  name: string;
-
-  /**
-   * Input id attribute
-   */
-  id?: string;
-
-  /**
-   * Whether the field is required
-   */
-  required?: boolean;
-
-  /**
-   * Whether the input is disabled
-   */
-  disabled?: boolean;
-
-  /**
-   * Auto complete attribute
-   */
-  autoComplete?: string;
-
-  /**
-   * Error message to display
-   */
-  error?: string;
-
-  /**
-   * Whether the field has been touched (for validation)
-   */
-  touched?: boolean;
-
-  /**
-   * Custom CSS classes
-   */
+  value?: string;
+  onChange?: (_e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (_e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (_e: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
   className?: string;
-
-  /**
-   * Reference to the input element
-   */
+  error?: string;
+  touched?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  autoFocus?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  description?: string;
+  autoComplete?: string;
   inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const CustomInputField: React.FC<CustomInputFieldProps> = ({
-  label,
+  label = '',
   type = 'text',
-  placeholder,
-  value,
-  onChange,
-  onBlur,
+  placeholder = '',
+  value = '',
+  onChange = () => {},
+  onBlur = () => {},
   onFocus,
-  name,
-  id,
+  name = '',
+  className = '',
+  error,
+  touched,
   required = false,
   disabled = false,
+  autoFocus = false,
+  leftIcon,
+  rightIcon,
+  description,
   autoComplete,
-  error,
-  touched = false,
-  className = '',
   inputRef,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [hasContent, setHasContent] = useState(false);
-  const internalRef = useRef<HTMLInputElement>(null);
-  const ref = inputRef || internalRef;
-
-  // Generate unique IDs if not provided
-  const inputId = id || `${name}-input`;
-  const labelId = `${name}-label`;
-
-  useEffect(() => {
-    setHasContent(!!value);
-  }, [value]);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
@@ -124,71 +56,78 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    onBlur?.(e);
+    onBlur(e);
   };
 
-  const isFilled = hasContent || isFocused;
+  const hasValue = value.length > 0;
+  const isLabelFloating = isFocused || hasValue;
   const hasError = error && touched;
 
   return (
-    <div className={`w-full flex flex-col ${className}`}>
-      {/* Input Wrapper */}
-      <div
-        className={`
-          relative w-full inline-flex tap-highlight-transparent shadow-xs px-3 
-          border-medium border-default-200 min-h-10 rounded-medium flex-col 
-          items-start justify-center gap-0 transition-colors motion-reduce:transition-none 
-          h-14 py-2
-          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-text'}
-          ${isFocused ? 'border-default-foreground' : ''}
-          ${hasError ? 'border-danger' : ''}
-          hover:border-default-400
-        `}
-        style={{ cursor: 'text' }}
-      >
-        {/* Floating Label */}
-        <label
-          htmlFor={inputId}
+    <div className={`relative ${className}`}>
+      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+        {leftIcon && (
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
+            {leftIcon}
+          </div>
+        )}
+        
+        <input
+          ref={inputRef}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder={isLabelFloating ? placeholder : ''}
+          required={required}
+          disabled={disabled}
+          autoFocus={autoFocus}
+          autoComplete={autoComplete}
           className={`
-            absolute z-10 pointer-events-none origin-top-left shrink-0 
-            rtl:origin-top-right subpixel-antialiased block cursor-text
-            will-change-auto transition-all duration-200 ease-out
-            motion-reduce:transition-none pe-2 max-w-full text-ellipsis overflow-hidden
-            ${
-              isFilled
-                ? 'text-default-600 pointer-events-auto scale-85 text-small -translate-y-[calc(50%+var(--heroui-font-size-small)/2-6px-var(--heroui-border-width-medium))]'
-                : 'text-foreground-500 text-small'
+            w-full h-16 px-4 pb-0 text-md text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+            ${leftIcon ? 'pl-10' : ''}
+            ${rightIcon ? 'pr-10' : ''}
+            ${hasError 
+              ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' 
+              : 'border-gray-300 bg-white focus:border-gray-500 focus:ring-gray-500'
             }
-            ${required ? "after:content-['*'] after:text-danger after:ms-0.5" : ''}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
+            focus:outline-none focus:ring-2 focus:ring-opacity-20
+            text-gray-900 placeholder-gray-400
           `}
-          id={labelId}
+        />
+        
+        {rightIcon && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
+            {rightIcon}
+          </div>
+        )}
+        
+        <label
+          className={`
+            absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
+            ${isLabelFloating 
+              ? 'top-3 text-xs text-gray-600' 
+              : 'top-5 text-md text-gray-500'
+            }
+            ${hasError ? 'text-red-500' : ''}
+            ${disabled ? 'text-gray-400' : ''}
+          `}
         >
           {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
         </label>
-
-        {/* Inner Wrapper */}
-        <div className="inline-flex w-full items-center h-full box-border group-data-[has-label=true]:items-end">
-          <input
-            ref={ref}
-            type={type}
-            id={inputId}
-            name={name}
-            value={value}
-            onChange={onChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            placeholder={placeholder}
-            disabled={disabled}
-            required={required}
-            autoComplete={autoComplete}
-            aria-labelledby={labelId}
-            className="w-full font-normal bg-transparent outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text text-small"
-          />
-        </div>
       </div>
-
-      {/* Error Message */}
-      {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
+      
+      {description && (
+        <p className="mt-1 text-sm text-gray-600">{description}</p>
+      )}
+      
+      {hasError && (
+        <p className="mt-1 text-sm text-red-600">{error}</p>
+      )}
     </div>
   );
 };

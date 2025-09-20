@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { Card, CardBody, Button } from '@heroui/react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody } from '@heroui/react';
 import { AlertTriangle, Info, Scale, Shield } from 'lucide-react';
+import * as React from 'react';
 
 interface FinancialDisclaimerProps {
   type: 'valuation' | 'solvency' | 'liquidation' | 'general';
@@ -116,7 +117,7 @@ const FinancialDisclaimer: React.FC<FinancialDisclaimerProps> = ({
               <h4 className={`font-semibold ${getTitleColor()}`}>{disclaimer.title}</h4>
               {isCollapsible && (
                 <Button
-                  variant="light"
+                  variant="tertiary"
                   size="sm"
                   onPress={() => setIsExpanded(!isExpanded)}
                   className={getTitleColor()}

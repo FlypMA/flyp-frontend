@@ -1,32 +1,31 @@
 import { useAuth } from '@/app/providers/auth-provider';
 import {
-  Card,
-  CardBody,
-  Checkbox,
-  Chip,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
+    Card,
+    CardBody,
+    Checkbox,
+    Chip,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
 } from '@heroui/react';
 import {
-  Building2,
-  FileText,
-  Lock,
-  Mail,
-  MessageSquare,
-  Phone,
-  User,
-  UserPlus,
-  X,
+    Building2,
+    FileText,
+    Lock,
+    Mail,
+    MessageSquare,
+    Phone,
+    User,
+    UserPlus,
+    X,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../buttons/Button';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
-import { Input } from '../forms/Input';
+import { AnimatedTextarea, Input } from '../forms';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -67,7 +66,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   isLoading = false,
 }) => {
   const { openModal, isAuthenticated, user } = useAuth();
-  const [inquiryData, setInquiryData] = useState<InquiryData>({
+  const [_inquiryData, _setInquiryData] = useState<InquiryData>({
     buyerName: '',
     buyerEmail: '',
     buyerPhone: '',
@@ -162,7 +161,8 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
 
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <Button
-              color="primary"
+              variant="primary"
+              size="md"
               className="flex-1"
               onPress={handleSignup}
               startContent={<UserPlus className="w-4 h-4" />}
@@ -170,7 +170,8 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
               Create Account
             </Button>
             <Button
-              variant="bordered"
+              variant="secondary"
+              size="md"
               className="flex-1"
               onPress={handleLogin}
               startContent={<Lock className="w-4 h-4" />}
@@ -387,10 +388,12 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             label="Full Name"
             placeholder="Enter your full name"
             value={inquiryData.buyerName}
-            onChange={value => setInquiryData(prev => ({ ...prev, buyerName: value }))}
+            onChange={e => setInquiryData(prev => ({ ...prev, buyerName: e.target.value }))}
             leftIcon={<User className="w-4 h-4 text-gray-400" />}
             required
             name="buyerName"
+            type="text"
+            onBlur={() => {}}
           />
 
           <Input
@@ -398,10 +401,11 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             type="email"
             placeholder="your.email@company.com"
             value={inquiryData.buyerEmail}
-            onChange={value => setInquiryData(prev => ({ ...prev, buyerEmail: value }))}
+            onChange={e => setInquiryData(prev => ({ ...prev, buyerEmail: e.target.value }))}
             leftIcon={<Mail className="w-4 h-4 text-gray-400" />}
             required
             name="buyerEmail"
+            onBlur={() => {}}
           />
         </div>
 
@@ -410,19 +414,23 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             label="Company/Organization"
             placeholder="Your company name"
             value={inquiryData.companyName}
-            onChange={value => setInquiryData(prev => ({ ...prev, companyName: value }))}
+            onChange={e => setInquiryData(prev => ({ ...prev, companyName: e.target.value }))}
             leftIcon={<Building2 className="w-4 h-4 text-gray-400" />}
             required
             name="companyName"
+            type="text"
+            onBlur={() => {}}
           />
 
           <Input
             label="Position/Title"
             placeholder="Your job title"
             value={inquiryData.position}
-            onChange={value => setInquiryData(prev => ({ ...prev, position: value }))}
+            onChange={e => setInquiryData(prev => ({ ...prev, position: e.target.value }))}
             leftIcon={<User className="w-4 h-4 text-gray-400" />}
             name="position"
+            type="text"
+            onBlur={() => {}}
           />
         </div>
 
@@ -430,9 +438,11 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           label="Phone Number"
           placeholder="+32 123 456 789"
           value={inquiryData.buyerPhone}
-          onChange={value => setInquiryData(prev => ({ ...prev, buyerPhone: value }))}
+          onChange={e => setInquiryData(prev => ({ ...prev, buyerPhone: e.target.value }))}
           leftIcon={<Phone className="w-4 h-4 text-gray-400" />}
           name="buyerPhone"
+          type="tel"
+          onBlur={() => {}}
         />
       </div>
     </div>
@@ -521,9 +531,11 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           label="Inquiry Message"
           placeholder="Tell the seller about your interest in this business, your background, and any specific questions you have..."
           value={inquiryData.message}
-          onChange={value => setInquiryData(prev => ({ ...prev, message: value }))}
+          onChange={e => setInquiryData(prev => ({ ...prev, message: e.target.value }))}
           minRows={4}
           required
+          onBlur={() => {}}
+          name="message"
         />
 
         <div className="space-y-3">
@@ -660,19 +672,19 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
             <ModalFooter>
               {isAuthenticated && (
                 <>
-                  <Button variant="bordered" onPress={onClose}>
+                  <Button variant="secondary" onPress={onClose}>
                     Cancel
                   </Button>
 
                   {currentStep > 1 && (
-                    <Button variant="bordered" onPress={handleBack}>
+                    <Button variant="secondary" onPress={handleBack}>
                       Back
                     </Button>
                   )}
 
                   {currentStep < 3 ? (
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleNext}
                       isDisabled={
                         currentStep === 1 &&
@@ -685,7 +697,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
                     </Button>
                   ) : (
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleSubmit}
                       isLoading={isLoading}
                       isDisabled={!validateForm()}

@@ -4,6 +4,7 @@
  * Purpose: Placeholder for analytics modal
  */
 
+import { Button } from '@/shared/components/buttons';
 import React from 'react';
 import { CenteredModal } from '../../../foundations';
 
@@ -19,12 +20,12 @@ export const AnalyticsModal: React.FC<AnalyticsModalProps> = ({ isOpen, onClose,
       <div className="text-center py-8">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Analytics</h3>
         <p className="text-gray-600 mb-6">This feature is coming soon!</p>
-        <button
-          onClick={onClose}
-          className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+        <Button
+          variant="primary"
+          onPress={onClose}
         >
           Close
-        </button>
+        </Button>
       </div>
     </CenteredModal>
   );

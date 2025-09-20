@@ -1,7 +1,8 @@
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody } from '@heroui/react';
+import { AlertTriangle, ArrowLeft, CreditCard, Mail, RefreshCw } from 'lucide-react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button } from '@heroui/react';
-import { AlertTriangle, ArrowLeft, RefreshCw, CreditCard, Mail } from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
 const CheckoutFailed: React.FC = () => {
@@ -36,14 +37,15 @@ const CheckoutFailed: React.FC = () => {
 
           <div className="space-y-3">
             <Button
-              className="w-full bg-blue-600 text-white hover:bg-blue-700"
+              variant="primary"
+              className="w-full"
               onPress={handleTryAgain}
               startContent={<RefreshCw className="w-4 h-4" />}
             >
               Try Again
             </Button>
             <Button
-              variant="bordered"
+              variant="tertiary"
               className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
               onPress={handleGoToPricing}
               startContent={<CreditCard className="w-4 h-4" />}
@@ -51,7 +53,7 @@ const CheckoutFailed: React.FC = () => {
               View Plans
             </Button>
             <Button
-              variant="bordered"
+              variant="tertiary"
               className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
               onPress={handleContactSupport}
               startContent={<Mail className="w-4 h-4" />}
@@ -59,7 +61,7 @@ const CheckoutFailed: React.FC = () => {
               Contact Support
             </Button>
             <Button
-              variant="light"
+              variant="tertiary"
               className="w-full text-gray-600 hover:underline"
               onPress={handleGoHome}
               startContent={<ArrowLeft className="w-4 h-4" />}

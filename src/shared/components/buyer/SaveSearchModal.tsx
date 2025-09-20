@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import { Button } from '@/shared/components/buttons';
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Input,
-  Select,
-  SelectItem,
-  Switch,
-  Card,
-  CardBody,
-  Chip,
-  Divider,
+    Card,
+    CardBody,
+    Chip,
+    Divider,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    Switch,
 } from '@heroui/react';
 import {
-  Bookmark,
-  Bell,
-  Mail,
-  Search,
-  Building2,
-  MapPin,
-  Euro,
-  Users,
-  Calendar,
-  Filter,
-  AlertCircle,
-  CheckCircle,
+    AlertCircle,
+    Bell,
+    Bookmark,
+    Building2,
+    Calendar,
+    CheckCircle,
+    Euro,
+    Filter,
+    Mail,
+    MapPin,
+    Search,
+    Users,
 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 interface SearchCriteria {
   searchQuery?: string;
@@ -70,7 +70,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
   existingSearch,
   mode,
 }) => {
-  const [searchData, setSearchData] = useState<SavedSearch>({
+  const [_searchData, _setSearchData] = useState<SavedSearch>({
     name: '',
     criteria: initialCriteria || {},
     alert_frequency: 'daily',
@@ -159,7 +159,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
       await onSave(searchData);
       onClose();
     } catch (error) {
-      console.error('Error saving search:', error);
+      // console.error('Error saving search:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -207,7 +207,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                   value={searchData.name}
                   onChange={e => setSearchData(prev => ({ ...prev, name: e.target.value }))}
                   startContent={<Search className="w-4 h-4 text-gray-400" />}
-                  variant="bordered"
+                  variant="flat"
                   isRequired
                 />
               </div>
@@ -269,8 +269,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                   You can modify these criteria by going back to the search page
                 </p>
                 <Button
-                  color="primary"
-                  variant="flat"
+                  variant="primary"
                   onPress={() => setStep('settings')}
                   endContent={<Bell className="w-4 h-4" />}
                 >
@@ -294,7 +293,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                     const frequency = Array.from(keys)[0] as SavedSearch['alert_frequency'];
                     setSearchData(prev => ({ ...prev, alert_frequency: frequency }));
                   }}
-                  variant="bordered"
+                  variant="flat"
                 >
                   <SelectItem key="immediate" startContent={<Bell className="w-4 h-4" />}>
                     <div>
@@ -393,19 +392,19 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
         <ModalFooter>
           <div className="flex items-center justify-between w-full">
             {step === 'settings' && (
-              <Button variant="light" onPress={() => setStep('criteria')}>
+              <Button variant="secondary" onPress={() => setStep('criteria')}>
                 Back to Details
               </Button>
             )}
 
             <div className="flex gap-2 ml-auto">
-              <Button variant="light" onPress={handleClose}>
+              <Button variant="secondary" onPress={handleClose}>
                 Cancel
               </Button>
 
               {step === 'criteria' ? (
                 <Button
-                  color="primary"
+                  variant="primary"
                   onPress={() => setStep('settings')}
                   isDisabled={!validateForm()}
                 >
@@ -413,7 +412,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
                 </Button>
               ) : (
                 <Button
-                  color="primary"
+                  variant="primary"
                   onPress={handleSave}
                   isLoading={isSubmitting}
                   startContent={<Bookmark className="w-4 h-4" />}

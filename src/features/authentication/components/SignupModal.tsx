@@ -2,13 +2,14 @@
 // Location: src/features/authentication/components/SignupModal.tsx
 // Purpose: Signup modal with role selection and custom inputs
 
+import { Button } from '@/shared/components/buttons';
+import { CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
 import { authService } from '@/shared/services/auth';
-import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
+import { Modal, ModalBody, ModalContent } from '@heroui/react';
 import { ArrowLeft, Building2, Info, Search, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
-import { CustomInputField, CustomPasswordInputField } from './forms';
 
 type UserIntent = 'buyer' | 'seller' | 'both';
 
@@ -151,7 +152,7 @@ const SignupModal: React.FC = () => {
     setErrorMessage('');
 
     try {
-      console.log('📝 Attempting signup with:', { email: formData.email, role: formData.role });
+      // console.log('📝 Attempting signup with:', { email: formData.email, role: formData.role });
 
       const authResult = await authService.createAccount(
         formData.email,
@@ -161,7 +162,7 @@ const SignupModal: React.FC = () => {
       );
 
       if (authResult.success && authResult.user) {
-        console.log('✅ Signup successful');
+        // console.log('✅ Signup successful');
 
         // Dispatch signup event for navigation sync
         window.dispatchEvent(
@@ -177,7 +178,7 @@ const SignupModal: React.FC = () => {
 
         // Handle post-auth redirect
         if (postAuthRedirect) {
-          console.log('🎯 Redirecting to:', postAuthRedirect.url);
+          // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
           navigate(postAuthRedirect.url, {
             state: postAuthRedirect.state,
@@ -199,7 +200,7 @@ const SignupModal: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error('❌ Signup failed:', error);
+      // console.error('❌ Signup failed:', error);
       setErrorMessage('Signup failed. Please check your information and try again.');
     } finally {
       setIsSubmitting(false);
@@ -487,7 +488,7 @@ const SignupModal: React.FC = () => {
                           {/* Create Account Button */}
                           <Button
                             type="submit"
-                            color="primary"
+                            variant="primary"
                             size="lg"
                             disabled={isSubmitting}
                             className="w-full mt-8"

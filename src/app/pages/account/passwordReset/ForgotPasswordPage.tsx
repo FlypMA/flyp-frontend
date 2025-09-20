@@ -52,7 +52,7 @@ const ForgotPasswordPage: React.FC = () => {
             <p className="text-sm text-gray-500">
               Didn't receive the email? Check your spam folder or
             </p>
-            <Button variant="ghost" onClick={() => setIsSubmitted(false)} className="w-full">
+            <Button variant="tertiary" onClick={() => setIsSubmitted(false)} className="w-full">
               Try again
             </Button>
           </div>
@@ -89,9 +89,11 @@ const ForgotPasswordPage: React.FC = () => {
           required
           autoComplete="email"
           placeholder="Enter your email address"
+          onBlur={() => {}}
+          name="email"
         />
 
-        <Button type="submit" loading={isLoading} className="w-full">
+        <Button type="submit" variant="primary" size="md" loading={isLoading} className="w-full">
           Send Reset Link
         </Button>
       </form>

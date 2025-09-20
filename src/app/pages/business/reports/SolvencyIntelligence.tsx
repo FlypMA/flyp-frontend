@@ -1,15 +1,16 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-  BarChart3,
-  Bell,
-  Calculator,
-  CheckCircle,
-  Info,
-  Target,
-  TrendingUp,
-  Wallet,
+    BarChart3,
+    Bell,
+    Calculator,
+    CheckCircle,
+    Info,
+    Target,
+    TrendingUp,
+    Wallet,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +44,7 @@ const SolvencyIntelligence = () => {
   // Loading states removed for smooth UX
   const [solvencyData, setSolvencyData] = useState<SolvencyMetrics | null>(null);
   const [maxLoanAmount, setMaxLoanAmount] = useState<number>(0);
-  const [showLoanCalculator, setShowLoanCalculator] = useState(false);
+  const [_showLoanCalculator, _setShowLoanCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -76,7 +77,7 @@ const SolvencyIntelligence = () => {
           navigate('/');
         }
       } catch (error) {
-        console.error('Error initializing page:', error);
+        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         // No loading state to manage
@@ -403,7 +404,7 @@ const SolvencyIntelligence = () => {
 
               <div className="ml-8">
                 <Button
-                  color="primary"
+                  variant="primary"
                   size="lg"
                   onPress={() => setShowLoanCalculator(true)}
                   className="px-8"

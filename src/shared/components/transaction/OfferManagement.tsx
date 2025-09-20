@@ -1,42 +1,30 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Progress,
-  Chip,
-  Select,
-  SelectItem,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+    Card,
+    CardBody,
+    CardHeader,
+    Chip,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem
 } from '@heroui/react';
-import { Button } from '../buttons/Button';
 import {
-  DollarSign,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  XCircle,
-  Edit,
-  Send,
-  Calendar,
-  Users,
-  FileText,
-  BarChart3,
-  AlertTriangle,
-  Shield,
-  Euro,
-  Percent,
-  ArrowRight,
-  ArrowLeft,
-  History,
+    ArrowRight,
+    BarChart3,
+    CheckCircle,
+    DollarSign,
+    Edit,
+    Euro,
+    FileText,
+    XCircle
 } from 'lucide-react';
-import { Input } from '../forms/Input';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from '../buttons/Button';
+import { AnimatedTextarea, Input } from '../forms';
 
 interface Offer {
   id: string;
@@ -235,7 +223,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
             </div>
             <div className="flex items-center gap-2">
               <Button
-                color="primary"
+                variant="primary"
                 onPress={handleCreateOffer}
                 startContent={<Edit className="w-4 h-4" />}
               >
@@ -304,8 +292,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                       <>
                         <Button
                           size="sm"
-                          color="success"
-                          variant="flat"
+                          variant="success"
                           onPress={() => handleAcceptOffer(offer)}
                           startContent={<CheckCircle className="w-4 h-4" />}
                         >
@@ -313,8 +300,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                         </Button>
                         <Button
                           size="sm"
-                          color="danger"
-                          variant="flat"
+                          variant="danger"
                           onPress={() => handleRejectOffer(offer)}
                           startContent={<XCircle className="w-4 h-4" />}
                         >
@@ -322,7 +308,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                         </Button>
                         <Button
                           size="sm"
-                          variant="flat"
+                          variant="secondary"
                           onPress={() => handleCounterOffer(offer)}
                           startContent={<ArrowRight className="w-4 h-4" />}
                         >
@@ -332,7 +318,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                     )}
                     <Button
                       size="sm"
-                      variant="light"
+                      variant="secondary"
                       startContent={<FileText className="w-4 h-4" />}
                     >
                       View Details
@@ -438,21 +424,25 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                     <SelectItem key="stock">Stock</SelectItem>
                     <SelectItem key="mixed">Mixed</SelectItem>
                   </Select>
-                  <Input label="Payment Terms" placeholder="30 days" />
-                  <Input label="Closing Date" type="date" />
+                  <Input label="Payment Terms" type="text" placeholder="30 days" value="" onChange={() => {}} onBlur={() => {}} name="paymentTerms" />
+                  <Input label="Closing Date" type="date" placeholder="" value="" onChange={() => {}} onBlur={() => {}} name="closingDate" />
                   <AnimatedTextarea
                     label="Conditions"
                     placeholder="List any conditions for this offer..."
+                    value=""
+                    onChange={() => {}}
+                    onBlur={() => {}}
+                    name="conditions"
                     minRows={3}
                   />
-                  <AnimatedTextarea label="Notes" placeholder="Additional notes..." minRows={2} />
+                  <AnimatedTextarea label="Notes" placeholder="Additional notes..." value="" onChange={() => {}} onBlur={() => {}} name="notes" minRows={2} />
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button variant="secondary" onPress={onClose}>
                   Cancel
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button variant="primary" onPress={onClose}>
                   Submit Offer
                 </Button>
               </ModalFooter>
@@ -487,15 +477,19 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                   <AnimatedTextarea
                     label="Counter Offer Notes"
                     placeholder="Explain your counter offer..."
+                    value=""
+                    onChange={() => {}}
+                    onBlur={() => {}}
+                    name="counterOfferNotes"
                     minRows={3}
                   />
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button variant="secondary" onPress={onClose}>
                   Cancel
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button variant="primary" onPress={onClose}>
                   Submit Counter Offer
                 </Button>
               </ModalFooter>

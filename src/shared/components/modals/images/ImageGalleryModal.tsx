@@ -111,9 +111,9 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
               </div>
               <Button
                 isIconOnly
-                variant="light"
+                variant="tertiary"
                 onPress={onClose}
-                className="text-white hover:bg-white/20 backdrop-blur-sm"
+                className="backdrop-blur-sm"
                 aria-label="Close gallery"
               >
                 <X className="w-6 h-6" />
@@ -136,7 +136,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
                 <>
                   <Button
                     isIconOnly
-                    variant="flat"
+                    variant="tertiary"
                     onPress={handlePrevious}
                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 border-0"
                     aria-label="Previous image"
@@ -145,7 +145,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
                   </Button>
                   <Button
                     isIconOnly
-                    variant="flat"
+                    variant="tertiary"
                     onPress={handleNext}
                     className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 border-0"
                     aria-label="Next image"

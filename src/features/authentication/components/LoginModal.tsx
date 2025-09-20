@@ -2,13 +2,14 @@
 // Location: src/features/authentication/components/LoginModal.tsx
 // Purpose: Login modal with custom inputs and enhanced UX
 
+import { Button } from '@/shared/components/buttons';
+import { CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
 import { authService } from '@/shared/services/auth';
-import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
+import { Modal, ModalBody, ModalContent } from '@heroui/react';
 import { Info, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../app/providers/auth-provider';
-import { CustomInputField, CustomPasswordInputField } from './forms';
 
 interface LoginData {
   email: string;
@@ -124,12 +125,12 @@ const LoginModal: React.FC = () => {
     setErrorMessage('');
 
     try {
-      console.log('🔑 Attempting login with:', { email: formData.email });
+      // console.log('🔑 Attempting login with:', { email: formData.email });
 
       const authResult = await authService.login(formData.email, formData.password);
 
       if (authResult.success && authResult.user) {
-        console.log('✅ Login successful');
+        // console.log('✅ Login successful');
 
         // Dispatch login event for navigation sync
         window.dispatchEvent(
@@ -145,7 +146,7 @@ const LoginModal: React.FC = () => {
 
         // Handle post-auth redirect
         if (postAuthRedirect) {
-          console.log('🎯 Redirecting to:', postAuthRedirect.url);
+          // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
           navigate(postAuthRedirect.url, {
             state: postAuthRedirect.state,
@@ -161,7 +162,7 @@ const LoginModal: React.FC = () => {
         setErrorMessage(authResult.error || 'Invalid email or password. Please try again.');
       }
     } catch (error) {
-      console.error('❌ Login failed:', error);
+      // console.error('❌ Login failed:', error);
       setMessageType('error');
       setErrorMessage('Login failed. Please check your credentials and try again.');
     } finally {
@@ -341,7 +342,7 @@ const LoginModal: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => {
-                            console.log('Forgot password clicked');
+                            // console.log('Forgot password clicked');
                             handleCloseModal();
                             navigate('/password-reset');
                           }}
@@ -354,7 +355,7 @@ const LoginModal: React.FC = () => {
                       {/* Login Button */}
                       <Button
                         type="submit"
-                        color="primary"
+                        variant="primary"
                         size="lg"
                         disabled={isSubmitting}
                         className="w-full mt-6"

@@ -1,6 +1,7 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import { Download, Eye, FileText, Lock, Mail, Shield, UserCheck } from 'lucide-react';
 
 const GdprCompliance = () => {
@@ -381,11 +382,11 @@ const GdprCompliance = () => {
                       website and directly to affected users.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button color="primary" startContent={<FileText className="w-4 h-4" />}>
+                      <Button variant="primary" startContent={<FileText className="w-4 h-4" />}>
                         View Privacy Policy
                       </Button>
                       <Button
-                        variant="bordered"
+                        variant="tertiary"
                         className="border-primary-600 text-primary-700"
                         startContent={<Mail className="w-4 h-4" />}
                       >

@@ -1,17 +1,18 @@
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody, Tooltip } from '@heroui/react';
+import {
+    Building2,
+    Calendar,
+    Eye,
+    Heart,
+    MapPin,
+    MessageSquare,
+    Shield,
+    TrendingUp,
+    Users,
+} from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, Button, Tooltip } from '@heroui/react';
-import {
-  Building2,
-  MapPin,
-  Eye,
-  Heart,
-  MessageSquare,
-  Calendar,
-  Users,
-  TrendingUp,
-  Shield,
-} from 'lucide-react';
 import InquiryModal from '../modals/InquiryModal';
 
 interface ListingCardProps {
@@ -56,7 +57,7 @@ interface ListingCardProps {
   };
   currentUserRole?: 'buyer' | 'seller' | 'admin';
   onSave?: (listingId: string) => void;
-  onInquiry?: (listingId: string, inquiryData: any) => Promise<void>;
+  onInquiry?: (listingId: string, inquiryData: unknown) => Promise<void>;
   isSaved?: boolean;
   viewMode?: 'card' | 'list';
 }
@@ -117,7 +118,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     }
   };
 
-  const handleInquiry = async (inquiryData: any) => {
+  const handleInquiry = async (inquiryData: unknown) => {
     if (onInquiry) {
       await onInquiry(listing.id, inquiryData);
       setShowInquiryModal(false);
@@ -235,8 +236,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         <Button
                           isIconOnly
                           size="sm"
-                          variant={isSaved ? 'solid' : 'light'}
-                          color={isSaved ? 'danger' : 'default'}
+                          variant={isSaved ? 'danger' : 'secondary'}
                           onPress={handleSave}
                           isLoading={isProcessing}
                           className="text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all duration-300 transform hover:scale-110"
@@ -247,9 +247,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
                       {canMakeInquiry && (
                         <Button
                           size="sm"
-                          color="primary"
+                          variant="primary"
                           onPress={() => setShowInquiryModal(true)}
-                          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200"
                           startContent={<MessageSquare className="w-4 h-4" />}
                         >
                           Contact Seller
@@ -351,7 +350,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   isIconOnly
                   radius="full"
                   size="sm"
-                  variant="flat"
+                  variant="tertiary"
                   className="bg-white/90 backdrop-blur-sm text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 shadow-lg"
                   onPress={() => {
                     handleSave();

@@ -4,13 +4,14 @@
  * Purpose: Placeholder for future buyer onboarding modal
  */
 
+import { Button } from '@/shared/components/buttons';
 import React from 'react';
 import { FullscreenModal } from '../../../foundations';
 
 interface BuyerOnboardingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onComplete?: (data: any) => void;
+  onComplete?: (data: unknown) => void;
 }
 
 export const BuyerOnboardingModal: React.FC<BuyerOnboardingModalProps> = ({
@@ -29,12 +30,12 @@ export const BuyerOnboardingModal: React.FC<BuyerOnboardingModalProps> = ({
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Buyer Onboarding</h2>
           <p className="text-gray-600 mb-6">This feature is coming soon!</p>
-          <button
-            onClick={onClose}
-            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+          <Button
+            variant="primary"
+            onPress={onClose}
           >
             Close
-          </button>
+          </Button>
         </div>
       </div>
     </FullscreenModal>

@@ -1,21 +1,22 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import { Button, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import {
-  Calendar,
-  Download,
-  Eye,
-  FileCheck,
-  Filter,
-  FolderOpen,
-  Grid3X3,
-  List,
-  Lock,
-  Plus,
-  Search,
-  Shield,
-  Trash2,
-  Upload,
+    Calendar,
+    Download,
+    Eye,
+    FileCheck,
+    Filter,
+    FolderOpen,
+    Grid3X3,
+    List,
+    Lock,
+    Plus,
+    Search,
+    Shield,
+    Trash2,
+    Upload,
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -110,7 +111,7 @@ const DocumentVault = () => {
           navigate('/');
         }
       } catch (error) {
-        console.error('Error initializing page:', error);
+        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         // No loading state to manage
@@ -278,7 +279,7 @@ const DocumentVault = () => {
         percentage: ((prev.used + additionalSize) / prev.total) * 100,
       }));
     } catch (error) {
-      console.error('Upload failed:', error);
+      // console.error('Upload failed:', error);
     } finally {
       setIsUploading(false);
       // Reset the input
@@ -329,7 +330,7 @@ const DocumentVault = () => {
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1 border border-gray-300 rounded-lg p-1">
               <Button
-                variant={viewMode === 'list' ? 'solid' : 'light'}
+                variant={viewMode === 'list' ? 'primary' : 'secondary'}
                 isIconOnly
                 size="sm"
                 onPress={() => setViewMode('list')}
@@ -340,7 +341,7 @@ const DocumentVault = () => {
                 <List className="w-4 h-4" />
               </Button>
               <Button
-                variant={viewMode === 'grid' ? 'solid' : 'light'}
+                variant={viewMode === 'grid' ? 'primary' : 'secondary'}
                 isIconOnly
                 size="sm"
                 onPress={() => setViewMode('grid')}
@@ -360,7 +361,7 @@ const DocumentVault = () => {
               accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
             />
             <Button
-              color="primary"
+              variant="primary"
               startContent={<Upload className="w-4 h-4" />}
               onPress={() => document.getElementById('file-upload')?.click()}
               isLoading={isUploading}
@@ -446,7 +447,7 @@ const DocumentVault = () => {
             </div>
 
             <Button
-              variant="bordered"
+              variant="tertiary"
               className="border-gray-300 text-gray-600 hover:bg-gray-50"
               startContent={<Calendar className="w-4 h-4" />}
             >
@@ -497,7 +498,7 @@ const DocumentVault = () => {
             </p>
             {documents.length === 0 && (
               <Button
-                color="primary"
+                variant="primary"
                 startContent={<Plus className="w-4 h-4" />}
                 onPress={() => document.getElementById('file-upload')?.click()}
               >
@@ -559,7 +560,7 @@ const DocumentVault = () => {
                   </div>
                   <div className="flex items-center space-x-1 ml-4">
                     <Button
-                      variant="light"
+                      variant="tertiary"
                       isIconOnly
                       size="sm"
                       className="text-gray-500 hover:text-gray-700"
@@ -567,7 +568,7 @@ const DocumentVault = () => {
                       <Eye className="w-4 h-4" />
                     </Button>
                     <Button
-                      variant="light"
+                      variant="tertiary"
                       isIconOnly
                       size="sm"
                       className="text-gray-500 hover:text-gray-700"
@@ -575,7 +576,7 @@ const DocumentVault = () => {
                       <Download className="w-4 h-4" />
                     </Button>
                     <Button
-                      variant="light"
+                      variant="tertiary"
                       isIconOnly
                       size="sm"
                       className="text-gray-500 hover:text-red-600"

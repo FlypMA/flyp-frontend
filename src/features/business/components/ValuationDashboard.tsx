@@ -11,18 +11,19 @@
  * - Action buttons for creating/updating valuations
  */
 
+import { Button } from '@/shared/components/buttons';
 import { ModernTabContent, ModernTabs } from '@/shared/components/tabs/Tabs';
-import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-  BarChart3,
-  BookOpen,
-  Calculator,
-  FileText,
-  History,
-  Plus,
-  Sparkles,
-  Target,
-  TrendingUp,
+    BarChart3,
+    BookOpen,
+    Calculator,
+    FileText,
+    History,
+    Plus,
+    Sparkles,
+    Target,
+    TrendingUp,
 } from 'lucide-react';
 import React, { useState } from 'react';
 import ValuationReportCard from './ValuationReportCard';
@@ -108,7 +109,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
     if (onCreateValuation) {
       onCreateValuation();
     } else {
-      console.log('Create valuation');
+      // console.log('Create valuation');
     }
   };
 
@@ -116,7 +117,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
     if (onUpdateValuation) {
       onUpdateValuation();
     } else {
-      console.log('Update valuation');
+      // console.log('Update valuation');
     }
   };
 
@@ -132,7 +133,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
         <div className="flex items-center space-x-3">
           {currentValuation && (
             <Button
-              variant="bordered"
+              variant="tertiary"
               startContent={<TrendingUp className="w-4 h-4" />}
               onPress={handleUpdateValuation}
             >
@@ -140,7 +141,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
             </Button>
           )}
           <Button
-            color="primary"
+            variant="primary"
             startContent={<Plus className="w-4 h-4" />}
             onPress={handleCreateValuation}
           >
@@ -230,10 +231,10 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
               {/* Current Valuation Report */}
               <ValuationReportCard
                 report={currentValuation}
-                onView={() => console.log('View valuation')}
-                onDownload={() => console.log('Download valuation')}
-                onShare={() => console.log('Share valuation')}
-                onEdit={() => console.log('Edit valuation')}
+                onView={() => // console.log('View valuation')}
+                onDownload={() => // console.log('Download valuation')}
+                onShare={() => // console.log('Share valuation')}
+                onEdit={() => // console.log('Edit valuation')}
               />
             </div>
           </ModernTabContent>
@@ -251,7 +252,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                       Your valuation history will appear here as you create new reports over time.
                     </p>
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleCreateValuation}
                       startContent={<Plus className="w-4 h-4" />}
                     >
@@ -311,7 +312,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                               >
                                 {valuation.confidence_level.toUpperCase()}
                               </div>
-                              <Button size="sm" variant="light">
+                              <Button size="sm" variant="tertiary">
                                 View Details
                               </Button>
                             </div>
@@ -339,8 +340,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                       </div>
                     </div>
                     <Button
-                      color="primary"
-                      variant="flat"
+                      variant="primary"
                       className="w-full"
                       endContent={<Sparkles className="w-4 h-4" />}
                     >
@@ -359,8 +359,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                       </div>
                     </div>
                     <Button
-                      color="primary"
-                      variant="flat"
+                      variant="primary"
                       className="w-full"
                       endContent={<BookOpen className="w-4 h-4" />}
                     >
@@ -379,8 +378,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                       </div>
                     </div>
                     <Button
-                      color="primary"
-                      variant="flat"
+                      variant="primary"
                       className="w-full"
                       endContent={<Target className="w-4 h-4" />}
                     >
@@ -399,8 +397,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                       </div>
                     </div>
                     <Button
-                      color="primary"
-                      variant="flat"
+                      variant="primary"
                       className="w-full"
                       endContent={<TrendingUp className="w-4 h-4" />}
                     >

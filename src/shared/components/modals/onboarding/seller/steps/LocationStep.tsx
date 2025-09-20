@@ -42,8 +42,12 @@ const LocationStep: React.FC<OnboardingStepProps> = ({ formData, updateFormData 
         <div>
           <Input
             label="Country"
+            type="text"
+            placeholder="Country"
             value={formData.country}
             onChange={e => updateFormData({ country: e.target.value })}
+            onBlur={() => {}}
+            name="country"
             disabled
             className="bg-gray-50"
           />
@@ -69,9 +73,13 @@ const LocationStep: React.FC<OnboardingStepProps> = ({ formData, updateFormData 
             ))}
           </div>
           <Input
+            label="City"
+            type="text"
             placeholder="Or enter a different city"
             value={formData.city}
             onChange={e => updateFormData({ city: e.target.value })}
+            onBlur={() => {}}
+            name="city"
             className="mt-2"
           />
         </div>

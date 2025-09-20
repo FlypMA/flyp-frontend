@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Checkbox,
-  Card,
-  CardBody,
-  Divider,
+    Card,
+    CardBody,
+    Checkbox,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader
 } from '@heroui/react';
+import { AlertTriangle, Building2, FileText, Shield, User } from 'lucide-react';
+import React, { useState } from 'react';
 import { Button } from '../buttons/Button';
-import { Input } from '../forms/Input';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
-import { Shield, FileText, User, Building2, AlertTriangle } from 'lucide-react';
+import { AnimatedTextarea, Input } from '../forms';
 
 interface NDAModalProps {
   isOpen: boolean;
@@ -45,7 +43,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
   isLoading = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [signatureData, setSignatureData] = useState<SignatureData>({
+  const [_signatureData, _setSignatureData] = useState<SignatureData>({
     fullName: '',
     company: '',
     position: '',
@@ -148,10 +146,12 @@ const NDAModal: React.FC<NDAModalProps> = ({
           label="Full Name"
           placeholder="Enter your full legal name"
           value={signatureData.fullName}
-          onChange={value => setSignatureData(prev => ({ ...prev, fullName: value }))}
+          onChange={e => setSignatureData(prev => ({ ...prev, fullName: e.target.value }))}
           leftIcon={<User className="w-4 h-4 text-gray-400" />}
           required
           name="fullName"
+          type="text"
+          onBlur={() => {}}
         />
 
         <Input
@@ -159,9 +159,10 @@ const NDAModal: React.FC<NDAModalProps> = ({
           type="email"
           placeholder="your.email@company.com"
           value={signatureData.email}
-          onChange={value => setSignatureData(prev => ({ ...prev, email: value }))}
+          onChange={e => setSignatureData(prev => ({ ...prev, email: e.target.value }))}
           required
           name="email"
+          onBlur={() => {}}
         />
       </div>
 
@@ -170,18 +171,22 @@ const NDAModal: React.FC<NDAModalProps> = ({
           label="Company/Organization"
           placeholder="Your company name"
           value={signatureData.company}
-          onChange={value => setSignatureData(prev => ({ ...prev, company: value }))}
+          onChange={e => setSignatureData(prev => ({ ...prev, company: e.target.value }))}
           leftIcon={<Building2 className="w-4 h-4 text-gray-400" />}
           required
           name="company"
+          type="text"
+          onBlur={() => {}}
         />
 
         <Input
           label="Position/Title"
           placeholder="Your job title"
           value={signatureData.position}
-          onChange={value => setSignatureData(prev => ({ ...prev, position: value }))}
+          onChange={e => setSignatureData(prev => ({ ...prev, position: e.target.value }))}
           name="position"
+          type="text"
+          onBlur={() => {}}
         />
       </div>
 
@@ -189,9 +194,10 @@ const NDAModal: React.FC<NDAModalProps> = ({
         label="Phone Number"
         placeholder="+32 123 456 789"
         value={signatureData.phone}
-        onChange={value => setSignatureData(prev => ({ ...prev, phone: value }))}
+        onChange={e => setSignatureData(prev => ({ ...prev, phone: e.target.value }))}
         name="phone"
         type="tel"
+        onBlur={() => {}}
       />
 
       <Card className="border-blue-200 bg-blue-50">
@@ -244,10 +250,11 @@ const NDAModal: React.FC<NDAModalProps> = ({
         label="Digital Signature"
         placeholder="Type your full name as digital signature"
         value={signatureData.digitalSignature}
-        onChange={value => setSignatureData(prev => ({ ...prev, digitalSignature: value }))}
+        onChange={e => setSignatureData(prev => ({ ...prev, digitalSignature: e.target.value }))}
         description="By typing your name, you confirm this serves as your digital signature"
-        required
+        onBlur={() => {}}
         name="digitalSignature"
+        required
         minRows={2}
         maxRows={3}
       />
@@ -307,23 +314,23 @@ const NDAModal: React.FC<NDAModalProps> = ({
             </ModalBody>
 
             <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose} isDisabled={isLoading}>
+              <Button variant="danger" onPress={onClose} isDisabled={isLoading}>
                 Cancel
               </Button>
 
               {currentStep > 1 && (
-                <Button color="default" variant="flat" onPress={handleBack} isDisabled={isLoading}>
+                <Button color="default" variant="tertiary" onPress={handleBack} isDisabled={isLoading}>
                   Back
                 </Button>
               )}
 
               {currentStep < 3 ? (
-                <Button color="primary" onPress={handleNext} isDisabled={isLoading}>
+                <Button variant="primary" onPress={handleNext} isDisabled={isLoading}>
                   Next
                 </Button>
               ) : (
                 <Button
-                  color="success"
+                  variant="success"
                   onPress={handleSubmit}
                   isDisabled={!validateForm() || isLoading}
                   isLoading={isLoading}

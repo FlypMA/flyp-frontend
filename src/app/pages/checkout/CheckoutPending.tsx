@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody, Progress } from '@heroui/react';
+import { AlertTriangle, ArrowLeft, CheckCircle, Clock } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Progress } from '@heroui/react';
-import { Clock, CheckCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
 const CheckoutPending: React.FC = () => {
@@ -115,7 +116,8 @@ const CheckoutPending: React.FC = () => {
           {status === 'failed' && (
             <div className="space-y-3 mb-6">
               <Button
-                className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                variant="primary"
+                className="w-full"
                 onPress={() => navigate(UrlGenerator.checkout())}
               >
                 Try Again
@@ -124,7 +126,7 @@ const CheckoutPending: React.FC = () => {
           )}
 
           <Button
-            variant="light"
+            variant="tertiary"
             className="w-full text-gray-600 hover:underline"
             onPress={handleGoHome}
             startContent={<ArrowLeft className="w-4 h-4" />}

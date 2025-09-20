@@ -1,19 +1,20 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-  AlertTriangle,
-  CheckCircle,
-  Database,
-  Eye,
-  FileText,
-  Key,
-  Lock,
-  Mail,
-  Server,
-  Shield,
-  UserCheck,
-  Wifi,
+    AlertTriangle,
+    CheckCircle,
+    Database,
+    Eye,
+    FileText,
+    Key,
+    Lock,
+    Mail,
+    Server,
+    Shield,
+    UserCheck,
+    Wifi,
 } from 'lucide-react';
 
 const Security = () => {
@@ -459,11 +460,11 @@ const Security = () => {
                       vulnerability, please contact our security team immediately:
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button color="primary" startContent={<Mail className="w-4 h-4" />}>
+                      <Button variant="primary" startContent={<Mail className="w-4 h-4" />}>
                         security@flyp.com
                       </Button>
                       <Button
-                        variant="bordered"
+                        variant="tertiary"
                         className="border-primary-600 text-primary-700"
                         startContent={<AlertTriangle className="w-4 h-4" />}
                       >

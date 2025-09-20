@@ -1,6 +1,7 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import { Button, Card, CardBody, CardHeader, Progress } from '@heroui/react';
+import { Card, CardBody, CardHeader, Progress } from '@heroui/react';
 import { AlertTriangle, ArrowRight, Calculator, CheckCircle, Clock, Target, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +34,7 @@ const LiquidationComparison = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [liquidationData, setLiquidationData] = useState<LiquidationAnalysis | null>(null);
   const [daysSinceValuation, setDaysSinceValuation] = useState(0);
-  const [showCalculator, setShowCalculator] = useState(false);
+  const [_showCalculator, _setShowCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -69,7 +70,7 @@ const LiquidationComparison = () => {
           navigate('/');
         }
       } catch (error) {
-        console.error('Error initializing page:', error);
+        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         setIsLoading(false);
@@ -302,7 +303,7 @@ const LiquidationComparison = () => {
 
               <div className="text-center">
                 <Button
-                  color="primary"
+                  variant="primary"
                   size="lg"
                   onPress={() => navigate('/business/valuation')}
                   className="px-8"
@@ -477,7 +478,7 @@ const LiquidationComparison = () => {
             </p>
             <div className="flex justify-center space-x-4">
               <Button
-                color="primary"
+                variant="primary"
                 size="lg"
                 onPress={() => navigate('/business/valuation')}
                 className="px-8"
@@ -486,7 +487,7 @@ const LiquidationComparison = () => {
                 Get Strategic Valuation
               </Button>
               <Button
-                variant="bordered"
+                variant="tertiary"
                 size="lg"
                 onPress={() => navigate('/business/listings')}
                 className="px-8"

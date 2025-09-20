@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody, Progress } from '@heroui/react';
+import { ArrowLeft, CheckCircle, Loader2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Progress } from '@heroui/react';
-import { Loader2, CheckCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
 const CheckoutProcessing: React.FC = () => {
@@ -110,7 +111,7 @@ const CheckoutProcessing: React.FC = () => {
           )}
 
           <Button
-            variant="light"
+            variant="tertiary"
             className="w-full text-gray-600 hover:underline"
             onPress={handleGoHome}
             startContent={<ArrowLeft className="w-4 h-4" />}

@@ -4,16 +4,16 @@
 
 import { useAuth } from '@/app/providers/auth-provider';
 import {
-  Building2,
-  Calendar,
-  Euro,
-  Eye,
-  Filter,
-  Heart,
-  MapPin,
-  MessageSquare,
-  Search,
-  Users,
+    Building2,
+    Calendar,
+    Euro,
+    Eye,
+    Filter,
+    Heart,
+    MapPin,
+    MessageSquare,
+    Search,
+    Users,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../../shared/components/buttons';
@@ -114,7 +114,7 @@ const SavedListings: React.FC = () => {
 
   const handleSendInquiry = (listingId: string) => {
     // Open inquiry modal or navigate to inquiry form
-    console.log('Send inquiry for listing:', listingId);
+    // console.log('Send inquiry for listing:', listingId);
   };
 
   const filteredListings = savedListings.filter(listing => {
@@ -195,6 +195,7 @@ const SavedListings: React.FC = () => {
                 placeholder="Search saved listings..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
+                onBlur={() => {}}
                 name="search"
                 className="pl-10"
               />
@@ -350,7 +351,7 @@ const SavedListings: React.FC = () => {
                   {/* Action Buttons */}
                   <div className="flex gap-2">
                     <Button
-                      variant="outline"
+                      variant="tertiary"
                       size="sm"
                       onClick={() => handleViewListing(listing.id)}
                       className="flex-1"

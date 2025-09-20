@@ -1,6 +1,6 @@
 // 🔘 Button Component - Caregiver Brand Design System
 // Location: src/shared/components/buttons/Button.tsx
-// Purpose: Unified button implementation following the Caregiver brand archetype
+// Purpose: Main button component with modular variant system
 
 import * as React from 'react';
 import type { ButtonProps } from '../types';
@@ -19,7 +19,6 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
   size = 'md',
-  color,
   disabled = false,
   loading = false,
   isLoading = false,
@@ -40,116 +39,119 @@ export const Button: React.FC<ButtonProps> = ({
   // Base button styles following Caregiver brand principles
   const baseClasses = [
     'inline-flex items-center justify-center',
-    'font-semibold', // Caregiver brand uses semibold for buttons
-    'transition-all duration-200',
-    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+    'transition-all duration-200 ease-in-out', // Smoother transitions
+    'focus:outline-none focus:ring-3 focus:ring-offset-0', // Brand focus ring
     'disabled:opacity-50 disabled:cursor-not-allowed',
     'border-0 outline-none',
+    'cursor-pointer',
+    'relative overflow-hidden', // For loading states
   ].join(' ');
 
-  // Get variant classes using brand colors
+  // Get variant classes using exact brand colors
   const getVariantClasses = () => {
     const isDisabledState = disabled || isDisabled || loading || isLoading;
-    
+
     switch (variant) {
       case 'primary':
         return [
           isDisabledState ? 'bg-primary-300' : 'bg-primary-500',
           'text-white',
+          'font-semibold', // Brand: semibold for primary actions
           'hover:bg-primary-600',
-          'focus:ring-primary-500',
+          'focus:ring-primary-500/30', // Brand focus ring with opacity
           'shadow-sm hover:shadow-md',
+          'active:scale-[0.98]', // Subtle press feedback
         ].join(' ');
 
       case 'secondary':
         return [
-          isDisabledState ? 'bg-neutral-200' : 'bg-white',
-          isDisabledState ? 'text-neutral-100' : 'text-neutral-900',
-          'border border-neutral-300',
-          'hover:bg-neutral-100 hover:border-neutral-400',
-          'focus:ring-neutral-500',
+          isDisabledState ? 'bg-neutral-300 text-neutral-100 shadow-none' : 'bg-neutral-600 text-white',
+          'font-medium', // Brand: medium weight for secondary
+          'hover:bg-neutral-700',
+          'focus:ring-neutral-500/30',
+          'shadow-sm hover:shadow-md',
+          'active:scale-[0.98]',
+        ].join(' ');
+
+      case 'tertiary':
+        return [
+          isDisabledState ? 'bg-accent-300 text-neutral-100 shadow-none' : 'bg-accent-500 text-white',
+          'font-medium',
+          'hover:bg-accent-600',
+          'focus:ring-accent-500/30',
+          'shadow-sm hover:shadow-md',
+          'active:scale-[0.98]',
+        ].join(' ');
+
+      case 'link':
+        return [
+          'bg-transparent',
+          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
+          'font-medium',
+          'border border-transparent',
+          'hover:text-primary-600',
+          'focus:ring-primary-500/30',
+          'transition-colors',
+          'active:scale-[0.98]',
+        ].join(' ');
+
+      case 'success':
+        return [
+          isDisabledState ? 'bg-success-300' : 'bg-success-500',
+          'text-white',
+          'font-semibold',
+          'hover:bg-success-600',
+          'focus:ring-success-500/30',
+          'shadow-sm hover:shadow-md',
+          'active:scale-[0.98]',
         ].join(' ');
 
       case 'supportive':
         return [
-          isDisabledState ? 'bg-calm-300' : 'bg-calm-500',
+          isDisabledState ? 'bg-primary-300' : 'bg-primary-500',
           'text-white',
-          'hover:bg-calm-600',
-          'focus:ring-calm-500',
+          'font-semibold',
+          'hover:bg-primary-600',
+          'focus:ring-primary-500/30',
           'shadow-sm hover:shadow-md',
+          'active:scale-[0.98]',
         ].join(' ');
 
       case 'subtle':
         return [
           'bg-transparent',
           isDisabledState ? 'text-accent-300' : 'text-accent-600',
+          'font-medium',
           'border border-transparent',
-          'hover:bg-accent-50',
-          'focus:ring-accent-500',
-        ].join(' ');
-
-      case 'outline':
-        return [
-          'bg-transparent',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
-          'border border-neutral-300',
-          'hover:bg-neutral-50 hover:border-neutral-400',
-          'focus:ring-neutral-500',
-        ].join(' ');
-
-      case 'ghost':
-        return [
-          'bg-transparent',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-600',
-          'hover:bg-neutral-100 hover:text-neutral-900',
-          'focus:ring-neutral-500',
+          'hover:bg-accent-50 hover:text-accent-700',
+          'focus:ring-accent-500/30',
+          'active:scale-[0.98]',
         ].join(' ');
 
       case 'danger':
         return [
           isDisabledState ? 'bg-error-300' : 'bg-error-500',
           'text-white',
+          'font-semibold',
           'hover:bg-error-600',
-          'focus:ring-error-500',
+          'focus:ring-error-500/30',
           'shadow-sm hover:shadow-md',
-        ].join(' ');
-
-      case 'light':
-        return [
-          isDisabledState ? 'bg-neutral-200' : 'bg-neutral-100',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
-          'hover:bg-neutral-200',
-          'focus:ring-neutral-500',
-        ].join(' ');
-
-      case 'bordered':
-        return [
-          'bg-transparent',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
-          'border border-neutral-300',
-          'hover:bg-neutral-50 hover:border-neutral-400',
-          'focus:ring-neutral-500',
-        ].join(' ');
-
-      case 'flat':
-        return [
-          isDisabledState ? 'bg-neutral-200' : 'bg-neutral-50',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
-          'hover:bg-neutral-100',
-          'focus:ring-neutral-500',
+          'active:scale-[0.98]',
         ].join(' ');
 
       default:
         return [
           'bg-primary-500',
           'text-white',
+          'font-semibold',
           'hover:bg-primary-600',
-          'focus:ring-primary-500',
+          'focus:ring-primary-500/30',
+          'shadow-sm hover:shadow-md',
         ].join(' ');
     }
   };
 
-  // Get size classes
+  // Get size classes with improved spacing
   const getSizeClasses = () => {
     if (isIconOnly) {
       const iconSizes = {
@@ -163,93 +165,26 @@ export const Button: React.FC<ButtonProps> = ({
     }
 
     const sizes = {
-      xs: 'px-2.5 py-1.5 text-xs',
-      sm: 'px-3 py-2 text-sm',
-      md: 'px-4 py-2 text-sm',
-      lg: 'px-4 py-2 text-base',
-      xl: 'px-6 py-3 text-base',
+      xs: 'px-3 py-1.5 text-xs h-8', // Improved padding
+      sm: 'px-4 py-2 text-sm h-9',
+      md: 'px-5 py-2.5 text-sm h-10', // Better proportions
+      lg: 'px-6 py-3 text-base h-12',
+      xl: 'px-8 py-4 text-lg h-14',
     };
     return sizes[size];
   };
 
-  // Get radius classes - Caregiver brand uses softer radii
+  // Get radius classes - Brand uses lg (12px) for buttons
   const getRadiusClasses = () => {
     if (radius) {
-      const radiusClasses = {
-        none: 'rounded-none',
-        sm: 'rounded-lg',
-        md: 'rounded-xl',
-        lg: 'rounded-2xl',
-        full: 'rounded-full',
-      };
-      return radiusClasses[radius];
+      return radius;
     }
-    return 'rounded-xl'; // Default - softer for Caregiver brand
-  };
-
-  // Handle color prop override - Caregiver brand colors
-  const getColorClasses = () => {
-    if (color) {
-      const isDisabledState = disabled || isDisabled || loading || isLoading;
-      
-      const colorClasses = {
-        primary: [
-          isDisabledState ? 'bg-primary-300' : 'bg-primary-500',
-          'text-white',
-          'hover:bg-primary-600',
-          'focus:ring-primary-500',
-        ].join(' '),
-        secondary: [
-          isDisabledState ? 'bg-neutral-200' : 'bg-neutral-600',
-          'text-white',
-          'hover:bg-neutral-700',
-          'focus:ring-neutral-500',
-        ].join(' '),
-        supportive: [
-          isDisabledState ? 'bg-calm-300' : 'bg-calm-500',
-          'text-white',
-          'hover:bg-calm-600',
-          'focus:ring-calm-500',
-        ].join(' '),
-        subtle: [
-          'bg-transparent',
-          isDisabledState ? 'text-accent-300' : 'text-accent-600',
-          'hover:bg-accent-50',
-          'focus:ring-accent-500',
-        ].join(' '),
-        success: [
-          isDisabledState ? 'bg-success-300' : 'bg-success-500',
-          'text-white',
-          'hover:bg-success-600',
-          'focus:ring-success-500',
-        ].join(' '),
-        warning: [
-          isDisabledState ? 'bg-warning-300' : 'bg-warning-500',
-          'text-white',
-          'hover:bg-warning-600',
-          'focus:ring-warning-500',
-        ].join(' '),
-        danger: [
-          isDisabledState ? 'bg-error-300' : 'bg-error-500',
-          'text-white',
-          'hover:bg-error-600',
-          'focus:ring-error-500',
-        ].join(' '),
-        default: [
-          isDisabledState ? 'bg-neutral-200' : 'bg-neutral-100',
-          isDisabledState ? 'text-neutral-400' : 'text-neutral-700',
-          'hover:bg-neutral-200',
-          'focus:ring-neutral-500',
-        ].join(' '),
-      };
-      return colorClasses[color] || colorClasses.default;
-    }
-    return getVariantClasses();
+    return 'rounded-lg'; // Brand: borderRadius.lg
   };
 
   const classes = [
     baseClasses,
-    getColorClasses(),
+    getVariantClasses(),
     getSizeClasses(),
     getRadiusClasses(),
     fullWidth ? 'w-full' : '',
@@ -274,23 +209,25 @@ export const Button: React.FC<ButtonProps> = ({
   // Determine if button is disabled
   const isButtonDisabled = disabled || isDisabled || loading || isLoading;
 
-  // Loading spinner component
+  // Enhanced loading spinner with brand colors
   const LoadingSpinner = () => (
-    <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      />
-    </svg>
+    <div className="absolute inset-0 flex items-center justify-center bg-inherit rounded-lg">
+      <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        />
+      </svg>
+    </div>
   );
 
   return (
@@ -301,20 +238,32 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={handleClick}
       {...props}
     >
+      {/* Loading state overlay */}
       {(loading || isLoading) && <LoadingSpinner />}
       
-      {!(loading || isLoading) && (leftIcon || startContent) && (
-        <span className={children ? 'mr-2' : ''}>{leftIcon || startContent}</span>
-      )}
-      
-      {!isIconOnly && children}
-      
-      {!(loading || isLoading) && (rightIcon || endContent) && (
-        <span className={children ? 'ml-2' : ''}>{rightIcon || endContent}</span>
-      )}
+      {/* Content with loading state opacity */}
+      <span className={`flex items-center justify-center ${(loading || isLoading) ? 'opacity-0' : 'opacity-100'}`}>
+        {/* Left icon or start content */}
+        {leftIcon && (
+          <span className="mr-2">{leftIcon}</span>
+        )}
+        {startContent && (
+          <span className="mr-2">{startContent}</span>
+        )}
+        
+        {/* Button content */}
+        {children}
+        
+        {/* Right icon or end content */}
+        {rightIcon && (
+          <span className="ml-2">{rightIcon}</span>
+        )}
+        {endContent && (
+          <span className="ml-2">{endContent}</span>
+        )}
+      </span>
     </button>
   );
 };
 
-// Export for use in other components
 export default Button;

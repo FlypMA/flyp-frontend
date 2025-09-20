@@ -11,29 +11,28 @@ import * as React from 'react';
 // =============================================================================
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /**
-   * Button variant/color scheme - Caregiver brand variants
-   * 
-   * Brand Psychology:
-   * - primary: Trust Blue - main actions, builds confidence
-   * - supportive: Calm Teal - "we've got you" actions, reduces anxiety
-   * - subtle: Reassuring Coral - gentle emphasis, encouraging
-   * - secondary: Neutral - professional, non-threatening
-   * - outline: Clean borders - exploratory actions
-   * - ghost: Minimal - low-pressure prompts
-   * - danger: Error states - destructive actions only
-   */
-  variant?:
-    | 'primary'      // Trust Blue - main CTAs
-    | 'secondary'    // Neutral - secondary actions
-    | 'supportive'   // Calm Teal - supportive CTAs
-    | 'subtle'       // Reassuring Coral - gentle emphasis
-    | 'outline'      // Clean borders - exploratory
-    | 'ghost'        // Minimal - low-pressure
-    | 'danger'       // Error states - destructive only
-    | 'light'        // Subtle background
-    | 'bordered'     // Transparent with border
-    | 'flat';        // Minimal background
+      /**
+       * Button variant/color scheme - Caregiver brand variants
+       *
+       * Brand Psychology:
+       * - primary: Trust Blue - main actions, builds confidence
+       * - secondary: Calm Teal - "we've got you" actions, reduces anxiety
+       * - tertiary: Reassuring Coral - gentle emphasis, encouraging
+       * - supportive: Calm Teal - supportive CTAs (same as secondary)
+       * - subtle: Reassuring Coral - gentle emphasis (same as tertiary)
+       * - link: Text-only - looks like links
+       * - success: Success Green - positive actions
+       * - danger: Error Red - destructive actions only
+       */
+      variant?:
+        | 'primary'      // Trust Blue - main CTAs
+        | 'secondary'    // Calm Teal - supportive actions
+        | 'tertiary'     // Reassuring Coral - gentle emphasis
+        | 'link'         // Text-only - looks like links
+        | 'success'      // Success Green - positive actions
+        | 'supportive'   // Calm Teal - supportive CTAs
+        | 'subtle'       // Reassuring Coral - gentle emphasis
+        | 'danger';      // Error Red - destructive actions
 
   /**
    * Button size
@@ -114,7 +113,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * Click handler
    */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (_event: React.MouseEvent<HTMLButtonElement>) => void;
 
   /**
    * Press handler (HeroUI compatibility)
@@ -231,7 +230,7 @@ export interface InputProps
   /**
    * Custom onChange handler that receives the value directly or the event
    */
-  onChange?: ((value: string) => void) | ((e: React.ChangeEvent<HTMLInputElement>) => void);
+  onChange?: ((_value: string) => void) | ((_e: React.ChangeEvent<HTMLInputElement>) => void);
 
   /**
    * Additional CSS classes
@@ -504,7 +503,7 @@ export interface TabsProps {
   /**
    * Callback function when the active tab changes
    */
-  onTabChange?: (activeTabId: string) => void;
+  onTabChange?: (_activeTabId: string) => void;
 
   /**
    * Visual variant of the tabs
@@ -621,12 +620,12 @@ export interface SearchComponentProps {
   /**
    * Current search query value
    */
-  value: string;
+  _value: string;
 
   /**
    * Callback when search value changes
    */
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
 
   /**
    * Callback when search is submitted

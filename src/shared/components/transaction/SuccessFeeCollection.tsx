@@ -1,43 +1,33 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Progress,
-  Chip,
-  Select,
-  SelectItem,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+    Card,
+    CardBody,
+    CardHeader,
+    Chip,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Progress,
+    Select,
+    SelectItem,
 } from '@heroui/react';
-import { Button } from '../buttons/Button';
 import {
-  DollarSign,
-  CreditCard,
-  FileText,
-  CheckCircle,
-  Clock,
-  AlertTriangle,
-  Download,
-  Send,
-  Calendar,
-  TrendingUp,
-  BarChart3,
-  Receipt,
-  Euro,
-  Percent,
-  ArrowRight,
-  History,
-  Shield,
-  Banknote,
-  Zap,
+    AlertTriangle,
+    Calendar,
+    Clock,
+    CreditCard,
+    DollarSign,
+    Download,
+    Euro,
+    Receipt,
+    Shield,
+    TrendingUp
 } from 'lucide-react';
-import { Input } from '../forms/Input';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from '../buttons/Button';
+import { AnimatedTextarea } from '../forms';
 
 interface SuccessFee {
   id: string;
@@ -209,7 +199,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
 
   const handleDownloadInvoice = (fee: SuccessFee) => {
     // Mock download
-    console.log('Downloading invoice:', fee.invoiceNumber);
+    // console.log('Downloading invoice:', fee.invoiceNumber);
   };
 
   return (
@@ -226,7 +216,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Chip color="success" variant="flat">
+              <Chip variant="flat" color="success">
                 <Shield className="w-3 h-3 mr-1" />
                 Secure
               </Chip>
@@ -413,7 +403,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                     {fee.status === 'invoiced' && (
                       <Button
                         size="sm"
-                        color="primary"
+                        variant="primary"
                         onPress={() => handlePayment(fee)}
                         startContent={<CreditCard className="w-4 h-4" />}
                       >
@@ -422,7 +412,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                     )}
                     <Button
                       size="sm"
-                      variant="light"
+                      variant="secondary"
                       onPress={() => handleDownloadInvoice(fee)}
                       startContent={<Download className="w-4 h-4" />}
                     >
@@ -451,18 +441,18 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                       <h3 className="text-lg font-semibold">{method.name}</h3>
                       <p className="text-sm text-gray-600">{method.accountNumber || 'Connected'}</p>
                       {method.isDefault && (
-                        <Chip size="sm" color="success" variant="flat">
+                        <Chip size="sm" variant="flat" color="success">
                           Default
                         </Chip>
                       )}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button size="sm" variant="light">
+                    <Button size="sm" variant="secondary">
                       Edit
                     </Button>
                     {!method.isDefault && (
-                      <Button size="sm" color="danger" variant="light">
+                      <Button size="sm" variant="danger">
                         Remove
                       </Button>
                     )}
@@ -503,16 +493,20 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
                     <AnimatedTextarea
                       label="Payment Notes"
                       placeholder="Optional notes..."
+                      value=""
+                      onChange={() => {}}
+                      onBlur={() => {}}
+                      name="paymentNotes"
                       minRows={2}
                     />
                   </div>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button variant="light" onPress={onClose}>
+                <Button variant="secondary" onPress={onClose}>
                   Cancel
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button variant="primary" onPress={onClose}>
                   Process Payment
                 </Button>
               </ModalFooter>

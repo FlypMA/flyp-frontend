@@ -1,10 +1,11 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { authService } from '@/shared/services/auth';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Button, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import { Building2, CheckCircle, Clock, Euro, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '@/shared/services/auth';
 import { useAuth } from '../../../providers/auth-provider';
 
 const SellersLandingPage = () => {
@@ -35,7 +36,7 @@ const SellersLandingPage = () => {
         });
       }
     } catch (error) {
-      console.error('Authentication check failed:', error);
+      // console.error('Authentication check failed:', error);
       // On error, default to showing signup modal
       openModal('signup', {
         url: '/my-business',
@@ -86,17 +87,16 @@ const SellersLandingPage = () => {
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Button
-                  size="lg"
-                  className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-4 h-16 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  variant="primary"
+                  size="xl"
                   onPress={handleListBusinessClick}
                   startContent={<Building2 className="w-6 h-6" />}
                 >
                   Get started — we'll help you
                 </Button>
                 <Button
-                  variant="bordered"
-                  size="lg"
-                  className="border-2 border-calm-600 text-calm-600 hover:bg-calm-600 hover:text-white font-semibold px-12 py-4 h-16 text-lg rounded-xl transition-all duration-300"
+                  variant="secondary"
+                  size="xl"
                   onPress={() => navigate('/contact')}
                 >
                   Talk to our team first
@@ -218,8 +218,8 @@ const SellersLandingPage = () => {
               {/* Reassuring CTA */}
               <div className="text-center mt-16">
                 <Button
+                  variant="secondary"
                   size="lg"
-                  className="bg-calm-600 hover:bg-calm-700 text-white font-semibold px-8 py-3 h-14 text-base rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   onPress={() => navigate('/contact')}
                 >
                   Start with a free conversation
@@ -269,8 +269,8 @@ const SellersLandingPage = () => {
                   </ul>
 
                   <Button
-                    color="primary"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold shadow-lg hover:shadow-xl"
+                    variant="primary"
+                    className="w-full"
                     size="lg"
                     onPress={handleListBusinessClick}
                   >
@@ -430,8 +430,8 @@ const SellersLandingPage = () => {
               <div className="text-center mt-16">
                 <h3 className="text-2xl font-bold text-slate-900 mb-6">Ready to get started?</h3>
                 <Button
+                  variant="primary"
                   size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-12 py-4 h-16 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                   onPress={handleListBusinessClick}
                   startContent={<Building2 className="w-6 h-6" />}
                 >

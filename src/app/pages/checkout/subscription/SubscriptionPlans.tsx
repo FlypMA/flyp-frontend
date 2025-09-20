@@ -1,22 +1,15 @@
+import { Button } from '@/shared/components/buttons';
+import { Badge, Card, CardBody, CardHeader, Switch } from '@heroui/react';
+import {
+    ArrowRight,
+    Check,
+    Crown,
+    Sparkles,
+    Star,
+    Zap
+} from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Badge, Switch } from '@heroui/react';
-import {
-  Check,
-  Star,
-  Crown,
-  Zap,
-  Building2,
-  Users,
-  Shield,
-  Headphones,
-  ArrowRight,
-  Sparkles,
-  TrendingUp,
-  FileText,
-  MessageSquare,
-  BarChart3,
-} from 'lucide-react';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
 interface PricingPlan {
@@ -33,7 +26,7 @@ interface PricingPlan {
   icon: React.ComponentType<{ className?: string }>;
   color: string;
   buttonText: string;
-  buttonVariant: 'solid' | 'bordered' | 'light';
+  buttonVariant: 'primary' | 'secondary' | 'tertiary';
 }
 
 const SubscriptionPlans: React.FC = () => {
@@ -61,7 +54,7 @@ const SubscriptionPlans: React.FC = () => {
       icon: Zap,
       color: 'blue',
       buttonText: 'Get Started',
-      buttonVariant: 'bordered',
+      buttonVariant: 'secondary',
     },
     {
       id: 'professional',
@@ -86,7 +79,7 @@ const SubscriptionPlans: React.FC = () => {
       icon: Star,
       color: 'purple',
       buttonText: 'Most Popular',
-      buttonVariant: 'solid',
+      buttonVariant: 'primary',
     },
     {
       id: 'enterprise',
@@ -112,7 +105,7 @@ const SubscriptionPlans: React.FC = () => {
       icon: Crown,
       color: 'gold',
       buttonText: 'Contact Sales',
-      buttonVariant: 'bordered',
+      buttonVariant: 'secondary',
     },
   ];
 
@@ -174,7 +167,7 @@ const SubscriptionPlans: React.FC = () => {
               Yearly
             </span>
             {billingCycle === 'yearly' && (
-              <Badge color="success" size="sm">
+              <Badge variant="solid" color="success" size="sm">
                 Save up to 20%
               </Badge>
             )}
@@ -198,7 +191,7 @@ const SubscriptionPlans: React.FC = () => {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <Badge color="primary" size="lg" className="px-4 py-1">
+                    <Badge variant="solid" color="primary" size="lg" className="px-4 py-1">
                       <Sparkles className="w-4 h-4 mr-1" />
                       Most Popular
                     </Badge>
@@ -226,7 +219,7 @@ const SubscriptionPlans: React.FC = () => {
 
                     {billingCycle === 'yearly' && priceInfo.savings > 0 && (
                       <div className="mb-4">
-                        <Badge color="success" size="sm">
+                        <Badge variant="solid" color="success" size="sm">
                           Save {priceInfo.savings}%
                         </Badge>
                         <p className="text-sm text-gray-500 mt-1">

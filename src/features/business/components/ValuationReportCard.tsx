@@ -2,21 +2,22 @@
 // Location: src/features/business-dashboard/components/ValuationReportCard.tsx
 // Purpose: Business valuation report display card
 
-import * as React from 'react';
-import { Card, CardBody, CardHeader, Button, Chip } from '@heroui/react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-  TrendingUp,
-  Calendar,
-  DollarSign,
-  BarChart3,
-  FileText,
-  Eye,
-  Download,
-  Share2,
-  AlertCircle,
-  CheckCircle,
-  Clock,
+    AlertCircle,
+    BarChart3,
+    Calendar,
+    CheckCircle,
+    Clock,
+    DollarSign,
+    Download,
+    Eye,
+    FileText,
+    Share2,
+    TrendingUp,
 } from 'lucide-react';
+import * as React from 'react';
 
 interface ValuationReport {
   id: string;
@@ -244,7 +245,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
           <div className="flex items-center space-x-2">
             <Button
               size="sm"
-              variant="ghost"
+              variant="flat"
               onClick={() => onView?.(report.id)}
               className="flex items-center space-x-2"
             >
@@ -253,7 +254,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
             <Button
               size="sm"
-              variant="ghost"
+              variant="flat"
               onClick={() => onDownload?.(report.id)}
               className="flex items-center space-x-2"
             >
@@ -262,7 +263,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
             <Button
               size="sm"
-              variant="ghost"
+              variant="flat"
               onClick={() => onShare?.(report.id)}
               className="flex items-center space-x-2"
             >
@@ -271,7 +272,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
           </div>
           {report.status === 'draft' && (
-            <Button size="sm" color="primary" onClick={() => onEdit?.(report.id)}>
+            <Button size="sm" variant="primary" onClick={() => onEdit?.(report.id)}>
               Edit Report
             </Button>
           )}

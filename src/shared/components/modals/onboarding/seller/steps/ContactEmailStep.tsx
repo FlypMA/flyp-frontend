@@ -28,6 +28,8 @@ const ContactEmailStep: React.FC<OnboardingStepProps> = ({ formData, updateFormD
             placeholder="your.email@example.com"
             value={formData.contactEmail}
             onChange={e => updateFormData({ contactEmail: e.target.value })}
+            onBlur={() => {}}
+            name="contactEmail"
             required
             className="text-lg"
           />

@@ -28,6 +28,8 @@ const ContactPhoneStep: React.FC<OnboardingStepProps> = ({ formData, updateFormD
             placeholder="+32 123 456 789"
             value={formData.contactPhone}
             onChange={e => updateFormData({ contactPhone: e.target.value })}
+            onBlur={() => {}}
+            name="contactPhone"
             required
             className="text-lg"
           />

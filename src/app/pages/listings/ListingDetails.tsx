@@ -1,17 +1,18 @@
+import { Button } from '@/shared/components/buttons';
 import { ImageGalleryModal } from '@/shared/components/modals/images';
 import InquiryModal from '@/shared/components/modals/InquiryModal';
-import { Button, Card, CardBody, CardHeader, Divider, useDisclosure } from '@heroui/react';
+import { Card, CardBody, CardHeader, Divider, useDisclosure } from '@heroui/react';
 import {
-  ArrowLeft,
-  Building2,
-  CheckCircle,
-  Eye,
-  Heart,
-  MapPin,
-  MessageSquare,
-  Share2,
-  Shield,
-  TrendingUp,
+    ArrowLeft,
+    Building2,
+    CheckCircle,
+    Eye,
+    Heart,
+    MapPin,
+    MessageSquare,
+    Share2,
+    Shield,
+    TrendingUp,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -122,7 +123,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
         },
       });
     } catch (error) {
-      console.error('Error loading listing details:', error);
+      // console.error('Error loading listing details:', error);
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +165,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
           <p className="text-gray-600 mb-6">
             The listing you're looking for doesn't exist or has been removed.
           </p>
-          <Button color="primary" onPress={() => navigate('/search')}>
+          <Button variant="primary" onPress={() => navigate('/search')}>
             Back to Search
           </Button>
         </div>
@@ -181,7 +182,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
         {/* Header */}
         <div className="mb-8">
           <Button
-            variant="light"
+            variant="tertiary"
             startContent={
               <ArrowLeft className="w-4 h-4" style={{ stroke: 'currentColor', fill: 'none' }} />
             }
@@ -261,7 +262,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
 
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:w-64">
               <Button
-                variant="bordered"
+                variant="tertiary"
                 startContent={
                   <Heart className="w-4 h-4" style={{ stroke: 'currentColor', fill: 'none' }} />
                 }
@@ -270,7 +271,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                 Save Listing
               </Button>
               <Button
-                variant="bordered"
+                variant="tertiary"
                 startContent={
                   <Share2 className="w-4 h-4" style={{ stroke: 'currentColor', fill: 'none' }} />
                 }
@@ -418,10 +419,10 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
 
                 {/* Contact Seller CTA */}
                 <Button
-                  color="primary"
+                  variant="primary"
                   size="lg"
                   onPress={onOpen}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="w-full"
                   startContent={
                     <MessageSquare
                       className="w-5 h-5"
@@ -641,10 +642,10 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
 
                 {/* Contact Seller CTA */}
                 <Button
-                  color="primary"
+                  variant="primary"
                   size="lg"
                   onPress={onOpen}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="w-full"
                   startContent={
                     <MessageSquare
                       className="w-5 h-5"
@@ -701,7 +702,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
             requires_nda: listing.requires_nda,
           }}
           onSubmit={inquiryData => {
-            console.log('Inquiry submitted:', inquiryData);
+            // console.log('Inquiry submitted:', inquiryData);
             // TODO: Implement actual inquiry submission
             onOpenChange();
           }}

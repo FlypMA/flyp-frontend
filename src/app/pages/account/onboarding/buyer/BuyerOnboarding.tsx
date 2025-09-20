@@ -1,15 +1,15 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { logger } from '@/shared/utils/logger';
 import {
-  Button,
-  Card,
-  CardBody,
-  Input,
-  Progress,
-  Select,
-  SelectItem,
-  Textarea,
+    Card,
+    CardBody,
+    Input,
+    Progress,
+    Select,
+    SelectItem,
+    Textarea,
 } from '@heroui/react';
 import { Bell, CheckCircle, ChevronLeft, Euro, MapPin, Star, Target } from 'lucide-react';
 import { useState } from 'react';
@@ -714,7 +714,7 @@ const BuyerOnboarding = () => {
                 {/* Navigation */}
                 <div className="flex justify-between mt-8 pt-6 border-t border-neutral-200">
                   <Button
-                    variant="bordered"
+                    variant="secondary"
                     onPress={handleBack}
                     startContent={<ChevronLeft className="w-4 h-4" />}
                     isDisabled={currentStep === 1}
@@ -724,7 +724,7 @@ const BuyerOnboarding = () => {
 
                   {currentStep < totalSteps ? (
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleNext}
                       isDisabled={
                         (currentStep === 1 && !isStep1Valid) ||
@@ -735,7 +735,7 @@ const BuyerOnboarding = () => {
                       Continue
                     </Button>
                   ) : (
-                    <Button color="primary" onPress={handleComplete} isLoading={isSubmitting}>
+                    <Button variant="primary" size="lg" onPress={handleComplete} isLoading={isSubmitting}>
                       {isSubmitting ? 'Setting up...' : 'Start Searching'}
                     </Button>
                   )}

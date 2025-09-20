@@ -31,13 +31,15 @@ const BusinessDescriptionStep: React.FC<OnboardingStepProps> = ({ formData, upda
             label="Business Description"
             placeholder="Describe your business, what you do, your unique value proposition, target customers, and what makes you special..."
             value={formData.description}
-            onChange={e => updateFormData({ description: e })}
+            onChange={e => updateFormData({ description: e.target.value })}
             minRows={6}
             maxRows={12}
             autoResize={true}
             characterLimit={1000}
             description="Minimum 50 characters. Be specific about your services, customers, and competitive advantages."
             required
+            onBlur={() => {}}
+            name="description"
           />
         </div>
 

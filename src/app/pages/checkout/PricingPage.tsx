@@ -1,18 +1,15 @@
+import { Button } from '@/shared/components/buttons';
+import { Badge, Card, CardBody, CardHeader } from '@heroui/react';
+import {
+    ArrowRight,
+    Check,
+    Crown,
+    Sparkles,
+    Star,
+    Zap
+} from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Badge } from '@heroui/react';
-import {
-  Check,
-  Star,
-  Crown,
-  Zap,
-  Building2,
-  Users,
-  Shield,
-  Headphones,
-  ArrowRight,
-  Sparkles,
-} from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
 interface PricingPlan {
@@ -168,7 +165,7 @@ const PricingPage: React.FC = () => {
               Yearly
             </span>
             {billingCycle === 'yearly' && (
-              <Badge color="success" size="sm">
+              <Badge variant="solid" color="success" size="sm">
                 Save up to 20%
               </Badge>
             )}
@@ -196,7 +193,7 @@ const PricingPage: React.FC = () => {
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                     <div className="flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
-                      <Badge color="primary" size="lg">
+                      <Badge variant="solid" color="primary" size="lg">
                         Recommended
                       </Badge>
                     </div>

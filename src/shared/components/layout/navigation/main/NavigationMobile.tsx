@@ -8,11 +8,12 @@
 // - Smooth animations
 // - Body scroll prevention
 
+import { Button } from '@/shared/components/buttons';
+import { AuthenticationService } from '@/shared/services/auth';
 import { ChevronRight, LogOut, X } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
-import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '../../../../types';
 import { createNavigationHandler, getMobileNavigationSections } from '../utils';
 
@@ -193,15 +194,16 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
             </div>
           ) : (
             <div className="p-6 space-y-3">
-              <button
-                onClick={() => {
+              <Button
+                variant="link"
+                className="w-full"
+                onPress={() => {
                   onToggle();
                   openModal('login');
                 }}
-                className="w-full text-slate-700 hover:bg-slate-100 rounded-xl transition-all duration-200 px-4 py-3 text-sm font-medium"
               >
                 Log in
-              </button>
+              </Button>
               <button
                 onClick={() => {
                   onToggle();

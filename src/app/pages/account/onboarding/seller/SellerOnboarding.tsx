@@ -1,29 +1,29 @@
-import AnimatedTextarea from '@/shared/components/forms/AnimatedTextarea';
-import { Input } from '@/shared/components/forms/Input';
+import { Button } from '@/shared/components/buttons';
+import { AnimatedTextarea, Input } from '@/shared/components/forms';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, Slider } from '@heroui/react';
+import { Card, Slider } from '@heroui/react';
 import confetti from 'canvas-confetti';
 import {
-  ArrowLeft,
-  ArrowRight,
-  Award,
-  Building2,
-  Calendar,
-  CheckCircle,
-  Clock,
-  Euro,
-  FileText,
-  Heart,
-  Mail,
-  MapPin,
-  Phone,
-  Shield,
-  Sparkles,
-  Star,
-  Target,
-  TrendingUp,
-  Users,
-  Zap,
+    ArrowLeft,
+    ArrowRight,
+    Award,
+    Building2,
+    Calendar,
+    CheckCircle,
+    Clock,
+    Euro,
+    FileText,
+    Heart,
+    Mail,
+    MapPin,
+    Phone,
+    Shield,
+    Sparkles,
+    Star,
+    Target,
+    TrendingUp,
+    Users,
+    Zap,
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -195,7 +195,7 @@ const SellerOnboarding: React.FC = () => {
 
             <Button
               size="lg"
-              color="primary"
+              variant="primary"
               className="px-8 py-6 text-lg font-semibold"
               onPress={handleNext}
             >
@@ -264,7 +264,7 @@ const SellerOnboarding: React.FC = () => {
               <p className="text-blue-800 font-medium">Average deal value in 2023</p>
             </div>
 
-            <Button size="lg" color="primary" onPress={handleNext} className="px-8">
+            <Button size="lg" variant="primary" onPress={handleNext} className="px-8">
               I want this success too
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
@@ -329,6 +329,10 @@ const SellerOnboarding: React.FC = () => {
               onChange={e => updateFormData('businessName', e.target.value)}
               className="text-center text-xl [&_input]:text-center [&_input]:text-xl [&_input]:font-medium [&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
               autoFocus
+              label=""
+              type="text"
+              onBlur={() => {}}
+              name="businessName"
             />
 
             <div className="mt-6 text-sm text-gray-500">
@@ -420,6 +424,10 @@ const SellerOnboarding: React.FC = () => {
                   onChange={e => updateFormData('city', e.target.value)}
                   className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
                   autoFocus
+                  label=""
+                  type="text"
+                  onBlur={() => {}}
+                  name="city"
                 />
               </div>
             </div>
@@ -487,6 +495,8 @@ const SellerOnboarding: React.FC = () => {
               onChange={value => updateFormData('description', value)}
               minRows={6}
               className="text-left [&_textarea]:text-base [&_textarea]:leading-relaxed [&_textarea]:bg-gray-50 [&_textarea]:border-2 [&_textarea]:border-gray-200 hover:[&_textarea]:border-gray-300 focus-within:[&_textarea]:border-blue-500"
+              onBlur={() => {}}
+              name="description"
             />
 
             <div className="mt-4 text-sm text-gray-500">
@@ -807,6 +817,9 @@ const SellerOnboarding: React.FC = () => {
                   leftIcon={<Mail className="w-5 h-5 text-gray-400" />}
                   className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
                   autoFocus
+                  label=""
+                  onBlur={() => {}}
+                  name="contactEmail"
                 />
               </div>
 
@@ -821,6 +834,9 @@ const SellerOnboarding: React.FC = () => {
                   onChange={e => updateFormData('contactPhone', e.target.value)}
                   leftIcon={<Phone className="w-5 h-5 text-gray-400" />}
                   className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
+                  label=""
+                  onBlur={() => {}}
+                  name="contactPhone"
                 />
               </div>
             </div>
@@ -962,7 +978,7 @@ const SellerOnboarding: React.FC = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <Button
                 size="lg"
-                color="primary"
+                variant="primary"
                 className="flex-1 px-8 py-6 text-lg font-semibold"
                 onPress={() => navigate('/account/seller')}
               >
@@ -972,7 +988,7 @@ const SellerOnboarding: React.FC = () => {
 
               <Button
                 size="lg"
-                variant="bordered"
+                variant="secondary"
                 className="flex-1 px-8 py-6 text-lg font-semibold"
                 onPress={() => navigate('/help')}
               >
@@ -1005,7 +1021,7 @@ const SellerOnboarding: React.FC = () => {
             />
             <div className="px-6 py-4 flex items-center justify-between">
               <div className="flex items-center">
-                <Button isIconOnly variant="ghost" onPress={handleBack} className="mr-4">
+                <Button isIconOnly variant="tertiary" onPress={handleBack} className="mr-4">
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
                 <span className="text-sm text-gray-600">
@@ -1028,18 +1044,19 @@ const SellerOnboarding: React.FC = () => {
         {currentStep > 1 && currentStep < totalSteps - 1 && (
           <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-6">
             <div className="max-w-6xl mx-auto flex justify-between items-center">
-              <Button
-                variant="ghost"
-                onPress={handleBack}
-                startContent={<ArrowLeft className="w-5 h-5" />}
-              >
+                <Button
+                  variant="tertiary"
+                  size="md"
+                  onPress={handleBack}
+                  startContent={<ArrowLeft className="w-5 h-5" />}
+                >
                 Back
               </Button>
 
               {currentStep === 13 ? (
                 <Button
                   size="lg"
-                  color="primary"
+                  variant="primary"
                   onPress={handleSubmit}
                   isLoading={isSubmitting}
                   endContent={!isSubmitting && <CheckCircle className="w-5 h-5" />}
@@ -1050,7 +1067,7 @@ const SellerOnboarding: React.FC = () => {
               ) : (
                 <Button
                   size="lg"
-                  color="primary"
+                  variant="primary"
                   onPress={handleNext}
                   isDisabled={!isStepValid()}
                   endContent={<ArrowRight className="w-5 h-5" />}

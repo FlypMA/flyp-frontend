@@ -1,17 +1,18 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react';
+import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-  AlertCircle,
-  Building2,
-  CheckCircle,
-  Clock,
-  Eye,
-  FileText,
-  MessageSquare,
-  Settings,
-  Target,
-  TrendingUp,
+    AlertCircle,
+    Building2,
+    CheckCircle,
+    Clock,
+    Eye,
+    FileText,
+    MessageSquare,
+    Settings,
+    Target,
+    TrendingUp,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -64,7 +65,7 @@ const ListingManagement = () => {
           navigate('/');
         }
       } catch (error) {
-        console.error('Error initializing page:', error);
+        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         // No loading state to manage
@@ -143,7 +144,7 @@ const ListingManagement = () => {
                   <h3 className="text-lg font-semibold text-gray-900">Your Business Listing</h3>
                   <Chip
                     color={getStatusColor(businessListing.status)}
-                    variant="flat"
+                    variant="solid"
                     startContent={getStatusIcon(businessListing.status)}
                   >
                     {businessListing.status.replace('_', ' ').toUpperCase()}
@@ -171,14 +172,13 @@ const ListingManagement = () => {
 
                   <div className="flex items-center gap-4">
                     <Button
-                      color="primary"
-                      variant="flat"
+                      variant="primary"
                       onPress={() => navigate(`/listings/${businessListing.id}`)}
                     >
                       View Public Listing
                     </Button>
                     <Button
-                      variant="bordered"
+                      variant="tertiary"
                       startContent={<Settings className="w-4 h-4" />}
                       onPress={() => navigate(`/seller/listings/edit?id=${businessListing.id}`)}
                     >
@@ -186,8 +186,7 @@ const ListingManagement = () => {
                     </Button>
                     {businessListing.inquiries > 0 && (
                       <Button
-                        color="success"
-                        variant="flat"
+                        variant="success"
                         startContent={<MessageSquare className="w-4 h-4" />}
                         onPress={() => navigate('/messages')}
                       >
@@ -241,15 +240,15 @@ const ListingManagement = () => {
                   <div className="space-y-4">
                     <h4 className="font-medium text-gray-900">Performance Optimization</h4>
                     <div className="space-y-2">
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <TrendingUp className="w-4 h-4 mr-2" />
                         View Analytics Dashboard
                       </Button>
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <Settings className="w-4 h-4 mr-2" />
                         SEO Optimization Tips
                       </Button>
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <FileText className="w-4 h-4 mr-2" />
                         Update Description
                       </Button>
@@ -259,15 +258,15 @@ const ListingManagement = () => {
                   <div className="space-y-4">
                     <h4 className="font-medium text-gray-900">Buyer Management</h4>
                     <div className="space-y-2">
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Manage Inquiries
                       </Button>
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <Eye className="w-4 h-4 mr-2" />
                         Buyer Interest Analytics
                       </Button>
-                      <Button variant="bordered" size="sm" className="w-full justify-start">
+                      <Button variant="tertiary" size="sm" className="w-full justify-start">
                         <Building2 className="w-4 h-4 mr-2" />
                         Schedule Meetings
                       </Button>
@@ -288,7 +287,7 @@ const ListingManagement = () => {
                 List your business for sale and start attracting qualified buyers. Get your business
                 in front of serious investors.
               </p>
-              <Button color="primary" size="lg" onPress={() => navigate('/seller/listings/new')}>
+              <Button variant="primary" size="lg" onPress={() => navigate('/seller/listings/new')}>
                 Create Business Listing
               </Button>
               <p className="text-sm text-gray-500 mt-4">

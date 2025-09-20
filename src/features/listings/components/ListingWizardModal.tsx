@@ -1,45 +1,29 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  Select,
-  SelectItem,
-  Progress,
-  Checkbox,
-  Switch,
-  Chip,
-  Textarea,
-} from '@heroui/react';
-import { Input, AnimatedTextarea } from '@/shared/components/forms';
-import {
-  Building2,
-  FileText,
-  Euro,
-  Shield,
-  Eye,
-  Upload,
-  CheckCircle,
-  AlertTriangle,
-  Lock,
-  Globe,
-  Camera,
-  BarChart3,
-  ChevronLeft,
-  ChevronRight,
-  Save,
-  Rocket,
-  Users,
-  Target,
-  TrendingUp,
-  Package,
-  Calendar,
-  MapPin,
-  FileCheck,
-  EyeOff,
-} from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
+import { AnimatedTextarea, Input } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
-import { SEOHead } from '@/shared/components/seo/SEOHead';
+import {
+    Card,
+    CardBody,
+    Checkbox,
+    Progress,
+    Switch
+} from '@heroui/react';
+import {
+    BarChart3,
+    Building2,
+    Camera,
+    CheckCircle,
+    ChevronLeft,
+    ChevronRight,
+    Euro,
+    FileCheck,
+    FileText,
+    Rocket,
+    Shield,
+    Target,
+    Upload
+} from 'lucide-react';
+import React, { useState } from 'react';
 
 interface BasicInfo {
   title: string;
@@ -246,7 +230,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
     setIsSubmitting(true);
     try {
       // Simulate API call
-      console.log('Publishing listing with data:', {
+      // console.log('Publishing listing with data:', {
         basicInfo,
         financialInfo,
         businessDetails,
@@ -261,7 +245,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
         onComplete();
       }
     } catch (error) {
-      console.error('Error publishing listing:', error);
+      // console.error('Error publishing listing:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -320,7 +304,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
         />
         <label htmlFor={`file-${field}`} className="cursor-pointer">
-          <Button variant="bordered" size="sm" startContent={<Upload className="w-4 h-4" />}>
+          <Button variant="secondary" size="sm" startContent={<Upload className="w-4 h-4" />}>
             Upload File
           </Button>
         </label>
@@ -409,64 +393,88 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="Business Title"
                       placeholder="Enter a compelling title for your listing"
                       value={basicInfo.title}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, title: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, title: e.target.value }))}
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="title"
                     />
 
                     <Input
                       label="Industry"
                       placeholder="Select your industry"
                       value={basicInfo.industry}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, industry: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, industry: e.target.value }))}
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="industry"
                     />
 
                     <Input
                       label="Business Model"
                       placeholder="Select your business model"
                       value={basicInfo.business_model}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, business_model: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, business_model: e.target.value }))}
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="business_model"
                     />
 
                     <Input
                       label="Website"
                       placeholder="https://yourbusiness.com"
                       value={basicInfo.website}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, website: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, website: e.target.value }))}
+                      type="url"
+                      onBlur={() => {}}
+                      name="website"
                     />
 
                     <Input
                       label="Founded Year"
                       placeholder="e.g., 2015"
                       value={basicInfo.founded_year}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, founded_year: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, founded_year: e.target.value }))}
+                      type="number"
+                      onBlur={() => {}}
+                      name="founded_year"
                     />
 
                     <Input
                       label="Employee Count"
                       placeholder="Select employee count"
                       value={basicInfo.employee_count}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, employee_count: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, employee_count: e.target.value }))}
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="employee_count"
                     />
 
                     <Input
                       label="Country"
                       placeholder="Select country"
                       value={basicInfo.location_country}
-                      onChange={value =>
-                        setBasicInfo(prev => ({ ...prev, location_country: value }))
+                      onChange={e =>
+                        setBasicInfo(prev => ({ ...prev, location_country: e.target.value }))
                       }
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="location_country"
                     />
 
                     <Input
                       label="City"
                       placeholder="Enter city"
                       value={basicInfo.location_city}
-                      onChange={value => setBasicInfo(prev => ({ ...prev, location_city: value }))}
+                      onChange={e => setBasicInfo(prev => ({ ...prev, location_city: e.target.value }))}
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="location_city"
                     />
                   </div>
 
@@ -474,9 +482,11 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     label="Business Description"
                     placeholder="Describe your business, its history, and what makes it unique..."
                     value={basicInfo.description}
-                    onChange={value => setBasicInfo(prev => ({ ...prev, description: value }))}
+                    onChange={e => setBasicInfo(prev => ({ ...prev, description: e.target.value }))}
                     required
                     minRows={4}
+                    onBlur={() => {}}
+                    name="description"
                   />
                 </div>
               )}
@@ -497,39 +507,51 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="Annual Revenue"
                       placeholder="€1,000,000"
                       value={financialInfo.annual_revenue}
-                      onChange={value =>
-                        setFinancialInfo(prev => ({ ...prev, annual_revenue: value }))
+                      onChange={e =>
+                        setFinancialInfo(prev => ({ ...prev, annual_revenue: e.target.value }))
                       }
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="annual_revenue"
                     />
 
                     <Input
                       label="Revenue Trend"
                       placeholder="Growing, Stable, Declining"
                       value={financialInfo.revenue_trend}
-                      onChange={value =>
-                        setFinancialInfo(prev => ({ ...prev, revenue_trend: value }))
+                      onChange={e =>
+                        setFinancialInfo(prev => ({ ...prev, revenue_trend: e.target.value }))
                       }
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="revenue_trend"
                     />
 
                     <Input
                       label="EBITDA Margin"
                       placeholder="15%"
                       value={financialInfo.ebitda_margin}
-                      onChange={value =>
-                        setFinancialInfo(prev => ({ ...prev, ebitda_margin: value }))
+                      onChange={e =>
+                        setFinancialInfo(prev => ({ ...prev, ebitda_margin: e.target.value }))
                       }
+                      type="text"
+                      onBlur={() => {}}
+                      name="ebitda_margin"
                     />
 
                     <Input
                       label="Asking Price"
                       placeholder="€5,000,000"
                       value={financialInfo.asking_price}
-                      onChange={value =>
-                        setFinancialInfo(prev => ({ ...prev, asking_price: value }))
+                      onChange={e =>
+                        setFinancialInfo(prev => ({ ...prev, asking_price: e.target.value }))
                       }
                       required
+                      type="text"
+                      onBlur={() => {}}
+                      name="asking_price"
                     />
                   </div>
 
@@ -558,43 +580,51 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     label="Key Products/Services"
                     placeholder="Describe your main products or services..."
                     value={businessDetails.key_products}
-                    onChange={value =>
-                      setBusinessDetails(prev => ({ ...prev, key_products: value }))
+                    onChange={e =>
+                      setBusinessDetails(prev => ({ ...prev, key_products: e.target.value }))
                     }
                     required
                     minRows={3}
+                    onBlur={() => {}}
+                    name="key_products"
                   />
 
                   <AnimatedTextarea
                     label="Target Market"
                     placeholder="Describe your target customers and market segments..."
                     value={businessDetails.target_market}
-                    onChange={value =>
-                      setBusinessDetails(prev => ({ ...prev, target_market: value }))
+                    onChange={e =>
+                      setBusinessDetails(prev => ({ ...prev, target_market: e.target.value }))
                     }
                     required
                     minRows={3}
+                    onBlur={() => {}}
+                    name="target_market"
                   />
 
                   <AnimatedTextarea
                     label="Competitive Advantage"
                     placeholder="What makes your business unique? What are your competitive advantages?"
                     value={businessDetails.competitive_advantage}
-                    onChange={value =>
-                      setBusinessDetails(prev => ({ ...prev, competitive_advantage: value }))
+                    onChange={e =>
+                      setBusinessDetails(prev => ({ ...prev, competitive_advantage: e.target.value }))
                     }
                     required
                     minRows={3}
+                    onBlur={() => {}}
+                    name="competitive_advantage"
                   />
 
                   <AnimatedTextarea
                     label="Growth Opportunities"
                     placeholder="Describe potential growth opportunities for the business..."
                     value={businessDetails.growth_opportunities}
-                    onChange={value =>
-                      setBusinessDetails(prev => ({ ...prev, growth_opportunities: value }))
+                    onChange={e =>
+                      setBusinessDetails(prev => ({ ...prev, growth_opportunities: e.target.value }))
                     }
                     minRows={3}
+                    onBlur={() => {}}
+                    name="growth_opportunities"
                   />
                 </div>
               )}
@@ -612,20 +642,25 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     label="Reason for Sale"
                     placeholder="Why are you selling the business?"
                     value={saleDetails.reason_for_sale}
-                    onChange={value =>
-                      setSaleDetails(prev => ({ ...prev, reason_for_sale: value }))
+                    onChange={e =>
+                      setSaleDetails(prev => ({ ...prev, reason_for_sale: e.target.value }))
                     }
                     required
                     minRows={3}
+                    onBlur={() => {}}
+                    name="reason_for_sale"
                   />
 
                   <Input
                     label="Preferred Timeline"
                     placeholder="e.g., 3-6 months"
                     value={saleDetails.preferred_timeline}
-                    onChange={value =>
-                      setSaleDetails(prev => ({ ...prev, preferred_timeline: value }))
+                    onChange={e =>
+                      setSaleDetails(prev => ({ ...prev, preferred_timeline: e.target.value }))
                     }
+                    type="text"
+                    onBlur={() => {}}
+                    name="preferred_timeline"
                     required
                   />
 
@@ -633,20 +668,24 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     label="Transition Support"
                     placeholder="What support are you willing to provide during the transition?"
                     value={saleDetails.transition_support}
-                    onChange={value =>
-                      setSaleDetails(prev => ({ ...prev, transition_support: value }))
+                    onChange={e =>
+                      setSaleDetails(prev => ({ ...prev, transition_support: e.target.value }))
                     }
                     minRows={3}
+                    onBlur={() => {}}
+                    name="transition_support"
                   />
 
                   <AnimatedTextarea
                     label="Staff Retention"
                     placeholder="What are your plans for existing staff?"
                     value={saleDetails.staff_retention}
-                    onChange={value =>
-                      setSaleDetails(prev => ({ ...prev, staff_retention: value }))
+                    onChange={e =>
+                      setSaleDetails(prev => ({ ...prev, staff_retention: e.target.value }))
                     }
                     minRows={3}
+                    onBlur={() => {}}
+                    name="staff_retention"
                   />
                 </div>
               )}
@@ -713,10 +752,12 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     label="Teaser Description"
                     placeholder="Write a brief teaser description that will be visible to all buyers..."
                     value={privacySettings.teaser_description}
-                    onChange={value =>
-                      setPrivacySettings(prev => ({ ...prev, teaser_description: value }))
+                    onChange={e =>
+                      setPrivacySettings(prev => ({ ...prev, teaser_description: e.target.value }))
                     }
                     minRows={3}
+                    onBlur={() => {}}
+                    name="teaser_description"
                   />
                 </div>
               )}
@@ -874,7 +915,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
               {/* Navigation Buttons */}
               <div className="flex justify-between mt-8 pt-6 border-t border-neutral-200">
                 <Button
-                  variant="bordered"
+                  variant="secondary"
                   onPress={handlePrevious}
                   isDisabled={currentStep === 1}
                   startContent={<ChevronLeft className="w-4 h-4" />}
@@ -885,7 +926,8 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                 <div className="flex gap-3">
                   {currentStep < totalSteps ? (
                     <Button
-                      color="primary"
+                      variant="primary"
+                      size="md"
                       onPress={handleNext}
                       endContent={<ChevronRight className="w-4 h-4" />}
                     >
@@ -893,7 +935,8 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     </Button>
                   ) : (
                     <Button
-                      color="success"
+                      variant="primary"
+                      size="md"
                       onPress={handlePublishListing}
                       isLoading={isSubmitting}
                       endContent={<Rocket className="w-4 h-4" />}

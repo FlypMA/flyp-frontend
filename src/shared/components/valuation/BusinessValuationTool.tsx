@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Select,
-  SelectItem,
-  Slider,
-  Progress,
-  Divider,
-  Chip,
-  Tooltip,
+    Card,
+    CardBody,
+    CardHeader,
+    Chip,
+    Divider,
+    Progress,
+    Select,
+    SelectItem,
+    Slider
 } from '@heroui/react';
-import { Input } from '../forms/Input';
-import { Button } from '../buttons/Button';
 import {
-  Calculator,
-  TrendingUp,
-  Info,
-  DollarSign,
-  BarChart3,
-  Building2,
-  Users,
-  Clock,
-  AlertTriangle,
+    AlertTriangle,
+    BarChart3,
+    Building2,
+    Calculator,
+    Clock,
+    DollarSign,
+    Info,
+    TrendingUp,
+    Users,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Button } from '../buttons/Button';
+import { Input } from '../forms';
 
 interface ValuationInputs {
   sector: string;
@@ -430,10 +429,10 @@ const BusinessValuationTool = () => {
                   placeholder="1000000"
                   description="Total revenue - foundation for EBITDA calculation"
                   value={inputs.annualRevenue.toString()}
-                  onChange={value =>
+                  onChange={e =>
                     setInputs(prev => ({
                       ...prev,
-                      annualRevenue: parseInt(value) || 0,
+                      annualRevenue: parseInt(e.target.value) || 0,
                     }))
                   }
                   leftIcon={<DollarSign className="w-4 h-4 text-gray-400" />}
@@ -446,10 +445,10 @@ const BusinessValuationTool = () => {
                   placeholder="200000"
                   description="Earnings before Interest, Taxes, Depreciation & Amortization"
                   value={inputs.ebitda.toString()}
-                  onChange={value =>
+                  onChange={e =>
                     setInputs(prev => ({
                       ...prev,
-                      ebitda: parseInt(value) || 0,
+                      ebitda: parseInt(e.target.value) || 0,
                     }))
                   }
                   leftIcon={<TrendingUp className="w-4 h-4 text-gray-400" />}
@@ -472,10 +471,10 @@ const BusinessValuationTool = () => {
                   label="Years in Business"
                   placeholder="5"
                   value={inputs.yearsInBusiness.toString()}
-                  onChange={value =>
+                  onChange={e =>
                     setInputs(prev => ({
                       ...prev,
-                      yearsInBusiness: parseInt(value) || 0,
+                      yearsInBusiness: parseInt(e.target.value) || 0,
                     }))
                   }
                   leftIcon={<Clock className="w-4 h-4 text-gray-400" />}
@@ -486,10 +485,10 @@ const BusinessValuationTool = () => {
                   label="Number of Employees"
                   placeholder="15"
                   value={inputs.employees.toString()}
-                  onChange={value =>
+                  onChange={e =>
                     setInputs(prev => ({
                       ...prev,
-                      employees: parseInt(value) || 0,
+                      employees: parseInt(e.target.value) || 0,
                     }))
                   }
                   leftIcon={<Users className="w-4 h-4 text-gray-400" />}
@@ -561,7 +560,7 @@ const BusinessValuationTool = () => {
 
           {/* Calculate Button */}
           <Button
-            color="primary"
+            variant="primary"
             size="lg"
             onPress={calculateValuation}
             isLoading={isCalculating}

@@ -1,22 +1,23 @@
-import { Input } from '@/shared/components/forms/Input';
+import { Input } from '@/shared/components/forms';
 // Navigation is provided by AuthLayout
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
-import { Avatar, Badge, Button, Chip, Divider } from '@heroui/react';
+import { Avatar, Badge, Chip, Divider } from '@heroui/react';
 import {
-  Building2,
-  CheckCheck,
-  Euro,
-  MapPin,
-  MessageCircle,
-  MoreVertical,
-  Paperclip,
-  Phone,
-  Pin,
-  Search,
-  Send,
-  Smile,
-  User,
-  Video,
+    Building2,
+    CheckCheck,
+    Euro,
+    MapPin,
+    MessageCircle,
+    MoreVertical,
+    Paperclip,
+    Phone,
+    Pin,
+    Search,
+    Send,
+    Smile,
+    User,
+    Video,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -64,7 +65,7 @@ interface Message {
 
 const Messages: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [_user, _setUser] = useState<UserType | null>(null);
   // Loading states removed for smooth UX
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
@@ -224,7 +225,7 @@ const Messages: React.FC = () => {
         navigate('/login');
       }
     } catch (err) {
-      console.error('Failed to load user data:', err);
+      // console.error('Failed to load user data:', err);
       navigate('/login');
     } finally {
       // No loading state to manage
@@ -235,7 +236,7 @@ const Messages: React.FC = () => {
     if (!newMessage.trim()) return;
 
     // Add message logic would go here
-    console.log('Sending message:', newMessage);
+    // console.log('Sending message:', newMessage);
     setNewMessage('');
   };
 
@@ -289,7 +290,7 @@ const Messages: React.FC = () => {
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
-              <Button isIconOnly variant="ghost" className="text-gray-500 hover:text-gray-700">
+              <Button isIconOnly variant="tertiary" className="text-gray-500 hover:text-gray-700">
                 <MoreVertical className="w-5 h-5" />
               </Button>
             </div>
@@ -299,10 +300,13 @@ const Messages: React.FC = () => {
               <Input
                 placeholder="Search conversations..."
                 value={searchQuery}
-                onChange={setSearchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search className="w-4 h-4 text-gray-400" />}
-                size="sm"
                 className="search-conversations"
+                label=""
+                type="text"
+                onBlur={() => {}}
+                name="search"
               />
             </div>
 
@@ -312,8 +316,7 @@ const Messages: React.FC = () => {
                 <Button
                   key={filter}
                   size="sm"
-                  variant={filterType === filter ? 'solid' : 'light'}
-                  color={filterType === filter ? 'primary' : 'default'}
+                  variant={filterType === filter ? 'primary' : 'secondary'}
                   className="text-xs capitalize"
                   onPress={() => setFilterType(filter)}
                 >
@@ -323,7 +326,7 @@ const Messages: React.FC = () => {
                       <Badge
                         content={conversations.filter(c => c.unreadCount > 0).length}
                         size="sm"
-                        color="danger"
+                        variant="solid" color="danger"
                       >
                         {conversations.filter(c => c.unreadCount > 0).length}
                       </Badge>
@@ -347,7 +350,7 @@ const Messages: React.FC = () => {
                     : 'Start connecting with buyers and sellers.'}
                 </p>
                 <Button
-                  color="primary"
+                  variant="primary"
                   size="sm"
                   onPress={() => navigate('/search')}
                   startContent={<Search className="w-4 h-4" />}
@@ -396,12 +399,12 @@ const Messages: React.FC = () => {
                           </h3>
                           <div className="flex items-center space-x-1">
                             {conversation.status === 'negotiating' && (
-                              <Chip size="sm" color="warning" variant="flat" className="text-xs">
+                              <Chip size="sm" color="warning" variant="solid" className="text-xs">
                                 Negotiating
                               </Chip>
                             )}
                             {conversation.unreadCount > 0 && (
-                              <Badge content={conversation.unreadCount} size="sm" color="danger">
+                              <Badge content={conversation.unreadCount} size="sm" variant="solid" color="danger">
                                 {conversation.unreadCount}
                               </Badge>
                             )}
@@ -481,21 +484,21 @@ const Messages: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <Button
                       isIconOnly
-                      variant="ghost"
+                      variant="tertiary"
                       className="text-gray-500 hover:text-gray-700"
                     >
                       <Phone className="w-5 h-5" />
                     </Button>
                     <Button
                       isIconOnly
-                      variant="ghost"
+                      variant="tertiary"
                       className="text-gray-500 hover:text-gray-700"
                     >
                       <Video className="w-5 h-5" />
                     </Button>
                     <Button
                       isIconOnly
-                      variant="ghost"
+                      variant="tertiary"
                       className="text-gray-500 hover:text-gray-700"
                     >
                       <MoreVertical className="w-5 h-5" />
@@ -597,7 +600,7 @@ const Messages: React.FC = () => {
                   {/* Attachment Button */}
                   <Button
                     isIconOnly
-                    variant="flat"
+                    variant="tertiary"
                     className="w-10 h-10 rounded-full bg-white hover:bg-gray-100 border border-gray-200/50 shadow-sm text-gray-600 hover:text-gray-800 transition-all duration-200 hover:scale-105"
                   >
                     <Paperclip className="w-4 h-4" />
@@ -624,7 +627,7 @@ const Messages: React.FC = () => {
                       {/* Emoji Button */}
                       <Button
                         isIconOnly
-                        variant="light"
+                        variant="tertiary"
                         className="w-9 h-9 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200 mr-2"
                       >
                         <Smile className="w-4 h-4" />
@@ -679,14 +682,14 @@ const Messages: React.FC = () => {
               </p>
               <div className="flex space-x-3">
                 <Button
-                  color="primary"
+                  variant="primary"
                   onPress={() => navigate('/search')}
                   startContent={<Search className="w-4 h-4" />}
                 >
                   Browse Businesses
                 </Button>
                 <Button
-                  variant="bordered"
+                  variant="tertiary"
                   onPress={() => navigate('/my-business/overview')}
                   startContent={<Building2 className="w-4 h-4" />}
                 >

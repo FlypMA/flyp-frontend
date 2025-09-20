@@ -2,10 +2,10 @@
 // Location: src/features/business-dashboard/components/DashboardToolbar.tsx
 // Purpose: Business dashboard toolbar with actions and user info
 
-import React, { useState, useCallback } from 'react';
-import { Button } from '@heroui/react';
-import { Eye, Code, Info, RefreshCw, Download, Maximize, Edit3, Save, X } from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
 import { User } from '@/shared/types';
+import { Code, Download, Edit3, Eye, Info, Maximize, RefreshCw, Save, X } from 'lucide-react';
+import React, { useCallback, useState } from 'react';
 
 interface DashboardToolbarProps {
   onRefresh?: () => void;
@@ -117,12 +117,12 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
                     if (e.key === 'Escape') handleCancelEdit();
                   }}
                 />
-                <Button size="sm" variant="ghost" onClick={handleSaveName} className="p-1 h-8 w-8">
+                <Button size="sm" variant="tertiary" onClick={handleSaveName} className="p-1 h-8 w-8">
                   <Save className="w-4 h-4 text-green-600" />
                 </Button>
                 <Button
                   size="sm"
-                  variant="ghost"
+                  variant="tertiary"
                   onClick={handleCancelEdit}
                   className="p-1 h-8 w-8"
                 >
@@ -132,12 +132,12 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
             ) : (
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl font-semibold text-gray-900">{reportName}</h1>
-                <Button size="sm" variant="ghost" onClick={handleEditName} className="p-1 h-8 w-8">
+                <Button size="sm" variant="tertiary" onClick={handleEditName} className="p-1 h-8 w-8">
                   <Edit3 className="w-4 h-4 text-gray-500" />
                 </Button>
                 <Button
                   size="sm"
-                  variant="ghost"
+                  variant="tertiary"
                   onClick={handleGenerateName}
                   className="p-1 h-8 w-8"
                   title="Generate new name"
@@ -176,7 +176,7 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
           <div className="flex items-center space-x-2">
             <Button
               size="sm"
-              variant="ghost"
+              variant="tertiary"
               onClick={onRefresh}
               disabled={isGenerating}
               className="flex items-center space-x-2"
@@ -187,7 +187,7 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
 
             <Button
               size="sm"
-              variant="ghost"
+              variant="tertiary"
               onClick={onDownload}
               className="flex items-center space-x-2"
             >
@@ -197,7 +197,7 @@ const DashboardToolbar: React.FC<DashboardToolbarProps> = ({
 
             <Button
               size="sm"
-              variant="ghost"
+              variant="tertiary"
               onClick={onFullScreen}
               className="flex items-center space-x-2"
             >

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { Button } from '@heroui/react';
-import { Card, CardBody, CardHeader } from '@heroui/react';
-import { Input } from '@heroui/react';
-import { Eye, EyeOff, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody, CardHeader, Input } from '@heroui/react';
+import { ArrowLeft, CheckCircle, Eye, EyeOff, XCircle } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 // import { AuthenticationService } from '@/shared/services/auth'; // TODO: Implement authentication service
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 
@@ -141,7 +140,8 @@ const ResetPasswordPage: React.FC = () => {
               shortly.
             </p>
             <Button
-              className="w-full bg-blue-600 text-white hover:bg-blue-700"
+              variant="primary"
+              className="w-full"
               onPress={() => navigate(UrlGenerator.login())}
             >
               Go to Login
@@ -264,7 +264,8 @@ const ResetPasswordPage: React.FC = () => {
 
             <Button
               type="submit"
-              className="w-full bg-blue-600 text-white hover:bg-blue-700"
+              variant="primary"
+              className="w-full"
               isLoading={isLoading}
               disabled={!formData.password || !formData.confirmPassword || isLoading}
             >

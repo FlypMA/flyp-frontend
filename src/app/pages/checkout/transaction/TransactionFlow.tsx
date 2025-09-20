@@ -1,20 +1,21 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import {
-  DueDiligencePlatform,
-  OfferManagement,
-  SuccessFeeCollection,
+    DueDiligencePlatform,
+    OfferManagement,
+    SuccessFeeCollection,
 } from '@/shared/components/transaction';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Badge, Button, Card, CardBody, Chip, Progress, Tab, Tabs } from '@heroui/react';
+import { Badge, Card, CardBody, Chip, Progress, Tab, Tabs } from '@heroui/react';
 import {
-  AlertTriangle,
-  CheckCircle,
-  DollarSign,
-  FileText,
-  Search,
-  Shield,
-  TrendingUp,
+    AlertTriangle,
+    CheckCircle,
+    DollarSign,
+    FileText,
+    Search,
+    Shield,
+    TrendingUp,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -193,7 +194,7 @@ const TransactionFlow: React.FC = () => {
           <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-neutral-900 mb-2">Transaction Not Found</h2>
           <p className="text-neutral-600 mb-4">The requested transaction could not be found.</p>
-          <Button color="primary" onPress={() => navigate('/listings')}>
+          <Button variant="primary" onPress={() => navigate('/listings')}>
             Back to Listings
           </Button>
         </div>
@@ -222,7 +223,7 @@ const TransactionFlow: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Chip color="primary" variant="flat">
+                  <Chip variant="solid" color="primary">
                     <Shield className="w-4 h-4 mr-1" />
                     Secure Transaction
                   </Chip>
@@ -230,7 +231,7 @@ const TransactionFlow: React.FC = () => {
                     content={transaction.status}
                     color={transaction.status === 'active' ? 'success' : 'default'}
                   >
-                    <Button variant="bordered" size="sm">
+                    <Button variant="tertiary" size="sm">
                       {transaction.id}
                     </Button>
                   </Badge>

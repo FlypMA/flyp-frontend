@@ -4,16 +4,16 @@ import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-  AlertTriangle,
-  BarChart,
-  Calculator,
-  CheckCircle,
-  DollarSign,
-  Heart,
-  MessageSquare,
-  Shield,
-  Target,
-  TrendingUp,
+    AlertTriangle,
+    BarChart,
+    Calculator,
+    CheckCircle,
+    DollarSign,
+    Heart,
+    MessageSquare,
+    Shield,
+    Target,
+    TrendingUp,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ const ValuationGuide = () => {
                 why selling is almost always better than liquidating.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Chip color="primary" variant="flat" className="text-lg px-6 py-2 rounded-full">
+                <Chip className="text-lg px-6 py-2 rounded-full bg-calm-100 text-calm-800 border border-calm-200">
                   Free • For business owners
                 </Chip>
                 <div className="flex items-center gap-2 text-sm text-neutral-500">
@@ -723,7 +723,7 @@ const ValuationGuide = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
-                      variant="supportive"
+                      variant="primary"
                       size="lg"
                       className="px-8 py-3"
                       onPress={() => openModal('signup')}
@@ -731,7 +731,7 @@ const ValuationGuide = () => {
                       Get My Free Valuation
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="secondary"
                       size="lg"
                       className="px-8 py-3"
                       onPress={() => navigate('/contact')}

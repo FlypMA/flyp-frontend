@@ -1,35 +1,25 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  Progress,
-  Chip,
-  Textarea,
-  Select,
-  SelectItem,
+    Card,
+    CardBody,
+    CardHeader,
+    Chip
 } from '@heroui/react';
-import { Button } from '../buttons/Button';
-import { ModernTabs as Tabs, ModernTabContent as TabContent } from '../tabs/Tabs';
 import {
-  FileText,
-  MessageSquare,
-  CheckCircle,
-  Clock,
-  Upload,
-  Download,
-  Eye,
-  EyeOff,
-  Send,
-  Calendar,
-  Users,
-  AlertTriangle,
-  Shield,
-  BarChart3,
+    CheckCircle,
+    Download,
+    Eye,
+    FileText,
+    MessageSquare,
+    Send,
+    Shield,
+    Upload,
+    Users
 } from 'lucide-react';
-import { Input } from '../forms/Input';
-import AnimatedTextarea from '../forms/AnimatedTextarea';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from '../buttons/Button';
+import { AnimatedTextarea } from '../forms';
+import { ModernTabContent as TabContent, ModernTabs as Tabs } from '../tabs/Tabs';
 
 interface DueDiligenceDocument {
   id: string;
@@ -77,7 +67,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const [messages, setMessages] = useState<Comment[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [selectedDocument, setSelectedDocument] = useState<DueDiligenceDocument | null>(null);
+  const [_selectedDocument, _setSelectedDocument] = useState<DueDiligenceDocument | null>(null);
   const [uploading, setUploading] = useState(false);
 
   // Define tabs for the new Tabs component
@@ -93,8 +83,8 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
       label: 'Checklist',
       icon: <CheckCircle className="w-4 h-4" />,
       badge:
-        checklist.filter((item: any) => item.completed).length > 0
-          ? `${checklist.filter((item: any) => item.completed).length}/${checklist.length}`
+        checklist.filter((item: unknown) => item.completed).length > 0
+          ? `${checklist.filter((item: unknown) => item.completed).length}/${checklist.length}`
           : undefined,
     },
     {
@@ -235,11 +225,11 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Chip color="success" variant="flat">
+              <Chip variant="flat" color="success">
                 <Shield className="w-3 h-3 mr-1" />
                 Secure
               </Chip>
-              <Chip color="primary" variant="flat">
+              <Chip variant="flat" color="primary">
                 <Users className="w-3 h-3 mr-1" />
                 Private
               </Chip>
@@ -275,7 +265,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                       Drag and drop files here or click to browse
                     </p>
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleFileUpload}
                       isLoading={uploading}
                       startContent={<Upload className="w-4 h-4" />}
@@ -313,14 +303,14 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                           </Chip>
                           <Button
                             size="sm"
-                            variant="light"
+                            variant="secondary"
                             startContent={<Eye className="w-4 h-4" />}
                           >
                             View
                           </Button>
                           <Button
                             size="sm"
-                            variant="light"
+                            variant="secondary"
                             startContent={<Download className="w-4 h-4" />}
                           >
                             Download
@@ -420,11 +410,13 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                       label="Message"
                       placeholder="Type your message here..."
                       value={newMessage}
-                      onChange={value => setNewMessage(value)}
+                      onChange={e => setNewMessage(e.target.value)}
+                      onBlur={() => {}}
+                      name="message"
                       minRows={3}
                     />
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleSendMessage}
                       isDisabled={!newMessage.trim()}
                       startContent={<Send className="w-4 h-4" />}

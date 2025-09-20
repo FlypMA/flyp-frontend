@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Input, Avatar, Divider } from '@heroui/react';
-import { User, Mail, Phone, MapPin, Calendar, Building2, Edit, Save, X } from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
-import { User as UserType } from '../../../../shared/types';
+import { Avatar, Card, CardBody, CardHeader, Input } from '@heroui/react';
+import { Building2, Calendar, Edit, Mail, MapPin, Phone, Save, User, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
+import { User as UserType } from '../../../../shared/types';
 
 const UserProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const UserProfile: React.FC = () => {
       } else {
         navigate(UrlGenerator.login());
       }
-    } catch (error) {
-      console.error('Failed to load user data:', error);
+    } catch (_error) {
+      // logger.error('Failed to load user data:', error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -60,9 +61,9 @@ const UserProfile: React.FC = () => {
 
       setEditing(false);
       // Show success message
-      console.log('Profile updated successfully');
-    } catch (error) {
-      console.error('Failed to update profile:', error);
+      // logger.info('Profile updated successfully');
+    } catch (_error) {
+      // logger.error('Failed to update profile:', error);
       // Show error message
     } finally {
       setSaving(false);
@@ -146,7 +147,7 @@ const UserProfile: React.FC = () => {
 
                 <Button
                   className="w-full mt-6"
-                  color="primary"
+                  variant="primary"
                   onPress={() => setEditing(true)}
                   startContent={<Edit className="w-4 h-4" />}
                 >
@@ -169,7 +170,7 @@ const UserProfile: React.FC = () => {
                     <div className="flex space-x-2">
                       <Button
                         size="sm"
-                        variant="bordered"
+                        variant="tertiary"
                         onPress={handleCancel}
                         startContent={<X className="w-4 h-4" />}
                       >
@@ -177,7 +178,7 @@ const UserProfile: React.FC = () => {
                       </Button>
                       <Button
                         size="sm"
-                        color="primary"
+                        variant="primary"
                         onPress={handleSave}
                         isLoading={saving}
                         startContent={!saving && <Save className="w-4 h-4" />}

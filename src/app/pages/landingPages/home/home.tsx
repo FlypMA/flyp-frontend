@@ -2,28 +2,28 @@ import { Button } from '@/shared/components/buttons';
 import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { authService } from '@/shared/services/auth';
 import { seoData } from '@/shared/utils/seo/seoData';
 import { Card, CardBody } from '@heroui/react';
 import {
-  Car,
-  Coffee,
-  Factory,
-  HeartHandshake,
-  Hotel,
-  Laptop,
-  ShoppingCart,
-  Wrench,
+    Car,
+    Coffee,
+    Factory,
+    HeartHandshake,
+    Hotel,
+    Laptop,
+    ShoppingCart,
+    Wrench,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '@/shared/services/auth';
 import { useAuth } from '../../../providers/auth-provider';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchType, setSearchType] = useState('businesses'); // 'businesses' or 'franchises'
-  const [email, setEmail] = useState('');
+  const [_email, _setEmail] = useState('');
   const navigate = useNavigate();
   const { openModal } = useAuth();
 
@@ -36,7 +36,7 @@ const Home = () => {
       const authResult = await authService.checkAuthentication();
       setIsAuthenticated(authResult.isAuthenticated);
     } catch (error) {
-      console.error('Error checking authentication:', error);
+      // console.error('Error checking authentication:', error);
     }
   };
 
@@ -48,7 +48,7 @@ const Home = () => {
     navigate(`/search?${searchParams.toString()}`);
   };
 
-  const handleGetStarted = () => {
+  const _handleGetStarted = () => {
     if (isAuthenticated) {
       navigate('/account');
     } else {
@@ -201,8 +201,7 @@ const Home = () => {
 
               <div className="text-center mt-8">
                 <Button
-                  variant="bordered"
-                  className="border-2 border-neutral-300 hover:border-neutral-400"
+                  variant="secondary"
                   onPress={() => navigate('/search')}
                 >
                   View All Categories
@@ -230,16 +229,16 @@ const Home = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
+                  variant="primary"
                   size="lg"
                   onPress={() => navigate('/search')}
-                  className="font-semibold px-8 py-3 h-14 text-base bg-white text-neutral-700 hover:bg-neutral-50 border border-neutral-300 hover:border-neutral-400 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   Explore businesses for sale
                 </Button>
                 <Button
+                  variant="secondary"
                   size="lg"
                   onPress={() => openModal('signup')}
-                  className="font-semibold px-8 py-3 h-14 text-base bg-primary-600 hover:bg-primary-700 text-white border border-primary-600 hover:border-primary-700 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   Get help selling my business
                 </Button>
@@ -358,7 +357,7 @@ const Home = () => {
                 {/* Supportive CTA */}
                 <div className="mt-12">
                   <Button
-                    variant="supportive"
+                    variant="primary"
                     size="lg"
                     onPress={() => openModal('signup')}
                     className="px-8 py-3 h-14 text-base"

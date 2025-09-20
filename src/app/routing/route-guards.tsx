@@ -12,6 +12,7 @@
 
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { Button } from '../../shared/components/buttons';
 import { UserRole, isAdminUser, isBuyerUser, isSellerUser } from '../../shared/types';
 import { shouldBypassProtectedRoute } from '../../shared/utils/dev/devBypass';
 import { useAuth } from '../providers/auth-provider';
@@ -53,7 +54,7 @@ const LoadingScreen: React.FC<{ message?: string }> = ({ message = 'Loading...' 
 // =============================================================================
 
 const AccessDeniedPage: React.FC<{
-  user: any;
+  user: unknown;
   allowedRoles: UserRole[];
   onGoBack?: () => void;
   onGoHome?: () => void;
@@ -81,19 +82,21 @@ const AccessDeniedPage: React.FC<{
       </p>
 
       <div className="space-y-3 mb-6">
-        <button
-          onClick={onGoBack || (() => window.history.back())}
-          className="w-full px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+        <Button
+          variant="primary"
+          className="w-full"
+          onPress={onGoBack || (() => window.history.back())}
         >
           Go Back
-        </button>
+        </Button>
 
-        <button
-          onClick={onGoHome || (() => (window.location.href = '/'))}
-          className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+        <Button
+          variant="secondary"
+          className="w-full"
+          onPress={onGoHome || (() => (window.location.href = '/'))}
         >
           Go to Home
-        </button>
+        </Button>
       </div>
 
       {user && (
@@ -247,7 +250,7 @@ export const AdminRoute: React.FC<BaseRouteProps> = ({ children }) => (
 /**
  * Check if user has access based on allowed roles
  */
-const checkUserAccess = (user: any, allowedRoles: UserRole[]): boolean => {
+const checkUserAccess = (user: unknown, allowedRoles: UserRole[]): boolean => {
   if (!user || !user.role) return false;
 
   // Admin has access to everything
@@ -267,7 +270,7 @@ const checkUserAccess = (user: any, allowedRoles: UserRole[]): boolean => {
 /**
  * Get default route for user based on their role
  */
-const getDefaultRouteForUser = (user: any): string => {
+const getDefaultRouteForUser = (user: unknown): string => {
   if (!user) return '/';
 
   switch (user.role) {

@@ -24,9 +24,12 @@ const BusinessNameStep: React.FC<OnboardingStepProps> = ({ formData, updateFormD
         <div>
           <Input
             label="Business Name"
+            type="text"
             placeholder="Enter your business name"
             value={formData.businessName}
             onChange={e => updateFormData({ businessName: e.target.value })}
+            onBlur={() => {}}
+            name="businessName"
             required
             className="text-lg"
           />

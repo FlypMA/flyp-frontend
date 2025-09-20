@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody } from '@heroui/react';
+import { ArrowRight, Check, Crown, Sparkles } from 'lucide-react';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Card, CardBody, Button } from '@heroui/react';
-import { Check, Crown, ArrowRight, Sparkles } from 'lucide-react';
 
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ const CheckoutSuccess = () => {
 
                   <Button
                     onClick={handleManageBilling}
-                    variant="bordered"
+                    variant="tertiary"
                     className="border-zinc-600 hover:border-purple-500 text-zinc-300 hover:text-white px-6 py-3"
                     size="lg"
                   >

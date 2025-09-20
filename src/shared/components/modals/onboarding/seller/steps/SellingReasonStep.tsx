@@ -88,7 +88,9 @@ const SellingReasonStep: React.FC<OnboardingStepProps> = ({ formData, updateForm
             label="Additional Details (Optional)"
             placeholder="Tell us more about your situation and what you're looking for in a buyer..."
             value={formData.sellingReason}
-            onChange={e => updateFormData({ sellingReason: e })}
+            onChange={e => updateFormData({ sellingReason: e.target.value })}
+            onBlur={() => {}}
+            name="sellingReason"
             minRows={3}
             maxRows={6}
             autoResize={true}

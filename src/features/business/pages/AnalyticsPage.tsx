@@ -62,7 +62,7 @@ export const AnalyticsPage: React.FC = () => {
 
   const handleExport = () => {
     // TODO: Implement export functionality
-    console.log('Exporting analytics data...');
+    // console.log('Exporting analytics data...');
   };
 
   return (
@@ -255,7 +255,7 @@ export const AnalyticsPage: React.FC = () => {
       <Card>
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-gray-900">Listing Performance</h3>
-          <Button variant="ghost" size="sm">
+          <Button variant="tertiary" size="sm">
             View All
           </Button>
         </div>

@@ -1,7 +1,7 @@
-import { CustomDropdown } from '@/shared/components/forms';
-import { Input } from '@/shared/components/forms/Input';
+import { Button } from '@/shared/components/buttons';
+import { CustomDropdown, CustomInputField } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
-import { Button, Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import { AlertCircle, ArrowLeft, Check, CreditCard, Lock, Shield, TrendingUp } from 'lucide-react';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -52,8 +52,8 @@ const planDetails = {
   },
 };
 
-const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
-  const navigate = useNavigate();
+const CheckoutForm = ({ selectedPlan, priceId, billing }: unknown) => {
+  const _navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [customerInfo, setCustomerInfo] = useState({
@@ -67,7 +67,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
   const [validationErrors, setValidationErrors] = useState<any>({});
 
   const validateForm = () => {
-    const errors: any = {};
+    const errors: unknown = {};
 
     if (!customerInfo.email.trim()) {
       errors.email = 'Email is required';
@@ -111,7 +111,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
       // If we reach here, something went wrong
       setError('Failed to redirect to payment. Please try again.');
       setLoading(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'An unexpected error occurred');
       setLoading(false);
     }
@@ -152,23 +152,28 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
         <CardBody className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Input
+              <CustomInputField
                 label="Full Name"
+                type="text"
                 placeholder="John Doe"
                 value={customerInfo.name}
                 onChange={e => setCustomerInfo({ ...customerInfo, name: e.target.value })}
+                onBlur={() => {}}
+                name="name"
                 required
                 error={validationErrors.name}
                 className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400 [&_.error]:text-red-400"
               />
             </div>
             <div>
-              <Input
+              <CustomInputField
                 label="Work Email"
                 type="email"
                 placeholder="john@agency.com"
                 value={customerInfo.email}
                 onChange={e => setCustomerInfo({ ...customerInfo, email: e.target.value })}
+                onBlur={() => {}}
+                name="email"
                 required
                 error={validationErrors.email}
                 className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400 [&_.error]:text-red-400"
@@ -177,11 +182,14 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Input
+              <CustomInputField
                 label="Company Name"
+                type="text"
                 placeholder="Your Agency"
                 value={customerInfo.company}
                 onChange={e => setCustomerInfo({ ...customerInfo, company: e.target.value })}
+                onBlur={() => {}}
+                name="company"
                 className="[&_input]:bg-zinc-800 [&_input]:text-white [&_label]:text-zinc-400"
               />
             </div>
@@ -270,7 +278,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
       {/* Submit Button */}
       <Button
         type="submit"
-        color="primary"
+        variant="primary"
         size="lg"
         disabled={!validateForm() || loading}
         className="w-full"
@@ -302,7 +310,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: any) => {
 
 const Checkout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
 
   const selectedPlan = searchParams.get('plan') || 'pro';
@@ -350,7 +358,7 @@ const Checkout = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <Button
-              variant="ghost"
+              variant="tertiary"
               startContent={<ArrowLeft className="h-4 w-4" />}
               onClick={() => navigate('/pricing')}
               className="mb-6 text-zinc-400 hover:text-white"

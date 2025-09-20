@@ -97,7 +97,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         onComplete(formData);
       }
     } catch (error) {
-      console.error('Submission failed:', error);
+      // console.error('Submission failed:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -224,7 +224,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 <div>
                   {currentStep > 0 && (
                     <Button
-                      variant="outline"
+                      variant="tertiary"
                       onClick={handleBack}
                       startContent={<ArrowLeft className="w-4 h-4" />}
                     >
@@ -234,7 +234,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
                 </div>
 
                 <Button
-                  color="primary"
+                  variant="primary"
                   onClick={isLastStep ? handleSubmit : handleNext}
                   endContent={!isLastStep ? <ArrowRight className="w-4 h-4" /> : undefined}
                   disabled={!canProceed || isSubmitting}

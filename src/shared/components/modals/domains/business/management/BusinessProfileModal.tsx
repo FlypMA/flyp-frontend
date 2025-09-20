@@ -4,13 +4,14 @@
  * Purpose: Placeholder for business profile management modal
  */
 
+import { Button } from '@/shared/components/buttons';
 import React from 'react';
 import { CenteredModal } from '../../../foundations';
 
 interface BusinessProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave?: (data: any) => void;
+  onSave?: (data: unknown) => void;
 }
 
 export const BusinessProfileModal: React.FC<BusinessProfileModalProps> = ({
@@ -23,12 +24,12 @@ export const BusinessProfileModal: React.FC<BusinessProfileModalProps> = ({
       <div className="text-center py-8">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Profile Management</h3>
         <p className="text-gray-600 mb-6">This feature is coming soon!</p>
-        <button
-          onClick={onClose}
-          className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+        <Button
+          variant="primary"
+          onPress={onClose}
         >
           Close
-        </button>
+        </Button>
       </div>
     </CenteredModal>
   );

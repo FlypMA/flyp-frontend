@@ -1,5 +1,5 @@
 // 🔐 Custom Password Input Field - Password input with visibility toggle
-// Location: src/features/authentication/components/forms/CustomPasswordInputField.tsx
+// Location: src/shared/components/forms/CustomPasswordInputField.tsx
 // Purpose: Password input with show/hide functionality and validation
 
 import { Eye, EyeOff } from 'lucide-react';
@@ -9,9 +9,9 @@ export interface CustomPasswordInputFieldProps {
   label: string;
   placeholder: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (_e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (_e: React.FocusEvent<HTMLInputElement>) => void;
   name: string;
   className?: string;
   error?: string;
@@ -19,6 +19,7 @@ export interface CustomPasswordInputFieldProps {
   inputRef?: React.RefObject<HTMLInputElement>;
   autoComplete?: string;
   required?: boolean;
+  disabled?: boolean;
   showPasswordStrength?: boolean;
 }
 
@@ -36,6 +37,7 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
   inputRef,
   autoComplete = 'current-password',
   required = false,
+  disabled = false,
   showPasswordStrength = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -98,6 +100,7 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
             focus:outline-none focus:border-gray-900 focus:ring-0
             hover:border-gray-500
             ${hasError ? 'border-red-400 focus:border-red-500' : ''}
+            ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
             placeholder:text-transparent
           `}
           aria-label={label}
@@ -108,6 +111,7 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
           name={name}
           autoComplete={autoComplete}
           required={required}
+          disabled={disabled}
         />
 
         <label
@@ -126,7 +130,8 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
         <button
           type="button"
           onClick={togglePasswordVisibility}
-          className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-900 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-50"
+          disabled={disabled}
+          className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-900 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
         </button>

@@ -1,15 +1,16 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { logger } from '@/shared/utils/logger';
-import { Badge, Button, Card, CardBody, CardHeader, Divider } from '@heroui/react';
+import { Badge, Card, CardBody, CardHeader, Divider } from '@heroui/react';
 import {
-  AlertTriangle,
-  Calendar,
-  CheckCircle,
-  CreditCard,
-  Download,
-  Plus,
-  Receipt,
-  Settings,
+    AlertTriangle,
+    Calendar,
+    CheckCircle,
+    CreditCard,
+    Download,
+    Plus,
+    Receipt,
+    Settings,
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -295,7 +296,7 @@ const UserBilling: React.FC = () => {
 
                     <div className="flex space-x-4">
                       <Button
-                        color="primary"
+                        variant="primary"
                         onPress={() => navigate('/pricing')}
                         startContent={<Settings className="w-4 h-4" />}
                       >
@@ -303,8 +304,7 @@ const UserBilling: React.FC = () => {
                       </Button>
                       {subscription.status === 'active' && (
                         <Button
-                          variant="bordered"
-                          color="danger"
+                          variant="danger"
                           onPress={handleCancelSubscription}
                         >
                           Cancel Subscription
@@ -320,7 +320,7 @@ const UserBilling: React.FC = () => {
                     </h3>
                     <p className="text-gray-600 mb-4">Choose a plan to get started</p>
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={() => navigate('/pricing')}
                       startContent={<Plus className="w-4 h-4" />}
                     >
@@ -340,7 +340,7 @@ const UserBilling: React.FC = () => {
                     <p className="text-gray-600 text-sm">Manage your payment methods</p>
                   </div>
                   <Button
-                    variant="bordered"
+                    variant="tertiary"
                     onPress={handleUpdatePaymentMethod}
                     startContent={<Plus className="w-4 h-4" />}
                   >
@@ -369,13 +369,13 @@ const UserBilling: React.FC = () => {
                         </div>
                         <div className="flex items-center space-x-2">
                           {method.isDefault && (
-                            <Badge color="success" size="sm">
+                            <Badge variant="solid" color="success" size="sm">
                               Default
                             </Badge>
                           )}
                           <Button
                             size="sm"
-                            variant="light"
+                            variant="tertiary"
                             onPress={() => logger.info('Edit payment method')}
                           >
                             Edit
@@ -392,7 +392,7 @@ const UserBilling: React.FC = () => {
                       Add a payment method to manage your subscription
                     </p>
                     <Button
-                      color="primary"
+                      variant="primary"
                       onPress={handleUpdatePaymentMethod}
                       startContent={<Plus className="w-4 h-4" />}
                     >
@@ -435,7 +435,7 @@ const UserBilling: React.FC = () => {
                           </Badge>
                           <Button
                             size="sm"
-                            variant="light"
+                            variant="tertiary"
                             onPress={() => handleDownloadInvoice(invoice.id)}
                             startContent={<Download className="w-3 h-3" />}
                           >

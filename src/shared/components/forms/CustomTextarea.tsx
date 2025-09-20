@@ -1,99 +1,31 @@
-// 📝 Custom Textarea - Clean HeroUI-styled textarea with floating label
+// 📝 Custom Textarea - Enhanced textarea with floating label
 // Location: src/shared/components/forms/CustomTextarea.tsx
-// Purpose: Reusable textarea with HeroUI styling and floating label
+// Purpose: Reusable textarea with smooth animations and validation states
 
 import React, { useEffect, useRef, useState } from 'react';
 
-interface CustomTextareaProps {
-  /**
-   * Label for the textarea
-   */
+export interface CustomTextareaProps {
   label: string;
-
-  /**
-   * Placeholder text
-   */
-  placeholder?: string;
-
-  /**
-   * Current value
-   */
+  placeholder: string;
   value: string;
-
-  /**
-   * Change handler
-   */
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-
-  /**
-   * Blur handler
-   */
-  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
-
-  /**
-   * Focus handler
-   */
-  onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
-
-  /**
-   * Textarea name attribute
-   */
+  onChange: (_e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur: (_e: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (_e: React.FocusEvent<HTMLTextAreaElement>) => void;
   name: string;
-
-  /**
-   * Textarea id attribute
-   */
-  id?: string;
-
-  /**
-   * Whether the field is required
-   */
-  required?: boolean;
-
-  /**
-   * Whether the textarea is disabled
-   */
-  disabled?: boolean;
-
-  /**
-   * Number of rows (height)
-   */
-  rows?: number;
-
-  /**
-   * Minimum height in pixels
-   */
-  minHeight?: number;
-
-  /**
-   * Maximum height in pixels
-   */
-  maxHeight?: number;
-
-  /**
-   * Whether to hide scrollbar
-   */
-  hideScroll?: boolean;
-
-  /**
-   * Error message to display
-   */
-  error?: string;
-
-  /**
-   * Whether the field has been touched (for validation)
-   */
-  touched?: boolean;
-
-  /**
-   * Custom CSS classes
-   */
   className?: string;
-
-  /**
-   * Reference to the textarea element
-   */
+  error?: string;
+  touched?: boolean;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
+  required?: boolean;
+  disabled?: boolean;
+      rows?: number;
+      minHeight?: number;
+      maxHeight?: number;
+      autoResize?: boolean;
+      minRows?: number;
+      maxRows?: number;
+      characterLimit?: number;
+      description?: string;
 }
 
 const CustomTextarea: React.FC<CustomTextareaProps> = ({
@@ -104,26 +36,25 @@ const CustomTextarea: React.FC<CustomTextareaProps> = ({
   onBlur,
   onFocus,
   name,
-  id,
+  className = '',
+  error,
+  touched,
+  textareaRef,
   required = false,
   disabled = false,
-  rows = 4,
-  minHeight = 130,
-  maxHeight,
-  hideScroll = true,
-  error,
-  touched = false,
-  className = '',
-  textareaRef,
+      rows = 4,
+      minHeight = 120,
+      maxHeight,
+      autoResize = true,
+      minRows,
+      maxRows,
+      characterLimit,
+      description,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasContent, setHasContent] = useState(false);
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const ref = textareaRef || internalRef;
-
-  // Generate unique IDs if not provided
-  const textareaId = id || `${name}-textarea`;
-  const labelId = `${name}-label`;
 
   useEffect(() => {
     setHasContent(!!value);
@@ -136,90 +67,83 @@ const CustomTextarea: React.FC<CustomTextareaProps> = ({
 
   const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(false);
-    onBlur?.(e);
+    onBlur(e);
   };
 
-  const isFilled = hasContent || isFocused;
   const hasError = error && touched;
 
-  // Calculate height based on content
-  const textareaHeight = Math.max(minHeight, Math.min(maxHeight || minHeight * 2, minHeight));
+      // Auto-resize functionality
+      const adjustHeight = () => {
+        if (autoResize && ref.current) {
+          const textarea = ref.current;
+          textarea.style.height = 'auto';
+          const scrollHeight = textarea.scrollHeight;
+          const minHeightPx = minRows ? minRows * 24 : minHeight; // 24px per row
+          const maxHeightPx = maxRows ? maxRows * 24 : (maxHeight || minHeight * 3);
+          const newHeight = Math.min(Math.max(scrollHeight, minHeightPx), maxHeightPx);
+          textarea.style.height = `${newHeight}px`;
+        }
+      };
+
+  useEffect(() => {
+    adjustHeight();
+  }, [value, autoResize, minHeight, maxHeight, adjustHeight]);
 
   return (
-    <div className={`w-full flex flex-col ${className}`}>
-      {/* Textarea Wrapper */}
-      <div
-        className={`
-          relative w-full inline-flex tap-highlight-transparent shadow-xs px-3 
-          border-medium border-default-200 min-h-10 rounded-medium flex-col 
-          items-start justify-center gap-0 transition-colors motion-reduce:transition-none 
-          h-auto py-2
-          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-text'}
-          ${isFocused ? 'border-default-foreground' : ''}
-          ${hasError ? 'border-danger' : ''}
-          hover:border-default-400
-        `}
-        data-has-multiple-rows="true"
-        style={{ cursor: 'text' }}
-      >
-        {/* Floating Label */}
-        <label
-          htmlFor={textareaId}
+    <div className={`mb-6 ${className}`}>
+      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+        <textarea
+          ref={ref}
+          placeholder={placeholder}
           className={`
-            z-10 pointer-events-none origin-top-left shrink-0 
-            rtl:origin-top-right subpixel-antialiased block cursor-text relative
-            will-change-auto transition-all duration-200 ease-out
-            motion-reduce:transition-none pb-0.5 pe-2 max-w-full text-ellipsis overflow-hidden
-            ${
-              isFilled
-                ? 'text-default-600 pointer-events-auto scale-85 text-small -translate-y-[calc(50%+var(--heroui-font-size-small)/2-6px-var(--heroui-border-width-medium))]'
-                : 'text-foreground-500 text-small'
-            }
-            ${required ? "after:content-['*'] after:text-danger after:ms-0.5" : ''}
+            w-full px-4 pt-6 pb-2 text-base text-black bg-white 
+            border border-gray-300 rounded-xl focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+            ${hasError ? 'border-red-400 focus:border-red-500' : ''}
+            ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+            placeholder:text-transparent resize-none
           `}
-          id={labelId}
+          aria-label={label}
+          value={value}
+          onChange={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          name={name}
+          required={required}
+          disabled={disabled}
+          rows={autoResize ? undefined : rows}
+          style={{
+            minHeight: `${minHeight}px`,
+            maxHeight: maxHeight ? `${maxHeight}px` : 'none',
+          }}
+        />
+        <label
+          className={`
+               absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
+            ${
+              hasContent || isFocused || value
+                ? 'top-3 text-xs text-gray-600' 
+                : 'top-5 text-md text-gray-500'
+            }
+            ${hasError ? 'text-red-600' : ''}
+          `}
         >
           {label}
         </label>
-
-        {/* Inner Wrapper */}
-        <div className="inline-flex w-full h-full box-border items-start group-data-[has-label=true]:items-start">
-          <textarea
-            ref={ref}
-            id={textareaId}
-            name={name}
-            value={value}
-            onChange={onChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            placeholder={placeholder}
-            disabled={disabled}
-            required={required}
-            rows={rows}
-            aria-labelledby={labelId}
-            data-hide-scroll={hideScroll}
-            className={`
-              w-full font-normal bg-transparent outline-solid placeholder:text-foreground-500 
-              focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 
-              data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none 
-              file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent 
-              bg-clip-text text-small resize-none transition-height duration-100 
-              motion-reduce:transition-none pe-0
-              ${hideScroll ? 'scrollbar-hide' : ''}
-            `}
-            style={{
-              height: `${textareaHeight}px !important`,
-              minHeight: `${minHeight}px`,
-              maxHeight: maxHeight ? `${maxHeight}px` : 'none',
-            }}
-          />
-        </div>
       </div>
 
-      {/* Error Message */}
-      {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
-    </div>
-  );
-};
+          {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
+          
+          {/* Character limit and description */}
+          <div className="flex justify-between items-center mt-2">
+            {description && <span className="text-sm text-gray-500">{description}</span>}
+            {characterLimit && (
+              <span className={`text-sm ${value.length > characterLimit ? 'text-red-500' : 'text-gray-500'}`}>
+                {value.length}/{characterLimit}
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    };
 
 export default CustomTextarea;

@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button, Badge, Switch } from '@heroui/react';
-import {
-  Bell,
-  Mail,
-  MessageSquare,
-  TrendingUp,
-  DollarSign,
-  Settings,
-  CheckCircle,
-  XCircle,
-} from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
-import { User as UserType } from '../../../../shared/types';
-import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 import { logger } from '@/shared/utils/logger';
+import { Badge, Card, CardBody, CardHeader, Switch } from '@heroui/react';
+import {
+    Bell,
+    CheckCircle,
+    DollarSign,
+    Mail,
+    MessageSquare,
+    Settings,
+    TrendingUp,
+    XCircle,
+} from 'lucide-react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
+import { User as UserType } from '../../../../shared/types';
 
 interface Notification {
   id: string;
@@ -255,12 +256,12 @@ const UserNotifications: React.FC = () => {
             </div>
             <div className="flex items-center space-x-4">
               {unreadCount > 0 && (
-                <Badge content={unreadCount} color="danger">
+                <Badge content={unreadCount} variant="solid" color="danger">
                   <Bell className="w-6 h-6 text-gray-600" />
                 </Badge>
               )}
               <Button
-                variant="bordered"
+                variant="tertiary"
                 onPress={() => navigate(UrlGenerator.userSettings())}
                 startContent={<Settings className="w-4 h-4" />}
               >
@@ -350,24 +351,21 @@ const UserNotifications: React.FC = () => {
                     <div className="flex space-x-2">
                       <Button
                         size="sm"
-                        variant={filter === 'all' ? 'solid' : 'bordered'}
-                        color={filter === 'all' ? 'primary' : 'default'}
+                        variant={filter === 'all' ? 'primary' : 'secondary'}
                         onPress={() => setFilter('all')}
                       >
                         All
                       </Button>
                       <Button
                         size="sm"
-                        variant={filter === 'unread' ? 'solid' : 'bordered'}
-                        color={filter === 'unread' ? 'primary' : 'default'}
+                        variant={filter === 'unread' ? 'primary' : 'secondary'}
                         onPress={() => setFilter('unread')}
                       >
                         Unread
                       </Button>
                       <Button
                         size="sm"
-                        variant={filter === 'read' ? 'solid' : 'bordered'}
-                        color={filter === 'read' ? 'primary' : 'default'}
+                        variant={filter === 'read' ? 'primary' : 'secondary'}
                         onPress={() => setFilter('read')}
                       >
                         Read
@@ -377,7 +375,7 @@ const UserNotifications: React.FC = () => {
                   {unreadCount > 0 && (
                     <Button
                       size="sm"
-                      variant="bordered"
+                      variant="tertiary"
                       onPress={markAllAsRead}
                       startContent={<CheckCircle className="w-4 h-4" />}
                     >
@@ -449,7 +447,7 @@ const UserNotifications: React.FC = () => {
                               {!notification.read && (
                                 <Button
                                   size="sm"
-                                  variant="light"
+                                  variant="tertiary"
                                   onPress={() => markAsRead(notification.id)}
                                   startContent={<CheckCircle className="w-3 h-3" />}
                                 >
@@ -458,8 +456,7 @@ const UserNotifications: React.FC = () => {
                               )}
                               <Button
                                 size="sm"
-                                variant="light"
-                                color="danger"
+                                variant="danger"
                                 onPress={() => deleteNotification(notification.id)}
                                 startContent={<XCircle className="w-3 h-3" />}
                               >

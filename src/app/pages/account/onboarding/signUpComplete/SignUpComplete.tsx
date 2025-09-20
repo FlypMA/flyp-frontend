@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../../shared/services/urls/urlGenerator';
-// import { Button } from '@heroui/react'; // TODO: Implement button functionality
+// import { Button } from '@/shared/components/buttons'; // TODO: Implement button functionality
 
 const SignUpComplete: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);

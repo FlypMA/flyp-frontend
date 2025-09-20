@@ -1,20 +1,18 @@
-import { CustomDropdown } from '@/shared/components/forms';
-import { Input } from '@/shared/components/forms/Input';
+import { Button } from '@/shared/components/buttons';
+import { CustomDropdown, CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
 import { AuthenticationService } from '@/shared/services/auth';
-import { Button, Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
+import { Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
 import {
-  Bell,
-  Building2,
-  Camera,
-  CheckCircle,
-  Edit3,
-  Eye,
-  EyeOff,
-  Globe,
-  Save,
-  Settings,
-  Shield,
-  User,
+    Bell,
+    Building2,
+    Camera,
+    CheckCircle,
+    Edit3,
+    Globe,
+    Save,
+    Settings,
+    Shield,
+    User
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -72,11 +70,11 @@ const UserSettings: React.FC = () => {
     confirmPassword: '',
   });
 
-  const [showPasswords, setShowPasswords] = useState({
-    current: false,
-    new: false,
-    confirm: false,
-  });
+  // const [showPasswords, setShowPasswords] = useState({
+  //   current: false,
+  //   new: false,
+  //   confirm: false,
+  // });
 
   // Mock businesses owned data
   const [businessesOwned] = useState([
@@ -86,7 +84,7 @@ const UserSettings: React.FC = () => {
 
   useEffect(() => {
     loadUserData();
-  }, []);
+  }, [loadUserData]);
 
   const loadUserData = async () => {
     try {
@@ -108,8 +106,8 @@ const UserSettings: React.FC = () => {
       } else {
         navigate(UrlGenerator.login());
       }
-    } catch (error) {
-      console.error('Failed to load user data:', error);
+    } catch (_error) {
+      // console.error('Failed to load user data:', error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -125,9 +123,9 @@ const UserSettings: React.FC = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      console.log('Settings saved successfully');
-    } catch (error) {
-      console.error('Failed to save settings:', error);
+      // console.log('Settings saved successfully');
+    } catch (_error) {
+      // console.error('Failed to save settings:', error);
     } finally {
       setSaving(false);
     }
@@ -135,7 +133,7 @@ const UserSettings: React.FC = () => {
 
   const handlePasswordChange = async () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      console.error('Passwords do not match');
+      // console.error('Passwords do not match');
       return;
     }
 
@@ -152,15 +150,15 @@ const UserSettings: React.FC = () => {
         newPassword: '',
         confirmPassword: '',
       });
-      console.log('Password changed successfully');
-    } catch (error) {
-      console.error('Failed to change password:', error);
+      // console.log('Password changed successfully');
+    } catch (_error) {
+      // console.error('Failed to change password:', error);
     } finally {
       setSaving(false);
     }
   };
 
-  const updateSetting = (category: string, key: string, value: any) => {
+  const updateSetting = (category: string, key: string, value: unknown) => {
     setSettings(prev => ({
       ...prev,
       [category]: {
@@ -170,12 +168,12 @@ const UserSettings: React.FC = () => {
     }));
   };
 
-  const togglePasswordVisibility = (field: keyof typeof showPasswords) => {
-    setShowPasswords(prev => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
+  // const togglePasswordVisibility = (field: keyof typeof showPasswords) => {
+  //   setShowPasswords(prev => ({
+  //     ...prev,
+  //     [field]: !prev[field],
+  //   }));
+  // };
 
   if (loading) {
     return (
@@ -218,9 +216,14 @@ const UserSettings: React.FC = () => {
               <User className="w-12 h-12 text-gray-400" />
             )}
           </div>
-          <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+          <Button
+            isIconOnly
+            size="sm"
+            variant="primary"
+            className="absolute bottom-0 right-0 w-8 h-8"
+          >
             <Camera className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Profile Photo</h3>
@@ -235,36 +238,47 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <Input
+            <CustomInputField
               label="Full Name"
+              type="text"
+              placeholder="Enter your full name"
               value={settings.about.name}
               onChange={e => updateSetting('about', 'name', e.target.value)}
-              placeholder="Enter your full name"
+              onBlur={() => {}}
+              name="name"
             />
           </div>
           <div>
-            <Input
+            <CustomInputField
               label="Location"
+              type="text"
+              placeholder="Enter your location"
               value={settings.about.location}
               onChange={e => updateSetting('about', 'location', e.target.value)}
-              placeholder="Enter your location"
+              onBlur={() => {}}
+              name="location"
             />
           </div>
           <div>
-            <Input
+            <CustomInputField
               label="Age"
               type="number"
+              placeholder="Enter your age"
               value={settings.about.age}
               onChange={e => updateSetting('about', 'age', e.target.value)}
-              placeholder="Enter your age"
+              onBlur={() => {}}
+              name="age"
             />
           </div>
           <div>
-            <Input
+            <CustomInputField
               label="Company"
+              type="text"
+              placeholder="Enter your company"
               value={settings.about.company}
               onChange={e => updateSetting('about', 'company', e.target.value)}
-              placeholder="Enter your company"
+              onBlur={() => {}}
+              name="company"
             />
           </div>
         </div>
@@ -283,7 +297,7 @@ const UserSettings: React.FC = () => {
             </div>
           ))}
           <Button
-            variant="bordered"
+            variant="tertiary"
             size="sm"
             startContent={<Edit3 className="w-4 h-4" />}
             className="mt-2"
@@ -332,7 +346,7 @@ const UserSettings: React.FC = () => {
             </div>
           ))}
           <Button
-            variant="bordered"
+            variant="tertiary"
             size="sm"
             startContent={<Edit3 className="w-4 h-4" />}
             className="mt-2"
@@ -464,77 +478,42 @@ const UserSettings: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Password</h3>
         <div className="space-y-4">
           <div>
-            <Input
+            <CustomPasswordInputField
               label="Current Password"
-              type={showPasswords.current ? 'text' : 'password'}
+              placeholder="Enter current password"
               value={passwordData.currentPassword}
               onChange={e =>
                 setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))
               }
-              placeholder="Enter current password"
-              rightIcon={
-                <button
-                  type="button"
-                  onClick={() => togglePasswordVisibility('current')}
-                  className="focus:outline-none"
-                >
-                  {showPasswords.current ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
-                  )}
-                </button>
-              }
+              onBlur={() => {}}
+              name="currentPassword"
             />
           </div>
           <div>
-            <Input
+            <CustomPasswordInputField
               label="New Password"
-              type={showPasswords.new ? 'text' : 'password'}
+              placeholder="Enter new password"
               value={passwordData.newPassword}
               onChange={e => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-              placeholder="Enter new password"
-              rightIcon={
-                <button
-                  type="button"
-                  onClick={() => togglePasswordVisibility('new')}
-                  className="focus:outline-none"
-                >
-                  {showPasswords.new ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
-                  )}
-                </button>
-              }
+              onBlur={() => {}}
+              name="newPassword"
+              showPasswordStrength
             />
           </div>
           <div>
-            <Input
+            <CustomPasswordInputField
               label="Confirm New Password"
-              type={showPasswords.confirm ? 'text' : 'password'}
+              placeholder="Confirm new password"
               value={passwordData.confirmPassword}
               onChange={e =>
                 setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))
               }
-              placeholder="Confirm new password"
-              rightIcon={
-                <button
-                  type="button"
-                  onClick={() => togglePasswordVisibility('confirm')}
-                  className="focus:outline-none"
-                >
-                  {showPasswords.confirm ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
-                  ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
-                  )}
-                </button>
-              }
+              onBlur={() => {}}
+              name="confirmPassword"
             />
           </div>
           <Button
-            color="primary"
+            variant="primary"
             onPress={handlePasswordChange}
             isLoading={saving}
             startContent={!saving && <Save className="w-4 h-4" />}
@@ -696,7 +675,7 @@ const UserSettings: React.FC = () => {
                     <p className="text-gray-600 text-sm">Configure your preferences</p>
                   </div>
                   <Button
-                    color="primary"
+                    variant="primary"
                     onPress={handleSaveSettings}
                     isLoading={saving}
                     startContent={!saving && <Save className="w-4 h-4" />}

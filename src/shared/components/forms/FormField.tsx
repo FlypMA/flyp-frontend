@@ -45,7 +45,7 @@ interface FormFieldProps {
  *     placeholder="Enter your business name"
  *     value={formData.name}
  *     onValueChange={setValue}
- *     variant="bordered"
+ *     variant="tertiary"
  *   />
  * </FormField>
  * ```
@@ -59,9 +59,9 @@ const FormField: React.FC<FormFieldProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`form-field-wrapper ${className}`}>
+    <div className={`mb-6 ${className}`}>
       {label && (
-        <label className="form-field-label">
+        <label className="block text-sm font-medium text-gray-900 mb-2">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -69,9 +69,9 @@ const FormField: React.FC<FormFieldProps> = ({
 
       <div className="form-field-input">{children}</div>
 
-      {error && <div className="form-field-error">{error}</div>}
+      {error && <div className="text-sm text-red-600 mt-2 font-medium">{error}</div>}
 
-      {helpText && !error && <div className="form-field-help">{helpText}</div>}
+      {helpText && !error && <div className="text-sm text-gray-500 mt-2">{helpText}</div>}
     </div>
   );
 };

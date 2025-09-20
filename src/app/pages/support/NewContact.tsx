@@ -1,19 +1,19 @@
-import AnimatedTextarea from '@/shared/components/forms/AnimatedTextarea';
-import { Input } from '@/shared/components/forms/Input';
+import { Button } from '@/shared/components/buttons';
+import { CustomInputField, CustomTextarea } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, CardBody, CardHeader, Select, SelectItem } from '@heroui/react';
+import { Card, CardBody, CardHeader, Select, SelectItem } from '@heroui/react';
 import {
-  ArrowRight,
-  Building2,
-  CheckCircle,
-  Clock,
-  FileText,
-  Mail,
-  MapPin,
-  Phone,
-  Shield,
-  Users,
+    ArrowRight,
+    Building2,
+    CheckCircle,
+    Clock,
+    FileText,
+    Mail,
+    MapPin,
+    Phone,
+    Shield,
+    Users,
 } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -244,44 +244,58 @@ const NewContact = () => {
                 <CardBody className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <Input
+                      <CustomInputField
                         label="Full Name"
+                        type="text"
                         placeholder="Enter your full name"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        onBlur={() => {}}
+                        name="name"
                         required
                       />
-                      <Input
+                      <CustomInputField
                         label="Email Address"
-                        placeholder="Enter your email"
                         type="email"
+                        placeholder="Enter your email"
                         value={formData.email}
                         onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        onBlur={() => {}}
+                        name="email"
                         required
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <Input
+                      <CustomInputField
                         label="Company Name"
+                        type="text"
                         placeholder="Enter your company name"
                         value={formData.company}
                         onChange={e => setFormData({ ...formData, company: e.target.value })}
+                        onBlur={() => {}}
+                        name="company"
                       />
-                      <Input
+                      <CustomInputField
                         label="Phone Number"
+                        type="tel"
                         placeholder="Enter your phone number"
                         value={formData.phone}
                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                        onBlur={() => {}}
+                        name="phone"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <Input
+                      <CustomInputField
                         label="Subject"
+                        type="text"
                         placeholder="Brief subject line"
                         value={formData.subject}
                         onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                        onBlur={() => {}}
+                        name="subject"
                         required
                       />
                       <Select
@@ -301,23 +315,26 @@ const NewContact = () => {
                       </Select>
                     </div>
 
-                    <AnimatedTextarea
+                    <CustomTextarea
                       label="Message"
                       placeholder="Please describe how we can help you..."
                       value={formData.message}
-                      onChange={value => setFormData({ ...formData, message: value })}
+                      onChange={e => setFormData({ ...formData, message: e.target.value })}
+                      onBlur={() => {}}
+                      name="message"
                       required
-                      minRows={6}
-                      maxRows={12}
+                      minHeight={120}
+                      maxHeight={300}
                       autoResize={true}
-                      characterLimit={1000}
-                      description="Please provide as much detail as possible to help us assist you better."
                     />
+                    <p className="text-sm text-gray-500 mt-1">
+                      Please provide as much detail as possible to help us assist you better.
+                    </p>
 
                     <div className="flex justify-center">
                       <Button
                         type="submit"
-                        color="primary"
+                        variant="primary"
                         size="lg"
                         isLoading={isSubmitting}
                         className="px-12"

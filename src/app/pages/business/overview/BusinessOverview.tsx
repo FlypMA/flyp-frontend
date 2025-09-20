@@ -1,15 +1,15 @@
-import { useBusinessMetrics } from '@/features/business/hooks';
-import type { Listing, ValuationReport } from '@/features/business/types';
+// import { useBusinessMetrics } from '@/features/business/hooks';
+import { Button } from '@/shared/components/buttons';
 import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
-import { Button, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Navigation and sidebar are provided by DashboardLayout
 
 // Types are now imported from business-dashboard features
 
-interface BusinessProfile {
+interface _BusinessProfile {
   id: string;
   name: string;
   sector: string;
@@ -24,12 +24,11 @@ interface BusinessProfile {
 const BusinessOverview = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
-  const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
-  const [businessListing, setBusinessListing] = useState<Listing | null>(null);
-
+  // const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
+  // const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
+  // const [businessListing, setBusinessListing] = useState<Listing | null>(null);
   // Use business dashboard hooks
-  const { metrics, isLoading: metricsLoading } = useBusinessMetrics();
+  // const { metrics, isLoading: metricsLoading } = useBusinessMetrics();
   // Loading states removed for smooth UX
 
   useEffect(() => {
@@ -46,63 +45,63 @@ const BusinessOverview = () => {
           // Mock data showing single business journey stages
 
           // Mock business profile data
-          setBusinessProfile({
-            id: 'business-1',
-            name: 'Café Delice Brussels',
-            sector: 'Food & Beverage',
-            founded_year: 2008,
-            employee_count: '6-10',
-            annual_revenue: 450000,
-            description:
-              'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
-            location: 'Brussels, Belgium',
-            is_complete: true,
-          });
+          // setBusinessProfile({
+          //   id: 'business-1',
+          //   name: 'Café Delice Brussels',
+          //   sector: 'Food & Beverage',
+          //   founded_year: 2008,
+          //   employee_count: '6-10',
+          //   annual_revenue: 450000,
+          //   description:
+          //     'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
+          //   location: 'Brussels, Belgium',
+          //   is_complete: true,
+          // });
 
           // Mock valuation data (completed valuation)
-          setBusinessValuation({
-            id: 'valuation-1',
-            estimated_value: 850000,
-            currency: 'EUR',
-            valuation_date: '2024-01-10',
-            confidence_level: 'high',
-            methodology: 'Comparable Sales & DCF Analysis',
-            status: 'completed',
-            last_updated: '2024-01-15',
-            revenue_multiple: 3.2,
-            ebitda_multiple: 8.5,
-            industry_average: 7.2,
-            market_conditions: 'favorable',
-            key_drivers: [
-              'Strong recurring revenue base',
-              'Prime location with long-term lease',
-              'Experienced management team',
-              'Growing market demand',
-              'Proprietary business processes',
-            ],
-            risk_factors: [
-              'Key person dependency',
-              'Market competition increasing',
-              'Economic uncertainty',
-              'Regulatory changes possible',
-              'Customer concentration risk',
-            ],
-            next_review_date: '2024-07-10',
-          });
+          // setBusinessValuation({
+          //   id: 'valuation-1',
+          //   estimated_value: 850000,
+          //   currency: 'EUR',
+          //   valuation_date: '2024-01-10',
+          //   confidence_level: 'high',
+          //   methodology: 'Comparable Sales & DCF Analysis',
+          //   status: 'completed',
+          //   last_updated: '2024-01-15',
+          //   revenue_multiple: 3.2,
+          //   ebitda_multiple: 8.5,
+          //   industry_average: 7.2,
+          //   market_conditions: 'favorable',
+          //   key_drivers: [
+          //     'Strong recurring revenue base',
+          //     'Prime location with long-term lease',
+          //     'Experienced management team',
+          //     'Growing market demand',
+          //     'Proprietary business processes',
+          //   ],
+          //   risk_factors: [
+          //     'Key person dependency',
+          //     'Market competition increasing',
+          //     'Economic uncertainty',
+          //     'Regulatory changes possible',
+          //     'Customer concentration risk',
+          //   ],
+          //   next_review_date: '2024-07-10',
+          // });
 
           // Mock listing data (active listing)
-          setBusinessListing({
-            id: 'listing-1',
-            title: 'Established French Bistro - Brussels Center',
-            status: 'published',
-            views: 245,
-            inquiries: 12,
-            created_at: '2024-01-15',
-            asking_price: 895000,
-            currency: 'EUR',
-            sector: 'Food & Beverage',
-            country: 'BE',
-          });
+          // setBusinessListing({
+          //   id: 'listing-1',
+          //   title: 'Established French Bistro - Brussels Center',
+          //   status: 'published',
+          //   views: 245,
+          //   inquiries: 12,
+          //   created_at: '2024-01-15',
+          //   asking_price: 895000,
+          //   currency: 'EUR',
+          //   sector: 'Food & Beverage',
+          //   country: 'BE',
+          // });
         } else {
           // Redirect to login if not authenticated
           navigate('/');
@@ -125,7 +124,7 @@ const BusinessOverview = () => {
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-4">Please log in to access your dashboard.</p>
-          <Button color="primary" onPress={() => navigate('/')}>
+          <Button variant="primary" onPress={() => navigate('/')}>
             Go to Home
           </Button>
         </div>
@@ -205,14 +204,15 @@ const BusinessOverview = () => {
 
                 <div className="space-y-3">
                   <Button
-                    className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                    variant="primary"
+                    className="w-full"
                     size="lg"
                     onPress={() => navigate('/messages')}
                   >
                     Review Buyer Messages
                   </Button>
                   <Button
-                    variant="bordered"
+                    variant="tertiary"
                     className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
                     size="lg"
                     onPress={() => navigate('/my-business/listings')}
@@ -230,7 +230,7 @@ const BusinessOverview = () => {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">Reports</h2>
             <Button
-              variant="bordered"
+              variant="tertiary"
               className="text-gray-600 border-gray-300 hover:bg-gray-50"
               size="sm"
               onPress={() => navigate('/my-business/valuation')}
@@ -331,7 +331,7 @@ const BusinessOverview = () => {
                     {/* Action Buttons */}
                     <div className="space-y-3">
                       <Button
-                        className="bg-blue-600 text-white hover:bg-blue-700"
+                        variant="primary"
                         size="lg"
                         onPress={() => navigate('/seller/listings/new')}
                       >
@@ -340,14 +340,14 @@ const BusinessOverview = () => {
 
                       <div className="grid grid-cols-2 gap-3">
                         <Button
-                          variant="bordered"
+                          variant="tertiary"
                           className="border-gray-300 text-gray-700 hover:bg-gray-50"
                           size="md"
                         >
                           Download Report
                         </Button>
                         <Button
-                          variant="bordered"
+                          variant="tertiary"
                           className="border-gray-300 text-gray-700 hover:bg-gray-50"
                           size="md"
                           onPress={() => navigate('/my-business/valuation')}
@@ -360,7 +360,7 @@ const BusinessOverview = () => {
                     {/* Secondary Actions */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <Button
-                        variant="light"
+                        variant="tertiary"
                         className="text-gray-600 hover:text-gray-900"
                         size="sm"
                         onPress={() => navigate('/my-business/valuation')}
@@ -369,14 +369,14 @@ const BusinessOverview = () => {
                       </Button>
                       <div className="flex items-center space-x-3">
                         <Button
-                          variant="light"
+                          variant="tertiary"
                           className="text-gray-600 hover:text-gray-900"
                           size="sm"
                         >
                           Share
                         </Button>
                         <Button
-                          variant="light"
+                          variant="tertiary"
                           className="text-gray-600 hover:text-gray-900"
                           size="sm"
                         >

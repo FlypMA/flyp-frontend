@@ -1,16 +1,16 @@
+import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
 import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Select,
-  SelectItem,
-  Slider,
-  Tab,
-  Tabs,
+    Card,
+    CardBody,
+    CardHeader,
+    Input,
+    Select,
+    SelectItem,
+    Slider,
+    Tab,
+    Tabs,
 } from '@heroui/react';
 import { ArrowRight, Calculator, Download, FileText, RefreshCw, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -50,7 +50,7 @@ const ValuationTool = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [activeTab, setActiveTab] = useState('input');
 
-  const [inputs, setInputs] = useState<ValuationInputs>({
+  const [_inputs, _setInputs] = useState<ValuationInputs>({
     annualRevenue: 450000,
     grossProfit: 315000,
     ebitda: 135000,
@@ -114,8 +114,8 @@ const ValuationTool = () => {
         } else {
           navigate('/');
         }
-      } catch (error) {
-        console.error('Error initializing page:', error);
+      } catch (_error) {
+        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         // No loading state to manage
@@ -214,8 +214,8 @@ const ValuationTool = () => {
         0
       );
       setAverageValuation(weightedSum);
-    } catch (error) {
-      console.error('Error calculating valuation:', error);
+    } catch (_error) {
+      // console.error('Error calculating valuation:', error);
     } finally {
       setIsCalculating(false);
       setActiveTab('results');
@@ -259,7 +259,7 @@ const ValuationTool = () => {
               </p>
             </div>
             <Button
-              color="primary"
+              variant="primary"
               startContent={
                 <RefreshCw className={`w-4 h-4 ${isCalculating ? 'animate-spin' : ''}`} />
               }
@@ -276,7 +276,6 @@ const ValuationTool = () => {
           onSelectionChange={key => setActiveTab(key as string)}
           className="mb-8"
           variant="underlined"
-          color="primary"
         >
           <Tab key="input" title="Business Data">
             <div className="grid lg:grid-cols-2 gap-8">
@@ -366,7 +365,7 @@ const ValuationTool = () => {
 
             <div className="flex justify-center mt-8">
               <Button
-                color="primary"
+                variant="primary"
                 size="lg"
                 startContent={<Calculator className="w-5 h-5" />}
                 onPress={calculateValuation}
@@ -387,7 +386,7 @@ const ValuationTool = () => {
                   Enter your business data and run the valuation to see results
                 </p>
                 <Button
-                  color="primary"
+                  variant="primary"
                   onPress={() => setActiveTab('input')}
                   endContent={<ArrowRight className="w-4 h-4" />}
                 >
@@ -414,13 +413,13 @@ const ValuationTool = () => {
 
                     <div className="flex justify-center space-x-4">
                       <Button
-                        color="primary"
+                        variant="primary"
                         startContent={<FileText className="w-4 h-4" />}
                         onPress={() => navigate('/my-business/listings')}
                       >
                         Create Listing
                       </Button>
-                      <Button variant="bordered" startContent={<Download className="w-4 h-4" />}>
+                      <Button variant="tertiary" startContent={<Download className="w-4 h-4" />}>
                         Download Report
                       </Button>
                     </div>

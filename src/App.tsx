@@ -13,6 +13,7 @@
  * - Follows MVP principles with essential features only
  */
 
+import { Button } from '@/shared/components/buttons';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { RouterProvider } from 'react-router-dom';
@@ -61,19 +62,21 @@ const ErrorFallback = ({
       )}
 
       <div className="space-y-3">
-        <button
+        <Button
+          variant="primary"
+          fullWidth
           onClick={resetErrorBoundary}
-          className="w-full rounded-lg bg-primary-600 px-4 py-2 text-white font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
         >
           Try again
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="secondary"
+          fullWidth
           onClick={() => (window.location.href = '/')}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
         >
           Go to Home
-        </button>
+        </Button>
       </div>
     </div>
   </div>

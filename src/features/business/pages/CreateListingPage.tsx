@@ -1,7 +1,7 @@
 import { useUI } from '@/app/providers/UIProvider';
 import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
-import { CustomDropdown, Input } from '@/shared/components/forms';
+import { CustomDropdown, CustomInputField, CustomNumberInputField, CustomTextarea } from '@/shared/components/forms';
 import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -103,10 +103,10 @@ export const CreateListingPage: React.FC = () => {
     setIsLoading(true);
     try {
       // TODO: Implement save draft API call
-      console.log('Saving draft:', formData);
+      // console.log('Saving draft:', formData);
       await new Promise(resolve => setTimeout(resolve, 1000));
       addNotification('success', 'Draft saved successfully');
-    } catch (error) {
+    } catch (_error) {
       addNotification('error', 'Failed to save draft');
     } finally {
       setIsLoading(false);
@@ -117,11 +117,11 @@ export const CreateListingPage: React.FC = () => {
     setIsLoading(true);
     try {
       // TODO: Implement publish API call
-      console.log('Publishing listing:', formData);
+      // console.log('Publishing listing:', formData);
       await new Promise(resolve => setTimeout(resolve, 1000));
       addNotification('success', 'Listing published successfully!');
       navigate('/dashboard/listings');
-    } catch (error) {
+    } catch (_error) {
       addNotification('error', 'Failed to publish listing');
     } finally {
       setIsLoading(false);
@@ -138,29 +138,27 @@ export const CreateListingPage: React.FC = () => {
               <p className="text-gray-600">Tell us about your business</p>
             </div>
 
-            <Input
+            <CustomInputField
               label="Business Title"
-              name="title"
+              type="text"
+              placeholder="e.g., Established Restaurant in Brussels"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="e.g., Established Restaurant in Brussels"
+              onBlur={() => {}}
+              name="title"
               required
             />
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Business Description
-              </label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Provide a detailed description of your business..."
-                required
-              />
-            </div>
+            <CustomTextarea
+              label="Business Description"
+              placeholder="Provide a detailed description of your business..."
+              value={formData.description}
+              onChange={handleInputChange}
+              onBlur={() => {}}
+              name="description"
+              required
+              minHeight={120}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -194,13 +192,13 @@ export const CreateListingPage: React.FC = () => {
               </div>
             </div>
 
-            <Input
+            <CustomNumberInputField
               label="Year Established"
-              name="yearEstablished"
-              type="number"
+              placeholder="e.g., 2015"
               value={formData.yearEstablished}
               onChange={handleInputChange}
-              placeholder="e.g., 2015"
+              onBlur={() => {}}
+              name="yearEstablished"
               required
             />
           </div>
@@ -215,54 +213,58 @@ export const CreateListingPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
+              <CustomNumberInputField
                 label="Asking Price (€)"
-                name="askingPrice"
-                type="number"
+                placeholder="e.g., 350000"
                 value={formData.askingPrice}
                 onChange={handleInputChange}
-                placeholder="e.g., 350000"
+                onBlur={() => {}}
+                name="askingPrice"
+                prefix="€"
                 required
               />
 
-              <Input
+              <CustomNumberInputField
                 label="Annual Revenue (€)"
-                name="annualRevenue"
-                type="number"
+                placeholder="e.g., 180000"
                 value={formData.annualRevenue}
                 onChange={handleInputChange}
-                placeholder="e.g., 180000"
+                onBlur={() => {}}
+                name="annualRevenue"
+                prefix="€"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
+              <CustomNumberInputField
                 label="Net Profit (€)"
-                name="netProfit"
-                type="number"
+                placeholder="e.g., 45000"
                 value={formData.netProfit}
                 onChange={handleInputChange}
-                placeholder="e.g., 45000"
+                onBlur={() => {}}
+                name="netProfit"
+                prefix="€"
               />
 
-              <Input
+              <CustomNumberInputField
                 label="Gross Margin (%)"
-                name="grossMargin"
-                type="number"
+                placeholder="e.g., 65"
                 value={formData.grossMargin}
                 onChange={handleInputChange}
-                placeholder="e.g., 65"
+                onBlur={() => {}}
+                name="grossMargin"
+                suffix="%"
               />
             </div>
 
-            <Input
+            <CustomNumberInputField
               label="Number of Employees"
-              name="employees"
-              type="number"
+              placeholder="e.g., 8"
               value={formData.employees}
               onChange={handleInputChange}
-              placeholder="e.g., 8"
+              onBlur={() => {}}
+              name="employees"
               required
             />
 
@@ -297,35 +299,29 @@ export const CreateListingPage: React.FC = () => {
               <p className="text-gray-600">Help buyers understand your business better</p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Key Highlights</label>
-              <textarea
-                name="highlights"
-                value={formData.highlights}
-                onChange={handleInputChange}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                placeholder="List the main selling points of your business (one per line)..."
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                Example: Prime location with high foot traffic, Loyal customer base, Recently
-                renovated
-              </p>
-            </div>
+            <CustomTextarea
+              label="Key Highlights"
+              placeholder="List the main selling points of your business (one per line)..."
+              value={formData.highlights}
+              onChange={handleInputChange}
+              onBlur={() => {}}
+              name="highlights"
+              minHeight={120}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              Example: Prime location with high foot traffic, Loyal customer base, Recently
+              renovated
+            </p>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Reason for Selling
-              </label>
-              <textarea
-                name="reasonForSelling"
-                value={formData.reasonForSelling}
-                onChange={handleInputChange}
-                rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Why are you selling this business?"
-              />
-            </div>
+            <CustomTextarea
+              label="Reason for Selling"
+              placeholder="Why are you selling this business?"
+              value={formData.reasonForSelling}
+              onChange={handleInputChange}
+              onBlur={() => {}}
+              name="reasonForSelling"
+              minHeight={100}
+            />
 
             <div>
               <CustomDropdown
@@ -437,7 +433,7 @@ export const CreateListingPage: React.FC = () => {
         <div className="flex items-center justify-between pt-8 border-t border-gray-200">
           <div>
             {currentStep > 1 && (
-              <Button variant="ghost" onClick={handlePrevious}>
+              <Button variant="tertiary" onClick={handlePrevious}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Previous
               </Button>

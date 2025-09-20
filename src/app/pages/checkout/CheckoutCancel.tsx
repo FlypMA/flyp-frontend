@@ -1,7 +1,8 @@
+import { Button } from '@/shared/components/buttons';
+import { Card, CardBody } from '@heroui/react';
+import { ArrowLeft, CreditCard, RefreshCw, XCircle } from 'lucide-react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Button } from '@heroui/react';
-import { XCircle, ArrowLeft, RefreshCw, CreditCard } from 'lucide-react';
 import { UrlGenerator } from '../../../shared/services/urls/urlGenerator';
 
 const CheckoutCancel: React.FC = () => {
@@ -31,14 +32,15 @@ const CheckoutCancel: React.FC = () => {
 
           <div className="space-y-3">
             <Button
-              className="w-full bg-blue-600 text-white hover:bg-blue-700"
+              variant="primary"
+              className="w-full"
               onPress={handleTryAgain}
               startContent={<RefreshCw className="w-4 h-4" />}
             >
               Try Again
             </Button>
             <Button
-              variant="bordered"
+              variant="tertiary"
               className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
               onPress={handleGoToPricing}
               startContent={<CreditCard className="w-4 h-4" />}
@@ -46,7 +48,7 @@ const CheckoutCancel: React.FC = () => {
               View Plans
             </Button>
             <Button
-              variant="light"
+              variant="tertiary"
               className="w-full text-gray-600 hover:underline"
               onPress={handleGoHome}
               startContent={<ArrowLeft className="w-4 h-4" />}

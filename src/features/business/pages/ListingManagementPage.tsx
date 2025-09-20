@@ -2,17 +2,17 @@ import { Button } from '@/shared/components/buttons/Button';
 import { Card } from '@/shared/components/cards/Card';
 import { CustomDropdown, Input } from '@/shared/components/forms';
 import {
-  Calendar,
-  Edit,
-  Euro,
-  Eye,
-  Filter,
-  MessageCircle,
-  MoreHorizontal,
-  Plus,
-  Search,
-  Trash2,
-  TrendingUp,
+    Calendar,
+    Edit,
+    Euro,
+    Eye,
+    Filter,
+    MessageCircle,
+    MoreHorizontal,
+    Plus,
+    Search,
+    Trash2,
+    TrendingUp,
 } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -160,6 +160,9 @@ export const ListingManagementPage: React.FC = () => {
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               className="pl-10"
+              label=""
+              onBlur={() => {}}
+              name="search"
             />
           </div>
           <CustomDropdown
@@ -260,16 +263,16 @@ export const ListingManagementPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end space-x-2">
-                      <Button variant="ghost" size="sm">
+                      <Button variant="tertiary" size="sm">
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="tertiary" size="sm">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="tertiary" size="sm">
                         <Trash2 className="h-4 w-4 text-red-500" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="tertiary" size="sm">
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </div>
@@ -285,7 +288,7 @@ export const ListingManagementPage: React.FC = () => {
             <p className="text-gray-500">No listings found matching your criteria.</p>
             {searchTerm || statusFilter !== 'all' ? (
               <Button
-                variant="ghost"
+                variant="tertiary"
                 onClick={() => {
                   setSearchTerm('');
                   setStatusFilter('all');

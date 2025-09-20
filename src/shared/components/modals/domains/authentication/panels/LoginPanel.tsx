@@ -4,16 +4,16 @@
  * Purpose: Login form panel for TwoPanelModal
  */
 
-import { Button } from '@heroui/react';
+import { Button } from '@/shared/components/buttons';
 import React, { useState } from 'react';
 import {
-  CustomInputField,
-  CustomPasswordInputField,
-} from '../../../../../../features/authentication/components/forms';
+    CustomInputField,
+    CustomPasswordInputField,
+} from '../../../../forms';
 
 interface LoginPanelProps {
   onClose: () => void;
-  onSuccess?: (user: any) => void;
+  onSuccess?: (user: unknown) => void;
   onSwitchToSignup?: () => void;
   redirectPath?: string;
 }
@@ -81,7 +81,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = ({
 
             <Button
               type="submit"
-              color="primary"
+              variant="primary"
               size="lg"
               className="w-full"
               isLoading={isLoading}

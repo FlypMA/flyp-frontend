@@ -30,7 +30,7 @@ interface CustomDropdownProps {
   /**
    * Currently selected value
    */
-  value?: string;
+  _value?: string;
 
   /**
    * Callback when selection changes
@@ -77,7 +77,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   label,
   placeholder = 'Select an option',
   options,
-  value,
+  _value,
   onChange,
   required = false,
   disabled = false,
@@ -93,7 +93,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   const ref = dropdownRef || internalRef;
 
   // Find the selected option
-  const selectedOption = options.find(option => option.value === value);
+  const selectedOption = options.find(option => option.value === _value);
   const hasValue = !!selectedOption;
   const isFilled = hasValue || isFocused;
 
@@ -144,7 +144,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   };
 
   return (
-    <div className={`w-full flex flex-col ${className}`} ref={ref}>
+    <div className={`relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm"> flex-col ${className}`} ref={ref}>
       {/* Main Dropdown Button */}
       <button
         type="button"
@@ -159,16 +159,15 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         disabled={disabled}
         name={name}
         className={`
-          relative px-3 w-full inline-flex shadow-xs outline-solid outline-transparent 
-          tap-highlight-transparent border-medium border-default-200 
-          data-[hover=true]:border-default-400 data-[open=true]:border-default-foreground 
-          data-[focus=true]:border-default-foreground rounded-medium flex-col items-start 
-          justify-center gap-0 transition-colors motion-reduce:transition-none h-14 min-h-14 py-2
-          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-          ${isOpen ? 'border-default-foreground' : ''}
-          ${isFocused ? 'border-default-foreground' : ''}
-          ${error && touched ? 'border-danger' : ''}
-          hover:border-default-400
+          w-full px-4 pt-6 pb-2 text-base text-black bg-white 
+          border border-gray-300 rounded-xl focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+          flex-col items-start justify-center gap-0 h-16 min-h-16
+          ${disabled ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'cursor-pointer bg-white'}
+          ${isOpen ? 'border-gray-500' : 'border-gray-300'}
+          ${isFocused ? 'border-gray-500 focus:ring-gray-500 focus:ring-2 focus:ring-opacity-20' : ''}
+          ${error && touched ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' : ''}
+          hover:border-gray-400
+          focus:outline-none
         `}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -177,15 +176,14 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         {/* Floating Label */}
         <label
           className={`
-            block absolute z-10 flex-shrink-0 subpixel-antialiased pointer-events-none 
-            cursor-pointer will-change-auto origin-top-left transition-all duration-200 ease-out
-            ${
-              isFilled
-                ? 'text-default-600 scale-85 -translate-y-[calc(50%+var(--heroui-font-size-small)/2-6px-var(--heroui-border-width-medium))]'
-                : 'text-foreground-500 text-small'
+            absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
+            ${isFilled 
+              ? 'top-3 text-xs text-gray-600' 
+              : 'top-5 text-md text-gray-500'
             }
-            ${required ? "after:content-['*'] after:text-danger after:ms-0.5" : ''}
-            pe-2 max-w-full text-ellipsis overflow-hidden
+            ${error && touched ? 'text-red-500' : ''}
+            ${disabled ? 'text-gray-400' : ''}
+            ${required ? "after:content-['*'] after:text-red-500 after:ml-1" : ''}
           `}
           id={`${label}-label`}
         >
@@ -193,11 +191,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         </label>
 
         {/* Inner Content */}
-        <div className="inline-flex h-fit w-[calc(100%-theme(spacing.6))] min-h-4 items-center gap-1.5 box-border group-data-[has-label=true]:pt-4">
+        <div className="flex items-center w-full pt-6">
           <span
             className={`
-              font-normal w-full text-start text-small truncate
-              ${hasValue ? 'text-default-foreground' : 'text-foreground-500'}
+              font-normal w-full text-start text-gray-900 truncate
+              ${!hasValue ? 'text-gray-400' : ''}
             `}
             id={`${label}-value`}
           >
@@ -208,9 +206,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         {/* Dropdown Icon */}
         <ChevronDown
           className={`
-            absolute end-3 w-4 h-4 transition-transform duration-150 ease
+            absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-transform duration-150 ease
             ${isOpen ? 'rotate-180' : ''}
-            ${disabled ? 'text-foreground-300' : 'text-foreground-500'}
+            ${disabled ? 'text-gray-400' : 'text-gray-500'}
           `}
           aria-hidden="true"
         />
@@ -219,7 +217,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       {/* Dropdown Options */}
       {isOpen && (
         <div className="relative z-50 mt-1 w-full">
-          <div className="absolute w-full bg-white border border-default-200 rounded-medium shadow-lg max-h-60 overflow-auto">
+          <div className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
             {options.map(option => (
               <button
                 key={option.value}
@@ -227,16 +225,16 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 onClick={() => handleOptionSelect(option.value)}
                 disabled={option.disabled}
                 className={`
-                  w-full px-3 py-2 text-left text-small transition-colors
+                  w-full px-4 py-3 text-left text-gray-900 transition-colors
                   ${
                     option.disabled
-                      ? 'text-foreground-300 cursor-not-allowed'
-                      : 'text-default-foreground hover:bg-default-100 cursor-pointer'
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'hover:bg-gray-50 cursor-pointer'
                   }
-                  ${option.value === value ? 'bg-primary-50 text-primary-600' : ''}
+                  ${option.value === _value ? 'bg-gray-100 text-gray-900' : ''}
                 `}
                 role="option"
-                aria-selected={option.value === value}
+                aria-selected={option.value === _value}
               >
                 {option.label}
               </button>

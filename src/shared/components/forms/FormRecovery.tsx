@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import { Button } from '@/shared/components/buttons';
 import {
-  Card,
-  CardBody,
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+    Card,
+    CardBody,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
 } from '@heroui/react';
 import {
-  RotateCcw,
-  Save,
-  Trash2,
-  Clock,
-  AlertTriangle,
-  CheckCircle,
-  FileText,
-  Calendar,
+    AlertTriangle,
+    CheckCircle,
+    Clock,
+    FileText,
+    RotateCcw,
+    Save,
+    Trash2
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 interface SavedFormData {
   formKey: string;
@@ -140,8 +139,7 @@ const FormRecovery: React.FC<FormRecoveryProps> = ({
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
-                  color="warning"
-                  variant="solid"
+                  variant="primary"
                   onPress={onRestore}
                   startContent={<RotateCcw className="w-4 h-4" />}
                   className="flex-1"
@@ -149,13 +147,12 @@ const FormRecovery: React.FC<FormRecoveryProps> = ({
                   Continue Previous Work
                 </Button>
 
-                <Button variant="bordered" onPress={onStartFresh} className="flex-1">
+                <Button variant="secondary" onPress={onStartFresh} className="flex-1">
                   Start Fresh
                 </Button>
 
                 <Button
-                  color="danger"
-                  variant="light"
+                  variant="danger"
                   onPress={() => setShowDiscardModal(true)}
                   startContent={<Trash2 className="w-4 h-4" />}
                   size="sm"
@@ -193,11 +190,11 @@ const FormRecovery: React.FC<FormRecoveryProps> = ({
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button variant="bordered" onPress={() => setShowDiscardModal(false)}>
+            <Button variant="secondary" onPress={() => setShowDiscardModal(false)}>
               Cancel
             </Button>
             <Button
-              color="danger"
+              variant="danger"
               onPress={handleDiscardConfirm}
               startContent={<Trash2 className="w-4 h-4" />}
             >

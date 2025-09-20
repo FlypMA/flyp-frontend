@@ -1,7 +1,8 @@
+import { Button } from '@/shared/components/buttons';
 import SaveSearchModal from '@/shared/components/buyer/SaveSearchModal';
 import { PriceRangeSlider, SearchComponent } from '@/shared/components/filters';
 import ListingCard from '@/shared/components/listings/ListingCard';
-import { Button, Card, CardBody, Pagination } from '@heroui/react';
+import { Card, CardBody, Pagination } from '@heroui/react';
 import { Bell, Building2, CheckCircle, MessageSquare, Search, Shield } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -52,7 +53,7 @@ const ListingSearch = () => {
   // Loading states removed for smooth UX
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false);
+  const [_showFilters, _setShowFilters] = useState(false);
   const [showSaveSearchModal, setShowSaveSearchModal] = useState(false);
 
   // Search filters state
@@ -265,7 +266,7 @@ const ListingSearch = () => {
       setListings(filteredListings);
       setTotalResults(filteredListings.length);
     } catch (error) {
-      console.error('Error loading listings:', error);
+      // console.error('Error loading listings:', error);
     } finally {
       // No loading state to manage
     }
@@ -299,26 +300,26 @@ const ListingSearch = () => {
     setCurrentPage(1);
   };
 
-  const handleFilterChange = (key: string, value: any) => {
+  const handleFilterChange = (key: string, value: unknown) => {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSaveSearch = async (searchData: any) => {
+  const handleSaveSearch = async (searchData: unknown) => {
     try {
       // TODO: Replace with actual API call
-      console.log('Saving search:', searchData);
+      // console.log('Saving search:', searchData);
       // await searchService.saveSearch(searchData);
 
       // Show success notification
       // toast.success('Search saved successfully!');
     } catch (error) {
-      console.error('Error saving search:', error);
+      // console.error('Error saving search:', error);
       // toast.error('Failed to save search');
     }
   };
 
   const getCurrentSearchCriteria = () => {
-    const criteria: any = {};
+    const criteria: unknown = {};
 
     if (filters.searchQuery) criteria.searchQuery = filters.searchQuery;
     if (filters.sector) criteria.sector = filters.sector;
@@ -591,7 +592,7 @@ const ListingSearch = () => {
 
                 <div className="flex gap-3">
                   <Button
-                    variant="flat"
+                    variant="tertiary"
                     color="default"
                     onPress={() => {
                       setFilters({
@@ -610,9 +611,9 @@ const ListingSearch = () => {
                     Clear All
                   </Button>
                   <Button
-                    color="primary"
+                    variant="primary"
                     onPress={handleSearch}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8"
+                    className="px-8"
                   >
                     Apply Filters
                   </Button>
@@ -637,7 +638,7 @@ const ListingSearch = () => {
           {hasActiveFilters() && totalResults > 0 && (
             <div className="flex items-center gap-3">
               <Button
-                variant="bordered"
+                variant="tertiary"
                 startContent={<Bell className="w-4 h-4" />}
                 onPress={() => setShowSaveSearchModal(true)}
                 className="border-purple-200 text-purple-700 hover:bg-purple-50"
@@ -666,7 +667,7 @@ const ListingSearch = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
-                  color="primary"
+                  variant="primary"
                   onPress={() => {
                     setFilters({
                       searchQuery: '',
@@ -680,12 +681,11 @@ const ListingSearch = () => {
                     });
                     setSearchParams(new URLSearchParams());
                   }}
-                  className="bg-primary-600 hover:bg-primary-700"
                 >
                   Show all businesses
                 </Button>
                 <Button
-                  variant="bordered"
+                  variant="tertiary"
                   onPress={() => navigate('/contact')}
                   className="border-calm-600 text-calm-600 hover:bg-calm-50"
                 >
@@ -728,11 +728,11 @@ const ListingSearch = () => {
                     viewMode="card"
                     onSave={listingId => {
                       // TODO: Implement save functionality
-                      console.log('Save listing:', listingId);
+                      // console.log('Save listing:', listingId);
                     }}
                     onInquiry={async (listingId, inquiryData) => {
                       // TODO: Implement inquiry functionality
-                      console.log('Inquiry for listing:', listingId, inquiryData);
+                      // console.log('Inquiry for listing:', listingId, inquiryData);
                     }}
                   />
                 );

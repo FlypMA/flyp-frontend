@@ -1,3 +1,4 @@
+import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { seoData } from '@/shared/utils/seo/seoData';
@@ -280,11 +281,29 @@ const About = () => {
                 technology, and entrepreneurship allow us to understand the unique challenges and
                 opportunities in the European M&A market.
               </p>
-              <p className="text-neutral-600">
+              <p className="text-neutral-600 mb-8">
                 We're always looking to improve our platform and service. Whether you're looking to
                 buy your first business, sell your life's work, or expand your investment portfolio,
                 we're here to support your journey every step of the way.
               </p>
+              
+              {/* CTA Section */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onPress={() => openModal('signup')}
+                >
+                  Join Our Community
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  onPress={() => navigate('/contact')}
+                >
+                  Get in Touch
+                </Button>
+              </div>
             </div>
           </div>
         </Container>

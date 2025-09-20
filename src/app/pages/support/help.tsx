@@ -3,27 +3,28 @@
  * Clean, modular implementation with new FAQ system
  */
 
+import { Button } from '@/shared/components/buttons';
 import { FAQCategory } from '@/shared/components/FAQ/FAQCategory';
-import { Input } from '@/shared/components/forms/Input';
+import { Input } from '@/shared/components/forms';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Button, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import {
-  BookOpen,
-  Building2,
-  Clock,
-  DollarSign,
-  FileText,
-  HelpCircle,
-  Mail,
-  MessageCircle,
-  Phone,
-  Search,
-  Settings,
-  Shield,
-  Star,
-  TrendingUp,
-  Users,
-  Zap,
+    BookOpen,
+    Building2,
+    Clock,
+    DollarSign,
+    FileText,
+    HelpCircle,
+    Mail,
+    MessageCircle,
+    Phone,
+    Search,
+    Settings,
+    Shield,
+    Star,
+    TrendingUp,
+    Users,
+    Zap,
 } from 'lucide-react';
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -438,10 +439,13 @@ const Help: React.FC = () => {
                 <Input
                   placeholder="Search for answers... e.g., 'How to list my business'"
                   value={searchQuery}
-                  onChange={value => setSearchQuery(value)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search className="w-5 h-5 text-gray-400" />}
                   className="text-lg"
-                  size="lg"
+                  label=""
+                  type="text"
+                  onBlur={() => {}}
+                  name="search"
                 />
               </div>
 
@@ -638,8 +642,7 @@ const Help: React.FC = () => {
             </Button>
             <Button
               size="lg"
-              variant="bordered"
-              className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8"
+              variant="tertiary"
               onClick={() => navigate('/browse')}
             >
               Browse Businesses
