@@ -1,12 +1,12 @@
 import {
-    Card,
-    CardBody,
-    Checkbox,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader
+  Card,
+  CardBody,
+  Checkbox,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
 } from '@heroui/react';
 import { AlertTriangle, Building2, FileText, Shield, User } from 'lucide-react';
 import React, { useState } from 'react';
@@ -43,7 +43,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
   isLoading = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [_signatureData, _setSignatureData] = useState<SignatureData>({
+  const [signatureData, setSignatureData] = useState<SignatureData>({
     fullName: '',
     company: '',
     position: '',
@@ -319,7 +319,12 @@ const NDAModal: React.FC<NDAModalProps> = ({
               </Button>
 
               {currentStep > 1 && (
-                <Button color="default" variant="tertiary" onPress={handleBack} isDisabled={isLoading}>
+                <Button
+                  color="default"
+                  variant="tertiary"
+                  onPress={handleBack}
+                  isDisabled={isLoading}
+                >
                   Back
                 </Button>
               )}

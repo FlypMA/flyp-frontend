@@ -3,14 +3,14 @@ import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-    BarChart3,
-    Bell,
-    Calculator,
-    CheckCircle,
-    Info,
-    Target,
-    TrendingUp,
-    Wallet,
+  BarChart3,
+  Bell,
+  Calculator,
+  CheckCircle,
+  Info,
+  Target,
+  TrendingUp,
+  Wallet,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ const SolvencyIntelligence = () => {
   // Loading states removed for smooth UX
   const [solvencyData, setSolvencyData] = useState<SolvencyMetrics | null>(null);
   const [maxLoanAmount, setMaxLoanAmount] = useState<number>(0);
-  const [_showLoanCalculator, _setShowLoanCalculator] = useState(false);
+  const [_showLoanCalculator, __setShowLoanCalculator] = useState(false);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -406,7 +406,7 @@ const SolvencyIntelligence = () => {
                 <Button
                   variant="primary"
                   size="lg"
-                  onPress={() => setShowLoanCalculator(true)}
+                  onPress={() => __setShowLoanCalculator(true)}
                   className="px-8"
                   startContent={<Calculator className="w-5 h-5" />}
                 >

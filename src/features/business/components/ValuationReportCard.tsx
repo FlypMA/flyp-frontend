@@ -5,17 +5,17 @@
 import { Button } from '@/shared/components/buttons';
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-    AlertCircle,
-    BarChart3,
-    Calendar,
-    CheckCircle,
-    Clock,
-    DollarSign,
-    Download,
-    Eye,
-    FileText,
-    Share2,
-    TrendingUp,
+  AlertCircle,
+  BarChart3,
+  Calendar,
+  CheckCircle,
+  Clock,
+  DollarSign,
+  Download,
+  Eye,
+  FileText,
+  Share2,
+  TrendingUp,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -245,7 +245,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
           <div className="flex items-center space-x-2">
             <Button
               size="sm"
-              variant="flat"
+              variant="secondary"
               onClick={() => onView?.(report.id)}
               className="flex items-center space-x-2"
             >
@@ -254,7 +254,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
             <Button
               size="sm"
-              variant="flat"
+              variant="secondary"
               onClick={() => onDownload?.(report.id)}
               className="flex items-center space-x-2"
             >
@@ -263,7 +263,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
             </Button>
             <Button
               size="sm"
-              variant="flat"
+              variant="secondary"
               onClick={() => onShare?.(report.id)}
               className="flex items-center space-x-2"
             >

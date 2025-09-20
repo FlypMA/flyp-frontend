@@ -1,19 +1,14 @@
+import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Chip
-} from '@heroui/react';
-import {
-    CheckCircle,
-    Download,
-    Eye,
-    FileText,
-    MessageSquare,
-    Send,
-    Shield,
-    Upload,
-    Users
+  CheckCircle,
+  Download,
+  Eye,
+  FileText,
+  MessageSquare,
+  Send,
+  Shield,
+  Upload,
+  Users,
 } from 'lucide-react';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -83,8 +78,8 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
       label: 'Checklist',
       icon: <CheckCircle className="w-4 h-4" />,
       badge:
-        checklist.filter((item: unknown) => item.completed).length > 0
-          ? `${checklist.filter((item: unknown) => item.completed).length}/${checklist.length}`
+        checklist.filter((item: any) => item.completed).length > 0
+          ? `${checklist.filter((item: any) => item.completed).length}/${checklist.length}`
           : undefined,
     },
     {

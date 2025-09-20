@@ -30,7 +30,7 @@ interface CustomDropdownProps {
   /**
    * Currently selected value
    */
-  _value?: string;
+  value?: string;
 
   /**
    * Callback when selection changes
@@ -77,7 +77,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   label,
   placeholder = 'Select an option',
   options,
-  _value,
+  value,
   onChange,
   required = false,
   disabled = false,
@@ -93,7 +93,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   const ref = dropdownRef || internalRef;
 
   // Find the selected option
-  const selectedOption = options.find(option => option.value === _value);
+  const selectedOption = options.find(option => option.value === value);
   const hasValue = !!selectedOption;
   const isFilled = hasValue || isFocused;
 
@@ -144,7 +144,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   };
 
   return (
-    <div className={`relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm"> flex-col ${className}`} ref={ref}>
+    <div
+      className={`relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm"> flex-col ${className}`}
+      ref={ref}
+    >
       {/* Main Dropdown Button */}
       <button
         type="button"
@@ -177,10 +180,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         <label
           className={`
             absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
-            ${isFilled 
-              ? 'top-3 text-xs text-gray-600' 
-              : 'top-5 text-md text-gray-500'
-            }
+            ${isFilled ? 'top-3 text-xs text-gray-600' : 'top-5 text-md text-gray-500'}
             ${error && touched ? 'text-red-500' : ''}
             ${disabled ? 'text-gray-400' : ''}
             ${required ? "after:content-['*'] after:text-red-500 after:ml-1" : ''}
@@ -231,10 +231,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                       ? 'text-gray-400 cursor-not-allowed'
                       : 'hover:bg-gray-50 cursor-pointer'
                   }
-                  ${option.value === _value ? 'bg-gray-100 text-gray-900' : ''}
+                  ${option.value === value ? 'bg-gray-100 text-gray-900' : ''}
                 `}
                 role="option"
-                aria-selected={option.value === _value}
+                aria-selected={option.value === value}
               >
                 {option.label}
               </button>

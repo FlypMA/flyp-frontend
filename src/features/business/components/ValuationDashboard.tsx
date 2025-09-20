@@ -15,15 +15,15 @@ import { Button } from '@/shared/components/buttons';
 import { ModernTabContent, ModernTabs } from '@/shared/components/tabs/Tabs';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-    BarChart3,
-    BookOpen,
-    Calculator,
-    FileText,
-    History,
-    Plus,
-    Sparkles,
-    Target,
-    TrendingUp,
+  BarChart3,
+  BookOpen,
+  Calculator,
+  FileText,
+  History,
+  Plus,
+  Sparkles,
+  Target,
+  TrendingUp,
 } from 'lucide-react';
 import React, { useState } from 'react';
 import ValuationReportCard from './ValuationReportCard';
@@ -231,10 +231,18 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
               {/* Current Valuation Report */}
               <ValuationReportCard
                 report={currentValuation}
-                onView={() => // console.log('View valuation')}
-                onDownload={() => // console.log('Download valuation')}
-                onShare={() => // console.log('Share valuation')}
-                onEdit={() => // console.log('Edit valuation')}
+                onView={() => {
+                  /* console.log('View valuation') */
+                }}
+                onDownload={() => {
+                  /* console.log('Download valuation') */
+                }}
+                onShare={() => {
+                  /* console.log('Share valuation') */
+                }}
+                onEdit={() => {
+                  /* console.log('Edit valuation') */
+                }}
               />
             </div>
           </ModernTabContent>

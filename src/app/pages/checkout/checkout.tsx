@@ -52,8 +52,16 @@ const planDetails = {
   },
 };
 
-const CheckoutForm = ({ selectedPlan, priceId, billing }: unknown) => {
-  const _navigate = useNavigate();
+const CheckoutForm = ({
+  selectedPlan,
+  priceId,
+  billing,
+}: {
+  selectedPlan: string;
+  priceId: string;
+  billing: string;
+}) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [customerInfo, setCustomerInfo] = useState({
@@ -64,10 +72,10 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: unknown) => {
   });
 
   // Form validation
-  const [validationErrors, setValidationErrors] = useState<any>({});
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
-    const errors: unknown = {};
+    const errors: Record<string, string> = {};
 
     if (!customerInfo.email.trim()) {
       errors.email = 'Email is required';
@@ -112,7 +120,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: unknown) => {
       setError('Failed to redirect to payment. Please try again.');
       setLoading(false);
     } catch (err: unknown) {
-      setError(err.message || 'An unexpected error occurred');
+      setError((err as Error).message || 'An unexpected error occurred');
       setLoading(false);
     }
   };
@@ -310,7 +318,7 @@ const CheckoutForm = ({ selectedPlan, priceId, billing }: unknown) => {
 
 const Checkout = () => {
   const location = useLocation();
-  const _navigate = useNavigate();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
 
   const selectedPlan = searchParams.get('plan') || 'pro';

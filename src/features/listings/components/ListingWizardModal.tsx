@@ -1,27 +1,21 @@
 import { Button } from '@/shared/components/buttons';
 import { AnimatedTextarea, Input } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
+import { Card, CardBody, Checkbox, Progress, Switch } from '@heroui/react';
 import {
-    Card,
-    CardBody,
-    Checkbox,
-    Progress,
-    Switch
-} from '@heroui/react';
-import {
-    BarChart3,
-    Building2,
-    Camera,
-    CheckCircle,
-    ChevronLeft,
-    ChevronRight,
-    Euro,
-    FileCheck,
-    FileText,
-    Rocket,
-    Shield,
-    Target,
-    Upload
+  BarChart3,
+  Building2,
+  Camera,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Euro,
+  FileCheck,
+  FileText,
+  Rocket,
+  Shield,
+  Target,
+  Upload,
 } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -231,13 +225,13 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
     try {
       // Simulate API call
       // console.log('Publishing listing with data:', {
-        basicInfo,
-        financialInfo,
-        businessDetails,
-        saleDetails,
-        privacySettings,
-        documents,
-      });
+      //   basicInfo,
+      //   financialInfo,
+      //   businessDetails,
+      //   saleDetails,
+      //   privacySettings,
+      //   documents,
+      // });
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Call onComplete instead of navigating
@@ -415,7 +409,9 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="Business Model"
                       placeholder="Select your business model"
                       value={basicInfo.business_model}
-                      onChange={e => setBasicInfo(prev => ({ ...prev, business_model: e.target.value }))}
+                      onChange={e =>
+                        setBasicInfo(prev => ({ ...prev, business_model: e.target.value }))
+                      }
                       required
                       type="text"
                       onBlur={() => {}}
@@ -436,7 +432,9 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="Founded Year"
                       placeholder="e.g., 2015"
                       value={basicInfo.founded_year}
-                      onChange={e => setBasicInfo(prev => ({ ...prev, founded_year: e.target.value }))}
+                      onChange={e =>
+                        setBasicInfo(prev => ({ ...prev, founded_year: e.target.value }))
+                      }
                       type="number"
                       onBlur={() => {}}
                       name="founded_year"
@@ -446,7 +444,9 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="Employee Count"
                       placeholder="Select employee count"
                       value={basicInfo.employee_count}
-                      onChange={e => setBasicInfo(prev => ({ ...prev, employee_count: e.target.value }))}
+                      onChange={e =>
+                        setBasicInfo(prev => ({ ...prev, employee_count: e.target.value }))
+                      }
                       required
                       type="text"
                       onBlur={() => {}}
@@ -470,7 +470,9 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                       label="City"
                       placeholder="Enter city"
                       value={basicInfo.location_city}
-                      onChange={e => setBasicInfo(prev => ({ ...prev, location_city: e.target.value }))}
+                      onChange={e =>
+                        setBasicInfo(prev => ({ ...prev, location_city: e.target.value }))
+                      }
                       required
                       type="text"
                       onBlur={() => {}}
@@ -607,7 +609,10 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     placeholder="What makes your business unique? What are your competitive advantages?"
                     value={businessDetails.competitive_advantage}
                     onChange={e =>
-                      setBusinessDetails(prev => ({ ...prev, competitive_advantage: e.target.value }))
+                      setBusinessDetails(prev => ({
+                        ...prev,
+                        competitive_advantage: e.target.value,
+                      }))
                     }
                     required
                     minRows={3}
@@ -620,7 +625,10 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({ onComplete }) =
                     placeholder="Describe potential growth opportunities for the business..."
                     value={businessDetails.growth_opportunities}
                     onChange={e =>
-                      setBusinessDetails(prev => ({ ...prev, growth_opportunities: e.target.value }))
+                      setBusinessDetails(prev => ({
+                        ...prev,
+                        growth_opportunities: e.target.value,
+                      }))
                     }
                     minRows={3}
                     onBlur={() => {}}

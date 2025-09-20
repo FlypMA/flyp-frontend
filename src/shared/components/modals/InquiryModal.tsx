@@ -1,27 +1,27 @@
 import { useAuth } from '@/app/providers/auth-provider';
 import {
-    Card,
-    CardBody,
-    Checkbox,
-    Chip,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    Select,
-    SelectItem,
+  Card,
+  CardBody,
+  Checkbox,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Select,
+  SelectItem,
 } from '@heroui/react';
 import {
-    Building2,
-    FileText,
-    Lock,
-    Mail,
-    MessageSquare,
-    Phone,
-    User,
-    UserPlus,
-    X,
+  Building2,
+  FileText,
+  Lock,
+  Mail,
+  MessageSquare,
+  Phone,
+  User,
+  UserPlus,
+  X,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../buttons/Button';
@@ -66,7 +66,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   isLoading = false,
 }) => {
   const { openModal, isAuthenticated, user } = useAuth();
-  const [_inquiryData, _setInquiryData] = useState<InquiryData>({
+  const [inquiryData, setInquiryData] = useState<InquiryData>({
     buyerName: '',
     buyerEmail: '',
     buyerPhone: '',

@@ -309,7 +309,6 @@ const ListingSearch = () => {
       // TODO: Replace with actual API call
       // console.log('Saving search:', searchData);
       // await searchService.saveSearch(searchData);
-
       // Show success notification
       // toast.success('Search saved successfully!');
     } catch (error) {
@@ -319,7 +318,7 @@ const ListingSearch = () => {
   };
 
   const getCurrentSearchCriteria = () => {
-    const criteria: unknown = {};
+    const criteria: Record<string, any> = {};
 
     if (filters.searchQuery) criteria.searchQuery = filters.searchQuery;
     if (filters.sector) criteria.sector = filters.sector;
@@ -610,11 +609,7 @@ const ListingSearch = () => {
                   >
                     Clear All
                   </Button>
-                  <Button
-                    variant="primary"
-                    onPress={handleSearch}
-                    className="px-8"
-                  >
+                  <Button variant="primary" onPress={handleSearch} className="px-8">
                     Apply Filters
                   </Button>
                 </div>

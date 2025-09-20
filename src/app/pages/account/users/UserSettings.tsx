@@ -1,18 +1,22 @@
 import { Button } from '@/shared/components/buttons';
-import { CustomDropdown, CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
+import {
+  CustomDropdown,
+  CustomInputField,
+  CustomPasswordInputField,
+} from '@/shared/components/forms';
 import { AuthenticationService } from '@/shared/services/auth';
 import { Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
 import {
-    Bell,
-    Building2,
-    Camera,
-    CheckCircle,
-    Edit3,
-    Globe,
-    Save,
-    Settings,
-    Shield,
-    User
+  Bell,
+  Building2,
+  Camera,
+  CheckCircle,
+  Edit3,
+  Globe,
+  Save,
+  Settings,
+  Shield,
+  User,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -82,10 +86,6 @@ const UserSettings: React.FC = () => {
     { id: 2, name: 'Green Energy Co', industry: 'Renewable Energy', status: 'Sold' },
   ]);
 
-  useEffect(() => {
-    loadUserData();
-  }, [loadUserData]);
-
   const loadUserData = async () => {
     try {
       const authService = new AuthenticationService();
@@ -113,6 +113,10 @@ const UserSettings: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   const handleSaveSettings = async () => {
     setSaving(true);

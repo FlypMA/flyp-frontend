@@ -54,7 +54,7 @@ const LoadingScreen: React.FC<{ message?: string }> = ({ message = 'Loading...' 
 // =============================================================================
 
 const AccessDeniedPage: React.FC<{
-  user: unknown;
+  user: { email: string; role: string } | null;
   allowedRoles: UserRole[];
   onGoBack?: () => void;
   onGoHome?: () => void;
@@ -250,14 +250,14 @@ export const AdminRoute: React.FC<BaseRouteProps> = ({ children }) => (
 /**
  * Check if user has access based on allowed roles
  */
-const checkUserAccess = (user: unknown, allowedRoles: UserRole[]): boolean => {
+const checkUserAccess = (user: { role: string } | null, allowedRoles: UserRole[]): boolean => {
   if (!user || !user.role) return false;
 
   // Admin has access to everything
   if (user.role === 'admin') return true;
 
   // Check if user role is in allowed roles
-  if (allowedRoles.includes(user.role)) return true;
+  if (allowedRoles.includes(user.role as UserRole)) return true;
 
   // Handle 'both' role - has access to buyer OR seller restricted areas
   if (user.role === 'both') {
@@ -270,7 +270,7 @@ const checkUserAccess = (user: unknown, allowedRoles: UserRole[]): boolean => {
 /**
  * Get default route for user based on their role
  */
-const getDefaultRouteForUser = (user: unknown): string => {
+const getDefaultRouteForUser = (user: { role: string } | null): string => {
   if (!user) return '/';
 
   switch (user.role) {

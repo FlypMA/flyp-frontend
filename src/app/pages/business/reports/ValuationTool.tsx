@@ -2,15 +2,15 @@ import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Input,
-    Select,
-    SelectItem,
-    Slider,
-    Tab,
-    Tabs,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Select,
+  SelectItem,
+  Slider,
+  Tab,
+  Tabs,
 } from '@heroui/react';
 import { ArrowRight, Calculator, Download, FileText, RefreshCw, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -50,7 +50,7 @@ const ValuationTool = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [activeTab, setActiveTab] = useState('input');
 
-  const [_inputs, _setInputs] = useState<ValuationInputs>({
+  const [inputs, setInputs] = useState<ValuationInputs>({
     annualRevenue: 450000,
     grossProfit: 315000,
     ebitda: 135000,

@@ -4,20 +4,20 @@ import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { Avatar, Badge, Chip, Divider } from '@heroui/react';
 import {
-    Building2,
-    CheckCheck,
-    Euro,
-    MapPin,
-    MessageCircle,
-    MoreVertical,
-    Paperclip,
-    Phone,
-    Pin,
-    Search,
-    Send,
-    Smile,
-    User,
-    Video,
+  Building2,
+  CheckCheck,
+  Euro,
+  MapPin,
+  MessageCircle,
+  MoreVertical,
+  Paperclip,
+  Phone,
+  Pin,
+  Search,
+  Send,
+  Smile,
+  User,
+  Video,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -65,7 +65,7 @@ interface Message {
 
 const Messages: React.FC = () => {
   const navigate = useNavigate();
-  const [_user, _setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   // Loading states removed for smooth UX
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
@@ -300,7 +300,7 @@ const Messages: React.FC = () => {
               <Input
                 placeholder="Search conversations..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 leftIcon={<Search className="w-4 h-4 text-gray-400" />}
                 className="search-conversations"
                 label=""
@@ -326,7 +326,8 @@ const Messages: React.FC = () => {
                       <Badge
                         content={conversations.filter(c => c.unreadCount > 0).length}
                         size="sm"
-                        variant="solid" color="danger"
+                        variant="solid"
+                        color="danger"
                       >
                         {conversations.filter(c => c.unreadCount > 0).length}
                       </Badge>
@@ -404,7 +405,12 @@ const Messages: React.FC = () => {
                               </Chip>
                             )}
                             {conversation.unreadCount > 0 && (
-                              <Badge content={conversation.unreadCount} size="sm" variant="solid" color="danger">
+                              <Badge
+                                content={conversation.unreadCount}
+                                size="sm"
+                                variant="solid"
+                                color="danger"
+                              >
                                 {conversation.unreadCount}
                               </Badge>
                             )}
