@@ -118,7 +118,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
             onClick={onSearch}
             disabled={isLoading}
             variant="primary"
-            className={sizes.button}
+            className={`${sizes.button} text-lg`}
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
