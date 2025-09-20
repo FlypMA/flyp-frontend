@@ -1,19 +1,19 @@
 import { Button } from '@/shared/components/buttons';
-import { CustomInputField, CustomTextarea } from '@/shared/components/forms';
+import { CustomDropdown, CustomInputField, CustomTextarea } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
-import { Card, CardBody, CardHeader, Select, SelectItem } from '@heroui/react';
+import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-    ArrowRight,
-    Building2,
-    CheckCircle,
-    Clock,
-    FileText,
-    Mail,
-    MapPin,
-    Phone,
-    Shield,
-    Users,
+  ArrowRight,
+  Building2,
+  CheckCircle,
+  Clock,
+  FileText,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
+  Users,
 } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -298,21 +298,18 @@ const NewContact = () => {
                         name="subject"
                         required
                       />
-                      <Select
+                      <CustomDropdown
                         label="Category"
                         placeholder="Select a category"
-                        selectedKeys={formData.category ? [formData.category] : []}
-                        onSelectionChange={keys => {
-                          const category = Array.from(keys)[0] as string;
-                          setFormData({ ...formData, category });
-                        }}
-                        isRequired
-                        variant="bordered"
-                      >
-                        {contactCategories.map(category => (
-                          <SelectItem key={category.key}>{category.label}</SelectItem>
-                        ))}
-                      </Select>
+                        options={contactCategories.map(category => ({
+                          value: category.key,
+                          label: category.label,
+                        }))}
+                        value={formData.category}
+                        onChange={value => setFormData({ ...formData, category: value })}
+                        required={true}
+                        name="category"
+                      />
                     </div>
 
                     <CustomTextarea

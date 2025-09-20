@@ -144,87 +144,82 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   };
 
   return (
-    <div
-      className={`relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm"> flex-col ${className}`}
-      ref={ref}
-    >
-      {/* Main Dropdown Button */}
-      <button
-        type="button"
-        tabIndex={0}
-        onClick={handleToggle}
-        onKeyDown={handleKeyDown}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => {
-          // Delay to allow option selection
-          setTimeout(() => setIsFocused(false), 150);
-        }}
-        disabled={disabled}
-        name={name}
-        className={`
-          w-full px-4 pt-6 pb-2 text-base text-black bg-white 
-          border border-gray-300 rounded-xl focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
-          flex-col items-start justify-center gap-0 h-16 min-h-16
-          ${disabled ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'cursor-pointer bg-white'}
-          ${isOpen ? 'border-gray-500' : 'border-gray-300'}
-          ${isFocused ? 'border-gray-500 focus:ring-gray-500 focus:ring-2 focus:ring-opacity-20' : ''}
-          ${error && touched ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' : ''}
-          hover:border-gray-400
-          focus:outline-none
-        `}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-labelledby={`${label}-label ${label}-value`}
-      >
-        {/* Floating Label */}
-        <label
+    <div className={`relative ${className}`} ref={ref}>
+      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+        {/* Main Dropdown Button */}
+        <button
+          type="button"
+          tabIndex={0}
+          onClick={handleToggle}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            // Delay to allow option selection
+            setTimeout(() => setIsFocused(false), 150);
+          }}
+          disabled={disabled}
+          name={name}
           className={`
+          w-full h-16 px-4 pb-0 text-md text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+          flex-col items-start justify-center gap-0 min-h-16
+          ${disabled ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'cursor-pointer bg-white'}
+          ${error && touched ? 'bg-red-50' : ''}
+          focus:outline-none focus:ring-2 focus:ring-opacity-20
+          text-gray-900
+        `}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-labelledby={`${label}-label ${label}-value`}
+        >
+          {/* Floating Label */}
+          <label
+            className={`
             absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
             ${isFilled ? 'top-3 text-xs text-gray-600' : 'top-5 text-md text-gray-500'}
             ${error && touched ? 'text-red-500' : ''}
             ${disabled ? 'text-gray-400' : ''}
             ${required ? "after:content-['*'] after:text-red-500 after:ml-1" : ''}
           `}
-          id={`${label}-label`}
-        >
-          {label}
-        </label>
+            id={`${label}-label`}
+          >
+            {label}
+          </label>
 
-        {/* Inner Content */}
-        <div className="flex items-center w-full pt-6">
-          <span
-            className={`
+          {/* Inner Content */}
+          <div className="flex items-center w-full h-full">
+            <span
+              className={`
               font-normal w-full text-start text-gray-900 truncate
               ${!hasValue ? 'text-gray-400' : ''}
             `}
-            id={`${label}-value`}
-          >
-            {selectedOption ? selectedOption.label : placeholder}
-          </span>
-        </div>
+              id={`${label}-value`}
+            >
+              {selectedOption ? selectedOption.label : placeholder}
+            </span>
+          </div>
 
-        {/* Dropdown Icon */}
-        <ChevronDown
-          className={`
+          {/* Dropdown Icon */}
+          <ChevronDown
+            className={`
             absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-transform duration-150 ease
             ${isOpen ? 'rotate-180' : ''}
             ${disabled ? 'text-gray-400' : 'text-gray-500'}
           `}
-          aria-hidden="true"
-        />
-      </button>
+            aria-hidden="true"
+          />
+        </button>
 
-      {/* Dropdown Options */}
-      {isOpen && (
-        <div className="relative z-50 mt-1 w-full">
-          <div className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
-            {options.map(option => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => handleOptionSelect(option.value)}
-                disabled={option.disabled}
-                className={`
+        {/* Dropdown Options */}
+        {isOpen && (
+          <div className="relative z-50 mt-0 w-full">
+            <div className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+              {options.map(option => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleOptionSelect(option.value)}
+                  disabled={option.disabled}
+                  className={`
                   w-full px-4 py-3 text-left text-gray-900 transition-colors
                   ${
                     option.disabled
@@ -233,17 +228,18 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                   }
                   ${option.value === value ? 'bg-gray-100 text-gray-900' : ''}
                 `}
-                role="option"
-                aria-selected={option.value === value}
-              >
-                {option.label}
-              </button>
-            ))}
+                  role="option"
+                  aria-selected={option.value === value}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Error Message */}
+        {/* Error Message */}
+      </div>
       {error && touched && (
         <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>
       )}
