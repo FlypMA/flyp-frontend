@@ -321,7 +321,7 @@ const LoginModal: React.FC = () => {
                         />
                       </section>
 
-                      <section>
+                      <section className="mt-6">
                         <CustomPasswordInputField
                           label="Your password"
                           name="password"
@@ -338,7 +338,7 @@ const LoginModal: React.FC = () => {
                       </section>
 
                       {/* Forgot Password Link */}
-                      <div className="text-left mt-3 mb-2">
+                      <div className="text-left">
                         <button
                           type="button"
                           onClick={() => {

@@ -1,5 +1,6 @@
-import React from 'react';
+import { Button } from '@/shared/components/buttons';
 import { Search } from 'lucide-react';
+import React from 'react';
 
 interface SearchComponentProps {
   /**
@@ -112,11 +113,12 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
           </div>
 
           {/* Search Button */}
-          <button
+          <Button
             type="button"
             onClick={onSearch}
             disabled={isLoading}
-            className={`font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${sizes.button}`}
+            variant="primary"
+            className={sizes.button}
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
@@ -126,7 +128,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
             ) : (
               buttonText
             )}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

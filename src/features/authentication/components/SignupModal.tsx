@@ -469,7 +469,7 @@ const SignupModal: React.FC = () => {
                             />
                           </section>
 
-                          <section>
+                          <section className="mt-6">
                             <CustomPasswordInputField
                               label="Your password"
                               name="password"

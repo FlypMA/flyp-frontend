@@ -88,20 +88,18 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
   const passwordStrength = showPasswordStrength ? getPasswordStrength(value) : null;
 
   return (
-    <div className={`mb-6 ${className}`}>
-      <div className="relative">
+    <div className={`mb-6 relative ${className}`}>
+      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
         <input
           ref={inputRef}
           type={showPassword ? 'text' : 'password'}
           placeholder={placeholder}
           className={`
-            w-full h-14 px-4 pt-6 pb-2 pr-12 text-base text-black bg-white 
-            border border-gray-300 rounded-xl transition-all duration-200 
-            focus:outline-none focus:border-gray-900 focus:ring-0
-            hover:border-gray-500
-            ${hasError ? 'border-red-400 focus:border-red-500' : ''}
-            ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-            placeholder:text-transparent
+            w-full h-16 px-4 pb-0 text-md text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+            ${hasError ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' : ''}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
+            focus:outline-none focus:ring-2 focus:ring-opacity-20
+            text-gray-900 placeholder-gray-400
           `}
           aria-label={label}
           value={value}
@@ -116,13 +114,14 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
 
         <label
           className={`
-            absolute left-4 transition-all duration-200 pointer-events-none font-medium
+              absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
             ${
               hasContent || isFocused || value
-                ? 'top-2 text-xs text-gray-700'
-                : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
+                ? 'top-3 text-xs text-gray-600'
+                : 'top-5 text-md text-gray-500'
             }
-            ${hasError ? 'text-red-600' : ''}
+            ${hasError ? 'text-red-500' : ''}
+            ${disabled ? 'text-gray-400' : ''}
           `}
         >
           {label}
