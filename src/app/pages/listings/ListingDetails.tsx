@@ -3,16 +3,14 @@ import { ImageGalleryModal } from '@/shared/components/modals/images';
 import InquiryModal from '@/shared/components/modals/InquiryModal';
 import { Card, CardBody, CardHeader, Divider, useDisclosure } from '@heroui/react';
 import {
-    ArrowLeft,
-    Building2,
-    CheckCircle,
-    Eye,
-    Heart,
-    MapPin,
-    MessageSquare,
-    Share2,
-    Shield,
-    TrendingUp,
+  ArrowLeft,
+  Building2,
+  CheckCircle,
+  Eye,
+  MapPin,
+  MessageSquare,
+  Shield,
+  TrendingUp,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -258,27 +256,6 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:w-64">
-              <Button
-                variant="tertiary"
-                startContent={
-                  <Heart className="w-4 h-4" style={{ stroke: 'currentColor', fill: 'none' }} />
-                }
-                className="border-2 border-neutral-300 hover:border-neutral-400"
-              >
-                Save Listing
-              </Button>
-              <Button
-                variant="tertiary"
-                startContent={
-                  <Share2 className="w-4 h-4" style={{ stroke: 'currentColor', fill: 'none' }} />
-                }
-                className="border-2 border-neutral-300 hover:border-neutral-400"
-              >
-                Share
-              </Button>
             </div>
           </div>
         </div>
