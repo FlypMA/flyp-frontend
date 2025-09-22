@@ -24,7 +24,7 @@ import {
   Tab,
   Tabs,
 } from '@heroui/react';
-import { ArrowRight, Calculator, Download, FileText, TrendingUp, X } from 'lucide-react';
+import { ArrowRight, Calculator, TrendingUp, X } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface ValuationInputs {
@@ -249,6 +249,7 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
       isDismissable={true}
       isKeyboardDismissDisabled={false}
       shouldBlockScroll={true}
+      hideCloseButton={true}
       classNames={{
         base: 'max-h-[90vh]',
         body: 'py-6',
@@ -499,7 +500,7 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
                         Weighted average of {valuationResults.length} valuation methods
                       </p>
 
-                      {showSignupPrompt && (
+                      {showSignupPrompt ? (
                         <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-6">
                           <h3 className="text-lg font-semibold text-primary-900 mb-2">
                             Get Your Detailed Report
@@ -517,20 +518,25 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
                             Create Account & Get Report
                           </Button>
                         </div>
+                      ) : (
+                        <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            Sign Up for Full Report
+                          </h3>
+                          <p className="text-gray-700 mb-4">
+                            To download your detailed valuation report and access additional
+                            business tools, please create a free account.
+                          </p>
+                          <Button
+                            variant="primary"
+                            size="lg"
+                            onPress={handleSignup}
+                            className="px-8"
+                          >
+                            Create Account & Get Report
+                          </Button>
+                        </div>
                       )}
-
-                      <div className="flex justify-center space-x-4">
-                        <Button
-                          variant="primary"
-                          startContent={<FileText className="w-4 h-4" />}
-                          onPress={handleSignup}
-                        >
-                          Create Account
-                        </Button>
-                        <Button variant="tertiary" startContent={<Download className="w-4 h-4" />}>
-                          Download Report
-                        </Button>
-                      </div>
                     </CardBody>
                   </Card>
 
