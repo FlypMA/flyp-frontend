@@ -40,11 +40,6 @@ export class UrlGenerator {
 
   static myBusiness = () => '/my-business';
   static myBusinessOverview = () => '/my-business/overview';
-  static myBusinessListings = () => '/my-business/listings';
-  static createListing = () => '/my-business/listings/new';
-  static editListing = (listingId: string) => `/my-business/listings/${listingId}`;
-  static listingAnalytics = (listingId: string) => `/my-business/listings/${listingId}/analytics`;
-  static listingInquiries = (listingId: string) => `/my-business/listings/${listingId}/inquiries`;
   static businessValuations = () => '/my-business/valuations';
   static businessAnalytics = () => '/my-business/analytics';
   static businessDocuments = () => '/my-business/documents';
@@ -150,13 +145,11 @@ export class UrlGenerator {
    */
   static getListingAction = (
     listingId: string,
-    action: 'view' | 'edit' | 'analytics' | 'data-room' | 'documents'
+    action: 'view' | 'analytics' | 'data-room' | 'documents'
   ) => {
     switch (action) {
-      case 'edit':
-        return UrlGenerator.editListing(listingId);
       case 'analytics':
-        return UrlGenerator.listingAnalytics(listingId);
+        return UrlGenerator.listingById(listingId) + '/analytics';
       case 'data-room':
         return UrlGenerator.listingById(listingId) + '/data-room';
       case 'documents':
@@ -192,11 +185,9 @@ export class UrlGenerator {
    * Generate business owner section URL
    */
   static getBusinessSection = (
-    section: 'overview' | 'listings' | 'valuations' | 'documents' | 'performance'
+    section: 'overview' | 'valuations' | 'documents' | 'performance'
   ) => {
     switch (section) {
-      case 'listings':
-        return UrlGenerator.myBusinessListings();
       case 'valuations':
         return UrlGenerator.businessValuations();
       case 'documents':

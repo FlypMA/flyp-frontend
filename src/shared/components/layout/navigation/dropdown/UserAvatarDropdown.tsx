@@ -1,7 +1,7 @@
+import { authService } from '@/shared/services/auth';
 import { Heart, HelpCircle, LayoutDashboard, LogOut, MessageCircle, Settings } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '@/shared/services/auth';
 import { UrlGenerator } from '../../../../services/urls/urlGenerator';
 import { User } from '../../../../types';
 
@@ -77,7 +77,7 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         navigate(UrlGenerator.myBusiness());
         break;
       case 'my-listings':
-        navigate(UrlGenerator.myBusinessListings());
+        navigate(UrlGenerator.myBusiness());
         break;
       case 'valuation':
         navigate(UrlGenerator.businessValuations());
@@ -100,7 +100,7 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         navigate(UrlGenerator.help());
         break;
       case 'create-listing':
-        navigate(UrlGenerator.createListing());
+        navigate(UrlGenerator.myBusiness());
         break;
       case 'logout':
         handleLogout();

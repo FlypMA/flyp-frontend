@@ -1,14 +1,13 @@
 import {
   Card,
   CardBody,
-  Checkbox,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from '@heroui/react';
-import { AlertTriangle, Building2, FileText, Shield, User } from 'lucide-react';
+import { AlertTriangle, FileText, Shield, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../buttons/Button';
 import { AnimatedTextarea, Input } from '../forms';
@@ -29,7 +28,6 @@ interface SignatureData {
   email: string;
   phone: string;
   digitalSignature: string;
-  acceptedTerms: boolean;
   acceptedDate: string;
   ipAddress?: string;
 }
@@ -50,7 +48,6 @@ const NDAModal: React.FC<NDAModalProps> = ({
     email: '',
     phone: '',
     digitalSignature: '',
-    acceptedTerms: false,
     acceptedDate: new Date().toISOString(),
   });
 
@@ -73,8 +70,8 @@ const NDAModal: React.FC<NDAModalProps> = ({
   };
 
   const validateForm = () => {
-    const { fullName, company, email, digitalSignature, acceptedTerms } = signatureData;
-    return fullName && company && email && digitalSignature && acceptedTerms;
+    const { fullName, company, email, digitalSignature } = signatureData;
+    return fullName && company && email && digitalSignature;
   };
 
   const renderStep1 = () => (
@@ -147,7 +144,6 @@ const NDAModal: React.FC<NDAModalProps> = ({
           placeholder="Enter your full legal name"
           value={signatureData.fullName}
           onChange={e => setSignatureData(prev => ({ ...prev, fullName: e.target.value }))}
-          leftIcon={<User className="w-4 h-4 text-gray-400" />}
           required
           name="fullName"
           type="text"
@@ -172,7 +168,6 @@ const NDAModal: React.FC<NDAModalProps> = ({
           placeholder="Your company name"
           value={signatureData.company}
           onChange={e => setSignatureData(prev => ({ ...prev, company: e.target.value }))}
-          leftIcon={<Building2 className="w-4 h-4 text-gray-400" />}
           required
           name="company"
           type="text"
@@ -251,7 +246,6 @@ const NDAModal: React.FC<NDAModalProps> = ({
         placeholder="Type your full name as digital signature"
         value={signatureData.digitalSignature}
         onChange={e => setSignatureData(prev => ({ ...prev, digitalSignature: e.target.value }))}
-        description="By typing your name, you confirm this serves as your digital signature"
         onBlur={() => {}}
         name="digitalSignature"
         required
@@ -260,12 +254,10 @@ const NDAModal: React.FC<NDAModalProps> = ({
       />
 
       <div className="space-y-3">
-        <Checkbox
-          isSelected={signatureData.acceptedTerms}
-          onValueChange={checked => setSignatureData(prev => ({ ...prev, acceptedTerms: checked }))}
-        >
-          I agree to the terms and conditions of this Non-Disclosure Agreement
-        </Checkbox>
+        <p className="text-sm text-gray-500">
+          By typing your name, you confirm this serves as your digital signature and that you agree
+          to the terms and conditions of this Non-Disclosure Agreement
+        </p>
 
         <p className="text-xs text-gray-600">
           Date: {new Date().toLocaleDateString()} | Time: {new Date().toLocaleTimeString()} | IP
@@ -279,7 +271,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
     <Modal
       isOpen={isOpen}
       onOpenChange={onClose}
-      size="2xl"
+      size="5xl"
       scrollBehavior="inside"
       isDismissable={false}
       isKeyboardDismissDisabled={true}

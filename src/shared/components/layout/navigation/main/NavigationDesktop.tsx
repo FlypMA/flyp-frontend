@@ -51,7 +51,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
 
   const handleSellBusiness = () => {
     if (user) {
-      navigate(UrlGenerator.createListing());
+      navigate(UrlGenerator.myBusiness());
     } else {
       openModal('signup');
     }
@@ -136,18 +136,10 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 </div>
               ) : (
                 <>
-                  <Button
-                    variant="link"
-                    size="sm"
-                    onClick={handleLogin}
-                  >
+                  <Button variant="link" size="sm" onClick={handleLogin}>
                     Log in
                   </Button>
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={handleSellBusiness}
-                  >
+                  <Button variant="primary" size="sm" onClick={handleSellBusiness}>
                     List your business
                   </Button>
                 </>

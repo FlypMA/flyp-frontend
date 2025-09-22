@@ -5,10 +5,10 @@
 import React, { useRef } from 'react';
 
 export interface CustomCheckboxProps {
-  label: string;
+  label: React.ReactNode;
   checked: boolean;
-  onChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (_e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: () => void;
+  onBlur?: () => void;
   name: string;
   className?: string;
   error?: string;
@@ -92,21 +92,14 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
           </label>
 
           {description && (
-            <p
-              id={`${name}-description`}
-              className="text-xs text-gray-500 mt-1"
-            >
+            <p id={`${name}-description`} className="text-xs text-gray-500 mt-1">
               {description}
             </p>
           )}
         </div>
       </div>
 
-      {hasError && (
-        <span className="block text-sm text-red-600 mt-2 font-medium">
-          {error}
-        </span>
-      )}
+      {hasError && <span className="block text-sm text-red-600 mt-2 font-medium">{error}</span>}
     </div>
   );
 };

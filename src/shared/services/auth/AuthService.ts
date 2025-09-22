@@ -3,29 +3,12 @@
 // Purpose: Secure backend-based authentication with HTTP-only cookie management
 
 import { AuthResult, User, UserRole } from '../../types';
+import { createMockUser, isDevBypassEnabled } from '../../utils/dev/devBypass';
 import { SessionManager } from './utils/session-manager';
 
-interface LoginRequest {
-  email: string;
-  password: string;
-}
+// Unused interfaces removed for linting
 
-interface SignupRequest {
-  email: string;
-  password: string;
-  name?: string;
-  role?: UserRole;
-}
-
-interface AuthResponse {
-  success: boolean;
-  user?: User;
-  message?: string;
-  error?: string;
-  requiresVerification?: boolean;
-}
-
-interface ApiResponse<T = any> {
+interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -34,10 +17,10 @@ interface ApiResponse<T = any> {
 
 /**
  * Authentication Service - Backend API with HTTP-only Cookies
- * 
+ *
  * Architecture:
  * Frontend → Backend API → Supabase → Backend sets HTTP-only cookies → Frontend receives user data
- * 
+ *
  * Security Features:
  * - HTTP-only cookies (XSS protection)
  * - Backend handles all Supabase interactions
@@ -50,7 +33,7 @@ export class AuthenticationService {
 
   constructor() {
     const backendUrl = import.meta.env.VITE_NODE_BACKEND_URL || 'http://localhost:3000';
-    
+
     // Ensure the URL has a protocol (fix for production deployment)
     if (backendUrl && !backendUrl.startsWith('http://') && !backendUrl.startsWith('https://')) {
       this.baseURL = `https://${backendUrl}`;
@@ -62,8 +45,8 @@ export class AuthenticationService {
   /**
    * Make authenticated API request with credentials (cookies)
    */
-  private async makeRequest<T = any>(
-    endpoint: string, 
+  private async makeRequest<T = unknown>(
+    endpoint: string,
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
     try {
@@ -91,7 +74,7 @@ export class AuthenticationService {
         message: data.message,
       };
     } catch (error) {
-      console.error('API Request failed:', error);
+      // console.error('API Request failed:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Network error',
@@ -110,7 +93,14 @@ export class AuthenticationService {
     role: UserRole = 'buyer'
   ): Promise<{ success: boolean; user?: User; error?: string; requiresVerification?: boolean }> {
     try {
-      console.log('🔧 Creating account through backend:', { email, name, role });
+      // Check for development bypass
+      if (isDevBypassEnabled()) {
+        // console.log('🚀 DEV BYPASS: Simulating account creation for:', { email, name, role });
+        const mockUser = createMockUser(email, role);
+        return { success: true, user: mockUser };
+      }
+
+      // console.log('🔧 Creating account through backend:', { email, name, role });
 
       const response = await this.makeRequest<{
         user: User;
@@ -126,7 +116,7 @@ export class AuthenticationService {
       });
 
       if (!response.success) {
-        console.error('Account creation failed:', response.error);
+        // console.error('Account creation failed:', response.error);
         return {
           success: false,
           error: response.error || 'Account creation failed',
@@ -143,7 +133,7 @@ export class AuthenticationService {
         SessionManager.storeSession(authResult);
       }
 
-      console.log('✅ Account created successfully');
+      // console.log('✅ Account created successfully');
       return {
         success: true,
         user: response.data?.user,
@@ -151,7 +141,7 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Account creation failed:', error);
+      // console.error('❌ Account creation failed:', error);
 
       return {
         success: false,
@@ -169,7 +159,14 @@ export class AuthenticationService {
     password: string
   ): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-      console.log('🔐 Logging in user through backend:', { email });
+      // Check for development bypass
+      if (isDevBypassEnabled()) {
+        // console.log('🚀 DEV BYPASS: Simulating login for:', { email });
+        const mockUser = createMockUser(email);
+        return { success: true, user: mockUser };
+      }
+
+      // console.log('🔐 Logging in user through backend:', { email });
 
       const response = await this.makeRequest<{
         user: User;
@@ -182,7 +179,7 @@ export class AuthenticationService {
       });
 
       if (!response.success) {
-        console.error('Login failed:', response.error);
+        // console.error('Login failed:', response.error);
         return {
           success: false,
           error: response.error || 'Login failed',
@@ -199,14 +196,14 @@ export class AuthenticationService {
         SessionManager.storeSession(authResult);
       }
 
-      console.log('✅ Login successful');
+      // console.log('✅ Login successful');
       return {
         success: true,
         user: response.data?.user,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Login failed:', error);
+      // console.error('❌ Login failed:', error);
 
       return {
         success: false,
@@ -221,7 +218,7 @@ export class AuthenticationService {
    */
   async logout(): Promise<{ success: boolean; error?: string }> {
     try {
-      console.log('🚪 Logging out user through backend');
+      // console.log('🚪 Logging out user through backend');
 
       // Call backend logout (will clear HTTP-only cookies)
       const response = await this.makeRequest('/api/auth/logout', {
@@ -231,18 +228,18 @@ export class AuthenticationService {
       // Clear local session regardless of backend response
       SessionManager.clearSession();
 
-      console.log('✅ Logout successful');
-      return { 
+      // console.log('✅ Logout successful');
+      return {
         success: true,
         error: response.success ? undefined : response.error,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Logout failed:', error);
-      
+      // console.error('❌ Logout failed:', error);
+
       // Clear session anyway
       SessionManager.clearSession();
-      
+
       return {
         success: false,
         error: errorMessage,
@@ -256,13 +253,23 @@ export class AuthenticationService {
    */
   async checkAuth(): Promise<{ isAuthenticated: boolean; user?: User; error?: string }> {
     try {
+      // Check for development bypass
+      if (isDevBypassEnabled()) {
+        // console.log('🚀 DEV BYPASS: Simulating authentication check');
+        const mockUser = createMockUser();
+        return {
+          isAuthenticated: true,
+          user: mockUser,
+        };
+      }
+
       // First, check if we have a valid session in localStorage
       const localSession = SessionManager.getSession();
       if (localSession && localSession.isAuthenticated && localSession.user) {
-        console.log('🔍 Using cached session data');
+        // console.log('🔍 Using cached session data');
         return {
           isAuthenticated: true,
-          user: localSession.user
+          user: localSession.user,
         };
       }
 
@@ -271,25 +278,25 @@ export class AuthenticationService {
       if (!hasSessionFlag) {
         // Only log once per session to avoid spam
         if (!this._hasLoggedNoSession) {
-          console.log('🔍 No session flag found, user not authenticated');
+          // console.log('🔍 No session flag found, user not authenticated');
           this._hasLoggedNoSession = true;
         }
         return {
           isAuthenticated: false,
-          error: 'No session found'
+          error: 'No session found',
         };
       }
 
-      console.log('🔍 Checking authentication status through backend');
+      // console.log('🔍 Checking authentication status through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/me');
 
       if (!response.success) {
         // Not authenticated or session expired
         SessionManager.clearSession();
-        return { 
-          isAuthenticated: false, 
-          error: response.error 
+        return {
+          isAuthenticated: false,
+          error: response.error,
         };
       }
 
@@ -310,10 +317,10 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Auth check failed:', error);
-      
+      // console.error('❌ Auth check failed:', error);
+
       SessionManager.clearSession();
-      
+
       return {
         isAuthenticated: false,
         error: errorMessage,
@@ -347,8 +354,8 @@ export class AuthenticationService {
     try {
       const authCheck = await this.checkAuth();
       return authCheck.user || null;
-    } catch (error) {
-      console.error('❌ Get current user failed:', error);
+    } catch {
+      // Get current user failed
       return null;
     }
   }
@@ -358,7 +365,7 @@ export class AuthenticationService {
    */
   async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
     try {
-      console.log('🔑 Requesting password reset through backend:', email);
+      // console.log('🔑 Requesting password reset through backend:', email);
 
       const response = await this.makeRequest('/api/auth/forgot-password', {
         method: 'POST',
@@ -371,8 +378,8 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Password reset failed:', error);
-      
+      // console.error('❌ Password reset failed:', error);
+
       return {
         success: false,
         error: errorMessage,
@@ -383,15 +390,18 @@ export class AuthenticationService {
   /**
    * Update password through backend
    */
-  async updatePassword(newPassword: string, token?: string): Promise<{ success: boolean; error?: string }> {
+  async updatePassword(
+    newPassword: string,
+    token?: string
+  ): Promise<{ success: boolean; error?: string }> {
     try {
-      console.log('🔐 Updating password through backend');
+      // console.log('🔐 Updating password through backend');
 
       const response = await this.makeRequest('/api/auth/reset-password', {
         method: 'POST',
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           password: newPassword,
-          ...(token && { token })
+          ...(token && { token }),
         }),
       });
 
@@ -401,8 +411,8 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Password update failed:', error);
-      
+      // console.error('❌ Password update failed:', error);
+
       return {
         success: false,
         error: errorMessage,
@@ -415,7 +425,7 @@ export class AuthenticationService {
    */
   async verifyEmail(token: string): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-      console.log('📧 Verifying email through backend');
+      // console.log('📧 Verifying email through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/verify-email', {
         method: 'POST',
@@ -439,8 +449,8 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Email verification failed:', error);
-      
+      // console.error('❌ Email verification failed:', error);
+
       return {
         success: false,
         error: errorMessage,
@@ -453,7 +463,7 @@ export class AuthenticationService {
    */
   async resendVerification(email: string): Promise<{ success: boolean; error?: string }> {
     try {
-      console.log('📧 Resending verification email through backend:', email);
+      // console.log('📧 Resending verification email through backend:', email);
 
       const response = await this.makeRequest('/api/auth/resend-verification', {
         method: 'POST',
@@ -466,8 +476,8 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Resend verification failed:', error);
-      
+      // console.error('❌ Resend verification failed:', error);
+
       return {
         success: false,
         error: errorMessage,
@@ -481,7 +491,7 @@ export class AuthenticationService {
    */
   async refreshSession(): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-      console.log('🔄 Refreshing session through backend');
+      // console.log('🔄 Refreshing session through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/refresh', {
         method: 'POST',
@@ -508,8 +518,8 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('❌ Session refresh failed:', error);
-      
+      // console.error('❌ Session refresh failed:', error);
+
       return {
         success: false,
         error: errorMessage,
@@ -528,8 +538,8 @@ export class AuthenticationService {
       });
 
       return response.data?.exists || false;
-    } catch (error) {
-      console.error('❌ Email check failed:', error);
+    } catch {
+      // Email check failed
       return false;
     }
   }

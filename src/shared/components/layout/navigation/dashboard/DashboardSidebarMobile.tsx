@@ -13,7 +13,6 @@
 
 import {
   BarChart3,
-  Building2,
   Calculator,
   FileText,
   LayoutDashboard,
@@ -85,27 +84,6 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
           icon: LayoutDashboard,
           description: 'Business overview and performance',
           path: UrlGenerator.myBusiness(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-      ],
-    },
-    {
-      title: 'Listings & Sales',
-      items: [
-        {
-          key: 'listings',
-          label: 'My Listings',
-          icon: Building2,
-          description: 'Manage your business listings',
-          path: UrlGenerator.myBusinessListings(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-        {
-          key: 'create-listing',
-          label: 'Create Listing',
-          icon: Building2,
-          description: 'List your business for sale',
-          path: UrlGenerator.createListing(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],

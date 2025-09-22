@@ -103,7 +103,7 @@ const LoginModal: React.FC = () => {
     }
   };
 
-  const handleFieldBlur = (name: keyof LoginData) => (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFieldBlur = (name: keyof LoginData) => () => {
     setTouched(prev => ({ ...prev, [name]: true }));
 
     const error = validateField(name, formData[name]);
@@ -148,7 +148,20 @@ const LoginModal: React.FC = () => {
         if (postAuthRedirect) {
           // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
-          navigate(postAuthRedirect.url, {
+
+          // Add autoOpenInquiry or autoOpenNda parameter if specified in state
+          let redirectUrl = postAuthRedirect.url;
+          if (postAuthRedirect.state?.autoOpenInquiry) {
+            const url = new URL(postAuthRedirect.url, window.location.origin);
+            url.searchParams.set('autoOpenInquiry', 'true');
+            redirectUrl = url.pathname + url.search;
+          } else if (postAuthRedirect.state?.autoOpenNda) {
+            const url = new URL(postAuthRedirect.url, window.location.origin);
+            url.searchParams.set('autoOpenNda', 'true');
+            redirectUrl = url.pathname + url.search;
+          }
+
+          navigate(redirectUrl, {
             state: postAuthRedirect.state,
             replace: true,
           });
@@ -161,8 +174,8 @@ const LoginModal: React.FC = () => {
         setMessageType('error');
         setErrorMessage(authResult.error || 'Invalid email or password. Please try again.');
       }
-    } catch (error) {
-      // console.error('❌ Login failed:', error);
+    } catch {
+      // Login failed
       setMessageType('error');
       setErrorMessage('Login failed. Please check your credentials and try again.');
     } finally {

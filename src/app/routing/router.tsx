@@ -20,6 +20,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import MainLayout from '../layouts/MainLayout';
 
 // Route Guard imports
+import NDARouteGuard from './NDARouteGuard';
 import { BuyerRoute, ProtectedRoute, SellerRoute } from './route-guards';
 
 // Page imports - Landing Pages
@@ -27,14 +28,12 @@ import HomePage from '../pages/landingPages/home';
 import SellersPage from '../pages/landingPages/sellers/sellers';
 
 // Page imports - Listings
-import CreateListingPage from '../pages/listings/CreateListingPage';
-import EditListingPage from '../pages/listings/EditListingPage';
 import ListingDetails from '../pages/listings/ListingDetails';
 import ListingSearch from '../pages/listings/ListingSearch';
+import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Business Dashboard
 import DocumentVault from '../pages/business/data-room/DocumentVault';
-import ListingManagement from '../pages/business/management/ListingManagement';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import BusinessValuation from '../pages/business/reports/BusinessValuation';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
@@ -111,6 +110,16 @@ export const router = createBrowserRouter([
       { path: 'browse', element: <ListingSearch /> },
       { path: 'listings', element: <ListingSearch /> },
       { path: 'listings/:id', element: <ListingDetails /> },
+      {
+        path: 'listings/:id/private',
+        element: (
+          <ProtectedRoute>
+            <NDARouteGuard>
+              <PrivateListingDetails />
+            </NDARouteGuard>
+          </ProtectedRoute>
+        ),
+      },
 
       // Resources
       { path: 'resources/valuation-guide', element: <ValuationGuide /> },
@@ -252,48 +261,6 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <BusinessOverview />
-          </SellerRoute>
-        ),
-      },
-
-      // Business Listing Management (sellers only)
-      {
-        path: 'my-business/listings',
-        element: (
-          <SellerRoute>
-            <ListingManagement />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/listings/new',
-        element: (
-          <SellerRoute>
-            <CreateListingPage />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/listings/:listingId',
-        element: (
-          <SellerRoute>
-            <EditListingPage />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/listings/:listingId/analytics',
-        element: (
-          <SellerRoute>
-            <EditListingPage />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/listings/:listingId/inquiries',
-        element: (
-          <SellerRoute>
-            <EditListingPage />
           </SellerRoute>
         ),
       },

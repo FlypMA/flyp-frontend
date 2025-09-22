@@ -2,30 +2,17 @@ import { useAuth } from '@/app/providers/auth-provider';
 import {
   Card,
   CardBody,
-  Checkbox,
   Chip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Select,
-  SelectItem,
 } from '@heroui/react';
-import {
-  Building2,
-  FileText,
-  Lock,
-  Mail,
-  MessageSquare,
-  Phone,
-  User,
-  UserPlus,
-  X,
-} from 'lucide-react';
+import { Building2, FileText, Lock, MessageSquare, UserPlus, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../buttons/Button';
-import { AnimatedTextarea, Input } from '../forms';
+import { AnimatedTextarea, CustomCheckbox, CustomDropdown } from '../forms';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -53,7 +40,6 @@ interface InquiryData {
   timeframe: string;
   experience: string;
   message: string;
-  interests: string[];
   acceptedTerms: boolean;
   subscribeUpdates: boolean;
 }
@@ -77,12 +63,11 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
     timeframe: '',
     experience: '',
     message: '',
-    interests: [],
     acceptedTerms: false,
     subscribeUpdates: true,
   });
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(2);
 
   // Pre-populate form with user data when authenticated
   useEffect(() => {
@@ -92,7 +77,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
         buyerName: user.name || '',
         buyerEmail: user.email || '',
         buyerPhone: user.phone || '',
-        companyName: user.company_name || '',
+        companyName: user.company_name || 'Individual Investor', // Fallback for company name
         position: '', // Position not available in User type
       }));
     }
@@ -115,7 +100,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
+    if (currentStep > 2) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -127,8 +112,8 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
   };
 
   const validateForm = () => {
-    const { buyerName, buyerEmail, companyName, message, acceptedTerms } = inquiryData;
-    return buyerName && buyerEmail && companyName && message && acceptedTerms;
+    const { buyerName, buyerEmail, message, acceptedTerms } = inquiryData;
+    return buyerName && buyerEmail && message && acceptedTerms;
   };
 
   const handleLogin = () => {
@@ -292,232 +277,68 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
     </div>
   );
 
-  const renderStep1 = () => (
-    <div className="space-y-6">
-      {/* Business Opportunity Card - Redesigned */}
-      <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
-        <CardBody className="p-6">
-          <div className="flex items-start gap-4 mb-4">
-            <div className="p-3 bg-blue-100 rounded-xl flex-shrink-0">
-              <Building2 className="w-6 h-6 text-blue-600" />
-            </div>
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-blue-900 mb-1">Business Opportunity</h4>
-              <p className="text-sm text-blue-700">
-                Premium business listing with detailed information
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
-                <div>
-                  <p className="text-xs font-medium text-blue-600 uppercase tracking-wide">
-                    Business
-                  </p>
-                  <p className="text-sm font-semibold text-blue-900">{listing.title}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></div>
-                <div>
-                  <p className="text-xs font-medium text-blue-600 uppercase tracking-wide">
-                    Sector
-                  </p>
-                  <p className="text-sm font-semibold text-blue-900">{listing.sector}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                <div>
-                  <p className="text-xs font-medium text-blue-600 uppercase tracking-wide">
-                    Asking Price
-                  </p>
-                  <p className="text-sm font-semibold text-blue-900">
-                    {formatPrice(listing.asking_price, listing.currency)}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></div>
-                <div>
-                  <p className="text-xs font-medium text-blue-600 uppercase tracking-wide">
-                    Status
-                  </p>
-                  <p className="text-sm font-semibold text-blue-900">Active Listing</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {listing.requires_nda && (
-            <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-amber-100 rounded-lg flex-shrink-0">
-                  <FileText className="w-4 h-4 text-amber-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Chip size="sm" color="warning" variant="flat" className="text-xs">
-                      NDA Required
-                    </Chip>
-                  </div>
-                  <p className="text-sm text-amber-800">
-                    You'll need to sign a Non-Disclosure Agreement to access detailed financial
-                    information and sensitive business data.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </CardBody>
-      </Card>
-
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Your Contact Information</h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Full Name"
-            placeholder="Enter your full name"
-            value={inquiryData.buyerName}
-            onChange={e => setInquiryData(prev => ({ ...prev, buyerName: e.target.value }))}
-            leftIcon={<User className="w-4 h-4 text-gray-400" />}
-            required
-            name="buyerName"
-            type="text"
-            onBlur={() => {}}
-          />
-
-          <Input
-            label="Email Address"
-            type="email"
-            placeholder="your.email@company.com"
-            value={inquiryData.buyerEmail}
-            onChange={e => setInquiryData(prev => ({ ...prev, buyerEmail: e.target.value }))}
-            leftIcon={<Mail className="w-4 h-4 text-gray-400" />}
-            required
-            name="buyerEmail"
-            onBlur={() => {}}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Company/Organization"
-            placeholder="Your company name"
-            value={inquiryData.companyName}
-            onChange={e => setInquiryData(prev => ({ ...prev, companyName: e.target.value }))}
-            leftIcon={<Building2 className="w-4 h-4 text-gray-400" />}
-            required
-            name="companyName"
-            type="text"
-            onBlur={() => {}}
-          />
-
-          <Input
-            label="Position/Title"
-            placeholder="Your job title"
-            value={inquiryData.position}
-            onChange={e => setInquiryData(prev => ({ ...prev, position: e.target.value }))}
-            leftIcon={<User className="w-4 h-4 text-gray-400" />}
-            name="position"
-            type="text"
-            onBlur={() => {}}
-          />
-        </div>
-
-        <Input
-          label="Phone Number"
-          placeholder="+32 123 456 789"
-          value={inquiryData.buyerPhone}
-          onChange={e => setInquiryData(prev => ({ ...prev, buyerPhone: e.target.value }))}
-          leftIcon={<Phone className="w-4 h-4 text-gray-400" />}
-          name="buyerPhone"
-          type="tel"
-          onBlur={() => {}}
-        />
-      </div>
-    </div>
-  );
-
   const renderStep2 = () => (
     <div className="space-y-6">
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Investment Details</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Select
+          <CustomDropdown
             label="Investment Capacity"
             placeholder="Select your investment range"
-            selectedKeys={inquiryData.investmentCapacity ? [inquiryData.investmentCapacity] : []}
-            onSelectionChange={keys => {
-              const value = Array.from(keys)[0] as string;
-              setInquiryData(prev => ({ ...prev, investmentCapacity: value }));
-            }}
-          >
-            <SelectItem key="under-500k">Under €500K</SelectItem>
-            <SelectItem key="500k-1m">€500K - €1M</SelectItem>
-            <SelectItem key="1m-2m">€1M - €2M</SelectItem>
-            <SelectItem key="2m-5m">€2M - €5M</SelectItem>
-            <SelectItem key="5m-10m">€5M - €10M</SelectItem>
-            <SelectItem key="over-10m">Over €10M</SelectItem>
-          </Select>
+            value={inquiryData.investmentCapacity || ''}
+            onChange={value => setInquiryData(prev => ({ ...prev, investmentCapacity: value }))}
+            options={[
+              { value: 'under-500k', label: 'Under €500K' },
+              { value: '500k-1m', label: '€500K - €1M' },
+              { value: '1m-2m', label: '€1M - €2M' },
+              { value: '2m-5m', label: '€2M - €5M' },
+              { value: '5m-10m', label: '€5M - €10M' },
+              { value: 'over-10m', label: 'Over €10M' },
+            ]}
+          />
 
-          <Select
+          <CustomDropdown
             label="Financing Type"
             placeholder="Select financing preference"
-            selectedKeys={inquiryData.financingType ? [inquiryData.financingType] : []}
-            onSelectionChange={keys => {
-              const value = Array.from(keys)[0] as string;
-              setInquiryData(prev => ({ ...prev, financingType: value }));
-            }}
-          >
-            <SelectItem key="cash">Cash</SelectItem>
-            <SelectItem key="debt">Debt Financing</SelectItem>
-            <SelectItem key="equity">Equity Investment</SelectItem>
-            <SelectItem key="mixed">Mixed Financing</SelectItem>
-            <SelectItem key="seller-financing">Seller Financing</SelectItem>
-          </Select>
+            value={inquiryData.financingType || ''}
+            onChange={value => setInquiryData(prev => ({ ...prev, financingType: value }))}
+            options={[
+              { value: 'cash', label: 'Cash' },
+              { value: 'debt', label: 'Debt Financing' },
+              { value: 'equity', label: 'Equity Investment' },
+              { value: 'mixed', label: 'Mixed Financing' },
+              { value: 'seller-financing', label: 'Seller Financing' },
+            ]}
+          />
         </div>
 
-        <Select
+        <CustomDropdown
           label="Investment Timeframe"
           placeholder="Select your timeline"
-          selectedKeys={inquiryData.timeframe ? [inquiryData.timeframe] : []}
-          onSelectionChange={keys => {
-            const value = Array.from(keys)[0] as string;
-            setInquiryData(prev => ({ ...prev, timeframe: value }));
-          }}
-        >
-          <SelectItem key="immediate">Immediate (0-3 months)</SelectItem>
-          <SelectItem key="short-term">Short-term (3-6 months)</SelectItem>
-          <SelectItem key="medium-term">Medium-term (6-12 months)</SelectItem>
-          <SelectItem key="long-term">Long-term (12+ months)</SelectItem>
-        </Select>
+          value={inquiryData.timeframe || ''}
+          onChange={value => setInquiryData(prev => ({ ...prev, timeframe: value }))}
+          options={[
+            { value: 'immediate', label: 'Immediate (0-3 months)' },
+            { value: 'short-term', label: 'Short-term (3-6 months)' },
+            { value: 'medium-term', label: 'Medium-term (6-12 months)' },
+            { value: 'long-term', label: 'Long-term (12+ months)' },
+          ]}
+        />
 
-        <Select
+        <CustomDropdown
           label="Industry Experience"
           placeholder="Select your experience level"
-          selectedKeys={inquiryData.experience ? [inquiryData.experience] : []}
-          onSelectionChange={keys => {
-            const value = Array.from(keys)[0] as string;
-            setInquiryData(prev => ({ ...prev, experience: value }));
-          }}
-        >
-          <SelectItem key="none">No experience</SelectItem>
-          <SelectItem key="limited">Limited experience</SelectItem>
-          <SelectItem key="moderate">Moderate experience</SelectItem>
-          <SelectItem key="extensive">Extensive experience</SelectItem>
-          <SelectItem key="expert">Industry expert</SelectItem>
-        </Select>
+          value={inquiryData.experience || ''}
+          onChange={value => setInquiryData(prev => ({ ...prev, experience: value }))}
+          options={[
+            { value: 'none', label: 'No experience' },
+            { value: 'limited', label: 'Limited experience' },
+            { value: 'moderate', label: 'Moderate experience' },
+            { value: 'extensive', label: 'Extensive experience' },
+            { value: 'expert', label: 'Industry expert' },
+          ]}
+        />
       </div>
     </div>
   );
@@ -539,58 +360,38 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
         />
 
         <div className="space-y-3">
-          <h4 className="font-medium text-gray-900">Areas of Interest (Optional)</h4>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              'Financial Performance',
-              'Customer Base',
-              'Operations',
-              'Technology',
-              'Growth Potential',
-              'Management Team',
-            ].map(interest => (
-              <Checkbox
-                key={interest}
-                isSelected={inquiryData.interests.includes(interest)}
-                onValueChange={checked => {
-                  setInquiryData(prev => ({
-                    ...prev,
-                    interests: checked
-                      ? [...prev.interests, interest]
-                      : prev.interests.filter(i => i !== interest),
-                  }));
-                }}
-              >
-                {interest}
-              </Checkbox>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <Checkbox
-            isSelected={inquiryData.acceptedTerms}
-            onValueChange={checked => setInquiryData(prev => ({ ...prev, acceptedTerms: checked }))}
-            isRequired
-          >
-            I agree to the{' '}
-            <a href="/terms-and-conditions" className="text-blue-600 hover:text-blue-700 underline">
-              Terms of Service
-            </a>{' '}
-            and{' '}
-            <a href="/privacy-policy" className="text-blue-600 hover:text-blue-700 underline">
-              Privacy Policy
-            </a>
-          </Checkbox>
-
-          <Checkbox
-            isSelected={inquiryData.subscribeUpdates}
-            onValueChange={checked =>
-              setInquiryData(prev => ({ ...prev, subscribeUpdates: checked }))
+          <CustomCheckbox
+            name="acceptedTerms"
+            label={
+              <>
+                I agree to the{' '}
+                <a
+                  href="/terms-and-conditions"
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  Terms of Service
+                </a>{' '}
+                and{' '}
+                <a href="/privacy-policy" className="text-blue-600 hover:text-blue-700 underline">
+                  Privacy Policy
+                </a>
+              </>
             }
-          >
-            I'd like to receive updates about new features and market insights
-          </Checkbox>
+            checked={inquiryData.acceptedTerms}
+            onChange={() =>
+              setInquiryData(prev => ({ ...prev, acceptedTerms: !prev.acceptedTerms }))
+            }
+            required
+          />
+
+          <CustomCheckbox
+            name="subscribeUpdates"
+            label="I'd like to receive updates about new features and market insights"
+            checked={inquiryData.subscribeUpdates}
+            onChange={() =>
+              setInquiryData(prev => ({ ...prev, subscribeUpdates: !prev.subscribeUpdates }))
+            }
+          />
         </div>
       </div>
     </div>
@@ -636,9 +437,9 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
 
               {isAuthenticated && (
                 <div className="flex items-center gap-3 text-sm text-gray-600 mt-2">
-                  <span className="font-medium">Step {currentStep} of 3</span>
+                  <span className="font-medium">Step {currentStep - 1} of 2</span>
                   <div className="flex gap-2">
-                    {[1, 2, 3].map(step => (
+                    {[2, 3].map(step => (
                       <div
                         key={step}
                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -662,7 +463,6 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
                 renderAuthCTA()
               ) : (
                 <>
-                  {currentStep === 1 && renderStep1()}
                   {currentStep === 2 && renderStep2()}
                   {currentStep === 3 && renderStep3()}
                 </>
@@ -676,23 +476,14 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
                     Cancel
                   </Button>
 
-                  {currentStep > 1 && (
+                  {currentStep > 2 && (
                     <Button variant="secondary" onPress={handleBack}>
                       Back
                     </Button>
                   )}
 
                   {currentStep < 3 ? (
-                    <Button
-                      variant="primary"
-                      onPress={handleNext}
-                      isDisabled={
-                        currentStep === 1 &&
-                        !inquiryData.buyerName &&
-                        !inquiryData.buyerEmail &&
-                        !inquiryData.companyName
-                      }
-                    >
+                    <Button variant="primary" onPress={handleNext}>
                       Next
                     </Button>
                   ) : (

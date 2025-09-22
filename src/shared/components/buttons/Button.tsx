@@ -7,7 +7,7 @@ import type { ButtonProps } from '../types';
 
 /**
  * Button Component - Caregiver Brand Implementation
- * 
+ *
  * ✅ Follows the Caregiver brand archetype:
  * - Warm, trustworthy colors that reduce anxiety
  * - Softer radii for approachable feel
@@ -65,7 +65,9 @@ export const Button: React.FC<ButtonProps> = ({
 
       case 'secondary':
         return [
-          isDisabledState ? 'bg-neutral-300 text-neutral-100 shadow-none' : 'bg-neutral-600 text-white',
+          isDisabledState
+            ? 'bg-neutral-300 text-neutral-100 shadow-none'
+            : 'bg-neutral-600 text-white',
           'font-medium', // Brand: medium weight for secondary
           'hover:bg-neutral-700',
           'focus:ring-neutral-500/30',
@@ -75,12 +77,15 @@ export const Button: React.FC<ButtonProps> = ({
 
       case 'tertiary':
         return [
-          isDisabledState ? 'bg-accent-300 text-neutral-100 shadow-none' : 'bg-accent-500 text-white',
+          isDisabledState
+            ? 'bg-neutral-100 text-neutral-400 shadow-none'
+            : 'bg-white text-neutral-600',
           'font-medium',
-          'hover:bg-accent-600',
-          'focus:ring-accent-500/30',
+          'hover:bg-neutral-50',
+          'focus:ring-neutral-500/30',
           'shadow-sm hover:shadow-md',
           'active:scale-[0.98]',
+          'border border-neutral-300',
         ].join(' ');
 
       case 'link':
@@ -197,7 +202,7 @@ export const Button: React.FC<ButtonProps> = ({
       event.preventDefault();
       return;
     }
-    
+
     if (onClick) {
       onClick(event);
     }
@@ -240,27 +245,21 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {/* Loading state overlay */}
       {(loading || isLoading) && <LoadingSpinner />}
-      
+
       {/* Content with loading state opacity */}
-      <span className={`flex items-center justify-center ${(loading || isLoading) ? 'opacity-0' : 'opacity-100'}`}>
+      <span
+        className={`flex items-center justify-center ${loading || isLoading ? 'opacity-0' : 'opacity-100'}`}
+      >
         {/* Left icon or start content */}
-        {leftIcon && (
-          <span className="mr-2">{leftIcon}</span>
-        )}
-        {startContent && (
-          <span className="mr-2">{startContent}</span>
-        )}
-        
+        {leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {startContent && <span className="mr-2">{startContent}</span>}
+
         {/* Button content */}
         {children}
-        
+
         {/* Right icon or end content */}
-        {rightIcon && (
-          <span className="ml-2">{rightIcon}</span>
-        )}
-        {endContent && (
-          <span className="ml-2">{endContent}</span>
-        )}
+        {rightIcon && <span className="ml-2">{rightIcon}</span>}
+        {endContent && <span className="ml-2">{endContent}</span>}
       </span>
     </button>
   );

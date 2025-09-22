@@ -111,15 +111,14 @@ const SignupModal: React.FC = () => {
       }
     };
 
-  const handleFieldBlur =
-    (name: keyof SignupFormErrors) => (e: React.FocusEvent<HTMLInputElement>) => {
-      setTouched(prev => ({ ...prev, [name]: true }));
+  const handleFieldBlur = (name: keyof SignupFormErrors) => () => {
+    setTouched(prev => ({ ...prev, [name]: true }));
 
-      const error = validateField(name, formData[name]);
-      if (error) {
-        setErrors(prev => ({ ...prev, [name]: error }));
-      }
-    };
+    const error = validateField(name, formData[name]);
+    if (error) {
+      setErrors(prev => ({ ...prev, [name]: error }));
+    }
+  };
 
   // Role selection
   const handleRoleSelect = (role: UserIntent) => {
@@ -180,7 +179,20 @@ const SignupModal: React.FC = () => {
         if (postAuthRedirect) {
           // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
-          navigate(postAuthRedirect.url, {
+
+          // Add autoOpenInquiry or autoOpenNda parameter if specified in state
+          let redirectUrl = postAuthRedirect.url;
+          if (postAuthRedirect.state?.autoOpenInquiry) {
+            const url = new URL(postAuthRedirect.url, window.location.origin);
+            url.searchParams.set('autoOpenInquiry', 'true');
+            redirectUrl = url.pathname + url.search;
+          } else if (postAuthRedirect.state?.autoOpenNda) {
+            const url = new URL(postAuthRedirect.url, window.location.origin);
+            url.searchParams.set('autoOpenNda', 'true');
+            redirectUrl = url.pathname + url.search;
+          }
+
+          navigate(redirectUrl, {
             state: postAuthRedirect.state,
             replace: true,
           });
@@ -199,8 +211,8 @@ const SignupModal: React.FC = () => {
           setShowLoginPrompt(true);
         }
       }
-    } catch (error) {
-      // console.error('❌ Signup failed:', error);
+    } catch {
+      // Signup failed
       setErrorMessage('Signup failed. Please check your information and try again.');
     } finally {
       setIsSubmitting(false);
@@ -355,10 +367,10 @@ const SignupModal: React.FC = () => {
                               </div>
                               <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                  I'm looking to sell my business
+                                  I'm a business owner
                                 </h3>
                                 <p className="text-gray-600 text-sm">
-                                  Get your business valued and connect with qualified buyers
+                                  Get my business valued and explore selling opportunities
                                 </p>
                               </div>
                             </div>

@@ -1,35 +1,26 @@
 import { Button } from '@/shared/components/buttons';
+import { CustomDropdown, CustomNumberInputField } from '@/shared/components/forms';
 import { authService } from '@/shared/services/auth';
 import { User as UserType } from '@/shared/types';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Select,
-  SelectItem,
-  Slider,
-  Tab,
-  Tabs,
-} from '@heroui/react';
+import { Card, CardBody, CardHeader, Slider, Tab, Tabs } from '@heroui/react';
 import { ArrowRight, Calculator, Download, FileText, RefreshCw, TrendingUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Navigation and sidebar are provided by DashboardLayout
 
 interface ValuationInputs {
-  annualRevenue: number;
-  grossProfit: number;
-  ebitda: number;
-  netIncome: number;
-  totalAssets: number;
-  currentAssets: number;
-  totalDebt: number;
-  cashFlow: number;
+  // Essential inputs for valuation
+  sharesForSale: number; // % shares for sale
+  revenue2023: number;
+  revenue2022: number;
+  revenue2021: number;
+  ebitda2023: number;
+  ebitda2022: number;
+  ebitda2021: number;
   industry: string;
+  // Additional helpful inputs
   yearsInBusiness: number;
   employeeCount: string;
-  revenueGrowthRate: number;
   marketMultiplier: number;
 }
 
@@ -51,18 +42,16 @@ const ValuationTool = () => {
   const [activeTab, setActiveTab] = useState('input');
 
   const [inputs, setInputs] = useState<ValuationInputs>({
-    annualRevenue: 450000,
-    grossProfit: 315000,
-    ebitda: 135000,
-    netIncome: 85000,
-    totalAssets: 320000,
-    currentAssets: 185000,
-    totalDebt: 120000,
-    cashFlow: 125000,
+    sharesForSale: 100, // 100% of shares
+    revenue2023: 450000,
+    revenue2022: 420000,
+    revenue2021: 380000,
+    ebitda2023: 135000,
+    ebitda2022: 125000,
+    ebitda2021: 110000,
     industry: 'food-beverage',
     yearsInBusiness: 16,
     employeeCount: '6-10',
-    revenueGrowthRate: 5,
     marketMultiplier: 1.0,
   });
 
@@ -70,38 +59,88 @@ const ValuationTool = () => {
   const [averageValuation, setAverageValuation] = useState<number>(0);
 
   // Industry multiples database
-  const industryMultiples = {
-    'food-beverage': {
-      revenueMultiple: { low: 0.8, avg: 1.2, high: 2.0 },
-      ebitdaMultiple: { low: 3.0, avg: 4.5, high: 7.0 },
-      description: 'Restaurants, cafés, food services',
-    },
-    retail: {
-      revenueMultiple: { low: 0.5, avg: 0.8, high: 1.5 },
-      ebitdaMultiple: { low: 3.5, avg: 5.0, high: 8.0 },
-      description: 'Retail stores, e-commerce',
-    },
-    'professional-services': {
-      revenueMultiple: { low: 1.0, avg: 1.8, high: 3.5 },
-      ebitdaMultiple: { low: 4.0, avg: 6.0, high: 10.0 },
-      description: 'Consulting, legal, accounting',
-    },
-    technology: {
-      revenueMultiple: { low: 2.0, avg: 4.0, high: 8.0 },
-      ebitdaMultiple: { low: 8.0, avg: 12.0, high: 20.0 },
-      description: 'Software, tech services',
-    },
-    healthcare: {
-      revenueMultiple: { low: 1.5, avg: 2.5, high: 4.0 },
-      ebitdaMultiple: { low: 6.0, avg: 9.0, high: 15.0 },
-      description: 'Medical practices, healthcare',
-    },
-    manufacturing: {
-      revenueMultiple: { low: 0.8, avg: 1.5, high: 2.5 },
-      ebitdaMultiple: { low: 4.0, avg: 6.5, high: 10.0 },
-      description: 'Manufacturing, production',
-    },
-  };
+  const industryMultiples = useMemo(
+    () => ({
+      'food-beverage': {
+        revenueMultiple: { low: 0.8, avg: 1.2, high: 2.0 },
+        ebitdaMultiple: { low: 3.0, avg: 4.5, high: 7.0 },
+        description: 'Restaurants, cafés, food services',
+      },
+      retail: {
+        revenueMultiple: { low: 0.5, avg: 0.8, high: 1.5 },
+        ebitdaMultiple: { low: 3.5, avg: 5.0, high: 8.0 },
+        description: 'Retail stores, e-commerce',
+      },
+      'professional-services': {
+        revenueMultiple: { low: 1.0, avg: 1.8, high: 3.5 },
+        ebitdaMultiple: { low: 4.0, avg: 6.0, high: 10.0 },
+        description: 'Consulting, legal, accounting',
+      },
+      technology: {
+        revenueMultiple: { low: 2.0, avg: 4.0, high: 8.0 },
+        ebitdaMultiple: { low: 8.0, avg: 12.0, high: 20.0 },
+        description: 'Software, tech services',
+      },
+      healthcare: {
+        revenueMultiple: { low: 1.5, avg: 2.5, high: 4.0 },
+        ebitdaMultiple: { low: 6.0, avg: 9.0, high: 15.0 },
+        description: 'Medical practices, healthcare',
+      },
+      manufacturing: {
+        revenueMultiple: { low: 0.8, avg: 1.5, high: 2.5 },
+        ebitdaMultiple: { low: 4.0, avg: 6.5, high: 10.0 },
+        description: 'Manufacturing, production',
+      },
+    }),
+    []
+  );
+
+  const calculateValuation = useCallback(async () => {
+    setIsCalculating(true);
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    try {
+      // Revenue Multiple Method
+      const revenueMultiple = industryMultiples[inputs.industry]?.revenueMultiple || {
+        low: 0.5,
+        avg: 1.0,
+        high: 2.0,
+      };
+      const revenueValuation = inputs.revenue2023 * revenueMultiple.avg;
+
+      // EBITDA Multiple Method
+      const ebitdaMultiple = industryMultiples[inputs.industry]?.ebitdaMultiple || {
+        low: 3.0,
+        avg: 5.0,
+        high: 8.0,
+      };
+      const ebitdaValuation = inputs.ebitda2023 * ebitdaMultiple.avg;
+
+      // Trend Analysis Method
+      const revenueGrowthRate =
+        inputs.revenue2021 > 0 ? (inputs.revenue2023 - inputs.revenue2021) / inputs.revenue2021 : 0;
+      const ebitdaGrowthRate =
+        inputs.ebitda2021 > 0 ? (inputs.ebitda2023 - inputs.ebitda2021) / inputs.ebitda2021 : 0;
+      const avgGrowthRate = (revenueGrowthRate + ebitdaGrowthRate) / 2;
+      const growthMultiplier = 1 + avgGrowthRate * 0.5; // Moderate growth impact
+      const trendValuation = ((revenueValuation + ebitdaValuation) / 2) * growthMultiplier;
+
+      // Weighted average of methods
+      const weights = [0.4, 0.4, 0.2]; // Revenue, EBITDA, Trend
+      const weightedSum =
+        revenueValuation * weights[0] + ebitdaValuation * weights[1] + trendValuation * weights[2];
+
+      // Apply shares percentage to get actual valuation
+      const finalValuation = weightedSum * (inputs.sharesForSale / 100);
+      setAverageValuation(finalValuation);
+    } catch {
+      // Error calculating valuation
+    } finally {
+      setIsCalculating(false);
+      setActiveTab('results');
+    }
+  }, [inputs, industryMultiples]);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -114,8 +153,7 @@ const ValuationTool = () => {
         } else {
           navigate('/');
         }
-      } catch (_error) {
-        // console.error('Error initializing page:', error);
+      } catch {
         navigate('/');
       } finally {
         // No loading state to manage
@@ -123,104 +161,7 @@ const ValuationTool = () => {
     };
 
     initializePage();
-  }, [navigate]);
-
-  const calculateValuation = async () => {
-    setIsCalculating(true);
-
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    try {
-      const results: ValuationResult[] = [];
-      const industryData = industryMultiples[inputs.industry as keyof typeof industryMultiples];
-
-      // 1. Revenue Multiple Method
-      const revenueMultipleValuation =
-        inputs.annualRevenue * industryData.revenueMultiple.avg * inputs.marketMultiplier;
-      results.push({
-        method: 'Revenue Multiple',
-        value: revenueMultipleValuation,
-        lowRange: inputs.annualRevenue * industryData.revenueMultiple.low,
-        highRange: inputs.annualRevenue * industryData.revenueMultiple.high,
-        confidence: inputs.annualRevenue > 100000 ? 'high' : 'medium',
-        explanation: `Based on ${industryData.revenueMultiple.avg}x revenue multiple for ${industryData.description}`,
-        assumptions: [
-          `Industry average: ${industryData.revenueMultiple.avg}x revenue`,
-          `Market conditions: ${inputs.marketMultiplier === 1 ? 'neutral' : inputs.marketMultiplier > 1 ? 'favorable' : 'challenging'}`,
-          `Revenue quality and predictability considered`,
-        ],
-      });
-
-      // 2. EBITDA Multiple Method
-      if (inputs.ebitda > 0) {
-        const ebitdaMultipleValuation =
-          inputs.ebitda * industryData.ebitdaMultiple.avg * inputs.marketMultiplier;
-        results.push({
-          method: 'EBITDA Multiple',
-          value: ebitdaMultipleValuation,
-          lowRange: inputs.ebitda * industryData.ebitdaMultiple.low,
-          highRange: inputs.ebitda * industryData.ebitdaMultiple.high,
-          confidence: inputs.ebitda > 50000 ? 'high' : 'medium',
-          explanation: `Based on ${industryData.ebitdaMultiple.avg}x EBITDA multiple for established businesses`,
-          assumptions: [
-            `Industry EBITDA multiple: ${industryData.ebitdaMultiple.avg}x`,
-            `EBITDA quality and sustainability assessed`,
-            `Management depth and systems considered`,
-          ],
-        });
-      }
-
-      // 3. Asset-Based Valuation
-      const netAssets = inputs.totalAssets - inputs.totalDebt;
-      const assetBasedValue = netAssets * (inputs.industry === 'manufacturing' ? 0.8 : 0.6);
-      results.push({
-        method: 'Asset-Based',
-        value: assetBasedValue,
-        lowRange: assetBasedValue * 0.7,
-        highRange: assetBasedValue * 1.2,
-        confidence: netAssets > 0 ? 'medium' : 'low',
-        explanation: 'Net asset value adjusted for market conditions and asset quality',
-        assumptions: [
-          `Net assets: €${netAssets.toLocaleString()}`,
-          `Asset utilization and condition considered`,
-          `Liquidation discount applied for conservative estimate`,
-        ],
-      });
-
-      // 4. Discounted Cash Flow (Simplified)
-      const projectedCashFlow = inputs.cashFlow * (1 + inputs.revenueGrowthRate / 100);
-      const terminalValue = projectedCashFlow * 10;
-      const dcfValue = projectedCashFlow * 5 + terminalValue * 0.6;
-      results.push({
-        method: 'Cash Flow (DCF)',
-        value: dcfValue,
-        lowRange: dcfValue * 0.8,
-        highRange: dcfValue * 1.3,
-        confidence: inputs.cashFlow > 0 ? 'medium' : 'low',
-        explanation: `5-year projected cash flows with terminal value, ${inputs.revenueGrowthRate}% growth assumption`,
-        assumptions: [
-          `Current cash flow: €${inputs.cashFlow.toLocaleString()}`,
-          `Growth rate assumption: ${inputs.revenueGrowthRate}%`,
-          `Terminal value multiple: 10x final year cash flow`,
-        ],
-      });
-
-      setValuationResults(results);
-
-      // Calculate weighted average
-      const weights = [0.35, 0.35, 0.15, 0.15];
-      const weightedSum = results.reduce(
-        (sum, result, index) => sum + result.value * weights[index],
-        0
-      );
-      setAverageValuation(weightedSum);
-    } catch (_error) {
-      // console.error('Error calculating valuation:', error);
-    } finally {
-      setIsCalculating(false);
-      setActiveTab('results');
-    }
-  };
+  }, [navigate, calculateValuation]);
 
   const handleInputChange = (field: keyof ValuationInputs, value: string | number) => {
     setInputs(prev => ({
@@ -279,40 +220,106 @@ const ValuationTool = () => {
         >
           <Tab key="input" title="Business Data">
             <div className="grid lg:grid-cols-2 gap-8">
-              {/* Financial Information */}
+              {/* Essential Financial Information */}
               <Card className="border border-gray-200 shadow-sm">
                 <CardHeader>
-                  <h3 className="text-xl font-semibold text-gray-900">Financial Information</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">Essential Financial Data</h3>
+                  <p className="text-sm text-gray-600 mt-2">
+                    The most important inputs for accurate business valuation
+                  </p>
                 </CardHeader>
                 <CardBody className="space-y-6">
-                  <Input
-                    label="Annual Revenue (€)"
-                    placeholder="450,000"
-                    value={inputs.annualRevenue.toString()}
-                    onChange={e => handleInputChange('annualRevenue', e.target.value)}
-                    startContent="€"
+                  <CustomNumberInputField
+                    label="% Shares for Sale"
+                    placeholder="100"
+                    value={inputs.sharesForSale.toString()}
+                    onChange={e => handleInputChange('sharesForSale', e.target.value)}
+                    onBlur={() => {}}
+                    name="sharesForSale"
+                    suffix="%"
+                    min={1}
+                    max={100}
+                    step={1}
+                    allowDecimals={false}
                   />
-                  <Input
-                    label="EBITDA (€)"
-                    placeholder="135,000"
-                    value={inputs.ebitda.toString()}
-                    onChange={e => handleInputChange('ebitda', e.target.value)}
-                    startContent="€"
-                  />
-                  <Input
-                    label="Annual Cash Flow (€)"
-                    placeholder="125,000"
-                    value={inputs.cashFlow.toString()}
-                    onChange={e => handleInputChange('cashFlow', e.target.value)}
-                    startContent="€"
-                  />
-                  <Input
-                    label="Total Assets (€)"
-                    placeholder="320,000"
-                    value={inputs.totalAssets.toString()}
-                    onChange={e => handleInputChange('totalAssets', e.target.value)}
-                    startContent="€"
-                  />
+
+                  <div className="space-y-4">
+                    <h4 className="font-medium text-gray-900">Revenue (Last 3 Years)</h4>
+                    <div className="grid grid-cols-3 gap-4">
+                      <CustomNumberInputField
+                        label="2021 Revenue (€)"
+                        placeholder="380,000"
+                        value={inputs.revenue2021.toString()}
+                        onChange={e => handleInputChange('revenue2021', e.target.value)}
+                        onBlur={() => {}}
+                        name="revenue2021"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                      <CustomNumberInputField
+                        label="2022 Revenue (€)"
+                        placeholder="420,000"
+                        value={inputs.revenue2022.toString()}
+                        onChange={e => handleInputChange('revenue2022', e.target.value)}
+                        onBlur={() => {}}
+                        name="revenue2022"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                      <CustomNumberInputField
+                        label="2023 Revenue (€)"
+                        placeholder="450,000"
+                        value={inputs.revenue2023.toString()}
+                        onChange={e => handleInputChange('revenue2023', e.target.value)}
+                        onBlur={() => {}}
+                        name="revenue2023"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="font-medium text-gray-900">EBITDA (Last 3 Years)</h4>
+                    <div className="grid grid-cols-3 gap-4">
+                      <CustomNumberInputField
+                        label="2021 EBITDA (€)"
+                        placeholder="110,000"
+                        value={inputs.ebitda2021.toString()}
+                        onChange={e => handleInputChange('ebitda2021', e.target.value)}
+                        onBlur={() => {}}
+                        name="ebitda2021"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                      <CustomNumberInputField
+                        label="2022 EBITDA (€)"
+                        placeholder="125,000"
+                        value={inputs.ebitda2022.toString()}
+                        onChange={e => handleInputChange('ebitda2022', e.target.value)}
+                        onBlur={() => {}}
+                        name="ebitda2022"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                      <CustomNumberInputField
+                        label="2023 EBITDA (€)"
+                        placeholder="135,000"
+                        value={inputs.ebitda2023.toString()}
+                        onChange={e => handleInputChange('ebitda2023', e.target.value)}
+                        onBlur={() => {}}
+                        name="ebitda2023"
+                        prefix="€"
+                        formatAsCurrency={true}
+                        min={0}
+                      />
+                    </div>
+                  </div>
                 </CardBody>
               </Card>
 
@@ -322,42 +329,52 @@ const ValuationTool = () => {
                   <h3 className="text-xl font-semibold text-gray-900">Business Profile</h3>
                 </CardHeader>
                 <CardBody className="space-y-6">
-                  <Select
+                  <CustomDropdown
                     label="Industry"
                     placeholder="Select your industry"
-                    selectedKeys={[inputs.industry]}
-                    onSelectionChange={value => handleInputChange('industry', String(value))}
-                  >
-                    {Object.entries(industryMultiples).map(([key, value]) => (
-                      <SelectItem key={key}>{value.description}</SelectItem>
-                    ))}
-                  </Select>
-                  <Input
+                    options={Object.entries(industryMultiples).map(([key, value]) => ({
+                      value: key,
+                      label: value.description,
+                    }))}
+                    value={inputs.industry}
+                    onChange={value => handleInputChange('industry', value)}
+                    name="industry"
+                  />
+                  <CustomNumberInputField
                     label="Years in Business"
-                    type="number"
                     placeholder="16"
                     value={inputs.yearsInBusiness.toString()}
                     onChange={e => handleInputChange('yearsInBusiness', e.target.value)}
+                    onBlur={() => {}}
+                    name="yearsInBusiness"
+                    min={1}
+                    max={100}
+                    step={1}
+                    allowDecimals={false}
                   />
                   <div className="space-y-4">
                     <label className="text-sm font-medium text-gray-700">
-                      Revenue Growth Rate: {inputs.revenueGrowthRate}%
+                      Market Conditions Multiplier: {inputs.marketMultiplier}x
                     </label>
                     <Slider
                       size="md"
-                      step={1}
-                      minValue={-10}
-                      maxValue={20}
-                      value={inputs.revenueGrowthRate}
+                      step={0.1}
+                      minValue={0.5}
+                      maxValue={1.5}
+                      value={inputs.marketMultiplier}
                       onChange={value =>
                         handleInputChange(
-                          'revenueGrowthRate',
+                          'marketMultiplier',
                           Array.isArray(value) ? value[0] : value
                         )
                       }
                       className="max-w-md"
                       color="primary"
                     />
+                    <p className="text-xs text-gray-500">
+                      Adjust based on current market conditions (0.5 = challenging, 1.0 = normal,
+                      1.5 = favorable)
+                    </p>
                   </div>
                 </CardBody>
               </Card>

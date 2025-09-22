@@ -221,17 +221,6 @@ export const getDashboardSidebarSections = () => [
       },
     ],
   },
-  {
-    title: 'Listing Management',
-    items: [
-      {
-        label: 'Listing Management',
-        href: '/my-business/listings',
-        icon: Building2,
-        description: 'Manage your business listings',
-      },
-    ],
-  },
 ];
 
 // normalizeUserRole is now imported from role-utils

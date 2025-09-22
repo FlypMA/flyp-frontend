@@ -1,25 +1,44 @@
 import { useAuth } from '@/app/providers/auth-provider';
 import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
+import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-    AlertTriangle,
-    BarChart,
-    Calculator,
-    CheckCircle,
-    DollarSign,
-    Heart,
-    MessageSquare,
-    Shield,
-    Target,
-    TrendingUp,
+  AlertTriangle,
+  BarChart,
+  Calculator,
+  CheckCircle,
+  DollarSign,
+  Heart,
+  MessageSquare,
+  Shield,
+  Target,
+  TrendingUp,
 } from 'lucide-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ValuationGuide = () => {
   const navigate = useNavigate();
   const { openModal } = useAuth();
+  const [isValuationModalOpen, setIsValuationModalOpen] = useState(false);
+
+  const handleOpenValuationModal = () => {
+    setIsValuationModalOpen(true);
+  };
+
+  const handleSignupPrompt = (valuationData: unknown) => {
+    // Open signup modal with valuation intent
+    openModal('signup', {
+      url: '/my-business/valuation-tool',
+      state: {
+        source: 'valuation-guide',
+        intent: 'valuation',
+        valuationData: valuationData,
+      },
+    });
+  };
 
   return (
     <>
@@ -48,6 +67,23 @@ const ValuationGuide = () => {
                 help you understand why your life's work is worth more than you might think — and
                 why selling is almost always better than liquidating.
               </p>
+
+              {/* Hero CTA */}
+              <div className="mb-8">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="px-8 py-4 text-lg"
+                  onPress={handleOpenValuationModal}
+                  startContent={<Calculator className="w-6 h-6" />}
+                >
+                  Get My Free Valuation Now
+                </Button>
+                <p className="text-sm text-neutral-500 mt-3">
+                  Takes 3 minutes • No signup required • Instant results
+                </p>
+              </div>
+
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Chip className="text-lg px-6 py-2 rounded-full bg-calm-100 text-calm-800 border border-calm-200">
                   Free • For business owners
@@ -726,7 +762,7 @@ const ValuationGuide = () => {
                       variant="primary"
                       size="lg"
                       className="px-8 py-3"
-                      onPress={() => openModal('signup')}
+                      onPress={handleOpenValuationModal}
                     >
                       Get My Free Valuation
                     </Button>
@@ -748,6 +784,13 @@ const ValuationGuide = () => {
           </div>
         </Container>
       </div>
+
+      {/* Valuation Modal */}
+      <ValuationModal
+        isOpen={isValuationModalOpen}
+        onClose={() => setIsValuationModalOpen(false)}
+        onSignupPrompt={handleSignupPrompt}
+      />
     </>
   );
 };

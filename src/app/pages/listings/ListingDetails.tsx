@@ -1,6 +1,8 @@
+import { useAuth } from '@/app/providers/auth-provider';
 import { Button } from '@/shared/components/buttons';
 import { ImageGalleryModal } from '@/shared/components/modals/images';
 import InquiryModal from '@/shared/components/modals/InquiryModal';
+import NDAModal from '@/shared/components/modals/NDAModal';
 import { Card, CardBody, CardHeader, Divider, useDisclosure } from '@heroui/react';
 import {
   ArrowLeft,
@@ -12,23 +14,128 @@ import {
   Shield,
   TrendingUp,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isAuthenticated, openModal } = useAuth();
   const [listing, setListing] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isImageGalleryOpen, setIsImageGalleryOpen] = useState(false);
   const [initialImageIndex, setInitialImageIndex] = useState(0);
+  const [isNdaModalOpen, setIsNdaModalOpen] = useState(false);
 
   useEffect(() => {
     loadListingDetails();
   }, [id]);
 
-  const loadListingDetails = async () => {
+  // Listen for authentication success and auto-open NDA modal if needed
+  useEffect(() => {
+    const handleAuthSuccess = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('autoOpenNda') === 'true') {
+        setIsNdaModalOpen(true);
+        // Clean up URL parameter
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete('autoOpenNda');
+        window.history.replaceState({}, '', newUrl.toString());
+      }
+    };
+
+    window.addEventListener('user-signup', handleAuthSuccess);
+    window.addEventListener('user-login', handleAuthSuccess);
+
+    return () => {
+      window.removeEventListener('user-signup', handleAuthSuccess);
+      window.removeEventListener('user-login', handleAuthSuccess);
+    };
+  }, []);
+
+  // Handle post-authentication inquiry modal opening
+  useEffect(() => {
+    const handleAuthSuccess = () => {
+      // Check if we have post-auth state indicating we should open inquiry modal
+      const urlParams = new URLSearchParams(window.location.search);
+      const shouldOpenInquiry = urlParams.get('autoOpenInquiry') === 'true';
+
+      if (shouldOpenInquiry && isAuthenticated) {
+        // Small delay to ensure auth state is fully updated
+        setTimeout(() => {
+          onOpen();
+        }, 100);
+      }
+    };
+
+    // Listen for auth change events
+    window.addEventListener('auth-change', handleAuthSuccess);
+    window.addEventListener('user-signup', handleAuthSuccess);
+    window.addEventListener('user-login', handleAuthSuccess);
+
+    return () => {
+      window.removeEventListener('auth-change', handleAuthSuccess);
+      window.removeEventListener('user-signup', handleAuthSuccess);
+      window.removeEventListener('user-login', handleAuthSuccess);
+    };
+  }, [isAuthenticated, onOpen]);
+
+  // Handle Contact Seller button click with improved flow
+  const handleContactSeller = () => {
+    if (!isAuthenticated) {
+      // For non-authenticated users, open signup modal with post-auth redirect
+      openModal('signup', {
+        url: window.location.pathname,
+        state: {
+          listingId: id,
+          action: 'contact_seller',
+          autoOpenInquiry: true,
+        },
+      });
+    } else {
+      // For authenticated users, directly open inquiry modal
+      onOpen();
+    }
+  };
+
+  // Handle Request More Information button click for NDA-required listings
+  const handleRequestMoreInfo = () => {
+    if (!isAuthenticated) {
+      // For non-authenticated users, open signup modal with post-auth redirect to same page
+      openModal('signup', {
+        url: window.location.pathname,
+        state: {
+          listingId: id,
+          action: 'request_more_info',
+          requiresNda: true,
+          autoOpenNda: true,
+        },
+      });
+    } else {
+      // For authenticated users, open NDA modal directly
+      setIsNdaModalOpen(true);
+    }
+  };
+
+  // Handle NDA acceptance
+  const handleNdaAccept = async () => {
+    try {
+      // TODO: Replace with actual API call to submit NDA signature
+      // NDA signature submitted
+
+      // Simulate NDA signing success
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Close modal and navigate to private page
+      setIsNdaModalOpen(false);
+      navigate(`/listings/${id}/private`);
+    } catch {
+      // NDA signing failed
+    }
+  };
+
+  const loadListingDetails = useCallback(async () => {
     setIsLoading(true);
     try {
       // TODO: Replace with actual API call
@@ -120,12 +227,12 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
           involvement_post_sale: 'Transition support available',
         },
       });
-    } catch (error) {
-      // console.error('Error loading listing details:', error);
+    } catch {
+      // Error loading listing details
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   const formatPrice = (price?: number, currency = 'EUR') => {
     if (!price) return 'Price on request';
@@ -394,21 +501,43 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                   <p className="text-sm text-neutral-600">Negotiable</p>
                 </div>
 
-                {/* Contact Seller CTA */}
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onPress={onOpen}
-                  className="w-full"
-                  startContent={
-                    <MessageSquare
-                      className="w-5 h-5"
-                      style={{ stroke: 'currentColor', fill: 'none' }}
-                    />
-                  }
-                >
-                  Contact Seller
-                </Button>
+                {/* Conditional CTA based on NDA requirement */}
+                {listing.requires_nda ? (
+                  <div className="space-y-3">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onPress={handleRequestMoreInfo}
+                      className="w-full"
+                      startContent={
+                        <Shield
+                          className="w-5 h-5"
+                          style={{ stroke: 'currentColor', fill: 'none' }}
+                        />
+                      }
+                    >
+                      Request More Information
+                    </Button>
+                    <p className="text-xs text-gray-600 text-center">
+                      Sign NDA to access detailed financials and documents
+                    </p>
+                  </div>
+                ) : (
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onPress={handleContactSeller}
+                    className="w-full"
+                    startContent={
+                      <MessageSquare
+                        className="w-5 h-5"
+                        style={{ stroke: 'currentColor', fill: 'none' }}
+                      />
+                    }
+                  >
+                    Contact Seller
+                  </Button>
+                )}
               </CardBody>
             </Card>
           </div>
@@ -617,21 +746,43 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                   <p className="text-sm text-neutral-600">Negotiable</p>
                 </div>
 
-                {/* Contact Seller CTA */}
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onPress={onOpen}
-                  className="w-full"
-                  startContent={
-                    <MessageSquare
-                      className="w-5 h-5"
-                      style={{ stroke: 'currentColor', fill: 'none' }}
-                    />
-                  }
-                >
-                  Contact Seller
-                </Button>
+                {/* Conditional CTA based on NDA requirement */}
+                {listing.requires_nda ? (
+                  <div className="space-y-3">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onPress={handleRequestMoreInfo}
+                      className="w-full"
+                      startContent={
+                        <Shield
+                          className="w-5 h-5"
+                          style={{ stroke: 'currentColor', fill: 'none' }}
+                        />
+                      }
+                    >
+                      Request More Information
+                    </Button>
+                    <p className="text-xs text-gray-600 text-center">
+                      Sign NDA to access detailed financials and documents
+                    </p>
+                  </div>
+                ) : (
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onPress={handleContactSeller}
+                    className="w-full"
+                    startContent={
+                      <MessageSquare
+                        className="w-5 h-5"
+                        style={{ stroke: 'currentColor', fill: 'none' }}
+                      />
+                    }
+                  >
+                    Contact Seller
+                  </Button>
+                )}
               </CardBody>
             </Card>
 
@@ -678,11 +829,20 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
             currency: listing.currency,
             requires_nda: listing.requires_nda,
           }}
-          onSubmit={inquiryData => {
-            // console.log('Inquiry submitted:', inquiryData);
+          onSubmit={() => {
+            // Inquiry submitted
             // TODO: Implement actual inquiry submission
             onOpenChange();
           }}
+        />
+
+        <NDAModal
+          isOpen={isNdaModalOpen}
+          onClose={() => setIsNdaModalOpen(false)}
+          onAccept={handleNdaAccept}
+          listingTitle={listing?.title || 'Business Listing'}
+          sellerName={listing?.seller_info?.name || 'Business Owner'}
+          isLoading={false}
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
-import type { Config } from 'tailwindcss';
 import { heroui } from '@heroui/theme';
 import forms from '@tailwindcss/forms';
 import scrollbarHide from 'tailwind-scrollbar-hide';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -78,6 +78,19 @@ const config: Config = {
           800: '#991b1b',
           900: '#7f1d1d',
           DEFAULT: '#ef4444',
+        },
+        accent: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          DEFAULT: '#0ea5e9',
         },
         background: '#ffffff',
         foreground: '#111827',
@@ -201,6 +214,20 @@ const config: Config = {
               800: '#991b1b',
               900: '#7f1d1d',
               DEFAULT: '#ef4444',
+              foreground: '#ffffff',
+            },
+            accent: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+              DEFAULT: '#0ea5e9',
               foreground: '#ffffff',
             },
           },

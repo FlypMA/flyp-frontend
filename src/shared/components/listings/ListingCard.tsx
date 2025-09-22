@@ -1,15 +1,15 @@
 import { Button } from '@/shared/components/buttons';
 import { Card, CardBody, Tooltip } from '@heroui/react';
 import {
-    Building2,
-    Calendar,
-    Eye,
-    Heart,
-    MapPin,
-    MessageSquare,
-    Shield,
-    TrendingUp,
-    Users,
+  Building2,
+  Calendar,
+  Eye,
+  Heart,
+  MapPin,
+  MessageSquare,
+  Shield,
+  TrendingUp,
+  Users,
 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -129,18 +129,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
     navigate(`/listings/${listing.id}`);
   };
 
+  const handleInquiryClick = () => {
+    setShowInquiryModal(true);
+  };
+
   const canMakeInquiry = currentUserRole === 'buyer';
   const canSave = currentUserRole === 'buyer';
 
   if (viewMode === 'list') {
     return (
       <>
-        <Card
-          className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 cursor-pointer transform hover:-translate-y-1"
-          isPressable
-          onPress={handleViewDetails}
-        >
-          <CardBody className="p-6">
+        <Card className="group bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-500 cursor-pointer transform hover:-translate-y-1">
+          <CardBody className="p-6" onClick={handleViewDetails}>
             <div className="flex flex-col sm:flex-row gap-6">
               {/* Main Content */}
               <div className="flex-1 min-w-0">
@@ -248,7 +248,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         <Button
                           size="sm"
                           variant="primary"
-                          onPress={() => setShowInquiryModal(true)}
+                          onPress={handleInquiryClick}
                           startContent={<MessageSquare className="w-4 h-4" />}
                         >
                           Contact Seller

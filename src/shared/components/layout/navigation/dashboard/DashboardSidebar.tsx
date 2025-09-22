@@ -11,14 +11,7 @@
 // - Responsive design (desktop only)
 
 import { cn } from '@heroui/react';
-import {
-    AlertTriangle,
-    Building2,
-    Calculator,
-    FileText,
-    LayoutDashboard,
-    TrendingUp,
-} from 'lucide-react';
+import { AlertTriangle, Calculator, FileText, LayoutDashboard, TrendingUp } from 'lucide-react';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
@@ -100,19 +93,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           icon: FileText,
           description: 'Secure document storage',
           path: UrlGenerator.businessDocuments(),
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-      ],
-    },
-    {
-      title: 'Business Management',
-      items: [
-        {
-          key: 'listings',
-          label: 'Listing Management',
-          icon: Building2,
-          description: 'Manage your sale listing',
-          path: UrlGenerator.myBusinessListings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
