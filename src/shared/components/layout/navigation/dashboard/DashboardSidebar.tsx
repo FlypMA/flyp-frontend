@@ -11,7 +11,7 @@
 // - Responsive design (desktop only)
 
 import { cn } from '@heroui/react';
-import { AlertTriangle, Calculator, FileText, LayoutDashboard, TrendingUp } from 'lucide-react';
+import { Calculator, FileText, LayoutDashboard } from 'lucide-react';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
@@ -63,23 +63,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
           label: 'Business Valuation',
           icon: Calculator,
           description: 'Professional business valuation tool',
-          path: '/my-business/valuation-tool',
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-        {
-          key: 'solvency',
-          label: 'Solvency Intelligence',
-          icon: TrendingUp,
-          description: 'Financial health & loan eligibility',
-          path: '/my-business/solvency-intelligence',
-          allowedRoles: ['seller', 'admin', 'both'],
-        },
-        {
-          key: 'liquidation',
-          label: 'Liquidation Analysis',
-          icon: AlertTriangle,
-          description: 'Strategic sale vs liquidation',
-          path: '/my-business/liquidation-comparison',
+          path: '/my-business/valuations',
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],

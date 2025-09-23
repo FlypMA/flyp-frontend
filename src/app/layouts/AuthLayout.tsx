@@ -17,7 +17,7 @@
   - Redirects unauthenticated users to home
 */
 
-import AuthModals from '@/features/authentication/components/AuthModals';
+import AuthModals from '@/features/phase1/authentication/components/AuthModals';
 import { Navigation } from '@/shared/components/layout/navigation';
 import { ScrollToTop } from '@/shared/utils/ux';
 import { useEffect, useState } from 'react';

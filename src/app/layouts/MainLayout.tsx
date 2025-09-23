@@ -23,7 +23,7 @@ Features:
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import AuthModals from '@/features/authentication/components/AuthModals';
+import AuthModals from '@/features/phase1/authentication/components/AuthModals';
 import Footer from '@/shared/components/layout/footer/Footer';
 import Navigation from '@/shared/components/layout/navigation/main/Navigation';
 import { ScrollToTop } from '@/shared/utils/ux';

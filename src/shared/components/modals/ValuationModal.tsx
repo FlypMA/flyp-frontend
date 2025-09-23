@@ -11,36 +11,26 @@
  */
 
 import { Button } from '@/shared/components/buttons';
-import { CustomDropdown, CustomNumberInputField } from '@/shared/components/forms';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  Slider,
-  Tab,
-  Tabs,
-} from '@heroui/react';
-import { ArrowRight, Calculator, TrendingUp, X } from 'lucide-react';
+import { CustomNumberInputField } from '@/shared/components/forms';
+import { Modal, ModalBody, ModalContent, ModalHeader } from '@heroui/react';
+import { Calculator, X } from 'lucide-react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../app/providers/auth-provider';
 
 interface ValuationInputs {
+  // Business structure
+  businessType: 'sole-trader' | 'company'; // Business structure type
+  sharesForSale: number; // % shares for sale (only for companies)
   // Essential inputs for valuation
-  sharesForSale: number; // % shares for sale
+  revenue2025: number;
+  revenue2024: number;
   revenue2023: number;
-  revenue2022: number;
-  revenue2021: number;
+  ebitda2025: number;
+  ebitda2024: number;
   ebitda2023: number;
-  ebitda2022: number;
-  ebitda2021: number;
-  industry: string;
   // Additional helpful inputs
-  yearsInBusiness: number;
   employeeCount: string;
-  marketMultiplier: number;
 }
 
 interface ValuationResult {
@@ -57,29 +47,30 @@ interface ValuationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSignupPrompt: (valuationData: ValuationInputs) => void;
+  onComplete?: (valuationData: ValuationInputs) => void; // For authenticated users
 }
 
-const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSignupPrompt }) => {
-  const [activeTab, setActiveTab] = useState('input');
+const ValuationModal: React.FC<ValuationModalProps> = ({
+  isOpen,
+  onClose,
+  onSignupPrompt,
+  onComplete,
+}) => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [isCalculating, setIsCalculating] = useState(false);
-  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
 
   const [inputs, setInputs] = useState<ValuationInputs>({
+    businessType: 'company', // Default to company
     sharesForSale: 100, // 100% of shares
-    revenue2023: 450000,
-    revenue2022: 420000,
-    revenue2021: 380000,
-    ebitda2023: 135000,
-    ebitda2022: 125000,
-    ebitda2021: 110000,
-    industry: 'food-beverage',
-    yearsInBusiness: 16,
+    revenue2025: 500000,
+    revenue2024: 450000,
+    revenue2023: 420000,
+    ebitda2025: 150000,
+    ebitda2024: 135000,
+    ebitda2023: 125000,
     employeeCount: '6-10',
-    marketMultiplier: 1.0,
   });
-
-  const [valuationResults, setValuationResults] = useState<ValuationResult[]>([]);
-  const [averageValuation, setAverageValuation] = useState<number>(0);
 
   // Industry multiples database (same as ValuationTool)
   const industryMultiples = {
@@ -122,39 +113,37 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
 
     try {
       const results: ValuationResult[] = [];
-      const industryData = industryMultiples[inputs.industry as keyof typeof industryMultiples];
+      // Use a default industry for valuation (can be updated later with business profile data)
+      const industryData = industryMultiples['technology']; // Default to technology industry
 
       // 1. Revenue Multiple Method (using latest year)
-      const revenueMultipleValuation =
-        inputs.revenue2023 * industryData.revenueMultiple.avg * inputs.marketMultiplier;
+      const revenueMultipleValuation = inputs.revenue2025 * industryData.revenueMultiple.avg;
       results.push({
         method: 'Revenue Multiple',
         value: revenueMultipleValuation,
-        lowRange: inputs.revenue2023 * industryData.revenueMultiple.low,
-        highRange: inputs.revenue2023 * industryData.revenueMultiple.high,
-        confidence: inputs.revenue2023 > 100000 ? 'high' : 'medium',
+        lowRange: inputs.revenue2025 * industryData.revenueMultiple.low,
+        highRange: inputs.revenue2025 * industryData.revenueMultiple.high,
+        confidence: inputs.revenue2025 > 100000 ? 'high' : 'medium',
         explanation: `Based on ${industryData.revenueMultiple.avg}x revenue multiple for ${industryData.description}`,
         assumptions: [
           `Industry average: ${industryData.revenueMultiple.avg}x revenue`,
-          `Market conditions: ${inputs.marketMultiplier === 1 ? 'neutral' : inputs.marketMultiplier > 1 ? 'favorable' : 'challenging'}`,
-          `Revenue trend analysis: ${inputs.revenue2021} → ${inputs.revenue2022} → ${inputs.revenue2023}`,
+          `Revenue trend analysis: ${inputs.revenue2023} → ${inputs.revenue2024} → ${inputs.revenue2025}`,
         ],
       });
 
       // 2. EBITDA Multiple Method (using latest year)
-      if (inputs.ebitda2023 > 0) {
-        const ebitdaMultipleValuation =
-          inputs.ebitda2023 * industryData.ebitdaMultiple.avg * inputs.marketMultiplier;
+      if (inputs.ebitda2025 > 0) {
+        const ebitdaMultipleValuation = inputs.ebitda2025 * industryData.ebitdaMultiple.avg;
         results.push({
           method: 'EBITDA Multiple',
           value: ebitdaMultipleValuation,
-          lowRange: inputs.ebitda2023 * industryData.ebitdaMultiple.low,
-          highRange: inputs.ebitda2023 * industryData.ebitdaMultiple.high,
-          confidence: inputs.ebitda2023 > 50000 ? 'high' : 'medium',
+          lowRange: inputs.ebitda2025 * industryData.ebitdaMultiple.low,
+          highRange: inputs.ebitda2025 * industryData.ebitdaMultiple.high,
+          confidence: inputs.ebitda2025 > 50000 ? 'high' : 'medium',
           explanation: `Based on ${industryData.ebitdaMultiple.avg}x EBITDA multiple for established businesses`,
           assumptions: [
             `Industry EBITDA multiple: ${industryData.ebitdaMultiple.avg}x`,
-            `EBITDA trend analysis: ${inputs.ebitda2021} → ${inputs.ebitda2022} → ${inputs.ebitda2023}`,
+            `EBITDA trend analysis: ${inputs.ebitda2023} → ${inputs.ebitda2024} → ${inputs.ebitda2025}`,
             `Profitability sustainability assessed`,
           ],
         });
@@ -162,8 +151,8 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
 
       // 3. Trend-Based Valuation (Revenue Growth Analysis)
       const revenueGrowthRate =
-        ((inputs.revenue2023 - inputs.revenue2021) / inputs.revenue2021) * 100;
-      const ebitdaGrowthRate = ((inputs.ebitda2023 - inputs.ebitda2021) / inputs.ebitda2021) * 100;
+        ((inputs.revenue2025 - inputs.revenue2023) / inputs.revenue2023) * 100;
+      const ebitdaGrowthRate = ((inputs.ebitda2025 - inputs.ebitda2023) / inputs.ebitda2023) * 100;
 
       // Apply growth premium/discount based on trends
       const growthMultiplier =
@@ -175,7 +164,7 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
               ? 1.0
               : 0.9;
       const trendBasedValue =
-        ((revenueMultipleValuation + inputs.ebitda2023 * industryData.ebitdaMultiple.avg) / 2) *
+        ((revenueMultipleValuation + inputs.ebitda2025 * industryData.ebitdaMultiple.avg) / 2) *
         growthMultiplier;
 
       results.push({
@@ -192,8 +181,6 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
         ],
       });
 
-      setValuationResults(results);
-
       // Calculate weighted average (focus on revenue and EBITDA methods)
       const weights = [0.4, 0.4, 0.2]; // Revenue, EBITDA, Trend Analysis
       const weightedSum = results.reduce(
@@ -202,12 +189,21 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
       );
 
       // Apply shares percentage to get actual valuation
-      const finalValuation = weightedSum * (inputs.sharesForSale / 100);
-      setAverageValuation(finalValuation);
+      // For sole traders, it's always 100% ownership
+      const ownershipPercentage =
+        inputs.businessType === 'sole-trader' ? 100 : inputs.sharesForSale;
+      const finalValuation = weightedSum * (ownershipPercentage / 100);
 
-      // Show signup prompt after calculation
-      setShowSignupPrompt(true);
-      setActiveTab('results');
+      // For authenticated users, save the valuation and navigate to valuations page
+      if (isAuthenticated && onComplete) {
+        onComplete(inputs);
+        onClose();
+        navigate('/my-business/valuations');
+      } else {
+        // For unauthenticated users, show signup prompt
+        onSignupPrompt(inputs);
+        onClose();
+      }
     } catch {
       // console.error('Error calculating valuation:', error);
     } finally {
@@ -219,22 +215,13 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
     setInputs(prev => ({
       ...prev,
       [field]:
-        typeof value === 'string' && field !== 'industry' && field !== 'employeeCount'
+        typeof value === 'string' && field !== 'employeeCount' && field !== 'businessType'
           ? parseFloat(value) || 0
           : value,
     }));
   };
 
-  const handleSignup = () => {
-    onSignupPrompt(inputs);
-    onClose();
-  };
-
   const handleClose = () => {
-    setActiveTab('input');
-    setShowSignupPrompt(false);
-    setValuationResults([]);
-    setAverageValuation(0);
     onClose();
   };
 
@@ -250,9 +237,10 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
       isKeyboardDismissDisabled={false}
       shouldBlockScroll={true}
       hideCloseButton={true}
+      scrollBehavior="inside"
       classNames={{
-        base: 'max-h-[90vh]',
-        body: 'py-6',
+        base: 'max-h-[85vh]',
+        body: 'py-4 overflow-y-auto max-h-[65vh]',
         header: 'pb-2',
         footer: 'pt-2',
       }}
@@ -282,314 +270,186 @@ const ValuationModal: React.FC<ValuationModalProps> = ({ isOpen, onClose, onSign
         </ModalHeader>
 
         <ModalBody>
-          <Tabs
-            selectedKey={activeTab}
-            onSelectionChange={key => setActiveTab(key as string)}
-            className="mb-8"
-            variant="underlined"
-          >
-            <Tab key="input" title="Business Data">
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Essential Financial Information */}
-                <Card className="border border-gray-200 shadow-sm">
-                  <CardHeader>
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Essential Financial Data
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-2">
-                      The most important inputs for accurate business valuation
-                    </p>
-                  </CardHeader>
-                  <CardBody className="space-y-6">
-                    <CustomNumberInputField
-                      label="% Shares for Sale"
-                      placeholder="100"
-                      value={inputs.sharesForSale.toString()}
-                      onChange={e => handleInputChange('sharesForSale', e.target.value)}
-                      onBlur={() => {}}
-                      name="sharesForSale"
-                      suffix="%"
-                      min={1}
-                      max={100}
-                      step={1}
-                      allowDecimals={false}
-                    />
-
-                    <div className="space-y-4">
-                      <h4 className="font-medium text-gray-900">Revenue (Last 3 Years)</h4>
-                      <div className="grid grid-cols-3 gap-4">
-                        <CustomNumberInputField
-                          label="2021 Revenue (€)"
-                          placeholder="380,000"
-                          value={inputs.revenue2021.toString()}
-                          onChange={e => handleInputChange('revenue2021', e.target.value)}
-                          onBlur={() => {}}
-                          name="revenue2021"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                        <CustomNumberInputField
-                          label="2022 Revenue (€)"
-                          placeholder="420,000"
-                          value={inputs.revenue2022.toString()}
-                          onChange={e => handleInputChange('revenue2022', e.target.value)}
-                          onBlur={() => {}}
-                          name="revenue2022"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                        <CustomNumberInputField
-                          label="2023 Revenue (€)"
-                          placeholder="450,000"
-                          value={inputs.revenue2023.toString()}
-                          onChange={e => handleInputChange('revenue2023', e.target.value)}
-                          onBlur={() => {}}
-                          name="revenue2023"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <h4 className="font-medium text-gray-900">EBITDA (Last 3 Years)</h4>
-                      <div className="grid grid-cols-3 gap-4">
-                        <CustomNumberInputField
-                          label="2021 EBITDA (€)"
-                          placeholder="110,000"
-                          value={inputs.ebitda2021.toString()}
-                          onChange={e => handleInputChange('ebitda2021', e.target.value)}
-                          onBlur={() => {}}
-                          name="ebitda2021"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                        <CustomNumberInputField
-                          label="2022 EBITDA (€)"
-                          placeholder="125,000"
-                          value={inputs.ebitda2022.toString()}
-                          onChange={e => handleInputChange('ebitda2022', e.target.value)}
-                          onBlur={() => {}}
-                          name="ebitda2022"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                        <CustomNumberInputField
-                          label="2023 EBITDA (€)"
-                          placeholder="135,000"
-                          value={inputs.ebitda2023.toString()}
-                          onChange={e => handleInputChange('ebitda2023', e.target.value)}
-                          onBlur={() => {}}
-                          name="ebitda2023"
-                          prefix="€"
-                          formatAsCurrency={true}
-                          min={0}
-                        />
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-
-                {/* Business Details */}
-                <Card className="border border-gray-200 shadow-sm">
-                  <CardHeader>
-                    <h3 className="text-xl font-semibold text-gray-900">Business Profile</h3>
-                  </CardHeader>
-                  <CardBody className="space-y-6">
-                    <CustomDropdown
-                      label="Industry"
-                      placeholder="Select your industry"
-                      options={Object.entries(industryMultiples).map(([key, value]) => ({
-                        value: key,
-                        label: value.description,
-                      }))}
-                      value={inputs.industry}
-                      onChange={value => handleInputChange('industry', value)}
-                      name="industry"
-                    />
-                    <CustomNumberInputField
-                      label="Years in Business"
-                      placeholder="16"
-                      value={inputs.yearsInBusiness.toString()}
-                      onChange={e => handleInputChange('yearsInBusiness', e.target.value)}
-                      onBlur={() => {}}
-                      name="yearsInBusiness"
-                      min={1}
-                      max={100}
-                      step={1}
-                      allowDecimals={false}
-                    />
-                    <div className="space-y-4">
-                      <label className="text-sm font-medium text-gray-700">
-                        Market Conditions Multiplier: {inputs.marketMultiplier}x
-                      </label>
-                      <Slider
-                        size="md"
-                        step={0.1}
-                        minValue={0.5}
-                        maxValue={1.5}
-                        value={inputs.marketMultiplier}
-                        onChange={value =>
-                          handleInputChange(
-                            'marketMultiplier',
-                            Array.isArray(value) ? value[0] : value
-                          )
-                        }
-                        className="max-w-md"
-                        color="primary"
-                      />
-                      <p className="text-xs text-gray-500">
-                        Adjust based on current market conditions (0.5 = challenging, 1.0 = normal,
-                        1.5 = favorable)
-                      </p>
-                    </div>
-                  </CardBody>
-                </Card>
+          {/* Business Data Form - Compact Layout */}
+          <div className="space-y-4">
+            {/* Business Structure - Compact */}
+            <div className="space-y-3">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-1">Business Structure</h4>
+                <p className="text-sm text-gray-600">Select your business type</p>
               </div>
-
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  startContent={<Calculator className="w-5 h-5" />}
-                  onPress={calculateValuation}
-                  isLoading={isCalculating}
-                  className="px-12"
+              <div className="grid grid-cols-2 gap-3">
+                <div
+                  className={`p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    inputs.businessType === 'sole-trader'
+                      ? 'border-primary-500 bg-primary-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  onClick={() => handleInputChange('businessType', 'sole-trader')}
                 >
-                  Calculate Business Value
-                </Button>
-              </div>
-            </Tab>
-
-            <Tab key="results" title="Valuation Results">
-              {valuationResults.length === 0 ? (
-                <div className="text-center py-16">
-                  <Calculator className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No Valuation Yet</h3>
-                  <p className="text-gray-600 mb-6">
-                    Enter your business data and run the valuation to see results
-                  </p>
-                  <Button
-                    variant="primary"
-                    onPress={() => setActiveTab('input')}
-                    endContent={<ArrowRight className="w-4 h-4" />}
-                  >
-                    Go to Business Data
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-8">
-                  {/* Summary Card */}
-                  <Card className="border border-gray-200 shadow-sm">
-                    <CardBody className="p-8 text-center">
-                      <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        Estimated Business Value
-                      </h2>
-                      <div className="flex items-center justify-center space-x-3 mb-4">
-                        <TrendingUp className="w-8 h-8 text-gray-600" />
-                        <span className="text-5xl font-bold text-gray-900">
-                          €{averageValuation.toLocaleString()}
-                        </span>
-                      </div>
-                      <p className="text-lg text-gray-600 mb-6">
-                        Weighted average of {valuationResults.length} valuation methods
-                      </p>
-
-                      {showSignupPrompt ? (
-                        <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-6">
-                          <h3 className="text-lg font-semibold text-primary-900 mb-2">
-                            Get Your Detailed Report
-                          </h3>
-                          <p className="text-primary-800 mb-4">
-                            Create a free account to download your professional valuation report and
-                            access additional business tools.
-                          </p>
-                          <Button
-                            variant="primary"
-                            size="lg"
-                            onPress={handleSignup}
-                            className="px-8"
-                          >
-                            Create Account & Get Report
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                            Sign Up for Full Report
-                          </h3>
-                          <p className="text-gray-700 mb-4">
-                            To download your detailed valuation report and access additional
-                            business tools, please create a free account.
-                          </p>
-                          <Button
-                            variant="primary"
-                            size="lg"
-                            onPress={handleSignup}
-                            className="px-8"
-                          >
-                            Create Account & Get Report
-                          </Button>
-                        </div>
+                  <div className="flex items-center space-x-2">
+                    <div
+                      className={`w-3 h-3 rounded-full border-2 ${
+                        inputs.businessType === 'sole-trader'
+                          ? 'border-primary-500 bg-primary-500'
+                          : 'border-gray-300'
+                      }`}
+                    >
+                      {inputs.businessType === 'sole-trader' && (
+                        <div className="w-1 h-1 bg-white rounded-full m-0.5"></div>
                       )}
-                    </CardBody>
-                  </Card>
-
-                  {/* Individual Methods */}
-                  <div className="grid lg:grid-cols-2 gap-6">
-                    {valuationResults.map((result, index) => (
-                      <Card key={index} className="border border-gray-200 shadow-sm">
-                        <CardHeader>
-                          <div className="flex items-center justify-between w-full">
-                            <h3 className="text-lg font-semibold text-gray-900">{result.method}</h3>
-                            <span
-                              className={`text-sm font-medium px-2 py-1 rounded-full bg-gray-100 ${
-                                result.confidence === 'high'
-                                  ? 'text-green-600'
-                                  : result.confidence === 'medium'
-                                    ? 'text-gray-600'
-                                    : 'text-red-600'
-                              }`}
-                            >
-                              {result.confidence.toUpperCase()}
-                            </span>
-                          </div>
-                        </CardHeader>
-                        <CardBody>
-                          <div className="mb-4">
-                            <div className="text-3xl font-bold text-gray-900 mb-1">
-                              €{result.value.toLocaleString()}
-                            </div>
-                            <div className="text-sm text-gray-600">
-                              Range: €{result.lowRange.toLocaleString()} - €
-                              {result.highRange.toLocaleString()}
-                            </div>
-                          </div>
-                          <p className="text-gray-700 mb-4">{result.explanation}</p>
-                          <div>
-                            <h4 className="font-medium text-gray-900 mb-2">Key Assumptions:</h4>
-                            <ul className="text-sm text-gray-600 space-y-1">
-                              {result.assumptions.map((assumption, idx) => (
-                                <li key={idx} className="flex items-start space-x-2">
-                                  <span className="text-gray-400 mt-1">•</span>
-                                  <span>{assumption}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    ))}
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900 text-sm">Sole Trader</h5>
+                      <p className="text-xs text-gray-600">100% ownership</p>
+                    </div>
                   </div>
                 </div>
+                <div
+                  className={`p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    inputs.businessType === 'company'
+                      ? 'border-primary-500 bg-primary-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                  onClick={() => handleInputChange('businessType', 'company')}
+                >
+                  <div className="flex items-center space-x-2">
+                    <div
+                      className={`w-3 h-3 rounded-full border-2 ${
+                        inputs.businessType === 'company'
+                          ? 'border-primary-500 bg-primary-500'
+                          : 'border-gray-300'
+                      }`}
+                    >
+                      {inputs.businessType === 'company' && (
+                        <div className="w-1 h-1 bg-white rounded-full m-0.5"></div>
+                      )}
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900 text-sm">Company</h5>
+                      <p className="text-xs text-gray-600">With shares</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shares for Sale - Only for Companies */}
+              {inputs.businessType === 'company' && (
+                <div className="max-w-xs">
+                  <CustomNumberInputField
+                    label="% Shares for Sale"
+                    placeholder="100"
+                    value={inputs.sharesForSale.toString()}
+                    onChange={e => handleInputChange('sharesForSale', e.target.value)}
+                    onBlur={() => {}}
+                    name="sharesForSale"
+                    suffix="%"
+                    min={1}
+                    max={100}
+                    step={1}
+                    allowDecimals={false}
+                  />
+                </div>
               )}
-            </Tab>
-          </Tabs>
+            </div>
+
+            {/* Financial Data - Compact Grid */}
+            <div className="space-y-2">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-1">
+                  Financial Data (Last 3 Years)
+                </h4>
+                <p className="text-sm text-gray-600">Revenue and EBITDA figures</p>
+              </div>
+
+              {/* Revenue Row */}
+              <div className="grid grid-cols-3 gap-3">
+                <CustomNumberInputField
+                  label="2023 Revenue"
+                  placeholder="420,000"
+                  value={inputs.revenue2023.toString()}
+                  onChange={e => handleInputChange('revenue2023', e.target.value)}
+                  onBlur={() => {}}
+                  name="revenue2023"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+                <CustomNumberInputField
+                  label="2024 Revenue"
+                  placeholder="450,000"
+                  value={inputs.revenue2024.toString()}
+                  onChange={e => handleInputChange('revenue2024', e.target.value)}
+                  onBlur={() => {}}
+                  name="revenue2024"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+                <CustomNumberInputField
+                  label="2025 Revenue"
+                  placeholder="500,000"
+                  value={inputs.revenue2025.toString()}
+                  onChange={e => handleInputChange('revenue2025', e.target.value)}
+                  onBlur={() => {}}
+                  name="revenue2025"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+              </div>
+
+              {/* EBITDA Row */}
+              <div className="grid grid-cols-3 gap-3 mt-2">
+                <CustomNumberInputField
+                  label="2023 EBITDA"
+                  placeholder="125,000"
+                  value={inputs.ebitda2023.toString()}
+                  onChange={e => handleInputChange('ebitda2023', e.target.value)}
+                  onBlur={() => {}}
+                  name="ebitda2023"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+                <CustomNumberInputField
+                  label="2024 EBITDA"
+                  placeholder="135,000"
+                  value={inputs.ebitda2024.toString()}
+                  onChange={e => handleInputChange('ebitda2024', e.target.value)}
+                  onBlur={() => {}}
+                  name="ebitda2024"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+                <CustomNumberInputField
+                  label="2025 EBITDA"
+                  placeholder="150,000"
+                  value={inputs.ebitda2025.toString()}
+                  onChange={e => handleInputChange('ebitda2025', e.target.value)}
+                  onBlur={() => {}}
+                  name="ebitda2025"
+                  prefix="€"
+                  formatAsCurrency={true}
+                  min={0}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center mt-8">
+            <Button
+              variant="primary"
+              size="lg"
+              startContent={<Calculator className="w-5 h-5" />}
+              onPress={calculateValuation}
+              isLoading={isCalculating}
+              className="px-12"
+            >
+              Calculate Business Value
+            </Button>
+          </div>
         </ModalBody>
       </ModalContent>
     </Modal>

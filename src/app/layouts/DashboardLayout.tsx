@@ -1,4 +1,4 @@
-import AuthModals from '@/features/authentication/components/AuthModals';
+import AuthModals from '@/features/phase1/authentication/components/AuthModals';
 import { Navigation } from '@/shared/components/layout/navigation';
 import {
   DashboardSidebar,

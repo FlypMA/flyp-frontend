@@ -12,7 +12,7 @@ Features:
 - Focused on conversion
 */
 
-import AuthModals from '@/features/authentication/components/AuthModals';
+import AuthModals from '@/features/phase1/authentication/components/AuthModals';
 import Footer from '@/shared/components/layout/footer/Footer';
 import { ScrollToTop } from '@/shared/utils/ux';
 import { Navbar, NavbarBrand } from '@heroui/react';

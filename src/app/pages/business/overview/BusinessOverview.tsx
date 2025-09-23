@@ -1,29 +1,38 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
+import { ListingWizardModal } from '@/features/phase1/listings/components';
+import { BusinessProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
+import { EmptyStateCard } from '@/shared/components/cards';
+import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
 import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
-import { Card, CardBody } from '@heroui/react';
+import { Calculator, Store } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Navigation and sidebar are provided by DashboardLayout
 
 // Types are now imported from business-dashboard features
 
-interface _BusinessProfile {
-  id: string;
+interface BusinessInfo {
   name: string;
-  sector: string;
-  founded_year: number;
-  employee_count: string;
-  annual_revenue?: number;
-  description?: string;
+  industry: string;
+  description: string;
+  foundedYear: number;
+  teamSize: string;
+  revenue: number;
   location: string;
-  is_complete: boolean;
+  isRemote: boolean;
+  status?: 'active' | 'inactive' | 'draft';
 }
 
 const BusinessOverview = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [businessInfo, setBusinessInfo] = useState<BusinessInfo | null>(null);
+  const [hasValuationReports, setHasValuationReports] = useState<boolean>(false);
+  const [hasActiveListing, setHasActiveListing] = useState<boolean>(false);
+  const [isBusinessProfileModalOpen, setIsBusinessProfileModalOpen] = useState<boolean>(false);
+  const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState<boolean>(false);
   // const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   // const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
   // const [businessListing, setBusinessListing] = useState<Listing | null>(null);
@@ -44,18 +53,16 @@ const BusinessOverview = () => {
           // TODO: Replace with actual API calls once backend is fully implemented
           // Mock data showing single business journey stages
 
-          // Mock business profile data
-          // setBusinessProfile({
-          //   id: 'business-1',
+          // Mock business profile data - Set to null to show empty state, or uncomment to show filled state
+          // setBusinessInfo({
           //   name: 'Café Delice Brussels',
-          //   sector: 'Food & Beverage',
-          //   founded_year: 2008,
-          //   employee_count: '6-10',
-          //   annual_revenue: 450000,
-          //   description:
-          //     'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
-          //   location: 'Brussels, Belgium',
-          //   is_complete: true,
+          //   industry: 'Food & Beverage',
+          //   description: 'Charming French bistro in the heart of Brussels with loyal customer base and prime location.',
+          //   foundedYear: 2008,
+          //   teamSize: '6-10',
+          //   revenue: 450000,
+          //   location: 'Brussels',
+          //   status: 'active',
           // });
 
           // Mock valuation data (completed valuation)
@@ -116,6 +123,28 @@ const BusinessOverview = () => {
     initializeDashboard();
   }, [navigate]);
 
+  const handleAddBusinessInfo = () => {
+    setIsBusinessProfileModalOpen(true);
+  };
+
+  const handleEditBusinessInfo = () => {
+    setIsBusinessProfileModalOpen(true);
+  };
+
+  const handleSaveBusinessInfo = (data: BusinessInfo) => {
+    setBusinessInfo(data);
+    console.log('Business info saved:', data);
+  };
+
+  const handleCreateValuation = () => {
+    navigate('/my-business/valuations');
+  };
+
+  const handleListingComplete = () => {
+    setHasActiveListing(true);
+    setIsListingWizardModalOpen(false);
+  };
+
   // Loading screens removed for smooth user experience
 
   if (!user) {
@@ -145,84 +174,13 @@ const BusinessOverview = () => {
         </div>
 
         {/* Main Grid Layout */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          {/* Left: Café Delice Brussels Card (2/3 width) */}
-          <div className="lg:col-span-2">
-            <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <CardBody className="p-8">
-                {/* Business Header */}
-                <div className="flex items-start justify-between mb-8">
-                  <div>
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-1">
-                      Café Delice Brussels
-                    </h2>
-                    <p className="text-gray-500 text-base">Food & Beverage</p>
-                  </div>
-                  <div className="px-3 py-1 bg-gray-100 rounded-full">
-                    <span className="text-xs font-medium text-gray-700">ACTIVE LISTING</span>
-                  </div>
-                </div>
-
-                <p className="text-gray-600 text-base leading-relaxed mb-8">
-                  Charming French bistro in the heart of Brussels with loyal customer base and prime
-                  location.
-                </p>
-
-                {/* Key Facts Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-2xl font-semibold text-gray-900 mb-1">2008</div>
-                    <div className="text-sm text-gray-500">Founded</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-semibold text-gray-900 mb-1">6-10</div>
-                    <div className="text-sm text-gray-500">Team Size</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-semibold text-gray-900 mb-1">€450K</div>
-                    <div className="text-sm text-gray-500">Revenue</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-semibold text-gray-900 mb-1">Brussels</div>
-                    <div className="text-sm text-gray-500">Location</div>
-                  </div>
-                </div>
-
-              </CardBody>
-            </Card>
-          </div>
-
-          {/* Right: Ready to Sell CTA (1/3 width) */}
-          <div>
-            <Card className="border border-gray-200 shadow-sm">
-              <CardBody className="p-8 text-center">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready to Sell?</h3>
-                <p className="text-gray-600 leading-relaxed mb-8">
-                  Your business is validated and attracting buyer interest. Take the next step in
-                  your entrepreneurial journey.
-                </p>
-
-                <div className="space-y-3">
-                  <Button
-                    variant="primary"
-                    className="w-full"
-                    size="lg"
-                    onPress={() => navigate('/messages')}
-                  >
-                    Review Buyer Messages
-                  </Button>
-                  <Button
-                    variant="tertiary"
-                    className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
-                    size="lg"
-                    onPress={() => navigate('/my-business/listings')}
-                  >
-                    Manage Listing
-                  </Button>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
+        <div className="mb-12">
+          {/* Business Profile Card */}
+          <BusinessProfileCard
+            businessInfo={businessInfo}
+            onEdit={handleEditBusinessInfo}
+            onAddInfo={handleAddBusinessInfo}
+          />
         </div>
 
         {/* Reports Section */}
@@ -233,164 +191,139 @@ const BusinessOverview = () => {
               variant="tertiary"
               className="text-gray-600 border-gray-300 hover:bg-gray-50"
               size="sm"
-              onPress={() => navigate('/my-business/valuation')}
+              onPress={() => navigate('/my-business/valuations')}
             >
               View All Reports
             </Button>
           </div>
 
-          <div className="grid lg:grid-cols-1 gap-8">
-            {/* Business Valuation Report - Full Width */}
-            <Card className="border border-gray-200 shadow-sm">
-              <CardBody className="p-8">
-                {/* Report Header */}
-                <div className="flex items-start justify-between mb-8">
+          {hasValuationReports ? (
+            <div className="space-y-4">
+              {/* Sample Valuation Report */}
+              <ValuationCard
+                id="sample-1"
+                date="2024-01-14"
+                businessValue={850000}
+                method="Comparable Sales & DCF Analysis"
+                confidence="high"
+                lowRange={680000}
+                highRange={1020000}
+                revenueMultiple={3.2}
+                ebitdaMultiple={8.5}
+                industryAverage={7.2}
+                monthsValid={-13}
+                onView={() => navigate('/my-business/valuations')}
+                onDownload={() => console.log('Download report')}
+                onShare={() => console.log('Share report')}
+                onUpdate={() => navigate('/my-business/valuations')}
+              />
+            </div>
+          ) : (
+            <EmptyStateCard
+              icon={Calculator}
+              title="Create Your Business Valuation"
+              description="Get a professional valuation of your business to understand its market worth."
+              buttonText="Get Valuation"
+              onButtonClick={handleCreateValuation}
+            />
+          )}
+        </div>
+
+        {/* Business Listing Section */}
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-gray-900">Business Listing</h2>
+            <Button
+              variant="tertiary"
+              className="text-gray-600 border-gray-300 hover:bg-gray-50"
+              size="sm"
+              onPress={() => setIsListingWizardModalOpen(true)}
+            >
+              Create Listing
+            </Button>
+          </div>
+
+          {hasActiveListing ? (
+            <div className="space-y-4">
+              {/* Enhanced Active Listing Card */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Business Valuation Report
-                    </h3>
-                    <p className="text-gray-500">
-                      Comparable Sales & DCF Analysis • Updated January 14, 2024
+                    <h4 className="font-semibold text-gray-900 text-lg">
+                      {businessInfo?.name || 'Your Business'} - Confidential Listing
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Created on {new Date().toLocaleDateString()} • Asking Price: €1,200,000
                     </p>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="px-2 py-1 text-xs font-medium rounded bg-gray-100 text-gray-700">
-                      COMPLETED
-                    </span>
-                    <span className="px-2 py-1 text-xs font-medium rounded bg-gray-100 text-gray-700">
-                      HIGH CONFIDENCE
-                    </span>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
+                    Active
+                  </span>
+                </div>
+
+                {/* Performance Metrics */}
+                <div className="grid grid-cols-3 gap-6 mb-6 p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">24</div>
+                    <div className="text-sm text-gray-600">Views</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">3</div>
+                    <div className="text-sm text-gray-600">Inquiries</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">2</div>
+                    <div className="text-sm text-gray-600">NDAs Signed</div>
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12">
-                  {/* Left: Valuation Summary */}
-                  <div>
-                    {/* Main Valuation */}
-                    <div className="text-center mb-8 p-6 border border-gray-100 rounded-lg">
-                      <div className="text-4xl font-semibold text-gray-900 mb-2">€850,000</div>
-                      <p className="text-base text-gray-600 mb-6">Estimated Market Value</p>
-
-                      {/* Valuation Range */}
-                      <div className="max-w-sm mx-auto">
-                        <div className="flex justify-between text-sm text-gray-500 mb-2">
-                          <span>Conservative</span>
-                          <span>Market</span>
-                          <span>Optimistic</span>
-                        </div>
-                        <div className="relative h-2 bg-gray-200 rounded-full">
-                          <div
-                            className="absolute h-full bg-gray-900 rounded-full"
-                            style={{ width: '60%', left: '20%' }}
-                          ></div>
-                          <div
-                            className="absolute w-3 h-3 bg-gray-900 rounded-full"
-                            style={{ left: 'calc(50% - 6px)', top: '-2px' }}
-                          ></div>
-                        </div>
-                        <div className="flex justify-between text-sm text-gray-500 mt-2">
-                          <span>€680,000</span>
-                          <span>€1,020,000</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Key Metrics */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center p-4 border border-gray-100 rounded-lg">
-                        <div className="text-xl font-semibold text-gray-900 mb-1">3.2x</div>
-                        <div className="text-sm text-gray-500">Revenue Multiple</div>
-                      </div>
-                      <div className="text-center p-4 border border-gray-100 rounded-lg">
-                        <div className="text-xl font-semibold text-gray-900 mb-1">8.5x</div>
-                        <div className="text-sm text-gray-500">EBITDA Multiple</div>
-                      </div>
-                      <div className="text-center p-4 border border-gray-100 rounded-lg">
-                        <div className="text-xl font-semibold text-gray-900 mb-1">7.2x</div>
-                        <div className="text-sm text-gray-500">Industry Avg</div>
-                      </div>
-                      <div className="text-center p-4 border border-gray-100 rounded-lg">
-                        <div className="text-xl font-semibold text-gray-900 mb-1">-13</div>
-                        <div className="text-sm text-gray-500">Months Valid</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right: Actions & Info */}
-                  <div className="space-y-6">
-                    {/* Expiration Notice */}
-                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                      <p className="text-sm font-medium text-gray-900 mb-1">
-                        Valuation expires in -13 months
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        Consider updating your valuation to reflect current market conditions.
-                      </p>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-3">
-                      <Button
-                        variant="primary"
-                        size="lg"
-                        onPress={() => navigate('/seller/listings/new')}
-                      >
-                        Create Listing
-                      </Button>
-
-                      <div className="grid grid-cols-2 gap-3">
-                        <Button
-                          variant="tertiary"
-                          className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                          size="md"
-                        >
-                          Download Report
-                        </Button>
-                        <Button
-                          variant="tertiary"
-                          className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                          size="md"
-                          onPress={() => navigate('/my-business/valuation')}
-                        >
-                          View Details
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Secondary Actions */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <Button
-                        variant="tertiary"
-                        className="text-gray-600 hover:text-gray-900"
-                        size="sm"
-                        onPress={() => navigate('/my-business/valuation')}
-                      >
-                        Update Valuation
-                      </Button>
-                      <div className="flex items-center space-x-3">
-                        <Button
-                          variant="tertiary"
-                          className="text-gray-600 hover:text-gray-900"
-                          size="sm"
-                        >
-                          Share
-                        </Button>
-                        <Button
-                          variant="tertiary"
-                          className="text-gray-600 hover:text-gray-900"
-                          size="sm"
-                        >
-                          Guide
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-3">
+                  <Button variant="primary" size="sm">
+                    View Public Listing
+                  </Button>
+                  <Button variant="tertiary" size="sm">
+                    Edit Details
+                  </Button>
+                  <Button variant="tertiary" size="sm">
+                    View Inquiries
+                  </Button>
+                  <Button variant="tertiary" size="sm">
+                    Analytics
+                  </Button>
+                  <Button variant="tertiary" size="sm">
+                    Share Listing
+                  </Button>
                 </div>
-              </CardBody>
-            </Card>
-          </div>
+              </div>
+            </div>
+          ) : (
+            <EmptyStateCard
+              icon={Store}
+              title="Create Your Business Listing"
+              description="Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates."
+              buttonText="Create Listing"
+              onButtonClick={() => setIsListingWizardModalOpen(true)}
+            />
+          )}
         </div>
       </div>
+
+      {/* Business Profile Modal */}
+      <BusinessProfileModal
+        isOpen={isBusinessProfileModalOpen}
+        onClose={() => setIsBusinessProfileModalOpen(false)}
+        onSave={handleSaveBusinessInfo}
+        initialData={businessInfo || undefined}
+      />
+
+      {/* Listing Wizard Modal */}
+      <ListingWizardModal
+        isOpen={isListingWizardModalOpen}
+        onClose={() => setIsListingWizardModalOpen(false)}
+        onComplete={handleListingComplete}
+        businessInfo={businessInfo}
+      />
     </div>
   );
 };

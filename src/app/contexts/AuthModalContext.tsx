@@ -6,10 +6,10 @@
  */
 
 export {
-  useAuthModal,
-  AuthModalProvider,
   AuthModalContext,
+  AuthModalProvider,
+  useAuthModal,
+  type AuthModalContextType,
   type ModalType,
   type PostAuthRedirect,
-  type AuthModalContextType,
-} from '../../features/authentication/hooks/useAuthModal';
+} from '../../features/phase1/authentication/hooks/useAuthModal';

@@ -35,10 +35,7 @@ import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 // Page imports - Business Dashboard
 import DocumentVault from '../pages/business/data-room/DocumentVault';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
-import BusinessValuation from '../pages/business/reports/BusinessValuation';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
-import LiquidationComparison from '../pages/business/reports/LiquidationComparison';
-import SolvencyIntelligence from '../pages/business/reports/SolvencyIntelligence';
 import ValuationTool from '../pages/business/reports/ValuationTool';
 
 // Page imports - Account & Authentication
@@ -265,15 +262,6 @@ export const router = createBrowserRouter([
         ),
       },
 
-      // Business Valuation & Analytics (sellers only)
-      {
-        path: 'my-business/valuations',
-        element: (
-          <SellerRoute>
-            <BusinessValuation />
-          </SellerRoute>
-        ),
-      },
       {
         path: 'my-business/analytics',
         element: (
@@ -301,7 +289,7 @@ export const router = createBrowserRouter([
 
       // Advanced Business Tools (sellers only)
       {
-        path: 'my-business/valuation-tool',
+        path: 'my-business/valuations',
         element: (
           <SellerRoute>
             <ValuationTool />
@@ -313,22 +301,6 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <GetFreeValuation />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/liquidation-comparison',
-        element: (
-          <SellerRoute>
-            <LiquidationComparison />
-          </SellerRoute>
-        ),
-      },
-      {
-        path: 'my-business/solvency-intelligence',
-        element: (
-          <SellerRoute>
-            <SolvencyIntelligence />
           </SellerRoute>
         ),
       },
