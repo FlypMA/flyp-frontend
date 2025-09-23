@@ -1,9 +1,11 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
-import { ListingWizardModal } from '@/features/phase1/listings/components';
+import { ListingWizardModal } from '@/features/phase1/business/wizard';
 import { BusinessProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
+import ListingNudgeModal from '@/shared/components/modals/domains/business/ListingNudgeModal';
 import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
+import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
 import { Calculator, Store } from 'lucide-react';
@@ -33,6 +35,10 @@ const BusinessOverview = () => {
   const [hasActiveListing, setHasActiveListing] = useState<boolean>(false);
   const [isBusinessProfileModalOpen, setIsBusinessProfileModalOpen] = useState<boolean>(false);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState<boolean>(false);
+  const [isValuationModalOpen, setIsValuationModalOpen] = useState<boolean>(false);
+  const [isListingNudgeModalOpen, setIsListingNudgeModalOpen] = useState<boolean>(false);
+  const [currentValuationData, setCurrentValuationData] = useState<any>(null);
+  const [currentBusinessValue, setCurrentBusinessValue] = useState<number>(0);
   // const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   // const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
   // const [businessListing, setBusinessListing] = useState<Listing | null>(null);
@@ -137,12 +143,23 @@ const BusinessOverview = () => {
   };
 
   const handleCreateValuation = () => {
-    navigate('/my-business/valuations');
+    setIsValuationModalOpen(true);
   };
 
   const handleListingComplete = () => {
     setHasActiveListing(true);
     setIsListingWizardModalOpen(false);
+  };
+
+  const handleListingNudge = (valuationData: any, businessValue: number) => {
+    setCurrentValuationData(valuationData);
+    setCurrentBusinessValue(businessValue);
+    setIsListingNudgeModalOpen(true);
+  };
+
+  const handleCreateListingFromNudge = () => {
+    setIsListingNudgeModalOpen(false);
+    setIsListingWizardModalOpen(true);
   };
 
   // Loading screens removed for smooth user experience
@@ -191,9 +208,9 @@ const BusinessOverview = () => {
               variant="tertiary"
               className="text-gray-600 border-gray-300 hover:bg-gray-50"
               size="sm"
-              onPress={() => navigate('/my-business/valuations')}
+              onPress={handleCreateValuation}
             >
-              View All Reports
+              Get Valuation
             </Button>
           </div>
 
@@ -216,6 +233,7 @@ const BusinessOverview = () => {
                 onDownload={() => console.log('Download report')}
                 onShare={() => console.log('Share report')}
                 onUpdate={() => navigate('/my-business/valuations')}
+                onCreateListing={() => handleListingNudge(null, 850000)}
               />
             </div>
           ) : (
@@ -323,6 +341,24 @@ const BusinessOverview = () => {
         onClose={() => setIsListingWizardModalOpen(false)}
         onComplete={handleListingComplete}
         businessInfo={businessInfo}
+      />
+
+      {/* Valuation Modal */}
+      <ValuationModal
+        isOpen={isValuationModalOpen}
+        onClose={() => setIsValuationModalOpen(false)}
+        onSignupPrompt={() => {}} // Not used for authenticated users
+        onComplete={() => {}} // Fallback
+      />
+
+      {/* Listing Nudge Modal */}
+      <ListingNudgeModal
+        isOpen={isListingNudgeModalOpen}
+        onClose={() => setIsListingNudgeModalOpen(false)}
+        onCreateListing={handleCreateListingFromNudge}
+        businessValue={currentBusinessValue}
+        businessName={businessInfo?.name || 'Your Business'}
+        industry={businessInfo?.industry || 'your industry'}
       />
     </div>
   );

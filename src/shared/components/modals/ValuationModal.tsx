@@ -194,9 +194,11 @@ const ValuationModal: React.FC<ValuationModalProps> = ({
         inputs.businessType === 'sole-trader' ? 100 : inputs.sharesForSale;
       const finalValuation = weightedSum * (ownershipPercentage / 100);
 
-      // For authenticated users, save the valuation and navigate to valuations page
-      if (isAuthenticated && onComplete) {
-        onComplete(inputs);
+      // For authenticated users, complete and navigate
+      if (isAuthenticated) {
+        if (onComplete) {
+          onComplete(inputs);
+        }
         onClose();
         navigate('/my-business/valuations');
       } else {

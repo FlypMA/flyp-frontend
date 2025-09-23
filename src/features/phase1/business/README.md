@@ -8,28 +8,29 @@ The business management system provides comprehensive tools for business owners 
 
 ```
 business/
-├── components/
-│   ├── DashboardStats.tsx           # Business dashboard statistics
-│   ├── DashboardToolbar.tsx         # Dashboard action toolbar
-│   ├── ValuationDashboard.tsx       # Valuation overview dashboard
-│   ├── ValuationReportCard.tsx      # Individual valuation report card
-│   └── index.ts                     # Component exports
-├── hooks/
-│   ├── useBusinessMetrics.ts        # Business performance metrics
-│   ├── useBusinessValuation.ts      # Valuation calculation logic
-│   └── index.ts                     # Hook exports
-├── pages/
-│   ├── AnalyticsPage.tsx            # Business analytics dashboard
-│   ├── CreateListingPage.tsx        # Business listing creation
-│   ├── DashboardHomePage.tsx        # Main business dashboard
-│   └── ListingManagementPage.tsx    # Listing management interface
-├── services/
-│   └── index.ts                     # Business service exports
-├── types/
-│   └── index.ts                     # Business type definitions
-├── AUDIT.md                         # Business feature audit
-├── VALUATION_DASHBOARD_IMPLEMENTATION.md  # Valuation implementation details
-├── index.ts                         # Main feature exports
+├── dashboard/                       # Dashboard sub-feature
+│   ├── types/                       # Dashboard & metrics types
+│   │   └── index.ts                 # Type exports
+│   └── index.ts                     # Dashboard feature exports
+├── valuation/                       # Valuation sub-feature
+│   ├── components/                  # Valuation components
+│   │   ├── ValuationDashboard.tsx   # Valuation overview dashboard
+│   │   ├── ValuationReportCard.tsx  # Individual valuation report card
+│   │   └── index.ts                 # Component exports
+│   ├── hooks/                       # Valuation hooks
+│   │   ├── useBusinessValuation.ts  # Valuation calculation logic
+│   │   └── index.ts                 # Hook exports
+│   ├── types/                       # Valuation types
+│   │   └── index.ts                 # Type exports
+│   ├── index.ts                     # Valuation feature exports
+│   └── README.md                    # Valuation documentation
+├── wizard/                          # Listing creation wizard
+│   ├── components/                  # Wizard components
+│   ├── steps/                       # Wizard step components
+│   ├── types/                       # Wizard types
+│   ├── index.ts                     # Wizard exports
+│   └── README.md                    # Wizard documentation
+├── index.ts                         # Main business exports
 └── README.md                        # This file
 ```
 

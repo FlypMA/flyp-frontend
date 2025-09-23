@@ -131,7 +131,7 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({
           </header>
 
           {/* Content */}
-          <main className="flex-1 overflow-y-auto bg-gray-50">{children}</main>
+          <main className="flex-1 bg-gray-50 overflow-hidden">{children}</main>
         </ModalBody>
       </ModalContent>
     </Modal>

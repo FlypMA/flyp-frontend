@@ -52,11 +52,14 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
             onBlur={onBlur}
             required={required}
             disabled={disabled}
+            style={{ appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none' }}
             className={`
               w-5 h-5 text-gray-900 bg-white border-2 border-gray-300 rounded
               focus:ring-2 focus:ring-gray-500 focus:ring-offset-0
               transition-all duration-200
               appearance-none
+              -webkit-appearance-none
+              -moz-appearance-none
               ${hasError ? 'border-red-400 focus:ring-red-500' : ''}
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}

@@ -20,29 +20,29 @@ export * from './phase2';
 
 // Re-export commonly used MVP components for convenience
 export {
-  // Shared Components
-  Button,
-  CenteredModal,
-  CustomDropdown,
-  CustomInputField,
-  CustomNumberInputField,
-  InquiryModal,
-  // Listings
+  // Business Management
   ListingWizardModal,
   // Authentication
   LoginModal,
-  NDAModal,
   SignupModal,
-  ValuationModal,
   useAuthModal,
-
-  // Business Management
-  useBusinessMetrics,
   useBusinessValuation,
   // Types
   type BusinessInfo,
   type ListingData,
 } from './phase1';
 
+// Re-export shared components from app level
+export {
+  Button,
+  CenteredModal,
+  CustomDropdown,
+  CustomInputField,
+  CustomNumberInputField,
+  InquiryModal,
+  NDAModal,
+  ValuationModal,
+} from '@/shared/components';
+
 // Re-export types separately for isolatedModules compatibility
-export type { AuthResponse, User, ValuationInputs, ValuationResults } from './phase1';
+export type { User } from '@/shared/types';

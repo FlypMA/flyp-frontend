@@ -1,12 +1,12 @@
-// 🏢 Business Dashboard Feature - MVP Version
-// Location: src/features/business-dashboard/index.ts
-// Purpose: Main export for business dashboard feature
+// 🏢 Business Feature - MVP Version
+// Location: src/features/phase1/business/index.ts
+// Purpose: Main export for business feature
 
-// Components
-export * from './components';
+// Dashboard Sub-Feature
+export * from './dashboard';
 
-// Hooks
-export * from './hooks';
+// Valuation Sub-Feature
+export * from './valuation';
 
-// Types
-export * from './types';
+// Listing Creation Wizard Sub-Feature
+export * from './wizard';

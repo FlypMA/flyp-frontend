@@ -1,6 +1,10 @@
-import { ValuationDashboard } from '@/features/phase1/business';
-import { useBusinessValuation } from '@/features/phase1/business/hooks';
-import type { ValuationReport } from '@/features/phase1/business/types';
+import {
+  ValuationDashboard,
+  useBusinessValuation,
+  type ValuationReport,
+} from '@/features/phase1/business/valuation';
+import ListingNudgeModal from '@/shared/components/modals/domains/business/ListingNudgeModal';
+import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { AuthenticationService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
 import { useEffect, useState } from 'react';
@@ -15,6 +19,10 @@ const BusinessValuation = () => {
   const [user, setUser] = useState<User | null>(null);
   const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
   const [historicalValuations, setHistoricalValuations] = useState<ValuationReport[]>([]);
+  const [isValuationModalOpen, setIsValuationModalOpen] = useState<boolean>(false);
+  const [isListingNudgeModalOpen, setIsListingNudgeModalOpen] = useState<boolean>(false);
+  const [currentValuationData, setCurrentValuationData] = useState<any>(null);
+  const [currentBusinessValue, setCurrentBusinessValue] = useState<number>(0);
 
   // Use business valuation hook
   const {
@@ -121,6 +129,22 @@ const BusinessValuation = () => {
     initializePage();
   }, [navigate]);
 
+  // Handler functions for Caregiver nudge system
+  const handleCreateValuation = () => {
+    setIsValuationModalOpen(true);
+  };
+
+  const handleListingNudge = (valuationData: any, businessValue: number) => {
+    setCurrentValuationData(valuationData);
+    setCurrentBusinessValue(businessValue);
+    setIsListingNudgeModalOpen(true);
+  };
+
+  const handleCreateListingFromNudge = () => {
+    setIsListingNudgeModalOpen(false);
+    navigate('/my-business');
+  };
+
   // Loading screens removed for smooth UX
 
   if (!user) {
@@ -148,15 +172,30 @@ const BusinessValuation = () => {
       <ValuationDashboard
         currentValuation={businessValuation}
         historicalValuations={historicalValuations}
-        onCreateValuation={() => {
-          // TODO: Navigate to valuation wizard or open modal
-          console.log('Create valuation');
-        }}
+        onCreateValuation={handleCreateValuation}
+        onCreateListing={() => handleListingNudge(null, businessValuation?.estimated_value || 0)}
         onUpdateValuation={() => {
           // TODO: Navigate to valuation update wizard
           console.log('Update valuation');
         }}
-        onCreateListing={() => navigate('/my-business/listings/new')}
+      />
+
+      {/* Valuation Modal */}
+      <ValuationModal
+        isOpen={isValuationModalOpen}
+        onClose={() => setIsValuationModalOpen(false)}
+        onSignupPrompt={() => {}} // Not used for authenticated users
+        onComplete={() => {}} // Fallback
+      />
+
+      {/* Listing Nudge Modal */}
+      <ListingNudgeModal
+        isOpen={isListingNudgeModalOpen}
+        onClose={() => setIsListingNudgeModalOpen(false)}
+        onCreateListing={handleCreateListingFromNudge}
+        businessValue={currentBusinessValue}
+        businessName={user?.company_name || 'Your Business'}
+        industry={user?.industry || 'your industry'}
       />
     </div>
   );

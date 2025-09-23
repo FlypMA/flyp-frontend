@@ -32,6 +32,7 @@ export {
 // Modals that haven't been migrated to domain structure yet
 export { default as InquiryModal } from './InquiryModal';
 export { default as NDAModal } from './NDAModal';
+export { default as ValuationModal } from './ValuationModal';
 
 // ===== IMAGE MODALS =====
 export { ImageGalleryModal } from './images';

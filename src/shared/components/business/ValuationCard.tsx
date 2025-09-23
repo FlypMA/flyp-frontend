@@ -12,7 +12,7 @@
 
 import { Button } from '@/shared/components/buttons';
 import { Card, CardBody, CardHeader } from '@heroui/react';
-import { Calendar, Download, Eye, Share2 } from 'lucide-react';
+import { Calendar, Download, Eye, Rocket, Share2 } from 'lucide-react';
 import React from 'react';
 
 interface ValuationCardProps {
@@ -31,6 +31,7 @@ interface ValuationCardProps {
   onDownload?: () => void;
   onShare?: () => void;
   onUpdate?: () => void;
+  onCreateListing?: () => void;
   className?: string;
 }
 
@@ -50,6 +51,7 @@ const ValuationCard: React.FC<ValuationCardProps> = ({
   onDownload,
   onShare,
   onUpdate,
+  onCreateListing,
   className = '',
 }) => {
   const formatCurrency = (amount: number) => {
@@ -194,6 +196,16 @@ const ValuationCard: React.FC<ValuationCardProps> = ({
             )}
           </div>
           <div className="flex items-center space-x-2">
+            {onCreateListing && (
+              <Button
+                variant="primary"
+                size="sm"
+                startContent={<Rocket className="w-4 h-4" />}
+                onPress={onCreateListing}
+              >
+                Create Listing
+              </Button>
+            )}
             {onUpdate && (
               <Button variant="tertiary" size="sm" onPress={onUpdate}>
                 Update
