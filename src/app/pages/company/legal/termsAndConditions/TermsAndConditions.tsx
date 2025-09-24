@@ -107,8 +107,8 @@ const TermsAndConditions = () => {
 
           <Heading2 className="text-gray-900">8. Intellectual Property Rights</Heading2>
           <p className="text-gray-700">
-            The Service and its original content, features, and functionality are owned by flyp and
-            are protected by international copyright, trademark, patent, trade secret, and other
+            The Service and its original content, features, and functionality are owned by UpSwitch
+            and are protected by international copyright, trademark, patent, trade secret, and other
             intellectual property laws. You retain ownership of business information you submit, but
             grant us necessary licenses to provide our Service and facilitate transactions.
           </p>

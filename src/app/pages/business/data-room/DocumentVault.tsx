@@ -245,119 +245,121 @@ const DocumentVault = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">Document Vault</h1>
-            <p className="text-lg text-gray-600">
-              Store and organize your important business documents securely
-            </p>
-          </div>
-          <div className="flex items-center space-x-3">
-            <input
-              type="file"
-              multiple
-              onChange={handleFileUpload}
-              className="hidden"
-              id="file-upload"
-              accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
-            />
-            <Button
-              variant="primary"
-              startContent={<Upload className="w-4 h-4" />}
-              onPress={() => document.getElementById('file-upload')?.click()}
-              isLoading={isUploading}
-            >
-              {isUploading ? 'Uploading...' : 'Upload Documents'}
-            </Button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="flex-1 px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold text-gray-900 mb-2">Document Vault</h1>
+              <p className="text-lg text-gray-600">
+                Store and organize your important business documents securely
+              </p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <input
+                type="file"
+                multiple
+                onChange={handleFileUpload}
+                className="hidden"
+                id="file-upload"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+              />
+              <Button
+                variant="primary"
+                startContent={<Upload className="w-4 h-4" />}
+                onPress={() => document.getElementById('file-upload')?.click()}
+                isLoading={isUploading}
+              >
+                {isUploading ? 'Uploading...' : 'Upload Documents'}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Documents List */}
-      {documents.length === 0 ? (
-        <Card className="border border-gray-200 shadow-sm">
-          <CardBody className="text-center py-16">
-            <FolderOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Documents Yet</h3>
-            <p className="text-gray-600 mb-6">
-              Upload your first document to get started with your secure vault
-            </p>
-            <Button
-              variant="primary"
-              startContent={<Plus className="w-4 h-4" />}
-              onPress={() => document.getElementById('file-upload')?.click()}
-            >
-              Upload First Document
-            </Button>
-          </CardBody>
-        </Card>
-      ) : (
-        <div className="space-y-2">
-          {documents.map(doc => (
-            <div
-              key={doc.id}
-              className="border border-gray-200 rounded-lg hover:shadow-sm hover:border-gray-300 transition-all cursor-pointer p-4"
-            >
-              {/* List View */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3 flex-1 min-w-0">
-                  <div className="text-2xl">{getFileIcon(doc.type, doc.category)}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <h3 className="font-medium text-gray-900 truncate">{doc.name}</h3>
-                      {doc.isEncrypted && <Lock className="w-4 h-4 text-gray-500" />}
-                      {doc.version > 1 && (
-                        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                          v{doc.version}
+        {/* Documents List */}
+        {documents.length === 0 ? (
+          <Card className="border border-gray-200 shadow-sm">
+            <CardBody className="text-center py-16">
+              <FolderOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Documents Yet</h3>
+              <p className="text-gray-600 mb-6">
+                Upload your first document to get started with your secure vault
+              </p>
+              <Button
+                variant="primary"
+                startContent={<Plus className="w-4 h-4" />}
+                onPress={() => document.getElementById('file-upload')?.click()}
+              >
+                Upload First Document
+              </Button>
+            </CardBody>
+          </Card>
+        ) : (
+          <div className="space-y-2">
+            {documents.map(doc => (
+              <div
+                key={doc.id}
+                className="border border-gray-200 rounded-lg hover:shadow-sm hover:border-gray-300 transition-all cursor-pointer p-4"
+              >
+                {/* List View */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3 flex-1 min-w-0">
+                    <div className="text-2xl">{getFileIcon(doc.type, doc.category)}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h3 className="font-medium text-gray-900 truncate">{doc.name}</h3>
+                        {doc.isEncrypted && <Lock className="w-4 h-4 text-gray-500" />}
+                        {doc.version > 1 && (
+                          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                            v{doc.version}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-500 truncate">{doc.description}</p>
+                      <div className="flex items-center space-x-4 mt-1">
+                        <span className="text-xs text-gray-500">
+                          {documentCategories[doc.category].name}
                         </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-gray-500 truncate">{doc.description}</p>
-                    <div className="flex items-center space-x-4 mt-1">
-                      <span className="text-xs text-gray-500">
-                        {documentCategories[doc.category].name}
-                      </span>
-                      <span className="text-xs text-gray-500">{formatFileSize(doc.size)}</span>
-                      <span className="text-xs text-gray-500">
-                        {doc.uploadDate.toLocaleDateString()}
-                      </span>
+                        <span className="text-xs text-gray-500">{formatFileSize(doc.size)}</span>
+                        <span className="text-xs text-gray-500">
+                          {doc.uploadDate.toLocaleDateString()}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-1 ml-4">
-                  <Button
-                    variant="tertiary"
-                    isIconOnly
-                    size="sm"
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <Eye className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant="tertiary"
-                    isIconOnly
-                    size="sm"
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <Download className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant="tertiary"
-                    isIconOnly
-                    size="sm"
-                    className="text-gray-500 hover:text-red-600"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                  <div className="flex items-center space-x-1 ml-4">
+                    <Button
+                      variant="tertiary"
+                      isIconOnly
+                      size="sm"
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="tertiary"
+                      isIconOnly
+                      size="sm"
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <Download className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="tertiary"
+                      isIconOnly
+                      size="sm"
+                      className="text-gray-500 hover:text-red-600"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

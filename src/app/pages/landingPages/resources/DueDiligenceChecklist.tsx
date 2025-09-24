@@ -4,20 +4,20 @@ import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody, CardHeader, Chip } from '@heroui/react';
 import {
-    AlertTriangle,
-    Building2,
-    CheckCircle,
-    CheckSquare,
-    ChevronDown,
-    ChevronUp,
-    DollarSign,
-    Eye,
-    FileText,
-    Scale,
-    Shield,
-    Target,
-    TrendingUp,
-    Users,
+  AlertTriangle,
+  Building2,
+  CheckCircle,
+  CheckSquare,
+  ChevronDown,
+  ChevronUp,
+  DollarSign,
+  Eye,
+  FileText,
+  Scale,
+  Shield,
+  Target,
+  TrendingUp,
+  Users,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -159,7 +159,7 @@ const DueDiligenceChecklist = () => {
   return (
     <>
       <SEOHead
-        title="Your Complete Due Diligence Guide | flyp - We've Got You Covered"
+        title="Your Complete Due Diligence Guide | UpSwitch - We've Got You Covered"
         description="Don't let due diligence overwhelm you. Our caring, step-by-step guide helps both buyers and sellers navigate the process with confidence and peace of mind."
         keywords="due diligence guide, business buying checklist, selling business preparation, M&A support, business acquisition help"
       />
@@ -181,9 +181,9 @@ const DueDiligenceChecklist = () => {
                 </span>
               </h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
-                Whether you're buying your first business or selling the one you've built with love, 
-                due diligence doesn't have to be overwhelming. We've created this guide to be your 
-                trusted companion — breaking down everything into simple, manageable steps so you 
+                Whether you're buying your first business or selling the one you've built with love,
+                due diligence doesn't have to be overwhelming. We've created this guide to be your
+                trusted companion — breaking down everything into simple, manageable steps so you
                 can make decisions with confidence and clarity.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -209,10 +209,11 @@ const DueDiligenceChecklist = () => {
                 </h2>
                 <div className="prose prose-lg max-w-none text-neutral-700">
                   <p className="mb-6">
-                    Whether you're selling the business you've poured your heart into or buying your first company, 
-                    due diligence can feel overwhelming. But here's the thing — it's really just about making sure 
-                    everyone knows what they're getting into. Think of it like a thorough health check for a business, 
-                    where we make sure everything is as it should be.
+                    Whether you're selling the business you've poured your heart into or buying your
+                    first company, due diligence can feel overwhelming. But here's the thing — it's
+                    really just about making sure everyone knows what they're getting into. Think of
+                    it like a thorough health check for a business, where we make sure everything is
+                    as it should be.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -225,8 +226,9 @@ const DueDiligenceChecklist = () => {
                               For Buyers: Your Protection
                             </h4>
                             <p className="text-calm-800">
-                              This process protects you from nasty surprises. It's like having a trusted friend 
-                              help you check everything before you make one of the biggest decisions of your life.
+                              This process protects you from nasty surprises. It's like having a
+                              trusted friend help you check everything before you make one of the
+                              biggest decisions of your life.
                             </p>
                           </div>
                         </div>
@@ -242,8 +244,9 @@ const DueDiligenceChecklist = () => {
                               For Sellers: Your Peace of Mind
                             </h4>
                             <p className="text-accent-800">
-                              When you're prepared and organized, the process goes smoothly. This checklist 
-                              helps you show your business in its best light and find the right buyer.
+                              When you're prepared and organized, the process goes smoothly. This
+                              checklist helps you show your business in its best light and find the
+                              right buyer.
                             </p>
                           </div>
                         </div>
@@ -260,9 +263,10 @@ const DueDiligenceChecklist = () => {
                             Remember: You're Not Alone
                           </h4>
                           <p className="text-neutral-800">
-                            Most people work with professionals for the technical parts — accountants, lawyers, 
-                            business advisors. This guide helps you understand what should be covered, so you 
-                            can ask the right questions and feel confident in your decisions.
+                            Most people work with professionals for the technical parts —
+                            accountants, lawyers, business advisors. This guide helps you understand
+                            what should be covered, so you can ask the right questions and feel
+                            confident in your decisions.
                           </p>
                         </div>
                       </div>
@@ -284,9 +288,9 @@ const DueDiligenceChecklist = () => {
                       Sleep Better at Night
                     </h3>
                     <p className="text-neutral-600">
-                      No more wondering "what if I missed something?" This process helps you 
-                      uncover any issues upfront, so you can make decisions with confidence 
-                      and peace of mind.
+                      No more wondering "what if I missed something?" This process helps you uncover
+                      any issues upfront, so you can make decisions with confidence and peace of
+                      mind.
                     </p>
                   </CardBody>
                 </Card>
@@ -302,8 +306,8 @@ const DueDiligenceChecklist = () => {
                       Know You're Getting Fair Value
                     </h3>
                     <p className="text-neutral-600">
-                      Whether you're buying or selling, this process ensures everyone understands 
-                      the true value of what's being exchanged. No surprises, just honest, 
+                      Whether you're buying or selling, this process ensures everyone understands
+                      the true value of what's being exchanged. No surprises, just honest,
                       transparent dealings.
                     </p>
                   </CardBody>
@@ -320,8 +324,8 @@ const DueDiligenceChecklist = () => {
                       Build a Strong Foundation
                     </h3>
                     <p className="text-neutral-600">
-                      Understanding every aspect of the business helps you plan for success. 
-                      You'll know exactly what you're working with and how to make it even better.
+                      Understanding every aspect of the business helps you plan for success. You'll
+                      know exactly what you're working with and how to make it even better.
                     </p>
                   </CardBody>
                 </Card>
@@ -334,8 +338,8 @@ const DueDiligenceChecklist = () => {
                     What to Expect: Your Journey Step by Step
                   </h3>
                   <p className="text-neutral-600 mt-2">
-                    Every business is different, but here's a typical timeline so you know what to expect. 
-                    Remember, we're here to guide you through each step.
+                    Every business is different, but here's a typical timeline so you know what to
+                    expect. Remember, we're here to guide you through each step.
                   </p>
                 </CardHeader>
                 <CardBody>
@@ -362,7 +366,8 @@ const DueDiligenceChecklist = () => {
                       <h4 className="font-semibold text-neutral-900 mb-2">Deep Dive</h4>
                       <p className="text-sm text-neutral-600">4-8 weeks</p>
                       <p className="text-xs text-neutral-500 mt-2">
-                        Reviewing documents, analyzing data, and having conversations with key people
+                        Reviewing documents, analyzing data, and having conversations with key
+                        people
                       </p>
                     </div>
 
@@ -401,8 +406,8 @@ const DueDiligenceChecklist = () => {
                   Your Complete Checklist
                 </h2>
                 <p className="text-lg text-neutral-600 mb-8 text-center max-w-3xl mx-auto">
-                  Don't worry — you don't need to tackle everything at once. This checklist is here 
-                  to guide you, not overwhelm you. Take it step by step, and remember that most 
+                  Don't worry — you don't need to tackle everything at once. This checklist is here
+                  to guide you, not overwhelm you. Take it step by step, and remember that most
                   people work with professionals for the technical parts.
                 </p>
 
@@ -479,12 +484,10 @@ const DueDiligenceChecklist = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <AlertTriangle className="w-6 h-6 text-red-600" />
-                    <h3 className="text-2xl font-bold text-red-900">
-                      Things to Watch Out For
-                    </h3>
+                    <h3 className="text-2xl font-bold text-red-900">Things to Watch Out For</h3>
                   </div>
                   <p className="text-red-800 mt-2">
-                    Don't panic — these are just things to be aware of. Most issues can be resolved 
+                    Don't panic — these are just things to be aware of. Most issues can be resolved
                     or factored into the deal. The key is knowing about them upfront.
                   </p>
                 </CardHeader>
@@ -558,29 +561,23 @@ const DueDiligenceChecklist = () => {
                     You Don't Have to Do This Alone
                   </h2>
                   <p className="text-calm-800 mb-6 max-w-2xl mx-auto">
-                    This checklist is a great starting point, but we know every business and every situation 
-                    is unique. If you're looking at a specific opportunity and want someone experienced to 
-                    walk through it with you, we're here to help. No judgment, no pressure — just genuine 
-                    support from people who understand what you're going through.
+                    This checklist is a great starting point, but we know every business and every
+                    situation is unique. If you're looking at a specific opportunity and want
+                    someone experienced to walk through it with you, we're here to help. No
+                    judgment, no pressure — just genuine support from people who understand what
+                    you're going through.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      onPress={() => navigate('/contact')}
-                    >
+                    <Button variant="primary" size="lg" onPress={() => navigate('/contact')}>
                       Talk to our team
                     </Button>
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      onPress={() => navigate('/search')}
-                    >
+                    <Button variant="secondary" size="lg" onPress={() => navigate('/search')}>
                       Browse businesses
                     </Button>
                   </div>
                   <p className="text-sm text-calm-700 mt-4">
-                    We've helped hundreds of business owners through this process. Let us help you too.
+                    We've helped hundreds of business owners through this process. Let us help you
+                    too.
                   </p>
                 </CardBody>
               </Card>

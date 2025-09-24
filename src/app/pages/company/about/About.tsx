@@ -24,7 +24,9 @@ const About = () => {
         <div className="bg-gradient-to-br from-neutral-50 via-white to-primary-50 py-20">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">About flyp</h1>
+              <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
+                About UpSwitch
+              </h1>
               <p className="text-xl text-neutral-600 mb-8 leading-relaxed">
                 The next-generation M&A platform modernizing how European SMEs buy and sell
                 businesses. Launching 2025 to transform a €125B fragmented market.
@@ -276,10 +278,10 @@ const About = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-8">Our Team</h2>
               <p className="text-lg text-neutral-700 mb-12 leading-relaxed">
-                flyp is proudly run by a dedicated team of M&A professionals, technology experts,
-                and business specialists based across Europe. Our diverse backgrounds in finance,
-                technology, and entrepreneurship allow us to understand the unique challenges and
-                opportunities in the European M&A market.
+                UpSwitch is proudly run by a dedicated team of M&A professionals, technology
+                experts, and business specialists based across Europe. Our diverse backgrounds in
+                finance, technology, and entrepreneurship allow us to understand the unique
+                challenges and opportunities in the European M&A market.
               </p>
               <p className="text-neutral-600 mb-8">
                 We're always looking to improve our platform and service. Whether you're looking to

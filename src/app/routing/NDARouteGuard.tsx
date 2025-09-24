@@ -1,5 +1,5 @@
 /**
- * 🔒 NDA Route Guard - flyp MVP
+ * 🔒 NDA Route Guard - UpSwitch MVP
  * Protects private listing routes with NDA verification
  *
  * FEATURES:

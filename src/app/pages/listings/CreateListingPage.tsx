@@ -39,9 +39,9 @@ const CreateListingPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Create Business Listing | flyp"
-        description="List your business for sale on flyp. Complete our guided process to create a professional listing that attracts qualified buyers."
-        keywords="sell business, create listing, business for sale, flyp listing"
+        title="Create Business Listing | UpSwitch"
+        description="List your business for sale on UpSwitch. Complete our guided process to create a professional listing that attracts qualified buyers."
+        keywords="sell business, create listing, business for sale, UpSwitch listing"
       />
 
       <SellerOnboardingModal

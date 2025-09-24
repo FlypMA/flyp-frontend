@@ -43,7 +43,7 @@ const ValuationGuide = () => {
   return (
     <>
       <SEOHead
-        title="What's Your Business Really Worth? | flyp Business Valuation Guide"
+        title="What's Your Business Really Worth? | UpSwitch Business Valuation Guide"
         description="Discover your business's true value and why selling is better than liquidating. A caring guide for business owners ready to understand their life's work."
         keywords="business valuation, business worth, sell vs liquidate, business value, SME valuation, business owner guide, exit strategy"
       />

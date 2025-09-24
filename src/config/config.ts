@@ -50,7 +50,7 @@ interface AppConfig {
 
 const config: AppConfig = {
   // Basic App Info
-  appName: 'flyp MVP',
+  appName: 'UpSwitch MVP',
   version: '1.0.0',
   environment: ((import.meta as any).env?.MODE as AppConfig['environment']) || 'development',
 

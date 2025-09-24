@@ -1,5 +1,5 @@
 /**
- * Pages Export - flyp MVP
+ * Pages Export - UpSwitch MVP
  *
  * Centralized exports for all page components
  */

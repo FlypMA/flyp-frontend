@@ -97,9 +97,9 @@ const NewContact = () => {
   return (
     <>
       <SEOHead
-        title="Contact Us | flyp M&A Platform"
+        title="Contact Us | UpSwitch M&A Platform"
         description="Get in touch with our M&A experts. Professional support for buyers, sellers, and partners across Europe. Response within 24 hours."
-        keywords="contact flyp, M&A support, customer service, business support, help center"
+        keywords="contact UpSwitch, M&A support, customer service, business support, help center"
       />
 
       <div className="min-h-screen bg-white">

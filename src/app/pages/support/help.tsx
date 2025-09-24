@@ -1,5 +1,5 @@
 /**
- * flyp Help Center
+ * UpSwitch Help Center
  * Clean, modular implementation with new FAQ system
  */
 
@@ -132,7 +132,7 @@ const Help: React.FC = () => {
         {
           question: 'How does financing work for business purchases?',
           answer:
-            'flyp partners with banks and alternative lenders to offer various financing options including SBA loans, asset-based financing, and seller financing. Our financing partners are pre-qualified and understand business acquisitions.',
+            'UpSwitch partners with banks and alternative lenders to offer various financing options including SBA loans, asset-based financing, and seller financing. Our financing partners are pre-qualified and understand business acquisitions.',
           tags: ['financing', 'loans', 'funding'],
         },
       ],
@@ -172,7 +172,7 @@ const Help: React.FC = () => {
         {
           question: 'What are your fees for selling?',
           answer:
-            'flyp charges a success fee only when your business sells, typically 3-8% depending on transaction size. No upfront fees, no monthly charges. Additional services like professional valuation or marketing upgrades have separate fees.',
+            'UpSwitch charges a success fee only when your business sells, typically 3-8% depending on transaction size. No upfront fees, no monthly charges. Additional services like professional valuation or marketing upgrades have separate fees.',
           tags: ['fees', 'commission', 'pricing'],
           isNew: true,
         },
@@ -181,7 +181,7 @@ const Help: React.FC = () => {
     {
       id: 'platform-features',
       category: 'Platform Features',
-      description: 'Discover all the tools and features available on flyp',
+      description: 'Discover all the tools and features available on UpSwitch',
       icon: <Zap className="w-6 h-6" />,
       color: 'orange',
       questions: [
@@ -295,7 +295,7 @@ const Help: React.FC = () => {
         {
           question: 'Do you provide legal advice?',
           answer:
-            'flyp does not provide legal advice. However, we partner with qualified business attorneys who specialize in M&A transactions. All users are encouraged to consult independent legal counsel.',
+            'UpSwitch does not provide legal advice. However, we partner with qualified business attorneys who specialize in M&A transactions. All users are encouraged to consult independent legal counsel.',
           tags: ['legal', 'advice', 'attorneys'],
         },
         {
@@ -412,9 +412,9 @@ const Help: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <SEOHead
-        title="Help Center - flyp"
-        description="Find answers to common questions about buying and selling businesses on flyp. Get support for account management, transactions, and platform features."
-        keywords="help, support, FAQ, business marketplace, flyp assistance"
+        title="Help Center - UpSwitch"
+        description="Find answers to common questions about buying and selling businesses on UpSwitch. Get support for account management, transactions, and platform features."
+        keywords="help, support, FAQ, business marketplace, UpSwitch assistance"
       />
 
       {/* Hero Section */}
@@ -630,7 +630,7 @@ const Help: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of entrepreneurs using flyp to buy and sell businesses
+            Join thousands of entrepreneurs using UpSwitch to buy and sell businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

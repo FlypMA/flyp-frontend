@@ -1,5 +1,5 @@
 /**
- * 🛡️ Route Guards - flyp MVP
+ * 🛡️ Route Guards - UpSwitch MVP
  * Enhanced route protection with role-based access control
  *
  * FEATURES:

@@ -2,20 +2,20 @@ import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import {
-    DueDiligencePlatform,
-    OfferManagement,
-    SuccessFeeCollection,
+  DueDiligencePlatform,
+  OfferManagement,
+  SuccessFeeCollection,
 } from '@/shared/components/transaction';
 import { seoData } from '@/shared/utils/seo/seoData';
 import { Badge, Card, CardBody, Chip, Progress, Tab, Tabs } from '@heroui/react';
 import {
-    AlertTriangle,
-    CheckCircle,
-    DollarSign,
-    FileText,
-    Search,
-    Shield,
-    TrendingUp,
+  AlertTriangle,
+  CheckCircle,
+  DollarSign,
+  FileText,
+  Search,
+  Shield,
+  TrendingUp,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -206,7 +206,7 @@ const TransactionFlow: React.FC = () => {
     <>
       <SEOHead
         {...seoData.transactionFlow}
-        title={`Transaction ${transaction.id} | flyp`}
+        title={`Transaction ${transaction.id} | UpSwitch`}
         description={`Track the progress of transaction ${transaction.id} for ${transaction.listingTitle}`}
       />
 

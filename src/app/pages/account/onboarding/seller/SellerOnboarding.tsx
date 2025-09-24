@@ -4,26 +4,26 @@ import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, Slider } from '@heroui/react';
 import confetti from 'canvas-confetti';
 import {
-    ArrowLeft,
-    ArrowRight,
-    Award,
-    Building2,
-    Calendar,
-    CheckCircle,
-    Clock,
-    Euro,
-    FileText,
-    Heart,
-    Mail,
-    MapPin,
-    Phone,
-    Shield,
-    Sparkles,
-    Star,
-    Target,
-    TrendingUp,
-    Users,
-    Zap,
+  ArrowLeft,
+  ArrowRight,
+  Award,
+  Building2,
+  Calendar,
+  CheckCircle,
+  Clock,
+  Euro,
+  FileText,
+  Heart,
+  Mail,
+  MapPin,
+  Phone,
+  Shield,
+  Sparkles,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -159,7 +159,7 @@ const SellerOnboarding: React.FC = () => {
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 Join thousands of successful entrepreneurs who've found the perfect buyers for their
-                businesses on flyp.
+                businesses on UpSwitch.
               </p>
             </div>
 
@@ -1006,7 +1006,7 @@ const SellerOnboarding: React.FC = () => {
   return (
     <>
       <SEOHead
-        title={`Step ${currentStep + 1} - Sell Your Business | flyp`}
+        title={`Step ${currentStep + 1} - Sell Your Business | UpSwitch`}
         description="Complete your seller profile in minutes and start attracting qualified buyers for your business"
         keywords="sell business, business for sale, seller onboarding, business valuation"
       />
@@ -1044,12 +1044,12 @@ const SellerOnboarding: React.FC = () => {
         {currentStep > 1 && currentStep < totalSteps - 1 && (
           <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-6">
             <div className="max-w-6xl mx-auto flex justify-between items-center">
-                <Button
-                  variant="tertiary"
-                  size="md"
-                  onPress={handleBack}
-                  startContent={<ArrowLeft className="w-5 h-5" />}
-                >
+              <Button
+                variant="tertiary"
+                size="md"
+                onPress={handleBack}
+                startContent={<ArrowLeft className="w-5 h-5" />}
+              >
                 Back
               </Button>
 

@@ -21,8 +21,8 @@ const Security = () => {
   return (
     <>
       <SEOHead
-        title="Security & Data Protection | flyp M&A Platform"
-        description="Learn about flyp' comprehensive security measures, data protection protocols, and compliance standards for M&A transactions."
+        title="Security & Data Protection | UpSwitch M&A Platform"
+        description="Learn about UpSwitch' comprehensive security measures, data protection protocols, and compliance standards for M&A transactions."
         keywords="data security, cybersecurity, encryption, secure platform, data protection, M&A security, business confidentiality"
       />
 
@@ -50,9 +50,10 @@ const Security = () => {
                 <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-6">
                     <p className="text-primary-800 font-medium">
-                      Security is at the core of everything we do at flyp. As Europe's leading M&A
-                      platform, we understand that business transactions involve highly sensitive
-                      and confidential information that requires the highest levels of protection.
+                      Security is at the core of everything we do at UpSwitch. As Europe's leading
+                      M&A platform, we understand that business transactions involve highly
+                      sensitive and confidential information that requires the highest levels of
+                      protection.
                     </p>
                   </CardBody>
                 </Card>

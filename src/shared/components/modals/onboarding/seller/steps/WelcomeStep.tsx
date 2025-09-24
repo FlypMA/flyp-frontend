@@ -15,7 +15,7 @@ const WelcomeStep: React.FC<OnboardingStepProps> = ({ onNext }) => {
         <Heart className="w-10 h-10 text-primary-600" />
       </div>
 
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">Welcome to flyp! 🎉</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Welcome to UpSwitch! 🎉</h2>
 
       <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
         We're excited to help you sell your business. Our guided process will create a professional

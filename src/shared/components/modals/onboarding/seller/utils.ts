@@ -115,7 +115,7 @@ export const formatCurrency = (amount: number): string => {
  */
 export const getStepTitle = (step: number): string => {
   const titles = [
-    'Welcome to flyp',
+    'Welcome to UpSwitch',
     'Business Type & Industry',
     'Business Name',
     'Location',

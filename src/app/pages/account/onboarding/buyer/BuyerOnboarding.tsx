@@ -2,15 +2,7 @@ import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { logger } from '@/shared/utils/logger';
-import {
-    Card,
-    CardBody,
-    Input,
-    Progress,
-    Select,
-    SelectItem,
-    Textarea,
-} from '@heroui/react';
+import { Card, CardBody, Input, Progress, Select, SelectItem, Textarea } from '@heroui/react';
 import { Bell, CheckCircle, ChevronLeft, Euro, MapPin, Star, Target } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -270,7 +262,7 @@ const BuyerOnboarding = () => {
   return (
     <>
       <SEOHead
-        title="Buyer Onboarding | flyp"
+        title="Buyer Onboarding | UpSwitch"
         description="Set up your buyer profile and investment criteria"
         keywords="buyer onboarding, investment criteria, business search"
       />
@@ -280,7 +272,7 @@ const BuyerOnboarding = () => {
           <div className="max-w-3xl mx-auto py-12">
             {/* Progress Header */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Welcome to flyp</h1>
+              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Welcome to UpSwitch</h1>
               <p className="text-lg text-neutral-600 mb-6">
                 Let's set up your buyer profile to find the perfect business opportunities
               </p>
@@ -735,7 +727,12 @@ const BuyerOnboarding = () => {
                       Continue
                     </Button>
                   ) : (
-                    <Button variant="primary" size="lg" onPress={handleComplete} isLoading={isSubmitting}>
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onPress={handleComplete}
+                      isLoading={isSubmitting}
+                    >
                       {isSubmitting ? 'Setting up...' : 'Start Searching'}
                     </Button>
                   )}

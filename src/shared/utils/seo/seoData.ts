@@ -3,7 +3,7 @@ import { SEOProps } from '../../types/seo';
 export const seoData: Record<string, SEOProps> = {
   // ============= MAIN LANDING PAGES =============
   home: {
-    title: 'flyp | European SME M&A Platform - Buy & Sell Businesses',
+    title: 'UpSwitch | European SME M&A Platform - Buy & Sell Businesses',
     description:
       "Europe's most trusted platform for buying and selling SME businesses. Connect with qualified buyers and sellers across 15+ countries. Confidential, secure M&A transactions with expert support.",
     keywords:
@@ -12,8 +12,8 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': ['WebSite', 'Organization'],
-      name: 'flyp',
-      alternateName: 'flyp.com',
+      name: 'UpSwitch',
+      alternateName: 'upswitch.com',
       url: 'https://www.upswitch.com',
       description:
         'European SME M&A platform connecting business buyers and sellers across 15+ countries',
@@ -38,7 +38,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   sellers: {
-    title: 'For Business Sellers - Sell Your Business Confidentially | flyp',
+    title: 'For Business Sellers - Sell Your Business Confidentially | UpSwitch',
     description:
       "List your business for sale on Europe's leading M&A platform. Reach qualified buyers, maintain complete confidentiality, and maximize your business value with professional tools and expert support.",
     keywords:
@@ -58,7 +58,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   buyers: {
-    title: 'For Business Buyers - Find Your Next Acquisition | flyp',
+    title: 'For Business Buyers - Find Your Next Acquisition | UpSwitch',
     description:
       'Discover verified business opportunities across Europe. Access confidential listings, connect with serious sellers, and find your perfect acquisition with comprehensive due diligence tools.',
     keywords:
@@ -78,7 +78,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   pricing: {
-    title: 'Pricing Plans - Transparent M&A Platform Costs | flyp',
+    title: 'Pricing Plans - Transparent M&A Platform Costs | UpSwitch',
     description:
       'Simple, transparent pricing for business sales and acquisitions. Success-based fees with no upfront costs. Compare our plans and start your M&A journey today.',
     keywords:
@@ -99,7 +99,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= SEARCH & LISTINGS =============
   search: {
-    title: 'Browse Business Opportunities - European SME Marketplace | flyp',
+    title: 'Browse Business Opportunities - European SME Marketplace | UpSwitch',
     description:
       'Search thousands of verified business opportunities across Europe. Filter by industry, location, revenue, and price to find your perfect acquisition target.',
     keywords:
@@ -108,7 +108,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   listingDetails: {
-    title: 'Business Details - Confidential Listing | flyp',
+    title: 'Business Details - Confidential Listing | UpSwitch',
     description:
       'View detailed information about this business opportunity. Access financials, operations data, and connect with the seller through our secure platform.',
     keywords:
@@ -118,7 +118,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= DASHBOARDS =============
   sellerDashboard: {
-    title: 'Seller Dashboard - Manage Your Business Listings | flyp',
+    title: 'Seller Dashboard - Manage Your Business Listings | UpSwitch',
     description:
       'Manage your business listings, track inquiries, review offers, and monitor your sale progress. Complete M&A tools for business sellers.',
     keywords:
@@ -128,7 +128,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   buyerDashboard: {
-    title: 'Buyer Dashboard - Track Your Acquisitions | flyp',
+    title: 'Buyer Dashboard - Track Your Acquisitions | UpSwitch',
     description:
       'Manage your saved searches, track business opportunities, monitor due diligence progress, and communicate with sellers.',
     keywords:
@@ -139,7 +139,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= TRANSACTION & PROCESS =============
   transactionFlow: {
-    title: 'Transaction Management - M&A Process Tools | flyp',
+    title: 'Transaction Management - M&A Process Tools | UpSwitch',
     description:
       'Comprehensive transaction management tools for M&A deals. Track due diligence, manage offers, handle documentation, and complete your business acquisition or sale.',
     keywords:
@@ -149,7 +149,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   createListing: {
-    title: 'List Your Business for Sale - Create Listing | flyp',
+    title: 'List Your Business for Sale - Create Listing | UpSwitch',
     description:
       'Create a professional business listing to attract qualified buyers. Our guided process helps you present your business professionally while maintaining confidentiality.',
     keywords:
@@ -160,34 +160,34 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= LEGAL PAGES =============
   privacy: {
-    title: 'Privacy Policy - Data Protection & Security | flyp',
+    title: 'Privacy Policy - Data Protection & Security | UpSwitch',
     description:
-      'Learn how flyp protects your personal data and business information. Our commitment to privacy and security in M&A transactions.',
+      'Learn how UpSwitch protects your personal data and business information. Our commitment to privacy and security in M&A transactions.',
     keywords:
       'privacy policy, data protection, GDPR compliance, business confidentiality, information security, data privacy',
     type: 'website',
   },
 
   terms: {
-    title: 'Terms & Conditions - Platform Usage Terms | flyp',
+    title: 'Terms & Conditions - Platform Usage Terms | UpSwitch',
     description:
-      'Terms and conditions for using the flyp M&A platform. User agreements, platform rules, and legal framework for business transactions.',
+      'Terms and conditions for using the UpSwitch M&A platform. User agreements, platform rules, and legal framework for business transactions.',
     keywords:
       'terms of service, platform terms, user agreement, legal terms, usage conditions, M&A platform rules',
     type: 'website',
   },
 
   cookies: {
-    title: 'Cookie Policy - Website Cookies & Tracking | flyp',
+    title: 'Cookie Policy - Website Cookies & Tracking | UpSwitch',
     description:
-      'Information about how flyp uses cookies and tracking technologies to improve your experience on our M&A platform.',
+      'Information about how UpSwitch uses cookies and tracking technologies to improve your experience on our M&A platform.',
     keywords:
       'cookie policy, website cookies, tracking cookies, privacy settings, cookie preferences, website analytics',
     type: 'website',
   },
 
   security: {
-    title: 'Security & Data Protection - Secure M&A Platform | flyp',
+    title: 'Security & Data Protection - Secure M&A Platform | UpSwitch',
     description:
       'Learn about our comprehensive security measures protecting your business data and transactions. Bank-level security for M&A deals.',
     keywords:
@@ -196,7 +196,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   gdpr: {
-    title: 'GDPR Compliance - European Data Protection | flyp',
+    title: 'GDPR Compliance - European Data Protection | UpSwitch',
     description:
       'Our commitment to GDPR compliance and European data protection standards. How we handle and protect your personal and business data.',
     keywords:
@@ -206,16 +206,16 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= SUPPORT & RESOURCES =============
   help: {
-    title: 'Help Center - M&A Platform Support | flyp',
+    title: 'Help Center - M&A Platform Support | UpSwitch',
     description:
-      'Get help with using the flyp platform. Guides, tutorials, and support for buyers and sellers in M&A transactions.',
+      'Get help with using the UpSwitch platform. Guides, tutorials, and support for buyers and sellers in M&A transactions.',
     keywords:
       'help center, platform support, M&A help, user guides, transaction support, platform tutorials, customer support',
     type: 'website',
   },
 
   contact: {
-    title: 'Contact Us - M&A Platform Support & Sales | flyp',
+    title: 'Contact Us - M&A Platform Support & Sales | UpSwitch',
     description:
       'Get in touch with our M&A experts. Support for buyers and sellers, platform questions, and professional advisory services.',
     keywords:
@@ -224,9 +224,9 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   faq: {
-    title: 'Frequently Asked Questions - M&A Platform FAQ | flyp',
+    title: 'Frequently Asked Questions - M&A Platform FAQ | UpSwitch',
     description:
-      'Common questions about buying and selling businesses on flyp. Get answers about our platform, fees, process, and security.',
+      'Common questions about buying and selling businesses on UpSwitch. Get answers about our platform, fees, process, and security.',
     keywords:
       'FAQ, frequently asked questions, M&A questions, platform FAQ, business sale questions, buyer questions, seller questions',
     type: 'website',
@@ -234,7 +234,7 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= RESOURCES =============
   valuationGuide: {
-    title: 'Business Valuation Guide - How to Value Your Business | flyp',
+    title: 'Business Valuation Guide - How to Value Your Business | UpSwitch',
     description:
       'Comprehensive guide to business valuation methods, tools, and best practices. Learn how to accurately value your business for sale.',
     keywords:
@@ -257,7 +257,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   dueDiligenceChecklist: {
-    title: 'Due Diligence Checklist - M&A Due Diligence Guide | flyp',
+    title: 'Due Diligence Checklist - M&A Due Diligence Guide | UpSwitch',
     description:
       'Complete due diligence checklist for business acquisitions. Essential documents, financial review, and legal considerations for M&A transactions.',
     keywords:
@@ -281,16 +281,16 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= COMPANY =============
   about: {
-    title: 'About flyp - Next-Generation M&A Platform | flyp',
+    title: 'About UpSwitch - Next-Generation M&A Platform | UpSwitch',
     description:
-      'Learn about flyp, the next-generation M&A platform launching in 2025. Our mission to modernize European SME transactions with AI-powered technology.',
+      'Learn about UpSwitch, the next-generation M&A platform launching in 2025. Our mission to modernize European SME transactions with AI-powered technology.',
     keywords:
-      'about flyp, startup, M&A platform, European M&A, digital transformation, 2025 launch, AI-powered matching, beta waitlist',
+      'about UpSwitch, startup, M&A platform, European M&A, digital transformation, 2025 launch, AI-powered matching, beta waitlist',
     type: 'website',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'flyp',
+      name: 'UpSwitch',
       url: 'https://www.upswitch.com',
       description:
         'Next-generation M&A platform launching 2025 to modernize European SME transactions',
@@ -302,17 +302,17 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= ERROR PAGES =============
   notFound: {
-    title: 'Page Not Found - 404 Error | flyp',
+    title: 'Page Not Found - 404 Error | UpSwitch',
     description:
-      'The page you are looking for could not be found. Return to the flyp homepage to continue browsing business opportunities.',
-    keywords: '404 error, page not found, missing page, flyp error',
+      'The page you are looking for could not be found. Return to the UpSwitch homepage to continue browsing business opportunities.',
+    keywords: '404 error, page not found, missing page, UpSwitch error',
     type: 'website',
     noIndex: true,
   },
 
   // ============= ONBOARDING =============
   sellerOnboarding: {
-    title: 'Seller Registration - Join flyp as a Business Seller',
+    title: 'Seller Registration - Join UpSwitch as a Business Seller',
     description:
       "Complete your seller registration to list your business on Europe's leading M&A platform. Verify your identity and start reaching qualified buyers.",
     keywords:
@@ -322,7 +322,7 @@ export const seoData: Record<string, SEOProps> = {
   },
 
   buyerOnboarding: {
-    title: 'Buyer Registration - Join flyp as a Business Buyer',
+    title: 'Buyer Registration - Join UpSwitch as a Business Buyer',
     description:
       'Complete your buyer registration to access exclusive business opportunities. Verify your investment capacity and connect with business sellers.',
     keywords:
@@ -333,9 +333,9 @@ export const seoData: Record<string, SEOProps> = {
 
   // ============= CHECKOUT =============
   checkoutSuccess: {
-    title: 'Payment Successful - Thank You | flyp',
+    title: 'Payment Successful - Thank You | UpSwitch',
     description:
-      'Your payment has been processed successfully. Thank you for choosing flyp for your M&A transaction.',
+      'Your payment has been processed successfully. Thank you for choosing UpSwitch for your M&A transaction.',
     keywords: 'payment success, transaction complete, payment confirmation, thank you page',
     type: 'website',
     noIndex: true, // Private checkout result
@@ -373,7 +373,7 @@ export const generateListingSEO = (listing: {
   const locationText = listing.location ? ` in ${listing.location}` : '';
 
   return {
-    title: `${listing.title}${priceText} | Business for Sale${locationText} | flyp`,
+    title: `${listing.title}${priceText} | Business for Sale${locationText} | UpSwitch`,
     description:
       listing.description ||
       `${listing.title} - Premium business opportunity for sale${locationText}. View detailed financials, operations data, and connect with the seller through our secure M&A platform.`,
@@ -414,7 +414,7 @@ export const generateSearchSEO = (filters: {
   const searchTerm = parts.length > 0 ? parts.join(' ') : 'Business Opportunities';
 
   return {
-    title: `${searchTerm} | Search Results | flyp`,
+    title: `${searchTerm} | Search Results | UpSwitch`,
     description: `Find ${searchTerm.toLowerCase()} on Europe's leading M&A platform. Browse verified business opportunities${filters.location ? ` in ${filters.location}` : ' across Europe'} with comprehensive due diligence information.`,
     keywords: `${searchTerm}, business search, SME opportunities, ${filters.industry || 'business'} for sale, M&A marketplace, investment opportunities`,
     type: 'website',

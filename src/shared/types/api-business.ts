@@ -1,5 +1,5 @@
 /**
- * 🏢 Business API Types - flyp MVP
+ * 🏢 Business API Types - UpSwitch MVP
  *
  * Business-specific API type definitions for listings, valuations,
  * transactions, and M&A operations.

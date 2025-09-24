@@ -149,7 +149,7 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
             ) : (
               <div className="space-y-4">
                 <div className="text-center py-8">
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Welcome to Flyp</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Welcome to UpSwitch</h3>
                   <p className="text-gray-500 mb-6">Sign in to manage your business</p>
                 </div>
 

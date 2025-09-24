@@ -278,7 +278,7 @@ const PrivacyPolicy = () => {
         <div className="mt-12 p-6 bg-gray-50 border border-gray-200 rounded-lg">
           <p className="text-sm text-gray-600">
             <strong>Note:</strong> This Privacy Policy is designed to meet modern privacy
-            requirements including GDPR for flyp' M&A platform. For production use, we recommend
+            requirements including GDPR for UpSwitch' M&A platform. For production use, we recommend
             review by qualified privacy counsel to ensure full compliance with all applicable
             jurisdictions and evolving privacy regulations.
           </p>

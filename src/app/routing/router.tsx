@@ -1,5 +1,5 @@
 /**
- * 🚀 MVP Router - flyp MVP
+ * 🚀 MVP Router - UpSwitch MVP
  * Complete routing for MVP with all pages and URL generator integration
  *
  * MVP APPROACH:

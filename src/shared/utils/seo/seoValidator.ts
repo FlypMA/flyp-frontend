@@ -14,7 +14,7 @@ export const validateSEO = (seoProps: SEOProps): SEOValidationResult => {
       warnings.push(`Title is ${titleLength} characters (recommended: 30-60 characters)`);
     }
 
-    if (!seoProps.title.includes('flyp')) {
+    if (!seoProps.title.includes('UpSwitch')) {
       suggestions.push('Consider including "Upswitch" in the title for brand consistency');
     }
   } else {

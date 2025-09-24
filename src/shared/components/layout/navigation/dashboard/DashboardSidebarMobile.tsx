@@ -270,7 +270,7 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
 
           {/* Footer */}
           <div className="p-4 border-t border-gray-200">
-            <div className="text-xs text-gray-500 text-center">flyp Dashboard</div>
+            <div className="text-xs text-gray-500 text-center">UpSwitch Dashboard</div>
           </div>
         </div>
       </div>

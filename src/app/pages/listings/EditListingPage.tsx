@@ -96,9 +96,9 @@ const EditListingPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Edit Business Listing | flyp"
-        description="Update your business listing on flyp. Modify your listing details to attract the right buyers."
-        keywords="edit business listing, update listing, business for sale, flyp"
+        title="Edit Business Listing | UpSwitch"
+        description="Update your business listing on UpSwitch. Modify your listing details to attract the right buyers."
+        keywords="edit business listing, update listing, business for sale, UpSwitch"
       />
 
       <SellerOnboardingModal

@@ -154,43 +154,45 @@ const BusinessValuation = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
-        <p className="mt-2 text-gray-600">
-          Get professional business valuations and track your business value over time.
-        </p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="flex-1 px-8 py-8">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Business Valuation</h1>
+          <p className="mt-2 text-gray-600">
+            Get professional business valuations and track your business value over time.
+          </p>
+        </div>
+
+        {/* Valuation Dashboard */}
+        <ValuationDashboard
+          currentValuation={businessValuation}
+          historicalValuations={historicalValuations}
+          onCreateValuation={handleCreateValuation}
+          onCreateListing={() => handleListingNudge(null, businessValuation?.estimated_value || 0)}
+          onUpdateValuation={() => {
+            // TODO: Navigate to valuation update wizard
+          }}
+        />
+
+        {/* Valuation Modal */}
+        <ValuationModal
+          isOpen={isValuationModalOpen}
+          onClose={() => setIsValuationModalOpen(false)}
+          onSignupPrompt={() => {}} // Not used for authenticated users
+          onComplete={() => {}} // Fallback
+        />
+
+        {/* Listing Nudge Modal */}
+        <ListingNudgeModal
+          isOpen={isListingNudgeModalOpen}
+          onClose={() => setIsListingNudgeModalOpen(false)}
+          onCreateListing={handleCreateListingFromNudge}
+          businessValue={currentBusinessValue}
+          businessName={user?.company_name || 'Your Business'}
+          industry={user?.industry || 'your industry'}
+        />
       </div>
-
-      {/* Valuation Dashboard */}
-      <ValuationDashboard
-        currentValuation={businessValuation}
-        historicalValuations={historicalValuations}
-        onCreateValuation={handleCreateValuation}
-        onCreateListing={() => handleListingNudge(null, businessValuation?.estimated_value || 0)}
-        onUpdateValuation={() => {
-          // TODO: Navigate to valuation update wizard
-        }}
-      />
-
-      {/* Valuation Modal */}
-      <ValuationModal
-        isOpen={isValuationModalOpen}
-        onClose={() => setIsValuationModalOpen(false)}
-        onSignupPrompt={() => {}} // Not used for authenticated users
-        onComplete={() => {}} // Fallback
-      />
-
-      {/* Listing Nudge Modal */}
-      <ListingNudgeModal
-        isOpen={isListingNudgeModalOpen}
-        onClose={() => setIsListingNudgeModalOpen(false)}
-        onCreateListing={handleCreateListingFromNudge}
-        businessValue={currentBusinessValue}
-        businessName={user?.company_name || 'Your Business'}
-        industry={user?.industry || 'your industry'}
-      />
     </div>
   );
 };

@@ -438,6 +438,6 @@ export const upswitchTheme = {
 
 // Legacy export for backward compatibility
 export const BetweendealsTheme = upswitchTheme;
-export const flypTheme = upswitchTheme; // Legacy support
+export const UpSwitchTheme = upswitchTheme; // Legacy support - deprecated
 
 export default upswitchTheme;

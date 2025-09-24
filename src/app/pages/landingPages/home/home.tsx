@@ -220,8 +220,8 @@ const Home = () => {
               <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-3xl mx-auto">
                 Whether you're ready to sell your life's work or looking to acquire your first
                 business, we provide the guidance, support, and expertise to make it happen safely
-                and successfully. Join thousands of business owners who trust flyp with their most
-                important decisions.
+                and successfully. Join thousands of business owners who trust UpSwitch with their
+                most important decisions.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

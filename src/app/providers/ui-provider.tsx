@@ -1,5 +1,5 @@
 /**
- * 🎨 UI Provider - flyp MVP
+ * 🎨 UI Provider - UpSwitch MVP
  * Basic UI state management
  *
  * MVP APPROACH:

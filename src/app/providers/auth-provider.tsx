@@ -1,5 +1,5 @@
 /**
- * 🔐 Auth Provider - flyp MVP
+ * 🔐 Auth Provider - UpSwitch MVP
  * Combined authentication and modal management
  *
  * MVP APPROACH:

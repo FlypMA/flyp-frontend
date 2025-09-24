@@ -1,5 +1,5 @@
 /**
- * 🧪 Role Test Page - flyp MVP
+ * 🧪 Role Test Page - UpSwitch MVP
  * Test page to verify role-based route protection is working
  *
  * This page demonstrates:

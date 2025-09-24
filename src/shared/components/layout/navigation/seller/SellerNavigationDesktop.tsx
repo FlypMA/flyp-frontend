@@ -52,7 +52,7 @@ const SellerNavigationDesktop: React.FC<SellerNavigationDesktopProps> = ({
       label: 'Overview',
       path: UrlGenerator.myBusiness(),
       isActive: (pathname: string) =>
-        pathname === UrlGenerator.myBusiness() || pathname.startsWith('/my-business'),
+        pathname === UrlGenerator.myBusiness() || pathname === '/my-business/overview',
     },
     {
       label: 'Valuation',

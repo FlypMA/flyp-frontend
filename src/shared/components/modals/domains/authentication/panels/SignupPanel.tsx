@@ -50,7 +50,7 @@ export const SignupPanel: React.FC<SignupPanelProps> = ({
         <div className="max-w-sm mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Join flyp</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Join UpSwitch</h1>
             <p className="text-gray-600">Create your account to get started</p>
           </div>
 

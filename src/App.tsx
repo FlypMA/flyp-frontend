@@ -1,5 +1,5 @@
 /**
- * 🏠 App Component - flyp MVP
+ * 🏠 App Component - UpSwitch MVP
  *
  * This is the root component of the application that:
  * - Sets up the application shell (providers, routing, error boundaries)
@@ -62,19 +62,11 @@ const ErrorFallback = ({
       )}
 
       <div className="space-y-3">
-        <Button
-          variant="primary"
-          fullWidth
-          onClick={resetErrorBoundary}
-        >
+        <Button variant="primary" fullWidth onClick={resetErrorBoundary}>
           Try again
         </Button>
 
-        <Button
-          variant="secondary"
-          fullWidth
-          onClick={() => (window.location.href = '/')}
-        >
+        <Button variant="secondary" fullWidth onClick={() => (window.location.href = '/')}>
           Go to Home
         </Button>
       </div>

@@ -95,7 +95,7 @@ export class AuthenticationService {
       // Check for development bypass
       if (isDevBypassEnabled()) {
         // Clear the dev logout flag when creating account
-        localStorage.removeItem('flyp_dev_logged_out');
+        localStorage.removeItem('UpSwitch_dev_logged_out');
         const mockUser = createMockUser(email, role);
         return { success: true, user: mockUser };
       }
@@ -157,7 +157,7 @@ export class AuthenticationService {
       // Check for development bypass
       if (isDevBypassEnabled()) {
         // Clear the dev logout flag when logging back in
-        localStorage.removeItem('flyp_dev_logged_out');
+        localStorage.removeItem('UpSwitch_dev_logged_out');
         const mockUser = createMockUser(email);
         return { success: true, user: mockUser };
       }
@@ -211,7 +211,7 @@ export class AuthenticationService {
     try {
       // Handle dev bypass logout
       if (isDevBypassEnabled()) {
-        localStorage.setItem('flyp_dev_logged_out', 'true');
+        localStorage.setItem('UpSwitch_dev_logged_out', 'true');
         SessionManager.clearSession();
         return { success: true };
       }
@@ -250,7 +250,7 @@ export class AuthenticationService {
       // Check for development bypass
       if (isDevBypassEnabled()) {
         // Check if user has explicitly logged out in dev mode
-        const hasLoggedOut = localStorage.getItem('flyp_dev_logged_out');
+        const hasLoggedOut = localStorage.getItem('UpSwitch_dev_logged_out');
         if (hasLoggedOut === 'true') {
           return {
             isAuthenticated: false,
@@ -275,7 +275,7 @@ export class AuthenticationService {
       }
 
       // If no local session, check if we have any indication of a session
-      const hasSessionFlag = localStorage.getItem('flyp_has_session');
+      const hasSessionFlag = localStorage.getItem('UpSwitch_has_session');
       if (!hasSessionFlag) {
         // Only log once per session to avoid spam
         if (!this._hasLoggedNoSession) {

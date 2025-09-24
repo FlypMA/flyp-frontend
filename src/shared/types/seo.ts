@@ -1,7 +1,7 @@
 /**
  * SEO Types and Interfaces
  *
- * Centralized SEO type definitions for the flyp platform.
+ * Centralized SEO type definitions for the UpSwitch platform.
  * Used across components, pages, and utilities for consistent SEO handling.
  */
 

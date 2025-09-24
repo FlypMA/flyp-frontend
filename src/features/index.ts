@@ -1,5 +1,5 @@
 /**
- * 🚀 Features Index - flyp MVP
+ * 🚀 Features Index - UpSwitch MVP
  * Central export point for all features organized by development phases
  *
  * PHASE STRUCTURE:

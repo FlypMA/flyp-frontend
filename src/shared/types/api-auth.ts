@@ -1,5 +1,5 @@
 /**
- * 🔐 Authentication API Types - flyp MVP
+ * 🔐 Authentication API Types - UpSwitch MVP
  *
  * Authentication and authorization API type definitions for secure
  * user management and access control.

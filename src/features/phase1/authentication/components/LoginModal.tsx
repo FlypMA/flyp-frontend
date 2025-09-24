@@ -256,7 +256,7 @@ const LoginModal: React.FC = () => {
                     display: 'block',
                   }}
                 />
-                <span className="text-xl font-bold text-gray-900 ml-2">flyp</span>
+                <span className="text-xl font-bold text-gray-900 ml-2">UpSwitch</span>
               </a>
             </div>
 

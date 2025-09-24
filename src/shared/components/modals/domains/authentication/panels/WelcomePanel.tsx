@@ -15,7 +15,7 @@ interface WelcomePanelProps {
 export const WelcomePanel: React.FC<WelcomePanelProps> = ({ type, onSwitchType }) => {
   const content = {
     login: {
-      title: 'Welcome back to flyp',
+      title: 'Welcome back to UpSwitch',
       subtitle: 'Continue your business journey',
       features: [
         'Access your business dashboard',
@@ -25,7 +25,7 @@ export const WelcomePanel: React.FC<WelcomePanelProps> = ({ type, onSwitchType }
       ],
     },
     signup: {
-      title: 'Start your flyp journey',
+      title: 'Start your UpSwitch journey',
       subtitle: 'Join thousands of successful business owners',
       features: [
         'List your business for sale',

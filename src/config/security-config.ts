@@ -1,5 +1,5 @@
 /**
- * 🔒 Security Configuration - flyp MVP
+ * 🔒 Security Configuration - UpSwitch MVP
  * Security settings for the MVP application
  */
 
@@ -16,8 +16,8 @@ export const isProduction = (import.meta as any).env?.PROD;
 
 export const SECURITY_CONFIG = {
   // Token storage
-  TOKEN_STORAGE_KEY: 'flyp_token',
-  REFRESH_TOKEN_KEY: 'flyp_refresh_token',
+  TOKEN_STORAGE_KEY: 'UpSwitch_token',
+  REFRESH_TOKEN_KEY: 'UpSwitch_refresh_token',
   TOKEN_REFRESH_THRESHOLD: 300000, // 5 minutes
   REQUEST_ID_HEADER: 'X-Request-ID',
 

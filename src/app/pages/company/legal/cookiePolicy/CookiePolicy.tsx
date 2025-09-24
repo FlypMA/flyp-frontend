@@ -34,8 +34,8 @@ const CookiePolicy = () => {
                 <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-6">
                     <p className="text-primary-800 font-medium">
-                      This Cookie Policy explains how flyp ("we," "us," or "our") uses cookies and
-                      similar technologies when you visit our website and platform. This policy
+                      This Cookie Policy explains how UpSwitch ("we," "us," or "our") uses cookies
+                      and similar technologies when you visit our website and platform. This policy
                       should be read together with our Privacy Policy.
                     </p>
                   </CardBody>

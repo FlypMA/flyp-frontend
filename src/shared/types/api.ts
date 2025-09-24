@@ -1,5 +1,5 @@
 /**
- * 🔌 API Types - flyp MVP
+ * 🔌 API Types - UpSwitch MVP
  *
  * Comprehensive API type definitions for consistent request/response handling
  * across the entire application.

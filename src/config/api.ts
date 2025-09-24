@@ -1,5 +1,5 @@
 /**
- * 🔌 API Configuration - flyp MVP
+ * 🔌 API Configuration - UpSwitch MVP
  *
  * Centralized API configuration and client setup for consistent
  * API interactions across the application.
