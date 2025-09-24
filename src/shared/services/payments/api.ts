@@ -1,7 +1,7 @@
 /**
  * 💳 Payments API Service
  * Location: src/shared/services/payments/api.ts
- * Purpose: Payment-related API functionality for Flyp platform
+ * Purpose: Payment-related API functionality for UpSwitch platform
  */
 
 // =============================================================================

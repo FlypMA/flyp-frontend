@@ -318,7 +318,7 @@ const SignupModal: React.FC = () => {
                       <>
                         <div className="mb-8">
                           <h1 className="text-2xl font-semibold text-slate-900 text-left">
-                            Join Flyp
+                            Join UpSwitch
                           </h1>
                           <p className="text-base text-slate-600 mt-2 text-left">
                             Already have an account?{' '}
