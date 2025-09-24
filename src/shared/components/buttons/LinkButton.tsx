@@ -10,11 +10,11 @@ export interface LinkButtonProps extends Omit<ButtonProps, 'variant'> {}
 
 /**
  * Link Button Component
- * 
+ *
  * Used for text-only actions that should look like links.
  * Features primary color text with hover underline effect.
  */
-export const LinkButton: React.FC<LinkButtonProps> = (props) => {
+export const LinkButton: React.FC<LinkButtonProps> = props => {
   return <Button variant="link" {...props} />;
 };
 

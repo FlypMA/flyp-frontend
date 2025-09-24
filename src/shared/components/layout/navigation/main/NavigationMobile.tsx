@@ -97,9 +97,9 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
+                <span className="text-white font-bold text-sm">U</span>
               </div>
-              <span className="text-lg font-semibold text-gray-900">Flyp</span>
+              <span className="text-lg font-semibold text-gray-900">Upswitch</span>
             </div>
 
             <button

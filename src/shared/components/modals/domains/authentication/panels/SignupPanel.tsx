@@ -6,10 +6,7 @@
 
 import { Button } from '@/shared/components/buttons';
 import React, { useState } from 'react';
-import {
-    CustomInputField,
-    CustomPasswordInputField,
-} from '../../../../forms';
+import { CustomInputField, CustomPasswordInputField } from '../../../../forms';
 
 interface SignupPanelProps {
   onClose: () => void;
@@ -38,11 +35,10 @@ export const SignupPanel: React.FC<SignupPanelProps> = ({
 
     try {
       // TODO: Implement actual signup logic
-      console.log('Signup attempt:', formData);
       onSuccess?.({}); // Mock success
       onClose();
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error('Signup error:', error);
     } finally {
       setIsLoading(false);
     }

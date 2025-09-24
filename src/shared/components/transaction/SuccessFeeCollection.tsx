@@ -1,28 +1,28 @@
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Chip,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    Progress,
-    Select,
-    SelectItem,
+  Card,
+  CardBody,
+  CardHeader,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Progress,
+  Select,
+  SelectItem,
 } from '@heroui/react';
 import {
-    AlertTriangle,
-    Calendar,
-    Clock,
-    CreditCard,
-    DollarSign,
-    Download,
-    Euro,
-    Receipt,
-    Shield,
-    TrendingUp
+  AlertTriangle,
+  Calendar,
+  Clock,
+  CreditCard,
+  DollarSign,
+  Download,
+  Euro,
+  Receipt,
+  Shield,
+  TrendingUp,
 } from 'lucide-react';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -199,7 +199,6 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
 
   const handleDownloadInvoice = (fee: SuccessFee) => {
     // Mock download
-    // console.log('Downloading invoice:', fee.invoiceNumber);
   };
 
   return (

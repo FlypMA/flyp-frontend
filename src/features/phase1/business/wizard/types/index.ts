@@ -132,7 +132,7 @@ export interface WizardStep {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   isCompleted: boolean;
   isActive: boolean;
 }

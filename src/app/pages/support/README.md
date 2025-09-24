@@ -1,6 +1,6 @@
 # 📞 Support Pages - MVP Version
 
-**Customer support and help center pages for the flyp platform.**
+**Customer support and help center pages for the Upswitch platform.**
 
 ## 📁 **Folder Structure**
 
@@ -42,12 +42,12 @@ support/
 - **Features**:
   - ✅ **Basic FAQ**: Common questions and answers
   - ✅ **Simple Layout**: Clean, easy-to-read format
-  - ✅ **Platform Information**: How flyp works
+  - ✅ **Platform Information**: How Upswitch works
   - ✅ **Quick Answers**: Fast access to common information
 
 **Content Areas**:
 
-- How flyp works
+- How Upswitch works
 - How to list a business
 - How to buy a business
 - Pricing information
@@ -198,7 +198,7 @@ User needs help
 
 ### **Support Channels**:
 
-- **Email**: hello@flyp.com
+- **Email**: hello@upswitch.com
 - **Phone**: +32 (0) 123 456 789
 - **Response Time**: 24 hours
 - **Languages**: English, Dutch, French

@@ -49,7 +49,7 @@ const About = () => {
 
               <div className="space-y-8 text-lg text-neutral-700 leading-relaxed">
                 <p>
-                  flyp is being built to solve one of Europe's biggest business challenges: the
+                  Upswitch is being built to solve one of Europe's biggest business challenges: the
                   fragmented, inefficient SME M&A market. With 2.8 million SMEs across Europe
                   seeking exit strategies and a €125 billion annual market plagued by 18-24 month
                   sale cycles, we saw an opportunity to modernize an entire industry.
@@ -70,9 +70,9 @@ const About = () => {
                 </p>
 
                 <p>
-                  We're building flyp because every entrepreneur deserves a transparent, efficient
-                  path to their next chapter – whether that's buying their first business or selling
-                  the company they've spent decades building.
+                  We're building Upswitch because every entrepreneur deserves a transparent,
+                  efficient path to their next chapter – whether that's buying their first business
+                  or selling the company they've spent decades building.
                 </p>
               </div>
             </div>
@@ -286,21 +286,13 @@ const About = () => {
                 buy your first business, sell your life's work, or expand your investment portfolio,
                 we're here to support your journey every step of the way.
               </p>
-              
+
               {/* CTA Section */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onPress={() => openModal('signup')}
-                >
+                <Button variant="primary" size="lg" onPress={() => openModal('signup')}>
                   Join Our Community
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onPress={() => navigate('/contact')}
-                >
+                <Button variant="secondary" size="lg" onPress={() => navigate('/contact')}>
                   Get in Touch
                 </Button>
               </div>

@@ -106,6 +106,7 @@ export default [
     ignores: [
       'dist',
       'node_modules',
+      'scripts/**/*',
       'test-*.ts',
       'test-*.js',
       '.eslintrc.js',

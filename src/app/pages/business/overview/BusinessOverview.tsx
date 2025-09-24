@@ -31,13 +31,13 @@ const BusinessOverview = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [businessInfo, setBusinessInfo] = useState<BusinessInfo | null>(null);
-  const [hasValuationReports, setHasValuationReports] = useState<boolean>(false);
+  const [hasValuationReports] = useState<boolean>(false);
   const [hasActiveListing, setHasActiveListing] = useState<boolean>(false);
   const [isBusinessProfileModalOpen, setIsBusinessProfileModalOpen] = useState<boolean>(false);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState<boolean>(false);
   const [isValuationModalOpen, setIsValuationModalOpen] = useState<boolean>(false);
   const [isListingNudgeModalOpen, setIsListingNudgeModalOpen] = useState<boolean>(false);
-  const [currentValuationData, setCurrentValuationData] = useState<any>(null);
+  // const [currentValuationData] = useState<unknown>(null);
   const [currentBusinessValue, setCurrentBusinessValue] = useState<number>(0);
   // const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   // const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
@@ -139,7 +139,6 @@ const BusinessOverview = () => {
 
   const handleSaveBusinessInfo = (data: BusinessInfo) => {
     setBusinessInfo(data);
-    console.log('Business info saved:', data);
   };
 
   const handleCreateValuation = () => {
@@ -151,8 +150,7 @@ const BusinessOverview = () => {
     setIsListingWizardModalOpen(false);
   };
 
-  const handleListingNudge = (valuationData: any, businessValue: number) => {
-    setCurrentValuationData(valuationData);
+  const handleListingNudge = (valuationData: unknown, businessValue: number) => {
     setCurrentBusinessValue(businessValue);
     setIsListingNudgeModalOpen(true);
   };
@@ -230,8 +228,6 @@ const BusinessOverview = () => {
                 industryAverage={7.2}
                 monthsValid={-13}
                 onView={() => navigate('/my-business/valuations')}
-                onDownload={() => console.log('Download report')}
-                onShare={() => console.log('Share report')}
                 onUpdate={() => navigate('/my-business/valuations')}
                 onCreateListing={() => handleListingNudge(null, 850000)}
               />

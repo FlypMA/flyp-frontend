@@ -11,9 +11,8 @@
 // - Data synchronization between Auth and public.users
 // - Type-safe user data operations
 
-import { User, UpdateProfileRequest } from '../../../types';
 import { supabase } from '../../../../config';
-import { AuthErrorHandler } from './error-handler';
+import { UpdateProfileRequest, User } from '../../../types';
 import { RetryHandler } from './retry-handler';
 
 // =============================================================================
@@ -38,7 +37,6 @@ export class UserDataManager {
 
       return result;
     } catch (error) {
-      console.warn('⚠️ Could not fetch public user data:', error);
       return null;
     }
   }
@@ -80,10 +78,8 @@ export class UserDataManager {
           throw error;
         }
       }, `Create public user record for ${user.id}`);
-
-      console.log('✅ Public user record created successfully');
     } catch (error) {
-      console.error('❌ Error creating public user record:', error);
+      console.error('Error creating public user record:', error);
       throw error;
     }
   }
@@ -115,10 +111,9 @@ export class UserDataManager {
         return data;
       }, `Update user profile for ${userId}`);
 
-      console.log('✅ Profile updated successfully');
       return result as User;
     } catch (error) {
-      console.error('❌ Profile update failed:', error);
+      console.error('Error updating user profile:', error);
       throw error;
     }
   }
@@ -155,10 +150,9 @@ export class UserDataManager {
         return data;
       }, `Update business info for ${userId}`);
 
-      console.log('✅ Business info updated successfully');
       return result as User;
     } catch (error) {
-      console.error('❌ Business info update failed:', error);
+      console.error('Error updating business info:', error);
       throw error;
     }
   }
@@ -181,15 +175,15 @@ export class UserDataManager {
         });
 
         if (authError) {
-          console.warn('⚠️ Auth metadata update failed:', authError);
+          console.error('Error updating auth user:', authError);
         }
       } catch (authError) {
-        console.warn('⚠️ Auth metadata update failed:', authError);
+        console.error('Error fetching auth user data:', authError);
       }
 
       return publicUserData;
     } catch (error) {
-      console.error('❌ Failed to update user in both tables:', error);
+      console.error('Error updating user in both tables:', error);
       throw error;
     }
   }
@@ -206,10 +200,8 @@ export class UserDataManager {
           throw error;
         }
       }, `Delete user record for ${userId}`);
-
-      console.log('✅ User record deleted successfully');
     } catch (error) {
-      console.error('❌ Error deleting user record:', error);
+      console.error('Error deleting user record:', error);
       throw error;
     }
   }
@@ -227,7 +219,6 @@ export class UserDataManager {
 
       return !!data;
     } catch (error) {
-      console.warn('⚠️ Error checking if user exists:', error);
       return false;
     }
   }

@@ -1,5 +1,5 @@
 /**
- * 🚀 Main Entry Point - flyp MVP
+ * 🚀 Main Entry Point - Upswitch MVP
  *
  * This is the application entry point that:
  * - Initializes the React application
@@ -21,7 +21,7 @@ import './index.css';
 import { logger } from './shared/utils/logger';
 
 // 🚀 Development Debug Information
-logger.info('🚀 flyp MVP starting...');
+logger.info('🚀 Upswitch MVP starting...');
 logger.info('Build time:', new Date().toISOString());
 logger.info('App shell architecture initialized');
 

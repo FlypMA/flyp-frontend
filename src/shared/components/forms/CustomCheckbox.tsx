@@ -39,7 +39,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   const hasError = error && touched;
 
   return (
-    <div className={`mb-6 ${className}`}>
+    <div className={`mb-3 ${className}`}>
       <div className="flex items-start gap-3">
         <div className="relative flex items-center">
           <input
@@ -52,24 +52,30 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
             onBlur={onBlur}
             required={required}
             disabled={disabled}
-            style={{ appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none' }}
             className={`
-              w-5 h-5 text-gray-900 bg-white border-2 border-gray-300 rounded
+              w-5 h-5 text-gray-900 border-2 rounded
               focus:ring-2 focus:ring-gray-500 focus:ring-offset-0
               transition-all duration-200
               appearance-none
               -webkit-appearance-none
               -moz-appearance-none
+              ${checked ? 'bg-primary-600 border-primary-600' : 'bg-white border-gray-300'}
               ${hasError ? 'border-red-400 focus:ring-red-500' : ''}
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}
+            style={{
+              appearance: 'none',
+              WebkitAppearance: 'none',
+              MozAppearance: 'none',
+              backgroundImage: 'none',
+            }}
             aria-describedby={description ? `${name}-description` : undefined}
             aria-invalid={hasError}
           />
           {checked && (
             <svg
               className="absolute w-3 h-3 text-white pointer-events-none"
-              style={{ top: '2px', left: '2px' }}
+              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
               fill="currentColor"
               viewBox="0 0 20 20"
             >

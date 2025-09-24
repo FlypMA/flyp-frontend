@@ -206,8 +206,8 @@ const ValuationModal: React.FC<ValuationModalProps> = ({
         onSignupPrompt(inputs);
         onClose();
       }
-    } catch {
-      // console.error('Error calculating valuation:', error);
+    } catch (error) {
+      console.error('Error calculating valuation:', error);
     } finally {
       setIsCalculating(false);
     }

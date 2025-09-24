@@ -1,26 +1,26 @@
 /**
- * flyp Logo Configuration
+ * Upswitch Logo Configuration
  * Centralized logo imports and exports for consistent usage across the platform
  */
 
 // Import the main logo from public directory with cache busting
-const flypLogo = '/flyp_logo.svg?v=2024.2';
+const upswitchLogo = '/upswitch_logo.svg?v=2024.2';
 
 // Export logo configurations for different use cases
 export const logos = {
   // Main logo for headers, navigation, and general use
-  main: flypLogo,
+  main: upswitchLogo,
 
   // For dark backgrounds (same logo, different styling context)
-  white: flypLogo,
+  white: upswitchLogo,
 
   // For light backgrounds (same logo, different styling context)
-  black: flypLogo,
+  black: upswitchLogo,
 
   // For different sizes and contexts
-  header: flypLogo,
-  footer: flypLogo,
-  sidebar: flypLogo,
+  header: upswitchLogo,
+  footer: upswitchLogo,
+  sidebar: upswitchLogo,
 
   // Favicon references (for documentation purposes)
   favicon: '/favicon.svg',
@@ -30,42 +30,42 @@ export const logos = {
 };
 
 // Export individual logo references for specific imports
-export const mainLogo = flypLogo;
-export const headerLogo = flypLogo;
-export const footerLogo = flypLogo;
+export const mainLogo = upswitchLogo;
+export const headerLogo = upswitchLogo;
+export const footerLogo = upswitchLogo;
 
 // Logo configuration with sizing information
 export const logoConfig = {
   // Standard header sizes - 48px professional logo
   header: {
-    src: flypLogo,
+    src: upswitchLogo,
     width: 48,
     height: 48,
-    alt: 'flyp - European SME M&A Platform',
+    alt: 'Upswitch - European SME M&A Platform',
   },
 
   // Footer sizes - 48px to match header
   footer: {
-    src: flypLogo,
+    src: upswitchLogo,
     width: 48,
     height: 48,
-    alt: 'flyp',
+    alt: 'Upswitch',
   },
 
   // Sidebar sizes
   sidebar: {
-    src: flypLogo,
+    src: upswitchLogo,
     width: 40,
     height: 40,
-    alt: 'flyp',
+    alt: 'Upswitch',
   },
 
   // Mobile header sizes - 48px for consistency
   mobile: {
-    src: flypLogo,
+    src: upswitchLogo,
     width: 48,
     height: 48,
-    alt: 'flyp',
+    alt: 'Upswitch',
   },
 };
 

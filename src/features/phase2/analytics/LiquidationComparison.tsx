@@ -70,7 +70,6 @@ const LiquidationComparison = () => {
           navigate('/');
         }
       } catch (error) {
-        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         setIsLoading(false);

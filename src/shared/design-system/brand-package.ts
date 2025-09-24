@@ -1,5 +1,5 @@
 /**
- * flyp.com Brand Design System — Caregiver Adaptation
+ * Upswitch.com Brand Design System — Caregiver Adaptation
  * - Warm, calm, trustworthy UI for sellers & buyers
  * - Airbnb clarity + Acquire-style professionalism
  * - Accessibility-first, emotionally safe interactions
@@ -426,7 +426,7 @@ export const DesignPrinciples = {
   },
 } as const;
 
-export const flypTheme = {
+export const upswitchTheme = {
   colors: BrandColors,
   typography: Typography,
   spacing: Spacing,
@@ -437,6 +437,7 @@ export const flypTheme = {
 } as const;
 
 // Legacy export for backward compatibility
-export const BetweendealsTheme = flypTheme;
+export const BetweendealsTheme = upswitchTheme;
+export const flypTheme = upswitchTheme; // Legacy support
 
-export default flypTheme;
+export default upswitchTheme;

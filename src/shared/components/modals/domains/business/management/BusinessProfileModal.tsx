@@ -203,8 +203,7 @@ export const BusinessProfileModal: React.FC<BusinessProfileModalProps> = ({
 
     // Debug logging
     if (Object.keys(newErrors).length > 0) {
-      console.log('Validation errors for step', step, ':', newErrors);
-      console.log('Form data:', formData);
+      console.log('Validation errors:', newErrors);
     }
 
     setErrors(newErrors);

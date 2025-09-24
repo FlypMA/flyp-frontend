@@ -58,13 +58,38 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       rollupOptions: {
         output: {
-          manualChunks: undefined, // Let Vite handle chunking automatically
+          manualChunks: {
+            // Vendor chunks
+            'vendor-react': ['react', 'react-dom', 'react-dom/client'],
+            'vendor-router': ['react-router-dom'],
+            'vendor-ui': ['@heroui/react', '@heroui/theme'],
+            'vendor-supabase': ['@supabase/supabase-js'],
+            'vendor-icons': ['react-icons'],
+            'vendor-forms': ['final-form'],
+            'vendor-motion': ['framer-motion'],
+            'vendor-utils': ['axios', 'canvas-confetti'],
+            // Feature chunks
+            'feature-auth': [
+              './src/features/phase1/authentication',
+              './src/app/providers/auth-provider.tsx',
+              './src/shared/services/auth',
+            ],
+            'feature-business': ['./src/features/phase1/business', './src/app/pages/business'],
+            'feature-conversations': [
+              './src/features/phase1/conversations',
+              './src/app/pages/messages',
+            ],
+            'feature-transactions': [
+              './src/shared/components/transaction',
+              './src/shared/components/transaction-completion',
+            ],
+          },
         },
       },
       chunkSizeWarningLimit: 1000,
     },
     esbuild: {
-      logOverride: { 'this-is-undefined-in-esm': 'silent' }
+      logOverride: { 'this-is-undefined-in-esm': 'silent' },
     },
     envPrefix: ['VITE_', 'REACT_APP_'],
     define: {

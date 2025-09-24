@@ -74,7 +74,6 @@ export class AuthenticationService {
         message: data.message,
       };
     } catch (error) {
-      // console.error('API Request failed:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Network error',
@@ -95,14 +94,11 @@ export class AuthenticationService {
     try {
       // Check for development bypass
       if (isDevBypassEnabled()) {
-        // console.log('🚀 DEV BYPASS: Simulating account creation for:', { email, name, role });
         // Clear the dev logout flag when creating account
         localStorage.removeItem('flyp_dev_logged_out');
         const mockUser = createMockUser(email, role);
         return { success: true, user: mockUser };
       }
-
-      // console.log('🔧 Creating account through backend:', { email, name, role });
 
       const response = await this.makeRequest<{
         user: User;
@@ -118,7 +114,6 @@ export class AuthenticationService {
       });
 
       if (!response.success) {
-        // console.error('Account creation failed:', response.error);
         return {
           success: false,
           error: response.error || 'Account creation failed',
@@ -135,7 +130,6 @@ export class AuthenticationService {
         SessionManager.storeSession(authResult);
       }
 
-      // console.log('✅ Account created successfully');
       return {
         success: true,
         user: response.data?.user,
@@ -143,7 +137,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Account creation failed:', error);
 
       return {
         success: false,
@@ -163,14 +156,11 @@ export class AuthenticationService {
     try {
       // Check for development bypass
       if (isDevBypassEnabled()) {
-        // console.log('🚀 DEV BYPASS: Simulating login for:', { email });
         // Clear the dev logout flag when logging back in
         localStorage.removeItem('flyp_dev_logged_out');
         const mockUser = createMockUser(email);
         return { success: true, user: mockUser };
       }
-
-      // console.log('🔐 Logging in user through backend:', { email });
 
       const response = await this.makeRequest<{
         user: User;
@@ -183,7 +173,6 @@ export class AuthenticationService {
       });
 
       if (!response.success) {
-        // console.error('Login failed:', response.error);
         return {
           success: false,
           error: response.error || 'Login failed',
@@ -200,14 +189,12 @@ export class AuthenticationService {
         SessionManager.storeSession(authResult);
       }
 
-      // console.log('✅ Login successful');
       return {
         success: true,
         user: response.data?.user,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Login failed:', error);
 
       return {
         success: false,
@@ -222,11 +209,8 @@ export class AuthenticationService {
    */
   async logout(): Promise<{ success: boolean; error?: string }> {
     try {
-      // console.log('🚪 Logging out user through backend');
-
       // Handle dev bypass logout
       if (isDevBypassEnabled()) {
-        // console.log('🚀 DEV BYPASS: Setting logout flag for dev mode');
         localStorage.setItem('flyp_dev_logged_out', 'true');
         SessionManager.clearSession();
         return { success: true };
@@ -240,14 +224,12 @@ export class AuthenticationService {
       // Clear local session regardless of backend response
       SessionManager.clearSession();
 
-      // console.log('✅ Logout successful');
       return {
         success: true,
         error: response.success ? undefined : response.error,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Logout failed:', error);
 
       // Clear session anyway
       SessionManager.clearSession();
@@ -270,14 +252,12 @@ export class AuthenticationService {
         // Check if user has explicitly logged out in dev mode
         const hasLoggedOut = localStorage.getItem('flyp_dev_logged_out');
         if (hasLoggedOut === 'true') {
-          // console.log('🚀 DEV BYPASS: User has logged out, returning unauthenticated');
           return {
             isAuthenticated: false,
             error: 'User logged out in dev mode',
           };
         }
 
-        // console.log('🚀 DEV BYPASS: Simulating authentication check');
         const mockUser = createMockUser();
         return {
           isAuthenticated: true,
@@ -288,7 +268,6 @@ export class AuthenticationService {
       // First, check if we have a valid session in localStorage
       const localSession = SessionManager.getSession();
       if (localSession && localSession.isAuthenticated && localSession.user) {
-        // console.log('🔍 Using cached session data');
         return {
           isAuthenticated: true,
           user: localSession.user,
@@ -300,7 +279,6 @@ export class AuthenticationService {
       if (!hasSessionFlag) {
         // Only log once per session to avoid spam
         if (!this._hasLoggedNoSession) {
-          // console.log('🔍 No session flag found, user not authenticated');
           this._hasLoggedNoSession = true;
         }
         return {
@@ -308,8 +286,6 @@ export class AuthenticationService {
           error: 'No session found',
         };
       }
-
-      // console.log('🔍 Checking authentication status through backend');
 
       const response = await this.makeRequest<{ user: User }>('/api/auth/me');
 
@@ -339,7 +315,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Auth check failed:', error);
 
       SessionManager.clearSession();
 
@@ -387,8 +362,6 @@ export class AuthenticationService {
    */
   async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
     try {
-      // console.log('🔑 Requesting password reset through backend:', email);
-
       const response = await this.makeRequest('/api/auth/forgot-password', {
         method: 'POST',
         body: JSON.stringify({ email }),
@@ -400,7 +373,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Password reset failed:', error);
 
       return {
         success: false,
@@ -417,8 +389,6 @@ export class AuthenticationService {
     token?: string
   ): Promise<{ success: boolean; error?: string }> {
     try {
-      // console.log('🔐 Updating password through backend');
-
       const response = await this.makeRequest('/api/auth/reset-password', {
         method: 'POST',
         body: JSON.stringify({
@@ -433,7 +403,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Password update failed:', error);
 
       return {
         success: false,
@@ -447,8 +416,6 @@ export class AuthenticationService {
    */
   async verifyEmail(token: string): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-      // console.log('📧 Verifying email through backend');
-
       const response = await this.makeRequest<{ user: User }>('/api/auth/verify-email', {
         method: 'POST',
         body: JSON.stringify({ token }),
@@ -471,7 +438,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Email verification failed:', error);
 
       return {
         success: false,
@@ -485,8 +451,6 @@ export class AuthenticationService {
    */
   async resendVerification(email: string): Promise<{ success: boolean; error?: string }> {
     try {
-      // console.log('📧 Resending verification email through backend:', email);
-
       const response = await this.makeRequest('/api/auth/resend-verification', {
         method: 'POST',
         body: JSON.stringify({ email }),
@@ -498,7 +462,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Resend verification failed:', error);
 
       return {
         success: false,
@@ -513,8 +476,6 @@ export class AuthenticationService {
    */
   async refreshSession(): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-      // console.log('🔄 Refreshing session through backend');
-
       const response = await this.makeRequest<{ user: User }>('/api/auth/refresh', {
         method: 'POST',
       });
@@ -540,7 +501,6 @@ export class AuthenticationService {
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      // console.error('❌ Session refresh failed:', error);
 
       return {
         success: false,

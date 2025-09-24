@@ -7,14 +7,18 @@
  *
  * A clean navigation system based on legacy app implementation:
  * - Navigation: Main navigation bar (used in MainLayout)
- * - DashboardSidebar: Desktop sidebar for seller dashboard (used in DashboardLayout)
- * - DashboardSidebarMobile: Mobile sidebar for seller dashboard (used in DashboardLayout)
+ * - CleanNavigation: Clean navigation bar (replaced by BuyerNavigation)
+ * - BuyerNavigation: Buyer navigation (used in BuyerLayout)
+ * - SellerNavigation: Seller navigation (used in SellerLayout)
+ * - DashboardSidebar: Desktop sidebar for seller dashboard (legacy)
+ * - DashboardSidebarMobile: Mobile sidebar for seller dashboard (legacy)
  * - UserAvatarDropdown: User avatar dropdown (used within Navigation)
  *
  * Based on legacy app components:
  * - UnifiedNavigation.tsx -> Navigation.tsx
- * - SellerSidebar.tsx -> DashboardSidebar.tsx
- * - MobileNavigation.tsx -> DashboardSidebarMobile.tsx
+ * - CleanNavigation.tsx -> CleanNavigation.tsx
+ * - SellerSidebar.tsx -> DashboardSidebar.tsx (legacy)
+ * - MobileNavigation.tsx -> DashboardSidebarMobile.tsx (legacy)
  * - user_avatar_dropdown.tsx -> UserAvatarDropdown.tsx
  */
 
@@ -23,6 +27,24 @@
 // ==============================================================================
 
 export { default as Navigation } from './main/Navigation';
+
+// ==============================================================================
+// CLEAN NAVIGATION COMPONENT
+// ==============================================================================
+
+// CleanNavigation removed - replaced with BuyerNavigation and SellerNavigation
+
+// ==============================================================================
+// BUYER NAVIGATION COMPONENTS
+// ==============================================================================
+
+export { BuyerNavigation, BuyerNavigationDesktop, BuyerNavigationMobile } from './buyer';
+
+// ==============================================================================
+// SELLER NAVIGATION COMPONENTS
+// ==============================================================================
+
+export { SellerNavigation, SellerNavigationDesktop, SellerNavigationMobile } from './seller';
 
 // ==============================================================================
 // DASHBOARD SIDEBAR COMPONENTS

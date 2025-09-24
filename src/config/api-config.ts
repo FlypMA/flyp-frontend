@@ -201,20 +201,7 @@ export const API_ERROR_CONFIG = {
  */
 export const logApiConfig = () => {
   if (isDevelopment && API_CONFIG.DEV.debugLogs) {
-    console.log('🔧 API Configuration:', {
-      supabase: {
-        url: API_CONFIG.SUPABASE.url,
-        isValid: API_CONFIG.SUPABASE.isValid,
-      },
-      backend: {
-        baseURL: API_CONFIG.BACKEND.baseURL,
-      },
-      dev: {
-        bypassAuth: API_CONFIG.DEV.bypassAuth,
-        mockData: API_CONFIG.DEV.mockData,
-        debugLogs: API_CONFIG.DEV.debugLogs,
-      },
-    });
+    // API configuration logging removed for production
   }
 };
 

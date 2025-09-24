@@ -145,10 +145,10 @@ const NewContact = () => {
                   <h3 className="text-xl font-semibold text-neutral-900 mb-2">Email Support</h3>
                   <p className="text-neutral-600 mb-4">Get professional help via email</p>
                   <a
-                    href="mailto:hello@flyp.com"
+                    href="mailto:hello@upswitch.com"
                     className="text-primary-600 hover:text-primary-700 font-semibold"
                   >
-                    hello@flyp.com
+                    hello@upswitch.com
                   </a>
                   <div className="mt-3 flex items-center justify-center gap-2 text-sm text-neutral-500">
                     <Clock className="w-4 h-4" />

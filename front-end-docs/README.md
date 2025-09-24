@@ -1,4 +1,4 @@
-# 🚀 Flyp Frontend Documentation
+# 🚀 Upswitch Frontend Documentation
 
 **Modern React TypeScript application for Europe's premier SME M&A platform**
 

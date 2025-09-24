@@ -164,10 +164,10 @@ export const createModalHandlers = (onClose: () => void) => ({
 export const validateModalProps = (props: Record<string, any>) => {
   if (process.env.NODE_ENV === 'development') {
     if (typeof props.isOpen !== 'boolean') {
-      console.warn('Modal: isOpen prop should be a boolean');
+      console.warn('Modal isOpen prop should be a boolean');
     }
     if (typeof props.onClose !== 'function') {
-      console.warn('Modal: onClose prop should be a function');
+      console.warn('Modal onClose prop should be a function');
     }
   }
 };

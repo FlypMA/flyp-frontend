@@ -133,16 +133,7 @@ export const isProduction = config.environment === 'production';
  */
 export const logConfig = () => {
   if (isDevelopment) {
-    console.log('🏠 App Configuration:', {
-      app: {
-        name: config.appName,
-        version: config.version,
-        environment: config.environment,
-      },
-      features: config.features,
-      settings: config.settings,
-      ui: config.ui,
-    });
+    // Configuration logging removed for production
   }
 };
 

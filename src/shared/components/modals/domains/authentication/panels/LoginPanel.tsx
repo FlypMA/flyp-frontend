@@ -6,10 +6,7 @@
 
 import { Button } from '@/shared/components/buttons';
 import React, { useState } from 'react';
-import {
-    CustomInputField,
-    CustomPasswordInputField,
-} from '../../../../forms';
+import { CustomInputField, CustomPasswordInputField } from '../../../../forms';
 
 interface LoginPanelProps {
   onClose: () => void;
@@ -36,11 +33,10 @@ export const LoginPanel: React.FC<LoginPanelProps> = ({
 
     try {
       // TODO: Implement actual login logic
-      console.log('Login attempt:', formData);
       onSuccess?.({}); // Mock success
       onClose();
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +49,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = ({
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h1>
-            <p className="text-gray-600">Sign in to your flyp account</p>
+            <p className="text-gray-600">Sign in to your Upswitch account</p>
           </div>
 
           {/* Login Form */}

@@ -9,22 +9,22 @@ import { Input } from '@/shared/components/forms';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody } from '@heroui/react';
 import {
-    BookOpen,
-    Building2,
-    Clock,
-    DollarSign,
-    FileText,
-    HelpCircle,
-    Mail,
-    MessageCircle,
-    Phone,
-    Search,
-    Settings,
-    Shield,
-    Star,
-    TrendingUp,
-    Users,
-    Zap,
+  BookOpen,
+  Building2,
+  Clock,
+  DollarSign,
+  FileText,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  Phone,
+  Search,
+  Settings,
+  Shield,
+  Star,
+  TrendingUp,
+  Users,
+  Zap,
 } from 'lucide-react';
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -65,32 +65,32 @@ const Help: React.FC = () => {
     {
       id: 'getting-started',
       category: 'Getting Started',
-      description: 'Essential information to help you begin your journey on flyp',
+      description: 'Essential information to help you begin your journey on Upswitch',
       icon: <Star className="w-6 h-6" />,
       color: 'blue',
       questions: [
         {
-          question: 'What is flyp and how does it work?',
+          question: 'What is Upswitch and how does it work?',
           answer:
-            "flyp is Belgium's premier digital marketplace for buying and selling established businesses. We connect entrepreneurs, business owners, and investors through our secure, AI-powered platform. Our comprehensive system handles listing creation, buyer-seller matching, due diligence support, secure communications, and transaction facilitation - making business acquisitions faster, safer, and more efficient.",
+            "Upswitch is Belgium's premier digital marketplace for buying and selling established businesses. We connect entrepreneurs, business owners, and investors through our secure, AI-powered platform. Our comprehensive system handles listing creation, buyer-seller matching, due diligence support, secure communications, and transaction facilitation - making business acquisitions faster, safer, and more efficient.",
           tags: ['platform', 'overview', 'marketplace'],
           isPopular: true,
         },
         {
-          question: 'How do I create an account on flyp?',
+          question: 'How do I create an account on Upswitch?',
           answer:
             'Creating an account is simple: Click "Sign Up" on our homepage, provide your email and basic information, verify your email address, and complete your profile. For sellers, we require additional business verification to ensure marketplace quality.',
           tags: ['registration', 'account', 'signup'],
           isNew: true,
         },
         {
-          question: 'Is flyp free to use?',
+          question: 'Is Upswitch free to use?',
           answer:
-            'flyp offers a freemium model. Basic browsing and initial contact with sellers is free for buyers. For sellers, listing your business is free, but we charge a success fee only when your business sells. Premium features like enhanced visibility and advanced analytics require a subscription.',
+            'Upswitch offers a freemium model. Basic browsing and initial contact with sellers is free for buyers. For sellers, listing your business is free, but we charge a success fee only when your business sells. Premium features like enhanced visibility and advanced analytics require a subscription.',
           tags: ['pricing', 'free', 'subscription'],
         },
         {
-          question: 'What types of businesses can I find on flyp?',
+          question: 'What types of businesses can I find on Upswitch?',
           answer:
             'Our platform features a diverse range of established businesses including restaurants, retail stores, tech companies, service businesses, manufacturing operations, and more. All listings are verified and represent legitimate business opportunities in Belgium and beyond.',
           tags: ['business-types', 'listings', 'variety'],
@@ -439,7 +439,7 @@ const Help: React.FC = () => {
                 <Input
                   placeholder="Search for answers... e.g., 'How to list my business'"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={e => setSearchQuery(e.target.value)}
                   leftIcon={<Search className="w-5 h-5 text-gray-400" />}
                   className="text-lg"
                   label=""
@@ -609,7 +609,7 @@ const Help: React.FC = () => {
                     className={`w-full bg-${option.color}-600 text-white hover:bg-${option.color}-700`}
                     onClick={() => {
                       if (option.id === 'email-support') {
-                        window.location.href = 'mailto:support@flyp.be';
+                        window.location.href = 'mailto:support@upswitch.com';
                       } else if (option.id === 'phone-support') {
                         navigate('/contact');
                       }
@@ -640,11 +640,7 @@ const Help: React.FC = () => {
             >
               Create Account
             </Button>
-            <Button
-              size="lg"
-              variant="tertiary"
-              onClick={() => navigate('/browse')}
-            >
+            <Button size="lg" variant="tertiary" onClick={() => navigate('/browse')}>
               Browse Businesses
             </Button>
           </div>

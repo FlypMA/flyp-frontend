@@ -95,7 +95,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsAuthenticated(false);
       }
     } catch (err) {
-      console.error('AuthProvider: Auth check failed:', err);
       setUserState(null);
       setIsAuthenticated(false);
     } finally {
@@ -112,7 +111,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     hasCheckedAuth.current = true;
     setIsLoading(true);
-    
+
     try {
       const authResult = await authService.checkAuthentication();
       if (authResult.isAuthenticated && authResult.user) {
@@ -123,7 +122,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsAuthenticated(false);
       }
     } catch (err) {
-      console.error('AuthProvider: Auth check failed:', err);
       setUserState(null);
       setIsAuthenticated(false);
     } finally {
@@ -167,7 +165,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Listen for authentication events from modals
   useEffect(() => {
     const handleUserLogin = (event: CustomEvent) => {
-      console.log('🔑 AuthProvider: User login event received', event.detail);
       if (event.detail) {
         setUserState(event.detail);
         setIsAuthenticated(true);
@@ -176,7 +173,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const handleUserSignup = (event: CustomEvent) => {
-      console.log('📝 AuthProvider: User signup event received', event.detail);
       if (event.detail) {
         setUserState(event.detail);
         setIsAuthenticated(true);
@@ -185,13 +181,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const handleAuthChange = () => {
-      console.log('🔄 AuthProvider: Auth change event received, rechecking auth');
       hasCheckedAuth.current = false; // Reset flag to allow recheck
       checkAuth();
     };
 
     const handleAuthLogout = () => {
-      console.log('🔓 AuthProvider: Auth logout event received');
       setUserState(null);
       setIsAuthenticated(false);
       hasCheckedAuth.current = false; // Reset flag for future checks

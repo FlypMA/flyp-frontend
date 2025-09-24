@@ -6,14 +6,14 @@ import { authService } from '@/shared/services/auth';
 import { seoData } from '@/shared/utils/seo/seoData';
 import { Card, CardBody } from '@heroui/react';
 import {
-    Car,
-    Coffee,
-    Factory,
-    HeartHandshake,
-    Hotel,
-    Laptop,
-    ShoppingCart,
-    Wrench,
+  Car,
+  Coffee,
+  Factory,
+  HeartHandshake,
+  Hotel,
+  Laptop,
+  ShoppingCart,
+  Wrench,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +22,8 @@ import { useAuth } from '../../../providers/auth-provider';
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [searchType, setSearchType] = useState('businesses'); // 'businesses' or 'franchises'
-  const [_email, _setEmail] = useState('');
+  const [searchType] = useState('businesses'); // 'businesses' or 'franchises'
+  // const [_email, _setEmail] = useState('');
   const navigate = useNavigate();
   const { openModal } = useAuth();
 
@@ -36,7 +36,7 @@ const Home = () => {
       const authResult = await authService.checkAuthentication();
       setIsAuthenticated(authResult.isAuthenticated);
     } catch (error) {
-      // console.error('Error checking authentication:', error);
+      console.error('Auth check error:', error);
     }
   };
 
@@ -48,13 +48,13 @@ const Home = () => {
     navigate(`/search?${searchParams.toString()}`);
   };
 
-  const _handleGetStarted = () => {
-    if (isAuthenticated) {
-      navigate('/account');
-    } else {
-      openModal('signup');
-    }
-  };
+  // const _handleGetStarted = () => {
+  //   if (isAuthenticated) {
+  //     navigate('/account');
+  //   } else {
+  //     openModal('signup');
+  //   }
+  // };
 
   return (
     <>
@@ -200,10 +200,7 @@ const Home = () => {
               </div>
 
               <div className="text-center mt-8">
-                <Button
-                  variant="secondary"
-                  onPress={() => navigate('/search')}
-                >
+                <Button variant="secondary" onPress={() => navigate('/search')}>
                   View All Categories
                 </Button>
               </div>
@@ -228,18 +225,10 @@ const Home = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onPress={() => navigate('/search')}
-                >
+                <Button variant="primary" size="lg" onPress={() => navigate('/search')}>
                   Explore businesses for sale
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onPress={() => openModal('signup')}
-                >
+                <Button variant="secondary" size="lg" onPress={() => openModal('signup')}>
                   Get help selling my business
                 </Button>
               </div>
@@ -340,8 +329,8 @@ const Home = () => {
                 </h2>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
                   We understand that selling a business isn't just a transaction — it's one of
-                  life's biggest decisions. That's why we created flyp: to be the caring guide that
-                  business owners need during this important journey.
+                  life's biggest decisions. That's why we created Upswitch: to be the caring guide
+                  that business owners need during this important journey.
                 </p>
                 <p className="text-lg text-neutral-600 leading-relaxed mb-8">
                   Every business represents years of hard work, dreams, and dedication. We honor

@@ -125,13 +125,9 @@ const LoginModal: React.FC = () => {
     setErrorMessage('');
 
     try {
-      // console.log('🔑 Attempting login with:', { email: formData.email });
-
       const authResult = await authService.login(formData.email, formData.password);
 
       if (authResult.success && authResult.user) {
-        // console.log('✅ Login successful');
-
         // Dispatch login event for navigation sync
         window.dispatchEvent(
           new CustomEvent('user-login', {
@@ -146,7 +142,6 @@ const LoginModal: React.FC = () => {
 
         // Handle post-auth redirect
         if (postAuthRedirect) {
-          // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
 
           // Add autoOpenInquiry or autoOpenNda parameter if specified in state
@@ -192,7 +187,7 @@ const LoginModal: React.FC = () => {
   };
 
   const switchToSignup = () => {
-    openModal('signup', postAuthRedirect);
+    openModal('signup', postAuthRedirect || undefined);
   };
 
   return (
@@ -247,8 +242,8 @@ const LoginModal: React.FC = () => {
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
-                  src="/flyp_logo.svg?v=2024.1"
-                  alt="flyp - European SME M&A Platform"
+                  src="/upswitch_logo.svg?v=2024.1"
+                  alt="Upswitch - European SME M&A Platform"
                   width="32"
                   height="32"
                   className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
@@ -355,7 +350,6 @@ const LoginModal: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => {
-                            // console.log('Forgot password clicked');
                             handleCloseModal();
                             navigate('/password-reset');
                           }}

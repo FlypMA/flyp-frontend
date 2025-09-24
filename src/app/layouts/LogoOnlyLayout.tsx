@@ -33,12 +33,12 @@ const LogoOnlyLayout = () => {
             to={UrlGenerator.root()}
             className="flex items-center space-x-3 group nav-logo-group"
           >
-            {/* TODO: Implement flypLogo component */}
+            {/* TODO: Implement UpswitchLogo component */}
             <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">BD</span>
+              <span className="text-white font-bold text-lg">U</span>
             </div>
             <span className="text-xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-primary-600 ml-2">
-              flyp
+              Upswitch
             </span>
           </Link>
         </NavbarBrand>

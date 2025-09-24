@@ -80,6 +80,16 @@ export class UrlGenerator {
   static conversation = (conversationId: string) => `/messages/${conversationId}`;
 
   // ==============================================================================
+  // TRANSACTION MANAGEMENT - /offers/*, /due-diligence/*, /transactions/*
+  // ==============================================================================
+
+  static offers = () => '/offers';
+  static offerByListing = (listingId: string) => `/offers/${listingId}`;
+  static dueDiligence = (processId: string, listingId: string) =>
+    `/due-diligence/${processId}/${listingId}`;
+  static transactionCompletion = (transactionId: string) => `/transactions/${transactionId}`;
+
+  // ==============================================================================
   // LEGAL & SUPPORT
   // ==============================================================================
 

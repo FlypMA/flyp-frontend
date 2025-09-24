@@ -24,7 +24,7 @@ Central configuration hub for the entire MVP application, including app settings
 
 #### App Information
 
-- **App Name**: flyp MVP
+- **App Name**: Upswitch MVP
 - **Version**: 1.0.0
 - **Environment**: Development, Staging, Production
 
@@ -65,7 +65,7 @@ if (isFeatureEnabled('enableAnalytics')) {
 const maxFileSize = getConfig('settings.maxFileSize');
 
 // Access configuration directly
-console.log(config.appName); // "flyp MVP"
+console.log(config.appName); // "Upswitch MVP"
 ```
 
 ## 🔗 API Configuration

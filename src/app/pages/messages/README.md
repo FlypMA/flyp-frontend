@@ -147,7 +147,7 @@ if (authResult.isAuthenticated) {
 
 ```tsx
 // WebSocket connection for real-time messaging
-const socket = new WebSocket('wss://api.flyp.com/messages');
+const socket = new WebSocket('wss://api.upswitch.com/messages');
 socket.onmessage = event => {
   const message = JSON.parse(event.data);
   // Handle incoming message

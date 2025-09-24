@@ -11,21 +11,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Heart,
-  Building2,
-  MessageCircle,
-  Settings,
-  HelpCircle,
-  LogOut,
-  LayoutDashboard,
-  Search,
-  Calculator,
-  TrendingUp,
-  BarChart3,
-} from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { User } from '../../../../types';
-import { UrlGenerator } from '../../../../services';
 import { AuthenticationService } from '@/shared/services/auth';
 import {
   getSellerDropdownItems,

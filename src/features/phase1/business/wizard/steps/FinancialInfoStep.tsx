@@ -19,7 +19,7 @@ const FinancialInfoStep: React.FC<FinancialInfoStepProps> = ({
   const financialInfo = data.financialInfo || ({} as FinancialInfo);
   const [selectedValuationReport, setSelectedValuationReport] = useState<string | null>(null);
 
-  const handleInputChange = (field: keyof FinancialInfo, value: any) => {
+  const handleInputChange = (field: keyof FinancialInfo, value: string | number | boolean) => {
     onDataChange({
       financialInfo: {
         ...financialInfo,

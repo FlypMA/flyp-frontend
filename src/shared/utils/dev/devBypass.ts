@@ -79,7 +79,7 @@ export const createMockUser = (email?: string, role?: UserRole): User => {
       default:
         return {
           name: 'Development User',
-          email: email || 'dev@flyp.com',
+          email: email || 'dev@upswitch.com',
         };
     }
   };
@@ -131,7 +131,6 @@ export const checkAuthWithBypass = async (
 ): Promise<any> => {
   // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
   if (isDevBypassEnabled()) {
-    console.log('🚨 DEV MODE: Bypassing authentication check for development');
     return createMockAuthResult(email, defaultRole);
   }
 
@@ -149,7 +148,6 @@ export const getAuthenticatedUserWithBypass = (
 ): any => {
   // 🚨 DEVELOPMENT BYPASS: Check if dev bypass is enabled
   if (isDevBypassEnabled()) {
-    console.log('🚨 DEV MODE: Returning mock user for development');
     return createMockUser(email, defaultRole);
   }
 
@@ -162,7 +160,6 @@ export const getAuthenticatedUserWithBypass = (
  */
 export const shouldBypassProtectedRoute = (): boolean => {
   if (isDevBypassEnabled()) {
-    console.log('🚨 DEV MODE: Bypassing protected route authentication');
     return true;
   }
 
@@ -178,7 +175,7 @@ export const shouldBypassProtectedRoute = (): boolean => {
  */
 export const devLog = (message: string, data?: any): void => {
   if (isDevelopmentMode() && isDebugModeEnabled()) {
-    console.log(`🔧 DEV: ${message}`, data || '');
+    console.log(`[DEV] ${message}`, data);
   }
 };
 
@@ -187,7 +184,7 @@ export const devLog = (message: string, data?: any): void => {
  */
 export const devWarn = (message: string, data?: any): void => {
   if (isDevelopmentMode()) {
-    console.warn(`⚠️ DEV: ${message}`, data || '');
+    console.warn(`[DEV] ${message}`, data);
   }
 };
 
@@ -196,7 +193,7 @@ export const devWarn = (message: string, data?: any): void => {
  */
 export const devError = (message: string, error?: any): void => {
   if (isDevelopmentMode()) {
-    console.error(`❌ DEV: ${message}`, error || '');
+    console.error(`[DEV] ${message}`, error);
   }
 };
 
@@ -209,21 +206,8 @@ export const devError = (message: string, error?: any): void => {
  */
 export const logDevEnvironmentInfo = (): void => {
   if (isDevelopmentMode()) {
-    console.log('🚀 Development Environment Info:');
-    console.log('   • DEV_BYPASS_AUTH:', isDevBypassEnabled());
-    console.log('   • DEBUG_MODE:', isDebugModeEnabled());
-    console.log('   • NODE_ENV:', import.meta.env.MODE);
-    console.log('   • VITE_ENVIRONMENT:', import.meta.env.VITE_ENVIRONMENT);
-
     if (isDevBypassEnabled()) {
-      console.log('');
-      console.log('🎯 DEVELOPMENT BYPASS FEATURES ENABLED:');
-      console.log('   ✅ Skip authentication checks');
-      console.log('   ✅ Access all protected routes');
-      console.log('   ✅ Mock user data available');
-      console.log('   ✅ Debug logging enabled');
-      console.log('');
-      console.log('🚨 WARNING: This is for development only!');
+      console.log('Development bypass is enabled');
     }
   }
 };

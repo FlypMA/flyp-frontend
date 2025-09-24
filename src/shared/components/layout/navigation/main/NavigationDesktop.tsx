@@ -73,8 +73,8 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/flyp_logo.svg?v=2024.1"
-              alt="Flyp - European SME M&A Platform"
+              src="/upswitch_logo.svg?v=2024.1"
+              alt="Upswitch - European SME M&A Platform"
               width="32"
               height="32"
               className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
@@ -87,7 +87,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="text-xl font-bold text-gray-900 ml-2">Flyp</span>
+            <span className="text-xl font-bold text-gray-900 ml-2">Upswitch</span>
           </Link>
         </div>
 

@@ -55,7 +55,6 @@ const request = async <T>(
       };
     }
   } catch (error) {
-    console.error('API request failed:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred',

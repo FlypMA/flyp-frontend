@@ -1,4 +1,4 @@
-# 🚀 Features - flyp MVP
+# 🚀 Features - Upswitch MVP
 
 This directory contains all feature implementations organized by development phases.
 

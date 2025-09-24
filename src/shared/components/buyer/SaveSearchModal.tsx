@@ -159,7 +159,7 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
       await onSave(searchData);
       onClose();
     } catch (error) {
-      // console.error('Error saving search:', error);
+      console.error('Error saving search:', error);
     } finally {
       setIsSubmitting(false);
     }

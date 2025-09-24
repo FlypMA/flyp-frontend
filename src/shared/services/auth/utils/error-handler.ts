@@ -99,8 +99,6 @@ export class AuthErrorHandler {
    * Handle Supabase auth errors
    */
   static handleSupabaseError(error: any): AuthError {
-    console.error('🔍 Supabase error:', error);
-
     // Map Supabase error codes to our error codes
     const errorCode = this.mapSupabaseErrorCode(error);
     const message =
@@ -118,8 +116,6 @@ export class AuthErrorHandler {
    * Handle generic errors
    */
   static handleGenericError(error: any): AuthError {
-    console.error('🔍 Generic error:', error);
-
     if (error instanceof Error) {
       // Network errors
       if (error.message.includes('fetch')) {
@@ -249,9 +245,8 @@ export class AuthErrorHandler {
     // In production, send to monitoring service
     if (process.env.NODE_ENV === 'production') {
       // TODO: Send to monitoring service (e.g., Sentry, LogRocket)
-      console.error('🚨 Auth Error:', logData);
     } else {
-      console.error('🚨 Auth Error:', logData);
+      console.log('Development error logging:', logData);
     }
   }
 }

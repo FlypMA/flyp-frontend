@@ -1,4 +1,4 @@
-# App Shell - flyp MVP
+# App Shell - Upswitch MVP
 
 The app folder contains the foundational architecture that supports all features in the MVP frontend. This is the **application shell** that provides the core infrastructure for the entire application.
 
@@ -13,8 +13,8 @@ app/
 │   └── README.md           # Provider documentation
 ├── layouts/            # Page layout components
 │   ├── MainLayout.tsx      # Standard page layout with header/footer
-│   ├── AuthLayout.tsx      # Authentication page layout
-│   ├── DashboardLayout.tsx # Dashboard layout with sidebar
+│   ├── BuyerLayout.tsx     # Buyer page layout (like Airbnb guest mode)
+│   ├── SellerLayout.tsx    # Seller page layout (like Airbnb host mode)
 │   ├── LogoOnlyLayout.tsx  # Minimal layout (checkout, etc.)
 │   ├── LayoutSplit.tsx     # Split screen layout
 │   └── index.ts            # Layout exports
@@ -38,8 +38,8 @@ app/
 #### **2. Layouts (`/layouts/`)**
 
 - **`MainLayout.tsx`**: Standard layout with header and footer
-- **`AuthLayout.tsx`**: Centered layout for authentication pages
-- **`DashboardLayout.tsx`**: Sidebar layout for dashboard pages
+- **`BuyerLayout.tsx`**: Buyer page layout (like Airbnb guest mode, no listing button)
+- **`SellerLayout.tsx`**: Seller page layout (like Airbnb host mode, with seller navigation)
 - **`LogoOnlyLayout.tsx`**: Minimal layout for checkout and special pages
 - **`LayoutSplit.tsx`**: Split screen layout for specific flows
 
@@ -85,15 +85,19 @@ function App() {
 ### **Layout Usage**
 
 ```typescript
-import { MainLayout, AuthLayout, DashboardLayout } from '@app/layouts';
+import { MainLayout, BuyerLayout, SellerLayout } from '@app/layouts';
 
 // In your routes
 <Route path="/" element={<MainLayout />}>
   <Route index element={<HomePage />} />
 </Route>
 
-<Route path="/auth" element={<AuthLayout />}>
-  <Route path="login" element={<LoginPage />} />
+<Route path="/buyer" element={<BuyerLayout />}>
+  <Route path="messages" element={<MessagesPage />} />
+</Route>
+
+<Route path="/seller" element={<SellerLayout />}>
+  <Route path="my-business" element={<BusinessOverview />} />
 </Route>
 ```
 

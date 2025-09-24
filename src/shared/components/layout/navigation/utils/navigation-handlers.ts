@@ -23,8 +23,6 @@ export class NavigationHandler {
    */
   async handleLogout(): Promise<void> {
     try {
-      console.log('🔓 Starting logout process...');
-
       // Set logout flag to prevent auth recheck during logout
       sessionStorage.setItem('user_logged_out', 'true');
 
@@ -33,16 +31,13 @@ export class NavigationHandler {
 
       // Clear access_token cookie directly (like legacy)
       document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      console.log('🍪 Cleared access_token cookie');
 
       // Dispatch events for navigation state synchronization (like legacy)
       window.dispatchEvent(new CustomEvent('auth-logout'));
       window.dispatchEvent(new CustomEvent('auth-change'));
 
-      console.log('✅ Logout successful, navigating to home');
       this.navigate('/');
     } catch (error) {
-      console.error('❌ Logout failed:', error);
       // Ensure logout flag is still set on error
       sessionStorage.setItem('user_logged_out', 'true');
       // Fallback: force navigation even if logout fails (like legacy)
@@ -103,7 +98,6 @@ export class NavigationHandler {
         this.handleLogout();
         break;
       default:
-        console.warn('Unknown navigation action:', action);
     }
   }
 

@@ -17,14 +17,12 @@ const EditListingPage: React.FC = () => {
   useEffect(() => {
     const loadExistingListing = async () => {
       if (!listingId) {
-        console.error('No listing ID provided');
         navigate('/my-business/overview');
         return;
       }
 
       try {
         // TODO: Replace with actual API call to fetch listing data
-        console.log('Loading listing data for ID:', listingId);
 
         // Mock data for now - replace with actual API call
         const mockListingData: SellerFormData = {
@@ -49,7 +47,6 @@ const EditListingPage: React.FC = () => {
         setExistingData(mockListingData);
         setIsModalOpen(true);
       } catch (error) {
-        console.error('Error loading listing data:', error);
         // Navigate back on error
         navigate('/my-business/overview');
       } finally {
@@ -67,8 +64,6 @@ const EditListingPage: React.FC = () => {
   };
 
   const handleListingSave = async (data: SellerFormData) => {
-    console.log('💾 Saving listing changes:', data);
-
     try {
       // TODO: Replace with actual API call to update listing
       // const response = await fetch(`/api/listings/${listingId}`, {
@@ -77,12 +72,8 @@ const EditListingPage: React.FC = () => {
       //   body: JSON.stringify(data)
       // });
 
-      console.log('🌐 Sending save request for listing:', listingId);
-
       // Mock API call with realistic delay
       await new Promise(resolve => setTimeout(resolve, 1200));
-
-      console.log('✅ Listing saved successfully');
 
       // Close modal and navigate back with success message
       setIsModalOpen(false);
@@ -94,7 +85,6 @@ const EditListingPage: React.FC = () => {
         },
       });
     } catch (error) {
-      console.error('❌ Error saving listing:', error);
       // TODO: Show error state in modal instead of failing silently
       // For now, show generic error
       alert('Failed to save listing changes. Please try again.');

@@ -210,34 +210,143 @@ const NDAModal: React.FC<NDAModalProps> = ({
     <div className="space-y-6">
       <h3 className="text-lg font-semibold">Digital Signature & Agreement</h3>
 
-      <div className="border rounded-lg p-4 max-h-64 overflow-y-auto bg-gray-50">
-        <h4 className="font-semibold mb-3">Non-Disclosure Agreement Terms</h4>
-        <div className="text-sm text-gray-700 space-y-3">
-          <p>
-            <strong>1. Definition of Confidential Information:</strong> All business information,
-            financial data, customer lists, trade secrets, and any other proprietary information
-            disclosed in relation to this business opportunity.
-          </p>
-          <p>
-            <strong>2. Obligations:</strong> You agree to keep all confidential information strictly
-            confidential and not disclose it to any third parties without written consent.
-          </p>
-          <p>
-            <strong>3. Purpose:</strong> Information is provided solely for evaluation of the
-            business opportunity and potential acquisition discussions.
-          </p>
-          <p>
-            <strong>4. Duration:</strong> This agreement remains in effect for 5 years from the date
-            of signing or until the information becomes public knowledge.
-          </p>
-          <p>
-            <strong>5. Return of Information:</strong> All materials must be returned or destroyed
-            upon request or termination of discussions.
-          </p>
-          <p>
-            <strong>6. Legal Jurisdiction:</strong> This agreement is governed by Belgian law and
-            subject to the jurisdiction of Belgian courts.
-          </p>
+      <div className="border rounded-lg p-4 max-h-96 overflow-y-auto bg-gray-50">
+        <h4 className="font-semibold mb-4">NON-DISCLOSURE AGREEMENT</h4>
+
+        <div className="text-sm text-gray-700 space-y-4">
+          {/* Parties Section */}
+          <div>
+            <h5 className="font-semibold mb-2">THE UNDERSIGNED:</h5>
+            <p className="mb-2">
+              <strong>Discloser:</strong> {sellerName} (the "Discloser")
+            </p>
+            <p className="mb-2">
+              <strong>Recipient:</strong> {signatureData.fullName || '[Your Name]'} of{' '}
+              {signatureData.company || '[Your Company]'} (the "Recipient")
+            </p>
+            <p className="text-xs text-gray-600 italic">
+              Hereinafter jointly referred to as "Parties" and individually as a "Party"
+            </p>
+          </div>
+
+          {/* Article 1: Confidentiality Obligation */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 1. Confidentiality Obligation</h5>
+            <p className="mb-2">
+              <strong>1.1 Definition of Confidential Information:</strong> All information relating
+              to this Agreement and the Discloser, including but not limited to activities, plans,
+              technology, technical information, inventions, methods, processes, specifications,
+              features, raw data, registers, databases, equipment, know-how, experience and trade
+              secrets, marketing, sales, customers, suppliers, consultants, relationships and
+              development information, operational, performance and cost information, computer
+              programming techniques in both material and immaterial form, codes (including source
+              codes) and all media or disclosures of the above information and techniques, including
+              written business plans, patents and patent applications, subsidy applications, notes
+              and memoranda as well as 'trade secrets' within the meaning of the Trade Secrets
+              Protection Act, whether written or oral, stored or maintained electronically.
+            </p>
+            <p className="mb-2">
+              <strong>1.2 Confidentiality:</strong> The Recipient will treat all Confidential
+              Information received from the Discloser as strictly confidential and will not disclose
+              or make available to third parties.
+            </p>
+            <p className="mb-2">
+              <strong>1.3 Ownership:</strong> All Confidential Information remains the exclusive
+              property of the Discloser. The Recipient is only entitled to disclose Confidential
+              Information to its personnel insofar as this is necessary for the realization of the
+              business opportunity evaluation.
+            </p>
+          </div>
+
+          {/* Article 2: Exceptions */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 2. Exceptions to Confidentiality</h5>
+            <p className="mb-2">
+              The Recipient is not obliged to maintain confidentiality of Confidential Information
+              if and to the extent that the information:
+            </p>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>is publicly known, unless this is the result of a breach by the Recipient</li>
+              <li>has been made public by the Discloser</li>
+              <li>
+                has been independently developed by the Recipient without breach of this Agreement
+              </li>
+              <li>has been released by the Discloser with written consent</li>
+              <li>must be disclosed by law or court order</li>
+            </ul>
+          </div>
+
+          {/* Article 3: Use and Return */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 3. Use and Return of Information</h5>
+            <p className="mb-2">
+              <strong>3.1 Purpose:</strong> The Recipient will only use Confidential Information for
+              evaluation of the business opportunity and potential acquisition discussions.
+            </p>
+            <p className="mb-2">
+              <strong>3.2 Return:</strong> Upon termination of this Agreement, the Recipient will
+              destroy all Confidential Information (to the extent technically feasible), except
+              where required to be retained by law.
+            </p>
+          </div>
+
+          {/* Article 4: Non-Solicitation */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 4. Non-Solicitation</h5>
+            <p className="mb-2">
+              During the term of this Agreement and for one (1) year after termination, neither
+              Party will:
+            </p>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>directly or indirectly solicit customers and/or relations of the other Party</li>
+              <li>approach or request customers/relations to withdraw from the other Party</li>
+              <li>
+                induce employees, service providers or suppliers to modify or terminate their
+                agreements with the other Party
+              </li>
+            </ul>
+          </div>
+
+          {/* Article 5: Liability and Penalties */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 5. Liability and Penalty Clause</h5>
+            <p className="mb-2">
+              <strong>5.1 Liability:</strong> In case the Recipient acts in violation of this
+              Agreement, the Recipient is liable to the Discloser for all damage suffered as a
+              result of this breach.
+            </p>
+            <p className="mb-2">
+              <strong>5.2 Penalty:</strong> In case of violation, the Recipient is immediately
+              liable for a penalty of EUR 50,000 (fifty thousand euros) per violation, without
+              prejudice to the right to claim damages.
+            </p>
+          </div>
+
+          {/* Article 6: Duration and Termination */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 6. Duration and Termination</h5>
+            <p className="mb-2">
+              <strong>6.1 Duration:</strong> This Agreement enters into force upon signing and is
+              concluded for a period of three (3) years.
+            </p>
+            <p className="mb-2">
+              <strong>6.2 Retroactive Effect:</strong> The confidentiality obligations apply
+              retroactively from the moment of first contact and continue after completion of the
+              evaluation, regardless of whether discussions lead to a transaction.
+            </p>
+          </div>
+
+          {/* Article 7: Applicable Law */}
+          <div>
+            <h5 className="font-semibold mb-2">Article 7. Applicable Law and Jurisdiction</h5>
+            <p className="mb-2">
+              <strong>7.1 Governing Law:</strong> This Agreement is governed by Belgian law.
+            </p>
+            <p className="mb-2">
+              <strong>7.2 Jurisdiction:</strong> All disputes will be submitted to the exclusively
+              competent court in Belgium.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -253,16 +362,32 @@ const NDAModal: React.FC<NDAModalProps> = ({
         maxRows={3}
       />
 
-      <div className="space-y-3">
-        <p className="text-sm text-gray-500">
-          By typing your name, you confirm this serves as your digital signature and that you agree
-          to the terms and conditions of this Non-Disclosure Agreement
-        </p>
+      <div className="space-y-4">
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p className="text-sm text-blue-800 font-medium mb-2">
+            By typing your name below, you confirm this serves as your digital signature and that
+            you agree to all terms and conditions of this Non-Disclosure Agreement.
+          </p>
+          <p className="text-xs text-blue-600">
+            This includes all articles, clauses, penalties, and legal obligations outlined above.
+          </p>
+        </div>
 
-        <p className="text-xs text-gray-600">
-          Date: {new Date().toLocaleDateString()} | Time: {new Date().toLocaleTimeString()} | IP
-          will be recorded for verification
-        </p>
+        <div className="bg-gray-50 p-3 rounded-lg">
+          <p className="text-xs text-gray-600">
+            <strong>Agreement Details:</strong>
+            <br />
+            Date: {new Date().toLocaleDateString()}
+            <br />
+            Time: {new Date().toLocaleTimeString()}
+            <br />
+            IP Address: Will be recorded for verification
+            <br />
+            Duration: 3 years from signing date
+            <br />
+            Jurisdiction: Belgian courts
+          </p>
+        </div>
       </div>
     </div>
   );

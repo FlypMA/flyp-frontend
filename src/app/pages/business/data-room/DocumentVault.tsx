@@ -79,7 +79,7 @@ const DocumentVault = () => {
           navigate('/');
         }
       } catch (error) {
-        // console.error('Error initializing page:', error);
+        console.error('Error loading documents:', error);
         navigate('/');
       } finally {
         // No loading state to manage
@@ -207,7 +207,7 @@ const DocumentVault = () => {
 
       setDocuments(prev => [...newDocuments, ...prev]);
     } catch (error) {
-      // console.error('Upload failed:', error);
+      console.error('Error uploading document:', error);
     } finally {
       setIsUploading(false);
       // Reset the input

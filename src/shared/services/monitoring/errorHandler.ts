@@ -145,7 +145,10 @@ class BreadcrumbManager {
     }
 
     if (isDevelopment) {
-      console.debug('[Breadcrumb]', fullBreadcrumb);
+      console.log('Development breadcrumb added:', {
+        breadcrumb: fullBreadcrumb,
+        breadcrumbs: this.breadcrumbs,
+      });
     }
   }
 
@@ -226,11 +229,10 @@ class ErrorRecoveryManager {
       try {
         const recovered = await strategy();
         if (recovered) {
-          console.log(`[Recovery] Successfully recovered from ${errorType}`);
           return true;
         }
       } catch (recoveryError) {
-        console.error(`[Recovery] Failed to recover from ${errorType}:`, recoveryError);
+        console.error('Error in recovery process:', recoveryError);
       }
     }
 
@@ -318,7 +320,7 @@ export class ErrorHandler {
     this.trackNavigation();
 
     if (isDevelopment) {
-      console.log('[ErrorHandler] Initialized comprehensive error handling');
+      console.log('Development error handler initialized');
     }
   }
 
@@ -677,11 +679,7 @@ export class ErrorHandler {
 
   private logError(errorReport: ErrorReport): void {
     if (isDevelopment) {
-      console.group(`[Error ${errorReport.severity.toUpperCase()}] ${errorReport.message}`);
-      console.error('Error:', errorReport.error);
-      console.log('Context:', errorReport.context);
-      console.log('Breadcrumbs:', errorReport.context.breadcrumbs);
-      console.groupEnd();
+      console.log('Error report:', errorReport);
     }
   }
 
@@ -707,7 +705,7 @@ export class ErrorHandler {
         }),
       });
     } catch (monitoringError) {
-      console.error('Failed to send error report:', monitoringError);
+      console.error('Error in monitoring setup:', monitoringError);
     }
   }
 

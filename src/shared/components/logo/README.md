@@ -1,12 +1,12 @@
 # Logo Components
 
-This directory contains logo components and configurations for the flyp brand identity.
+This directory contains logo components and configurations for the Upswitch brand identity.
 
 ## Components
 
-### flypLogo
+### UpswitchLogo
 
-The main logo component for displaying the flyp brand logo with various variants and configurations.
+The main logo component for displaying the Upswitch brand logo with various variants and configurations.
 
 **Features:**
 
@@ -21,29 +21,29 @@ The main logo component for displaying the flyp brand logo with various variants
 **Usage:**
 
 ```tsx
-import { flypLogo } from '@/shared/components/logo';
+import { UpswitchLogo } from '@/shared/components/logo';
 
 // Basic logo
-<flypLogo />
+<UpswitchLogo />
 
 // Header variant with custom size
-<flypLogo
+<UpswitchLogo
   variant="header"
   width={120}
   height={40}
 />
 
 // Footer variant
-<flypLogo variant="footer" />
+<UpswitchLogo variant="footer" />
 
 // With click handler
-<flypLogo
+<UpswitchLogo
   onClick={() => navigate('/')}
   className="cursor-pointer hover:opacity-80"
 />
 
 // As a link
-<flypLogo
+<UpswitchLogo
   asLink
   href="/"
   variant="sidebar"
@@ -144,7 +144,7 @@ The logo system includes cache busting to ensure users always see the latest log
 
 ```tsx
 // Logo path includes version parameter
-const logoPath = '/flyp_logo.svg?v=2024.2';
+const logoPath = '/upswitch_logo.svg?v=2024.2';
 ```
 
 ## Accessibility

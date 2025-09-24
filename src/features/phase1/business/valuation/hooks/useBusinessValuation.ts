@@ -243,7 +243,6 @@ export const useBusinessValuation = (): UseBusinessValuationReturn => {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         const valuationId = `val_${Date.now()}`;
-        console.log('Valuation saved:', { id: valuationId, name, inputs, results });
 
         return valuationId;
       } catch (err) {
@@ -263,7 +262,6 @@ export const useBusinessValuation = (): UseBusinessValuationReturn => {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // In a real implementation, this would load from the API
-      console.log('Loading valuation:', id);
 
       // For now, just reset to defaults
       setInputs(defaultInputs);
@@ -282,11 +280,8 @@ export const useBusinessValuation = (): UseBusinessValuationReturn => {
 
       try {
         // Simulate export process
-        console.log(`Exporting valuation as ${format.toUpperCase()}...`, { inputs, results });
 
         await new Promise(resolve => setTimeout(resolve, 2000));
-
-        console.log(`Valuation exported successfully as ${format.toUpperCase()}`);
       } catch (err) {
         throw new Error(`Failed to export valuation as ${format.toUpperCase()}`);
       }

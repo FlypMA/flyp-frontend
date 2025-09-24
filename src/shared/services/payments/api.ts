@@ -54,7 +54,6 @@ export const paymentsApi = {
    */
   getPlans: async (): Promise<PaymentPlan[]> => {
     // TODO: Implement actual API call to backend
-    console.log('📋 Getting payment plans...');
     return [];
   },
 
@@ -63,7 +62,6 @@ export const paymentsApi = {
    */
   subscribe: async (planId: string): Promise<Subscription> => {
     // TODO: Implement actual API call to backend
-    console.log('💳 Subscribing to plan:', planId);
     throw new Error('Payment subscription not implemented yet');
   },
 
@@ -72,7 +70,6 @@ export const paymentsApi = {
    */
   getSubscription: async (): Promise<Subscription | null> => {
     // TODO: Implement actual API call to backend
-    console.log('📊 Getting current subscription...');
     return null;
   },
 
@@ -81,7 +78,6 @@ export const paymentsApi = {
    */
   cancelSubscription: async (): Promise<void> => {
     // TODO: Implement actual API call to backend
-    console.log('❌ Cancelling subscription...');
   },
 
   /**
@@ -89,7 +85,6 @@ export const paymentsApi = {
    */
   getPaymentMethods: async (): Promise<PaymentMethod[]> => {
     // TODO: Implement actual API call to backend
-    console.log('💳 Getting payment methods...');
     return [];
   },
 
@@ -98,7 +93,6 @@ export const paymentsApi = {
    */
   addPaymentMethod: async (paymentMethod: Omit<PaymentMethod, 'id'>): Promise<PaymentMethod> => {
     // TODO: Implement actual API call to backend
-    console.log('➕ Adding payment method...');
     throw new Error('Add payment method not implemented yet');
   },
 
@@ -107,7 +101,6 @@ export const paymentsApi = {
    */
   removePaymentMethod: async (methodId: string): Promise<void> => {
     // TODO: Implement actual API call to backend
-    console.log('🗑️ Removing payment method:', methodId);
   },
 };
 
@@ -120,7 +113,6 @@ export const paymentsApi = {
  */
 export const createCheckoutSessionAPI = async (planId: string): Promise<CheckoutSession> => {
   // TODO: Implement actual Stripe checkout session creation
-  console.log('🛒 Creating checkout session for plan:', planId);
   throw new Error('Stripe checkout session creation not implemented yet');
 };
 
@@ -129,7 +121,6 @@ export const createCheckoutSessionAPI = async (planId: string): Promise<Checkout
  */
 export const handlePaymentSuccess = async (sessionId: string): Promise<Subscription> => {
   // TODO: Implement payment success handling
-  console.log('✅ Handling payment success for session:', sessionId);
   throw new Error('Payment success handling not implemented yet');
 };
 
@@ -138,7 +129,6 @@ export const handlePaymentSuccess = async (sessionId: string): Promise<Subscript
  */
 export const handlePaymentCancellation = async (sessionId: string): Promise<void> => {
   // TODO: Implement payment cancellation handling
-  console.log('❌ Handling payment cancellation for session:', sessionId);
 };
 
 // =============================================================================

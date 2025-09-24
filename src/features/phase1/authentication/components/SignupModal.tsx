@@ -151,8 +151,6 @@ const SignupModal: React.FC = () => {
     setErrorMessage('');
 
     try {
-      // console.log('📝 Attempting signup with:', { email: formData.email, role: formData.role });
-
       const authResult = await authService.createAccount(
         formData.email,
         formData.password,
@@ -161,8 +159,6 @@ const SignupModal: React.FC = () => {
       );
 
       if (authResult.success && authResult.user) {
-        // console.log('✅ Signup successful');
-
         // Dispatch signup event for navigation sync
         window.dispatchEvent(
           new CustomEvent('user-signup', {
@@ -177,7 +173,6 @@ const SignupModal: React.FC = () => {
 
         // Handle post-auth redirect
         if (postAuthRedirect) {
-          // console.log('🎯 Redirecting to:', postAuthRedirect.url);
           clearRedirect();
 
           // Add autoOpenInquiry or autoOpenNda parameter if specified in state
@@ -286,8 +281,8 @@ const SignupModal: React.FC = () => {
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
-                  src="/flyp_logo.svg?v=2024.1"
-                  alt="flyp - European SME M&A Platform"
+                  src="/upswitch_logo.svg?v=2024.1"
+                  alt="Upswitch - European SME M&A Platform"
                   width="32"
                   height="32"
                   className="logo-image transition-opacity hover:opacity-80 w-8 h-8"

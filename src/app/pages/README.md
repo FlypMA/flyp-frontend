@@ -1,6 +1,6 @@
 # Pages Directory
 
-This directory contains all page components for the flyp M&A platform, organized by functionality and user journey. Each page is designed to provide specific functionality while maintaining consistency with the overall platform design and user experience.
+This directory contains all page components for the Upswitch M&A platform, organized by functionality and user journey. Each page is designed to provide specific functionality while maintaining consistency with the overall platform design and user experience.
 
 ## 📁 Directory Structure
 
@@ -281,4 +281,4 @@ Each page directory includes:
 
 ---
 
-**Pages Directory - Comprehensive page management system for the flyp M&A platform.**
+**Pages Directory - Comprehensive page management system for the Upswitch M&A platform.**

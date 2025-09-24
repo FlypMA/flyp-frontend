@@ -1,4 +1,4 @@
-# Shared Resources - flyp MVP
+# Shared Resources - Upswitch MVP
 
 This directory contains reusable resources that can be used across multiple features. These are the building blocks that provide consistency and prevent code duplication across the entire M&A platform.
 

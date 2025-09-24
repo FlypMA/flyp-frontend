@@ -3,18 +3,18 @@ import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody, CardHeader } from '@heroui/react';
 import {
-    AlertTriangle,
-    CheckCircle,
-    Database,
-    Eye,
-    FileText,
-    Key,
-    Lock,
-    Mail,
-    Server,
-    Shield,
-    UserCheck,
-    Wifi,
+  AlertTriangle,
+  CheckCircle,
+  Database,
+  Eye,
+  FileText,
+  Key,
+  Lock,
+  Mail,
+  Server,
+  Shield,
+  UserCheck,
+  Wifi,
 } from 'lucide-react';
 
 const Security = () => {
@@ -461,7 +461,7 @@ const Security = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Button variant="primary" startContent={<Mail className="w-4 h-4" />}>
-                        security@flyp.com
+                        security@upswitch.com
                       </Button>
                       <Button
                         variant="tertiary"

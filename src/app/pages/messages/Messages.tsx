@@ -1,12 +1,11 @@
-import { Input } from '@/shared/components/forms';
-// Navigation is provided by AuthLayout
+// Purpose: Enhanced messaging interface with transaction context integration
+// Replaces the old Messages.tsx with conversation-centric architecture
+
 import { Button } from '@/shared/components/buttons';
 import { authService } from '@/shared/services/auth';
 import { Avatar, Badge, Chip, Divider } from '@heroui/react';
 import {
   Building2,
-  CheckCheck,
-  Euro,
   MapPin,
   MessageCircle,
   MoreVertical,
@@ -15,14 +14,21 @@ import {
   Pin,
   Search,
   Send,
-  Smile,
   User,
   Video,
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User as UserType } from '../../../types/user.consolidated';
 
+// Import transaction modals
+import {
+  DocumentSharingModal,
+  DueDiligenceRequestModal,
+  OfferCreationModal,
+} from '@/features/phase1/conversations/components/modals';
+
+// Simple interfaces for basic messaging
 interface Conversation {
   id: string;
   participant: {
@@ -65,12 +71,16 @@ interface Message {
 
 const Messages: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
-  // Loading states removed for smooth UX
+  const [, setUser] = useState<UserType | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'unread' | 'buyers' | 'sellers'>('all');
+
+  // Modal states for transaction features
+  const [showOfferModal, setShowOfferModal] = useState(false);
+  const [showDDModal, setShowDDModal] = useState(false);
+  const [showDocumentModal, setShowDocumentModal] = useState(false);
 
   // Mock conversations data - would come from API
   const [conversations] = useState<Conversation[]>([
@@ -101,58 +111,6 @@ const Messages: React.FC = () => {
       isArchived: false,
       status: 'negotiating',
     },
-    {
-      id: '2',
-      participant: {
-        name: 'Sarah Williams',
-        avatar:
-          'https://images.unsplash.com/photo-1494790108755-2616b6ec1617?w=150&h=150&fit=crop&crop=face',
-        role: 'buyer',
-        company: 'Williams Capital',
-      },
-      lastMessage: {
-        content: 'Thank you for the financial documents. Everything looks good so far.',
-        timestamp: new Date('2024-01-20T11:15:00'),
-        isRead: true,
-        senderId: 'buyer2',
-      },
-      businessContext: {
-        title: 'Software Development Company',
-        price: 1800000,
-        currency: 'EUR',
-        location: 'Antwerp, Belgium',
-      },
-      unreadCount: 0,
-      isPinned: false,
-      isArchived: false,
-      status: 'active',
-    },
-    {
-      id: '3',
-      participant: {
-        name: 'David Thompson',
-        avatar:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-        role: 'buyer',
-        company: 'Thompson Group',
-      },
-      lastMessage: {
-        content: 'Let me know if you have any other questions about the manufacturing business.',
-        timestamp: new Date('2024-01-19T16:45:00'),
-        isRead: true,
-        senderId: 'current',
-      },
-      businessContext: {
-        title: 'Manufacturing Business - Ghent',
-        price: 950000,
-        currency: 'EUR',
-        location: 'Ghent, Belgium',
-      },
-      unreadCount: 0,
-      isPinned: false,
-      isArchived: false,
-      status: 'active',
-    },
   ]);
 
   // Mock messages for selected conversation
@@ -175,44 +133,9 @@ const Messages: React.FC = () => {
       isRead: true,
       type: 'text',
     },
-    {
-      id: '3',
-      content: 'Michael Chen has made an offer',
-      senderId: 'system',
-      timestamp: new Date('2024-01-20T14:00:00'),
-      isRead: true,
-      type: 'system',
-    },
-    {
-      id: '4',
-      content:
-        "Based on my initial review, I'd like to make a preliminary offer of €2.2M. This is subject to due diligence.",
-      senderId: 'buyer1',
-      timestamp: new Date('2024-01-20T14:15:00'),
-      isRead: true,
-      type: 'offer',
-      offerDetails: {
-        amount: 2200000,
-        currency: 'EUR',
-        terms: 'Subject to due diligence and final negotiations',
-      },
-    },
-    {
-      id: '5',
-      content:
-        "I'm very interested in the restaurant chain. Could we schedule a call to discuss the details?",
-      senderId: 'buyer1',
-      timestamp: new Date('2024-01-20T14:30:00'),
-      isRead: false,
-      type: 'text',
-    },
   ]);
 
-  useEffect(() => {
-    loadUserData();
-  }, []);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const authResult = await authService.checkAuthentication();
       if (authResult.isAuthenticated && authResult.user) {
@@ -224,20 +147,36 @@ const Messages: React.FC = () => {
       } else {
         navigate('/login');
       }
-    } catch (err) {
-      // console.error('Failed to load user data:', err);
+    } catch {
       navigate('/login');
-    } finally {
-      // No loading state to manage
     }
-  };
+  }, [navigate, conversations]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
 
     // Add message logic would go here
-    // console.log('Sending message:', newMessage);
     setNewMessage('');
+  };
+
+  // Modal handlers for transaction features
+  const handleOfferSubmit = (data: unknown) => {
+    // Handle offer submission
+    setShowOfferModal(false);
+  };
+
+  const handleDueDiligenceRequest = (data: unknown) => {
+    // Handle due diligence request
+    setShowDDModal(false);
+  };
+
+  const handleDocumentShare = (data: unknown) => {
+    // Handle document sharing
+    setShowDocumentModal(false);
   };
 
   const formatMessageTime = (timestamp: Date) => {
@@ -281,9 +220,9 @@ const Messages: React.FC = () => {
   // Loading screens removed for smooth user experience
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation provided by AuthLayout */}
-      <div className="h-[calc(100vh-4rem)] flex">
+    <div className="h-screen bg-gray-50 flex flex-col">
+      {/* Navigation provided by BuyerLayout */}
+      <div className="flex-1 flex overflow-hidden">
         {/* Conversations Sidebar */}
         <div className="w-96 bg-white border-r border-gray-200 flex flex-col">
           {/* Sidebar Header */}
@@ -297,43 +236,43 @@ const Messages: React.FC = () => {
 
             {/* Search */}
             <div className="mb-4">
-              <Input
-                placeholder="Search conversations..."
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                leftIcon={<Search className="w-4 h-4 text-gray-400" />}
-                className="search-conversations"
-                label=""
-                type="text"
-                onBlur={() => {}}
-                name="search"
-              />
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search conversations..."
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  className="w-full h-10 pl-10 pr-4 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 text-gray-900 transition-all duration-200"
+                />
+              </div>
             </div>
 
             {/* Filter Tabs */}
-            <div className="flex gap-1">
-              {(['all', 'unread', 'buyers', 'sellers'] as const).map(filter => (
-                <Button
-                  key={filter}
-                  size="sm"
-                  variant={filterType === filter ? 'primary' : 'secondary'}
-                  className="text-xs capitalize"
-                  onPress={() => setFilterType(filter)}
-                >
-                  {filter}
-                  {filter === 'unread' &&
-                    conversations.filter(c => c.unreadCount > 0).length > 0 && (
-                      <Badge
-                        content={conversations.filter(c => c.unreadCount > 0).length}
-                        size="sm"
-                        variant="solid"
-                        color="danger"
-                      >
-                        {conversations.filter(c => c.unreadCount > 0).length}
-                      </Badge>
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              {(['all', 'unread', 'buyers', 'sellers'] as const).map(filter => {
+                const isActive = filterType === filter;
+                const unreadCount = conversations.filter(c => c.unreadCount > 0).length;
+
+                return (
+                  <button
+                    key={filter}
+                    onClick={() => setFilterType(filter)}
+                    className={`relative flex-1 px-3 py-2 text-xs font-medium rounded-md transition-all duration-200 ${
+                      isActive
+                        ? 'bg-white text-gray-900 shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className="capitalize">{filter}</span>
+                    {filter === 'unread' && unreadCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium z-50">
+                        {unreadCount}
+                      </span>
                     )}
-                </Button>
-              ))}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -365,7 +304,7 @@ const Messages: React.FC = () => {
                   <div
                     key={conversation.id}
                     className={`p-4 rounded-lg cursor-pointer transition-colors relative ${
-                      selectedConversationId === conversation.id
+                      selectedConversation?.id === conversation.id
                         ? 'bg-primary-50 border border-primary-200'
                         : 'hover:bg-gray-50'
                     }`}
@@ -463,7 +402,7 @@ const Messages: React.FC = () => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col bg-white">
+        <div className="flex-1 flex flex-col bg-white min-h-0">
           {selectedConversation ? (
             <>
               {/* Chat Header */}
@@ -488,6 +427,33 @@ const Messages: React.FC = () => {
                   </div>
 
                   <div className="flex items-center space-x-2">
+                    {/* Transaction Action Buttons */}
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onPress={() => setShowOfferModal(true)}
+                      className="text-xs"
+                    >
+                      Make Offer
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onPress={() => setShowDDModal(true)}
+                      className="text-xs"
+                    >
+                      Due Diligence
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onPress={() => setShowDocumentModal(true)}
+                      className="text-xs"
+                    >
+                      Share Docs
+                    </Button>
+
+                    {/* Communication Buttons */}
                     <Button
                       isIconOnly
                       variant="tertiary"
@@ -534,7 +500,7 @@ const Messages: React.FC = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 pb-20 space-y-4 min-h-0">
                 {messages.map(message => (
                   <div key={message.id}>
                     {message.type === 'system' ? (
@@ -559,7 +525,6 @@ const Messages: React.FC = () => {
                           {message.type === 'offer' && message.offerDetails ? (
                             <div>
                               <div className="flex items-center space-x-2 mb-2">
-                                <Euro className="w-4 h-4 text-green-600" />
                                 <span className="font-semibold text-green-800">
                                   Offer: €{(message.offerDetails.amount / 1000000).toFixed(1)}M
                                 </span>
@@ -587,11 +552,6 @@ const Messages: React.FC = () => {
                                 hour12: false,
                               })}
                             </span>
-                            {message.senderId === 'current' && (
-                              <CheckCheck
-                                className={`w-3 h-3 ${message.isRead ? 'text-blue-300' : 'text-white/50'}`}
-                              />
-                            )}
                           </div>
                         </div>
                       </div>
@@ -600,28 +560,26 @@ const Messages: React.FC = () => {
                 ))}
               </div>
 
-              {/* Modern Message Input - Redesigned */}
-              <div className="px-4 py-3 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200/50">
-                <div className="flex items-end gap-3 max-w-4xl mx-auto">
-                  {/* Attachment Button */}
-                  <Button
-                    isIconOnly
-                    variant="tertiary"
-                    className="w-10 h-10 rounded-full bg-white hover:bg-gray-100 border border-gray-200/50 shadow-sm text-gray-600 hover:text-gray-800 transition-all duration-200 hover:scale-105"
-                  >
-                    <Paperclip className="w-4 h-4" />
-                  </Button>
+              {/* Simple Message Input - Fixed to Bottom */}
+              <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+                <div className="px-4 py-3 max-w-4xl mx-auto">
+                  <div className="flex items-center gap-3">
+                    {/* Attachment Button */}
+                    <button
+                      type="button"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                    >
+                      <Paperclip className="w-4 h-4" />
+                    </button>
 
-                  {/* Message Input Container */}
-                  <div className="flex-1 relative">
-                    <div className="flex items-center bg-white rounded-3xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-300/50 focus-within:border-primary-400 focus-within:shadow-md focus-within:ring-1 focus-within:ring-primary-100">
-                      {/* Input Field */}
+                    {/* Message Input */}
+                    <div className="flex-1 flex items-center bg-gray-100 rounded-full px-4 py-2 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-200">
                       <input
                         type="text"
                         placeholder="Type a message..."
                         value={newMessage}
                         onChange={e => setNewMessage(e.target.value)}
-                        className="flex-1 px-5 py-3 bg-transparent text-gray-900 placeholder:text-gray-500 focus:outline-none text-base rounded-l-3xl"
+                        className="flex-1 bg-transparent text-gray-900 placeholder:text-gray-500 focus:outline-none text-sm border-0"
                         onKeyPress={e => {
                           if (e.key === 'Enter' && !e.shiftKey && newMessage.trim()) {
                             e.preventDefault();
@@ -629,48 +587,21 @@ const Messages: React.FC = () => {
                           }
                         }}
                       />
-
-                      {/* Emoji Button */}
-                      <Button
-                        isIconOnly
-                        variant="tertiary"
-                        className="w-9 h-9 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200 mr-2"
-                      >
-                        <Smile className="w-4 h-4" />
-                      </Button>
                     </div>
-                  </div>
 
-                  {/* Send Button - Modern Circular Design */}
-                  <Button
-                    isIconOnly
-                    onPress={handleSendMessage}
-                    isDisabled={!newMessage.trim()}
-                    className={`w-11 h-11 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 ${
-                      newMessage.trim()
-                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-primary-500/25'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-gray-200/50'
-                    }`}
-                  >
-                    <Send
-                      className={`w-4 h-4 transition-transform duration-200 ${newMessage.trim() ? 'translate-x-0.5' : ''}`}
-                    />
-                  </Button>
-                </div>
-
-                {/* Typing Indicator Placeholder */}
-                <div className="flex items-center justify-center mt-2 opacity-0 transition-opacity duration-200">
-                  <div className="flex items-center space-x-1 text-xs text-gray-500">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: '0.1s' }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: '0.2s' }}
-                    ></div>
-                    <span className="ml-2">Someone is typing...</span>
+                    {/* Send Button */}
+                    <button
+                      type="button"
+                      onClick={handleSendMessage}
+                      disabled={!newMessage.trim()}
+                      className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 ${
+                        newMessage.trim()
+                          ? 'bg-primary-500 hover:bg-primary-600 text-white shadow-md hover:shadow-lg'
+                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      <Send className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -706,6 +637,35 @@ const Messages: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Transaction Modals */}
+      {selectedConversation && (
+        <>
+          <OfferCreationModal
+            isOpen={showOfferModal}
+            onClose={() => setShowOfferModal(false)}
+            conversationId={selectedConversation.id}
+            listingId="listing-1"
+            onSuccess={handleOfferSubmit}
+          />
+
+          <DueDiligenceRequestModal
+            isOpen={showDDModal}
+            onClose={() => setShowDDModal(false)}
+            conversationId={selectedConversation.id}
+            listingId="listing-1"
+            onSuccess={handleDueDiligenceRequest}
+          />
+
+          <DocumentSharingModal
+            isOpen={showDocumentModal}
+            onClose={() => setShowDocumentModal(false)}
+            conversationId={selectedConversation.id}
+            listingId="listing-1"
+            onSuccess={handleDocumentShare}
+          />
+        </>
+      )}
     </div>
   );
 };

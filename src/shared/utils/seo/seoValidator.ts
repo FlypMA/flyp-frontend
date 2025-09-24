@@ -15,7 +15,7 @@ export const validateSEO = (seoProps: SEOProps): SEOValidationResult => {
     }
 
     if (!seoProps.title.includes('flyp')) {
-      suggestions.push('Consider including "flyp" in the title for brand consistency');
+      suggestions.push('Consider including "Upswitch" in the title for brand consistency');
     }
   } else {
     errors.push('Title is required');

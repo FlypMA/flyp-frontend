@@ -15,9 +15,10 @@ const PrivacyPolicy = () => {
         <div className="space-y-8 text-gray-800 leading-relaxed">
           <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-blue-900">
-              <strong>Your Privacy Matters:</strong> This Privacy Policy explains how flyp collects,
-              uses, and protects your personal information when you use our M&A platform. We are
-              committed to transparency and giving you complete control over your business data.
+              <strong>Your Privacy Matters:</strong> This Privacy Policy explains how Upswitch
+              collects, uses, and protects your personal information when you use our M&A platform.
+              We are committed to transparency and giving you complete control over your business
+              data.
             </p>
           </div>
 
@@ -182,7 +183,7 @@ const PrivacyPolicy = () => {
               How to Exercise Your Rights:
             </h3>
             <p className="text-gray-700">
-              Contact us at privacy@flyp.com or use the data management tools in your account
+              Contact us at privacy@upswitch.com or use the data management tools in your account
               settings. We will respond to requests within 30 days.
             </p>
           </div>
@@ -260,10 +261,10 @@ const PrivacyPolicy = () => {
           </p>
           <div className="ml-4 space-y-2 text-gray-700">
             <p>
-              <strong>Email:</strong> privacy@flyp.com
+              <strong>Email:</strong> privacy@upswitch.com
             </p>
             <p>
-              <strong>Address:</strong> flyp, Belgium
+              <strong>Address:</strong> Upswitch, Belgium
             </p>
           </div>
 

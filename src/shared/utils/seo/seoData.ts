@@ -14,16 +14,16 @@ export const seoData: Record<string, SEOProps> = {
       '@type': ['WebSite', 'Organization'],
       name: 'flyp',
       alternateName: 'flyp.com',
-      url: 'https://www.flyp.com',
+      url: 'https://www.upswitch.com',
       description:
         'European SME M&A platform connecting business buyers and sellers across 15+ countries',
       foundingDate: '2019',
       areaServed: ['Europe', 'European Union'],
       serviceType: ['Business Brokerage', 'M&A Advisory', 'Transaction Platform'],
-      sameAs: ['https://www.linkedin.com/company/flyp', 'https://twitter.com/flyp'],
+      sameAs: ['https://www.linkedin.com/company/upswitch', 'https://twitter.com/upswitch'],
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://www.flyp.com/search?q={search_term_string}',
+        target: 'https://www.upswitch.com/search?q={search_term_string}',
         'query-input': 'required name=search_term_string',
       },
       offers: {
@@ -47,12 +47,12 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'flyp for Sellers',
+      name: 'Upswitch for Sellers',
       description: 'Sell your business confidentially to qualified buyers across Europe',
-      url: 'https://www.flyp.com/for-sellers',
+      url: 'https://www.upswitch.com/for-sellers',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'flyp',
+        name: 'Upswitch',
       },
     },
   },
@@ -67,12 +67,12 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'flyp for Buyers',
+      name: 'Upswitch for Buyers',
       description: 'Find and acquire verified businesses across Europe',
-      url: 'https://www.flyp.com/search',
+      url: 'https://www.upswitch.com/search',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'flyp',
+        name: 'Upswitch',
       },
     },
   },
@@ -87,12 +87,12 @@ export const seoData: Record<string, SEOProps> = {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'flyp Pricing',
+      name: 'Upswitch Pricing',
       description: 'Transparent pricing for M&A transactions and business listings',
-      url: 'https://www.flyp.com/pricing',
+      url: 'https://www.upswitch.com/pricing',
       isPartOf: {
         '@type': 'WebSite',
-        name: 'flyp',
+        name: 'Upswitch',
       },
     },
   },
@@ -247,11 +247,11 @@ export const seoData: Record<string, SEOProps> = {
       description: 'Comprehensive guide to business valuation methods and best practices',
       author: {
         '@type': 'Organization',
-        name: 'flyp',
+        name: 'Upswitch',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'flyp',
+        name: 'Upswitch',
       },
     },
   },
@@ -270,11 +270,11 @@ export const seoData: Record<string, SEOProps> = {
       description: 'Complete checklist for conducting due diligence in M&A transactions',
       author: {
         '@type': 'Organization',
-        name: 'flyp',
+        name: 'Upswitch',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'flyp',
+        name: 'Upswitch',
       },
     },
   },
@@ -291,7 +291,7 @@ export const seoData: Record<string, SEOProps> = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'flyp',
-      url: 'https://www.flyp.com',
+      url: 'https://www.upswitch.com',
       description:
         'Next-generation M&A platform launching 2025 to modernize European SME transactions',
       foundingDate: '2024',
@@ -391,7 +391,7 @@ export const generateListingSEO = (listing: {
         availability: 'https://schema.org/InStock',
         seller: {
           '@type': 'Organization',
-          name: 'flyp',
+          name: 'Upswitch',
         },
       },
       category: listing.industry,

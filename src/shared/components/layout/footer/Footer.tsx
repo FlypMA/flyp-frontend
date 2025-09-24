@@ -5,7 +5,7 @@
 import { Globe, Mail, MapPin, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { UrlGenerator } from '../../../services';
-import FlypLogo from '../../logo/flypLogo';
+import UpswitchLogo from '../../logo/upswitchLogo';
 
 const Footer = () => {
   return (
@@ -19,10 +19,10 @@ const Footer = () => {
               {/* Brand Logo/Name */}
               <div className="flex items-center space-x-4">
                 <div className="p-3 footer-logo-container bg-white rounded-lg">
-                  <FlypLogo variant="footer" />
+                  <UpswitchLogo variant="footer" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">flyp</h3>
+                  <h3 className="text-xl font-bold text-white">Upswitch</h3>
                   <p className="text-sm text-neutral-400">European M&A Platform</p>
                 </div>
               </div>
@@ -120,7 +120,7 @@ const Footer = () => {
             <div className="mt-6 space-y-2 text-xs text-neutral-400">
               <div className="flex items-center gap-2">
                 <Mail className="w-3 h-3" />
-                <span>hello@flyp.com</span>
+                <span>hello@upswitch.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-3 h-3" />
@@ -158,7 +158,7 @@ const Footer = () => {
         <div className="border-t border-neutral-800 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <div className="text-neutral-400 text-sm">© 2025 flyp. All rights reserved.</div>
+            <div className="text-neutral-400 text-sm">© 2025 Upswitch. All rights reserved.</div>
 
             {/* Additional Info */}
             <div className="text-neutral-400 text-xs text-center lg:text-right">

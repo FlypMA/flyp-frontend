@@ -46,14 +46,11 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
 
   const handleLogout = async () => {
     try {
-      console.log('🔓 Initiating logout...');
       await authService.logout();
       window.dispatchEvent(new CustomEvent('auth-logout'));
       window.dispatchEvent(new CustomEvent('auth-change'));
-      console.log('✅ Logout successful, navigating to home');
       navigate(UrlGenerator.root());
     } catch (error) {
-      console.error('❌ Logout failed:', error);
       navigate(UrlGenerator.root());
     }
     setIsOpen(false);

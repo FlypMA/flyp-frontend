@@ -13,11 +13,11 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 // Layout imports
-import AuthLayout from '../layouts/AuthLayout';
-import { DashboardLayout } from '../layouts/DashboardLayout';
+import BuyerLayout from '../layouts/BuyerLayout';
 import LayoutSplit from '../layouts/LayoutSplit';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import MainLayout from '../layouts/MainLayout';
+import SellerLayout from '../layouts/SellerLayout';
 
 // Route Guard imports
 import NDARouteGuard from './NDARouteGuard';
@@ -37,6 +37,15 @@ import DocumentVault from '../pages/business/data-room/DocumentVault';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import ValuationTool from '../pages/business/reports/ValuationTool';
+
+// Page imports - Due Diligence
+import { DueDiligencePage } from '../pages/due-diligence';
+
+// Page imports - Offer Management
+import { OfferManagementPage } from '../pages/offer-management';
+
+// Page imports - Transaction Completion
+import { TransactionCompletionPage } from '../pages/transaction-completion';
 
 // Page imports - Account & Authentication
 import SignUpComplete from '../pages/account/onboarding/signUpComplete/SignUpComplete';
@@ -70,6 +79,7 @@ import DueDiligenceChecklist from '../pages/landingPages/resources/DueDiligenceC
 import ValuationGuide from '../pages/landingPages/resources/ValuationGuide';
 
 // Page imports - Messages & Communication
+import { ConversationProvider } from '../../features/phase1/conversations/hooks';
 import Messages from '../pages/messages/Messages';
 
 // Page imports - Onboarding
@@ -135,18 +145,20 @@ export const router = createBrowserRouter([
   },
 
   // ==============================================================================
-  // AUTHENTICATED ROUTES - AuthLayout (General authenticated users)
+  // BUYER ROUTES - BuyerLayout (Buyer-specific authenticated users)
   // ==============================================================================
   {
     path: '/',
-    element: <AuthLayout />,
+    element: <BuyerLayout />,
     children: [
-      // Messages (all authenticated users)
+      // Messages (all authenticated users) - Enhanced with conversation context
       {
         path: 'messages',
         element: (
           <ProtectedRoute>
-            <Messages />
+            <ConversationProvider>
+              <Messages />
+            </ConversationProvider>
           </ProtectedRoute>
         ),
       },
@@ -154,7 +166,9 @@ export const router = createBrowserRouter([
         path: 'messages/:conversationId',
         element: (
           <ProtectedRoute>
-            <Messages />
+            <ConversationProvider>
+              <Messages />
+            </ConversationProvider>
           </ProtectedRoute>
         ),
       },
@@ -224,25 +238,15 @@ export const router = createBrowserRouter([
           </BuyerRoute>
         ),
       },
-
-      // Transaction Flow (sellers and admins)
-      {
-        path: 'transaction/:transactionId',
-        element: (
-          <SellerRoute>
-            <TransactionFlow />
-          </SellerRoute>
-        ),
-      },
     ],
   },
 
   // ==============================================================================
-  // BUSINESS DASHBOARD ROUTES - DashboardLayout (SELLER-ONLY)
+  // SELLER ROUTES - SellerLayout (SELLER-ONLY)
   // ==============================================================================
   {
     path: '/',
-    element: <DashboardLayout />,
+    element: <SellerLayout />,
     children: [
       // Business Dashboard (sellers, both, admin only)
       {
@@ -302,6 +306,54 @@ export const router = createBrowserRouter([
           <SellerRoute>
             <GetFreeValuation />
           </SellerRoute>
+        ),
+      },
+
+      // Due Diligence (buyers, sellers, advisors)
+      {
+        path: 'due-diligence/:processId/:listingId',
+        element: (
+          <ProtectedRoute>
+            <DueDiligencePage />
+          </ProtectedRoute>
+        ),
+      },
+
+      // Offer Management (buyers, sellers, advisors)
+      {
+        path: 'offers',
+        element: (
+          <ProtectedRoute>
+            <OfferManagementPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'offers/:listingId',
+        element: (
+          <ProtectedRoute>
+            <OfferManagementPage />
+          </ProtectedRoute>
+        ),
+      },
+
+      // Transaction Flow (sellers and admins)
+      {
+        path: 'transaction/:transactionId',
+        element: (
+          <SellerRoute>
+            <TransactionFlow />
+          </SellerRoute>
+        ),
+      },
+
+      // Transaction Completion (buyers, sellers, advisors)
+      {
+        path: 'transactions/:transactionId',
+        element: (
+          <ProtectedRoute>
+            <TransactionCompletionPage />
+          </ProtectedRoute>
         ),
       },
     ],

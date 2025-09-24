@@ -7,9 +7,9 @@ const CookiePolicy = () => {
   return (
     <>
       <SEOHead
-        title="Cookie Policy | flyp M&A Platform"
-        description="Learn about how flyp uses cookies to improve your experience on our M&A platform. Detailed information about cookie types and your choices."
-        keywords="cookie policy, privacy, data protection, website cookies, tracking, flyp"
+        title="Cookie Policy | Upswitch M&A Platform"
+        description="Learn about how Upswitch uses cookies to improve your experience on our M&A platform. Detailed information about cookie types and your choices."
+        keywords="cookie policy, privacy, data protection, website cookies, tracking, Upswitch"
       />
 
       <div className="min-h-screen bg-white">
@@ -281,7 +281,7 @@ const CookiePolicy = () => {
                       please contact us:
                     </p>
                     <div className="text-neutral-600">
-                      <p>Email: privacy@flyp.com</p>
+                      <p>Email: privacy@upswitch.com</p>
                       <p>Address: Brussels, Belgium</p>
                     </div>
                   </CardBody>

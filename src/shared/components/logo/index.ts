@@ -5,5 +5,5 @@
  */
 
 export { default as BrandLogo } from './BrandLogo';
-export { default as FlypLogo } from './flypLogo';
 export { getLogoConfig, logos } from './logos';
+export { default as FlypLogo, default as UpswitchLogo } from './upswitchLogo';

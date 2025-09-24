@@ -14,6 +14,7 @@ export { Button, default as ButtonDefault } from './Button';
 
 // Variant-Specific Button Components
 export { default as Danger, DangerButton } from './DangerButton';
+export { default as Host, HostButton } from './HostButton';
 export { default as Link, LinkButton } from './LinkButton';
 export { default as Primary, PrimaryButton } from './PrimaryButton';
 export { default as Secondary, SecondaryButton } from './SecondaryButton';

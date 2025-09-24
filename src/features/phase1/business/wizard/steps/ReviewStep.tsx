@@ -8,7 +8,7 @@ import { CheckCircle } from 'lucide-react';
 import React from 'react';
 import { ListingWizardData, StepComponentProps } from '../types';
 
-const ReviewStep: React.FC<StepComponentProps> = ({ data, onDataChange }) => {
+const ReviewStep: React.FC<StepComponentProps> = ({ data }) => {
   const wizardData = data as ListingWizardData;
   const [isDraft, setIsDraft] = React.useState(false);
   const [termsAgreed, setTermsAgreed] = React.useState(false);

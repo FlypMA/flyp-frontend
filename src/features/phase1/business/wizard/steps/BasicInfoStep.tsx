@@ -16,7 +16,7 @@ import { BasicInfo, StepComponentProps } from '../types';
 const BasicInfoStep: React.FC<StepComponentProps> = ({ data, onDataChange }) => {
   const basicInfo = data.basicInfo || ({} as BasicInfo);
 
-  const handleInputChange = (field: keyof BasicInfo, value: any) => {
+  const handleInputChange = (field: keyof BasicInfo, value: string | number | boolean) => {
     onDataChange({
       basicInfo: {
         ...basicInfo,

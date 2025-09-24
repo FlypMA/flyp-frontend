@@ -1,5 +1,5 @@
 /**
- * 🪵 Logger Utility - flyp MVP
+ * 🪵 Logger Utility - Upswitch MVP
  *
  * Centralized logging utility that can be easily controlled
  * for development vs production environments.
@@ -14,7 +14,7 @@ export const logger = {
   info: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       // eslint-disable-next-line no-console
-      console.log(message, ...args);
+      console.log(`[INFO] ${message}`, ...args);
     }
   },
 
@@ -23,14 +23,13 @@ export const logger = {
    */
   error: (message: string, ...args: unknown[]) => {
     // eslint-disable-next-line no-console
-    console.error(message, ...args);
+    console.error(`[ERROR] ${message}`, ...args);
   },
 
   /**
    * Log warning messages (always)
    */
   warn: (message: string, ...args: unknown[]) => {
-    // eslint-disable-next-line no-console
     console.warn(message, ...args);
   },
 
@@ -40,7 +39,7 @@ export const logger = {
   debug: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       // eslint-disable-next-line no-console
-      console.debug(message, ...args);
+      console.debug(`[DEBUG] ${message}`, ...args);
     }
   },
 
@@ -50,7 +49,7 @@ export const logger = {
   success: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       // eslint-disable-next-line no-console
-      console.log(`✅ ${message}`, ...args);
+      console.log(`[SUCCESS] ${message}`, ...args);
     }
   },
 
@@ -60,7 +59,7 @@ export const logger = {
   failure: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       // eslint-disable-next-line no-console
-      console.log(`❌ ${message}`, ...args);
+      console.error(`[FAILURE] ${message}`, ...args);
     }
   },
 };

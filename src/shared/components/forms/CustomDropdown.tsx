@@ -173,15 +173,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           aria-expanded={isOpen}
           aria-labelledby={`${label}-label ${label}-value`}
         >
-          {/* Floating Label */}
+          {/* Fixed Label */}
           <label
             className={`
-            absolute left-4 transition-all duration-200 pointer-events-none font-medium
-            ${
-              isFilled || isFocused || value
-                ? 'top-2 text-xs text-gray-700'
-                : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
-            }
+            absolute left-4 top-2 text-xs text-gray-700 pointer-events-none font-medium
             ${error && touched ? 'text-red-600' : ''}
             ${disabled ? 'text-gray-400' : ''}
             ${required ? "after:content-['*'] after:text-red-500 after:ml-1" : ''}

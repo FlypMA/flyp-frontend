@@ -108,16 +108,12 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
   const handleCreateValuation = () => {
     if (onCreateValuation) {
       onCreateValuation();
-    } else {
-      // console.log('Create valuation');
     }
   };
 
   const handleUpdateValuation = () => {
     if (onUpdateValuation) {
       onUpdateValuation();
-    } else {
-      // console.log('Update valuation');
     }
   };
 
@@ -231,18 +227,10 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
               {/* Current Valuation Report */}
               <ValuationReportCard
                 report={currentValuation}
-                onView={() => {
-                  /* console.log('View valuation') */
-                }}
-                onDownload={() => {
-                  /* console.log('Download valuation') */
-                }}
-                onShare={() => {
-                  /* console.log('Share valuation') */
-                }}
-                onEdit={() => {
-                  /* console.log('Edit valuation') */
-                }}
+                onView={() => {}}
+                onDownload={() => {}}
+                onShare={() => {}}
+                onEdit={() => {}}
                 onCreateListing={onCreateListing}
               />
             </div>

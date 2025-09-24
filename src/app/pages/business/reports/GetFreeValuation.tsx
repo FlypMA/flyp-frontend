@@ -1,5 +1,4 @@
 import { authService } from '@/shared/services/auth';
-import { User as UserType } from '@/shared/types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Navigation and sidebar are provided by DashboardLayout
@@ -24,9 +23,9 @@ interface BusinessValuation {
 
 const GetFreeValuation = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  // const [user, setUser] = useState<UserType | null>(null);
   const [businessValuation, setBusinessValuation] = useState<BusinessValuation | null>(null);
-  const [historicalValuations, setHistoricalValuations] = useState<BusinessValuation[]>([]);
+  // const [historicalValuations, setHistoricalValuations] = useState<BusinessValuation[]>([]);
   // Loading states removed for smooth UX
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const GetFreeValuation = () => {
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
-          setUser(authResult.user);
+          // setUser(authResult.user);
 
           // Mock valuation data
           setBusinessValuation({
@@ -69,41 +68,40 @@ const GetFreeValuation = () => {
           });
 
           // Mock historical valuations
-          setHistoricalValuations([
-            {
-              id: 'valuation-2',
-              estimated_value: 780000,
-              currency: 'EUR',
-              valuation_date: '2023-10-10',
-              confidence_level: 'high',
-              methodology: 'Comparable Sales Analysis',
-              status: 'completed',
-              last_updated: '2023-10-15',
-              revenue_multiple: 2.8,
-              ebitda_multiple: 7.8,
-              industry_average: 7.0,
-              market_conditions: 'stable',
-            },
-            {
-              id: 'valuation-3',
-              estimated_value: 720000,
-              currency: 'EUR',
-              valuation_date: '2023-07-10',
-              confidence_level: 'medium',
-              methodology: 'Asset-Based Valuation',
-              status: 'completed',
-              last_updated: '2023-07-15',
-              revenue_multiple: 2.6,
-              ebitda_multiple: 7.2,
-              industry_average: 6.8,
-              market_conditions: 'challenging',
-            },
-          ]);
+          // setHistoricalValuations([
+          //   {
+          //     id: 'valuation-2',
+          //     estimated_value: 780000,
+          //     currency: 'EUR',
+          //     valuation_date: '2023-10-10',
+          //     confidence_level: 'high',
+          //     methodology: 'Comparable Sales Analysis',
+          //     status: 'completed',
+          //     last_updated: '2023-10-15',
+          //     revenue_multiple: 2.8,
+          //     ebitda_multiple: 7.8,
+          //     industry_average: 7.0,
+          //     market_conditions: 'stable',
+          //   },
+          //   {
+          //     id: 'valuation-3',
+          //     estimated_value: 720000,
+          //     currency: 'EUR',
+          //     valuation_date: '2023-07-10',
+          //     confidence_level: 'medium',
+          //     methodology: 'Asset-Based Valuation',
+          //     status: 'completed',
+          //     last_updated: '2023-07-15',
+          //     revenue_multiple: 2.6,
+          //     ebitda_multiple: 7.2,
+          //     industry_average: 6.8,
+          //     market_conditions: 'challenging',
+          //   },
+          // ]);
         } else {
           navigate('/');
         }
-      } catch (error) {
-        console.error('Error initializing page:', error);
+      } catch {
         navigate('/');
       } finally {
         // No loading state to manage
@@ -113,15 +111,13 @@ const GetFreeValuation = () => {
     initializePage();
   }, [navigate]);
 
-  const handleCreateValuation = () => {
-    // TODO: Navigate to valuation wizard or open modal
-    console.log('Create valuation');
-  };
+  // const handleCreateValuation = () => {
+  //   // TODO: Navigate to valuation wizard or open modal
+  // };
 
-  const handleUpdateValuation = () => {
-    // TODO: Navigate to valuation update wizard
-    console.log('Update valuation');
-  };
+  // const handleUpdateValuation = () => {
+  //   // TODO: Navigate to valuation update wizard
+  // };
 
   const handleCreateListing = () => {
     navigate('/my-business/listings');

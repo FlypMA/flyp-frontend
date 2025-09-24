@@ -12,15 +12,15 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ step, title, completed, a
       {/* Step Circle */}
       <div className="relative z-10">
         {completed ? (
-          <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-            <Check className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-sm">
+            <Check className="w-4 h-4 text-white" />
           </div>
         ) : (
           <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
               active
-                ? 'bg-blue-600 text-white shadow-lg ring-4 ring-blue-100'
-                : 'bg-white text-gray-400 border-2 border-gray-200'
+                ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-100'
+                : 'bg-white text-gray-400 border-2 border-gray-200 hover:border-gray-300'
             }`}
           >
             {step}
@@ -29,9 +29,9 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ step, title, completed, a
       </div>
 
       {/* Step Title */}
-      <div className="mt-3 text-center max-w-20">
+      <div className="mt-2 text-center max-w-16">
         <div
-          className={`text-xs font-semibold leading-tight transition-colors duration-300 ${
+          className={`text-xs font-medium leading-tight transition-colors duration-300 ${
             active ? 'text-blue-600' : completed ? 'text-emerald-600' : 'text-gray-400'
           }`}
         >

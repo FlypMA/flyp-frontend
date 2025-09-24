@@ -188,9 +188,8 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
       }
 
       onClose();
-    } catch (error) {
+    } catch {
       // TODO: Handle error properly (show user notification, etc.)
-      // console.error('Error submitting listing:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -276,11 +275,11 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
       totalSteps={totalSteps}
       showProgress={true}
       headerContent={
-        <div className="w-full px-4">
-          {/* Timeline Container */}
+        <div className="w-full px-6 py-3">
+          {/* Compact Timeline Container */}
           <div className="relative">
             {/* Background Progress Line */}
-            <div className="absolute top-5 left-5 right-5 h-1 bg-gray-100 rounded-full">
+            <div className="absolute top-4 left-4 right-4 h-1 bg-gray-100 rounded-full">
               <div
                 className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full transition-all duration-700 ease-out"
                 style={{
@@ -290,15 +289,16 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
             </div>
 
             {/* Step Indicators */}
-            <div className="relative flex justify-between">
+            <div className="relative flex justify-between items-start">
               {stepTitles.map((title, index) => (
-                <StepIndicator
-                  key={index + 1}
-                  step={index + 1}
-                  title={title}
-                  completed={currentStep > index + 1}
-                  active={currentStep === index + 1}
-                />
+                <div key={index + 1} className="flex flex-col items-center flex-1">
+                  <StepIndicator
+                    step={index + 1}
+                    title={title}
+                    completed={currentStep > index + 1}
+                    active={currentStep === index + 1}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -310,7 +310,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6 min-h-0">{renderCurrentStep()}</div>
 
         {/* Navigation Footer - Sticky */}
-        <div className="flex-shrink-0 bg-white border-t border-gray-200 px-6 py-4">
+        <div className="flex-shrink-0 bg-white border-t border-gray-100 px-4 py-2">
           <WizardNavigation
             currentStep={currentStep}
             totalSteps={totalSteps}

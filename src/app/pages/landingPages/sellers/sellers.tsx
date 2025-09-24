@@ -36,7 +36,6 @@ const SellersLandingPage = () => {
         });
       }
     } catch (error) {
-      // console.error('Authentication check failed:', error);
       // On error, default to showing signup modal
       openModal('signup', {
         url: '/my-business',
@@ -94,11 +93,7 @@ const SellersLandingPage = () => {
                 >
                   Get started — we'll help you
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="xl"
-                  onPress={() => navigate('/contact')}
-                >
+                <Button variant="secondary" size="xl" onPress={() => navigate('/contact')}>
                   Talk to our team first
                 </Button>
               </div>
@@ -217,11 +212,7 @@ const SellersLandingPage = () => {
 
               {/* Reassuring CTA */}
               <div className="text-center mt-16">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onPress={() => navigate('/contact')}
-                >
+                <Button variant="secondary" size="lg" onPress={() => navigate('/contact')}>
                   Start with a free conversation
                 </Button>
                 <p className="text-sm text-neutral-500 mt-3">

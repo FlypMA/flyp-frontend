@@ -12,7 +12,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // flyp Brand Colors
+        // Upswitch Brand Colors
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',

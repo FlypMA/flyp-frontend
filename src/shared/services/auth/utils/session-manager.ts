@@ -18,10 +18,10 @@ import { AuthResult, User } from '../../../types';
 // =============================================================================
 
 const SESSION_CONFIG = {
-  COOKIE_NAME: 'flyp_session',
-  TOKEN_KEY: 'flyp_token',
-  USER_KEY: 'flyp_user',
-  REFRESH_KEY: 'flyp_refresh',
+  COOKIE_NAME: 'upswitch_session',
+  TOKEN_KEY: 'upswitch_token',
+  USER_KEY: 'upswitch_user',
+  REFRESH_KEY: 'upswitch_refresh',
   EXPIRY_DAYS: 7, // 7 days
   SECURE: process.env.NODE_ENV === 'production',
   SAME_SITE: 'lax' as const,
@@ -40,19 +40,16 @@ export class SessionManager {
   static storeSession(authResult: AuthResult): void {
     try {
       if (!authResult.isAuthenticated || !authResult.user) {
-        console.warn('⚠️ Invalid session data provided');
         return;
       }
 
       // Only store user data locally (not tokens - those are in HTTP-only cookies)
       localStorage.setItem(SESSION_CONFIG.USER_KEY, JSON.stringify(authResult.user));
-      
-      // Store a flag to indicate we have a session
-      localStorage.setItem('flyp_has_session', 'true');
 
-      console.log('✅ Session stored successfully (HTTP-only cookie pattern)');
+      // Store a flag to indicate we have a session
+      localStorage.setItem('upswitch_has_session', 'true');
     } catch (error) {
-      console.error('❌ Failed to store session:', error);
+      console.error('Error storing session:', error);
     }
   }
 
@@ -64,7 +61,7 @@ export class SessionManager {
   static getSession(): AuthResult | null {
     try {
       const userStr = localStorage.getItem(SESSION_CONFIG.USER_KEY);
-      const hasSession = localStorage.getItem('flyp_has_session');
+      const hasSession = localStorage.getItem('upswitch_has_session');
 
       if (!userStr || !hasSession) {
         return null;
@@ -78,7 +75,6 @@ export class SessionManager {
         token: 'cookie-based', // Placeholder - actual auth is via HTTP-only cookies
       };
     } catch (error) {
-      console.error('❌ Failed to retrieve session:', error);
       this.clearSession();
       return null;
     }
@@ -92,15 +88,13 @@ export class SessionManager {
     try {
       // Clear localStorage (HTTP-only cookies are cleared by backend)
       localStorage.removeItem(SESSION_CONFIG.USER_KEY);
-      localStorage.removeItem('flyp_has_session');
-      
+      localStorage.removeItem('upswitch_has_session');
+
       // Clear any legacy tokens if they exist
       localStorage.removeItem(SESSION_CONFIG.TOKEN_KEY);
       localStorage.removeItem(SESSION_CONFIG.REFRESH_KEY);
-
-      console.log('✅ Session cleared successfully (HTTP-only cookie pattern)');
     } catch (error) {
-      console.error('❌ Failed to clear session:', error);
+      console.error('Error clearing session:', error);
     }
   }
 
@@ -128,7 +122,6 @@ export class SessionManager {
       const userStr = localStorage.getItem(SESSION_CONFIG.USER_KEY);
       return userStr ? JSON.parse(userStr) : null;
     } catch (error) {
-      console.error('❌ Failed to parse stored user:', error);
       return null;
     }
   }
@@ -139,9 +132,8 @@ export class SessionManager {
   static updateUser(user: User): void {
     try {
       localStorage.setItem(SESSION_CONFIG.USER_KEY, JSON.stringify(user));
-      console.log('✅ User data updated in session');
     } catch (error) {
-      console.error('❌ Failed to update user in session:', error);
+      console.error('Error updating user data:', error);
     }
   }
 

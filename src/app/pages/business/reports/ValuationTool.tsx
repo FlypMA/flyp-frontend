@@ -93,8 +93,6 @@ const ValuationTool: React.FC = () => {
     setIsValuationModalOpen(false);
   };
 
-  console.log('ValuationTool rendering with reports:', valuationReports.length);
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -162,10 +160,6 @@ const ValuationTool: React.FC = () => {
                 ebitdaMultiple={report.ebitdaMultiple}
                 industryAverage={report.industryAverage}
                 monthsValid={report.monthsValid}
-                onView={() => console.log('View report:', report.id)}
-                onDownload={() => console.log('Download report:', report.id)}
-                onShare={() => console.log('Share report:', report.id)}
-                onUpdate={() => console.log('Update report:', report.id)}
               />
             ))}
           </div>

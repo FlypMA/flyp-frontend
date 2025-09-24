@@ -266,7 +266,7 @@ const ListingSearch = () => {
       setListings(filteredListings);
       setTotalResults(filteredListings.length);
     } catch (error) {
-      // console.error('Error loading listings:', error);
+      console.error('Error loading listings:', error);
     } finally {
       // No loading state to manage
     }
@@ -307,13 +307,11 @@ const ListingSearch = () => {
   const handleSaveSearch = async (searchData: unknown) => {
     try {
       // TODO: Replace with actual API call
-      // console.log('Saving search:', searchData);
       // await searchService.saveSearch(searchData);
       // Show success notification
       // toast.success('Search saved successfully!');
     } catch (error) {
-      // console.error('Error saving search:', error);
-      // toast.error('Failed to save search');
+      console.error('Failed to save search:', error);
     }
   };
 
@@ -723,11 +721,9 @@ const ListingSearch = () => {
                     viewMode="card"
                     onSave={listingId => {
                       // TODO: Implement save functionality
-                      // console.log('Save listing:', listingId);
                     }}
                     onInquiry={async (listingId, inquiryData) => {
                       // TODO: Implement inquiry functionality
-                      // console.log('Inquiry for listing:', listingId, inquiryData);
                     }}
                   />
                 );

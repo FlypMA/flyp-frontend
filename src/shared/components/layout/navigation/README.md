@@ -1,4 +1,4 @@
-# 🧭 Navigation System - Modular & Legacy-Based
+# 🧭 Navigation System - Buyer/Seller Based
 
 ## 📁 Directory Structure
 
@@ -9,11 +9,21 @@ navigation/
 │   ├── NavigationDesktop.tsx  # Desktop navigation (based on UnifiedNavigation)
 │   ├── NavigationMobile.tsx   # Mobile navigation (based on MobileNavigation)
 │   └── index.ts               # Main navigation exports
+├── buyer/                     # Buyer navigation components (like Airbnb guest)
+│   ├── BuyerNavigation.tsx    # Buyer navigation orchestrator
+│   ├── BuyerNavigationDesktop.tsx # Desktop buyer navigation
+│   ├── BuyerNavigationMobile.tsx  # Mobile buyer navigation
+│   └── index.ts               # Buyer navigation exports
+├── seller/                    # Seller navigation components (like Airbnb host)
+│   ├── SellerNavigation.tsx   # Seller navigation orchestrator
+│   ├── SellerNavigationDesktop.tsx # Desktop seller navigation
+│   ├── SellerNavigationMobile.tsx  # Mobile seller navigation
+│   └── index.ts               # Seller navigation exports
 ├── dropdown/                  # User avatar dropdown components
 │   ├── BuyerDropdown.tsx      # Buyer-specific dropdown
 │   ├── SellerDropdown.tsx     # Seller-specific dropdown
 │   └── index.ts               # Dropdown exports
-├── dashboard/                 # Dashboard sidebar components
+├── dashboard/                 # Dashboard sidebar components (legacy)
 │   ├── DashboardSidebar.tsx   # Desktop dashboard sidebar
 │   ├── DashboardSidebarMobile.tsx # Mobile dashboard sidebar
 │   └── index.ts               # Dashboard exports
@@ -58,6 +68,64 @@ The navigation system provides a modular, production-ready navigation experience
   - Role-based navigation sections
   - Body scroll prevention
   - User profile display for authenticated users
+
+### **Buyer Navigation System (Like Airbnb Guest Mode)**
+
+#### **BuyerNavigation.tsx (Orchestrator)**
+
+- **Purpose**: Buyer navigation orchestrator (like Airbnb guest mode)
+- **Features**:
+  - Clean navigation without "List your business" button
+  - Logo and user menu only
+  - Mobile menu state management
+  - Orchestrates BuyerNavigationDesktop and BuyerNavigationMobile
+
+#### **BuyerNavigationDesktop.tsx**
+
+- **Purpose**: Desktop navigation for buyers
+- **Features**:
+  - Logo on the left
+  - User avatar/profile menu on the right
+  - NO "List your business" button (buyers don't list)
+  - Clean, minimal design
+
+#### **BuyerNavigationMobile.tsx**
+
+- **Purpose**: Mobile navigation for buyers
+- **Features**:
+  - Mobile menu overlay
+  - User authentication options
+  - No "List your business" option
+  - Clean, minimal design
+
+### **Seller Navigation System (Like Airbnb Host Mode)**
+
+#### **SellerNavigation.tsx (Orchestrator)**
+
+- **Purpose**: Seller navigation orchestrator (like Airbnb host mode)
+- **Features**:
+  - Navigation items: Overview, Valuation, Data Room
+  - User avatar/profile menu on the right
+  - Mobile menu state management
+  - Orchestrates SellerNavigationDesktop and SellerNavigationMobile
+
+#### **SellerNavigationDesktop.tsx**
+
+- **Purpose**: Desktop navigation for sellers
+- **Features**:
+  - Logo on the left
+  - Navigation items: Overview, Valuation, Data Room
+  - User avatar/profile menu on the right
+  - Based on MainLayout navigation structure
+
+#### **SellerNavigationMobile.tsx**
+
+- **Purpose**: Mobile navigation for sellers
+- **Features**:
+  - Mobile menu overlay
+  - Navigation items: Overview, Valuation, Data Room
+  - User authentication options
+  - Clean, minimal design
 
 ### **User Avatar Dropdown System**
 
@@ -105,10 +173,23 @@ The navigation system provides a modular, production-ready navigation experience
 ### **Basic Usage**
 
 ```typescript
-import { Navigation, DashboardSidebar, BuyerDropdown, SellerDropdown } from './navigation';
+import {
+  Navigation,
+  BuyerNavigation,
+  SellerNavigation,
+  DashboardSidebar,
+  BuyerDropdown,
+  SellerDropdown
+} from './navigation';
 
 // Main navigation (used in MainLayout)
 <Navigation />
+
+// Buyer navigation (used in BuyerLayout)
+<BuyerNavigation />
+
+// Seller navigation (used in SellerLayout)
+<SellerNavigation />
 
 // Dashboard sidebar (used in DashboardLayout)
 <DashboardSidebar isCollapsed={isCollapsed} onToggle={toggleSidebar} user={user} />
@@ -130,6 +211,30 @@ import { Navigation } from './navigation';
 const MainLayout = () => (
   <div className="min-h-screen flex flex-col">
     <Navigation />
+    <main className="flex-1">
+      <Outlet />
+    </main>
+  </div>
+);
+
+// In BuyerLayout.tsx
+import { BuyerNavigation } from './navigation';
+
+const BuyerLayout = () => (
+  <div className="min-h-screen flex flex-col">
+    <BuyerNavigation />
+    <main className="flex-1">
+      <Outlet />
+    </main>
+  </div>
+);
+
+// In SellerLayout.tsx
+import { SellerNavigation } from './navigation';
+
+const SellerLayout = () => (
+  <div className="min-h-screen flex flex-col">
+    <SellerNavigation />
     <main className="flex-1">
       <Outlet />
     </main>

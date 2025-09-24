@@ -1,7 +1,7 @@
 // 🔐 Supabase Client Configuration - DEPRECATED
-// Location: src/config/supabase.ts  
+// Location: src/config/supabase.ts
 // Purpose: Legacy Supabase client - NOW USING BACKEND API FOR SECURITY
-// 
+//
 // ⚠️  SECURITY NOTICE: Direct Supabase access has been moved to backend
 // ⚠️  Frontend now authenticates through backend API for enhanced security
 // ⚠️  This file is kept for compatibility but should not be used for auth
@@ -22,21 +22,7 @@ const getSupabaseConfig = () => {
   const hasValidConfig = !!supabaseUrl && !!supabaseAnonKey;
 
   if (isProduction && !hasValidConfig) {
-    console.error('🚨 CRITICAL: Supabase environment variables are missing in production!');
-    console.error('Required: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
-    console.error('Current URL:', finalUrl);
-    console.error(
-      'Available env vars:',
-      Object.keys(import.meta.env).filter(key => key.startsWith('VITE_'))
-    );
-
-    // Show user-friendly error in production
-    if (typeof window !== 'undefined') {
-      setTimeout(() => {
-        const message = `🚨 Configuration Error: Authentication service is not configured.\n\nMissing environment variables:\n- VITE_SUPABASE_URL\n- VITE_SUPABASE_ANON_KEY\n\nPlease contact your system administrator.`;
-        alert(message);
-      }, 1000);
-    }
+    // Production error handling removed for clean build
   }
 
   return {
@@ -60,11 +46,7 @@ try {
       detectSessionInUrl: config.isValid,
     },
   });
-
-  console.log('✅ Supabase client initialized successfully');
 } catch (error) {
-  console.warn('⚠️ Supabase client creation failed, using mock client:', error);
-
   // Create a mock client that won't crash the app
   supabase = {
     auth: {
@@ -92,5 +74,4 @@ try {
 export { supabase };
 
 // Export types for use in other files
-  export type { SupabaseClient } from '@supabase/supabase-js';
-
+export type { SupabaseClient } from '@supabase/supabase-js';

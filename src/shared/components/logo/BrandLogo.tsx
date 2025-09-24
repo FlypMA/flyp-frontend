@@ -57,7 +57,7 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
       </div>
       {showText && (
         <span className={`${textSizeClasses[size]} font-bold ${textColorClasses[variant]}`}>
-          flyp
+          Upswitch
         </span>
       )}
     </div>

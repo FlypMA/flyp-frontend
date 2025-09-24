@@ -21,8 +21,6 @@ const CreateListingPage: React.FC = () => {
   };
 
   const handleOnboardingComplete = (data: SellerFormData) => {
-    console.log('Business listing created with data:', data);
-
     // Here you would typically:
     // 1. Send the data to your API to create the listing
     // 2. Show success notification

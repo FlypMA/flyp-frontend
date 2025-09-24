@@ -18,7 +18,7 @@ import {
   Shield,
   User,
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../shared/services/urls/urlGenerator';
 import { User as UserType } from '../../../../shared/types';
@@ -86,7 +86,7 @@ const UserSettings: React.FC = () => {
     { id: 2, name: 'Green Energy Co', industry: 'Renewable Energy', status: 'Sold' },
   ]);
 
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const authService = new AuthenticationService();
       const authResult = await authService.checkAuth();
@@ -106,13 +106,12 @@ const UserSettings: React.FC = () => {
       } else {
         navigate(UrlGenerator.login());
       }
-    } catch (_error) {
-      // console.error('Failed to load user data:', error);
+    } catch {
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     loadUserData();
@@ -126,10 +125,8 @@ const UserSettings: React.FC = () => {
 
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // console.log('Settings saved successfully');
-    } catch (_error) {
-      // console.error('Failed to save settings:', error);
+    } catch (error) {
+      console.error('Error saving user settings:', error);
     } finally {
       setSaving(false);
     }
@@ -137,7 +134,6 @@ const UserSettings: React.FC = () => {
 
   const handlePasswordChange = async () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      // console.error('Passwords do not match');
       return;
     }
 
@@ -154,9 +150,8 @@ const UserSettings: React.FC = () => {
         newPassword: '',
         confirmPassword: '',
       });
-      // console.log('Password changed successfully');
-    } catch (_error) {
-      // console.error('Failed to change password:', error);
+    } catch (error) {
+      console.error('Error saving user settings:', error);
     } finally {
       setSaving(false);
     }

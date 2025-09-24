@@ -77,7 +77,6 @@ const SolvencyIntelligence = () => {
           navigate('/');
         }
       } catch (error) {
-        // console.error('Error initializing page:', error);
         navigate('/');
       } finally {
         // No loading state to manage
