@@ -46,12 +46,15 @@ const BuyerLayout: React.FC<BuyerLayoutProps> = ({ showFooter = true, children }
     }
   }, [location, sectionToScroll]);
 
+  // Hide footer for messages page
+  const shouldShowFooter = showFooter && !location.pathname.startsWith('/messages');
+
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <BuyerNavigation />
       <main className="flex-1">{children || <Outlet />}</main>
-      {showFooter && <Footer />}
+      {shouldShowFooter && <Footer />}
       <AuthModals />
     </div>
   );

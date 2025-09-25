@@ -120,50 +120,78 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
     if (!offerDetails) return null;
 
     return (
-      <div className="offer-message">
-        <div className="flex items-center space-x-2 mb-2">
-          <Euro className="w-4 h-4 text-green-600" />
-          <span className="font-semibold text-green-800">
-            Offer: €{(offerDetails.amount / 1000000).toFixed(1)}M
-          </span>
-          <Chip size="sm" color={getOfferStatusColor(offerDetails.status)}>
-            {offerDetails.status}
-          </Chip>
+      <div className="w-full bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-3 shadow-sm">
+        {/* Header with offer amount and status */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
+              <Euro className="w-4 h-4 text-green-600" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-gray-900">
+                €{(offerDetails.amount / 1000000).toFixed(1)}M
+              </h3>
+              <p className="text-xs text-gray-600">Business Offer</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Chip
+              size="sm"
+              color={getOfferStatusColor(offerDetails.status)}
+              className="font-medium text-xs"
+            >
+              {offerDetails.status}
+            </Chip>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-700 mb-2">{message.content}</p>
+        {/* Offer message */}
+        <div className="mb-2">
+          <p className="text-sm text-gray-700 leading-relaxed">{message.content}</p>
+        </div>
 
-        {offerDetails.terms && (
-          <p className="text-xs text-gray-600 italic mb-3">{offerDetails.terms}</p>
-        )}
+        {/* Terms and conditions - Compact layout */}
+        <div className="space-y-2 mb-3">
+          {offerDetails.terms && (
+            <div className="bg-white/60 rounded-lg p-2 border border-green-100">
+              <div className="flex items-start space-x-2">
+                <div className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-xs text-gray-700 italic">{offerDetails.terms}</p>
+              </div>
+            </div>
+          )}
 
-        {offerDetails.conditions && offerDetails.conditions.length > 0 && (
-          <div className="mb-3">
-            <p className="text-xs font-medium text-gray-700 mb-1">Conditions:</p>
-            <ul className="text-xs text-gray-600 space-y-1">
-              {offerDetails.conditions.map((condition, index) => (
-                <li key={index} className="flex items-start space-x-1">
-                  <span>•</span>
-                  <span>{condition}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {offerDetails.conditions && offerDetails.conditions.length > 0 && (
+            <div className="bg-white/60 rounded-lg p-2 border border-green-100">
+              <h4 className="text-xs font-semibold text-gray-800 mb-1">Conditions</h4>
+              <ul className="space-y-0.5">
+                {offerDetails.conditions.map((condition, index) => (
+                  <li key={index} className="flex items-start space-x-2 text-xs text-gray-700">
+                    <div className="w-1 h-1 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                    <span>{condition}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-        {offerDetails.expirationDate && (
-          <div className="flex items-center space-x-1 text-xs text-gray-600 mb-3">
-            <Clock className="w-3 h-3" />
-            <span>Expires: {new Date(offerDetails.expirationDate).toLocaleDateString()}</span>
-          </div>
-        )}
+          {offerDetails.expirationDate && (
+            <div className="bg-white/60 rounded-lg p-2 border border-green-100">
+              <div className="flex items-center space-x-2 text-xs text-gray-700">
+                <Clock className="w-3 h-3 text-green-600" />
+                <span>Expires: {new Date(offerDetails.expirationDate).toLocaleDateString()}</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Action buttons for non-current user */}
         {!isCurrentUser && offerDetails.status === 'pending' && (
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 pt-2 border-t border-green-200">
             <Button
               size="sm"
               color="success"
+              className="flex-1 font-medium text-xs h-7"
               onPress={() => onAction?.('accept_offer', { messageId: message.id, offerDetails })}
             >
               Accept
@@ -171,6 +199,8 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
             <Button
               size="sm"
               color="warning"
+              variant="bordered"
+              className="flex-1 font-medium text-xs h-7"
               onPress={() => onAction?.('counter_offer', { messageId: message.id, offerDetails })}
             >
               Counter
@@ -179,6 +209,7 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
               size="sm"
               color="danger"
               variant="bordered"
+              className="flex-1 font-medium text-xs h-7"
               onPress={() => onAction?.('reject_offer', { messageId: message.id, offerDetails })}
             >
               Decline
@@ -453,7 +484,7 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
 
   return (
     <div
-      className={`max-w-xs lg:max-w-md ${
+      className={`${message.type === 'offer' ? 'w-full' : 'max-w-xs lg:max-w-md'} ${
         isCurrentUser ? 'bg-primary-300 text-white' : `${getMessageTypeColor(message.type)}`
       } rounded-lg px-4 py-2 ${className}`}
     >

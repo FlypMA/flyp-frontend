@@ -317,3 +317,10 @@ export interface TransactionAnalytics {
   conversionRate: number;
   stageDistribution: Record<TransactionStage, number>;
 }
+
+// =============================================================================
+// CONTEXT PANEL TYPES
+// =============================================================================
+
+// Re-export context panel types
+export * from './context-panel.types';
