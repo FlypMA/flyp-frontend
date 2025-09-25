@@ -322,5 +322,65 @@ export interface TransactionAnalytics {
 // CONTEXT PANEL TYPES
 // =============================================================================
 
-// Re-export context panel types
-export * from './context-panel.types';
+/**
+ * Context panel types for different conversation stages
+ */
+export type ContextPanelType =
+  | 'business_info'
+  | 'due_diligence'
+  | 'transaction'
+  | 'documents'
+  | 'communication';
+
+/**
+ * Context panel state interface
+ */
+export interface ContextPanelState {
+  isVisible: boolean;
+  isCollapsed: boolean;
+  activeContext: ContextPanelType;
+  isLoading: boolean;
+  error: string | null;
+  userPreferences: {
+    defaultVisibility: boolean;
+    preferredContext: ContextPanelType;
+    rememberCollapseState: boolean;
+  };
+}
+
+/**
+ * Context detection result
+ */
+export interface ContextDetectionResult {
+  contextType: ContextPanelType;
+  shouldShow: boolean;
+  confidence: number;
+  reason: string;
+}
+
+/**
+ * Breakpoint definitions
+ */
+export type Breakpoint = 'mobile' | 'tablet' | 'desktop';
+
+/**
+ * Panel layout configuration
+ */
+export interface PanelLayoutConfig {
+  breakpoint: Breakpoint;
+  leftPanel: {
+    width: number;
+    visible: boolean;
+    position: 'fixed' | 'relative';
+  };
+  middlePanel: {
+    width: number | 'flex';
+    visible: boolean;
+  };
+  rightPanel: {
+    width: number;
+    visible: boolean;
+    position: 'fixed' | 'relative';
+    overlay: boolean;
+  };
+}

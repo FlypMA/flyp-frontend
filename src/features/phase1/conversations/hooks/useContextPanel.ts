@@ -4,14 +4,14 @@
 
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Conversation } from '../types';
 import {
   Breakpoint,
   ContextDetectionResult,
   ContextPanelState,
   ContextPanelType,
+  Conversation,
   PanelLayoutConfig,
-} from '../types/context-panel.types';
+} from '../types';
 
 // =============================================================================
 // CONTEXT PANEL STORE INTERFACE

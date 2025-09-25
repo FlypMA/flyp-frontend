@@ -6,13 +6,11 @@ import { Button } from '@/shared/components/buttons';
 import { Chip, Progress } from '@heroui/react';
 import {
   Building2,
-  Calendar,
   Download,
   FileText,
   Handshake,
   MapPin,
   MessageSquare,
-  Share2,
   Upload,
 } from 'lucide-react';
 import React from 'react';
@@ -301,50 +299,50 @@ const UnifiedDealPanel: React.FC<UnifiedDealPanelProps> = ({
 
             <div className="grid grid-cols-1 gap-3">
               <Button
-                className="justify-start h-auto p-4 rounded-xl hover:shadow-lg transition-all duration-200"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
                 variant="secondary"
                 onPress={() => onQuickAction('create_offer')}
-                startContent={<Handshake className="w-5 h-5" />}
               >
-                <div className="text-left">
-                  <div className="font-semibold text-white">Make Offer</div>
-                  <div className="text-xs text-gray-300 mt-1">Create a new business offer</div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="font-semibold text-white text-sm">Make Offer</div>
+                  <div className="text-xs text-gray-300 mt-1 text-left">
+                    Create a new business offer
+                  </div>
                 </div>
               </Button>
 
               <Button
-                className="justify-start h-auto p-4 rounded-xl hover:shadow-lg transition-all duration-200"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
                 variant="secondary"
                 onPress={() => onQuickAction('request_documents')}
-                startContent={<FileText className="w-5 h-5" />}
               >
-                <div className="text-left">
-                  <div className="font-semibold text-white">Request Documents</div>
-                  <div className="text-xs text-gray-300 mt-1">Ask for due diligence items</div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="font-semibold text-white text-sm">Request Documents</div>
+                  <div className="text-xs text-gray-300 mt-1 text-left">
+                    Ask for due diligence items
+                  </div>
                 </div>
               </Button>
 
               <Button
-                className="justify-start h-auto p-4 rounded-xl hover:shadow-lg transition-all duration-200"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
                 variant="secondary"
                 onPress={() => onQuickAction('share_document')}
-                startContent={<Share2 className="w-5 h-5" />}
               >
-                <div className="text-left">
-                  <div className="font-semibold text-white">Share Document</div>
-                  <div className="text-xs text-gray-300 mt-1">Upload and share files</div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="font-semibold text-white text-sm">Share Document</div>
+                  <div className="text-xs text-gray-300 mt-1 text-left">Upload and share files</div>
                 </div>
               </Button>
 
               <Button
-                className="justify-start h-auto p-4 rounded-xl hover:shadow-lg transition-all duration-200"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
                 variant="secondary"
                 onPress={() => onQuickAction('schedule_meeting')}
-                startContent={<Calendar className="w-5 h-5" />}
               >
-                <div className="text-left">
-                  <div className="font-semibold text-white">Schedule Meeting</div>
-                  <div className="text-xs text-gray-300 mt-1">Book a call or meeting</div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="font-semibold text-white text-sm">Schedule Meeting</div>
+                  <div className="text-xs text-gray-300 mt-1 text-left">Book a call or meeting</div>
                 </div>
               </Button>
             </div>

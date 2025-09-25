@@ -3,7 +3,6 @@
 // Purpose: Export all conversation components
 
 export { default as ThreePanelMessages } from './ThreePanelMessages';
-export { default as TransactionContextPanel } from './TransactionContextPanel';
 
 // Re-export message components
 export { default as TransactionMessage } from './messages/TransactionMessage';
@@ -16,8 +15,6 @@ export { default as OfferCreationModal } from './modals/OfferCreationModal';
 // Re-export panel components
 export { default as ChatPanel } from './panels/ChatPanel';
 export { default as ContextPanel } from './panels/ContextPanel';
-export { default as ContextSwitcher } from './panels/ContextSwitcher';
-export { default as ConversationPanel } from './panels/ConversationPanel';
 export { default as EnhancedConversationPanel } from './panels/EnhancedConversationPanel';
 export { default as ThreePanelLayout } from './panels/ThreePanelLayout';
 

@@ -2,14 +2,12 @@
 // Location: src/features/phase1/conversations/components/ThreePanelMessages.tsx
 // Purpose: Main three-panel messaging interface with context awareness
 
-import { authService } from '@/shared/services/auth';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User as UserType } from '../../../../types/user.consolidated';
 
 // Import conversation components
-import { ConversationProvider, useConversationContext } from '../hooks';
-import { ConversationMessage } from '../types';
+import { Conversation, ConversationMessage } from '../types';
 import { DocumentSharingModal, DueDiligenceRequestModal, OfferCreationModal } from './modals';
 
 // Import three-panel components
@@ -28,7 +26,20 @@ import { useContextPanel } from '../hooks/useContextPanel';
 // Internal component that uses the conversation context
 const ThreePanelMessagesContent: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserType | null>(null);
+  // Mock user data for demonstration
+  const [user] = useState<UserType | null>({
+    id: 'user-2',
+    email: 'sarah@techstartup.com',
+    name: 'Sarah Johnson',
+    role: 'seller',
+    company_name: 'TechStartup Inc',
+    country: 'US',
+    email_verified: true,
+    auth_provider: 'email',
+    language_preference: 'en',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  });
   const [newMessage, setNewMessage] = useState('');
 
   // Modal states
@@ -37,38 +48,189 @@ const ThreePanelMessagesContent: React.FC = () => {
   const [showDocumentModal, setShowDocumentModal] = useState(false);
 
   // Use conversation context hook
-  const {
-    conversations,
-    selectedConversation,
-    messages,
-    selectConversation,
-    addMessage,
-    performQuickAction,
-  } = useConversationContext();
+  // Mock conversation data for demonstration
+  const mockConversations: Conversation[] = [
+    {
+      id: 'conv-1',
+      participant: {
+        id: 'user-1',
+        name: 'Michael Chen',
+        role: 'buyer',
+        avatar:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+        company: 'Chen Investments',
+        isOnline: true,
+      },
+      lastMessage: {
+        content:
+          "I'm very interested in your business. Can we schedule a call to discuss the details?",
+        timestamp: new Date(),
+        isRead: false,
+        senderId: 'user-1',
+        type: 'text',
+      },
+      businessContext: {
+        title: 'TechStartup Inc - SaaS Platform',
+        price: 2500000,
+        currency: 'USD',
+        location: 'San Francisco, CA',
+        photos: [
+          {
+            id: 'photo-1',
+            url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+            caption: 'Modern office space with collaborative work areas',
+          },
+          {
+            id: 'photo-2',
+            url: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+            caption: 'Team meeting room with state-of-the-art technology',
+          },
+          {
+            id: 'photo-3',
+            url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+            caption: 'Reception area and company branding',
+          },
+        ],
+      } as any,
+      unreadCount: 1,
+      isPinned: false,
+      isArchived: false,
+      status: 'active',
+      context: {
+        id: 'conv-1',
+        listingId: 'biz-1',
+        currentStage: 'inquiry',
+        transactionState: 'active' as any,
+        quickActions: [],
+        progress: {
+          percentage: 25,
+          description: 'Initial inquiry stage',
+          currentStep: 'inquiry',
+          nextStep: 'Schedule call',
+        },
+        lastActivity: new Date().toISOString(),
+        participants: [
+          {
+            id: 'user-1',
+            name: 'Michael Chen',
+            role: 'buyer',
+            company: 'Chen Investments',
+            avatar:
+              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+            isOnline: true,
+          },
+          {
+            id: 'user-2',
+            name: 'Sarah Johnson',
+            role: 'seller',
+            company: 'TechStartup Inc',
+            avatar:
+              'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+            isOnline: false,
+          },
+        ],
+        businessContext: {
+          title: 'TechStartup Inc - SaaS Platform',
+          price: 2500000,
+          currency: 'USD',
+          location: 'San Francisco, CA',
+          sector: 'Technology',
+          photos: [
+            {
+              id: 'photo-1',
+              url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              caption: 'Modern office space with collaborative work areas',
+            },
+            {
+              id: 'photo-2',
+              url: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              caption: 'Team meeting room with state-of-the-art technology',
+            },
+            {
+              id: 'photo-3',
+              url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop&crop=center&auto=format&q=80',
+              caption: 'Reception area and company branding',
+            },
+          ],
+        } as any,
+      },
+    },
+  ];
+
+  const mockMessages: ConversationMessage[] = [
+    {
+      id: 'msg-1',
+      conversationId: 'conv-1',
+      senderId: 'user-1',
+      recipientId: 'user-2',
+      content:
+        "I'm very interested in your business. Can we schedule a call to discuss the details?",
+      sentAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+      readAt: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
+      isRead: true,
+      type: 'text',
+    },
+    {
+      id: 'msg-2',
+      conversationId: 'conv-1',
+      senderId: 'user-2',
+      recipientId: 'user-1',
+      content:
+        "Absolutely! I'd love to discuss the opportunity. I'm available tomorrow at 2 PM PST. Does that work for you?",
+      sentAt: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
+      readAt: new Date(Date.now() - 900000).toISOString(), // 15 minutes ago
+      isRead: true,
+      type: 'text',
+    },
+    {
+      id: 'msg-3',
+      conversationId: 'conv-1',
+      senderId: 'user-1',
+      recipientId: 'user-2',
+      content:
+        "Perfect! 2 PM PST works great. I'll send you a calendar invite. Looking forward to learning more about your business.",
+      sentAt: new Date(Date.now() - 900000).toISOString(), // 15 minutes ago
+      readAt: undefined,
+      isRead: false,
+      type: 'text',
+    },
+  ];
+
+  // Local state for conversations and messages
+  const [conversations] = useState<Conversation[]>(mockConversations);
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(
+    mockConversations[0]
+  );
+  const [messages, setMessages] = useState<ConversationMessage[]>(mockMessages);
+
+  // Conversation management functions
+  const selectConversation = useCallback(
+    (conversationId: string) => {
+      const conversation = conversations.find(c => c.id === conversationId);
+      setSelectedConversation(conversation || null);
+    },
+    [conversations]
+  );
+
+  const addMessage = useCallback((message: ConversationMessage) => {
+    setMessages(prev => [...prev, message]);
+  }, []);
+
+  const performQuickAction = useCallback((actionId: string) => {
+    // Handle quick actions
+    // TODO: Implement quick action handling
+    void actionId;
+  }, []);
 
   // Use context panel hooks
   const { autoSwitchContext } = useContextPanel();
 
-  const loadUserData = useCallback(async () => {
-    try {
-      const authResult = await authService.checkAuthentication();
-      if (authResult.isAuthenticated && authResult.user) {
-        setUser(authResult.user);
-        // Auto-select first conversation if available
-        if (conversations.length > 0) {
-          selectConversation(conversations[0].id);
-        }
-      } else {
-        navigate('/login');
-      }
-    } catch {
-      navigate('/login');
-    }
-  }, [navigate, conversations, selectConversation]);
-
+  // Auto-select first conversation on mount
   useEffect(() => {
-    loadUserData();
-  }, [loadUserData]);
+    if (conversations.length > 0 && !selectedConversation) {
+      selectConversation(conversations[0].id);
+    }
+  }, [conversations, selectedConversation, selectConversation]);
 
   // Auto-switch context when conversation changes
   useEffect(() => {
@@ -109,7 +271,7 @@ const ThreePanelMessagesContent: React.FC = () => {
         setShowDocumentModal(true);
         break;
       default:
-        performQuickAction(selectedConversation.id, actionId);
+        performQuickAction(actionId);
     }
   };
 
@@ -278,12 +440,4 @@ const ThreePanelMessagesContent: React.FC = () => {
 };
 
 // Main component that provides the conversation context
-const ThreePanelMessages: React.FC = () => {
-  return (
-    <ConversationProvider>
-      <ThreePanelMessagesContent />
-    </ConversationProvider>
-  );
-};
-
-export default ThreePanelMessages;
+export default ThreePanelMessagesContent;

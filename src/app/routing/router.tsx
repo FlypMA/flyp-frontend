@@ -79,7 +79,6 @@ import DueDiligenceChecklist from '../pages/landingPages/resources/DueDiligenceC
 import ValuationGuide from '../pages/landingPages/resources/ValuationGuide';
 
 // Page imports - Messages & Communication
-import { ConversationProvider } from '../../features/phase1/conversations/hooks';
 import Messages from '../pages/messages/Messages';
 
 // Page imports - Onboarding
@@ -156,9 +155,7 @@ export const router = createBrowserRouter([
         path: 'messages',
         element: (
           <ProtectedRoute>
-            <ConversationProvider>
-              <Messages />
-            </ConversationProvider>
+            <Messages />
           </ProtectedRoute>
         ),
       },
@@ -166,9 +163,7 @@ export const router = createBrowserRouter([
         path: 'messages/:conversationId',
         element: (
           <ProtectedRoute>
-            <ConversationProvider>
-              <Messages />
-            </ConversationProvider>
+            <Messages />
           </ProtectedRoute>
         ),
       },
