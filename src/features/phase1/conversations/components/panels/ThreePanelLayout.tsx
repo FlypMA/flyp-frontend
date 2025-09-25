@@ -49,7 +49,7 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
     }
 
     const leftWidth = leftPanel.visible ? `${leftPanel.width}px` : '0px';
-    const rightWidth = rightPanel.visible && !isCollapsed ? `${rightPanel.width}px` : '0px';
+    const rightWidth = rightPanel.visible ? `${rightPanel.width}px` : '0px';
 
     return {
       gridTemplateColumns: `${leftWidth} 1fr ${rightWidth}`,

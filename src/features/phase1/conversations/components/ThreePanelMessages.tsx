@@ -236,7 +236,6 @@ const ThreePanelMessagesContent: React.FC = () => {
               onMessageChange={setNewMessage}
               onSendMessage={handleSendMessage}
               onQuickAction={handleQuickAction}
-              onNavigateToSearch={() => navigate('/search')}
               onNavigateToBusiness={() => navigate('/my-business/overview')}
             />
           ),

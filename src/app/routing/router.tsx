@@ -242,13 +242,13 @@ export const router = createBrowserRouter([
   },
 
   // ==============================================================================
-  // SELLER ROUTES - SellerLayout (SELLER-ONLY)
+  // BUSINESS PAGES - SellerLayout WITHOUT FOOTER
   // ==============================================================================
   {
     path: '/',
-    element: <SellerLayout />,
+    element: <SellerLayout showFooter={false} />,
     children: [
-      // Business Dashboard (sellers, both, admin only)
+      // Business Dashboard (sellers, both, admin only) - NO FOOTER
       {
         path: 'my-business',
         element: (
@@ -356,6 +356,17 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+    ],
+  },
+
+  // ==============================================================================
+  // OTHER SELLER ROUTES - SellerLayout WITH FOOTER
+  // ==============================================================================
+  {
+    path: '/',
+    element: <SellerLayout showFooter={true} />,
+    children: [
+      // Add other seller routes here that should show the footer
     ],
   },
 

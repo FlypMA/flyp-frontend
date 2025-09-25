@@ -2,7 +2,7 @@
 // Location: src/features/phase1/conversations/components/panels/ChatPanel.tsx
 // Purpose: Middle panel for chat messages with business details toggle
 
-import { Building2, ChevronRight } from 'lucide-react';
+import { Button } from '@/shared/components/buttons';
 import React, { useRef } from 'react';
 import { useContextPanel } from '../../hooks/useContextPanel';
 import { Conversation, ConversationMessage } from '../../types';
@@ -19,7 +19,6 @@ interface ChatPanelProps {
   onMessageChange: (_message: string) => void;
   onSendMessage: () => void;
   onQuickAction?: (_actionId: string) => void;
-  onNavigateToSearch?: () => void;
   onNavigateToBusiness?: () => void;
   className?: string;
 }
@@ -36,13 +35,11 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   onMessageChange,
   onSendMessage,
   onQuickAction,
-  onNavigateToSearch,
   onNavigateToBusiness,
   className = '',
 }) => {
   // Suppress unused parameter warnings for optional callbacks
   void onQuickAction;
-  void onNavigateToSearch;
   void onNavigateToBusiness;
   const { isVisible, toggleVisibility } = useContextPanel();
   const messageInputRef = useRef<HTMLDivElement>(null);
@@ -107,27 +104,19 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
             </div>
           </div>
 
-          {/* Show Business Details Button - Only show when right panel is hidden */}
-          {!isVisible && (
-            <div className="flex items-center space-x-3">
-              <button
-                type="button"
-                onClick={toggleVisibility}
-                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
-                aria-label="Show business details"
+          {/* Action Buttons */}
+          <div className="flex items-center space-x-2">
+            {!isVisible && (
+              <Button
+                variant="tertiary"
+                size="sm"
+                className="text-gray-500 hover:text-gray-700"
+                onPress={toggleVisibility}
               >
-                <span className="flex items-center justify-center opacity-100">
-                  <div className="flex items-center space-x-2">
-                    <Building2 className="w-4 h-4" />
-                    <span>Show business details</span>
-                  </div>
-                  <span className="ml-2">
-                    <ChevronRight className="w-4 h-4" />
-                  </span>
-                </span>
-              </button>
-            </div>
-          )}
+                Show business details
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
