@@ -11,7 +11,7 @@
 import { Button } from '@/shared/components/buttons';
 import { X } from 'lucide-react';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
 import { User } from '../../../../types';
@@ -27,6 +27,7 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
   isOpen,
   onToggle,
 }) => {
+  const location = useLocation();
   const { openModal } = useAuth();
 
   const handleLogin = () => {
@@ -50,14 +51,23 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
     {
       label: 'Overview',
       path: UrlGenerator.myBusiness(),
+      isActive: (pathname: string) =>
+        pathname === UrlGenerator.myBusiness() || pathname === '/my-business/overview',
+    },
+    {
+      label: 'Messages',
+      path: '/messages',
+      isActive: (pathname: string) => pathname.startsWith('/messages'),
     },
     {
       label: 'Valuation',
       path: '/my-business/valuations',
+      isActive: (pathname: string) => pathname.startsWith('/my-business/valuations'),
     },
     {
-      label: 'Data Room',
+      label: 'Documents',
       path: UrlGenerator.businessDocuments(),
+      isActive: (pathname: string) => pathname.startsWith('/my-business/documents'),
     },
   ];
 
@@ -107,16 +117,23 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
                   <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
                     Business Management
                   </h3>
-                  {navigationItems.map(item => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="block w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-                      onClick={onToggle}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                  {navigationItems.map(item => {
+                    const isActive = item.isActive(location.pathname);
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={`block w-full px-4 py-3 text-left rounded-lg transition-colors ${
+                          isActive
+                            ? 'text-primary-600 bg-primary-50 font-medium'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                        onClick={onToggle}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 {/* User Actions */}

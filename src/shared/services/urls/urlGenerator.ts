@@ -44,6 +44,7 @@ export class UrlGenerator {
   static businessAnalytics = () => '/my-business/analytics';
   static businessDocuments = () => '/my-business/documents';
   static businessPerformance = () => '/my-business/performance';
+  static createNewListing = () => '/my-business/listings/new';
 
   // ==============================================================================
   // BUSINESS BUYERS

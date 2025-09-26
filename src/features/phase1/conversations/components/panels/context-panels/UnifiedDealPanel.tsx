@@ -299,50 +299,60 @@ const UnifiedDealPanel: React.FC<UnifiedDealPanelProps> = ({
 
             <div className="grid grid-cols-1 gap-3">
               <Button
-                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200"
                 variant="secondary"
                 onPress={() => onQuickAction('create_offer')}
               >
-                <div className="flex flex-col items-start w-full">
-                  <div className="font-semibold text-white text-sm">Make Offer</div>
-                  <div className="text-xs text-gray-300 mt-1 text-left">
+                <div className="flex flex-col w-full text-left">
+                  <div className="font-semibold text-white text-sm leading-tight">Make Offer</div>
+                  <div className="text-xs text-gray-300 mt-1 leading-tight">
                     Create a new business offer
                   </div>
                 </div>
               </Button>
 
               <Button
-                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200"
                 variant="secondary"
                 onPress={() => onQuickAction('request_documents')}
               >
-                <div className="flex flex-col items-start w-full">
-                  <div className="font-semibold text-white text-sm">Request Documents</div>
-                  <div className="text-xs text-gray-300 mt-1 text-left">
+                <div className="flex flex-col w-full text-left">
+                  <div className="font-semibold text-white text-sm leading-tight">
+                    Request Documents
+                  </div>
+                  <div className="text-xs text-gray-300 mt-1 leading-tight">
                     Ask for due diligence items
                   </div>
                 </div>
               </Button>
 
               <Button
-                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200"
                 variant="secondary"
                 onPress={() => onQuickAction('share_document')}
               >
-                <div className="flex flex-col items-start w-full">
-                  <div className="font-semibold text-white text-sm">Share Document</div>
-                  <div className="text-xs text-gray-300 mt-1 text-left">Upload and share files</div>
+                <div className="flex flex-col w-full text-left">
+                  <div className="font-semibold text-white text-sm leading-tight">
+                    Share Document
+                  </div>
+                  <div className="text-xs text-gray-300 mt-1 leading-tight">
+                    Upload and share files
+                  </div>
                 </div>
               </Button>
 
               <Button
-                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200 justify-start"
+                className="w-full h-auto p-4 rounded-lg hover:shadow-md transition-all duration-200"
                 variant="secondary"
                 onPress={() => onQuickAction('schedule_meeting')}
               >
-                <div className="flex flex-col items-start w-full">
-                  <div className="font-semibold text-white text-sm">Schedule Meeting</div>
-                  <div className="text-xs text-gray-300 mt-1 text-left">Book a call or meeting</div>
+                <div className="flex flex-col w-full text-left">
+                  <div className="font-semibold text-white text-sm leading-tight">
+                    Schedule Meeting
+                  </div>
+                  <div className="text-xs text-gray-300 mt-1 leading-tight">
+                    Book a call or meeting
+                  </div>
                 </div>
               </Button>
             </div>

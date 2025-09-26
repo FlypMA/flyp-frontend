@@ -99,7 +99,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 to="/for-sellers"
                 className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
               >
-                For Sellers
+                How to Sell
               </Link>
             </li>
             <li className="text-medium whitespace-nowrap box-border list-none">
@@ -107,7 +107,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 to="/search"
                 className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
               >
-                For Buyers
+                Browse Businesses
               </Link>
             </li>
             <li className="text-medium whitespace-nowrap box-border list-none">
@@ -115,7 +115,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 to="/resources/valuation-guide"
                 className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
               >
-                Valuation
+                Free Valuation
               </Link>
             </li>
           </ul>

@@ -5,7 +5,7 @@
 
 import { Button } from '@/shared/components/buttons';
 import { FAQCategory } from '@/shared/components/FAQ/FAQCategory';
-import { Input } from '@/shared/components/forms';
+import SearchComponent from '@/shared/components/search/SearchComponent';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { Card, CardBody } from '@heroui/react';
 import {
@@ -18,7 +18,6 @@ import {
   Mail,
   MessageCircle,
   Phone,
-  Search,
   Settings,
   Shield,
   Star,
@@ -435,19 +434,14 @@ const Help: React.FC = () => {
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Input
-                  placeholder="Search for answers... e.g., 'How to list my business'"
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  leftIcon={<Search className="w-5 h-5 text-gray-400" />}
-                  className="text-lg"
-                  label=""
-                  type="text"
-                  onBlur={() => {}}
-                  name="search"
-                />
-              </div>
+              <SearchComponent
+                value={searchQuery}
+                onChange={setSearchQuery}
+                onSearch={() => {}} // Search happens automatically as user types
+                placeholder="Search for answers... e.g., 'How to list my business'"
+                size="large"
+                buttonText="Search"
+              />
 
               {searchQuery && (
                 <div className="mt-4 text-blue-100">

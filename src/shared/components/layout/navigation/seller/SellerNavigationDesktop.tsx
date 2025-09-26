@@ -11,7 +11,7 @@
 import { Button } from '@/shared/components/buttons';
 import { Menu } from 'lucide-react';
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
 import { UrlGenerator } from '../../../../services';
 import { User } from '../../../../types';
@@ -35,6 +35,7 @@ const SellerNavigationDesktop: React.FC<SellerNavigationDesktopProps> = ({
   className = '',
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { openModal } = useAuth();
 
   // Handle authentication actions
@@ -55,12 +56,18 @@ const SellerNavigationDesktop: React.FC<SellerNavigationDesktopProps> = ({
         pathname === UrlGenerator.myBusiness() || pathname === '/my-business/overview',
     },
     {
+      label: 'Messages',
+      path: '/messages',
+      isActive: (pathname: string) => pathname.startsWith('/messages'),
+      badge: undefined, // TODO: Add unread count badge
+    },
+    {
       label: 'Valuation',
       path: '/my-business/valuations',
       isActive: (pathname: string) => pathname.startsWith('/my-business/valuations'),
     },
     {
-      label: 'Data Room',
+      label: 'Documents',
       path: UrlGenerator.businessDocuments(),
       isActive: (pathname: string) => pathname.startsWith('/my-business/documents'),
     },
@@ -103,16 +110,21 @@ const SellerNavigationDesktop: React.FC<SellerNavigationDesktopProps> = ({
         {/* Center Navigation Items */}
         <div className="hidden lg:flex items-center space-x-8">
           {navigationItems.map(item => {
-            const isActive = item.isActive(window.location.pathname);
+            const isActive = item.isActive(location.pathname);
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-primary-600 ${
+                className={`text-sm font-medium transition-colors hover:text-primary-600 relative ${
                   isActive ? 'text-primary-600' : 'text-gray-700'
                 }`}
               >
                 {item.label}
+                {item.badge && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             );
           })}

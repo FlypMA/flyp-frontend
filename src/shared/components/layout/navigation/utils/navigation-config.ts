@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   LogOut,
   MessageCircle,
+  Plus,
   Search,
   Settings,
   Shield,
@@ -48,9 +49,9 @@ export interface DropdownMenuItem {
  * Desktop Navigation Items - Exact copy from legacy UnifiedNavigation.tsx
  */
 export const getDesktopNavigationItems = (): NavItem[] => [
-  { label: 'For Sellers', href: '/for-sellers', icon: Building2 },
-  { label: 'For Buyers', href: '/search', icon: Search },
-  { label: 'Valuation', href: '/resources/valuation-guide', icon: Calculator },
+  { label: 'How to Sell', href: '/for-sellers', icon: Building2 },
+  { label: 'Browse Businesses', href: '/search', icon: Search },
+  { label: 'Free Valuation', href: '/resources/valuation-guide', icon: Calculator },
 ];
 
 /**
@@ -62,13 +63,13 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
       title: 'Discover',
       items: [
         { label: 'Home', href: '/', icon: Home },
-        { label: 'For Buyers', href: '/search', icon: TrendingUp },
-        { label: 'For Sellers', href: '/for-sellers', icon: Building2 },
+        { label: 'Browse Businesses', href: '/search', icon: TrendingUp },
+        { label: 'How to Sell', href: '/for-sellers', icon: Building2 },
       ],
     },
     {
       title: 'Resources',
-      items: [{ label: 'Valuation Guide', href: '/resources/valuation-guide', icon: DollarSign }],
+      items: [{ label: 'Free Valuation', href: '/resources/valuation-guide', icon: DollarSign }],
     },
   ];
 
@@ -150,22 +151,15 @@ export const getBuyerDropdownItems = (): DropdownMenuItem[] => [
  * Seller Dropdown Menu Items - Exact copy from legacy user_avatar_dropdown.tsx
  */
 export const getSellerDropdownItems = (): DropdownMenuItem[] => [
-  // Business Owner navigation (AIRBNB MODEL - /my-business/*)
-  { icon: LayoutDashboard, label: 'Business Dashboard', href: '/my-business' },
-  { icon: Building2, label: 'My Listings', href: '/my-business/listings' },
-  { icon: Calculator, label: 'Business Valuations', href: '/my-business/valuations' },
-  { icon: TrendingUp, label: 'Performance Analytics', href: '/my-business/performance' },
-  { icon: FileText, label: 'Documents', href: '/my-business/documents' },
+  // Primary business management
+  { icon: LayoutDashboard, label: 'My Business', href: '/my-business' },
   { divider: true },
-  // Buyer navigation (SIMPLIFIED CTO MODEL) - for dual role support
-  { icon: Search, label: 'Browse Businesses', href: '/listings' },
-  { icon: Heart, label: 'Saved Items', href: '/users/saved' },
-  { icon: MessageCircle, label: 'Messages', href: '/messages' },
-  { divider: true },
+  // Account and support
   { icon: Settings, label: 'Account Settings', href: '/users/settings' },
-  { icon: Shield, label: 'Billing & Subscription', href: '/users/billing' },
-  { icon: HelpCircle, label: 'Help Center', href: '/help' },
+  { icon: HelpCircle, label: 'Get Help', href: '/help' },
+  { icon: Plus, label: 'Create a New Listing', href: '/my-business/listings/new' },
   { divider: true },
+  // Logout
   { icon: LogOut, label: 'Log Out', action: 'logout', isLogout: true },
 ];
 

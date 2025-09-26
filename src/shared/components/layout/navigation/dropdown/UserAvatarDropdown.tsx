@@ -1,5 +1,13 @@
 import { authService } from '@/shared/services/auth';
-import { Heart, HelpCircle, LayoutDashboard, LogOut, MessageCircle, Settings } from 'lucide-react';
+import {
+  Heart,
+  HelpCircle,
+  LayoutDashboard,
+  LogOut,
+  MessageCircle,
+  Plus,
+  Settings,
+} from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../services/urls/urlGenerator';
@@ -97,7 +105,7 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         navigate(UrlGenerator.help());
         break;
       case 'create-listing':
-        navigate(UrlGenerator.myBusiness());
+        navigate(UrlGenerator.createNewListing());
         break;
       case 'logout':
         handleLogout();
@@ -167,12 +175,6 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
       action: 'business-dashboard',
     },
     {
-      key: 'messages',
-      icon: MessageCircle,
-      label: 'Messages',
-      action: 'messages',
-    },
-    {
       key: 'divider-1',
       isDivider: true,
     },
@@ -181,6 +183,18 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
       icon: Settings,
       label: 'Account Settings',
       action: 'profile-settings',
+    },
+    {
+      key: 'help-center',
+      icon: HelpCircle,
+      label: 'Get Help',
+      action: 'help-center',
+    },
+    {
+      key: 'create-listing',
+      icon: Plus,
+      label: 'Create a New Listing',
+      action: 'create-listing',
     },
     {
       key: 'divider-2',

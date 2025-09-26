@@ -150,24 +150,6 @@ export const router = createBrowserRouter([
     path: '/',
     element: <BuyerLayout />,
     children: [
-      // Messages (all authenticated users) - Enhanced with conversation context
-      {
-        path: 'messages',
-        element: (
-          <ProtectedRoute>
-            <Messages />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'messages/:conversationId',
-        element: (
-          <ProtectedRoute>
-            <Messages />
-          </ProtectedRoute>
-        ),
-      },
-
       // User Account Management (all authenticated users)
       {
         path: 'users',
@@ -361,7 +343,23 @@ export const router = createBrowserRouter([
     path: '/',
     element: <SellerLayout showFooter={true} />,
     children: [
-      // Add other seller routes here that should show the footer
+      // Messages (all authenticated users) - Enhanced with conversation context
+      {
+        path: 'messages',
+        element: (
+          <ProtectedRoute>
+            <Messages />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'messages/:conversationId',
+        element: (
+          <ProtectedRoute>
+            <Messages />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 
