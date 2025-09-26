@@ -26,7 +26,7 @@ import { SharedProfile } from './ProfileSections/SharedProfile';
 interface RoleBasedProfilePageProps {
   profile: Profile;
   isOwnProfile?: boolean;
-  onProfileUpdate?: (profile: unknown) => void;
+  onProfileUpdate?: () => void;
   className?: string;
 }
 
@@ -66,19 +66,19 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
   // EVENT HANDLERS
   // =============================================================================
 
-  const handleProfileSectionUpdate = async (section: string, data: unknown) => {
+  const handleProfileSectionUpdate = async () => {
     try {
       // Update profile section
-      onProfileUpdate?.({ [section]: data });
+      onProfileUpdate?.();
     } catch {
       // TODO: Add error notification
       // Error handling for profile section update
     }
   };
 
-  const handleProfileUpdate = async (updatedProfile: unknown) => {
+  const handleProfileUpdate = async () => {
     try {
-      onProfileUpdate?.(updatedProfile);
+      onProfileUpdate?.();
       setShowEditModal(false);
     } catch {
       // TODO: Add error notification
@@ -175,10 +175,8 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
         <ProfessionalBackground
           profile={profile}
           isEditing={isEditing}
-          onUpdate={data => handleProfileSectionUpdate('commonBackground', data)}
-          onFieldUpdate={(field, value) =>
-            handleProfileSectionUpdate('commonBackground', { [field]: value })
-          }
+          onUpdate={() => handleProfileSectionUpdate()}
+          onFieldUpdate={() => handleProfileSectionUpdate()}
         />
 
         {/* Role-specific overview content */}
@@ -338,10 +336,8 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
           <BusinessOwnerProfile
             profile={profile}
             isEditing={isEditing}
-            onUpdate={data => handleProfileSectionUpdate('businessOwnerData', data)}
-            onFieldUpdate={(field, value) =>
-              handleProfileSectionUpdate('businessOwnerData', { [field]: value })
-            }
+            onUpdate={() => handleProfileSectionUpdate()}
+            onFieldUpdate={() => handleProfileSectionUpdate()}
           />
         );
       case 'investment':
@@ -349,17 +345,15 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
           <InvestorProfile
             profile={profile}
             isEditing={isEditing}
-            onUpdate={data => handleProfileSectionUpdate('investorData', data)}
-            onFieldUpdate={(field, value) =>
-              handleProfileSectionUpdate('investorData', { [field]: value })
-            }
+            onUpdate={() => handleProfileSectionUpdate()}
+            onFieldUpdate={() => handleProfileSectionUpdate()}
           />
         );
       case 'communication':
         return (
           <CommunicationPreferences
             preferences={profile.sharedData.communication}
-            onUpdate={data => handleProfileSectionUpdate('sharedData', { communication: data })}
+            onUpdate={() => handleProfileSectionUpdate()}
           />
         );
       case 'settings':
@@ -368,10 +362,8 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
             <SharedProfile
               profile={profile}
               isEditing={isEditing}
-              onUpdate={data => handleProfileSectionUpdate('sharedData', data)}
-              onFieldUpdate={(field, value) =>
-                handleProfileSectionUpdate('sharedData', { [field]: value })
-              }
+              onUpdate={() => handleProfileSectionUpdate()}
+              onFieldUpdate={() => handleProfileSectionUpdate()}
             />
             <ProfileCompletion profile={profile} completion={profile.completion} />
           </div>

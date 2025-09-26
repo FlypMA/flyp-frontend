@@ -36,39 +36,47 @@ export const validateProfileField = (
 
   // Type-specific validation
   switch (field.type) {
-    case 'email':
-      if (!FIELD_VALIDATION_RULES.email.pattern.test(value)) {
+    case 'email': {
+      const stringValue = String(value);
+      if (!FIELD_VALIDATION_RULES.email.pattern.test(stringValue)) {
         return { isValid: false, error: FIELD_VALIDATION_RULES.email.message };
       }
       break;
+    }
 
-    case 'phone':
-      if (!FIELD_VALIDATION_RULES.phone.pattern.test(value)) {
+    case 'phone': {
+      const stringValue = String(value);
+      if (!FIELD_VALIDATION_RULES.phone.pattern.test(stringValue)) {
         return { isValid: false, error: FIELD_VALIDATION_RULES.phone.message };
       }
       break;
+    }
 
-    case 'url':
-      if (!FIELD_VALIDATION_RULES.url.pattern.test(value)) {
+    case 'url': {
+      const stringValue = String(value);
+      if (!FIELD_VALIDATION_RULES.url.pattern.test(stringValue)) {
         return { isValid: false, error: FIELD_VALIDATION_RULES.url.message };
       }
       break;
+    }
 
     case 'text':
-    case 'textarea':
-      if (field.validation?.minLength && value.length < field.validation.minLength) {
+    case 'textarea': {
+      const stringValue = String(value);
+      if (field.validation?.minLength && stringValue.length < field.validation.minLength) {
         return {
           isValid: false,
           error: `Must be at least ${field.validation.minLength} characters long`,
         };
       }
-      if (field.validation?.maxLength && value.length > field.validation.maxLength) {
+      if (field.validation?.maxLength && stringValue.length > field.validation.maxLength) {
         return {
           isValid: false,
           error: `Must be no more than ${field.validation.maxLength} characters long`,
         };
       }
       break;
+    }
 
     case 'number': {
       const numValue = Number(value);
@@ -85,7 +93,7 @@ export const validateProfileField = (
     }
 
     case 'date': {
-      const dateValue = new Date(value);
+      const dateValue = new Date(String(value));
       if (isNaN(dateValue.getTime())) {
         return { isValid: false, error: 'Must be a valid date' };
       }
@@ -403,8 +411,8 @@ export const formatProfileForSearch = (profile: Profile): Record<string, unknown
     id: profile.id,
     userId: profile.userId,
     role: profile.role,
-    fullName: formatted.personalInfo.fullName,
-    displayTitle: formatted.personalInfo.displayTitle,
+    fullName: (formatted.personalInfo as any).fullName,
+    displayTitle: (formatted.personalInfo as any).displayTitle,
     industry: profile.personalInfo.industry,
     country: profile.personalInfo.country,
     city: profile.personalInfo.city,

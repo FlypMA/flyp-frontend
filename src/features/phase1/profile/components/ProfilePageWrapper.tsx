@@ -15,7 +15,7 @@ import { RoleBasedProfilePage } from './RoleBasedProfilePage';
 
 interface ProfilePageWrapperProps {
   isOwnProfile?: boolean;
-  onProfileUpdate?: (profile: unknown) => void;
+  onProfileUpdate?: () => void;
   onProfileDelete?: () => void;
   className?: string;
 }
@@ -46,9 +46,9 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   // EVENT HANDLERS
   // =============================================================================
 
-  const handleProfileUpdate = async (updatedProfile: unknown) => {
+  const handleProfileUpdate = async () => {
     try {
-      onProfileUpdate?.(updatedProfile);
+      onProfileUpdate?.();
     } catch {
       // TODO: Add error notification
       // Error handling for profile update
@@ -122,7 +122,6 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
       profile={profile}
       isOwnProfile={isOwnProfile}
       onProfileUpdate={handleProfileUpdate}
-      onProfileDelete={handleProfileDelete}
       className={className}
     />
   );
