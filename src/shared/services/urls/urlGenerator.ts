@@ -314,8 +314,19 @@ export class UrlGenerator {
   /**
    * Generate profile URL with tab
    */
-  static profileWithTab = (tab: 'overview' | 'settings' | 'billing' | 'security') => {
+  static profileWithTab = (
+    tab: 'overview' | 'business' | 'investment' | 'communication' | 'settings'
+  ) => {
     return `/users/profile?tab=${tab}`;
+  };
+
+  /**
+   * Generate settings URL with tab
+   */
+  static settingsWithTab = (
+    tab: 'overview' | 'business' | 'investment' | 'communication' | 'settings'
+  ) => {
+    return `/users/settings?tab=${tab}`;
   };
 
   /**

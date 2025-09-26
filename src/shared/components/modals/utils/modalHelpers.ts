@@ -162,7 +162,7 @@ export const createModalHandlers = (onClose: () => void) => ({
  * Validate modal props for development
  */
 export const validateModalProps = (props: Record<string, any>) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.MODE === 'development') {
     if (typeof props.isOpen !== 'boolean') {
       console.warn('Modal isOpen prop should be a boolean');
     }

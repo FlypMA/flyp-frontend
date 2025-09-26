@@ -21,7 +21,7 @@ import SellerLayout from '../layouts/SellerLayout';
 
 // Route Guard imports
 import NDARouteGuard from './NDARouteGuard';
-import { BuyerRoute, ProtectedRoute, SellerRoute } from './route-guards';
+import { ProtectedRoute, SellerRoute } from './route-guards';
 
 // Page imports - Landing Pages
 import HomePage from '../pages/landingPages/home';
@@ -53,7 +53,7 @@ import ForgotPasswordPage from '../pages/account/passwordReset/ForgotPasswordPag
 import ResetPasswordPage from '../pages/account/passwordReset/ResetPasswordPage';
 import UserBilling from '../pages/account/users/UserBilling';
 import UserNotifications from '../pages/account/users/UserNotifications';
-import UserProfile from '../pages/account/users/UserProfile';
+import UserProfileNew from '../pages/account/users/UserProfileNew';
 import UserSettings from '../pages/account/users/UserSettings';
 
 // Page imports - Users
@@ -155,7 +155,7 @@ export const router = createBrowserRouter([
         path: 'users',
         element: (
           <ProtectedRoute>
-            <UserProfile />
+            <UserProfileNew />
           </ProtectedRoute>
         ),
       },
@@ -163,7 +163,7 @@ export const router = createBrowserRouter([
         path: 'users/profile',
         element: (
           <ProtectedRoute>
-            <UserProfile />
+            <UserProfileNew />
           </ProtectedRoute>
         ),
       },
@@ -171,7 +171,15 @@ export const router = createBrowserRouter([
         path: 'users/settings',
         element: (
           <ProtectedRoute>
-            <UserSettings />
+            <UserProfileNew />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'users/profile-new',
+        element: (
+          <ProtectedRoute>
+            <UserProfileNew />
           </ProtectedRoute>
         ),
       },
@@ -205,14 +213,6 @@ export const router = createBrowserRouter([
           <ProtectedRoute>
             <UserNotifications />
           </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'users/saved',
-        element: (
-          <BuyerRoute>
-            <UserProfile />
-          </BuyerRoute>
         ),
       },
     ],

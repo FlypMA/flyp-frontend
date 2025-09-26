@@ -23,7 +23,7 @@ const SESSION_CONFIG = {
   USER_KEY: 'upswitch_user',
   REFRESH_KEY: 'upswitch_refresh',
   EXPIRY_DAYS: 7, // 7 days
-  SECURE: process.env.NODE_ENV === 'production',
+  SECURE: import.meta.env.MODE === 'production',
   SAME_SITE: 'lax' as const,
 } as const;
 

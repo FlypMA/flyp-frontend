@@ -55,7 +55,7 @@ const ErrorFallback = ({
         problem persists.
       </p>
 
-      {process.env.NODE_ENV === 'development' && (
+      {import.meta.env.MODE === 'development' && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-xs text-red-800 font-mono break-all">{error.message}</p>
         </div>
@@ -104,7 +104,7 @@ const App: React.FC = () => {
       FallbackComponent={ErrorFallback}
       onError={(error, errorInfo) => {
         // Log error for debugging in development
-        if (process.env.NODE_ENV === 'development') {
+        if (import.meta.env.MODE === 'development') {
           logger.error('🚨 App Error Boundary caught an error:', error, errorInfo);
         }
 

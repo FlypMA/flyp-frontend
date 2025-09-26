@@ -243,7 +243,7 @@ export class AuthErrorHandler {
     };
 
     // In production, send to monitoring service
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.MODE === 'production') {
       // TODO: Send to monitoring service (e.g., Sentry, LogRocket)
     } else {
       console.log('Development error logging:', logData);
