@@ -16,7 +16,7 @@ import { Profile, UserRole } from '../types/profile.types';
  */
 export const validateProfileField = (
   fieldId: string,
-  value: any
+  value: unknown
 ): { isValid: boolean; error?: string } => {
   const field = PROFILE_FIELDS.find(f => f.id === fieldId);
 
@@ -330,7 +330,7 @@ export const getRequiredFieldsForRole = (role: UserRole): string[] => {
 /**
  * Get field value from profile
  */
-export const getFieldValue = (profile: Profile, fieldId: string): any => {
+export const getFieldValue = (profile: Profile, fieldId: string): unknown => {
   // Check personal info first
   if (profile.personalInfo[fieldId as keyof typeof profile.personalInfo] !== undefined) {
     return profile.personalInfo[fieldId as keyof typeof profile.personalInfo];
@@ -367,7 +367,7 @@ export const getFieldValue = (profile: Profile, fieldId: string): any => {
 /**
  * Format profile data for display
  */
-export const formatProfileData = (profile: Profile): any => {
+export const formatProfileData = (profile: Profile): Record<string, unknown> => {
   return {
     ...profile,
     personalInfo: {
@@ -396,7 +396,7 @@ export const formatProfileData = (profile: Profile): any => {
 /**
  * Format profile for search
  */
-export const formatProfileForSearch = (profile: Profile): any => {
+export const formatProfileForSearch = (profile: Profile): Record<string, unknown> => {
   const formatted = formatProfileData(profile);
 
   return {
@@ -524,7 +524,7 @@ export const getProfileVisibilityLevel = (profile: Profile): string => {
 /**
  * Compare profiles
  */
-export const compareProfiles = (profile1: Profile, profile2: Profile): any => {
+export const compareProfiles = (profile1: Profile, profile2: Profile): Record<string, unknown> => {
   const comparison = {
     basicInfo: {
       profile1: {
