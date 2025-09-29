@@ -2,23 +2,23 @@
 // Location: src/shared/components/navigation/utils/navigation-config.ts
 // Purpose: Centralized navigation configuration matching legacy app exactly
 
+import { UrlGenerator } from '@/shared/services';
 import {
-    Building2,
-    Calculator,
-    DollarSign,
-    FileText,
-    Heart,
-    HelpCircle,
-    Home,
-    LayoutDashboard,
-    LogOut,
-    MessageCircle,
-    Plus,
-    Search,
-    Settings,
-    Shield,
-    TrendingUp,
-    Users,
+  Building2,
+  Calculator,
+  DollarSign,
+  FileText,
+  Heart,
+  HelpCircle,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  MessageCircle,
+  Plus,
+  Search,
+  Settings,
+  Shield,
+  TrendingUp,
 } from 'lucide-react';
 import React from 'react';
 import { normalizeUserRole } from './role-utils';
@@ -84,13 +84,13 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
       title: 'Dashboard',
       items: [
         {
-          label: normalizedRole === 'seller' ? 'My Business' : 'Browse Businesses',
+          label: normalizedRole === 'seller' ? 'My business' : 'Browse Businesses',
           href: normalizedRole === 'seller' ? '/my-business' : '/listings',
           icon: Home,
         },
         {
-          label: normalizedRole === 'seller' ? 'My Listings' : 'Saved Items',
-          href: normalizedRole === 'seller' ? '/my-business/listings' : '/users/saved',
+          label: normalizedRole === 'seller' ? 'Listings' : 'Saved Items',
+          href: normalizedRole === 'seller' ? UrlGenerator.businessListings() : '/users/saved',
           icon: Heart,
         },
         {
@@ -107,14 +107,15 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
     authenticatedSections.push({
       title: 'Business Management',
       items: [
-        { label: 'My Listings', href: '/my-business/listings', icon: Building2 },
+        { label: 'Valuation', href: '/my-business/valuations', icon: Calculator },
+        { label: 'Listings', href: UrlGenerator.businessListings(), icon: Building2 },
         {
           label: 'Create New Listing',
           href: '/my-business/listings/new',
           icon: FileText,
           isNew: true,
         },
-        { label: 'Business Valuations', href: '/my-business/valuations', icon: Users },
+        { label: 'Documents', href: '/my-business/documents', icon: FileText },
         { label: 'Performance Analytics', href: '/my-business/performance', icon: TrendingUp },
       ],
     });

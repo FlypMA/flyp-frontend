@@ -41,6 +41,10 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
   onImageUpload,
   onImageDelete,
 }) => {
+  // Debug: Log modal render
+  React.useEffect(() => {
+    console.log('ProfileEditFullscreenModal rendered with isOpen:', isOpen);
+  }, [isOpen]);
   const [editedProfile, setEditedProfile] = useState<Partial<Profile>>(profile);
   const [showImageMenu, setShowImageMenu] = useState(false);
 

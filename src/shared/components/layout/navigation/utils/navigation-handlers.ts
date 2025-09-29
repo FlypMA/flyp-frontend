@@ -68,6 +68,9 @@ export class NavigationHandler {
       case 'my-listings':
         this.navigate('/my-business/listings');
         break;
+      case 'listings':
+        this.navigate('/my-business/listings');
+        break;
       case 'valuation':
         this.navigate('/my-business/valuations');
         break;

@@ -41,6 +41,7 @@ export class UrlGenerator {
   static myBusiness = () => '/my-business';
   static myBusinessOverview = () => '/my-business/overview';
   static businessValuations = () => '/my-business/valuations';
+  static businessListings = () => '/my-business/listings';
   static businessAnalytics = () => '/my-business/analytics';
   static businessDocuments = () => '/my-business/documents';
   static businessPerformance = () => '/my-business/performance';
@@ -174,9 +175,7 @@ export class UrlGenerator {
   /**
    * Generate user section URL
    */
-  static getUserSection = (
-    section: 'profile' | 'notifications' | 'billing' | 'security'
-  ) => {
+  static getUserSection = (section: 'profile' | 'notifications' | 'billing' | 'security') => {
     switch (section) {
       case 'profile':
         return UrlGenerator.userProfile();
@@ -195,11 +194,13 @@ export class UrlGenerator {
    * Generate business owner section URL
    */
   static getBusinessSection = (
-    section: 'overview' | 'valuations' | 'documents' | 'performance'
+    section: 'overview' | 'valuations' | 'listings' | 'documents' | 'performance'
   ) => {
     switch (section) {
       case 'valuations':
         return UrlGenerator.businessValuations();
+      case 'listings':
+        return UrlGenerator.businessListings();
       case 'documents':
         return UrlGenerator.businessDocuments();
       case 'performance':
@@ -318,7 +319,6 @@ export class UrlGenerator {
   ) => {
     return `/users/profile?tab=${tab}`;
   };
-
 
   /**
    * Generate business dashboard URL with tab

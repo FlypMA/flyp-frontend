@@ -30,27 +30,33 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
   onClose,
   profile,
 }) => {
+  // Debug: Log modal render
+  React.useEffect(() => {
+    console.log('ProfessionalBackgroundModal rendered with isOpen:', isOpen);
+  }, [isOpen]);
   // =============================================================================
   // RENDER HELPERS
   // =============================================================================
 
-      const renderPersonalInfo = () => (
-        <div className="border border-gray-300 rounded-lg p-6 mb-6">
-          <h3 className="text-lg font-semibold text-black mb-4 pb-2 border-b border-gray-200">
-            Personal Information
-          </h3>
-          <div className="space-y-4">
-            <div>
-              <span className="font-medium text-black">Location</span>
-              <p className="text-gray-700 mt-1">{profile.personalInfo.city}, {profile.personalInfo.country}</p>
-            </div>
-            <div>
-              <span className="font-medium text-black">Timezone</span>
-              <p className="text-gray-700 mt-1">{profile.personalInfo.timezone || 'Not specified'}</p>
-            </div>
-          </div>
+  const renderPersonalInfo = () => (
+    <div className="border border-gray-300 rounded-lg p-6 mb-6">
+      <h3 className="text-lg font-semibold text-black mb-4 pb-2 border-b border-gray-200">
+        Personal Information
+      </h3>
+      <div className="space-y-4">
+        <div>
+          <span className="font-medium text-black">Location</span>
+          <p className="text-gray-700 mt-1">
+            {profile.personalInfo.city}, {profile.personalInfo.country}
+          </p>
         </div>
-      );
+        <div>
+          <span className="font-medium text-black">Timezone</span>
+          <p className="text-gray-700 mt-1">{profile.personalInfo.timezone || 'Not specified'}</p>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderWorkEducation = () => (
     <div className="border border-gray-300 rounded-lg p-6 mb-6">
@@ -60,7 +66,9 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
       <div className="space-y-4">
         <div>
           <span className="font-medium text-black">Current Role</span>
-          <p className="text-gray-700 mt-1">{profile.personalInfo.professionalTitle || 'Not specified'}</p>
+          <p className="text-gray-700 mt-1">
+            {profile.personalInfo.professionalTitle || 'Not specified'}
+          </p>
         </div>
         <div>
           <span className="font-medium text-black">Company</span>
@@ -72,7 +80,9 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
         </div>
         <div>
           <span className="font-medium text-black">Education</span>
-          <p className="text-gray-700 mt-1 leading-relaxed">{profile.personalInfo.professionalSummary || 'Not specified'}</p>
+          <p className="text-gray-700 mt-1 leading-relaxed">
+            {profile.personalInfo.professionalSummary || 'Not specified'}
+          </p>
         </div>
       </div>
     </div>
@@ -93,8 +103,10 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
           </div>
           <div>
             <div className="text-2xl font-bold text-black mb-1">
-              {profile.businessOwnerData?.previousVentures?.filter(venture => 
-                venture.outcome && (venture.outcome.includes('Exit') || venture.outcome.includes('Sold'))
+              {profile.businessOwnerData?.previousVentures?.filter(
+                venture =>
+                  venture.outcome &&
+                  (venture.outcome.includes('Exit') || venture.outcome.includes('Sold'))
               ).length || 0}
             </div>
             <div className="text-sm text-gray-600">Exits</div>
@@ -129,26 +141,24 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
         Key Achievements
       </h3>
       <div className="text-gray-700 leading-relaxed">
-        {profile.businessOwnerData?.keyAchievements?.map(a => a.title).join(', ') || 
-         'Experienced entrepreneur with a track record of building and scaling successful businesses in the technology sector.'}
+        {profile.businessOwnerData?.keyAchievements?.map(a => a.title).join(', ') ||
+          'Experienced entrepreneur with a track record of building and scaling successful businesses in the technology sector.'}
       </div>
     </div>
   );
-
-
 
   // =============================================================================
   // MAIN RENDER
   // =============================================================================
 
   return (
-        <CenteredModal
-          isOpen={isOpen}
-          onClose={onClose}
-          size="4xl"
-          title="About me"
-          className="max-h-[90vh]"
-        >
+    <CenteredModal
+      isOpen={isOpen}
+      onClose={onClose}
+      size="4xl"
+      title="About me"
+      className="max-h-[90vh]"
+    >
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center space-x-4 mb-8 pb-6 border-b border-gray-200">
@@ -159,9 +169,7 @@ export const ProfessionalBackgroundModal: React.FC<ProfessionalBackgroundModalPr
             className="w-16 h-16 border border-gray-300"
           />
           <div>
-            <h2 className="text-2xl font-bold text-black">
-              {getProfileDisplayName(profile)}
-            </h2>
+            <h2 className="text-2xl font-bold text-black">{getProfileDisplayName(profile)}</h2>
             <p className="text-gray-700">
               {profile.personalInfo.professionalTitle || 'Professional'}
             </p>

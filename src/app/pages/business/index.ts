@@ -11,8 +11,8 @@ export * from './reports';
 // Data Room & Documents
 export * from './data-room';
 
-// Business Management - Consolidated into main dashboard
-// export * from './management';
+// Business Management
+export * from './management';
 
 // Default export for backward compatibility
 export { default } from './overview';

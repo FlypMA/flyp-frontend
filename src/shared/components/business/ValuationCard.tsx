@@ -10,8 +10,6 @@
  * - Professional styling
  */
 
-import { Button } from '@/shared/components/buttons';
-import { Card, CardBody, CardHeader } from '@heroui/react';
 import { Calendar, Download, Eye, Rocket, Share2 } from 'lucide-react';
 import React from 'react';
 
@@ -91,11 +89,16 @@ const ValuationCard: React.FC<ValuationCardProps> = ({
   const sliderPosition = Math.max(0, Math.min(100, marketPosition));
 
   return (
-    <Card
-      className={`border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}
+    <div
+      className={`relative w-full h-full bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300 ${className}`}
     >
-      <CardHeader className="flex p-3 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large pb-3">
-        <div className="flex items-center justify-between w-full">
+      {/* Background visual element */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-30"></div>
+
+      {/* Content container */}
+      <div className="relative w-full h-full flex flex-col p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
               <Calendar className="w-4 h-4 text-primary-600" />
@@ -111,9 +114,6 @@ const ValuationCard: React.FC<ValuationCardProps> = ({
             {confidence.toUpperCase()}
           </div>
         </div>
-      </CardHeader>
-
-      <CardBody className="relative flex w-full p-3 flex-auto flex-col place-content-inherit align-items-inherit h-auto break-words text-left overflow-y-auto subpixel-antialiased pt-0">
         {/* Valuation Range Visualization */}
         <div className="text-center mb-6 p-4 border border-gray-100 rounded-lg">
           <div className="text-3xl font-semibold text-gray-900 mb-2">
@@ -172,54 +172,62 @@ const ValuationCard: React.FC<ValuationCardProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-auto">
           <div className="flex items-center space-x-2">
             {onView && (
-              <Button
-                variant="tertiary"
-                size="sm"
-                startContent={<Eye className="w-4 h-4" />}
-                onPress={onView}
+              <button
+                type="button"
+                onClick={onView}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
               >
+                <Eye className="w-4 h-4 mr-2" />
                 View
-              </Button>
+              </button>
             )}
             {onDownload && (
-              <Button
-                variant="tertiary"
-                size="sm"
-                startContent={<Download className="w-4 h-4" />}
-                onPress={onDownload}
+              <button
+                type="button"
+                onClick={onDownload}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
               >
+                <Download className="w-4 h-4 mr-2" />
                 Download
-              </Button>
+              </button>
             )}
           </div>
           <div className="flex items-center space-x-2">
             {onCreateListing && (
-              <Button
-                variant="primary"
-                size="sm"
-                startContent={<Rocket className="w-4 h-4" />}
-                onPress={onCreateListing}
+              <button
+                type="button"
+                onClick={onCreateListing}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-primary-500 text-white font-semibold hover:bg-primary-600 focus:ring-primary-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-2 text-sm h-9 rounded-lg"
               >
+                <Rocket className="w-4 h-4 mr-2" />
                 Create Listing
-              </Button>
+              </button>
             )}
             {onUpdate && (
-              <Button variant="tertiary" size="sm" onPress={onUpdate}>
+              <button
+                type="button"
+                onClick={onUpdate}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+              >
                 Update
-              </Button>
+              </button>
             )}
             {onShare && (
-              <Button variant="tertiary" size="sm" isIconOnly onPress={onShare}>
+              <button
+                type="button"
+                onClick={onShare}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] w-8 h-8 rounded-lg"
+              >
                 <Share2 className="w-4 h-4" />
-              </Button>
+              </button>
             )}
           </div>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 

@@ -35,6 +35,7 @@ import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Business Dashboard
 import DocumentVault from '../pages/business/data-room/DocumentVault';
+import { ListingManagement } from '../pages/business/management';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import ValuationTool from '../pages/business/reports/ValuationTool';
@@ -56,7 +57,6 @@ import ResetPasswordPage from '../pages/account/passwordReset/ResetPasswordPage'
 import UserBilling from '../pages/account/users/UserBilling';
 import UserNotifications from '../pages/account/users/UserNotifications';
 import UserProfileNew from '../pages/account/users/UserProfileNew';
-
 
 // Page imports - Users
 import { SavedListings } from '../pages/users';
@@ -276,6 +276,14 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <ValuationTool />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/listings',
+        element: (
+          <SellerRoute>
+            <ListingManagement />
           </SellerRoute>
         ),
       },

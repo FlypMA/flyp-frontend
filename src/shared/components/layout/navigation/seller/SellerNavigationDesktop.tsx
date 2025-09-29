@@ -50,21 +50,26 @@ const SellerNavigationDesktop: React.FC<SellerNavigationDesktopProps> = ({
   // Navigation items for sellers
   const navigationItems = [
     {
-      label: 'Overview',
+      label: 'My business',
       path: UrlGenerator.myBusiness(),
       isActive: (pathname: string) =>
         pathname === UrlGenerator.myBusiness() || pathname === '/my-business/overview',
+    },
+    {
+      label: 'Valuation',
+      path: '/my-business/valuations',
+      isActive: (pathname: string) => pathname.startsWith('/my-business/valuations'),
+    },
+    {
+      label: 'Listings',
+      path: UrlGenerator.businessListings(),
+      isActive: (pathname: string) => pathname.startsWith('/my-business/listings'),
     },
     {
       label: 'Messages',
       path: '/messages',
       isActive: (pathname: string) => pathname.startsWith('/messages'),
       badge: undefined, // TODO: Add unread count badge
-    },
-    {
-      label: 'Valuation',
-      path: '/my-business/valuations',
-      isActive: (pathname: string) => pathname.startsWith('/my-business/valuations'),
     },
     {
       label: 'Documents',

@@ -11,7 +11,7 @@
 // - Responsive design (desktop only)
 
 import { cn } from '@heroui/react';
-import { Calculator, FileText, LayoutDashboard } from 'lucide-react';
+import { Building2, Calculator, FileText, LayoutDashboard } from 'lucide-react';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
@@ -43,11 +43,11 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
 
   const navSections: NavSection[] = [
     {
-      title: 'Business Overview',
+      title: 'My business',
       items: [
         {
           key: 'overview',
-          label: 'Dashboard',
+          label: 'My business',
           icon: LayoutDashboard,
           description: 'See and manage your business',
           path: UrlGenerator.myBusiness(),
@@ -56,24 +56,27 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className = '' }) =
       ],
     },
     {
-      title: 'Reports & Analysis',
+      title: 'Business Tools',
       items: [
         {
           key: 'valuation',
-          label: 'Business Valuation',
+          label: 'Valuation',
           icon: Calculator,
           description: 'Get your business valued and create listings',
           path: '/my-business/valuations',
           allowedRoles: ['seller', 'admin', 'both'],
         },
-      ],
-    },
-    {
-      title: 'Data Room',
-      items: [
+        {
+          key: 'listings',
+          label: 'Listings',
+          icon: Building2,
+          description: 'Manage your business listings',
+          path: UrlGenerator.businessListings(),
+          allowedRoles: ['seller', 'admin', 'both'],
+        },
         {
           key: 'documents',
-          label: 'Document Vault',
+          label: 'Documents',
           icon: FileText,
           description: 'Upload and manage business documents',
           path: UrlGenerator.businessDocuments(),

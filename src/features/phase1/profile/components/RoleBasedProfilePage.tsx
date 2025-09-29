@@ -38,6 +38,15 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const [showProfessionalModal, setShowProfessionalModal] = useState(false);
 
+  // Debug: Log modal state changes
+  React.useEffect(() => {
+    console.log('Edit Modal State:', showEditModal);
+  }, [showEditModal]);
+
+  React.useEffect(() => {
+    console.log('Professional Modal State:', showProfessionalModal);
+  }, [showProfessionalModal]);
+
   // =============================================================================
   // EVENT HANDLERS
   // =============================================================================
@@ -225,6 +234,22 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
         profile={profile}
       />
 
+      {/* Debug: Simple test modal */}
+      {showProfessionalModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h2 className="text-xl font-bold mb-4">Test Modal</h2>
+            <p className="mb-4">This is a test modal to check if modals work at all.</p>
+            <button
+              onClick={() => setShowProfessionalModal(false)}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Profile Edit Fullscreen Modal */}
       {isOwnProfile && (
         <ProfileEditFullscreenModal
@@ -233,6 +258,22 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
           profile={profile}
           onSave={handleProfileUpdate}
         />
+      )}
+
+      {/* Debug: Simple test modal for edit */}
+      {isOwnProfile && showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h2 className="text-xl font-bold mb-4">Edit Profile Test Modal</h2>
+            <p className="mb-4">This is a test modal for the edit profile functionality.</p>
+            <button
+              onClick={() => setShowEditModal(false)}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

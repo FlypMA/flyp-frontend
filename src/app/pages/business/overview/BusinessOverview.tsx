@@ -191,18 +191,20 @@ const BusinessOverview = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Main Content Area - Navigation and sidebar provided by DashboardLayout */}
-      <div className="flex-1 px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Overview</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My business</h1>
           <p className="text-lg text-gray-600">
             Manage your business profile, listings, and reports
           </p>
         </div>
 
-        {/* Main Grid Layout */}
+        {/* Business Profile Section */}
         <div className="mb-12">
-          {/* Business Profile Card */}
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-gray-900">Business Profile</h2>
+          </div>
           <BusinessProfileCard
             businessInfo={businessInfo}
             onEdit={handleEditBusinessInfo}
@@ -211,13 +213,12 @@ const BusinessOverview = () => {
         </div>
 
         {/* Reports Section */}
-        <div>
+        <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">Reports</h2>
           </div>
-
           {hasValuationReports ? (
-            <div className="space-y-4">
+            <>
               {/* Sample Valuation Report */}
               <ValuationCard
                 id="sample-1"
@@ -235,7 +236,8 @@ const BusinessOverview = () => {
                 onUpdate={() => navigate('/my-business/valuations')}
                 onCreateListing={() => handleListingNudge(null, 850000)}
               />
-            </div>
+              {/* Additional sample reports could go here */}
+            </>
           ) : (
             <EmptyStateCard
               icon={Calculator}
@@ -247,66 +249,88 @@ const BusinessOverview = () => {
           )}
         </div>
 
-        {/* Business Listing Section */}
-        <div className="mt-8">
+        {/* Business Listings Section */}
+        <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Business Listing</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Listings</h2>
           </div>
-
           {hasActiveListing ? (
-            <div className="space-y-4">
-              {/* Enhanced Active Listing Card */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-lg">
-                      {businessInfo?.name || 'Your Business'} - Confidential Listing
-                    </h4>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Created on {new Date().toLocaleDateString()} • Asking Price: €1,200,000
-                    </p>
-                  </div>
-                  <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-                    Active
-                  </span>
-                </div>
+            <>
+              {/* Enhanced Active Listing Card - Airbnb Style */}
+              <div className="relative w-full h-full bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300">
+                {/* Background visual element */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-blue-50 opacity-30"></div>
 
-                {/* Performance Metrics */}
-                <div className="grid grid-cols-3 gap-6 mb-6 p-4 bg-gray-50 rounded-lg">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">24</div>
-                    <div className="text-sm text-gray-600">Views</div>
+                {/* Content container */}
+                <div className="relative w-full h-full flex flex-col p-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg">
+                        {businessInfo?.name || 'Your Business'} - Confidential Listing
+                      </h4>
+                      <p className="text-sm text-gray-600 mt-1">
+                        Created on {new Date().toLocaleDateString()} • Asking Price: €1,200,000
+                      </p>
+                    </div>
+                    <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
+                      Active
+                    </span>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">3</div>
-                    <div className="text-sm text-gray-600">Inquiries</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">2</div>
-                    <div className="text-sm text-gray-600">NDAs Signed</div>
-                  </div>
-                </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-wrap gap-3">
-                  <Button variant="primary" size="sm">
-                    View Public Listing
-                  </Button>
-                  <Button variant="tertiary" size="sm">
-                    Edit Details
-                  </Button>
-                  <Button variant="tertiary" size="sm">
-                    View Inquiries
-                  </Button>
-                  <Button variant="tertiary" size="sm">
-                    Analytics
-                  </Button>
-                  <Button variant="tertiary" size="sm">
-                    Share Listing
-                  </Button>
+                  {/* Performance Metrics */}
+                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-gray-900">24</div>
+                      <div className="text-xs text-gray-600">Views</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-gray-900">3</div>
+                      <div className="text-xs text-gray-600">Inquiries</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-gray-900">2</div>
+                      <div className="text-xs text-gray-600">NDAs Signed</div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-primary-500 text-white font-semibold hover:bg-primary-600 focus:ring-primary-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-2 text-sm h-9 rounded-lg"
+                    >
+                      View Public Listing
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                    >
+                      Edit Details
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                    >
+                      View Inquiries
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                    >
+                      Analytics
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                    >
+                      Share Listing
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+              {/* Additional listing cards could go here */}
+            </>
           ) : (
             <EmptyStateCard
               icon={Store}

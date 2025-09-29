@@ -49,20 +49,25 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
   // Navigation items for sellers
   const navigationItems = [
     {
-      label: 'Overview',
+      label: 'My business',
       path: UrlGenerator.myBusiness(),
       isActive: (pathname: string) =>
         pathname === UrlGenerator.myBusiness() || pathname === '/my-business/overview',
     },
     {
-      label: 'Messages',
-      path: '/messages',
-      isActive: (pathname: string) => pathname.startsWith('/messages'),
-    },
-    {
       label: 'Valuation',
       path: '/my-business/valuations',
       isActive: (pathname: string) => pathname.startsWith('/my-business/valuations'),
+    },
+    {
+      label: 'Listings',
+      path: UrlGenerator.businessListings(),
+      isActive: (pathname: string) => pathname.startsWith('/my-business/listings'),
+    },
+    {
+      label: 'Messages',
+      path: '/messages',
+      isActive: (pathname: string) => pathname.startsWith('/messages'),
     },
     {
       label: 'Documents',

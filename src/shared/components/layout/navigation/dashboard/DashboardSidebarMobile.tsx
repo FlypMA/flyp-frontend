@@ -13,6 +13,7 @@
 
 import {
   BarChart3,
+  Building2,
   Calculator,
   FileText,
   LayoutDashboard,
@@ -76,11 +77,11 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
 
   const navSections: NavSection[] = [
     {
-      title: 'Business Overview',
+      title: 'My business',
       items: [
         {
           key: 'overview',
-          label: 'Dashboard',
+          label: 'My business',
           icon: LayoutDashboard,
           description: 'See and manage your business',
           path: UrlGenerator.myBusiness(),
@@ -110,23 +111,30 @@ const DashboardSidebarMobile: React.FC<DashboardSidebarMobileProps> = ({
       ],
     },
     {
-      title: 'Tools & Resources',
+      title: 'Business Tools',
       items: [
         {
           key: 'valuation',
-          label: 'Business Valuation',
+          label: 'Valuation',
           icon: Calculator,
           description: 'Get your business valued and create listings',
-          path: UrlGenerator.valuationGuide(),
+          path: '/my-business/valuations',
+          allowedRoles: ['seller', 'admin', 'both'],
+        },
+        {
+          key: 'listings',
+          label: 'Listings',
+          icon: Building2,
+          description: 'Manage your business listings',
+          path: UrlGenerator.businessListings(),
           allowedRoles: ['seller', 'admin', 'both'],
         },
         {
           key: 'documents',
-          label: 'Document Vault',
+          label: 'Documents',
           icon: FileText,
           description: 'Upload and manage business documents',
-          path: '/business/documents',
-          isComingSoon: true,
+          path: '/my-business/documents',
           allowedRoles: ['seller', 'admin', 'both'],
         },
       ],
