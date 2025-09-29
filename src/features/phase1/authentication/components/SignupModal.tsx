@@ -206,7 +206,7 @@ const SignupModal: React.FC = () => {
           setShowLoginPrompt(true);
         }
       }
-    } catch {
+    } catch (error) {
       // Signup failed
       setErrorMessage('Signup failed. Please check your information and try again.');
     } finally {

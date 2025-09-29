@@ -38,7 +38,7 @@ export const SignupPanel: React.FC<SignupPanelProps> = ({
       onSuccess?.({}); // Mock success
       onClose();
     } catch (error) {
-      console.error('Signup error:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

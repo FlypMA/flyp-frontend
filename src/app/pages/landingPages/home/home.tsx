@@ -6,14 +6,14 @@ import { authService } from '@/shared/services/auth';
 import { seoData } from '@/shared/utils/seo/seoData';
 import { Card, CardBody } from '@heroui/react';
 import {
-  Car,
-  Coffee,
-  Factory,
-  HeartHandshake,
-  Hotel,
-  Laptop,
-  ShoppingCart,
-  Wrench,
+    Car,
+    Coffee,
+    Factory,
+    HeartHandshake,
+    Hotel,
+    Laptop,
+    ShoppingCart,
+    Wrench,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +36,7 @@ const Home = () => {
       const authResult = await authService.checkAuthentication();
       setIsAuthenticated(authResult.isAuthenticated);
     } catch (error) {
-      console.error('Auth check error:', error);
+      // TODO: Add proper error handling for auth check
     }
   };
 

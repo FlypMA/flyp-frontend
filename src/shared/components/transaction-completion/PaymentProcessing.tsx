@@ -150,7 +150,7 @@ const PaymentProcessing: React.FC<PaymentProcessingProps> = ({
 
       setTransaction(mockTransaction);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -183,7 +183,7 @@ const PaymentProcessing: React.FC<PaymentProcessingProps> = ({
       setIsPaymentModalOpen(false);
       setPaymentData({});
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     }
   };
 

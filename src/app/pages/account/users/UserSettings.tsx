@@ -1,22 +1,22 @@
 import { Button } from '@/shared/components/buttons';
 import {
-  CustomDropdown,
-  CustomInputField,
-  CustomPasswordInputField,
+    CustomDropdown,
+    CustomInputField,
+    CustomPasswordInputField,
 } from '@/shared/components/forms';
 import { AuthenticationService } from '@/shared/services/auth';
 import { Card, CardBody, CardHeader, Divider, Switch } from '@heroui/react';
 import {
-  Bell,
-  Building2,
-  Camera,
-  CheckCircle,
-  Edit3,
-  Globe,
-  Save,
-  Settings,
-  Shield,
-  User,
+    Bell,
+    Building2,
+    Camera,
+    CheckCircle,
+    Edit3,
+    Globe,
+    Save,
+    Settings,
+    Shield,
+    User,
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -106,7 +106,7 @@ const UserSettings: React.FC = () => {
       } else {
         navigate(UrlGenerator.login());
       }
-    } catch {
+    } catch (error) {
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -126,7 +126,7 @@ const UserSettings: React.FC = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error('Error saving user settings:', error);
+      // TODO: Add proper error handling for user settings save
     } finally {
       setSaving(false);
     }
@@ -151,7 +151,7 @@ const UserSettings: React.FC = () => {
         confirmPassword: '',
       });
     } catch (error) {
-      console.error('Error saving user settings:', error);
+      // TODO: Add proper error handling for user settings save
     } finally {
       setSaving(false);
     }

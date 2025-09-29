@@ -11,33 +11,23 @@ profile/
 ├── README.md                    # This documentation file
 ├── index.ts                     # Clean production exports
 ├── components/                  # React components
-│   ├── RoleBasedProfilePage.tsx # Main profile page component
-│   ├── ProfileHeader.tsx        # Profile header with avatar and basic info
-│   ├── ProfileSections/         # Role-specific profile sections
-│   │   ├── BusinessOwnerProfile.tsx
-│   │   ├── InvestorProfile.tsx
-│   │   ├── ProfessionalBackground.tsx
-│   │   └── SharedProfile.tsx
+│   ├── ProfilePageWrapper.tsx   # Main profile page wrapper
+│   ├── RoleBasedProfilePage.tsx # Role-based profile display
+│   ├── UnifiedProfilePage.tsx   # Unified profile entry point
 │   ├── CommunicationPreferences.tsx
-│   ├── ProfileCompletion.tsx    # Profile completion progress
-│   ├── ProfileEditModal.tsx     # Profile editing modal
-│   ├── ProfileImageUpload.tsx   # Profile image management
-│   ├── AddTimelineEvent.tsx     # Timeline event management
-│   ├── BusinessTimeline.tsx     # Business timeline display
-│   └── TimelineFilters.tsx      # Timeline filtering
+│   ├── ProfileEditFullscreenModal.tsx # Fullscreen editing modal
+│   ├── ProfessionalBackgroundModal.tsx # About me modal
+│   └── ProfileImageUpload.tsx   # Profile image management
 ├── hooks/                       # Custom React hooks
 │   ├── useProfile.ts            # Profile management hook
-│   ├── useLinkedIn.ts           # LinkedIn integration hook
-│   ├── useProfileCompletion.ts  # Profile completion tracking
-│   └── useTimeline.ts           # Timeline management hook
+│   └── useLinkedIn.ts           # LinkedIn integration hook
 ├── services/                    # API services
 │   ├── profileService.ts        # Profile API service
-│   ├── linkedinService.ts       # LinkedIn integration service
-│   └── timelineService.ts       # Timeline API service
+│   ├── mockProfileService.ts    # Mock service for development
+│   └── linkedinService.ts       # LinkedIn integration service
 ├── types/                       # TypeScript definitions
 │   ├── profile.types.ts         # Core profile type definitions
-│   ├── roleBased.types.ts       # Role-based profile types
-│   └── timeline.types.ts        # Timeline type definitions
+│   └── roleBased.types.ts       # Role-based profile types
 ├── utils/                       # Utility functions
 │   ├── profileValidation.ts     # Profile validation logic
 │   ├── profileStrength.ts       # Profile strength calculation
@@ -57,7 +47,7 @@ profile/
 - **Professional Presentation**: Clean, business-focused profile layouts
 - **Business Timeline**: Visual timeline of business milestones and achievements
 - **LinkedIn Integration**: Import professional data from LinkedIn
-- **Smart Completion**: Progressive profile building with recommendations
+- **Smart Validation**: Comprehensive profile validation and error handling
 - **Mobile Optimization**: Touch-friendly, responsive design
 
 ### **Production Features**
@@ -72,20 +62,42 @@ profile/
 
 ## 🏗️ **Technical Architecture**
 
-### **Component Hierarchy**
+### **Profile Card Architecture**
+
+The profile feature uses a clean, card-based interface inspired by modern social platforms:
 
 ```
-ProfilePage
-├── ProfileHeader
+ProfilePage (Main View)
+├── ProfileHeaderMinimal
 │   ├── ProfileImageUpload
-│   └── VerificationBadges
+│   ├── Role Display
+│   └── Profile Stats
 ├── ProfileSections
 │   ├── BusinessOwnerProfile (conditional)
 │   ├── InvestorProfile (conditional)
 │   └── SharedProfile
-├── CommunicationPreferences
-├── ProfileAnalytics
-└── ProfileCompletion
+└── Business Cards Grid
+    ├── Business Card 1
+    ├── Business Card 2
+    └── Business Card N
+```
+
+### **Component Hierarchy**
+
+```
+UnifiedProfilePage
+└── ProfilePageWrapper
+    └── RoleBasedProfilePage
+        ├── About Me Section (Profile Card)
+        │   ├── Avatar & Basic Info
+        │   ├── Role & Location
+        │   ├── Stats (Businesses, Exits, Years)
+        │   └── Bio
+        ├── My Businesses Section (Grid)
+        │   └── Business Cards
+        └── Modals
+            ├── ProfileEditFullscreenModal
+            └── ProfessionalBackgroundModal ("About me")
 ```
 
 ### **State Management**
@@ -186,7 +198,6 @@ ProfilePage
 
 ### **User Behavior Tracking**
 
-- **Profile Completion**: Step-by-step completion tracking
 - **Feature Usage**: Component interaction analytics
 - **Performance Metrics**: Load times and responsiveness
 - **Error Tracking**: User experience issues
@@ -194,7 +205,7 @@ ProfilePage
 ### **Business Metrics**
 
 - **Profile Quality**: Strength score distribution
-- **Verification Rates**: Verification completion rates
+- **Verification Rates**: Profile verification success rates
 - **User Engagement**: Profile view and interaction rates
 - **Conversion Impact**: Profile quality vs transaction success
 
@@ -214,7 +225,6 @@ ProfilePage
 - [ ] Business owner profile template
 - [ ] Investor profile template
 - [ ] Shared profile components
-- [ ] Profile completion tracking
 
 ### **Phase 3: Trust & Verification (Sprint 2)**
 

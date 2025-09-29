@@ -143,7 +143,7 @@ const DueDiligenceReports: React.FC<DueDiligenceReportsProps> = ({ processId, us
 
       setReports(mockReports);
     } catch (error) {
-      console.error('Error loading reports:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -182,7 +182,7 @@ const DueDiligenceReports: React.FC<DueDiligenceReportsProps> = ({ processId, us
 
       setReports(prev => [newReport, ...prev]);
     } catch (error) {
-      console.error('Error loading reports:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsGenerating(false);
     }
@@ -199,7 +199,7 @@ const DueDiligenceReports: React.FC<DueDiligenceReportsProps> = ({ processId, us
       link.download = `${report.title}.pdf`;
       link.click();
     } catch (error) {
-      console.error('Error loading reports:', error);
+      // TODO: Add proper error handling
     }
   };
 

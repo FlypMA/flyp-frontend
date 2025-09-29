@@ -207,7 +207,7 @@ const DocumentManagement: React.FC<DocumentManagementProps> = ({
 
       setTransaction(mockTransaction);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -253,7 +253,7 @@ const DocumentManagement: React.FC<DocumentManagementProps> = ({
 
       setIsUploadModalOpen(false);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     }
   };
 
@@ -270,7 +270,7 @@ const DocumentManagement: React.FC<DocumentManagementProps> = ({
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     }
   };
 

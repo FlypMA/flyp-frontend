@@ -67,7 +67,7 @@ export class UrlGenerator {
 
   static users = () => '/users';
   static userProfile = () => '/users/profile';
-  static userSettings = () => '/users/settings';
+  static userSettings = () => '/users/profile';
   static userBilling = () => '/users/billing';
   static userSecurity = () => '/users/security';
   static userNotifications = () => '/users/notifications';
@@ -174,13 +174,11 @@ export class UrlGenerator {
    * Generate user section URL
    */
   static getUserSection = (
-    section: 'profile' | 'settings' | 'notifications' | 'billing' | 'security'
+    section: 'profile' | 'notifications' | 'billing' | 'security'
   ) => {
     switch (section) {
       case 'profile':
         return UrlGenerator.userProfile();
-      case 'settings':
-        return UrlGenerator.userSettings();
       case 'notifications':
         return UrlGenerator.userNotifications();
       case 'billing':
@@ -320,14 +318,6 @@ export class UrlGenerator {
     return `/users/profile?tab=${tab}`;
   };
 
-  /**
-   * Generate settings URL with tab
-   */
-  static settingsWithTab = (
-    tab: 'overview' | 'business' | 'investment' | 'communication' | 'settings'
-  ) => {
-    return `/users/settings?tab=${tab}`;
-  };
 
   /**
    * Generate business dashboard URL with tab

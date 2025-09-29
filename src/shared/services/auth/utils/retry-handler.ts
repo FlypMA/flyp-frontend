@@ -55,7 +55,7 @@ export class RetryHandler {
 
         // Check if error is retryable
         if (!this.isRetryableError(error) || attempt === maxAttempts) {
-          logger.error(`❌ ${context} - Failed after ${attempt} attempts:`, error);
+          logger.error("Error occurred", error);
           throw error;
         }
 

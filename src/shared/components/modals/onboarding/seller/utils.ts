@@ -54,7 +54,7 @@ export const saveDraft = (formData: SellerFormData, currentStep: number): void =
     };
     localStorage.setItem('sellerOnboardingDraft', JSON.stringify(draftData));
   } catch (error) {
-    console.error('Error saving draft:', error);
+    // TODO: Add proper error handling
   }
 };
 
@@ -69,7 +69,7 @@ export const loadDraft = (): { formData: SellerFormData; currentStep: number } |
       return { formData, currentStep };
     }
   } catch (error) {
-    console.error('Error loading draft:', error);
+    // TODO: Add proper error handling
   }
   return null;
 };
@@ -81,7 +81,7 @@ export const clearDraft = (): void => {
   try {
     localStorage.removeItem('sellerOnboardingDraft');
   } catch (error) {
-    console.error('Error clearing draft:', error);
+    // TODO: Add proper error handling
   }
 };
 

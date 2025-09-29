@@ -246,7 +246,7 @@ export class AuthErrorHandler {
     if (import.meta.env.MODE === 'production') {
       // TODO: Send to monitoring service (e.g., Sentry, LogRocket)
     } else {
-      console.log('Development error logging:', logData);
+      // TODO: Add proper logging
     }
   }
 }

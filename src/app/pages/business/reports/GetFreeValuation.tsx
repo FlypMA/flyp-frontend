@@ -101,7 +101,7 @@ const GetFreeValuation = () => {
         } else {
           navigate('/');
         }
-      } catch {
+      } catch (error) {
         navigate('/');
       } finally {
         // No loading state to manage

@@ -119,7 +119,7 @@ const BusinessOverview = () => {
           // Redirect to login if not authenticated
           navigate('/');
         }
-      } catch {
+      } catch (error) {
         // Error initializing dashboard - handled silently for UX
         navigate('/');
         // No loading state to manage

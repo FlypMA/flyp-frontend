@@ -6,10 +6,10 @@
 
 import { UserRole } from '@/shared/types';
 import {
-  CreateProfileRequest,
-  Profile,
-  ProfileListResponse,
-  UpdateProfileRequest,
+    CreateProfileRequest,
+    Profile,
+    ProfileListResponse,
+    UpdateProfileRequest,
 } from '../types/profile.types';
 
 // =============================================================================
@@ -37,7 +37,7 @@ const mockProfile: Profile = {
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     bio: 'Experienced entrepreneur with a passion for technology and innovation.',
     professionalSummary:
-      'John is a seasoned entrepreneur with over 10 years of experience in the technology sector. He founded Tech Innovations BV in 2018 and has successfully grown the company to 25 employees with €2M annual revenue.',
+      'Master of Science in Computer Science from Delft University of Technology (2010). Bachelor of Science in Business Administration from Erasmus University Rotterdam (2008). Certified Project Management Professional (PMP) and AWS Solutions Architect.',
   },
 
   businessOwnerData: {
@@ -304,22 +304,6 @@ const mockProfile: Profile = {
     },
   },
 
-  completion: {
-    overallPercentage: 85,
-    sections: {
-      personalInfo: 90,
-      businessOwnerData: 80,
-      investorData: 75,
-      sharedData: 95,
-    },
-    missingFields: ['professionalCertifications', 'industryAwards'],
-    recommendations: [
-      'Adding certifications increases profile credibility by 15%',
-      'Industry awards help establish thought leadership',
-      'Detailed investment criteria improve match quality',
-    ],
-    lastUpdated: '2024-12-19T14:30:00Z',
-  },
 
   strength: {
     overallScore: 85,
@@ -399,18 +383,6 @@ class MockProfileService {
       businessOwnerData: data.businessOwnerData || ({} as any),
       investorData: data.investorData || ({} as any),
       sharedData: data.sharedData || ({} as any),
-      completion: {
-        overallPercentage: 0,
-        sections: {
-          personalInfo: 0,
-          businessOwnerData: 0,
-          investorData: 0,
-          sharedData: 0,
-        },
-        missingFields: [],
-        recommendations: [],
-        lastUpdated: new Date().toISOString(),
-      },
       strength: {
         overallScore: 0,
         factors: {
@@ -674,7 +646,6 @@ class MockProfileService {
       inquiryConversionRate: 23.1,
       transactionSuccessRate: 78.5,
       profileStrengthScore: 4.2,
-      completionPercentage: 85,
       lastUpdated: new Date().toISOString(),
     };
   }

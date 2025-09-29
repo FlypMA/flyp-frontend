@@ -107,7 +107,7 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
 
       setOffers(mockOffers);
     } catch (error) {
-      console.error('Error loading offers:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +164,7 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
       setIsCounterModalOpen(false);
       setCounterOfferData({ reason: '' });
     } catch (error) {
-      console.error('Error creating counter offer:', error);
+      // TODO: Add proper error handling
     }
   };
 
@@ -178,7 +178,7 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
         prev.map(o => (o.id === offer.id ? { ...o, status: 'accepted' as const } : o))
       );
     } catch (error) {
-      console.error('Error accepting offer:', error);
+      // TODO: Add proper error handling
     }
   };
 
@@ -192,7 +192,7 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
         prev.map(o => (o.id === offer.id ? { ...o, status: 'rejected' as const } : o))
       );
     } catch (error) {
-      console.error('Error rejecting offer:', error);
+      // TODO: Add proper error handling
     }
   };
 

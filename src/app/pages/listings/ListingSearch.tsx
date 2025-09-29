@@ -266,7 +266,7 @@ const ListingSearch = () => {
       setListings(filteredListings);
       setTotalResults(filteredListings.length);
     } catch (error) {
-      console.error('Error loading listings:', error);
+      // TODO: Add proper error handling
     } finally {
       // No loading state to manage
     }
@@ -311,7 +311,7 @@ const ListingSearch = () => {
       // Show success notification
       // toast.success('Search saved successfully!');
     } catch (error) {
-      console.error('Failed to save search:', error);
+      // TODO: Add proper error handling
     }
   };
 

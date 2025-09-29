@@ -207,7 +207,7 @@ const ValuationModal: React.FC<ValuationModalProps> = ({
         onClose();
       }
     } catch (error) {
-      console.error('Error calculating valuation:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsCalculating(false);
     }

@@ -164,10 +164,10 @@ export const createModalHandlers = (onClose: () => void) => ({
 export const validateModalProps = (props: Record<string, any>) => {
   if (import.meta.env.MODE === 'development') {
     if (typeof props.isOpen !== 'boolean') {
-      console.warn('Modal isOpen prop should be a boolean');
+      // TODO: Add proper warning handling
     }
     if (typeof props.onClose !== 'function') {
-      console.warn('Modal onClose prop should be a function');
+      // TODO: Add proper warning handling
     }
   }
 };

@@ -42,8 +42,8 @@ const UserProfile: React.FC = () => {
       } else {
         navigate(UrlGenerator.login());
       }
-    } catch (_error) {
-      // logger.error('Failed to load user data:', error);
+    } catch (error) {
+      // logger.error("Error occurred", error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -62,8 +62,8 @@ const UserProfile: React.FC = () => {
       setEditing(false);
       // Show success message
       // logger.info('Profile updated successfully');
-    } catch (_error) {
-      // logger.error('Failed to update profile:', error);
+    } catch (error) {
+      // logger.error("Error occurred", error);
       // Show error message
     } finally {
       setSaving(false);

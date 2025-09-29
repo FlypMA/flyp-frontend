@@ -91,7 +91,7 @@ const EnhancedConversationPanel: React.FC<EnhancedConversationPanelProps> = ({
 
   const handleSettingsClick = () => {
     // TODO: Implement settings modal
-    console.log('Settings clicked');
+    // TODO: Add proper logging
   };
 
   return (

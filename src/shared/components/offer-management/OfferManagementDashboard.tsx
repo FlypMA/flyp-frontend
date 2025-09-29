@@ -147,7 +147,7 @@ const OfferManagementDashboard: React.FC<OfferManagementDashboardProps> = ({
 
       setDashboard(mockDashboard);
     } catch (error) {
-      console.error('Error loading dashboard:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

@@ -266,30 +266,6 @@ export const calculateProfileStrength = (profile: Profile): number => {
   return Math.min(Math.round(score), maxScore);
 };
 
-// =============================================================================
-// PROFILE COMPLETION
-// =============================================================================
-
-/**
- * Get profile completion percentage
- */
-export const getProfileCompletionPercentage = (profile: Profile): number => {
-  const role = profile.role;
-  const requiredFields = getRequiredFieldsForRole(role);
-
-  let completedFields = 0;
-  let totalFields = 0;
-
-  requiredFields.forEach(fieldId => {
-    totalFields++;
-    const value = getFieldValue(profile, fieldId);
-    if (value && value !== '') {
-      completedFields++;
-    }
-  });
-
-  return totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
-};
 
 /**
  * Get required fields for role
@@ -418,9 +394,8 @@ export const formatProfileForSearch = (profile: Profile): Record<string, unknown
     city: profile.personalInfo.city,
     avatar: profile.personalInfo.avatarUrl,
     businessName: profile.businessOwnerData?.businessName,
-    investmentRange: formatted.investorData?.displayInvestmentRange,
-    experience: formatted.investorData?.displayExperience,
-    completion: profile.completion.overallPercentage,
+    investmentRange: (formatted.investorData as any)?.displayInvestmentRange,
+    experience: (formatted.investorData as any)?.displayExperience,
     strength: profile.strength.overallScore,
     verified: false, // Verification system removed from MVP
     lastActiveAt: profile.lastActiveAt,
@@ -547,10 +522,6 @@ export const compareProfiles = (profile1: Profile, profile2: Profile): Record<st
         industry: getProfileIndustryDisplayName(profile2.personalInfo.industry || ''),
         location: getProfileLocationDisplayName(profile2),
       },
-    },
-    completion: {
-      profile1: profile1.completion.overallPercentage,
-      profile2: profile2.completion.overallPercentage,
     },
     strength: {
       profile1: profile1.strength.overallScore,

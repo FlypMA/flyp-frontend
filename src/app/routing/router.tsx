@@ -56,6 +56,7 @@ import UserNotifications from '../pages/account/users/UserNotifications';
 import UserProfileNew from '../pages/account/users/UserProfileNew';
 import UserSettings from '../pages/account/users/UserSettings';
 
+
 // Page imports - Users
 import { SavedListings } from '../pages/users';
 
@@ -161,14 +162,6 @@ export const router = createBrowserRouter([
       },
       {
         path: 'users/profile',
-        element: (
-          <ProtectedRoute>
-            <UserProfileNew />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'users/settings',
         element: (
           <ProtectedRoute>
             <UserProfileNew />
@@ -418,9 +411,9 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       // Account redirects
-      { path: 'account', loader: () => redirect('/users/settings') },
+      { path: 'account', loader: () => redirect('/users/profile') },
       { path: 'account/seller', loader: () => redirect('/my-business') },
-      { path: 'account/settings', loader: () => redirect('/users/settings') },
+      { path: 'account/settings', loader: () => redirect('/users/profile') },
       { path: 'account/profile', loader: () => redirect('/users/profile') },
 
       // Business redirects

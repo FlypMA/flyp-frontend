@@ -38,7 +38,7 @@ const SignUpComplete: React.FC = () => {
           setMessage(response.error || 'Verification failed');
         }
       } catch (error) {
-        logger.error('Email verification failed:', error);
+        logger.error("Error occurred", error);
         setVerificationStatus('error');
         setMessage('Verification failed. Please try again.');
       }
@@ -54,7 +54,7 @@ const SignUpComplete: React.FC = () => {
         await authService.resendVerification(email);
         alert('Verification email has been resent. Please check your inbox.');
       } catch (error) {
-        logger.error('Error resending verification email:', error);
+        logger.error("Error occurred", error);
         alert('Failed to resend verification email. Please try again later.');
       } finally {
         setResending(false);

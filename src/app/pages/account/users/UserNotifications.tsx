@@ -52,7 +52,7 @@ const UserNotifications: React.FC = () => {
         navigate(UrlGenerator.login());
       }
     } catch (error) {
-      logger.error('Failed to load user data:', error);
+      logger.error("Error occurred", error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -120,7 +120,7 @@ const UserNotifications: React.FC = () => {
 
       setNotifications(mockNotifications);
     } catch (error) {
-      logger.error('Failed to load notifications:', error);
+      logger.error("Error occurred", error);
     }
   };
 
@@ -135,7 +135,7 @@ const UserNotifications: React.FC = () => {
         )
       );
     } catch (error) {
-      logger.error('Failed to mark notification as read:', error);
+      logger.error("Error occurred", error);
     }
   };
 
@@ -146,7 +146,7 @@ const UserNotifications: React.FC = () => {
 
       setNotifications(prev => prev.map(notification => ({ ...notification, read: true })));
     } catch (error) {
-      logger.error('Failed to mark all notifications as read:', error);
+      logger.error("Error occurred", error);
     }
   };
 
@@ -157,7 +157,7 @@ const UserNotifications: React.FC = () => {
 
       setNotifications(prev => prev.filter(notification => notification.id !== notificationId));
     } catch (error) {
-      logger.error('Failed to delete notification:', error);
+      logger.error("Error occurred", error);
     }
   };
 

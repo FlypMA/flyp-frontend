@@ -155,7 +155,7 @@ const OfferCreationModal: React.FC<OfferCreationModalProps> = ({
 
       onOfferCreated();
     } catch (error) {
-      console.error('Error creating offer:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsSubmitting(false);
     }

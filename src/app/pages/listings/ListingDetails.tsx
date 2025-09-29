@@ -130,7 +130,7 @@ const ListingDetails = () => {
       // Close modal and navigate to private page
       setIsNdaModalOpen(false);
       navigate(`/listings/${id}/private`);
-    } catch {
+    } catch (error) {
       // NDA signing failed
     }
   };
@@ -227,7 +227,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
           involvement_post_sale: 'Transition support available',
         },
       });
-    } catch {
+    } catch (error) {
       // Error loading listing details
     } finally {
       setIsLoading(false);

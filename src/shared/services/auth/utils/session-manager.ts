@@ -49,7 +49,7 @@ export class SessionManager {
       // Store a flag to indicate we have a session
       localStorage.setItem('upswitch_has_session', 'true');
     } catch (error) {
-      console.error('Error storing session:', error);
+      // TODO: Add proper error handling
     }
   }
 
@@ -94,7 +94,7 @@ export class SessionManager {
       localStorage.removeItem(SESSION_CONFIG.TOKEN_KEY);
       localStorage.removeItem(SESSION_CONFIG.REFRESH_KEY);
     } catch (error) {
-      console.error('Error clearing session:', error);
+      // TODO: Add proper error handling
     }
   }
 
@@ -133,7 +133,7 @@ export class SessionManager {
     try {
       localStorage.setItem(SESSION_CONFIG.USER_KEY, JSON.stringify(user));
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // TODO: Add proper error handling
     }
   }
 

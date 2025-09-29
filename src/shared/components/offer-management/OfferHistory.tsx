@@ -202,7 +202,7 @@ const OfferHistory: React.FC<OfferHistoryProps> = ({ listingId, userRole, userId
 
       setOffers(mockOffers);
     } catch (error) {
-      console.error('Error loading offer history:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

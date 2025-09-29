@@ -266,7 +266,7 @@ This opportunity is ideal for an experienced restaurateur or investor looking to
           },
         ],
       });
-    } catch {
+    } catch (error) {
       // Error loading private listing details
     } finally {
       setIsLoading(false);

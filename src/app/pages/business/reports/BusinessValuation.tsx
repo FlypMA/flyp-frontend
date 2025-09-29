@@ -114,7 +114,7 @@ const BusinessValuation = () => {
           // Redirect to login if not authenticated
           navigate('/');
         }
-      } catch {
+      } catch (error) {
         navigate('/');
       } finally {
         // No loading state to manage

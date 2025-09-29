@@ -32,7 +32,7 @@ const ForgotPasswordPage: React.FC = () => {
       setIsSubmitted(true);
       addNotification('success', 'Password reset email sent!');
     } catch (error) {
-      logger.error('Failed to send reset email:', error);
+      logger.error("Error occurred", error);
       addNotification('error', 'Failed to send reset email');
     } finally {
       setIsLoading(false);

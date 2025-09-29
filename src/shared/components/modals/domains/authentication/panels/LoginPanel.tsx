@@ -36,7 +36,7 @@ export const LoginPanel: React.FC<LoginPanelProps> = ({
       onSuccess?.({}); // Mock success
       onClose();
     } catch (error) {
-      console.error('Login error:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

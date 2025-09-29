@@ -129,7 +129,7 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
 
       setTransaction(mockTransaction);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

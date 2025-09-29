@@ -181,7 +181,7 @@ const DueDiligenceChecklist: React.FC<DueDiligenceChecklistProps> = ({ processId
 
       setChecklist(mockChecklist);
     } catch (error) {
-      logger.error('Error loading checklist:', error);
+      logger.error("Error occurred", error);
     } finally {
       setIsLoading(false);
     }
@@ -241,7 +241,7 @@ const DueDiligenceChecklist: React.FC<DueDiligenceChecklistProps> = ({ processId
         };
       });
     } catch (error) {
-      logger.error('Error loading checklist:', error);
+      logger.error("Error occurred", error);
     }
   };
 

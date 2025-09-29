@@ -188,7 +188,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
       }
 
       onClose();
-    } catch {
+    } catch (error) {
       // TODO: Handle error properly (show user notification, etc.)
     } finally {
       setIsSubmitting(false);

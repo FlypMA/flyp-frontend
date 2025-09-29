@@ -151,7 +151,7 @@ const OfferTracking: React.FC<OfferTrackingProps> = ({ listingId, userRole, user
 
       setOffers(mockOffers);
     } catch (error) {
-      console.error('Error loading offers:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

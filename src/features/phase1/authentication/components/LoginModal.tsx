@@ -169,7 +169,7 @@ const LoginModal: React.FC = () => {
         setMessageType('error');
         setErrorMessage(authResult.error || 'Invalid email or password. Please try again.');
       }
-    } catch {
+    } catch (error) {
       // Login failed
       setMessageType('error');
       setErrorMessage('Login failed. Please check your credentials and try again.');

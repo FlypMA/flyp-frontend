@@ -107,7 +107,7 @@ const DueDiligenceMessages: React.FC<DueDiligenceMessagesProps> = ({ processId, 
 
       setMessages(mockMessages);
     } catch (error) {
-      console.error('Error loading messages:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -144,7 +144,7 @@ const DueDiligenceMessages: React.FC<DueDiligenceMessagesProps> = ({ processId, 
       setMessageSubject('');
       setSelectedRecipients([]);
     } catch (error) {
-      console.error('Error loading messages:', error);
+      // TODO: Add proper error handling
     }
   };
 

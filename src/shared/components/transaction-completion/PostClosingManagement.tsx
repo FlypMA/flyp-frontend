@@ -170,7 +170,7 @@ const PostClosingManagement: React.FC<PostClosingManagementProps> = ({
 
       setTransaction(mockTransaction);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -210,7 +210,7 @@ const PostClosingManagement: React.FC<PostClosingManagementProps> = ({
         return { ...prev, postClosingItems: updatedItems };
       });
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     }
   };
 

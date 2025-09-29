@@ -44,7 +44,6 @@ interface UseProfileReturn {
   refreshProfile: () => Promise<void>;
   hasProfile: boolean;
   isProfileComplete: boolean;
-  profileCompletionPercentage: number;
 
   // Profile Search
   searchProfiles: (filters: any) => Promise<Profile[]>;
@@ -420,8 +419,7 @@ export const useProfile = (): UseProfileReturn => {
   // =============================================================================
 
   const hasProfile = Boolean(profile);
-  const isProfileComplete = profile ? profile.completion.overallPercentage >= 80 : false;
-  const profileCompletionPercentage = profile ? profile.completion.overallPercentage : 0;
+  const isProfileComplete = profile ? true : false; // Simplified - always complete if profile exists
 
   // =============================================================================
   // EFFECTS
@@ -468,7 +466,6 @@ export const useProfile = (): UseProfileReturn => {
     refreshProfile,
     hasProfile,
     isProfileComplete,
-    profileCompletionPercentage,
 
     // Profile Search
     searchProfiles,

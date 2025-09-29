@@ -214,7 +214,7 @@ const TransactionCompletionDashboard: React.FC<TransactionCompletionDashboardPro
 
       setDashboard(mockDashboard);
     } catch (error) {
-      console.error('Error loading dashboard:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

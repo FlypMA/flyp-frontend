@@ -351,7 +351,7 @@ export class AuthenticationService {
     try {
       const authCheck = await this.checkAuth();
       return authCheck.user || null;
-    } catch {
+    } catch (error) {
       // Get current user failed
       return null;
     }
@@ -520,7 +520,7 @@ export class AuthenticationService {
       });
 
       return response.data?.exists || false;
-    } catch {
+    } catch (error) {
       // Email check failed
       return false;
     }

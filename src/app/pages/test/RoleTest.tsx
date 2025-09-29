@@ -200,7 +200,7 @@ const RoleTest: React.FC = () => {
                     • <code>/messages</code> - Messages
                   </li>
                   <li>
-                    • <code>/users/settings</code> - Account Settings
+                    • <code>/users/profile</code> - Account Settings
                   </li>
                   <li>
                     • <code>/users/profile</code> - User Profile

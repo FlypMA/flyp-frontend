@@ -33,7 +33,6 @@ export interface Profile {
   sharedData: SharedProfileData;
 
   // Profile Management
-  completion: ProfileCompletion;
   strength: ProfileStrength;
 
   // Metadata
@@ -408,18 +407,6 @@ export interface PrivacySettings {
 // PROFILE MANAGEMENT TYPES
 // =============================================================================
 
-export interface ProfileCompletion {
-  overallPercentage: number;
-  sections: {
-    personalInfo: number;
-    businessOwnerData?: number;
-    investorData?: number;
-    sharedData: number;
-  };
-  missingFields: string[];
-  recommendations: string[];
-  lastUpdated: string;
-}
 
 export interface ProfileStrength {
   overallScore: number; // 0-100

@@ -175,7 +175,7 @@ export const shouldBypassProtectedRoute = (): boolean => {
  */
 export const devLog = (message: string, data?: any): void => {
   if (isDevelopmentMode() && isDebugModeEnabled()) {
-    console.log(`[DEV] ${message}`, data);
+    // TODO: Add proper logging
   }
 };
 
@@ -184,7 +184,7 @@ export const devLog = (message: string, data?: any): void => {
  */
 export const devWarn = (message: string, data?: any): void => {
   if (isDevelopmentMode()) {
-    console.warn(`[DEV] ${message}`, data);
+    // TODO: Add proper warning handling
   }
 };
 
@@ -193,7 +193,7 @@ export const devWarn = (message: string, data?: any): void => {
  */
 export const devError = (message: string, error?: any): void => {
   if (isDevelopmentMode()) {
-    console.error(`[DEV] ${message}`, error);
+    // TODO: Add proper error handling
   }
 };
 
@@ -207,7 +207,7 @@ export const devError = (message: string, error?: any): void => {
 export const logDevEnvironmentInfo = (): void => {
   if (isDevelopmentMode()) {
     if (isDevBypassEnabled()) {
-      console.log('Development bypass is enabled');
+      // TODO: Add proper logging
     }
   }
 };

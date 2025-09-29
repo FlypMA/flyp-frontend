@@ -47,7 +47,7 @@ const initializeApp = () => {
 
     logger.success('Application rendered successfully');
   } catch (error) {
-    logger.error('🚨 Failed to render application:', error);
+    logger.error("Error occurred", error);
 
     // Fallback rendering for critical errors
     rootElement.innerHTML = `

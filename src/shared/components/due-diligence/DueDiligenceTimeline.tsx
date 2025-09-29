@@ -143,7 +143,7 @@ const DueDiligenceTimeline: React.FC<DueDiligenceTimelineProps> = ({ processId, 
       setProcess(mockProcess);
       setActivities(mockActivities);
     } catch (error) {
-      console.error('Error loading timeline:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

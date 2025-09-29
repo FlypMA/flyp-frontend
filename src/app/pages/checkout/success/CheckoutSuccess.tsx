@@ -27,7 +27,7 @@ const CheckoutSuccess = () => {
   };
 
   const handleGoToSettings = () => {
-    navigate('/users/settings?tab=subscription');
+    navigate('/users/profile?tab=subscription');
   };
 
   const handleGoToReports = () => {

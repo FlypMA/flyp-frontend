@@ -210,7 +210,7 @@ const BuyerOnboarding = () => {
 
       navigate('/listings'); // AIRBNB MODEL: Buyers browse listings (no dashboard)
     } catch (error) {
-      logger.error('Error completing onboarding:', error);
+      logger.error('Error completing onboarding');
     } finally {
       setIsSubmitting(false);
     }

@@ -53,7 +53,7 @@ const NDARouteGuard: React.FC<NDARouteGuardProps> = ({ children }) => {
       };
 
       setNdaStatus(mockNdaStatus);
-    } catch {
+    } catch (error) {
       setNdaStatus({
         status: 'none',
         listingId: listingId || '',

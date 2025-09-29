@@ -16,7 +16,7 @@ import { RoleBasedProfilePage } from './RoleBasedProfilePage';
 interface ProfilePageWrapperProps {
   isOwnProfile?: boolean;
   onProfileUpdate?: () => void;
-  onProfileDelete?: () => void;
+  _onProfileDelete?: () => void;
   className?: string;
 }
 
@@ -27,7 +27,7 @@ interface ProfilePageWrapperProps {
 export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   isOwnProfile = false,
   onProfileUpdate,
-  onProfileDelete,
+  _onProfileDelete,
   className = '',
 }) => {
   const { profile, loading: profileLoading, error: profileError, refreshProfile } = useProfile();
@@ -49,20 +49,21 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   const handleProfileUpdate = async () => {
     try {
       onProfileUpdate?.();
-    } catch {
+    } catch (error) {
       // TODO: Add error notification
       // Error handling for profile update
     }
   };
 
-  const handleProfileDelete = async () => {
-    try {
-      onProfileDelete?.();
-    } catch {
-      // TODO: Add error notification
-      // Error handling for profile deletion
-    }
-  };
+  // Profile deletion handler (currently unused but kept for future implementation)
+  // const handleProfileDelete = async () => {
+  //   try {
+  //     onProfileDelete?.();
+  //   } catch (error) {
+  //     // TODO: Add error notification
+  //     // Error handling for profile deletion
+  //   }
+  // };
 
   // =============================================================================
   // LOADING AND ERROR STATES
@@ -117,14 +118,14 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   // MAIN RENDER
   // =============================================================================
 
-  return (
-    <RoleBasedProfilePage
-      profile={profile}
-      isOwnProfile={isOwnProfile}
-      onProfileUpdate={handleProfileUpdate}
-      className={className}
-    />
-  );
+        return (
+          <RoleBasedProfilePage
+            profile={profile}
+            isOwnProfile={isOwnProfile}
+            onProfileUpdate={handleProfileUpdate}
+            className={className}
+          />
+        );
 };
 
 export default ProfilePageWrapper;

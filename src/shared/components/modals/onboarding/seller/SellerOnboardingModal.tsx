@@ -97,7 +97,7 @@ const SellerOnboardingModal: React.FC<SellerOnboardingModalProps> = ({
         onComplete(formData);
       }
     } catch (error) {
-      console.error('Error submitting onboarding:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsSubmitting(false);
     }

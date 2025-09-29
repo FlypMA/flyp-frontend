@@ -185,7 +185,7 @@ const OfferComparison: React.FC<OfferComparisonProps> = ({ listingId, userRole, 
       setComparison(mockComparison);
       setSelectedOffers(mockComparison.offers.map(offer => offer.id));
     } catch (error) {
-      console.error('Error loading comparison:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

@@ -41,7 +41,7 @@ users/
 ### **2. User Settings (`UserSettings.tsx`)**
 
 - **Purpose**: Comprehensive user preferences and account settings
-- **Route**: `/users/settings`
+- **Route**: `/users/profile`
 - **Features**:
   - ✅ **Tabbed Interface**: Organized settings categories
   - ✅ **Notification Settings**: Email, push, SMS preferences
@@ -275,7 +275,7 @@ await AuthenticationService.getUserSettings();
 ```typescript
 // Generate user URLs
 UrlGenerator.userProfile(); // /users/profile
-UrlGenerator.userSettings(); // /users/settings
+UrlGenerator.userSettings(); // /users/profile
 UrlGenerator.userNotifications(); // /users/notifications
 UrlGenerator.userBilling(); // /users/billing
 ```

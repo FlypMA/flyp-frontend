@@ -142,7 +142,7 @@ const DueDiligenceDocuments: React.FC<DueDiligenceDocumentsProps> = ({ processId
 
       setDocuments(mockDocuments);
     } catch (error) {
-      console.error('Error loading documents:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -178,7 +178,7 @@ const DueDiligenceDocuments: React.FC<DueDiligenceDocumentsProps> = ({ processId
       setDocuments(prev => [newDocument, ...prev]);
       setIsUploadModalOpen(false);
     } catch (error) {
-      console.error('Error loading documents:', error);
+      // TODO: Add proper error handling
     } finally {
       setUploading(false);
     }
@@ -195,7 +195,7 @@ const DueDiligenceDocuments: React.FC<DueDiligenceDocumentsProps> = ({ processId
       link.download = doc.name;
       link.click();
     } catch (error) {
-      console.error('Error loading documents:', error);
+      // TODO: Add proper error handling
     }
   };
 

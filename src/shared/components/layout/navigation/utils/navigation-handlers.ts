@@ -2,8 +2,8 @@
 // Location: src/shared/components/navigation/utils/navigation-handlers.ts
 // Purpose: Centralized navigation action handlers
 
-import { NavigateFunction } from 'react-router-dom';
 import { AuthenticationService } from '@/shared/services/auth';
+import { NavigateFunction } from 'react-router-dom';
 
 /**
  * Navigation Handler Class
@@ -83,7 +83,7 @@ export class NavigationHandler {
         this.navigate('/messages');
         break;
       case 'profile-settings':
-        this.navigate('/users/settings');
+        this.navigate('/users/profile');
         break;
       case 'billing':
         this.navigate('/users/billing');

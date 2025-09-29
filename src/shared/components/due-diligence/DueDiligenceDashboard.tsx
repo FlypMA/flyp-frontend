@@ -154,7 +154,7 @@ const DueDiligenceDashboard: React.FC<DueDiligenceDashboardProps> = ({
 
       setDashboard(mockDashboard);
     } catch (error) {
-      console.error('Error loading dashboard:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }

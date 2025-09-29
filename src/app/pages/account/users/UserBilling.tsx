@@ -65,7 +65,7 @@ const UserBilling: React.FC = () => {
         navigate(UrlGenerator.login());
       }
     } catch (error) {
-      logger.error('Failed to load user data:', error);
+      logger.error("Error occurred", error);
       navigate(UrlGenerator.login());
     } finally {
       setLoading(false);
@@ -153,7 +153,7 @@ const UserBilling: React.FC = () => {
       setPaymentMethods(mockPaymentMethods);
       setInvoices(mockInvoices);
     } catch (error) {
-      logger.error('Failed to load billing data:', error);
+      logger.error("Error occurred", error);
     }
   };
 
@@ -168,7 +168,7 @@ const UserBilling: React.FC = () => {
         setSubscription({ ...subscription, status: 'cancelled' });
       }
     } catch (error) {
-      logger.error('Failed to cancel subscription:', error);
+      logger.error("Error occurred", error);
     }
   };
 

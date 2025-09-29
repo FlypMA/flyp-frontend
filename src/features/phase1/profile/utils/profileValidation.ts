@@ -257,10 +257,7 @@ export const validateProfile = (profile: Profile): ProfileValidationResult => {
     }
   });
 
-  // Add warnings for incomplete profiles
-  if (profile.completion.overallPercentage < 50) {
-    warnings.completion = 'Profile is less than 50% complete. Consider adding more information.';
-  }
+  // Completion validation removed - no longer tracking completion percentage
 
   if (!profile.personalInfo.avatar && !profile.personalInfo.avatarUrl) {
     warnings.avatar = 'Adding a professional photo can increase trust and engagement.';

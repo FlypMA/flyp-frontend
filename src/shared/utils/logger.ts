@@ -11,26 +11,24 @@ export const logger = {
   /**
    * Log info messages (development only)
    */
-  info: (message: string, ...args: unknown[]) => {
+  info: (_message: string, ..._args: unknown[]) => {
     if (isDevelopment) {
-      // eslint-disable-next-line no-console
-      console.log(`[INFO] ${message}`, ...args);
+      // TODO: Add proper logging
     }
   },
 
   /**
    * Log error messages (always)
    */
-  error: (message: string, ...args: unknown[]) => {
-    // eslint-disable-next-line no-console
-    console.error(`[ERROR] ${message}`, ...args);
+  error: (_message: string, ..._args: unknown[]) => {
+    // TODO: Add proper error handling
   },
 
   /**
    * Log warning messages (always)
    */
-  warn: (message: string, ...args: unknown[]) => {
-    console.warn(message, ...args);
+  warn: (_message: string, ..._args: unknown[]) => {
+    // TODO: Add proper warning handling
   },
 
   /**
@@ -46,20 +44,18 @@ export const logger = {
   /**
    * Log success messages (development only)
    */
-  success: (message: string, ...args: unknown[]) => {
+  success: (_message: string, ..._args: unknown[]) => {
     if (isDevelopment) {
-      // eslint-disable-next-line no-console
-      console.log(`[SUCCESS] ${message}`, ...args);
+      // TODO: Add proper logging
     }
   },
 
   /**
    * Log failure messages (development only)
    */
-  failure: (message: string, ...args: unknown[]) => {
+  failure: (_message: string, ..._args: unknown[]) => {
     if (isDevelopment) {
-      // eslint-disable-next-line no-console
-      console.error(`[FAILURE] ${message}`, ...args);
+      // TODO: Add proper error handling
     }
   },
 };

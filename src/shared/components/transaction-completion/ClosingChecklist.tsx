@@ -192,7 +192,7 @@ const ClosingChecklist: React.FC<ClosingChecklistProps> = ({ transactionId, user
 
       setTransaction(mockTransaction);
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -232,7 +232,7 @@ const ClosingChecklist: React.FC<ClosingChecklistProps> = ({ transactionId, user
         return { ...prev, closingChecklist: updatedChecklist };
       });
     } catch (error) {
-      console.error('Error loading transaction:', error);
+      // TODO: Add proper error handling
     }
   };
 

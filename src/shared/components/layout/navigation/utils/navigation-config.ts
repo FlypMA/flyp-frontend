@@ -3,22 +3,22 @@
 // Purpose: Centralized navigation configuration matching legacy app exactly
 
 import {
-  Building2,
-  Calculator,
-  DollarSign,
-  FileText,
-  Heart,
-  HelpCircle,
-  Home,
-  LayoutDashboard,
-  LogOut,
-  MessageCircle,
-  Plus,
-  Search,
-  Settings,
-  Shield,
-  TrendingUp,
-  Users,
+    Building2,
+    Calculator,
+    DollarSign,
+    FileText,
+    Heart,
+    HelpCircle,
+    Home,
+    LayoutDashboard,
+    LogOut,
+    MessageCircle,
+    Plus,
+    Search,
+    Settings,
+    Shield,
+    TrendingUp,
+    Users,
 } from 'lucide-react';
 import React from 'react';
 import { normalizeUserRole } from './role-utils';
@@ -123,7 +123,7 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
   authenticatedSections.push({
     title: 'Account',
     items: [
-      { label: 'Account Settings', href: '/users/settings', icon: Settings },
+      { label: 'Account Settings', href: '/users/profile', icon: Settings },
       { label: 'Billing & Subscription', href: '/users/billing', icon: Shield },
       { label: 'Messages', href: '/messages', icon: MessageCircle },
     ],
@@ -140,7 +140,7 @@ export const getBuyerDropdownItems = (): DropdownMenuItem[] => [
   { icon: Heart, label: 'Saved Items', href: '/users/saved' },
   { icon: MessageCircle, label: 'Messages', href: '/messages' },
   { divider: true },
-  { icon: Settings, label: 'Account Settings', href: '/users/settings' },
+  { icon: Settings, label: 'Account Settings', href: '/users/profile' },
   { icon: Shield, label: 'Billing & Subscription', href: '/users/billing' },
   { icon: HelpCircle, label: 'Help Center', href: '/help' },
   { divider: true },
@@ -155,7 +155,7 @@ export const getSellerDropdownItems = (): DropdownMenuItem[] => [
   { icon: LayoutDashboard, label: 'My Business', href: '/my-business' },
   { divider: true },
   // Account and support
-  { icon: Settings, label: 'Account Settings', href: '/users/settings' },
+  { icon: Settings, label: 'Account Settings', href: '/users/profile' },
   { icon: HelpCircle, label: 'Get Help', href: '/help' },
   { icon: Plus, label: 'Create a New Listing', href: '/my-business/listings/new' },
   { divider: true },

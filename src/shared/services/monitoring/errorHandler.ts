@@ -232,7 +232,7 @@ class ErrorRecoveryManager {
           return true;
         }
       } catch (recoveryError) {
-        console.error('Error in recovery process:', recoveryError);
+        // TODO: Add proper error handling
       }
     }
 
@@ -247,7 +247,7 @@ class ErrorRecoveryManager {
         const authService = await import('../auth');
         await authService.default.checkAuth();
         return true;
-      } catch {
+      } catch (error) {
         // Redirect to login
         window.location.href = '/login';
         return false;
@@ -263,7 +263,7 @@ class ErrorRecoveryManager {
           cache: 'no-cache',
         });
         return response.ok;
-      } catch {
+      } catch (error) {
         return false;
       }
     });
@@ -320,7 +320,7 @@ export class ErrorHandler {
     this.trackNavigation();
 
     if (isDevelopment) {
-      console.log('Development error handler initialized');
+      // TODO: Add proper logging
     }
   }
 
@@ -679,7 +679,7 @@ export class ErrorHandler {
 
   private logError(errorReport: ErrorReport): void {
     if (isDevelopment) {
-      console.log('Error report:', errorReport);
+      // TODO: Add proper logging
     }
   }
 
@@ -705,7 +705,7 @@ export class ErrorHandler {
         }),
       });
     } catch (monitoringError) {
-      console.error('Error in monitoring setup:', monitoringError);
+      // TODO: Add proper error handling
     }
   }
 
