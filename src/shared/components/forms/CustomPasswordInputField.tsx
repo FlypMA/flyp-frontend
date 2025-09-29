@@ -89,17 +89,18 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
 
   return (
     <div className={`mb-6 relative ${className}`}>
-      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+      <div className="relative custom-input-group border border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-gray-900 focus-within:ring-2 focus-within:ring-gray-900 focus-within:ring-opacity-20 transition-all duration-200">
         <input
           ref={inputRef}
           type={showPassword ? 'text' : 'password'}
-          placeholder={placeholder}
+          placeholder=" "
           className={`
-            w-full h-16 px-4 pb-0 text-md text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
-            ${hasError ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' : ''}
-            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
-            focus:outline-none focus:ring-2 focus:ring-opacity-20
-            text-gray-900 placeholder-gray-400
+            w-full h-16 px-4 pt-6 pb-2 text-base text-gray-900 
+            bg-transparent border-none rounded-xl 
+            focus:outline-none focus:ring-0
+            transition-all duration-200 ease-in-out
+            ${hasError ? 'text-red-600' : ''}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed text-gray-400' : ''}
           `}
           aria-label={label}
           value={value}
@@ -114,11 +115,11 @@ const CustomPasswordInputField: React.FC<CustomPasswordInputFieldProps> = ({
 
         <label
           className={`
-              absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
+            absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
             ${
               hasContent || isFocused || value
-                ? 'top-3 text-xs text-gray-600'
-                : 'top-5 text-md text-gray-500'
+                ? 'top-2 text-xs text-gray-600 font-medium'
+                : 'top-5 text-base text-gray-500'
             }
             ${hasError ? 'text-red-500' : ''}
             ${disabled ? 'text-gray-400' : ''}

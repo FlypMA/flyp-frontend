@@ -1,24 +1,16 @@
 /**
  * 🔒 Security Section
- * 
+ *
  * Comprehensive security management for user accounts
  * Handles password changes, 2FA, and security settings
- * 
+ *
  * @author Senior CTO
  * @version 1.0.0
  */
 
 import { Button } from '@/shared/components/buttons';
-import { CustomInputField } from '@/shared/components/forms';
-import {
-    AlertTriangle,
-    CheckCircle,
-    Eye,
-    EyeOff,
-    Key,
-    Shield,
-    Smartphone
-} from 'lucide-react';
+import { CustomPasswordInputField } from '@/shared/components/forms';
+import { Key } from 'lucide-react';
 import React, { useState } from 'react';
 
 import { useAuth } from '@/app/providers/auth-provider';
@@ -35,13 +27,8 @@ interface SecuritySectionProps {
 // SECURITY SECTION COMPONENT
 // =============================================================================
 
-export const SecuritySection: React.FC<SecuritySectionProps> = ({ 
-  className = '' 
-}) => {
+export const SecuritySection: React.FC<SecuritySectionProps> = ({ className = '' }) => {
   const { user } = useAuth();
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -65,43 +52,9 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({
     console.log('Changing password:', passwordForm);
   };
 
-  const handleEnable2FA = () => {
-    // TODO: Implement 2FA setup
-    console.log('Enabling 2FA');
-  };
-
   // =============================================================================
   // RENDER HELPERS
   // =============================================================================
-
-  const renderSecurityOverview = () => (
-    <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-8">
-      <div className="flex items-start space-x-4">
-        <div className="flex-shrink-0">
-          <Shield className="w-8 h-8 text-green-600" />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Account Security Status
-          </h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-gray-700">Email verified</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <AlertTriangle className="w-4 h-4 text-yellow-600" />
-              <span className="text-sm text-gray-700">Two-factor authentication not enabled</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-gray-700">Strong password policy enabled</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   const renderPasswordSection = () => (
     <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
@@ -114,128 +67,43 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({
       </div>
 
       <form onSubmit={handlePasswordSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Current Password
-          </label>
-          <div className="relative">
-            <CustomInputField
-              type={showCurrentPassword ? 'text' : 'password'}
-              value={passwordForm.currentPassword}
-              onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
-              placeholder="Enter your current password"
-              className="pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            >
-              {showCurrentPassword ? (
-                <EyeOff className="w-4 h-4 text-gray-400" />
-              ) : (
-                <Eye className="w-4 h-4 text-gray-400" />
-              )}
-            </button>
-          </div>
-        </div>
+        <CustomPasswordInputField
+          label="Current Password"
+          value={passwordForm.currentPassword}
+          onChange={e => handlePasswordChange('currentPassword', e.target.value)}
+          onBlur={() => {}}
+          name="currentPassword"
+          placeholder="Enter your current password"
+          className="w-full"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            New Password
-          </label>
-          <div className="relative">
-            <CustomInputField
-              type={showNewPassword ? 'text' : 'password'}
-              value={passwordForm.newPassword}
-              onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
-              placeholder="Enter your new password"
-              className="pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowNewPassword(!showNewPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            >
-              {showNewPassword ? (
-                <EyeOff className="w-4 h-4 text-gray-400" />
-              ) : (
-                <Eye className="w-4 h-4 text-gray-400" />
-              )}
-            </button>
-          </div>
-          <p className="text-xs text-gray-500 mt-1">
-            Password must be at least 8 characters with uppercase, lowercase, number, and special character
-          </p>
-        </div>
+        <CustomPasswordInputField
+          label="New Password"
+          value={passwordForm.newPassword}
+          onChange={e => handlePasswordChange('newPassword', e.target.value)}
+          onBlur={() => {}}
+          name="newPassword"
+          placeholder="Enter your new password"
+          className="w-full"
+          showPasswordStrength={true}
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Confirm New Password
-          </label>
-          <div className="relative">
-            <CustomInputField
-              type={showConfirmPassword ? 'text' : 'password'}
-              value={passwordForm.confirmPassword}
-              onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
-              placeholder="Confirm your new password"
-              className="pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center"
-            >
-              {showConfirmPassword ? (
-                <EyeOff className="w-4 h-4 text-gray-400" />
-              ) : (
-                <Eye className="w-4 h-4 text-gray-400" />
-              )}
-            </button>
-          </div>
-        </div>
+        <CustomPasswordInputField
+          label="Confirm New Password"
+          value={passwordForm.confirmPassword}
+          onChange={e => handlePasswordChange('confirmPassword', e.target.value)}
+          onBlur={() => {}}
+          name="confirmPassword"
+          placeholder="Confirm your new password"
+          className="w-full"
+        />
 
         <div className="flex justify-end">
-          <Button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-          >
+          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
             Update Password
           </Button>
         </div>
       </form>
-    </div>
-  );
-
-  const renderTwoFactorSection = () => (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <Smartphone className="w-6 h-6 text-gray-600" />
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900">Two-Factor Authentication</h3>
-            <p className="text-sm text-gray-600">Add an extra layer of security to your account</p>
-          </div>
-        </div>
-        <Button
-          onClick={handleEnable2FA}
-          variant="tertiary"
-          className="border-blue-600 text-blue-600 hover:bg-blue-50"
-        >
-          Enable 2FA
-        </Button>
-      </div>
-      
-      <div className="mt-4 p-4 bg-yellow-50 rounded-lg">
-        <div className="flex items-start space-x-2">
-          <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm text-yellow-800">
-              <strong>Recommended:</strong> Enable two-factor authentication to significantly improve your account security.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 
@@ -282,14 +150,8 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({
         </p>
       </div>
 
-      {/* Security Overview */}
-      {renderSecurityOverview()}
-
       {/* Password Section */}
       {renderPasswordSection()}
-
-      {/* Two-Factor Authentication */}
-      {renderTwoFactorSection()}
 
       {/* Login Activity */}
       {renderLoginActivity()}

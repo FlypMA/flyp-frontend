@@ -65,13 +65,13 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
 
   return (
     <div className={`relative ${className}`}>
-      <div className="relative custom-input-group flex flex-col items-center border border-gray-900 bg-default-100 rounded-xl shadow-sm">
+      <div className="relative custom-input-group border border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-gray-900 focus-within:ring-2 focus-within:ring-gray-900 focus-within:ring-opacity-20 transition-all duration-200">
         {leftIcon && (
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
             {leftIcon}
           </div>
         )}
-        
+
         <input
           ref={inputRef}
           type={type}
@@ -80,37 +80,36 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
           onChange={onChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          placeholder={isLabelFloating ? placeholder : ''}
+          placeholder=" "
           required={required}
           disabled={disabled}
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           className={`
-            w-full h-16 px-4 pb-0 text-md text-foreground-500 focus:outline-none focus-visible:outline-none border-none rounded-xl focus:ring-2 focus:ring-black custom-input bg-filled text-md pt-4 pl-4 transition-all duration-200 ease-in-out
+            w-full h-16 px-4 pt-6 pb-2 text-base text-gray-900 
+            bg-transparent border-none rounded-xl 
+            focus:outline-none focus:ring-0
+            transition-all duration-200 ease-in-out
             ${leftIcon ? 'pl-10' : ''}
             ${rightIcon ? 'pr-10' : ''}
-            ${hasError 
-              ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500' 
-              : 'border-gray-300 bg-white focus:border-gray-500 focus:ring-gray-500'
-            }
-            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
-            focus:outline-none focus:ring-2 focus:ring-opacity-20
-            text-gray-900 placeholder-gray-400
+            ${hasError ? 'text-red-600' : ''}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed text-gray-400' : ''}
           `}
         />
-        
+
         {rightIcon && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
             {rightIcon}
           </div>
         )}
-        
+
         <label
           className={`
             absolute left-4 transition-all duration-200 ease-in-out pointer-events-none
-            ${isLabelFloating 
-              ? 'top-3 text-xs text-gray-600' 
-              : 'top-5 text-md text-gray-500'
+            ${
+              isLabelFloating
+                ? 'top-2 text-xs text-gray-600 font-medium'
+                : 'top-5 text-base text-gray-500'
             }
             ${hasError ? 'text-red-500' : ''}
             ${disabled ? 'text-gray-400' : ''}
@@ -120,14 +119,10 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       </div>
-      
-      {description && (
-        <p className="mt-1 text-sm text-gray-600">{description}</p>
-      )}
-      
-      {hasError && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
-      )}
+
+      {description && <p className="mt-1 text-sm text-gray-600">{description}</p>}
+
+      {hasError && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 };

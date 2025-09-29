@@ -24,3 +24,5 @@ export const PreferencesPage: React.FC = () => {
 };
 
 export default PreferencesPage;
+
+

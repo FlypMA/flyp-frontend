@@ -5,21 +5,14 @@
  */
 
 import { Button } from '@/shared/components/buttons';
-import {
-    CustomDropdown,
-    CustomInputField,
-    CustomTextarea
-} from '@/shared/components/forms';
+import { CustomDropdown, CustomInputField, CustomTextarea } from '@/shared/components/forms';
 import { FullscreenModal } from '@/shared/components/modals/foundations/FullscreenModal';
 import { Avatar, Divider } from '@heroui/react';
-import { Briefcase, Building2, Camera, Edit3, Globe, MapPin, User } from 'lucide-react';
+import { Briefcase, Building2, Camera, MapPin, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useLinkedIn } from '../hooks/useLinkedIn';
 import { Profile } from '../types/profile.types';
-import {
-    getProfileDisplayName,
-    getProfileLocationDisplayName,
-} from '../utils/profileHelpers';
+import { getProfileDisplayName, getProfileLocationDisplayName } from '../utils/profileHelpers';
 
 // =============================================================================
 // COMPONENT INTERFACE
@@ -48,10 +41,14 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
 }) => {
   const [editedProfile, setEditedProfile] = useState<Partial<Profile>>(profile);
   const [showImageMenu, setShowImageMenu] = useState(false);
-  
+
   // LinkedIn integration
-  const { connectLinkedIn, isLoading: linkedInLoading, importProfile } = useLinkedIn({
-    onSuccess: (linkedInData) => {
+  const {
+    connectLinkedIn,
+    isLoading: linkedInLoading,
+    importProfile,
+  } = useLinkedIn({
+    onSuccess: linkedInData => {
       // Merge LinkedIn data with current form data
       setEditedProfile(prev => ({
         ...prev,
@@ -59,17 +56,21 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
           ...prev.personalInfo,
           ...linkedInData.personalInfo,
         },
-        businessOwnerData: linkedInData.businessData ? {
-          ...prev.businessOwnerData,
-          ...linkedInData.businessData,
-        } : prev.businessOwnerData,
-        investorData: linkedInData.investorData ? {
-          ...prev.investorData,
-          ...linkedInData.investorData,
-        } : prev.investorData,
+        businessOwnerData: linkedInData.businessData
+          ? {
+              ...prev.businessOwnerData,
+              ...linkedInData.businessData,
+            }
+          : prev.businessOwnerData,
+        investorData: linkedInData.investorData
+          ? {
+              ...prev.investorData,
+              ...linkedInData.investorData,
+            }
+          : prev.investorData,
       }));
     },
-    onError: (error) => {
+    onError: error => {
       // TODO: Show error notification
       // LinkedIn import failed: error
     },
@@ -122,55 +123,42 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
     placeholder?: string
   ) => (
     <div className="mb-6">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-2">
-          {icon && <span className="text-gray-500">{icon}</span>}
-          <label className="text-sm font-medium text-gray-700">{label}</label>
-        </div>
-        <Button
-          variant="link"
-          size="sm"
-          className="text-blue-600 hover:text-blue-700"
-        >
-          <Edit3 className="w-4 h-4 mr-1" />
-          edit
-        </Button>
-      </div>
-      
       {type === 'textarea' ? (
         <CustomTextarea
-          label=""
+          label={label}
           value={value}
-          onChange={(e) => handleInputChange(field, e.target.value)}
+          onChange={e => handleInputChange(field, e.target.value)}
           onBlur={() => {}}
           name={field}
-          placeholder={placeholder || `${label} add`}
+          placeholder={placeholder || `Add ${label.toLowerCase()}`}
           className="w-full"
           rows={3}
         />
       ) : type === 'select' && options ? (
         <CustomDropdown
-          label=""
+          label={label}
           value={value}
-          onChange={(value) => handleInputChange(field, value)}
+          onChange={value => handleInputChange(field, value)}
           options={options}
-          placeholder={placeholder || `Select ${label}`}
+          placeholder={placeholder || `Select ${label.toLowerCase()}`}
           className="w-full"
         />
       ) : type === 'number' ? (
         <CustomInputField
+          label={label}
           type="number"
           value={value}
-          onChange={(e) => handleInputChange(field, e.target.value)}
-          placeholder={placeholder || `Enter ${label}`}
+          onChange={e => handleInputChange(field, e.target.value)}
+          placeholder={placeholder || `Enter ${label.toLowerCase()}`}
           className="w-full"
         />
       ) : (
         <CustomInputField
+          label={label}
           type="text"
           value={value}
-          onChange={(e) => handleInputChange(field, e.target.value)}
-          placeholder={placeholder || `${label} add`}
+          onChange={e => handleInputChange(field, e.target.value)}
+          placeholder={placeholder || `Add ${label.toLowerCase()}`}
           className="w-full"
         />
       )}
@@ -201,7 +189,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                   className="w-24 h-24 cursor-pointer"
                   onClick={() => setShowImageMenu(!showImageMenu)}
                 />
-                
+
                 {showImageMenu && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                     <div className="py-1">
@@ -230,25 +218,22 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                   </div>
                 )}
               </div>
-              
+
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
                   {getProfileDisplayName(profile)}
                 </h1>
-                <p className="text-gray-600">
-                  {getProfileLocationDisplayName(profile)}
-                </p>
-                <div className="flex items-center space-x-1 text-green-600 mt-2">
-                  <Globe className="w-4 h-4" />
-                  <span className="text-sm font-medium">Openbaar</span>
-                </div>
+                <p className="text-gray-600">{getProfileLocationDisplayName(profile)}</p>
               </div>
             </div>
-            
-              <p className="text-sm text-gray-600">
-                Business owners and prospectors can see your profile and it can show up when needed to build trust and credibility within the platform and our community. 
-                <a href="#" className="text-blue-600 hover:underline ml-1">Learn more</a>
-              </p>
+
+            <p className="text-sm text-gray-600">
+              Business owners and prospectors can see your profile and it can show up when needed to
+              build trust and credibility within the platform and our community.
+              <a href="#" className="text-blue-600 hover:underline ml-1">
+                Learn more
+              </a>
+            </p>
           </div>
 
           <Divider className="my-8" />
@@ -262,7 +247,8 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                     Import your professional information from LinkedIn
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Automatically populate your profile with your LinkedIn data including work experience, education, and professional details.
+                    Automatically populate your profile with your LinkedIn data including work
+                    experience, education, and professional details.
                   </p>
                 </div>
                 <Button
@@ -270,7 +256,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                   size="lg"
                   onClick={connectLinkedIn}
                   disabled={linkedInLoading}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 whitespace-nowrap"
                 >
                   {linkedInLoading ? 'Importing...' : 'Import from LinkedIn'}
                 </Button>
@@ -281,7 +267,8 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
           <Divider className="my-8" />
 
           {/* Personal Information Section */}
-          {renderProfileSection('Personal Information', (
+          {renderProfileSection(
+            'Personal Information',
             <div className="space-y-6">
               {renderEditableField(
                 'Full Name',
@@ -292,8 +279,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                 <User className="w-4 h-4" />,
                 'Your full name as it appears on your profile'
               )}
-              
-              
+
               {renderEditableField(
                 'Where you live',
                 getProfileLocationDisplayName(profile),
@@ -303,7 +289,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                 <MapPin className="w-4 h-4" />,
                 'City, Country'
               )}
-              
+
               {renderEditableField(
                 'Timezone',
                 profile.personalInfo.timezone || '',
@@ -318,15 +304,17 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                 ]
               )}
             </div>
-          ))}
+          )}
 
           <Divider className="my-8" />
 
           {/* About Section */}
-          {renderProfileSection('About Me', (
+          {renderProfileSection(
+            'About Me',
             <div>
               <p className="text-sm text-gray-600 mb-4">
-                Tell others about yourself, your background, and what makes you trustworthy in business.
+                Tell others about yourself, your background, and what makes you trustworthy in
+                business.
               </p>
               {renderEditableField(
                 'Bio',
@@ -338,17 +326,18 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                 'Share your story, experience, and what drives you in business...'
               )}
             </div>
-          ))}
+          )}
 
           <Divider className="my-8" />
 
           {/* Work & Education Section */}
-          {renderProfileSection('Work & Education', (
+          {renderProfileSection(
+            'Work & Education',
             <div>
               <p className="text-sm text-gray-600 mb-4">
                 Add your work and education information manually or use the LinkedIn import above.
               </p>
-              
+
               {/* Current Work */}
               {renderEditableField(
                 'What do you do for work?',
@@ -404,70 +393,69 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
                 'Notable accomplishments in your career'
               )}
             </div>
-          ))}
+          )}
 
           <Divider className="my-8" />
 
           {/* My Businesses Section (for sellers) */}
-          {(profile.role === 'seller' || profile.role === 'both') && renderProfileSection('My Businesses', (
-            <div>
-              <p className="text-sm text-gray-600 mb-4">
-                Track your business portfolio. These metrics are automatically tracked by the platform but can be edited here.
-              </p>
-              
-              {/* Owned Businesses Count */}
-              {renderEditableField(
-                'Owned Businesses',
-                profile.businessOwnerData?.previousVentures?.length?.toString() || '0',
-                'ownedBusinesses',
-                'number',
-                undefined,
-                undefined,
-                'Number of businesses you currently own or have owned'
-              )}
+          {(profile.role === 'seller' || profile.role === 'both') &&
+            renderProfileSection(
+              'My Businesses',
+              <div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Track your business portfolio. These metrics are automatically tracked by the
+                  platform but can be edited here.
+                </p>
 
-              {/* Exits Count */}
-              {renderEditableField(
-                'Exits',
-                profile.businessOwnerData?.previousVentures?.filter(venture => 
-                  venture.outcome && (venture.outcome.includes('Exit') || venture.outcome.includes('Sold'))
-                ).length?.toString() || '0',
-                'exits',
-                'number',
-                undefined,
-                undefined,
-                'Number of successful business exits you have completed'
-              )}
+                {/* Owned Businesses Count */}
+                {renderEditableField(
+                  'Owned Businesses',
+                  profile.businessOwnerData?.previousVentures?.length?.toString() || '0',
+                  'ownedBusinesses',
+                  'number',
+                  undefined,
+                  undefined,
+                  'Number of businesses you currently own or have owned'
+                )}
 
-              {/* Business Portfolio Notes */}
-              {renderEditableField(
-                'Business Portfolio Notes',
-                profile.businessOwnerData?.reasonForSelling || '',
-                'businessNotes',
-                'textarea',
-                undefined,
-                undefined,
-                'Additional notes about your business experience and portfolio'
-              )}
-            </div>
-          ))}
+                {/* Exits Count */}
+                {renderEditableField(
+                  'Exits',
+                  profile.businessOwnerData?.previousVentures
+                    ?.filter(
+                      venture =>
+                        venture.outcome &&
+                        (venture.outcome.includes('Exit') || venture.outcome.includes('Sold'))
+                    )
+                    .length?.toString() || '0',
+                  'exits',
+                  'number',
+                  undefined,
+                  undefined,
+                  'Number of successful business exits you have completed'
+                )}
+
+                {/* Business Portfolio Notes */}
+                {renderEditableField(
+                  'Business Portfolio Notes',
+                  profile.businessOwnerData?.reasonForSelling || '',
+                  'businessNotes',
+                  'textarea',
+                  undefined,
+                  undefined,
+                  'Additional notes about your business experience and portfolio'
+                )}
+              </div>
+            )}
 
           {(profile.role === 'seller' || profile.role === 'both') && <Divider className="my-8" />}
 
-
           {/* Action Buttons */}
           <div className="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
-            <Button
-              variant="tertiary"
-              onClick={onClose}
-              className="px-6"
-            >
+            <Button variant="tertiary" onClick={onClose} className="px-6">
               Cancel
             </Button>
-            <Button
-              onClick={handleSave}
-              className="px-6 bg-blue-600 hover:bg-blue-700 text-white"
-            >
+            <Button onClick={handleSave} className="px-6 bg-blue-600 hover:bg-blue-700 text-white">
               Save Changes
             </Button>
           </div>
