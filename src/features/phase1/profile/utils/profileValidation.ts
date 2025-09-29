@@ -32,7 +32,7 @@ export interface ProfileValidationResult {
  */
 export const validateField = (
   fieldId: string,
-  value: any,
+  value: unknown,
   required: boolean = false
 ): ValidationResult => {
   const field = PROFILE_FIELDS.find(f => f.id === fieldId);
@@ -64,10 +64,10 @@ export const validateField = (
 
     case 'text':
     case 'textarea':
-      return validateText(value, fieldId, field.validation);
+      return validateText(value, fieldId, field.validation as Record<string, unknown>);
 
     case 'number':
-      return validateNumber(value, fieldId, field.validation);
+      return validateNumber(value, fieldId, field.validation as Record<string, unknown>);
 
     case 'date':
       return validateDate(value, fieldId);
@@ -84,8 +84,9 @@ export const validateField = (
 /**
  * Validate email field
  */
-export const validateEmail = (value: string, fieldId: string): ValidationResult => {
-  if (!FIELD_VALIDATION_RULES.email.pattern.test(value)) {
+export const validateEmail = (value: unknown, fieldId: string): ValidationResult => {
+  const stringValue = String(value);
+  if (!FIELD_VALIDATION_RULES.email.pattern.test(stringValue)) {
     return { isValid: false, error: FIELD_VALIDATION_RULES.email.message, field: fieldId };
   }
   return { isValid: true, field: fieldId };
@@ -94,8 +95,9 @@ export const validateEmail = (value: string, fieldId: string): ValidationResult 
 /**
  * Validate phone field
  */
-export const validatePhone = (value: string, fieldId: string): ValidationResult => {
-  if (!FIELD_VALIDATION_RULES.phone.pattern.test(value)) {
+export const validatePhone = (value: unknown, fieldId: string): ValidationResult => {
+  const stringValue = String(value);
+  if (!FIELD_VALIDATION_RULES.phone.pattern.test(stringValue)) {
     return { isValid: false, error: FIELD_VALIDATION_RULES.phone.message, field: fieldId };
   }
   return { isValid: true, field: fieldId };
@@ -104,8 +106,9 @@ export const validatePhone = (value: string, fieldId: string): ValidationResult 
 /**
  * Validate URL field
  */
-export const validateUrl = (value: string, fieldId: string): ValidationResult => {
-  if (!FIELD_VALIDATION_RULES.url.pattern.test(value)) {
+export const validateUrl = (value: unknown, fieldId: string): ValidationResult => {
+  const stringValue = String(value);
+  if (!FIELD_VALIDATION_RULES.url.pattern.test(stringValue)) {
     return { isValid: false, error: FIELD_VALIDATION_RULES.url.message, field: fieldId };
   }
   return { isValid: true, field: fieldId };
@@ -115,18 +118,19 @@ export const validateUrl = (value: string, fieldId: string): ValidationResult =>
  * Validate text field
  */
 export const validateText = (
-  value: string,
+  value: unknown,
   fieldId: string,
-  validation?: any
+  validation?: Record<string, unknown>
 ): ValidationResult => {
-  if (validation?.minLength && value.length < validation.minLength) {
+  const stringValue = String(value);
+  if (validation?.minLength && stringValue.length < (validation.minLength as number)) {
     return {
       isValid: false,
       error: `Must be at least ${validation.minLength} characters long`,
       field: fieldId,
     };
   }
-  if (validation?.maxLength && value.length > validation.maxLength) {
+  if (validation?.maxLength && stringValue.length > (validation.maxLength as number)) {
     return {
       isValid: false,
       error: `Must be no more than ${validation.maxLength} characters long`,
@@ -139,15 +143,19 @@ export const validateText = (
 /**
  * Validate number field
  */
-export const validateNumber = (value: any, fieldId: string, validation?: any): ValidationResult => {
+export const validateNumber = (
+  value: unknown,
+  fieldId: string,
+  validation?: Record<string, unknown>
+): ValidationResult => {
   const numValue = Number(value);
   if (isNaN(numValue)) {
     return { isValid: false, error: 'Must be a valid number', field: fieldId };
   }
-  if (validation?.min && numValue < validation.min) {
+  if (validation?.min && numValue < (validation.min as number)) {
     return { isValid: false, error: `Must be at least ${validation.min}`, field: fieldId };
   }
-  if (validation?.max && numValue > validation.max) {
+  if (validation?.max && numValue > (validation.max as number)) {
     return { isValid: false, error: `Must be no more than ${validation.max}`, field: fieldId };
   }
   return { isValid: true, field: fieldId };
@@ -156,8 +164,9 @@ export const validateNumber = (value: any, fieldId: string, validation?: any): V
 /**
  * Validate date field
  */
-export const validateDate = (value: string, fieldId: string): ValidationResult => {
-  const dateValue = new Date(value);
+export const validateDate = (value: unknown, fieldId: string): ValidationResult => {
+  const stringValue = String(value);
+  const dateValue = new Date(stringValue);
   if (isNaN(dateValue.getTime())) {
     return { isValid: false, error: 'Must be a valid date', field: fieldId };
   }
@@ -167,12 +176,16 @@ export const validateDate = (value: string, fieldId: string): ValidationResult =
 /**
  * Validate select field
  */
-export const validateSelect = (value: any, fieldId: string, options?: any[]): ValidationResult => {
+export const validateSelect = (
+  value: unknown,
+  fieldId: string,
+  options?: unknown[]
+): ValidationResult => {
   if (!options) {
     return { isValid: true, field: fieldId };
   }
 
-  const validValues = options.map(option => option.value);
+  const validValues = options.map((option: any) => option.value);
   if (Array.isArray(value)) {
     // Multi-select validation
     const invalidValues = value.filter(v => !validValues.includes(v));
@@ -278,7 +291,7 @@ export const validateProfile = (profile: Profile): ProfileValidationResult => {
  * Validate form data
  */
 export const validateFormData = (
-  formData: Record<string, any>,
+  formData: Record<string, unknown>,
   requiredFields: string[]
 ): ProfileValidationResult => {
   const errors: Record<string, string> = {};
@@ -366,9 +379,9 @@ export const isFieldRequiredForRole = (fieldId: string, role: UserRole): boolean
 /**
  * Get validation rules for field
  */
-export const getValidationRules = (fieldId: string): any => {
+export const getValidationRules = (fieldId: string): Record<string, unknown> => {
   const field = PROFILE_FIELDS.find(f => f.id === fieldId);
-  return field?.validation || {};
+  return (field?.validation as Record<string, unknown>) || {};
 };
 
 /**
@@ -383,7 +396,7 @@ export const getFieldErrorMessage = (fieldId: string, error: string): string => 
 /**
  * Check if value is empty
  */
-export const isEmpty = (value: any): boolean => {
+export const isEmpty = (value: unknown): boolean => {
   if (value === null || value === undefined) {
     return true;
   }
@@ -402,7 +415,7 @@ export const isEmpty = (value: any): boolean => {
 /**
  * Sanitize input value
  */
-export const sanitizeInput = (value: any, type: string): any => {
+export const sanitizeInput = (value: unknown, type: string): unknown => {
   if (typeof value === 'string') {
     // Remove leading/trailing whitespace
     value = value.trim();
@@ -410,11 +423,11 @@ export const sanitizeInput = (value: any, type: string): any => {
     // Type-specific sanitization
     switch (type) {
       case 'email':
-        return value.toLowerCase();
+        return (value as string).toLowerCase();
       case 'phone':
-        return value.replace(/[^\d+\-\s()]/g, '');
+        return (value as string).replace(/[^\d+\-\s()]/g, '');
       case 'url':
-        return value.toLowerCase();
+        return (value as string).toLowerCase();
       default:
         return value;
     }

@@ -22,7 +22,9 @@ interface ProfileEditFullscreenModalProps {
   isOpen: boolean;
   onClose: () => void;
   profile: Profile;
+  // eslint-disable-next-line no-unused-vars
   onSave: (_updatedProfile: Partial<Profile>) => void;
+  // eslint-disable-next-line no-unused-vars
   onImageUpload?: (_file: File) => void;
   onImageDelete?: () => void;
 }
@@ -43,11 +45,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
   const [showImageMenu, setShowImageMenu] = useState(false);
 
   // LinkedIn integration
-  const {
-    connectLinkedIn,
-    isLoading: linkedInLoading,
-    importProfile,
-  } = useLinkedIn({
+  const { connectLinkedIn, isLoading: linkedInLoading } = useLinkedIn({
     onSuccess: linkedInData => {
       // Merge LinkedIn data with current form data
       setEditedProfile(prev => ({
@@ -70,9 +68,9 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
           : prev.investorData,
       }));
     },
-    onError: error => {
+    onError: () => {
       // TODO: Show error notification
-      // LinkedIn import failed: error
+      // LinkedIn import failed
     },
   });
 

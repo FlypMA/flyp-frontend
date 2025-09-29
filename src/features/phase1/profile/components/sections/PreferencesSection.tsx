@@ -11,8 +11,6 @@ import { Button } from '@/shared/components/buttons';
 import { CustomDropdown } from '@/shared/components/forms';
 import React, { useState } from 'react';
 
-import { useAuth } from '@/app/providers/auth-provider';
-
 // =============================================================================
 // TYPES & INTERFACES
 // =============================================================================
@@ -26,7 +24,6 @@ interface PreferencesSectionProps {
 // =============================================================================
 
 export const PreferencesSection: React.FC<PreferencesSectionProps> = ({ className = '' }) => {
-  const { user } = useAuth();
   const [language, setLanguage] = useState('en');
   const [timezone, setTimezone] = useState('Europe/Amsterdam');
 
@@ -36,10 +33,8 @@ export const PreferencesSection: React.FC<PreferencesSectionProps> = ({ classNam
 
   const handleSavePreferences = () => {
     // TODO: Implement preferences save logic
-    console.log('Saving preferences:', {
-      language,
-      timezone,
-    });
+    // Preferences save logic will be implemented here
+    // Current values: { language, timezone }
   };
 
   // =============================================================================

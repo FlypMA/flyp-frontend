@@ -86,7 +86,7 @@ export const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ onNavigate }) =>
         key={item.id}
         to={item.path}
         onClick={handleClick}
-        className={({ isActive: navIsActive }) => `
+        className={({ isActive }) => `
           flex items-center py-4 px-4 text-left transition-colors duration-200 rounded-lg
           min-h-[44px] touch-manipulation
           ${

@@ -31,7 +31,7 @@ export interface ProfileSectionConfig {
   fields: string[];
   conditional?: {
     field: string;
-    value: any;
+    value: unknown;
   };
 }
 

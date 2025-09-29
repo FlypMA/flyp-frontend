@@ -26,19 +26,26 @@ interface UseProfileReturn {
   error: string | null;
 
   // Profile Operations
-  createProfile: (data: CreateProfileRequest) => Promise<void>;
-  updateProfile: (data: UpdateProfileRequest) => Promise<void>;
-  updateProfileSection: (section: string, data: any) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  createProfile: (_data: CreateProfileRequest) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  updateProfile: (_data: UpdateProfileRequest) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  updateProfileSection: (_section: string, _data: Record<string, unknown>) => Promise<void>;
   deleteProfile: () => Promise<void>;
 
   // Profile Image Operations
-  uploadProfileImage: (file: File) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  uploadProfileImage: (_file: File) => Promise<void>;
   deleteProfileImage: () => Promise<void>;
 
   // Profile Settings
-  updateVisibility: (visibility: string) => Promise<void>;
-  updateCommunicationPreferences: (preferences: any) => Promise<void>;
-  updatePrivacySettings: (settings: any) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  updateVisibility: (_visibility: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  updateCommunicationPreferences: (_preferences: Record<string, unknown>) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  updatePrivacySettings: (_settings: Record<string, unknown>) => Promise<void>;
 
   // Profile Status
   refreshProfile: () => Promise<void>;
@@ -46,11 +53,13 @@ interface UseProfileReturn {
   isProfileComplete: boolean;
 
   // Profile Search
-  searchProfiles: (filters: any) => Promise<Profile[]>;
+  // eslint-disable-next-line no-unused-vars
+  searchProfiles: (_filters: Record<string, unknown>) => Promise<Profile[]>;
   getProfileRecommendations: () => Promise<Profile[]>;
 
   // Profile Export
-  exportProfileData: (format: 'json' | 'pdf') => Promise<Blob>;
+  // eslint-disable-next-line no-unused-vars
+  exportProfileData: (_format: 'json' | 'pdf') => Promise<Blob>;
 }
 
 // =============================================================================
@@ -73,7 +82,7 @@ export const useProfile = (): UseProfileReturn => {
    * Create new profile
    */
   const createProfile = useCallback(
-    async (data: CreateProfileRequest): Promise<void> => {
+    async (_data: CreateProfileRequest): Promise<void> => {
       if (!isAuthenticated) {
         throw new Error('User must be authenticated to create profile');
       }
@@ -82,7 +91,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const newProfile = await service.createProfile(data);
+        const newProfile = await service.createProfile(_data);
         setProfile(newProfile);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to create profile';
@@ -99,7 +108,7 @@ export const useProfile = (): UseProfileReturn => {
    * Update profile
    */
   const updateProfile = useCallback(
-    async (data: UpdateProfileRequest): Promise<void> => {
+    async (_data: UpdateProfileRequest): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -108,7 +117,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const updatedProfile = await service.updateProfile(data);
+        const updatedProfile = await service.updateProfile(_data);
         setProfile(updatedProfile);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to update profile';
@@ -125,7 +134,7 @@ export const useProfile = (): UseProfileReturn => {
    * Update specific profile section
    */
   const updateProfileSection = useCallback(
-    async (section: string, data: any): Promise<void> => {
+    async (_section: string, _data: Record<string, unknown>): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -134,7 +143,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const updatedProfile = await service.updateProfileSection(section, data);
+        const updatedProfile = await service.updateProfileSection(_section, _data);
         setProfile(updatedProfile);
       } catch (err) {
         const errorMessage =
@@ -179,7 +188,7 @@ export const useProfile = (): UseProfileReturn => {
    * Upload profile image
    */
   const uploadProfileImage = useCallback(
-    async (file: File): Promise<void> => {
+    async (_file: File): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -188,7 +197,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const result = await service.uploadProfileImage(file);
+        const result = await service.uploadProfileImage(_file);
 
         // Update profile with new image URL
         setProfile(prev =>
@@ -257,7 +266,7 @@ export const useProfile = (): UseProfileReturn => {
    * Update profile visibility
    */
   const updateVisibility = useCallback(
-    async (visibility: string): Promise<void> => {
+    async (_visibility: string): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -266,7 +275,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const updatedProfile = await service.updateProfileVisibility(visibility);
+        const updatedProfile = await service.updateProfileVisibility(_visibility);
         setProfile(updatedProfile);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to update visibility';
@@ -283,7 +292,7 @@ export const useProfile = (): UseProfileReturn => {
    * Update communication preferences
    */
   const updateCommunicationPreferences = useCallback(
-    async (preferences: any): Promise<void> => {
+    async (_preferences: Record<string, unknown>): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -292,7 +301,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const updatedProfile = await service.updateCommunicationPreferences(preferences);
+        const updatedProfile = await service.updateCommunicationPreferences(_preferences);
         setProfile(updatedProfile);
       } catch (err) {
         const errorMessage =
@@ -310,7 +319,7 @@ export const useProfile = (): UseProfileReturn => {
    * Update privacy settings
    */
   const updatePrivacySettings = useCallback(
-    async (settings: any): Promise<void> => {
+    async (_settings: Record<string, unknown>): Promise<void> => {
       if (!profile) {
         throw new Error('No profile to update');
       }
@@ -319,7 +328,7 @@ export const useProfile = (): UseProfileReturn => {
       setError(null);
 
       try {
-        const updatedProfile = await service.updatePrivacySettings(settings);
+        const updatedProfile = await service.updatePrivacySettings(_settings);
         setProfile(updatedProfile);
       } catch (err) {
         const errorMessage =
@@ -366,16 +375,22 @@ export const useProfile = (): UseProfileReturn => {
   /**
    * Search profiles
    */
-  const searchProfiles = useCallback(async (filters: any): Promise<Profile[]> => {
-    try {
-      const result = await service.searchProfiles(filters);
-      return Array.isArray(result) ? result : result.data;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to search profiles';
-      setError(errorMessage);
-      throw err;
-    }
-  }, []);
+  const searchProfiles = useCallback(
+    async (_filters: Record<string, unknown>): Promise<Profile[]> => {
+      try {
+        // Handle different service signatures
+        const result = isDevelopment
+          ? await (service as any).searchProfiles('', _filters)
+          : await (service as any).searchProfiles(_filters);
+        return Array.isArray(result) ? result : result.data;
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to search profiles';
+        setError(errorMessage);
+        throw err;
+      }
+    },
+    []
+  );
 
   /**
    * Get profile recommendations
@@ -398,13 +413,13 @@ export const useProfile = (): UseProfileReturn => {
    * Export profile data
    */
   const exportProfileData = useCallback(
-    async (format: 'json' | 'pdf'): Promise<Blob> => {
+    async (_format: 'json' | 'pdf'): Promise<Blob> => {
       if (!profile) {
         throw new Error('No profile to export');
       }
 
       try {
-        return await service.exportProfileData(format);
+        return await service.exportProfileData(_format);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to export profile';
         setError(errorMessage);

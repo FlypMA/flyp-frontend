@@ -27,7 +27,6 @@ interface ProfilePageWrapperProps {
 export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   isOwnProfile = false,
   onProfileUpdate,
-  _onProfileDelete,
   className = '',
 }) => {
   const { profile, loading: profileLoading, error: profileError, refreshProfile } = useProfile();
@@ -49,7 +48,7 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   const handleProfileUpdate = async () => {
     try {
       onProfileUpdate?.();
-    } catch (error) {
+    } catch {
       // TODO: Add error notification
       // Error handling for profile update
     }
@@ -118,14 +117,14 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
   // MAIN RENDER
   // =============================================================================
 
-        return (
-          <RoleBasedProfilePage
-            profile={profile}
-            isOwnProfile={isOwnProfile}
-            onProfileUpdate={handleProfileUpdate}
-            className={className}
-          />
-        );
+  return (
+    <RoleBasedProfilePage
+      profile={profile}
+      isOwnProfile={isOwnProfile}
+      onProfileUpdate={handleProfileUpdate}
+      className={className}
+    />
+  );
 };
 
 export default ProfilePageWrapper;

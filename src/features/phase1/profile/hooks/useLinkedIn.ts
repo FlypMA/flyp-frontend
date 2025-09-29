@@ -9,8 +9,10 @@ import { LinkedInProfile, linkedinService } from '../services/linkedinService';
 import { BusinessOwnerProfile, InvestorProfile, PersonalInfo } from '../types/profile.types';
 
 interface UseLinkedInOptions {
-  onSuccess?: (data: LinkedInImportData) => void;
-  onError?: (error: Error) => void;
+  // eslint-disable-next-line no-unused-vars
+  onSuccess?: (_data: LinkedInImportData) => void;
+  // eslint-disable-next-line no-unused-vars
+  onError?: (_error: Error) => void;
 }
 
 interface LinkedInImportData {
@@ -28,7 +30,8 @@ interface UseLinkedInReturn {
 
   // Actions
   connectLinkedIn: () => void;
-  importProfile: (accessToken: string) => Promise<LinkedInImportData>;
+  // eslint-disable-next-line no-unused-vars
+  importProfile: (_accessToken: string) => Promise<LinkedInImportData>;
   disconnectLinkedIn: () => void;
   clearError: () => void;
 }
@@ -67,20 +70,20 @@ export const useLinkedIn = (options: UseLinkedInOptions = {}): UseLinkedInReturn
    * Import profile data from LinkedIn
    */
   const importProfile = useCallback(
-    async (accessToken: string): Promise<LinkedInImportData> => {
+    async (_accessToken: string): Promise<LinkedInImportData> => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const importData = await linkedinService.importProfile(accessToken);
+        const importData = await linkedinService.importProfile(_accessToken);
 
         // Get full profile for display
-        const fullProfile = await linkedinService.getProfile(accessToken);
+        const fullProfile = await linkedinService.getProfile(_accessToken);
         setProfile(fullProfile);
         setIsConnected(true);
 
-        onSuccess?.(importData);
-        return importData;
+        onSuccess?.(importData as unknown as LinkedInImportData);
+        return importData as unknown as LinkedInImportData;
       } catch (err) {
         const error = err instanceof Error ? err : new Error('Failed to import LinkedIn profile');
         setError(error);
@@ -129,5 +132,3 @@ export const useLinkedIn = (options: UseLinkedInOptions = {}): UseLinkedInReturn
 };
 
 export default useLinkedIn;
-
-

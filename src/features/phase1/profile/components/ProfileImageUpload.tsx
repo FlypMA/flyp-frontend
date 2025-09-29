@@ -16,7 +16,8 @@ import React, { useRef, useState } from 'react';
 interface ProfileImageUploadProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (file: File) => void;
+  // eslint-disable-next-line no-unused-vars
+  onUpload: (_file: File) => void;
   onDelete?: () => void;
   currentImage?: string;
   className?: string;

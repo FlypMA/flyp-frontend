@@ -156,7 +156,8 @@ export const calculateCompletenessScore = (profile: Profile): number => {
 /**
  * Calculate verification score
  */
-export const calculateVerificationScore = (profile: Profile): number => {
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+export const calculateVerificationScore = (_profile: Profile): number => {
   let score = 0;
   const maxScore = 100;
 
@@ -491,7 +492,10 @@ export const getFieldImprovements = (profile: Profile): Record<string, string[]>
 /**
  * Compare profile strength with others
  */
-export const compareProfileStrength = (profile: Profile, comparisonProfiles: Profile[]): any => {
+export const compareProfileStrength = (
+  profile: Profile,
+  comparisonProfiles: Profile[]
+): Record<string, unknown> => {
   const profileStrength = calculateOverallStrength(calculateProfileStrength(profile));
   const comparisonStrengths = comparisonProfiles.map(p =>
     calculateOverallStrength(calculateProfileStrength(p))
@@ -523,7 +527,10 @@ export const compareProfileStrength = (profile: Profile, comparisonProfiles: Pro
 /**
  * Track strength changes over time
  */
-export const trackStrengthChanges = (currentProfile: Profile, previousProfile: Profile): any => {
+export const trackStrengthChanges = (
+  currentProfile: Profile,
+  previousProfile: Profile
+): Record<string, unknown> => {
   const currentStrength = calculateOverallStrength(calculateProfileStrength(currentProfile));
   const previousStrength = calculateOverallStrength(calculateProfileStrength(previousProfile));
 

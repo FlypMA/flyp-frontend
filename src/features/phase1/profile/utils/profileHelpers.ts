@@ -266,7 +266,6 @@ export const calculateProfileStrength = (profile: Profile): number => {
   return Math.min(Math.round(score), maxScore);
 };
 
-
 /**
  * Get required fields for role
  */
@@ -387,15 +386,15 @@ export const formatProfileForSearch = (profile: Profile): Record<string, unknown
     id: profile.id,
     userId: profile.userId,
     role: profile.role,
-    fullName: (formatted.personalInfo as any).fullName,
-    displayTitle: (formatted.personalInfo as any).displayTitle,
+    fullName: (formatted.personalInfo as Record<string, unknown>).fullName,
+    displayTitle: (formatted.personalInfo as Record<string, unknown>).displayTitle,
     industry: profile.personalInfo.industry,
     country: profile.personalInfo.country,
     city: profile.personalInfo.city,
     avatar: profile.personalInfo.avatarUrl,
     businessName: profile.businessOwnerData?.businessName,
-    investmentRange: (formatted.investorData as any)?.displayInvestmentRange,
-    experience: (formatted.investorData as any)?.displayExperience,
+    investmentRange: (formatted.investorData as Record<string, unknown>)?.displayInvestmentRange,
+    experience: (formatted.investorData as Record<string, unknown>)?.displayExperience,
     strength: profile.strength.overallScore,
     verified: false, // Verification system removed from MVP
     lastActiveAt: profile.lastActiveAt,

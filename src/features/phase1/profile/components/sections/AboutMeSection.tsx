@@ -36,9 +36,10 @@ export const AboutMeSection: React.FC = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveProfile = (updatedProfile: Partial<any>) => {
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  const handleSaveProfile = (_updatedProfile: Partial<Record<string, unknown>>) => {
     // TODO: Implement profile update logic
-    console.log('Saving profile:', updatedProfile);
+    // Profile update logic will be implemented here
     setIsEditModalOpen(false);
   };
 

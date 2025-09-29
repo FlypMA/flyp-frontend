@@ -46,7 +46,7 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
     try {
       onProfileUpdate?.();
       setShowEditModal(false);
-    } catch (error) {
+    } catch {
       // TODO: Add error notification
       // Error handling for profile update
     }

@@ -6,10 +6,12 @@
 
 import { UserRole } from '@/shared/types';
 import {
-    CreateProfileRequest,
-    Profile,
-    ProfileListResponse,
-    UpdateProfileRequest,
+  BusinessOwnerProfile,
+  CreateProfileRequest,
+  InvestorProfile,
+  Profile,
+  ProfileListResponse,
+  UpdateProfileRequest,
 } from '../types/profile.types';
 
 // =============================================================================
@@ -304,7 +306,6 @@ const mockProfile: Profile = {
     },
   },
 
-
   strength: {
     overallScore: 85,
     factors: {
@@ -420,10 +421,13 @@ class MockProfileService {
       ...this.currentProfile,
       personalInfo: { ...this.currentProfile.personalInfo, ...(data.personalInfo || {}) },
       businessOwnerData: data.businessOwnerData
-        ? ({ ...(this.currentProfile.businessOwnerData || {}), ...data.businessOwnerData } as any)
+        ? ({
+            ...(this.currentProfile.businessOwnerData || {}),
+            ...data.businessOwnerData,
+          } as BusinessOwnerProfile)
         : this.currentProfile.businessOwnerData,
       investorData: data.investorData
-        ? ({ ...(this.currentProfile.investorData || {}), ...data.investorData } as any)
+        ? ({ ...(this.currentProfile.investorData || {}), ...data.investorData } as InvestorProfile)
         : this.currentProfile.investorData,
       sharedData: { ...this.currentProfile.sharedData, ...(data.sharedData || {}) },
       updatedAt: new Date().toISOString(),
@@ -439,7 +443,7 @@ class MockProfileService {
   /**
    * Update profile section
    */
-  async updateProfileSection(section: string, data: any): Promise<Profile> {
+  async updateProfileSection(section: string, data: Record<string, unknown>): Promise<Profile> {
     await new Promise(resolve => setTimeout(resolve, 400));
 
     if (!this.currentProfile) {
@@ -452,9 +456,9 @@ class MockProfileService {
         ...(this.currentProfile[section as keyof Profile] &&
         typeof this.currentProfile[section as keyof Profile] === 'object' &&
         !Array.isArray(this.currentProfile[section as keyof Profile])
-          ? (this.currentProfile[section as keyof Profile] as Record<string, any>)
+          ? (this.currentProfile[section as keyof Profile] as unknown as Record<string, unknown>)
           : {}),
-        ...(data && typeof data === 'object' ? (data as Record<string, any>) : {}),
+        ...(data && typeof data === 'object' ? (data as Record<string, unknown>) : {}),
       },
       updatedAt: new Date().toISOString(),
       lastActiveAt: new Date().toISOString(),
@@ -469,7 +473,8 @@ class MockProfileService {
   /**
    * Upload profile image
    */
-  async uploadProfileImage(file: File): Promise<{ imageUrl: string }> {
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  async uploadProfileImage(_file: File): Promise<{ imageUrl: string }> {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Simulate image upload
@@ -511,7 +516,7 @@ class MockProfileService {
         ...this.currentProfile.sharedData,
         privacy: {
           ...this.currentProfile.sharedData.privacy,
-          profileVisibility: visibility as any,
+          profileVisibility: visibility as 'public' | 'private' | 'verified-only',
         },
       },
       updatedAt: new Date().toISOString(),
@@ -527,7 +532,7 @@ class MockProfileService {
   /**
    * Update communication preferences
    */
-  async updateCommunicationPreferences(preferences: any): Promise<Profile> {
+  async updateCommunicationPreferences(preferences: Record<string, unknown>): Promise<Profile> {
     await new Promise(resolve => setTimeout(resolve, 400));
 
     if (!this.currentProfile) {
@@ -556,7 +561,7 @@ class MockProfileService {
   /**
    * Update privacy settings
    */
-  async updatePrivacySettings(settings: any): Promise<Profile> {
+  async updatePrivacySettings(settings: Record<string, unknown>): Promise<Profile> {
     await new Promise(resolve => setTimeout(resolve, 400));
 
     if (!this.currentProfile) {
@@ -585,7 +590,11 @@ class MockProfileService {
   /**
    * Search profiles
    */
-  async searchProfiles(query: string, filters?: any): Promise<ProfileListResponse> {
+  async searchProfiles(
+    query: string,
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    _filters?: Record<string, unknown>
+  ): Promise<ProfileListResponse> {
     await new Promise(resolve => setTimeout(resolve, 800));
 
     const allProfiles = Array.from(this.profiles.values());
@@ -635,7 +644,7 @@ class MockProfileService {
   /**
    * Get profile analytics
    */
-  async getProfileAnalytics(): Promise<any> {
+  async getProfileAnalytics(): Promise<Record<string, unknown>> {
     await new Promise(resolve => setTimeout(resolve, 400));
 
     return {

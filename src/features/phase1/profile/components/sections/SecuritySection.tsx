@@ -13,8 +13,6 @@ import { CustomPasswordInputField } from '@/shared/components/forms';
 import { Key } from 'lucide-react';
 import React, { useState } from 'react';
 
-import { useAuth } from '@/app/providers/auth-provider';
-
 // =============================================================================
 // TYPES & INTERFACES
 // =============================================================================
@@ -28,7 +26,6 @@ interface SecuritySectionProps {
 // =============================================================================
 
 export const SecuritySection: React.FC<SecuritySectionProps> = ({ className = '' }) => {
-  const { user } = useAuth();
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -49,7 +46,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ className = ''
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement password change logic
-    console.log('Changing password:', passwordForm);
+    // Password change logic will be implemented here
   };
 
   // =============================================================================

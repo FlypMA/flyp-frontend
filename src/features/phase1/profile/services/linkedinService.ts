@@ -1,6 +1,6 @@
 /**
  * 🔗 LinkedIn Service
- * 
+ *
  * Service for LinkedIn profile integration
  * Currently a placeholder implementation
  */
@@ -29,7 +29,8 @@ export class LinkedInService {
   /**
    * Import profile data from LinkedIn
    */
-  async importProfile(accessToken: string): Promise<any> {
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  async importProfile(_accessToken: string): Promise<Record<string, unknown>> {
     // TODO: Implement LinkedIn profile import
     throw new Error('LinkedIn integration not yet implemented');
   }
@@ -37,7 +38,8 @@ export class LinkedInService {
   /**
    * Get full LinkedIn profile
    */
-  async getProfile(accessToken: string): Promise<LinkedInProfile> {
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  async getProfile(_accessToken: string): Promise<LinkedInProfile> {
     // TODO: Implement LinkedIn profile fetching
     throw new Error('LinkedIn integration not yet implemented');
   }

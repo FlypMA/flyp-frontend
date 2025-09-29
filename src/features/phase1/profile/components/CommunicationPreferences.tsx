@@ -16,6 +16,7 @@ import { CommunicationPreferences as CommunicationPreferencesType } from '../typ
 
 interface CommunicationPreferencesProps {
   preferences: CommunicationPreferencesType;
+  // eslint-disable-next-line no-unused-vars
   onUpdate?: (preferences: Partial<CommunicationPreferencesType>) => void;
   className?: string;
 }
@@ -25,24 +26,24 @@ interface CommunicationPreferencesProps {
 // =============================================================================
 
 export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> = ({
-  preferences,
+  preferences: _preferences,
   onUpdate,
   className = '',
 }) => {
   const [localPreferences, setLocalPreferences] =
-    useState<CommunicationPreferencesType>(preferences);
+    useState<CommunicationPreferencesType>(_preferences);
   const [isEditing, setIsEditing] = useState(false);
 
   // =============================================================================
   // EVENT HANDLERS
   // =============================================================================
 
-  const handleFieldChange = (field: string, value: any) => {
+  const handleFieldChange = (field: string, value: unknown) => {
     const updatedPreferences = { ...localPreferences, [field]: value };
     setLocalPreferences(updatedPreferences);
   };
 
-  const handleNestedFieldChange = (parentField: string, field: string, value: any) => {
+  const handleNestedFieldChange = (parentField: string, field: string, value: unknown) => {
     const parentValue = localPreferences[parentField as keyof CommunicationPreferencesType];
     const updatedPreferences = {
       ...localPreferences,
@@ -60,7 +61,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
   };
 
   const handleCancel = () => {
-    setLocalPreferences(preferences);
+    setLocalPreferences(_preferences);
     setIsEditing(false);
   };
 
