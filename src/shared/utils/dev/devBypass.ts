@@ -63,22 +63,22 @@ export const createMockUser = (email?: string, role?: UserRole): User => {
     switch (role) {
       case 'buyer':
         return {
-          name: 'Development Buyer',
+          name: 'John Doe',
           email: email || 'buyer@test.com',
         };
       case 'seller':
         return {
-          name: 'Development Seller',
+          name: 'John Doe',
           email: email || 'seller@test.com',
         };
       case 'admin':
         return {
-          name: 'Development Admin',
+          name: 'John Doe',
           email: email || 'admin@test.com',
         };
       default:
         return {
-          name: 'Development User',
+          name: 'John Doe',
           email: email || 'dev@upswitch.com',
         };
     }
