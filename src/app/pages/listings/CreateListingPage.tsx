@@ -1,26 +1,53 @@
-import SellerOnboardingModal, {
-  SellerFormData,
-} from '@/shared/components/modals/SellerOnboardingModal';
+import { ListingWizardModal } from '@/features/phase1/business/wizard';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { authService } from '@/shared/services/auth';
+import { User } from '@/shared/types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CreateListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [businessInfo, setBusinessInfo] = useState<any>(null);
   const navigate = useNavigate();
 
   // Auto-open modal when page loads
   useEffect(() => {
-    setIsModalOpen(true);
-  }, []);
+    const initializePage = async () => {
+      try {
+        const authResult = await authService.checkAuthentication();
+        if (authResult.isAuthenticated && authResult.user) {
+          setUser(authResult.user);
+          // TODO: Load business info from API
+          // For now, use mock data
+          setBusinessInfo({
+            name: '',
+            industry: '',
+            description: '',
+            foundedYear: new Date().getFullYear(),
+            teamSize: '',
+            location: '',
+            isRemote: false,
+          });
+          setIsModalOpen(true);
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        navigate('/');
+      }
+    };
+
+    initializePage();
+  }, [navigate]);
 
   const handleModalClose = () => {
     setIsModalOpen(false);
     // Navigate back to business overview when modal closes
-    navigate('/my-business/overview');
+    navigate('/my-business');
   };
 
-  const handleOnboardingComplete = (data: SellerFormData) => {
+  const handleListingComplete = (data: any) => {
     // Here you would typically:
     // 1. Send the data to your API to create the listing
     // 2. Show success notification
@@ -28,7 +55,7 @@ const CreateListingPage: React.FC = () => {
 
     // For now, close modal and navigate to business overview
     setIsModalOpen(false);
-    navigate('/my-business/overview', {
+    navigate('/my-business', {
       state: {
         message: 'Business listing created successfully!',
         listingData: data,
@@ -44,10 +71,11 @@ const CreateListingPage: React.FC = () => {
         keywords="sell business, create listing, business for sale, UpSwitch listing"
       />
 
-      <SellerOnboardingModal
+      <ListingWizardModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
-        onComplete={handleOnboardingComplete}
+        onComplete={handleListingComplete}
+        businessInfo={businessInfo}
       />
 
       {/* Fallback content or loading indicator if modal takes time to load */}

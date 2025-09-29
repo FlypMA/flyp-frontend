@@ -2,12 +2,14 @@
 // Location: src/app/pages/business/management/ListingManagement.tsx
 // Purpose: Manage business listings for sellers
 
+import { ListingWizardModal } from '@/features/phase1/business/wizard';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
-import { UrlGenerator } from '@/shared/services';
+import { authService, UrlGenerator } from '@/shared/services';
+import { User } from '@/shared/types';
 import { Card, CardBody, Chip } from '@heroui/react';
 import { Building2, Edit, MoreHorizontal, Plus } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Listing {
@@ -27,6 +29,37 @@ interface Listing {
 const ListingManagement: React.FC = () => {
   const navigate = useNavigate();
   const [listings] = useState<Listing[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [businessInfo, setBusinessInfo] = useState<any>(null);
+  const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState(false);
+
+  useEffect(() => {
+    const initializePage = async () => {
+      try {
+        const authResult = await authService.checkAuthentication();
+        if (authResult.isAuthenticated && authResult.user) {
+          setUser(authResult.user);
+          // TODO: Load business info from API
+          // For now, use mock data
+          setBusinessInfo({
+            name: '',
+            industry: '',
+            description: '',
+            foundedYear: new Date().getFullYear(),
+            teamSize: '',
+            location: '',
+            isRemote: false,
+          });
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        navigate('/');
+      }
+    };
+
+    initializePage();
+  }, [navigate]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -59,7 +92,17 @@ const ListingManagement: React.FC = () => {
   };
 
   const handleCreateListing = () => {
-    navigate(UrlGenerator.createNewListing());
+    setIsListingWizardModalOpen(true);
+  };
+
+  const handleListingComplete = (data: any) => {
+    // Here you would typically:
+    // 1. Send the data to your API to create the listing
+    // 2. Show success notification
+    // 3. Refresh the listings
+
+    setIsListingWizardModalOpen(false);
+    // TODO: Refresh listings or show success message
   };
 
   const handleEditListing = (listingId: string) => {
@@ -197,6 +240,14 @@ const ListingManagement: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Listing Wizard Modal */}
+      <ListingWizardModal
+        isOpen={isListingWizardModalOpen}
+        onClose={() => setIsListingWizardModalOpen(false)}
+        onComplete={handleListingComplete}
+        businessInfo={businessInfo}
+      />
     </div>
   );
 };

@@ -1,14 +1,14 @@
-import SellerOnboardingModal, {
-  SellerFormData,
-} from '@/shared/components/modals/SellerOnboardingModal';
+import { ListingWizardModal } from '@/features/phase1/business/wizard';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
+import { authService } from '@/shared/services/auth';
+import { User } from '@/shared/types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const EditListingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [existingData, setExistingData] = useState<SellerFormData | null>(null);
-  // Loading states removed for smooth UX
+  const [user, setUser] = useState<User | null>(null);
+  const [businessInfo, setBusinessInfo] = useState<any>(null);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const listingId = searchParams.get('id');
@@ -24,31 +24,28 @@ const EditListingPage: React.FC = () => {
       try {
         // TODO: Replace with actual API call to fetch listing data
 
-        // Mock data for now - replace with actual API call
-        const mockListingData: SellerFormData = {
-          businessType: 'technology',
-          businessName: 'Example Tech Company',
-          industry: 'Technology',
-          country: 'Belgium',
-          city: 'Brussels',
-          foundedYear: '2018',
-          description:
-            'A innovative technology company specializing in software solutions for small and medium businesses. We have built a strong reputation for quality service and have a loyal customer base of over 500 active clients.',
-          employeeCount: '6-20',
-          revenueRange: [500000, 2000000],
-          sellingReason: 'retirement',
-          timeline: '6-months',
-          priceExpectations: '€1.5M - €2.5M',
-          contactEmail: 'owner@example.com',
-          contactPhone: '+32 2 123 4567',
-          wantsVerification: true,
-        };
+        const authResult = await authService.checkAuthentication();
+        if (authResult.isAuthenticated && authResult.user) {
+          setUser(authResult.user);
 
-        setExistingData(mockListingData);
-        setIsModalOpen(true);
+          // Mock data for now - replace with actual API call
+          setBusinessInfo({
+            name: 'Example Tech Company',
+            industry: 'Technology',
+            description:
+              'A innovative technology company specializing in software solutions for small and medium businesses.',
+            foundedYear: 2018,
+            teamSize: '6-20',
+            location: 'Brussels, Belgium',
+            isRemote: false,
+          });
+          setIsModalOpen(true);
+        } else {
+          navigate('/');
+        }
       } catch (error) {
         // Navigate back on error
-        navigate('/my-business/overview');
+        navigate('/my-business');
       } finally {
         // No loading state to manage
       }
@@ -60,10 +57,10 @@ const EditListingPage: React.FC = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     // Navigate back to business overview when modal closes
-    navigate('/my-business/overview');
+    navigate('/my-business');
   };
 
-  const handleListingSave = async (data: SellerFormData) => {
+  const handleListingSave = async (data: any) => {
     try {
       // TODO: Replace with actual API call to update listing
       // const response = await fetch(`/api/listings/${listingId}`, {
@@ -77,7 +74,7 @@ const EditListingPage: React.FC = () => {
 
       // Close modal and navigate back with success message
       setIsModalOpen(false);
-      navigate('/business/overview', {
+      navigate('/my-business', {
         state: {
           message: 'Your business listing has been saved successfully!',
           type: 'success',
@@ -101,12 +98,11 @@ const EditListingPage: React.FC = () => {
         keywords="edit business listing, update listing, business for sale, UpSwitch"
       />
 
-      <SellerOnboardingModal
+      <ListingWizardModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onComplete={handleListingSave}
-        existingData={existingData}
-        isEditMode={true}
+        businessInfo={businessInfo}
       />
 
       {/* Fallback content if modal is not open */}
