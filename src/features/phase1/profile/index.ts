@@ -9,6 +9,18 @@
 export { default as ProfilePage } from './components/ProfilePageWrapper';
 export { default as UnifiedProfilePage } from './components/UnifiedProfilePage';
 
+// Profile Settings Components (Split Layout)
+export { default as ProfileSidebar } from './components/ProfileSidebar';
+export { default as ProfileSplitLayout } from './layouts/ProfileSplitLayout';
+export { default as PreferencesPage } from './pages/PreferencesPage';
+export { default as ProfileSettingsPage } from './pages/ProfileSettingsPage';
+export { default as SecurityPage } from './pages/SecurityPage';
+
+// Profile Section Components
+export { default as AboutMeSection } from './components/sections/AboutMeSection';
+export { default as PreferencesSection } from './components/sections/PreferencesSection';
+export { default as SecuritySection } from './components/sections/SecuritySection';
+
 // Core Profile Components
 export { default as CommunicationPreferences } from './components/CommunicationPreferences';
 export { default as ProfessionalBackgroundModal } from './components/ProfessionalBackgroundModal';

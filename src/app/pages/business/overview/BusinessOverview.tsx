@@ -127,6 +127,18 @@ const BusinessOverview = () => {
     };
 
     initializeDashboard();
+
+    // Listen for custom event from dropdown to open listing wizard modal
+    const handleOpenListingWizard = () => {
+      setIsListingWizardModalOpen(true);
+    };
+
+    window.addEventListener('open-listing-wizard', handleOpenListingWizard);
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('open-listing-wizard', handleOpenListingWizard);
+    };
   }, [navigate]);
 
   const handleAddBusinessInfo = () => {
@@ -202,14 +214,6 @@ const BusinessOverview = () => {
         <div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">Reports</h2>
-            <Button
-              variant="tertiary"
-              className="text-gray-600 border-gray-300 hover:bg-gray-50"
-              size="sm"
-              onPress={handleCreateValuation}
-            >
-              Get Valuation
-            </Button>
           </div>
 
           {hasValuationReports ? (
@@ -247,14 +251,6 @@ const BusinessOverview = () => {
         <div className="mt-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">Business Listing</h2>
-            <Button
-              variant="tertiary"
-              className="text-gray-600 border-gray-300 hover:bg-gray-50"
-              size="sm"
-              onPress={() => setIsListingWizardModalOpen(true)}
-            >
-              Create Listing
-            </Button>
           </div>
 
           {hasActiveListing ? (

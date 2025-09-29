@@ -1,11 +1,11 @@
 /**
  * 👤 User Profile Page
  *
- * Production-ready profile page with role-based design
+ * Production-ready profile page with split layout design
  * Integrated with routing system and URL generator
  */
 
-import { UnifiedProfilePage } from '@/features/phase1/profile';
+import { ProfileSettingsPage } from '@/features/phase1/profile';
 import React from 'react';
 
 // =============================================================================
@@ -14,13 +14,7 @@ import React from 'react';
 
 const UserProfileNew: React.FC = () => {
   return (
-    <UnifiedProfilePage
-      isOwnProfile={true}
-      onProfileUpdate={() => {
-        // Profile updated successfully
-        // TODO: Add success notification
-      }}
-    />
+    <ProfileSettingsPage />
   );
 };
 

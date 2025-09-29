@@ -62,28 +62,48 @@ profile/
 
 ## 🏗️ **Technical Architecture**
 
-### **Profile Card Architecture**
+### **Dual Architecture Approach**
 
-The profile feature uses a clean, card-based interface inspired by modern social platforms:
+The profile feature supports two distinct UI patterns:
+
+#### **1. Profile Card Architecture (Main Profile View)**
+
+Clean, card-based interface for public profile display:
 
 ```
 ProfilePage (Main View)
-├── ProfileHeaderMinimal
-│   ├── ProfileImageUpload
+├── About Me Section (Profile Card)
+│   ├── Avatar & Basic Info
 │   ├── Role Display
 │   └── Profile Stats
-├── ProfileSections
-│   ├── BusinessOwnerProfile (conditional)
-│   ├── InvestorProfile (conditional)
-│   └── SharedProfile
-└── Business Cards Grid
+└── My Businesses Section (Grid)
     ├── Business Card 1
     ├── Business Card 2
     └── Business Card N
 ```
 
+#### **2. Split Layout Architecture (Settings Management)**
+
+Enterprise-grade split layout for comprehensive profile management:
+
+```
+ProfileSettingsPage (Split View)
+├── Top Navigation (AuthLayout)
+└── Main Content (50/50 Split)
+    ├── Left Sidebar (50%)
+    │   ├── User Header
+    │   ├── About Me Navigation
+    │   ├── Security Navigation
+    │   └── Preferences Navigation
+    └── Right Content (50%)
+        ├── AboutMeSection
+        ├── SecuritySection
+        └── PreferencesSection
+```
+
 ### **Component Hierarchy**
 
+#### **Profile View Hierarchy**
 ```
 UnifiedProfilePage
 └── ProfilePageWrapper
@@ -98,6 +118,20 @@ UnifiedProfilePage
         └── Modals
             ├── ProfileEditFullscreenModal
             └── ProfessionalBackgroundModal ("About me")
+```
+
+#### **Settings View Hierarchy**
+```
+ProfileSettingsPage
+└── ProfileSplitLayout
+    ├── BuyerNavigation (Top)
+    ├── ProfileSidebar (Left 50%)
+    │   ├── User Header with Avatar
+    │   └── Navigation Items
+    └── Content Sections (Right 50%)
+        ├── AboutMeSection
+        ├── SecuritySection
+        └── PreferencesSection
 ```
 
 ### **State Management**

@@ -67,20 +67,20 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
     }
 
     return (
-      <div className="mb-8">
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">My Businesses</h2>
+      <div className="mb-12">
+        <div className="mb-8">
+          <h2 className="text-3xl font-semibold text-gray-900">My Businesses</h2>
         </div>
         
         {/* Business Cards Grid */}
         <div className="relative">
 
           {/* Business Cards Grid - Minimalistic */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {businesses.slice(0, 4).map((business, index) => (
               <div
                 key={business.id || index}
-                className="bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer"
+                className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer"
               >
                 {/* Minimalistic Business Icon */}
                 <div className="w-12 h-12 bg-gray-50 rounded-lg mb-4 flex items-center justify-center">
@@ -118,11 +118,11 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
   // =============================================================================
 
       return (
-        <div className={`max-w-6xl mx-auto px-4 py-8 ${className}`}>
+        <div className={`max-w-4xl mx-auto p-8 ${className}`}>
           {/* About Me Section - Full Profile Card */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-900">About Me</h2>
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-semibold text-gray-900">About Me</h2>
           {isOwnProfile && (
             <Button
               variant="secondary"
@@ -136,7 +136,7 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
         </div>
         <div className="max-w-md">
           <div 
-            className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:shadow-lg transition-all duration-200"
+            className="bg-white border border-gray-200 rounded-2xl p-8 cursor-pointer hover:shadow-lg transition-all duration-200"
             onClick={() => setShowProfessionalModal(true)}
           >
             {/* Avatar Section - Left Aligned */}

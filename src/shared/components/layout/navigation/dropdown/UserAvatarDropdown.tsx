@@ -1,12 +1,12 @@
 import { authService } from '@/shared/services/auth';
 import {
-  Heart,
-  HelpCircle,
-  LayoutDashboard,
-  LogOut,
-  MessageCircle,
-  Plus,
-  Settings,
+    Heart,
+    HelpCircle,
+    LayoutDashboard,
+    LogOut,
+    MessageCircle,
+    Plus,
+    Settings,
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -105,7 +105,8 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         navigate(UrlGenerator.help());
         break;
       case 'create-listing':
-        navigate(UrlGenerator.createNewListing());
+        // Dispatch custom event to trigger ListingWizardModal instead of navigating
+        window.dispatchEvent(new CustomEvent('open-listing-wizard'));
         break;
       case 'logout':
         handleLogout();

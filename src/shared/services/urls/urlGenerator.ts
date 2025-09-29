@@ -70,6 +70,7 @@ export class UrlGenerator {
   static userSettings = () => '/users/profile';
   static userBilling = () => '/users/billing';
   static userSecurity = () => '/users/security';
+  static userPreferences = () => '/users/preferences';
   static userNotifications = () => '/users/notifications';
   static userSavedListings = () => '/users/saved';
 

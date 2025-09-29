@@ -28,6 +28,7 @@ import HomePage from '../pages/landingPages/home';
 import SellersPage from '../pages/landingPages/sellers/sellers';
 
 // Page imports - Listings
+import CreateListingPage from '../pages/listings/CreateListingPage';
 import ListingDetails from '../pages/listings/ListingDetails';
 import ListingSearch from '../pages/listings/ListingSearch';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
@@ -48,13 +49,13 @@ import { OfferManagementPage } from '../pages/offer-management';
 import { TransactionCompletionPage } from '../pages/transaction-completion';
 
 // Page imports - Account & Authentication
+import { PreferencesPage, SecurityPage } from '@/features/phase1/profile';
 import SignUpComplete from '../pages/account/onboarding/signUpComplete/SignUpComplete';
 import ForgotPasswordPage from '../pages/account/passwordReset/ForgotPasswordPage';
 import ResetPasswordPage from '../pages/account/passwordReset/ResetPasswordPage';
 import UserBilling from '../pages/account/users/UserBilling';
 import UserNotifications from '../pages/account/users/UserNotifications';
 import UserProfileNew from '../pages/account/users/UserProfileNew';
-import UserSettings from '../pages/account/users/UserSettings';
 
 
 // Page imports - Users
@@ -196,7 +197,15 @@ export const router = createBrowserRouter([
         path: 'users/security',
         element: (
           <ProtectedRoute>
-            <UserSettings />
+            <SecurityPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'users/preferences',
+        element: (
+          <ProtectedRoute>
+            <PreferencesPage />
           </ProtectedRoute>
         ),
       },
@@ -275,6 +284,16 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <GetFreeValuation />
+          </SellerRoute>
+        ),
+      },
+
+      // Listing Creation
+      {
+        path: 'my-business/listings/new',
+        element: (
+          <SellerRoute>
+            <CreateListingPage />
           </SellerRoute>
         ),
       },
