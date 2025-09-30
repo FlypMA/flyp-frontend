@@ -188,7 +188,7 @@ const UserNotifications: React.FC = () => {
   const getNotificationColor = (type: string) => {
     switch (type) {
       case 'message':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'listing':
         return 'text-green-600 bg-green-100';
       case 'price':
@@ -228,7 +228,7 @@ const UserNotifications: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading notifications...</p>
         </div>
       </div>
@@ -405,7 +405,7 @@ const UserNotifications: React.FC = () => {
                         className={`p-4 rounded-lg border transition-all hover:shadow-md ${
                           notification.read
                             ? 'bg-white border-gray-200'
-                            : 'bg-blue-50 border-blue-200'
+                            : 'bg-primary-50 border-primary-200'
                         }`}
                       >
                         <div className="flex items-start space-x-3">
@@ -438,7 +438,7 @@ const UserNotifications: React.FC = () => {
                                   {new Date(notification.timestamp).toLocaleDateString()}
                                 </span>
                                 {!notification.read && (
-                                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                  <div className="w-2 h-2 bg-primary-600 rounded-full"></div>
                                 )}
                               </div>
                             </div>

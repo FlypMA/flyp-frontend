@@ -25,8 +25,8 @@ const RoleTest: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Role-Based Access Control Test</h1>
 
           {/* Current User Info */}
-          <div className="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
-            <h2 className="text-xl font-semibold text-blue-900 mb-4">Current User Information</h2>
+          <div className="mb-8 p-6 bg-primary-50 rounded-lg border border-primary-200">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Current User Information</h2>
             {user ? (
               <div className="space-y-2 text-sm">
                 <div>
@@ -37,7 +37,7 @@ const RoleTest: React.FC = () => {
                 </div>
                 <div>
                   <span className="font-medium">Role:</span>
-                  <span className="ml-2 px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">
+                  <span className="ml-2 px-2 py-1 bg-primary-200 text-primary-800 rounded-full text-xs">
                     {user.role}
                   </span>
                 </div>
@@ -46,7 +46,7 @@ const RoleTest: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <p className="text-blue-700">Not logged in</p>
+              <p className="text-primary-700">Not logged in</p>
             )}
           </div>
 

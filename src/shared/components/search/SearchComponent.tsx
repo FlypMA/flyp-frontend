@@ -90,7 +90,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   return (
     <div className={`professional-search-container ${className}`}>
       <div
-        className={`bg-white border-2 border-slate-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 focus-within:border-blue-500 focus-within:shadow-2xl ${sizes.container}`}
+        className={`bg-white border-2 border-slate-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 focus-within:border-primary-500 focus-within:shadow-2xl ${sizes.container}`}
       >
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search Input */}
@@ -106,7 +106,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 placeholder={placeholder}
-                className={`w-full border-0 rounded-xl bg-slate-50 text-slate-900 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 ${sizes.input}`}
+                className={`w-full border-0 rounded-xl bg-slate-50 text-slate-900 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-200 ${sizes.input}`}
                 disabled={isLoading}
               />
             </div>

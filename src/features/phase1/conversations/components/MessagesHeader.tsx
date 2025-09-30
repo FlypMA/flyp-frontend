@@ -164,7 +164,7 @@ const MessagesHeader: React.FC<MessagesHeaderProps> = ({
                 ref={searchInputRef}
                 type="text"
                 placeholder="Search conversations..."
-                className="w-full h-10 pl-10 pr-4 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 text-gray-900 transition-all duration-200"
+                className="w-full h-10 pl-10 pr-4 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-400 text-gray-900 transition-all duration-200"
                 value={searchQuery}
                 onChange={e => onSearchChange(e.target.value)}
                 onBlur={() => {

@@ -275,7 +275,7 @@ const ResetPasswordPage: React.FC = () => {
             <div className="text-center">
               <Link
                 to={UrlGenerator.login()}
-                className="inline-flex items-center text-sm text-blue-600 hover:text-blue-500"
+                className="inline-flex items-center text-sm text-primary-600 hover:text-primary-500"
               >
                 <ArrowLeft className="w-4 h-4 mr-1" />
                 Back to Login

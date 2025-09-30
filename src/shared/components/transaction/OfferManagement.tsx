@@ -239,7 +239,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
         <button
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'offers'
-              ? 'bg-white text-blue-600 shadow-sm'
+              ? 'bg-white text-primary-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
           onClick={() => setActiveTab('offers')}
@@ -249,7 +249,7 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
         <button
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'transactions'
-              ? 'bg-white text-blue-600 shadow-sm'
+              ? 'bg-white text-primary-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
           onClick={() => setActiveTab('transactions')}
@@ -340,8 +340,8 @@ const OfferManagement: React.FC<OfferManagementProps> = ({ listingId, buyerId, s
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 bg-blue-100 rounded-lg">
-                        <BarChart3 className="w-6 h-6 text-blue-600" />
+                      <div className="p-3 bg-primary-100 rounded-lg">
+                        <BarChart3 className="w-6 h-6 text-primary-600" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold">Transaction #{transaction.id}</h3>

@@ -133,13 +133,13 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
           <div className="flex justify-between items-center mb-4">
             <div className="text-sm font-medium text-slate-700">
               Min:{' '}
-              <span className="text-blue-600 font-semibold">
+              <span className="text-primary-600 font-semibold">
                 {formatPrice(clampedCurrentValue[0])}
               </span>
             </div>
             <div className="text-sm font-medium text-slate-700">
               Max:{' '}
-              <span className="text-blue-600 font-semibold">
+              <span className="text-primary-600 font-semibold">
                 {formatPrice(clampedCurrentValue[1])}
               </span>
             </div>

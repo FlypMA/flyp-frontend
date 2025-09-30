@@ -165,7 +165,7 @@ export const PreferencesSection: React.FC<PreferencesSectionProps> = ({ classNam
       <div className="flex justify-end">
         <Button
           onClick={handleSavePreferences}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8"
+          className="bg-primary-600 hover:bg-primary-700 text-white px-8"
         >
           Save Preferences
         </Button>

@@ -114,8 +114,8 @@ const EnhancedConversationPanel: React.FC<EnhancedConversationPanelProps> = ({
       <div className="flex-1 overflow-y-auto p-4">
         {filteredConversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <MessageCircle className="w-8 h-8 text-blue-600" />
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+              <MessageCircle className="w-8 h-8 text-primary-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {searchQuery ? 'No conversations found' : 'No conversations'}

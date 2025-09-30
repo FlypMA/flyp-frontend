@@ -25,7 +25,7 @@ export const FAQItem: React.FC<FAQItemProps> = ({ faq, isOpen, onToggle, classNa
       className={cn(
         'bg-white border border-gray-200 rounded-xl shadow-sm',
         'hover:shadow-md transition-all duration-300',
-        'focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-opacity-20',
+        'focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-opacity-20',
         className
       )}
     >
@@ -34,7 +34,7 @@ export const FAQItem: React.FC<FAQItemProps> = ({ faq, isOpen, onToggle, classNa
         onClick={onToggle}
         className={cn(
           'w-full px-6 py-4 text-left',
-          'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset focus:ring-opacity-50',
+          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset focus:ring-opacity-50',
           'rounded-xl transition-colors duration-200',
           'hover:bg-gray-50'
         )}
@@ -88,8 +88,8 @@ export const FAQItem: React.FC<FAQItemProps> = ({ faq, isOpen, onToggle, classNa
                   key={index}
                   className={cn(
                     'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
-                    'bg-blue-50 text-blue-700 border border-blue-200',
-                    'transition-colors duration-200 hover:bg-blue-100'
+                    'bg-primary-50 text-primary-700 border border-primary-200',
+                    'transition-colors duration-200 hover:bg-primary-100'
                   )}
                 >
                   {tag}

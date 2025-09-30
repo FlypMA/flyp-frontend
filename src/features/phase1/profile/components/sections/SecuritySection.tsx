@@ -96,7 +96,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ className = ''
         />
 
         <div className="flex justify-end">
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
             Update Password
           </Button>
         </div>

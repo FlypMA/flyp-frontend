@@ -79,11 +79,11 @@ const YearsSinceFoundedStep: React.FC<CardStepProps> = ({ data, onDataChange }) 
 
       {/* Special Messages */}
       {years === 0 && (
-        <div className="mt-8 max-w-md p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-8 max-w-md p-4 bg-primary-50 border border-primary-200 rounded-lg">
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
               <svg
-                className="w-5 h-5 text-blue-600 mt-0.5"
+                className="w-5 h-5 text-primary-600 mt-0.5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -97,7 +97,7 @@ const YearsSinceFoundedStep: React.FC<CardStepProps> = ({ data, onDataChange }) 
               </svg>
             </div>
             <div>
-              <p className="text-sm text-blue-900">
+              <p className="text-sm text-gray-900">
                 <span className="font-medium">Just starting out?</span> That's great! Even new
                 businesses can attract buyers looking for growth opportunities.
               </p>

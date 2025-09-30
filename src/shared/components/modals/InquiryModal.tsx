@@ -132,14 +132,14 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const renderAuthCTA = () => (
     <div className="space-y-6">
-      <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
+      <Card className="border-2 border-primary-200 bg-gradient-to-br from-blue-50 to-blue-100">
         <CardBody className="p-6">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
-              <UserPlus className="w-6 h-6 text-blue-600" />
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-100 rounded-full mb-4">
+              <UserPlus className="w-6 h-6 text-primary-600" />
             </div>
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">Account Required</h3>
-            <p className="text-blue-700 text-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Account Required</h3>
+            <p className="text-primary-700 text-sm">
               Create an account to connect with sellers and access detailed information
             </p>
           </div>
@@ -166,21 +166,21 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           </div>
 
           <div className="space-y-3">
-            <h4 className="font-medium text-blue-900 text-sm">Benefits of creating an account:</h4>
+            <h4 className="font-medium text-gray-900 text-sm">Benefits of creating an account:</h4>
             <div className="space-y-2">
               <div className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="text-sm text-blue-800">Direct communication with sellers</span>
+                <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="text-sm text-primary-800">Direct communication with sellers</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="text-sm text-blue-800">
+                <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="text-sm text-primary-800">
                   Access to detailed business information
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="text-sm text-blue-800">
+                <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="text-sm text-primary-800">
                   Save favorite listings and get notifications
                 </span>
               </div>
@@ -207,7 +207,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
                 <div>
                   <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                     Business
@@ -367,12 +367,12 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
                 I agree to the{' '}
                 <a
                   href="/terms-and-conditions"
-                  className="text-blue-600 hover:text-blue-700 underline"
+                  className="text-primary-600 hover:text-primary-700 underline"
                 >
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="/privacy-policy" className="text-blue-600 hover:text-blue-700 underline">
+                <a href="/privacy-policy" className="text-primary-600 hover:text-primary-700 underline">
                   Privacy Policy
                 </a>
               </>
@@ -427,8 +427,8 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
               </button>
 
               <div className="flex items-center gap-3 pr-10">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <MessageSquare className="w-5 h-5 text-blue-600" />
+                <div className="p-2 bg-primary-100 rounded-lg">
+                  <MessageSquare className="w-5 h-5 text-primary-600" />
                 </div>
                 <span className="text-xl font-semibold text-gray-900">
                   {isAuthenticated ? 'Submit Inquiry' : 'Submit Inquiry'}
@@ -443,7 +443,7 @@ const InquiryModal: React.FC<InquiryModalProps> = ({
                       <div
                         key={step}
                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          step <= currentStep ? 'bg-blue-600 shadow-sm' : 'bg-gray-300'
+                          step <= currentStep ? 'bg-primary-600 shadow-sm' : 'bg-gray-300'
                         }`}
                       />
                     ))}

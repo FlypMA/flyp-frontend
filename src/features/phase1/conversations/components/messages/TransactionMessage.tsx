@@ -54,7 +54,7 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
       case 'offer':
         return 'bg-green-50 border-green-200 text-green-800';
       case 'due_diligence':
-        return 'bg-blue-50 border-blue-200 text-blue-800';
+        return 'bg-primary-50 border-primary-200 text-primary-800';
       case 'document':
         return 'bg-purple-50 border-purple-200 text-purple-800';
       case 'nda':
@@ -227,8 +227,8 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
     return (
       <div className="due-diligence-message">
         <div className="flex items-center space-x-2 mb-2">
-          <CheckCircle className="w-4 h-4 text-blue-600" />
-          <span className="font-semibold text-blue-800">
+          <CheckCircle className="w-4 h-4 text-primary-600" />
+          <span className="font-semibold text-primary-800">
             Due Diligence: {dueDiligenceDetails.category}
           </span>
           <Chip size="sm" color={getDueDiligenceStatusColor(dueDiligenceDetails.status)}>
@@ -505,7 +505,7 @@ const TransactionMessage: React.FC<TransactionMessageProps> = ({
         </span>
         {isCurrentUser && (
           <CheckCircle
-            className={`w-3 h-3 ${message.readAt ? 'text-blue-300' : 'text-white/50'}`}
+            className={`w-3 h-3 ${message.readAt ? 'text-primary-300' : 'text-white/50'}`}
           />
         )}
       </div>

@@ -275,7 +275,7 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({ tab, onKeyDown, fullW
 
       case 'underline':
         return cn('border-b-2 transition-all duration-200 font-medium', {
-          'border-blue-600 text-blue-600': isActive && !tab.disabled,
+          'border-primary-600 text-primary-600': isActive && !tab.disabled,
           'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300':
             !isActive && !tab.disabled,
           'text-gray-400 cursor-not-allowed border-transparent': tab.disabled,
@@ -283,7 +283,7 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({ tab, onKeyDown, fullW
 
       case 'bordered':
         return cn('border-b-2 transition-all duration-200 font-medium', {
-          'border-b-blue-600 text-blue-600 bg-blue-50': isActive && !tab.disabled,
+          'border-b-blue-600 text-primary-600 bg-primary-50': isActive && !tab.disabled,
           'border-b-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50':
             !isActive && !tab.disabled,
           'text-gray-400 cursor-not-allowed': tab.disabled,
@@ -297,7 +297,7 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({ tab, onKeyDown, fullW
   const buttonStyles = cn(
     // Base styles
     'relative flex items-center justify-center gap-2',
-    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+    'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
     'transition-colors duration-200',
 
     // Size styles
@@ -345,7 +345,7 @@ const ModernTabButton: React.FC<ModernTabButtonProps> = ({ tab, onKeyDown, fullW
             'inline-flex items-center justify-center min-w-[20px] h-5 px-1.5',
             'text-xs font-medium rounded-full',
             {
-              'bg-blue-100 text-blue-800': isActive,
+              'bg-primary-100 text-primary-800': isActive,
               'bg-gray-100 text-gray-600': !isActive,
             }
           )}

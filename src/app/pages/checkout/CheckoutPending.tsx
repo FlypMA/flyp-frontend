@@ -45,7 +45,7 @@ const CheckoutPending: React.FC = () => {
       case 'pending':
         return <Clock className="w-16 h-16 text-yellow-500 mx-auto mb-4" />;
       case 'processing':
-        return <Clock className="w-16 h-16 text-blue-500 mx-auto mb-4 animate-spin" />;
+        return <Clock className="w-16 h-16 text-primary-500 mx-auto mb-4 animate-spin" />;
       case 'completed':
         return <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />;
       case 'failed':
@@ -134,8 +134,8 @@ const CheckoutPending: React.FC = () => {
             Back to Home
           </Button>
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-6 p-4 bg-primary-50 rounded-lg">
+            <p className="text-sm text-primary-800">
               If you continue to experience issues, please contact our support team.
             </p>
           </div>

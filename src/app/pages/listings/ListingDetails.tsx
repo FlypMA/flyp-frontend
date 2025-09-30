@@ -254,7 +254,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto p-6 text-center pt-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading listing details...</p>
         </div>
       </div>
@@ -608,7 +608,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
             </Card>
 
             {/* Financial Information */}
-            <Card className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 border border-blue-200 rounded-3xl shadow-lg">
+            <Card className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 border border-primary-200 rounded-3xl shadow-lg">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between w-full">
                   <h2 className="text-2xl font-bold text-slate-900">Financial Overview</h2>
@@ -655,27 +655,27 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm font-medium text-slate-600">Revenue 2022</p>
                       <TrendingUp
-                        className="w-4 h-4 text-blue-600"
+                        className="w-4 h-4 text-primary-600"
                         style={{ stroke: 'currentColor', fill: 'none' }}
                       />
                     </div>
                     <p className="text-2xl font-bold text-slate-900">
                       {formatPrice(listing.financials.revenue_2022)}
                     </p>
-                    <p className="text-xs text-blue-600 font-medium mt-1">+18.8% YoY</p>
+                    <p className="text-xs text-primary-600 font-medium mt-1">+18.8% YoY</p>
                   </div>
                   <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm font-medium text-slate-600">EBITDA 2022</p>
                       <TrendingUp
-                        className="w-4 h-4 text-blue-600"
+                        className="w-4 h-4 text-primary-600"
                         style={{ stroke: 'currentColor', fill: 'none' }}
                       />
                     </div>
                     <p className="text-2xl font-bold text-slate-900">
                       {formatPrice(listing.financials.ebitda_2022)}
                     </p>
-                    <p className="text-xs text-blue-600 font-medium mt-1">+18.8% YoY</p>
+                    <p className="text-xs text-primary-600 font-medium mt-1">+18.8% YoY</p>
                   </div>
                   <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-center justify-between mb-2">

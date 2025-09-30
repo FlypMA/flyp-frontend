@@ -212,9 +212,9 @@ const OfferCreationModal: React.FC<OfferCreationModalProps> = ({
               </div>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-medium text-blue-900 mb-2">💡 Offer Strategy Tips</h4>
-              <ul className="text-sm text-blue-800 space-y-1">
+            <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-2">💡 Offer Strategy Tips</h4>
+              <ul className="text-sm text-primary-800 space-y-1">
                 <li>• Research comparable business sales in your area</li>
                 <li>• Consider the business's financial performance and growth potential</li>
                 <li>• Factor in market conditions and industry trends</li>
@@ -228,7 +228,7 @@ const OfferCreationModal: React.FC<OfferCreationModalProps> = ({
         return (
           <div className="space-y-6">
             <div className="text-center mb-6">
-              <FileText className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+              <FileText className="w-12 h-12 text-primary-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Payment Structure</h3>
               <p className="text-gray-600">Define how you'll structure the payment</p>
             </div>

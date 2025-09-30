@@ -216,8 +216,8 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
               <Card className="border border-gray-200">
                 <CardBody className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-blue-100">
-                      <Filter className="w-5 h-5 text-blue-600" />
+                    <div className="p-2 rounded-lg bg-primary-100">
+                      <Filter className="w-5 h-5 text-primary-600" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-gray-900 mb-2">Search Criteria</h4>
@@ -369,13 +369,13 @@ const SaveSearchModal: React.FC<SaveSearchModalProps> = ({
 
               {/* Alert Preview */}
               {searchData.is_active && searchData.alert_frequency !== 'off' && (
-                <Card className="border border-blue-200 bg-blue-50">
+                <Card className="border border-primary-200 bg-primary-50">
                   <CardBody className="p-4">
                     <div className="flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <AlertCircle className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <h4 className="font-medium text-blue-900 mb-1">Alert Preview</h4>
-                        <p className="text-sm text-blue-700">
+                        <h4 className="font-medium text-gray-900 mb-1">Alert Preview</h4>
+                        <p className="text-sm text-primary-700">
                           You'll receive {searchData.alert_frequency} notifications
                           {searchData.email_enabled ? ' via email' : ' in the app'} when businesses
                           matching "{searchData.name}" criteria are found.

@@ -220,7 +220,7 @@ const PaymentProcessing: React.FC<PaymentProcessingProps> = ({
   const getPaymentTypeColor = (type: string) => {
     switch (type) {
       case 'down_payment':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'closing_payment':
         return 'text-green-600 bg-green-100';
       case 'financing_payment':
@@ -311,7 +311,7 @@ const PaymentProcessing: React.FC<PaymentProcessingProps> = ({
               <div className="text-sm text-gray-600">Pending</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">
+              <div className="text-3xl font-bold text-primary-600 mb-1">
                 {paymentStats.paid}/{paymentStats.total}
               </div>
               <div className="text-sm text-gray-600">Payments</div>
@@ -656,9 +656,9 @@ const PaymentProcessing: React.FC<PaymentProcessingProps> = ({
           <ModalBody>
             {selectedPayment && (
               <div className="space-y-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-900 mb-2">Payment Details</h4>
-                  <p className="text-blue-800">
+                <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Payment Details</h4>
+                  <p className="text-primary-800">
                     {selectedPayment.currency} {selectedPayment.amount.toLocaleString()} •
                     {formatPaymentType(selectedPayment.type)} • Due:{' '}
                     {new Date(selectedPayment.dueDate).toLocaleDateString()}

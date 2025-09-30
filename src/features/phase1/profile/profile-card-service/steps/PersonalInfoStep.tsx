@@ -118,7 +118,7 @@ export const PersonalInfoStep: React.FC<ProfileCardStepProps> = ({
           <p className="text-sm text-gray-600">
             Business owners and prospectors can see your profile and it can show up when needed to
             build trust and credibility within the platform and our community.
-            <a href="#" className="text-blue-600 hover:underline ml-1">
+            <a href="#" className="text-primary-600 hover:underline ml-1">
               Learn more
             </a>
           </p>
@@ -128,7 +128,7 @@ export const PersonalInfoStep: React.FC<ProfileCardStepProps> = ({
 
         {/* LinkedIn Import */}
         <div className="mb-8">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <div className="bg-primary-50 border border-primary-200 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -142,7 +142,7 @@ export const PersonalInfoStep: React.FC<ProfileCardStepProps> = ({
               <button
                 type="button"
                 onClick={handleLinkedInImport}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold whitespace-nowrap flex items-center space-x-2 transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold whitespace-nowrap flex items-center space-x-2 transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
                 <span>Import from LinkedIn</span>

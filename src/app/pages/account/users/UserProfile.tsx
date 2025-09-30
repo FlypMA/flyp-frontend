@@ -92,7 +92,7 @@ const UserProfile: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading profile...</p>
         </div>
       </div>
@@ -292,7 +292,7 @@ const UserProfile: React.FC = () => {
                         onChange={e => handleInputChange('bio', e.target.value)}
                         placeholder="Tell us about yourself..."
                         rows={4}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                       />
                     ) : (
                       <div className="p-3 bg-gray-50 rounded-lg">

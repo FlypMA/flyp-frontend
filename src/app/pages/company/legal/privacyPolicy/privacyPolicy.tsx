@@ -13,8 +13,8 @@ const PrivacyPolicy = () => {
         <p className="text-sm text-gray-600 mb-8">Last Updated: January 2025</p>
 
         <div className="space-y-8 text-gray-800 leading-relaxed">
-          <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-blue-900">
+          <div className="p-6 bg-primary-50 border border-primary-200 rounded-lg">
+            <p className="text-gray-900">
               <strong>Your Privacy Matters:</strong> This Privacy Policy explains how Upswitch
               collects, uses, and protects your personal information when you use our M&A platform.
               We are committed to transparency and giving you complete control over your business

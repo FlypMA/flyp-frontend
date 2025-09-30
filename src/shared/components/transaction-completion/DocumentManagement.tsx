@@ -309,7 +309,7 @@ const DocumentManagement: React.FC<DocumentManagementProps> = ({
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'legal':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'financial':
         return 'text-green-600 bg-green-100';
       case 'operational':
@@ -399,7 +399,7 @@ const DocumentManagement: React.FC<DocumentManagementProps> = ({
               <div className="text-sm text-gray-600">Signed</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">{documentStats.approved}</div>
+              <div className="text-3xl font-bold text-primary-600 mb-1">{documentStats.approved}</div>
               <div className="text-sm text-gray-600">Approved</div>
             </div>
             <div className="text-center">

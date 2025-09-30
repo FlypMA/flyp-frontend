@@ -427,7 +427,7 @@ const Help: React.FC = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">How can we help you?</h1>
-            <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-100 mb-12 max-w-3xl mx-auto">
               Find answers to your questions about buying and selling businesses on Belgium's
               premier business marketplace
             </p>
@@ -444,7 +444,7 @@ const Help: React.FC = () => {
               />
 
               {searchQuery && (
-                <div className="mt-4 text-blue-100">
+                <div className="mt-4 text-gray-100">
                   {filteredCategories.length > 0
                     ? `Found ${filteredCategories.reduce((total, cat) => total + cat.questions.length, 0)} relevant answers`
                     : 'No results found. Try different keywords or browse categories below.'}
@@ -460,7 +460,7 @@ const Help: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="bg-white shadow-lg border-0">
             <CardBody className="text-center py-6">
-              <BookOpen className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+              <BookOpen className="w-8 h-8 text-primary-600 mx-auto mb-2" />
               <div className="text-2xl font-bold text-gray-900">{totalQuestions}</div>
               <div className="text-gray-600">Help Articles</div>
             </CardBody>
@@ -496,7 +496,7 @@ const Help: React.FC = () => {
                 onClick={() => setSelectedCategory(null)}
                 className={`w-full text-left p-3 rounded-lg transition-colors mb-2 ${
                   !selectedCategory
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    ? 'bg-primary-50 text-primary-700 border border-primary-200'
                     : 'hover:bg-gray-50 text-gray-700'
                 }`}
               >
@@ -509,7 +509,7 @@ const Help: React.FC = () => {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`w-full text-left p-3 rounded-lg transition-colors mb-2 flex items-center gap-3 ${
                     selectedCategory === category.id
-                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                      ? 'bg-primary-50 text-primary-700 border border-primary-200'
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
@@ -555,7 +555,7 @@ const Help: React.FC = () => {
                   <p className="text-gray-600 mb-6">
                     Try adjusting your search terms or browse our categories
                   </p>
-                  <Button onClick={() => setSearchQuery('')} className="bg-blue-600 text-white">
+                  <Button onClick={() => setSearchQuery('')} className="bg-primary-600 text-white">
                     Clear Search
                   </Button>
                 </div>
@@ -623,13 +623,13 @@ const Help: React.FC = () => {
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-gray-100 mb-8">
             Join thousands of entrepreneurs using UpSwitch to buy and sell businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8"
+              className="bg-white text-primary-600 hover:bg-gray-50 font-semibold px-8"
               onClick={() => navigate('/signup')}
             >
               Create Account

@@ -349,7 +349,7 @@ const TransactionCompletionDashboard: React.FC<TransactionCompletionDashboardPro
                 <div className="text-sm text-gray-600">Tasks Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-1">
+                <div className="text-3xl font-bold text-primary-600 mb-1">
                   {progress.documentsCompleted}/{progress.documentsTotal}
                 </div>
                 <div className="text-sm text-gray-600">Documents</div>
@@ -463,16 +463,16 @@ const TransactionCompletionDashboard: React.FC<TransactionCompletionDashboardPro
                       <div className="text-sm text-gray-600">Paid</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-2xl font-bold text-primary-600">
                         {transaction.currency} {financialSummary.pendingAmount.toLocaleString()}
                       </div>
                       <div className="text-sm text-gray-600">Pending</div>
                     </div>
                   </div>
                   {financialSummary.nextPayment && (
-                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                      <h5 className="font-medium text-blue-900 mb-1">Next Payment</h5>
-                      <p className="text-sm text-blue-800">
+                    <div className="p-3 bg-primary-50 border border-primary-200 rounded-lg">
+                      <h5 className="font-medium text-gray-900 mb-1">Next Payment</h5>
+                      <p className="text-sm text-primary-800">
                         {transaction.currency}{' '}
                         {financialSummary.nextPayment.amount.toLocaleString()} due{' '}
                         {new Date(financialSummary.nextPayment.dueDate).toLocaleDateString()}
@@ -552,8 +552,8 @@ const TransactionCompletionDashboard: React.FC<TransactionCompletionDashboardPro
                       key={activity.id}
                       className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg"
                     >
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <MessageSquare className="w-4 h-4 text-blue-600" />
+                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                        <MessageSquare className="w-4 h-4 text-primary-600" />
                       </div>
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900">{activity.description}</p>

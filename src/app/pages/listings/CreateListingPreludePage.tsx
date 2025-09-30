@@ -39,7 +39,7 @@ const CreateListingPreludePage: React.FC = () => {
         {!isPreludeOpen && (
           <button
             onClick={() => setIsPreludeOpen(true)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
           >
             Open Prelude Flow
           </button>

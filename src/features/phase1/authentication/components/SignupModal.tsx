@@ -325,7 +325,7 @@ const SignupModal: React.FC = () => {
                             <button
                               type="button"
                               onClick={switchToLogin}
-                              className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
+                              className="text-primary-600 hover:text-primary-700 underline underline-offset-1 transition-colors font-medium"
                             >
                               Sign in
                             </button>
@@ -334,11 +334,11 @@ const SignupModal: React.FC = () => {
                         <div className="space-y-4">
                           <button
                             onClick={() => handleRoleSelect('buyer')}
-                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left group"
+                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 text-left group"
                           >
                             <div className="flex items-start gap-4">
-                              <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                                <Search className="w-6 h-6 text-blue-600" />
+                              <div className="p-3 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
+                                <Search className="w-6 h-6 text-primary-600" />
                               </div>
                               <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
@@ -420,20 +420,20 @@ const SignupModal: React.FC = () => {
                             <div
                               className={`flex items-start mb-4 border-l-4 p-4 rounded-xl ${
                                 showLoginPrompt
-                                  ? 'bg-blue-50 border-blue-400 text-blue-700'
+                                  ? 'bg-primary-50 border-primary-400 text-primary-700'
                                   : 'bg-red-600 border-red-600 text-red-700'
                               }`}
                             >
                               <p
                                 className={`font-bold text-lg mr-2 mt-0.5 ${
-                                  showLoginPrompt ? 'text-blue-600' : 'text-white'
+                                  showLoginPrompt ? 'text-primary-600' : 'text-white'
                                 }`}
                               >
                                 <Info className="w-5 h-5" />
                               </p>
                               <div
                                 className={`font-normal text-sm ${
-                                  showLoginPrompt ? 'text-blue-800' : 'text-white'
+                                  showLoginPrompt ? 'text-primary-800' : 'text-white'
                                 }`}
                               >
                                 <div className="mb-2">{errorMessage}</div>
@@ -446,11 +446,11 @@ const SignupModal: React.FC = () => {
                                         setShowLoginPrompt(false);
                                         openModal('login');
                                       }}
-                                      className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:border-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                      className="inline-flex items-center px-4 py-2 text-sm font-medium text-primary-600 bg-white border border-primary-300 rounded-lg hover:bg-primary-50 hover:border-primary-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                                     >
                                       Switch to Login
                                     </button>
-                                    <span className="text-blue-600 text-sm ml-2">
+                                    <span className="text-primary-600 text-sm ml-2">
                                       or try a different email address
                                     </span>
                                   </div>

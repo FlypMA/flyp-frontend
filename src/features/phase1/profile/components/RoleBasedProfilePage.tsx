@@ -157,7 +157,7 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
                   )}
                 </div>
                 {/* Verification Badge */}
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-primary-600 rounded-full flex items-center justify-center">
                   <svg
                     className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white"
                     fill="currentColor"
@@ -242,7 +242,7 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
             <p className="mb-4">This is a test modal to check if modals work at all.</p>
             <button
               onClick={() => setShowProfessionalModal(false)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600"
             >
               Close
             </button>
@@ -268,7 +268,7 @@ export const RoleBasedProfilePage: React.FC<RoleBasedProfilePageProps> = ({
             <p className="mb-4">This is a test modal for the edit profile functionality.</p>
             <button
               onClick={() => setShowEditModal(false)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600"
             >
               Close
             </button>

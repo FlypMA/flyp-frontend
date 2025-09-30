@@ -120,8 +120,8 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <BarChart3 className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-primary-100 rounded-lg">
+              <BarChart3 className="w-5 h-5 text-primary-600" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900">Business Valuation Report</h3>
@@ -180,7 +180,7 @@ const ValuationReportCard: React.FC<ValuationReportCardProps> = ({
         {/* Methodology */}
         <div className="mb-6">
           <div className="flex items-center space-x-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-blue-600" />
+            <TrendingUp className="w-4 h-4 text-primary-600" />
             <span className="text-sm font-medium text-gray-600">Methodology</span>
           </div>
           <p className="text-sm text-gray-700">{report.methodology}</p>

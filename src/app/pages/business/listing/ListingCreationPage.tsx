@@ -126,7 +126,7 @@ const ListingCreationPage: React.FC = () => {
           </p>
           <button
             onClick={() => navigate('/my-business/card/create')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold"
+            className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold"
           >
             Create Business Card
           </button>

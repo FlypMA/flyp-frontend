@@ -6,7 +6,11 @@ interface HeadingHeroProps {
 }
 
 const HeadingHero: React.FC<HeadingHeroProps> = ({ children, className = '' }) => {
-  return <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold ${className}`}>{children}</h1>;
+  return (
+    <h1 className={`font-display text-5xl md:text-6xl lg:text-7xl font-bold ${className}`}>
+      {children}
+    </h1>
+  );
 };
 
 export default HeadingHero;

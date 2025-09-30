@@ -325,7 +325,7 @@ const BusinessValuationTool = () => {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
-            <Calculator className="w-6 h-6 text-blue-600" />
+            <Calculator className="w-6 h-6 text-primary-600" />
             <div>
               <h2 className="text-2xl font-bold">Business Valuation Tool</h2>
               <p className="text-gray-600">
@@ -333,9 +333,9 @@ const BusinessValuationTool = () => {
               </p>
             </div>
           </div>
-          <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-            <h4 className="font-semibold text-blue-800 mb-2">📊 What are Multiples?</h4>
-            <p className="text-sm text-blue-700">
+          <div className="mt-4 p-4 bg-primary-50 rounded-lg">
+            <h4 className="font-semibold text-primary-800 mb-2">📊 What are Multiples?</h4>
+            <p className="text-sm text-primary-700">
               <strong>
                 Multiples are financial ratios used to determine company value by comparing to
                 similar companies or transactions.
@@ -577,13 +577,13 @@ const BusinessValuationTool = () => {
           {valuation ? (
             <>
               {/* Valuation Range */}
-              <Card className="border-blue-200">
+              <Card className="border-primary-200">
                 <CardHeader>
-                  <h3 className="text-lg font-semibold text-blue-800">Valuation Estimate</h3>
+                  <h3 className="text-lg font-semibold text-primary-800">Valuation Estimate</h3>
                 </CardHeader>
                 <CardBody className="space-y-4">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                    <div className="text-3xl font-bold text-primary-600 mb-2">
                       {formatCurrency(valuation.mid)}
                     </div>
                     <p className="text-sm text-gray-600">Estimated Value</p>
@@ -636,7 +636,7 @@ const BusinessValuationTool = () => {
                     <div className="space-y-2">
                       {valuation.factors.map((factor, index) => (
                         <div key={index} className="flex items-center gap-2 text-sm">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                           <span>{factor}</span>
                         </div>
                       ))}

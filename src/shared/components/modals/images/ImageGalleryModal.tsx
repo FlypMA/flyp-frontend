@@ -168,7 +168,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
                       onClick={() => handleThumbnailClick(index)}
                       className={`relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                         index === currentImageIndex
-                          ? 'border-white ring-2 ring-blue-500'
+                          ? 'border-white ring-2 ring-primary-500'
                           : 'border-white/30 hover:border-white/60'
                       }`}
                     >
@@ -178,7 +178,7 @@ const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({
                         className="w-full h-full object-cover"
                       />
                       {index === currentImageIndex && (
-                        <div className="absolute inset-0 bg-blue-500/20" />
+                        <div className="absolute inset-0 bg-primary-500/20" />
                       )}
                     </button>
                   ))}

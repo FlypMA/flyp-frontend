@@ -305,7 +305,7 @@ const OfferComparison: React.FC<OfferComparisonProps> = ({ listingId, userRole, 
               <div className="text-sm text-gray-600">Lowest Offer</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600 mb-1">
+              <div className="text-2xl font-bold text-primary-600 mb-1">
                 €{comparison.summary.averageOffer.toLocaleString()}
               </div>
               <div className="text-sm text-gray-600">Average Offer</div>
@@ -320,8 +320,8 @@ const OfferComparison: React.FC<OfferComparisonProps> = ({ listingId, userRole, 
               <div className="text-sm text-gray-600">Price Range</div>
             </div>
           </div>
-          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-4 p-3 bg-primary-50 border border-primary-200 rounded-lg">
+            <p className="text-sm text-primary-800">
               <strong>Most Favorable Terms:</strong> {comparison.summary.mostFavorableTerms}
             </p>
           </div>
@@ -508,9 +508,9 @@ const OfferComparison: React.FC<OfferComparisonProps> = ({ listingId, userRole, 
                 </p>
               </div>
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h5 className="font-medium text-blue-900 mb-2">⚡ Fastest Closing</h5>
-                <p className="text-sm text-blue-800">
+              <div className="p-4 bg-primary-50 border border-primary-200 rounded-lg">
+                <h5 className="font-medium text-gray-900 mb-2">⚡ Fastest Closing</h5>
+                <p className="text-sm text-primary-800">
                   {(() => {
                     const fastestOffer = filteredOffers.reduce((fastest, current) =>
                       new Date(current.timeline.closingDate) <

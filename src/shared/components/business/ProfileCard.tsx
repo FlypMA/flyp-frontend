@@ -54,7 +54,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profileData, onEdit, classNam
             </div>
           </div>
           {/* Checkmark Badge */}
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center">
             <CircleCheckBig className="w-3 h-3 text-white" />
           </div>
         </div>

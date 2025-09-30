@@ -280,7 +280,7 @@ const LoginModal: React.FC = () => {
                       <button
                         type="button"
                         onClick={switchToSignup}
-                        className="text-blue-600 hover:text-blue-700 underline underline-offset-1 transition-colors font-medium"
+                        className="text-primary-600 hover:text-primary-700 underline underline-offset-1 transition-colors font-medium"
                       >
                         Sign up
                       </button>
@@ -291,20 +291,20 @@ const LoginModal: React.FC = () => {
                         <div
                           className={`flex items-start mb-4 p-4 rounded-xl border-l-4 ${
                             messageType === 'info'
-                              ? 'bg-blue-50 border-blue-600 text-blue-700'
+                              ? 'bg-primary-50 border-primary-600 text-primary-700'
                               : 'bg-red-600 border-red-600 text-red-700'
                           }`}
                         >
                           <p
                             className={`font-bold text-lg mr-2 mt-0.5 ${
-                              messageType === 'info' ? 'text-blue-600' : 'text-white'
+                              messageType === 'info' ? 'text-primary-600' : 'text-white'
                             }`}
                           >
                             <Info className="w-5 h-5" />
                           </p>
                           <div
                             className={`font-normal text-sm ${
-                              messageType === 'info' ? 'text-blue-800' : 'text-white'
+                              messageType === 'info' ? 'text-primary-800' : 'text-white'
                             }`}
                           >
                             {errorMessage}
@@ -353,7 +353,7 @@ const LoginModal: React.FC = () => {
                             handleCloseModal();
                             navigate('/password-reset');
                           }}
-                          className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 underline underline-offset-2 transition-all duration-200 px-2 py-1 rounded-md"
+                          className="text-sm font-medium text-primary-600 hover:text-primary-700 hover:bg-primary-50 underline underline-offset-2 transition-all duration-200 px-2 py-1 rounded-md"
                         >
                           Forgot your password?
                         </button>

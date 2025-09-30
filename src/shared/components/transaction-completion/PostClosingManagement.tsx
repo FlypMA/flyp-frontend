@@ -273,7 +273,7 @@ const PostClosingManagement: React.FC<PostClosingManagementProps> = ({
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'transition':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'integration':
         return 'text-green-600 bg-green-100';
       case 'compliance':

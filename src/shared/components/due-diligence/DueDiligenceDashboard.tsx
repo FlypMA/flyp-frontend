@@ -219,7 +219,7 @@ const DueDiligenceDashboard: React.FC<DueDiligenceDashboardProps> = ({
         <CardHeader>
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
-              <Shield className="w-6 h-6 text-blue-600" />
+              <Shield className="w-6 h-6 text-primary-600" />
               <div>
                 <h2 className="text-2xl font-bold">Due Diligence Process</h2>
                 <p className="text-gray-600">Listing ID: {listingId}</p>
@@ -261,7 +261,7 @@ const DueDiligenceDashboard: React.FC<DueDiligenceDashboardProps> = ({
               <div className="text-sm text-gray-600">Items Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">
+              <div className="text-3xl font-bold text-primary-600 mb-1">
                 {progressMetrics.documentsUploaded}
               </div>
               <div className="text-sm text-gray-600">Documents Uploaded</div>

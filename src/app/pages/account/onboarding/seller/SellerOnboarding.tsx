@@ -175,8 +175,8 @@ const SellerOnboarding: React.FC = () => {
               </div>
 
               <div className="text-center p-6 bg-gray-50 rounded-2xl">
-                <div className="w-12 h-12 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-primary-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-primary-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Secure Process</h3>
                 <p className="text-gray-600 text-sm">
@@ -256,12 +256,12 @@ const SellerOnboarding: React.FC = () => {
               </Card>
             </div>
 
-            <div className="bg-blue-50 rounded-2xl p-6 mb-8">
+            <div className="bg-primary-50 rounded-2xl p-6 mb-8">
               <div className="flex items-center justify-center mb-4">
-                <Award className="w-8 h-8 text-blue-600 mr-3" />
-                <span className="text-2xl font-bold text-blue-900">€2.3M</span>
+                <Award className="w-8 h-8 text-primary-600 mr-3" />
+                <span className="text-2xl font-bold text-gray-900">€2.3M</span>
               </div>
-              <p className="text-blue-800 font-medium">Average deal value in 2023</p>
+              <p className="text-primary-800 font-medium">Average deal value in 2023</p>
             </div>
 
             <Button size="lg" variant="primary" onPress={handleNext} className="px-8">
@@ -316,7 +316,7 @@ const SellerOnboarding: React.FC = () => {
         return (
           <div className="max-w-2xl mx-auto text-center">
             <div className="mb-8">
-              <Building2 className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+              <Building2 className="w-16 h-16 text-primary-500 mx-auto mb-6" />
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 What's your business called?
               </h1>
@@ -327,7 +327,7 @@ const SellerOnboarding: React.FC = () => {
               placeholder="e.g., Brussels Digital Solutions"
               value={formData.businessName}
               onChange={e => updateFormData('businessName', e.target.value)}
-              className="text-center text-xl [&_input]:text-center [&_input]:text-xl [&_input]:font-medium [&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
+              className="text-center text-xl [&_input]:text-center [&_input]:text-xl [&_input]:font-medium [&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-primary-500"
               autoFocus
               label=""
               type="text"
@@ -404,7 +404,7 @@ const SellerOnboarding: React.FC = () => {
                 <select
                   value={formData.country}
                   onChange={e => updateFormData('country', e.target.value)}
-                  className="clean-select w-full p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none appearance-none cursor-pointer pr-10"
+                  className="clean-select w-full p-4 border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none appearance-none cursor-pointer pr-10"
                 >
                   <option value="Belgium">🇧🇪 Belgium</option>
                   <option value="Netherlands">🇳🇱 Netherlands</option>
@@ -422,7 +422,7 @@ const SellerOnboarding: React.FC = () => {
                   placeholder="e.g., Brussels, Antwerp, Ghent..."
                   value={formData.city}
                   onChange={e => updateFormData('city', e.target.value)}
-                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-primary-500"
                   autoFocus
                   label=""
                   type="text"
@@ -483,7 +483,7 @@ const SellerOnboarding: React.FC = () => {
         return (
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-8">
-              <FileText className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+              <FileText className="w-16 h-16 text-primary-500 mx-auto mb-6" />
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Tell us about your business</h1>
               <p className="text-gray-600">What makes your business special? What do you do?</p>
             </div>
@@ -494,7 +494,7 @@ const SellerOnboarding: React.FC = () => {
               value={formData.description}
               onChange={value => updateFormData('description', value)}
               minRows={6}
-              className="text-left [&_textarea]:text-base [&_textarea]:leading-relaxed [&_textarea]:bg-gray-50 [&_textarea]:border-2 [&_textarea]:border-gray-200 hover:[&_textarea]:border-gray-300 focus-within:[&_textarea]:border-blue-500"
+              className="text-left [&_textarea]:text-base [&_textarea]:leading-relaxed [&_textarea]:bg-gray-50 [&_textarea]:border-2 [&_textarea]:border-gray-200 hover:[&_textarea]:border-gray-300 focus-within:[&_textarea]:border-primary-500"
               onBlur={() => {}}
               name="description"
             />
@@ -678,7 +678,7 @@ const SellerOnboarding: React.FC = () => {
         return (
           <div className="max-w-2xl mx-auto text-center">
             <div className="mb-8">
-              <Clock className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+              <Clock className="w-16 h-16 text-primary-500 mx-auto mb-6" />
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 When are you looking to sell?
               </h1>
@@ -797,7 +797,7 @@ const SellerOnboarding: React.FC = () => {
         return (
           <div className="max-w-2xl mx-auto text-center">
             <div className="mb-8">
-              <Mail className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+              <Mail className="w-16 h-16 text-primary-500 mx-auto mb-6" />
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 How can serious buyers reach you?
               </h1>
@@ -815,7 +815,7 @@ const SellerOnboarding: React.FC = () => {
                   value={formData.contactEmail}
                   onChange={e => updateFormData('contactEmail', e.target.value)}
                   leftIcon={<Mail className="w-5 h-5 text-gray-400" />}
-                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-primary-500"
                   autoFocus
                   label=""
                   onBlur={() => {}}
@@ -833,7 +833,7 @@ const SellerOnboarding: React.FC = () => {
                   value={formData.contactPhone}
                   onChange={e => updateFormData('contactPhone', e.target.value)}
                   leftIcon={<Phone className="w-5 h-5 text-gray-400" />}
-                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-blue-500"
+                  className="[&_input]:bg-gray-50 [&_input]:border-2 [&_input]:border-gray-200 hover:[&_input]:border-gray-300 focus-within:[&_input]:border-primary-500"
                   label=""
                   onBlur={() => {}}
                   name="contactPhone"
@@ -841,8 +841,8 @@ const SellerOnboarding: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-blue-50 rounded-xl">
-              <p className="text-blue-800 text-sm">
+            <div className="mt-6 p-4 bg-primary-50 rounded-xl">
+              <p className="text-primary-800 text-sm">
                 🔒 Your contact information is kept confidential and only shared with verified
                 buyers who show serious interest
               </p>
@@ -922,9 +922,9 @@ const SellerOnboarding: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center p-6 bg-blue-50 rounded-2xl">
-                <div className="w-12 h-12 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-blue-600 font-bold">1</span>
+              <div className="text-center p-6 bg-primary-50 rounded-2xl">
+                <div className="w-12 h-12 bg-primary-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-primary-600 font-bold">1</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Review & Approve</h3>
                 <p className="text-gray-600 text-sm">

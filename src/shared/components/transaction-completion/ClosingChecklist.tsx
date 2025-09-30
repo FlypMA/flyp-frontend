@@ -299,7 +299,7 @@ const ClosingChecklist: React.FC<ClosingChecklistProps> = ({ transactionId, user
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'legal':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'financial':
         return 'text-green-600 bg-green-100';
       case 'operational':

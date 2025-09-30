@@ -50,14 +50,14 @@ const ListingNudgeModal: React.FC<ListingNudgeModalProps> = ({
         </div>
 
         {/* Gentle Suggestion */}
-        <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+        <div className="bg-primary-50 rounded-lg p-6 border border-primary-200">
           <div className="flex items-start gap-3">
-            <Heart className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+            <Heart className="w-6 h-6 text-primary-600 mt-1 flex-shrink-0" />
             <div>
-              <h3 className="font-semibold text-blue-900 mb-2">
+              <h3 className="font-semibold text-gray-900 mb-2">
                 Many business owners at this stage are curious...
               </h3>
-              <p className="text-blue-800 text-sm leading-relaxed">
+              <p className="text-primary-800 text-sm leading-relaxed">
                 After seeing their business valuation, they often wonder: "What would potential
                 buyers think? How much interest would my business generate?" It's completely natural
                 to be curious about the market's response.
@@ -84,7 +84,7 @@ const ListingNudgeModal: React.FC<ListingNudgeModalProps> = ({
             </div>
 
             <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
-              <Rocket className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+              <Rocket className="w-5 h-5 text-primary-600 mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-medium text-gray-900 mb-1">Growth Potential</h4>
                 <p className="text-sm text-gray-600">

@@ -147,7 +147,7 @@ export const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({
   const renderUploadArea = () => (
     <div
       className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-        dragActive ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+        dragActive ? 'border-primary-400 bg-primary-50' : 'border-gray-300 hover:border-gray-400'
       }`}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}

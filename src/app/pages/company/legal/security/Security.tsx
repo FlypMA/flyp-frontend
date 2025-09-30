@@ -84,8 +84,8 @@ const Security = () => {
                     <Card className="border border-neutral-200 hover:shadow-lg transition-shadow">
                       <CardBody className="p-6 text-center">
                         <div className="flex justify-center mb-4">
-                          <div className="p-3 bg-blue-100 rounded-full">
-                            <UserCheck className="w-8 h-8 text-blue-600" />
+                          <div className="p-3 bg-primary-100 rounded-full">
+                            <UserCheck className="w-8 h-8 text-primary-600" />
                           </div>
                         </div>
                         <h3 className="text-lg font-semibold text-neutral-900 mb-3">
@@ -125,7 +125,7 @@ const Security = () => {
                     <Card className="border border-neutral-200">
                       <CardHeader>
                         <div className="flex items-center gap-3">
-                          <Database className="w-6 h-6 text-blue-600" />
+                          <Database className="w-6 h-6 text-primary-600" />
                           <h3 className="text-xl font-semibold text-neutral-900">
                             Data Storage & Backup
                           </h3>

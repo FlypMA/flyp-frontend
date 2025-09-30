@@ -207,8 +207,8 @@ const DueDiligenceRequestModal: React.FC<DueDiligenceRequestModalProps> = ({
       <div className="p-4">
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <FileText className="w-6 h-6 text-blue-600" />
+          <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <FileText className="w-6 h-6 text-primary-600" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">Request Due Diligence</h3>
           <p className="text-gray-600 text-sm">
@@ -323,10 +323,10 @@ const DueDiligenceRequestModal: React.FC<DueDiligenceRequestModalProps> = ({
                 {formData.specificDocuments.map((doc, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg border border-blue-200"
+                    className="flex items-center space-x-2 p-3 bg-primary-50 rounded-lg border border-primary-200"
                   >
-                    <FileText className="w-4 h-4 text-blue-600" />
-                    <span className="flex-1 text-sm text-blue-800">{doc}</span>
+                    <FileText className="w-4 h-4 text-primary-600" />
+                    <span className="flex-1 text-sm text-primary-800">{doc}</span>
                     <Button
                       variant="tertiary"
                       isIconOnly

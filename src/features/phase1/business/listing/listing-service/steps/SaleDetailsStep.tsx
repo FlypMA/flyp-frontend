@@ -65,7 +65,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
         <select
           value={formData.reasonForSale}
           onChange={e => handleInputChange('reasonForSale', e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
         >
           <option value="">Select a reason</option>
           <option value="retirement">Retirement</option>
@@ -90,7 +90,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
         <select
           value={formData.preferredTimeline}
           onChange={e => handleInputChange('preferredTimeline', e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
         >
           <option value="">Select a timeline</option>
           <option value="immediate">Immediate (1-3 months)</option>
@@ -135,7 +135,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
               value={newIncludedAsset}
               onChange={e => setNewIncludedAsset(e.target.value)}
               placeholder="Add an included asset..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -146,7 +146,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
             <button
               onClick={() => addAsset('included')}
               disabled={!newIncludedAsset.trim()}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Add
             </button>
@@ -191,7 +191,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
               value={newExcludedAsset}
               onChange={e => setNewExcludedAsset(e.target.value)}
               placeholder="Add an excluded asset..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               onKeyPress={e => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -221,7 +221,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
         <select
           value={formData.transitionSupport}
           onChange={e => handleInputChange('transitionSupport', e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
         >
           <option value="">Select transition support</option>
           <option value="full-training">Full training and onboarding (30-60 days)</option>
@@ -243,7 +243,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
         <select
           value={formData.staffRetention}
           onChange={e => handleInputChange('staffRetention', e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
         >
           <option value="">Select staff retention preference</option>
           <option value="all-staff">Expect all staff to be retained</option>
@@ -255,12 +255,12 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
       </div>
 
       {/* Help Section */}
-      <div className="bg-blue-50 rounded-xl p-6 mt-8">
+      <div className="bg-primary-50 rounded-xl p-6 mt-8">
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">
-            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
               <svg
-                className="w-4 h-4 text-blue-600"
+                className="w-4 h-4 text-primary-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

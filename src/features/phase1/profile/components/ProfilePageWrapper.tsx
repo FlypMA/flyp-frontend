@@ -72,7 +72,7 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
     return (
       <div className={`flex items-center justify-center min-h-screen ${className}`}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading profile...</p>
         </div>
       </div>
@@ -90,7 +90,7 @@ export const ProfilePageWrapper: React.FC<ProfilePageWrapperProps> = ({
           <p className="text-gray-600 mb-4">{profileError}</p>
           <button
             onClick={refreshProfile}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
           >
             Try Again
           </button>

@@ -113,7 +113,7 @@ const DueDiligenceChecklist: React.FC<DueDiligenceChecklistProps> = ({ processId
             name: 'Legal Due Diligence',
             description: 'Review legal documents, contracts, and compliance',
             icon: 'Scale',
-            color: 'text-blue-600',
+            color: 'text-primary-600',
             progress: 60,
             priority: 'high',
             status: 'in_progress',

@@ -99,12 +99,12 @@ const SellingReasonStep: React.FC<OnboardingStepProps> = ({ formData, updateForm
           />
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
           <div className="flex items-start space-x-3">
-            <Heart className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <Heart className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
             <div>
-              <h4 className="font-medium text-blue-900 mb-1">Your Story Matters</h4>
-              <p className="text-sm text-blue-700">
+              <h4 className="font-medium text-gray-900 mb-1">Your Story Matters</h4>
+              <p className="text-sm text-primary-700">
                 Buyers appreciate understanding your motivation. It helps them see the opportunity
                 and ensures a good fit for both parties.
               </p>

@@ -1,80 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Upswitch - Europe's premier SME M&A platform. Buy, sell, and value businesses across Europe with professional support and secure transactions.">
-    <meta name="keywords" content="SME M&A, business for sale, business valuation, European businesses, mergers acquisitions">
-    <meta name="author" content="Upswitch">
-    
+    <meta
+      name="description"
+      content="Upswitch - Europe's premier SME M&A platform. Buy, sell, and value businesses across Europe with professional support and secure transactions."
+    />
+    <meta
+      name="keywords"
+      content="SME M&A, business for sale, business valuation, European businesses, mergers acquisitions"
+    />
+    <meta name="author" content="Upswitch" />
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Upswitch - European SME M&A Platform">
-    <meta property="og:description" content="Europe's premier platform for SME mergers and acquisitions. Discover business opportunities, get professional valuations, and secure transactions.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.upswitch.com">
-    <meta property="og:image" content="/android-chrome-512x512.png">
-    
+    <meta property="og:title" content="Upswitch - European SME M&A Platform" />
+    <meta
+      property="og:description"
+      content="Europe's premier platform for SME mergers and acquisitions. Discover business opportunities, get professional valuations, and secure transactions."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.upswitch.com" />
+    <meta property="og:image" content="/android-chrome-512x512.png" />
+
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Upswitch - European SME M&A Platform">
-    <meta name="twitter:description" content="Europe's premier platform for SME mergers and acquisitions.">
-    <meta name="twitter:image" content="/android-chrome-512x512.png">
-    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Upswitch - European SME M&A Platform" />
+    <meta
+      name="twitter:description"
+      content="Europe's premier platform for SME mergers and acquisitions."
+    />
+    <meta name="twitter:image" content="/android-chrome-512x512.png" />
+
     <!-- Preload critical resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Load Google Fonts directly in HTML for better loading -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Block Creative Tim promotional banners -->
     <script>
       // Block Creative Tim banner creation
-      (function() {
+      (function () {
         // Set the cookie to prevent banner creation
-        document.cookie = "view_offer_bar=true; path=/; max-age=31536000";
-        
+        document.cookie = 'view_offer_bar=true; path=/; max-age=31536000';
+
         // Override Creative Tim functions
-        window.createOfferBar = function() { return false; };
-        window.closeOfferBar = function() { return false; };
-        
+        window.createOfferBar = function () {
+          return false;
+        };
+        window.closeOfferBar = function () {
+          return false;
+        };
+
         // Block banner creation on DOM ready
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
           const bannerId = 'ofBar';
           const existingBanner = document.getElementById(bannerId);
           if (existingBanner) {
             existingBanner.remove();
           }
-          
+
           // Continuous monitoring for banner injection
-          const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-              mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1) { // Element node
-                  if (node.id === bannerId || 
-                      (node.querySelector && node.querySelector('#' + bannerId))) {
+          const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+              mutation.addedNodes.forEach(function (node) {
+                if (node.nodeType === 1) {
+                  // Element node
+                  if (
+                    node.id === bannerId ||
+                    (node.querySelector && node.querySelector('#' + bannerId))
+                  ) {
                     node.remove();
                   }
                 }
               });
             });
           });
-          
+
           observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
           });
         });
       })();
     </script>
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-N5JTEPNWR7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
 
       gtag('config', 'G-N5JTEPNWR7');
@@ -82,25 +106,31 @@
     <!-- Upswitch favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <!-- Meta tags for better rendering -->
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="color-scheme" content="light">
-    
+    <meta name="theme-color" content="#14B8A6" />
+    <meta name="color-scheme" content="light" />
+
     <title>Upswitch - European SME M&A Platform</title>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PX78ST5C"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-      <!-- End Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PX78ST5C"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-</html> 
+</html>

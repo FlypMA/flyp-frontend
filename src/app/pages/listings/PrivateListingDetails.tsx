@@ -305,7 +305,7 @@ This opportunity is ideal for an experienced restaurateur or investor looking to
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto p-6 text-center pt-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading private listing details...</p>
         </div>
       </div>
@@ -637,11 +637,11 @@ This opportunity is ideal for an experienced restaurateur or investor looking to
             </Card>
 
             {/* Detailed Financial Performance */}
-            <Card className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 border border-blue-200 rounded-3xl shadow-lg">
+            <Card className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 border border-primary-200 rounded-3xl shadow-lg">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between w-full">
                   <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                    <BarChart3 className="w-6 h-6 text-blue-600" />
+                    <BarChart3 className="w-6 h-6 text-primary-600" />
                     Detailed Financial Performance
                   </h2>
                   <div className="inline-flex items-center gap-1.5 bg-green-100 px-3 py-1.5 rounded-full text-green-700 text-sm font-medium">
@@ -788,7 +788,7 @@ This opportunity is ideal for an experienced restaurateur or investor looking to
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200"
                     >
                       <div className="flex items-center gap-3">
-                        <FileSpreadsheet className="w-5 h-5 text-blue-600" />
+                        <FileSpreadsheet className="w-5 h-5 text-primary-600" />
                         <div>
                           <p className="font-medium text-gray-900">{doc.name}</p>
                           <p className="text-sm text-gray-600">

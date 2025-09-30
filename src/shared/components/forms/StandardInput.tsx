@@ -159,7 +159,7 @@ const StandardInput: React.FC<StandardInputProps> = ({
           className={`
             w-full h-14 px-4 pt-6 pb-2 text-base text-black bg-white 
             border border-gray-300 rounded-xl transition-all duration-200 
-            focus:outline-none focus:border-gray-900 focus:ring-0
+            focus:outline-none focus:border-primary-600 focus:ring-2 focus:ring-primary-500/20
             hover:border-gray-500
             placeholder:text-transparent
             ${hasError ? 'border-red-400 focus:border-red-500' : ''}

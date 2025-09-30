@@ -328,7 +328,7 @@ const DueDiligenceReports: React.FC<DueDiligenceReportsProps> = ({ processId, us
               <CardHeader>
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-blue-600" />
+                    <FileText className="w-5 h-5 text-primary-600" />
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900">{report.title}</h4>
                       <p className="text-sm text-gray-600">
@@ -496,10 +496,10 @@ const DueDiligenceReports: React.FC<DueDiligenceReportsProps> = ({ processId, us
                         {report.recommendations.slice(0, 2).map(rec => (
                           <div
                             key={rec.id}
-                            className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg"
+                            className="flex items-start gap-3 p-3 bg-primary-50 rounded-lg"
                           >
                             <div className="flex-shrink-0 mt-1">
-                              <CheckCircle className="w-4 h-4 text-blue-600" />
+                              <CheckCircle className="w-4 h-4 text-primary-600" />
                             </div>
                             <div className="flex-1">
                               <h6 className="font-medium text-gray-900">{rec.title}</h6>

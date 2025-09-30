@@ -140,7 +140,7 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
       case 'completed':
         return <CheckCircle className="w-5 h-5 text-green-600" />;
       case 'upcoming':
-        return <Clock className="w-5 h-5 text-blue-600" />;
+        return <Clock className="w-5 h-5 text-primary-600" />;
       case 'overdue':
         return <XCircle className="w-5 h-5 text-red-600" />;
       case 'cancelled':
@@ -185,7 +185,7 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'milestone':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'deadline':
         return 'text-orange-600 bg-orange-100';
       case 'deliverable':
@@ -279,7 +279,7 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
                 <div className="text-gray-600">Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600 mb-1">{upcomingDates}</div>
+                <div className="text-2xl font-bold text-primary-600 mb-1">{upcomingDates}</div>
                 <div className="text-gray-600">Upcoming</div>
               </div>
               <div className="text-center">
@@ -319,7 +319,7 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
                           ? 'bg-green-100'
                           : isOverdueDate
                             ? 'bg-red-100'
-                            : 'bg-blue-100'
+                            : 'bg-primary-100'
                       }`}
                     >
                       {getStatusIcon(date.status)}
@@ -419,11 +419,11 @@ const TransactionTimeline: React.FC<TransactionTimelineProps> = ({
                 .map(date => (
                   <div
                     key={date.id}
-                    className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg"
+                    className="flex items-center justify-between p-3 bg-primary-50 border border-primary-200 rounded-lg"
                   >
                     <div>
-                      <h5 className="font-medium text-blue-900">{date.name}</h5>
-                      <p className="text-sm text-blue-800">
+                      <h5 className="font-medium text-gray-900">{date.name}</h5>
+                      <p className="text-sm text-primary-800">
                         Due: {new Date(date.date).toLocaleDateString()}
                       </p>
                     </div>

@@ -67,7 +67,7 @@ const BuyerNavigationDesktop: React.FC<BuyerNavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="text-xl font-bold text-gray-900 ml-2">Upswitch</span>
+            <span className="font-display text-xl font-light text-gray-900 ml-2">Upswitch</span>
           </Link>
         </div>
 

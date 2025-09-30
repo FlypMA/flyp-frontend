@@ -240,10 +240,10 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
 
         <Card>
           <CardBody className="text-center">
-            <div className="p-3 bg-blue-100 rounded-lg w-fit mx-auto mb-3">
-              <Calendar className="w-6 h-6 text-blue-600" />
+            <div className="p-3 bg-primary-100 rounded-lg w-fit mx-auto mb-3">
+              <Calendar className="w-6 h-6 text-primary-600" />
             </div>
-            <h3 className="text-2xl font-bold text-blue-600">
+            <h3 className="text-2xl font-bold text-primary-600">
               {formatCurrency(revenueMetrics.monthlyRevenue)}
             </h3>
             <p className="text-sm text-gray-600">This Month</p>
@@ -280,7 +280,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
         <button
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'overview'
-              ? 'bg-white text-blue-600 shadow-sm'
+              ? 'bg-white text-primary-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
           onClick={() => setActiveTab('overview')}
@@ -290,7 +290,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
         <button
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'fees'
-              ? 'bg-white text-blue-600 shadow-sm'
+              ? 'bg-white text-primary-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
           onClick={() => setActiveTab('fees')}
@@ -300,7 +300,7 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
         <button
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'payments'
-              ? 'bg-white text-blue-600 shadow-sm'
+              ? 'bg-white text-primary-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
           onClick={() => setActiveTab('payments')}
@@ -433,8 +433,8 @@ const SuccessFeeCollection: React.FC<SuccessFeeCollectionProps> = ({
               <CardBody>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 bg-blue-100 rounded-lg">
-                      <CreditCard className="w-6 h-6 text-blue-600" />
+                    <div className="p-3 bg-primary-100 rounded-lg">
+                      <CreditCard className="w-6 h-6 text-primary-600" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">{method.name}</h3>

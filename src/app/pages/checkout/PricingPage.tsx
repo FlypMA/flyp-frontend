@@ -150,7 +150,7 @@ const PricingPage: React.FC = () => {
             <button
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                billingCycle === 'yearly' ? 'bg-blue-600' : 'bg-gray-200'
+                billingCycle === 'yearly' ? 'bg-primary-600' : 'bg-gray-200'
               }`}
             >
               <span
@@ -205,7 +205,7 @@ const PricingPage: React.FC = () => {
                     <div
                       className={`inline-flex p-3 rounded-full mb-4 ${
                         plan.color === 'blue'
-                          ? 'bg-blue-100'
+                          ? 'bg-primary-100'
                           : plan.color === 'purple'
                             ? 'bg-purple-100'
                             : 'bg-yellow-100'
@@ -214,7 +214,7 @@ const PricingPage: React.FC = () => {
                       <Icon
                         className={`w-8 h-8 ${
                           plan.color === 'blue'
-                            ? 'text-blue-600'
+                            ? 'text-primary-600'
                             : plan.color === 'purple'
                               ? 'text-purple-600'
                               : 'text-yellow-600'

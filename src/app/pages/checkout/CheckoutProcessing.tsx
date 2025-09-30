@@ -63,7 +63,7 @@ const CheckoutProcessing: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Card className="max-w-md w-full">
         <CardBody className="p-8 text-center">
-          <Loader2 className="w-16 h-16 text-blue-500 mx-auto mb-4 animate-spin" />
+          <Loader2 className="w-16 h-16 text-primary-500 mx-auto mb-4 animate-spin" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Processing Your Order</h2>
           <p className="text-gray-600 mb-6">
             Please wait while we process your subscription. This may take a few moments.
@@ -119,8 +119,8 @@ const CheckoutProcessing: React.FC = () => {
             Back to Home
           </Button>
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-6 p-4 bg-primary-50 rounded-lg">
+            <p className="text-sm text-primary-800">
               Do not close this window or navigate away while processing is in progress.
             </p>
           </div>

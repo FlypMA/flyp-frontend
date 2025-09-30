@@ -247,8 +247,8 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      {offer.type === 'counter' && <ArrowRight className="w-4 h-4 text-blue-600" />}
-                      <MessageSquare className="w-5 h-5 text-blue-600" />
+                      {offer.type === 'counter' && <ArrowRight className="w-4 h-4 text-primary-600" />}
+                      <MessageSquare className="w-5 h-5 text-primary-600" />
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900">
@@ -282,8 +282,8 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
                     <div className="space-y-3">
                       {offer.negotiationHistory.map((event, index) => (
                         <div key={event.id} className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                            <MessageSquare className="w-4 h-4 text-blue-600" />
+                          <div className="flex-shrink-0 w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                            <MessageSquare className="w-4 h-4 text-primary-600" />
                           </div>
                           <div className="flex-1">
                             <p className="text-sm font-medium text-gray-900">{event.description}</p>
@@ -378,9 +378,9 @@ const OfferNegotiation: React.FC<OfferNegotiationProps> = ({ listingId, userRole
           <ModalBody>
             {selectedOffer && (
               <div className="space-y-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-900 mb-2">Current Offer</h4>
-                  <p className="text-blue-800">
+                <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Current Offer</h4>
+                  <p className="text-primary-800">
                     {selectedOffer.currency} {selectedOffer.offerPrice.toLocaleString()} •
                     {selectedOffer.paymentStructure.type.replace('_', ' ')} • Closing:{' '}
                     {new Date(selectedOffer.timeline.closingDate).toLocaleDateString()}

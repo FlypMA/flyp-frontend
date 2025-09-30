@@ -153,7 +153,7 @@ const CheckoutForm = ({
       <Card className="bg-zinc-900/80 border-zinc-700/40">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <CreditCard className="w-5 h-5 text-blue-400" />
+            <CreditCard className="w-5 h-5 text-primary-400" />
             <h3 className="text-lg font-semibold text-white">Contact Information</h3>
           </div>
         </CardHeader>
@@ -231,14 +231,14 @@ const CheckoutForm = ({
         </CardHeader>
         <CardBody>
           <div className="space-y-4">
-            <div className="bg-blue-900/20 p-4 rounded-lg border border-blue-700/30">
+            <div className="bg-primary-900/20 p-4 rounded-lg border border-primary-700/30">
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-blue-600/20 rounded-lg">
-                  <Shield className="w-4 h-4 text-blue-400" />
+                <div className="p-2 bg-primary-600/20 rounded-lg">
+                  <Shield className="w-4 h-4 text-primary-400" />
                 </div>
                 <div>
-                  <h4 className="text-blue-200 font-medium mb-1">Secure Stripe Checkout</h4>
-                  <p className="text-blue-300 text-sm leading-relaxed">
+                  <h4 className="text-primary-200 font-medium mb-1">Secure Stripe Checkout</h4>
+                  <p className="text-primary-300 text-sm leading-relaxed">
                     You&apos;ll be redirected to Stripe&apos;s secure payment page to complete your
                     purchase. Your payment information is encrypted and never stored on our servers.
                   </p>
@@ -391,8 +391,8 @@ const Checkout = () => {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="p-2 bg-blue-600/20 rounded-lg flex-shrink-0">
-                            <TrendingUp className="w-4 h-4 text-blue-400" />
+                          <div className="p-2 bg-primary-600/20 rounded-lg flex-shrink-0">
+                            <TrendingUp className="w-4 h-4 text-primary-400" />
                           </div>
                           <div className="min-w-0">
                             <h3 className="font-semibold text-white truncate">

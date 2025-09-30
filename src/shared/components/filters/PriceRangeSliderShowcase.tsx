@@ -51,9 +51,9 @@ const PriceRangeSliderShowcase: React.FC = () => {
           currency="€"
           showValueLabels={true}
         />
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h3 className="font-medium text-blue-800 mb-2">Filter Results</h3>
-          <p className="text-blue-700 text-sm">
+        <div className="bg-primary-50 p-4 rounded-lg border border-primary-200">
+          <h3 className="font-medium text-primary-800 mb-2">Filter Results</h3>
+          <p className="text-primary-700 text-sm">
             Showing businesses priced between{' '}
             <span className="font-semibold">
               €

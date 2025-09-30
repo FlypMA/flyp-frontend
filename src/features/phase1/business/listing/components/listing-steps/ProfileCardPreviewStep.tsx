@@ -107,12 +107,12 @@ const ProfileCardPreviewStep: React.FC<ProfileCardPreviewStepProps> = ({
         )}
 
         {/* What's Next */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-8 p-4 bg-primary-50 border border-primary-200 rounded-lg">
           <div className="flex items-start space-x-3">
             <div className="text-2xl">ℹ️</div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-blue-900 mb-1">What's Next?</h3>
-              <p className="text-sm text-blue-700">
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">What's Next?</h3>
+              <p className="text-sm text-primary-700">
                 Next, we'll review your valuation data (if available), then you'll tell the story
                 of your business and why you're selling.
               </p>

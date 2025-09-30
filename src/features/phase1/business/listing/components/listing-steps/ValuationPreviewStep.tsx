@@ -140,11 +140,11 @@ const ValuationPreviewStep: React.FC<ValuationPreviewStepProps> = ({
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="grid grid-cols-2 gap-6">
                   {valuationReport.revenueMultiple && (
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-900">
+                    <div className="text-center p-4 bg-primary-50 rounded-lg">
+                      <div className="text-2xl font-bold text-gray-900">
                         {valuationReport.revenueMultiple}x
                       </div>
-                      <div className="text-sm text-blue-700 mt-1">Revenue Multiple</div>
+                      <div className="text-sm text-primary-700 mt-1">Revenue Multiple</div>
                     </div>
                   )}
                   {valuationReport.ebitdaMultiple && (
@@ -170,7 +170,7 @@ const ValuationPreviewStep: React.FC<ValuationPreviewStepProps> = ({
                 You haven't created a valuation yet. You can continue with the listing and add
                 financial details manually in the next steps.
               </p>
-              <div className="inline-flex items-center space-x-2 text-sm text-blue-600">
+              <div className="inline-flex items-center space-x-2 text-sm text-primary-600">
                 <span>💡</span>
                 <span>We recommend getting a free valuation to attract serious buyers</span>
               </div>
@@ -179,12 +179,12 @@ const ValuationPreviewStep: React.FC<ValuationPreviewStepProps> = ({
         )}
 
         {/* What's Next */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-8 p-4 bg-primary-50 border border-primary-200 rounded-lg">
           <div className="flex items-start space-x-3">
             <div className="text-2xl">ℹ️</div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-blue-900 mb-1">What's Next?</h3>
-              <p className="text-sm text-blue-700">
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">What's Next?</h3>
+              <p className="text-sm text-primary-700">
                 Now you'll add the unique story behind your business, sale details, photos, and
                 privacy settings. Only 5 steps to complete!
               </p>

@@ -227,13 +227,13 @@ const DueDiligenceMessages: React.FC<DueDiligenceMessagesProps> = ({ processId, 
                 <div
                   key={message.id}
                   className={`p-4 border rounded-lg ${
-                    !message.isRead ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'
+                    !message.isRead ? 'bg-primary-50 border-primary-200' : 'bg-gray-50 border-gray-200'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4 text-blue-600" />
+                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-primary-600" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">

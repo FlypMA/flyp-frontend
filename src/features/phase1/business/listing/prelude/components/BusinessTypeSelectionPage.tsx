@@ -107,7 +107,7 @@ const BusinessTypeSelectionPage: React.FC<BusinessTypeSelectionPageProps> = ({
                   relative p-4 rounded-2xl border-2 transition-all duration-200 text-left
                   ${
                     selectedBusinessType === option.id
-                      ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-100'
+                      ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-100'
                       : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                   }
                 `}
@@ -124,7 +124,7 @@ const BusinessTypeSelectionPage: React.FC<BusinessTypeSelectionPageProps> = ({
                 {/* Selection Indicator */}
                 {selectedBusinessType === option.id && (
                   <div className="absolute top-4 right-4">
-                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
                       <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path
                           fillRule="evenodd"
@@ -145,9 +145,9 @@ const BusinessTypeSelectionPage: React.FC<BusinessTypeSelectionPageProps> = ({
           <div className="bg-gray-50 rounded-xl p-6">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-4 h-4 text-blue-600"
+                    className="w-4 h-4 text-primary-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -178,7 +178,7 @@ const BusinessTypeSelectionPage: React.FC<BusinessTypeSelectionPageProps> = ({
           <div className="text-center mt-8">
             <button
               onClick={() => onBusinessTypeSelect(selectedBusinessType)}
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Continue
             </button>

@@ -95,7 +95,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
         <h3 className="text-lg font-semibold">NDA Requirements</h3>
         <div className="space-y-3">
           <div className="flex items-center gap-3 p-3 border rounded-lg">
-            <Shield className="w-5 h-5 text-blue-600" />
+            <Shield className="w-5 h-5 text-primary-600" />
             <div>
               <p className="font-medium">Confidentiality Protection</p>
               <p className="text-sm text-gray-600">
@@ -195,9 +195,9 @@ const NDAModal: React.FC<NDAModalProps> = ({
         onBlur={() => {}}
       />
 
-      <Card className="border-blue-200 bg-blue-50">
+      <Card className="border-primary-200 bg-primary-50">
         <CardBody>
-          <p className="text-sm text-blue-700">
+          <p className="text-sm text-primary-700">
             <strong>Note:</strong> This information will be shared with the seller to verify your
             identity and investment capacity. All information is handled in accordance with GDPR.
           </p>
@@ -363,12 +363,12 @@ const NDAModal: React.FC<NDAModalProps> = ({
       />
 
       <div className="space-y-4">
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-800 font-medium mb-2">
+        <div className="bg-primary-50 p-4 rounded-lg border border-primary-200">
+          <p className="text-sm text-primary-800 font-medium mb-2">
             By typing your name below, you confirm this serves as your digital signature and that
             you agree to all terms and conditions of this Non-Disclosure Agreement.
           </p>
-          <p className="text-xs text-blue-600">
+          <p className="text-xs text-primary-600">
             This includes all articles, clauses, penalties, and legal obligations outlined above.
           </p>
         </div>
@@ -406,7 +406,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
           <>
             <ModalHeader className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-600" />
+                <Shield className="w-5 h-5 text-primary-600" />
                 <span>Non-Disclosure Agreement</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -416,7 +416,7 @@ const NDAModal: React.FC<NDAModalProps> = ({
                     <div
                       key={step}
                       className={`w-2 h-2 rounded-full ${
-                        step <= currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                        step <= currentStep ? 'bg-primary-600' : 'bg-gray-300'
                       }`}
                     />
                   ))}

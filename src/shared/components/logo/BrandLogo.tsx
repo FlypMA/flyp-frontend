@@ -37,9 +37,9 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
   };
 
   const colorClasses = {
-    default: 'bg-blue-600 text-white',
-    white: 'bg-white text-blue-600',
-    footer: 'bg-blue-600 text-white',
+    default: 'bg-primary-600 text-white',
+    white: 'bg-white text-primary-600',
+    footer: 'bg-primary-600 text-white',
   };
 
   const textColorClasses = {

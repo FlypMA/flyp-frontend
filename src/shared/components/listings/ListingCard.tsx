@@ -147,7 +147,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
-                      <h3 className="font-bold text-xl text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                      <h3 className="font-bold text-xl text-slate-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
                         {listing.anonymous ? 'Anonymous Business Listing' : listing.title}
                       </h3>
                       {listing.organization?.verified && (
@@ -365,7 +365,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             {/* Featured badge */}
             {listing.featured && (
               <div className="absolute top-4 left-4">
-                <div className="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                <div className="bg-primary-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                   FEATURED
                 </div>
               </div>
@@ -387,7 +387,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   )}
                 </div>
 
-                <h3 className="font-bold text-slate-900 text-xl line-clamp-2 group-hover:text-blue-600 transition-colors mb-3 leading-tight">
+                <h3 className="font-bold text-slate-900 text-xl line-clamp-2 group-hover:text-primary-600 transition-colors mb-3 leading-tight">
                   {listing.anonymous ? 'Confidential Business' : listing.title}
                 </h3>
 

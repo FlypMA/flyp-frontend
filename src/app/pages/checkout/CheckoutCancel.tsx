@@ -57,8 +57,8 @@ const CheckoutCancel: React.FC = () => {
             </Button>
           </div>
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-6 p-4 bg-primary-50 rounded-lg">
+            <p className="text-sm text-primary-800">
               Need help? Contact our support team for assistance with your subscription.
             </p>
           </div>

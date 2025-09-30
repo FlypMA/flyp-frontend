@@ -42,7 +42,7 @@ const DocumentVault = () => {
     legal: {
       name: 'Legal',
       description: 'Contracts, licenses, incorporation docs, leases',
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-primary-100 text-primary-800',
       icon: '⚖️',
     },
     operations: {

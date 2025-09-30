@@ -213,7 +213,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
         <CardHeader>
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
-              <Shield className="w-6 h-6 text-blue-600" />
+              <Shield className="w-6 h-6 text-primary-600" />
               <div>
                 <h2 className="text-2xl font-bold">Due Diligence Platform</h2>
                 <p className="text-gray-600">Secure document sharing and collaboration</p>
@@ -284,7 +284,7 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                         className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
                       >
                         <div className="flex items-center gap-3">
-                          <FileText className="w-5 h-5 text-blue-600" />
+                          <FileText className="w-5 h-5 text-primary-600" />
                           <div>
                             <h4 className="font-medium">{doc.name}</h4>
                             <p className="text-sm text-gray-600">
@@ -377,8 +377,8 @@ const DueDiligencePlatform: React.FC<DueDiligencePlatformProps> = ({
                         key={message.id}
                         className="flex items-start gap-3 p-3 border rounded-lg"
                       >
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <MessageSquare className="w-4 h-4 text-blue-600" />
+                        <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                          <MessageSquare className="w-4 h-4 text-primary-600" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">

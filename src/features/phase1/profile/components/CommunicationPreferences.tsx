@@ -165,7 +165,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
         ) : (
           <div className="flex flex-wrap gap-2">
             {localPreferences.languagePreferences.map(lang => (
-              <span key={lang} className="px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded">
+              <span key={lang} className="px-2 py-1 bg-primary-100 text-primary-800 text-sm rounded">
                 {lang.toUpperCase()}
               </span>
             ))}
@@ -506,7 +506,7 @@ export const CommunicationPreferences: React.FC<CommunicationPreferencesProps> =
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center space-x-3">
-            <MessageCircle className="w-5 h-5 text-blue-600" />
+            <MessageCircle className="w-5 h-5 text-primary-600" />
             <div>
               <h3 className="text-lg font-semibold text-gray-900">Communication Preferences</h3>
               <p className="text-gray-600 text-sm">

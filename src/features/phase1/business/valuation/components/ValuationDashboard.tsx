@@ -263,7 +263,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
                   <Card className="border border-gray-200">
                     <CardHeader>
                       <div className="flex items-center space-x-2">
-                        <BarChart3 className="w-5 h-5 text-blue-600" />
+                        <BarChart3 className="w-5 h-5 text-primary-600" />
                         <h3 className="font-semibold text-gray-900">Valuation Trend</h3>
                       </div>
                     </CardHeader>

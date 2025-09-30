@@ -48,7 +48,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
           placeholder="Describe what sets your business apart from competitors..."
           rows={4}
           maxLength={500}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
         />
         <div className="flex justify-between mt-1">
           <p className="text-sm text-gray-500">
@@ -71,7 +71,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
           placeholder="Describe your ideal customer base and demographics..."
           rows={3}
           maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
         />
         <div className="flex justify-between mt-1">
           <p className="text-sm text-gray-500">
@@ -94,7 +94,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
           placeholder="What untapped potential does this business have?"
           rows={3}
           maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
         />
         <div className="flex justify-between mt-1">
           <p className="text-sm text-gray-500">
@@ -117,7 +117,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
           placeholder="List valuable assets like equipment, intellectual property, customer lists..."
           rows={3}
           maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
         />
         <div className="flex justify-between mt-1">
           <p className="text-sm text-gray-500">
@@ -140,7 +140,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
           placeholder="What gives you an edge over competitors?"
           rows={3}
           maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
         />
         <div className="flex justify-between mt-1">
           <p className="text-sm text-gray-500">
@@ -153,12 +153,12 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
       </div>
 
       {/* Help Section */}
-      <div className="bg-blue-50 rounded-xl p-6 mt-8">
+      <div className="bg-primary-50 rounded-xl p-6 mt-8">
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">
-            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
               <svg
-                className="w-4 h-4 text-blue-600"
+                className="w-4 h-4 text-primary-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

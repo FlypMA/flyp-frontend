@@ -178,7 +178,7 @@ const UserSettings: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading settings...</p>
         </div>
       </div>
@@ -648,7 +648,7 @@ const UserSettings: React.FC = () => {
                         onClick={() => setActiveTab(tab.id)}
                         className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                           activeTab === tab.id
-                            ? 'bg-blue-100 text-blue-700'
+                            ? 'bg-primary-100 text-primary-700'
                             : 'text-gray-600 hover:bg-gray-100'
                         }`}
                       >

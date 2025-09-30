@@ -139,7 +139,7 @@ const Home = () => {
                     icon: Laptop,
                     label: 'Technology',
                     count: '320+',
-                    color: 'bg-blue-100 text-blue-600',
+                    color: 'bg-primary-100 text-primary-600',
                   },
                   {
                     icon: Factory,

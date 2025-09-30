@@ -113,9 +113,9 @@ const PrivacySettingsStep: React.FC<any> = ({ data, onDataChange }) => {
         />
 
         {/* Privacy Information */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-900 mb-2">Privacy Protection</h3>
-          <p className="text-sm text-blue-700">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+          <h3 className="font-semibold text-gray-900 mb-2">Privacy Protection</h3>
+          <p className="text-sm text-primary-700">
             Your privacy is our priority. These settings help protect your business information
             while still attracting qualified buyers. You can always change these settings after your
             listing is published.

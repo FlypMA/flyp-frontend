@@ -51,8 +51,8 @@ const DueDiligenceChecklist = () => {
       id: 'legal',
       title: 'Legal Due Diligence',
       icon: Scale,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-100',
+      color: 'text-primary-600',
+      bgColor: 'bg-primary-100',
       items: [
         'Corporate structure and ownership documents',
         'Material contracts and agreements',

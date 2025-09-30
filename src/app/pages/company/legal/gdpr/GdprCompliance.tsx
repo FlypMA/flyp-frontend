@@ -63,7 +63,7 @@ const GdprCompliance = () => {
                     <Card className="border border-neutral-200">
                       <CardHeader>
                         <div className="flex items-center gap-3">
-                          <Eye className="w-6 h-6 text-blue-600" />
+                          <Eye className="w-6 h-6 text-primary-600" />
                           <h3 className="text-xl font-semibold text-neutral-900">
                             Right to be Informed
                           </h3>

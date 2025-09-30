@@ -232,11 +232,11 @@ const SellersLandingPage = () => {
                 One flat fee, no commission, no hidden costs
               </p>
 
-              <Card className="max-w-md mx-auto rounded-2xl border-2 border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg">
+              <Card className="max-w-md mx-auto rounded-2xl border-2 border-primary-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg">
                 <CardBody className="p-8 text-center">
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">Business Listing</h3>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-blue-600">€299</span>
+                    <span className="text-5xl font-bold text-primary-600">€299</span>
                     <span className="text-slate-600 ml-2">one-time</span>
                   </div>
 
@@ -288,8 +288,8 @@ const SellersLandingPage = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-2xl font-bold text-blue-600">1</span>
+                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-2xl font-bold text-primary-600">1</span>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-4">Orient</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -298,8 +298,8 @@ const SellersLandingPage = () => {
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-2xl font-bold text-blue-600">2</span>
+                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-2xl font-bold text-primary-600">2</span>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-4">Find</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -308,8 +308,8 @@ const SellersLandingPage = () => {
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-2xl font-bold text-blue-600">3</span>
+                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-2xl font-bold text-primary-600">3</span>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-4">Connect</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -318,8 +318,8 @@ const SellersLandingPage = () => {
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-2xl font-bold text-blue-600">4</span>
+                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-2xl font-bold text-primary-600">4</span>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-4">Validate</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -328,8 +328,8 @@ const SellersLandingPage = () => {
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-2xl font-bold text-blue-600">5</span>
+                  <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-2xl font-bold text-primary-600">5</span>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-4">Close</h3>
                   <p className="text-slate-600 leading-relaxed">

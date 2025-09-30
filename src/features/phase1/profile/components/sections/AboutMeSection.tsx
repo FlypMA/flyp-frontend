@@ -105,7 +105,7 @@ export const AboutMeSection: React.FC = () => {
                 <Camera className="w-5 h-5 text-white" />
               </div>
             </div>
-            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center">
               <CheckCircle className="w-3 h-3 text-white" />
             </div>
           </div>

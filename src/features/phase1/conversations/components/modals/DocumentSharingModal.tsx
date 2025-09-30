@@ -64,7 +64,7 @@ const accessLevels = [
     label: 'Due Diligence Only',
     description: 'Only accessible during due diligence',
     icon: FileText,
-    color: 'text-blue-600',
+    color: 'text-primary-600',
   },
 ];
 

@@ -404,7 +404,7 @@ const ListingSearch = () => {
                   <select
                     value={filters.sector || ''}
                     onChange={e => handleFilterChange('sector', e.target.value)}
-                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
+                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
                   >
                     <option value="" className="text-slate-500">
                       Select sector
@@ -459,7 +459,7 @@ const ListingSearch = () => {
                   <select
                     value={filters.country || ''}
                     onChange={e => handleFilterChange('country', e.target.value)}
-                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
+                    className="clean-select w-full h-12 px-4 pr-10 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-slate-900 font-medium appearance-none cursor-pointer"
                   >
                     <option value="" className="text-slate-500">
                       Select region
@@ -515,11 +515,11 @@ const ListingSearch = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                 <div className="flex flex-wrap gap-2">
                   {filters.sector && (
-                    <div className="flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-sm font-medium">
+                    <div className="flex items-center gap-2 bg-primary-100 text-primary-800 px-3 py-1.5 rounded-full text-sm font-medium">
                       <span>{filters.sector}</span>
                       <button
                         onClick={() => handleFilterChange('sector', '')}
-                        className="hover:bg-blue-200 rounded-full p-0.5 transition-colors"
+                        className="hover:bg-primary-200 rounded-full p-0.5 transition-colors"
                       >
                         <svg
                           className="w-3 h-3"

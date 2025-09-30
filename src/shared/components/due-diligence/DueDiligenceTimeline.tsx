@@ -169,7 +169,7 @@ const DueDiligenceTimeline: React.FC<DueDiligenceTimelineProps> = ({ processId, 
   const getActivityColor = (type: string) => {
     switch (type) {
       case 'document_uploaded':
-        return 'text-blue-600 bg-blue-100';
+        return 'text-primary-600 bg-primary-100';
       case 'item_completed':
         return 'text-green-600 bg-green-100';
       case 'message_sent':
@@ -246,7 +246,7 @@ const DueDiligenceTimeline: React.FC<DueDiligenceTimelineProps> = ({ processId, 
         <CardHeader>
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
-              <Calendar className="w-6 h-6 text-blue-600" />
+              <Calendar className="w-6 h-6 text-primary-600" />
               <div>
                 <h3 className="text-lg font-semibold">Process Timeline</h3>
                 <p className="text-sm text-gray-600">
@@ -402,7 +402,7 @@ const DueDiligenceTimeline: React.FC<DueDiligenceTimelineProps> = ({ processId, 
                     milestone.status === 'completed'
                       ? 'bg-green-100 text-green-600'
                       : milestone.status === 'in_progress'
-                        ? 'bg-blue-100 text-blue-600'
+                        ? 'bg-primary-100 text-primary-600'
                         : 'bg-gray-100 text-gray-400'
                   }`}
                 >

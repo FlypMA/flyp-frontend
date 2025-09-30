@@ -29,8 +29,8 @@ const SuccessStep: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Target className="w-6 h-6 text-blue-600" />
+          <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Target className="w-6 h-6 text-primary-600" />
           </div>
           <h3 className="font-semibold text-gray-900 mb-2">Finding Buyers</h3>
           <p className="text-sm text-gray-600">
@@ -59,9 +59,9 @@ const SuccessStep: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
-        <h4 className="font-semibold text-blue-900 mb-2">What happens next?</h4>
-        <ul className="text-sm text-blue-700 space-y-1 text-left">
+      <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 max-w-2xl mx-auto">
+        <h4 className="font-semibold text-gray-900 mb-2">What happens next?</h4>
+        <ul className="text-sm text-primary-700 space-y-1 text-left">
           <li>• We'll review your listing and may reach out for additional information</li>
           <li>• Qualified buyers will be able to view your business details</li>
           <li>• You'll receive notifications when buyers express interest</li>

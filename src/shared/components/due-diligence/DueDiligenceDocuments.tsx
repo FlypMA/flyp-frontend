@@ -341,8 +341,8 @@ const DueDiligenceDocuments: React.FC<DueDiligenceDocumentsProps> = ({ processId
                   className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <FileText className="w-5 h-5 text-blue-600" />
+                    <div className="p-2 bg-primary-100 rounded-lg">
+                      <FileText className="w-5 h-5 text-primary-600" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">

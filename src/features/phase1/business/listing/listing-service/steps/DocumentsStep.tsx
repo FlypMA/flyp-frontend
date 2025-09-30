@@ -136,9 +136,9 @@ const DocumentsStep: React.FC<any> = ({ data, onDataChange }) => {
         })}
 
         {/* Document Tips */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-900 mb-2">Document Tips</h3>
-          <ul className="text-sm text-blue-700 space-y-1">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+          <h3 className="font-semibold text-gray-900 mb-2">Document Tips</h3>
+          <ul className="text-sm text-primary-700 space-y-1">
             <li>
               • <strong>Financial documents</strong> should be recent (last 2-3 years)
             </li>

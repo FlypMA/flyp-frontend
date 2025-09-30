@@ -65,7 +65,7 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
 
   return (
     <div className={`relative ${className}`}>
-      <div className="relative custom-input-group border border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-gray-900 focus-within:ring-2 focus-within:ring-gray-900 focus-within:ring-opacity-20 transition-all duration-200">
+      <div className="relative custom-input-group border border-gray-300 bg-white rounded-xl shadow-sm hover:border-gray-400 focus-within:border-primary-600 focus-within:ring-2 focus-within:ring-primary-500/20 transition-all duration-200">
         {leftIcon && (
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
             {leftIcon}

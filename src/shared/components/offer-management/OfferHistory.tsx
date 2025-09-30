@@ -440,8 +440,8 @@ const OfferHistory: React.FC<OfferHistoryProps> = ({ listingId, userRole, userId
                             key={event.id}
                             className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg"
                           >
-                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                              <Calendar className="w-3 h-3 text-blue-600" />
+                            <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
+                              <Calendar className="w-3 h-3 text-primary-600" />
                             </div>
                             <div className="flex-1">
                               <p className="text-sm text-gray-900">{event.description}</p>
