@@ -23,7 +23,6 @@ import { Avatar, Card, CardBody } from '@heroui/react';
 import {
   ArrowRight,
   CheckCircle,
-  Clock,
   Euro,
   HandshakeIcon,
   Heart,
@@ -31,7 +30,6 @@ import {
   Quote,
   Shield,
   Sparkles,
-  Star,
   TrendingUp,
   Users,
 } from 'lucide-react';
@@ -201,36 +199,6 @@ const HomeVariationC = () => {
                     )}
                   </div>
                 </div>
-              </div>
-
-              {/* Social proof */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-                {[
-                  {
-                    icon: Star,
-                    value: '4.9/5',
-                    label: 'Average rating from sellers',
-                  },
-                  {
-                    icon: HandshakeIcon,
-                    value: '2,400+',
-                    label: 'Successful transactions',
-                  },
-                  {
-                    icon: Clock,
-                    value: '18 months',
-                    label: 'Average time to optimize',
-                  },
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className="p-6 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-center"
-                  >
-                    <stat.icon className="w-8 h-8 text-success-400 mx-auto mb-3" />
-                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-white/70">{stat.label}</div>
-                  </div>
-                ))}
               </div>
             </div>
           </Container>

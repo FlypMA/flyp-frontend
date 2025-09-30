@@ -320,10 +320,12 @@ const ListingManagement: React.FC = () => {
                     ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
                     : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
               }
-              buttonText={!hasBusinessCard || !hasProfileCard ? undefined : 'Create Listing'}
+              buttonText={
+                !hasBusinessCard || !hasProfileCard ? 'Complete Profile First' : 'Create Listing'
+              }
               onButtonClick={
                 !hasBusinessCard || !hasProfileCard
-                  ? undefined
+                  ? () => navigate('/my-business')
                   : () => {
                       console.log('🚀 Navigating to listing creation with data:', {
                         businessCard: businessCardData,

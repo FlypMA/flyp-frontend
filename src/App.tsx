@@ -74,9 +74,9 @@ const ErrorFallback = ({
   </div>
 );
 
-// 🏠 Router Wrapper Component - Includes ScrollToTop functionality
+// 🏠 Router Wrapper Component
 // Location: src/App.tsx
-// Purpose: Wraps RouterProvider with ScrollToTop component
+// Purpose: Wraps RouterProvider with loading fallback
 
 const RouterWrapper: React.FC = () => {
   return (
@@ -105,7 +105,7 @@ const App: React.FC = () => {
       onError={(_error, _errorInfo) => {
         // Log error for debugging in development
         if (import.meta.env.MODE === 'development') {
-          logger.error("Error occurred", _error);
+          logger.error('Error occurred', _error);
         }
 
         // In production, you might want to send this to an error reporting service

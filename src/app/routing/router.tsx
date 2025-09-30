@@ -38,6 +38,14 @@ import ListingPreludePage from '../pages/listings/ListingPreludePage';
 import ListingSearch from '../pages/listings/ListingSearch';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
+// Page imports - Search Variations
+import {
+  SearchVariationA,
+  SearchVariationB,
+  SearchVariationC,
+  SearchVariationD,
+} from '../pages/listings/variations';
+
 // Page imports - Business Dashboard
 import BusinessCardCreationPage from '../pages/business/card/BusinessCardCreationPage';
 import DocumentVault from '../pages/business/data-room/DocumentVault';
@@ -166,9 +174,15 @@ export const router = createBrowserRouter([
       { path: 'faq', element: <FAQ /> },
 
       // Search & Listings
-      { path: 'search', element: <ListingSearch /> },
-      { path: 'browse', element: <ListingSearch /> },
+      { path: 'search', element: <SearchVariationC /> },
+      { path: 'browse', element: <SearchVariationC /> },
       { path: 'listings', element: <ListingSearch /> },
+
+      // Search Page Variations (for design exploration & A/B testing)
+      { path: 'search/variation-a', element: <SearchVariationA /> },
+      { path: 'search/variation-b', element: <SearchVariationB /> },
+      { path: 'search/variation-c', element: <SearchVariationC /> },
+      { path: 'search/variation-d', element: <SearchVariationD /> },
       { path: 'listings/:id', element: <ListingDetails /> },
       {
         path: 'listings/:id/private',

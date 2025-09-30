@@ -88,26 +88,26 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/resources/valuation-guide"
+                  to="/how-it-works"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  Valuation Guide
+                  How It Works
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/resources/due-diligence"
+                  to="/blog"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  Due Diligence Checklist
+                  Blog
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/faq"
+                  to="/case-studies"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  FAQ
+                  Success Stories
                 </Link>
               </li>
             </ul>

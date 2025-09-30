@@ -147,40 +147,34 @@ const ValuationVariationD = () => {
           posterImage="/images/business-hero-poster.jpg"
           fallbackGradient="from-neutral-900 via-primary-900 to-success-900"
           overlay="gradient"
-          className="min-h-[85vh] flex items-center"
+          className="min-h-[85vh] flex items-center justify-center"
           disableVideoOnMobile={true}
         >
-          <Container>
-            <div className="max-w-5xl mx-auto text-center py-32 md:py-48">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
-                <Sparkles className="w-5 h-5 text-success-400" />
-                <span className="text-white font-medium">
-                  Free Valuation • No Obligations • Instant Results
-                </span>
-              </div>
+          <div className="w-full max-w-5xl mx-auto text-center py-32 md:py-48 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
+              <Sparkles className="w-5 h-5 text-success-400" />
+              <span className="text-white font-medium">
+                Free Valuation • No Obligations • Instant Results
+              </span>
+            </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                Discover What Your
-                <br />
-                <span className="bg-gradient-to-r from-success-300 via-primary-300 to-calm-300 bg-clip-text text-transparent">
-                  Business is Really Worth
-                </span>
-              </h1>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+              Discover What Your Business is Really Worth
+            </h1>
 
-              <p className="text-2xl md:text-3xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-                See the dramatic difference between a strategic sale and liquidation. Your business
-                is worth more than you think.
-              </p>
+            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+              See the dramatic difference between a strategic sale and liquidation. Your business is
+              worth more than you think.
+            </p>
 
-              {/* Scroll indicator */}
-              <div className="animate-bounce mt-8">
-                <div className="mx-auto w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-                  <div className="w-1 h-3 bg-white/50 rounded-full"></div>
-                </div>
+            {/* Scroll indicator */}
+            <div className="animate-bounce mt-8">
+              <div className="mx-auto w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+                <div className="w-1 h-3 bg-white/50 rounded-full"></div>
               </div>
             </div>
-          </Container>
+          </div>
         </VideoBackground>
 
         {/* Calculator Section */}
@@ -685,9 +679,9 @@ const ValuationVariationD = () => {
                   </CardBody>
                 </Card>
 
-                <Card className="rounded-3xl border-2 border-calm-200 hover:border-calm-400 hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-calm-50">
+                <Card className="rounded-3xl border-2 border-primary-200 hover:border-primary-400 hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-primary-50">
                   <CardBody className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-calm-500 to-calm-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                       <Building2 className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-neutral-900 mb-3">Prepare for Sale</h3>
@@ -716,26 +710,24 @@ const ValuationVariationD = () => {
                 <span className="text-white font-medium">Join 12,000+ Business Owners</span>
               </div>
 
-              <h2 className="text-5xl md:text-7xl font-bold mb-8">
-                Get Your Free
-                <br />
-                <span className="bg-gradient-to-r from-success-300 to-primary-300 bg-clip-text text-transparent">
-                  Valuation Now
-                </span>
+              <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white">
+                Start Tracking Your Value Today
               </h2>
-              <p className="text-2xl text-white/90 mb-12">
+              <p className="text-xl text-white/90 mb-12">
                 Discover what your business is really worth. Free, instant, no obligations.
               </p>
 
-              <Button
-                variant="primary"
-                size="xl"
-                onPress={handleGetStarted}
-                endContent={<ArrowRight className="w-5 h-5" />}
-                className="px-12 bg-white text-primary-900 hover:bg-neutral-100"
+              <button
+                onClick={handleGetStarted}
+                className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-white text-primary-900 font-semibold hover:bg-neutral-100 focus:ring-primary-500/30 shadow-xl active:scale-[0.98] px-12 h-16 text-lg rounded-lg"
               >
-                Get Your Free Valuation
-              </Button>
+                <span className="flex items-center justify-center opacity-100">
+                  Get Your Free Valuation
+                  <span className="ml-2">
+                    <ArrowRight className="w-5 h-5" />
+                  </span>
+                </span>
+              </button>
 
               <p className="text-sm text-white/60 mt-6">
                 Free • 2 minutes • No credit card required
