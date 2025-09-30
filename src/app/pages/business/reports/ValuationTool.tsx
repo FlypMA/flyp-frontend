@@ -60,21 +60,23 @@ const ValuationTool: React.FC = () => {
         console.log('✅ Valuation reports loaded:', reports);
 
         // Transform the reports to match the expected format
+        // Handle both new format (from ValuationModal) and old format (legacy)
         const transformedReports = reports.map((report: any) => ({
           id: report.id || Date.now().toString(),
-          date: report.generated_date
-            ? new Date(report.generated_date).toISOString().split('T')[0]
-            : new Date().toISOString().split('T')[0],
-          businessValue: report.estimated_value || 0,
-          method: report.methodology || 'Combined Analysis',
-          confidence: report.confidence_level || 'medium',
-          lowRange: report.value_range_low || 0,
-          highRange: report.value_range_high || 0,
-          revenueMultiple: report.revenue_multiple || 0,
-          ebitdaMultiple: report.ebitda_multiple || 0,
-          industryAverage: report.industry_benchmark || 0,
-          monthsValid: 6,
-          inputs: {
+          date:
+            report.date || report.generated_date
+              ? new Date(report.date || report.generated_date).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0],
+          businessValue: report.businessValue || report.estimated_value || 0,
+          method: report.method || report.methodology || 'Combined Analysis',
+          confidence: report.confidence || report.confidence_level || 'medium',
+          lowRange: report.lowRange || report.value_range_low || 0,
+          highRange: report.highRange || report.value_range_high || 0,
+          revenueMultiple: report.revenueMultiple || report.revenue_multiple || 0,
+          ebitdaMultiple: report.ebitdaMultiple || report.ebitda_multiple || 0,
+          industryAverage: report.industryAverage || report.industry_benchmark || 0,
+          monthsValid: report.monthsValid || 6,
+          inputs: report.inputs || {
             businessType: report.business_type || '',
             sharesForSale: report.shares_for_sale || 100,
             revenue2025: report.revenue_trend?.[2] || 0,
@@ -117,21 +119,23 @@ const ValuationTool: React.FC = () => {
         const reports = JSON.parse(valuationReportsRaw);
 
         // Transform the reports to match the expected format
+        // Handle both new format (from ValuationModal) and old format (legacy)
         const transformedReports = reports.map((report: any) => ({
           id: report.id || Date.now().toString(),
-          date: report.generated_date
-            ? new Date(report.generated_date).toISOString().split('T')[0]
-            : new Date().toISOString().split('T')[0],
-          businessValue: report.estimated_value || 0,
-          method: report.methodology || 'Combined Analysis',
-          confidence: report.confidence_level || 'medium',
-          lowRange: report.value_range_low || 0,
-          highRange: report.value_range_high || 0,
-          revenueMultiple: report.revenue_multiple || 0,
-          ebitdaMultiple: report.ebitda_multiple || 0,
-          industryAverage: report.industry_benchmark || 0,
-          monthsValid: 6,
-          inputs: {
+          date:
+            report.date || report.generated_date
+              ? new Date(report.date || report.generated_date).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0],
+          businessValue: report.businessValue || report.estimated_value || 0,
+          method: report.method || report.methodology || 'Combined Analysis',
+          confidence: report.confidence || report.confidence_level || 'medium',
+          lowRange: report.lowRange || report.value_range_low || 0,
+          highRange: report.highRange || report.value_range_high || 0,
+          revenueMultiple: report.revenueMultiple || report.revenue_multiple || 0,
+          ebitdaMultiple: report.ebitdaMultiple || report.ebitda_multiple || 0,
+          industryAverage: report.industryAverage || report.industry_benchmark || 0,
+          monthsValid: report.monthsValid || 6,
+          inputs: report.inputs || {
             businessType: report.business_type || '',
             sharesForSale: report.shares_for_sale || 100,
             revenue2025: report.revenue_trend?.[2] || 0,

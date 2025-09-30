@@ -21,7 +21,7 @@ export * from './phase2';
 // Re-export commonly used MVP components for convenience
 export {
   // Business Management
-  ListingWizardModal,
+  // ListingWizardModal, // Legacy - removed
   // Authentication
   LoginModal,
   SignupModal,

@@ -4,7 +4,7 @@
 // Note: Steps 1-3 removed - data comes from business card + valuation
 
 // Import BusinessType from business card feature
-import type { BusinessType } from '../../../card/types';
+import type { BusinessType } from '../../../card/prelude/types/PreludeTypes';
 
 // Basic Information
 export interface BasicInfo {

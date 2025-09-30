@@ -290,8 +290,8 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
     <FullscreenModal isOpen={isOpen} onClose={onClose} showProgress={false} showHeader={false}>
       <div className="flex h-full min-h-0 bg-black p-4">
         {/* Sidebar Navigation - Fixed Width */}
-        <div className="flex-shrink-0 w-[160px] bg-black h-full flex flex-col items-center justify-center space-y-6">
-          <div className="flex-1 space-y-6">
+        <div className="flex-shrink-0 w-[160px] bg-black h-full flex flex-col items-center py-6 overflow-y-auto">
+          <div className="flex flex-col space-y-4 w-full">
             {stepConfig.map((step, index) => {
               const isActive = currentStep === step.id;
               const isCompleted = currentStep > step.id;
@@ -301,7 +301,7 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
                 <div key={step.id} className="relative">
                   {/* Progress line above icon */}
                   {index > 0 && (
-                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-0.5 h-6 bg-gray-700">
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-0.5 h-4 bg-gray-700">
                       {isCompleted && <div className="w-full h-full bg-white" />}
                     </div>
                   )}
@@ -351,55 +351,55 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col h-full min-h-0 ml-4 bg-white rounded-2xl overflow-hidden shadow-xl">
-            {/* Step Header */}
-            <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-6">
-              <div className="flex items-center justify-between">
-                {/* Step Title and Progress */}
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-semibold text-gray-900">{currentStepConfig.title}</h2>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Step {currentStep} of {totalSteps}
-                    {currentStep <= 3 && (
-                      <span className="ml-2 text-emerald-600 font-medium">
-                        • Prefilled from your data
-                      </span>
-                    )}
-                  </p>
-                </div>
-
-                {/* Save and Exit Button */}
-                <SecondaryButton onClick={onClose} size="sm" aria-label="Save and exit">
-                  Save and exit
-                </SecondaryButton>
+          {/* Step Header */}
+          <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-6">
+            <div className="flex items-center justify-between">
+              {/* Step Title and Progress */}
+              <div className="flex flex-col">
+                <h2 className="text-xl font-semibold text-gray-900">{currentStepConfig.title}</h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  Step {currentStep} of {totalSteps}
+                  {currentStep <= 3 && (
+                    <span className="ml-2 text-emerald-600 font-medium">
+                      • Prefilled from your data
+                    </span>
+                  )}
+                </p>
               </div>
+
+              {/* Save and Exit Button */}
+              <SecondaryButton onClick={onClose} size="sm" aria-label="Save and exit">
+                Save and exit
+              </SecondaryButton>
             </div>
+          </div>
 
-            {/* Main Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto min-h-0 bg-white">{renderCurrentStep()}</div>
+          {/* Main Content - Scrollable */}
+          <div className="flex-1 overflow-y-auto min-h-0 bg-white">{renderCurrentStep()}</div>
 
-            {/* Navigation Footer - Sticky */}
-            <div className="flex-shrink-0 bg-white border-t border-gray-200 px-8 py-6">
-              <div className="flex justify-between items-center">
-                <SecondaryButton
-                  onClick={handlePrevious}
-                  disabled={currentStep === 1}
-                  size="sm"
-                  aria-label="Back"
-                >
-                  Back
-                </SecondaryButton>
-                <button
-                  onClick={handleNext}
-                  disabled={!canProceed() || isSubmitting}
-                  className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 min-w-[165px] h-12 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting
-                    ? 'Publishing...'
-                    : currentStep === totalSteps
-                      ? 'Publish Listing'
-                      : 'Continue'}
-                </button>
-              </div>
+          {/* Navigation Footer - Sticky */}
+          <div className="flex-shrink-0 bg-white border-t border-gray-200 px-8 py-6">
+            <div className="flex justify-between items-center">
+              <SecondaryButton
+                onClick={handlePrevious}
+                disabled={currentStep === 1}
+                size="sm"
+                aria-label="Back"
+              >
+                Back
+              </SecondaryButton>
+              <button
+                onClick={handleNext}
+                disabled={!canProceed() || isSubmitting}
+                className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 min-w-[165px] h-12 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting
+                  ? 'Publishing...'
+                  : currentStep === totalSteps
+                    ? 'Publish Listing'
+                    : 'Continue'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -2,7 +2,8 @@
 // Location: src/app/pages/listings/ListingServicePage.tsx
 // Purpose: Main listing creation wizard (7 steps) after prelude
 
-import { ListingCreationModal } from '@/features/phase1/business/listing/listing-service';
+// Legacy import - this component is not used anymore
+// import { ListingCreationModal } from '@/features/phase1/business/listing/listing-service';
 import { BusinessType } from '@/features/phase1/business/listing/prelude';
 import { UrlGenerator } from '@/shared/services';
 import { authService } from '@/shared/services/auth';
@@ -87,14 +88,10 @@ const ListingServicePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {businessType && (
-        <ListingCreationModal
-          isOpen={isModalOpen}
-          onClose={handleModalClose}
-          onComplete={handleListingComplete}
-          businessInfo={businessInfo}
-        />
-      )}
+      {/* Legacy ListingCreationModal removed - now using StreamlinedListingModal via /my-business/listings/create */}
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-600">Redirecting to listing creation...</p>
+      </div>
     </div>
   );
 };

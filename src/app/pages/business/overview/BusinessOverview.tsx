@@ -1,6 +1,6 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
 import { BusinessCardFlow } from '@/features/phase1/business/card';
-import { ListingWizardModal } from '@/features/phase1/business/listing';
+// import { ListingWizardModal } from '@/features/phase1/business/listing'; // Legacy, using StreamlinedListingModal via navigation now
 import { BusinessProfileCard, ProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
@@ -8,6 +8,7 @@ import ListingNudgeModal from '@/shared/components/modals/domains/business/Listi
 import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
 import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { AuthenticationService } from '@/shared/services/auth';
+import { UrlGenerator } from '@/shared/services/urls/urlGenerator';
 import { User } from '@/shared/types';
 import { Calculator, Store } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -117,12 +118,33 @@ const BusinessOverview = () => {
               try {
                 const reports = JSON.parse(reportsDataString);
                 console.log('✅ Parsed valuation reports:', reports);
-                setValuationReports(reports);
+
+                // Transform reports to ensure correct format
+                // Handle both new format (from ValuationModal) and old format (legacy)
+                const transformedReports = reports.map((report: any) => ({
+                  id: report.id || Date.now().toString(),
+                  date:
+                    report.date || report.generated_date
+                      ? new Date(report.date || report.generated_date).toISOString().split('T')[0]
+                      : new Date().toISOString().split('T')[0],
+                  businessValue: report.businessValue || report.estimated_value || 0,
+                  method: report.method || report.methodology || 'Combined Analysis',
+                  confidence: report.confidence || report.confidence_level || 'medium',
+                  lowRange: report.lowRange || report.value_range_low || 0,
+                  highRange: report.highRange || report.value_range_high || 0,
+                  revenueMultiple: report.revenueMultiple || report.revenue_multiple || 0,
+                  ebitdaMultiple: report.ebitdaMultiple || report.ebitda_multiple || 0,
+                  industryAverage: report.industryAverage || report.industry_benchmark || 0,
+                  monthsValid: report.monthsValid || 6,
+                  inputs: report.inputs || {},
+                }));
+
+                setValuationReports(transformedReports);
                 setHasValuationReports(true);
 
                 // Set latest valuation report (most recent)
-                if (reports.length > 0) {
-                  const latest = reports.reduce((prev: any, current: any) => {
+                if (transformedReports.length > 0) {
+                  const latest = transformedReports.reduce((prev: any, current: any) => {
                     return new Date(current.date) > new Date(prev.date) ? current : prev;
                   });
                   setLatestValuationReport(latest);
@@ -251,6 +273,55 @@ const BusinessOverview = () => {
 
   const handleCreateValuation = () => {
     setIsValuationModalOpen(true);
+  };
+
+  const handleValuationComplete = () => {
+    console.log('📊 Valuation completed, reloading valuation data...');
+    // Reload valuation reports from localStorage
+    const hasValuationFlag = localStorage.getItem('hasValuationReports');
+    if (hasValuationFlag === 'true') {
+      const reportsDataString = localStorage.getItem('valuationReports');
+      if (reportsDataString) {
+        try {
+          const reports = JSON.parse(reportsDataString);
+          console.log('✅ Reloaded valuation reports:', reports);
+
+          // Transform reports (same logic as in useEffect)
+          const transformedReports = reports.map((report: any) => ({
+            id: report.id || Date.now().toString(),
+            date:
+              report.date || report.generated_date
+                ? new Date(report.date || report.generated_date).toISOString().split('T')[0]
+                : new Date().toISOString().split('T')[0],
+            businessValue: report.businessValue || report.estimated_value || 0,
+            method: report.method || report.methodology || 'Combined Analysis',
+            confidence: report.confidence || report.confidence_level || 'medium',
+            lowRange: report.lowRange || report.value_range_low || 0,
+            highRange: report.highRange || report.value_range_high || 0,
+            revenueMultiple: report.revenueMultiple || report.revenue_multiple || 0,
+            ebitdaMultiple: report.ebitdaMultiple || report.ebitda_multiple || 0,
+            industryAverage: report.industryAverage || report.industry_benchmark || 0,
+            monthsValid: report.monthsValid || 6,
+            inputs: report.inputs || {},
+          }));
+
+          setValuationReports(transformedReports);
+          setHasValuationReports(transformedReports.length > 0);
+
+          // Set latest valuation report
+          if (transformedReports.length > 0) {
+            const latest = transformedReports.reduce((prev: any, current: any) => {
+              return new Date(current.date) > new Date(prev.date) ? current : prev;
+            });
+            setLatestValuationReport(latest);
+            console.log('📊 Latest valuation report updated:', latest);
+          }
+        } catch (error) {
+          console.error('❌ Failed to reload valuation reports:', error);
+        }
+      }
+    }
+    setIsValuationModalOpen(false);
   };
 
   const handleListingComplete = () => {
@@ -479,29 +550,41 @@ const BusinessOverview = () => {
             <EmptyStateCard
               icon={Store}
               title={
-                !hasBusinessCard || !hasProfileCard
-                  ? 'Complete Your Profile to Create a Listing'
-                  : 'Create Your Business Listing'
+                !hasBusinessCard
+                  ? 'Create Your Business Card First'
+                  : !hasProfileCard
+                    ? 'Complete Your Profile to Create a Listing'
+                    : 'Create Your Business Listing'
               }
               description={
-                !hasBusinessCard || !hasProfileCard
-                  ? 'You need to complete your business card and profile before creating a listing.'
-                  : hasValuationReports
-                    ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
-                    : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
+                !hasBusinessCard
+                  ? 'Start by creating your business card. This will be the foundation for your listing.'
+                  : !hasProfileCard
+                    ? 'Complete your profile to build trust with potential buyers before creating a listing.'
+                    : hasValuationReports
+                      ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
+                      : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
               }
-              buttonText={!hasBusinessCard || !hasProfileCard ? undefined : 'Create Listing'}
+              buttonText={
+                !hasBusinessCard
+                  ? 'Create Business Card'
+                  : !hasProfileCard
+                    ? 'Complete Profile'
+                    : 'Create Listing'
+              }
               onButtonClick={
-                !hasBusinessCard || !hasProfileCard
-                  ? undefined
-                  : () => {
-                      console.log('🚀 Navigating to listing creation with data:', {
-                        businessCard: businessCardData,
-                        profileCard: profileCardData,
-                        valuation: latestValuationReport,
-                      });
-                      navigate('/my-business/listings/create');
-                    }
+                !hasBusinessCard
+                  ? () => navigate(UrlGenerator.createBusinessCard())
+                  : !hasProfileCard
+                    ? () => navigate(UrlGenerator.createProfileCard())
+                    : () => {
+                        console.log('🚀 Navigating to listing creation with data:', {
+                          businessCard: businessCardData,
+                          profileCard: profileCardData,
+                          valuation: latestValuationReport,
+                        });
+                        navigate('/my-business/listings/create');
+                      }
               }
             />
           )}
@@ -517,19 +600,14 @@ const BusinessOverview = () => {
       />
 
       {/* Listing Wizard Modal */}
-      <ListingWizardModal
-        isOpen={isListingWizardModalOpen}
-        onClose={() => setIsListingWizardModalOpen(false)}
-        onComplete={handleListingComplete}
-        businessInfo={businessInfo}
-      />
+      {/* Legacy ListingWizardModal removed - now using navigation to /my-business/listings/create */}
 
       {/* Valuation Modal */}
       <ValuationModal
         isOpen={isValuationModalOpen}
-        onClose={() => setIsValuationModalOpen(false)}
+        onClose={handleValuationComplete}
         onSignupPrompt={() => {}} // Not used for authenticated users
-        onComplete={() => {}} // Fallback
+        onComplete={handleValuationComplete}
       />
 
       {/* Listing Nudge Modal */}

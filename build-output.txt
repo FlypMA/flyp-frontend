@@ -1,0 +1,30 @@
+yarn run v1.22.19
+(node:30693) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+$ yarn clean:build && yarn type-check && NODE_ENV=production vite build --mode production
+(node:30697) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+$ rm -rf dist
+(node:30704) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+$ tsc --noEmit
+src/app/pages/listings/ListingServicePage.tsx(5,10): error TS2724: '"@/features/phase1/business/listing/listing-service"' has no exported member named 'ListingCreationModal'. Did you mean 'ListingCreationModalProps'?
+src/features/phase1/business/listing/components/ListingWizardModal.tsx(9,27): error TS2307: Cannot find module '../listing-service/steps/BasicInfoStep' or its corresponding type declarations.
+src/features/phase1/business/listing/components/ListingWizardModal.tsx(10,33): error TS2307: Cannot find module '../listing-service/steps/BusinessDetailsStep' or its corresponding type declarations.
+src/features/phase1/business/listing/components/ListingWizardModal.tsx(12,31): error TS2307: Cannot find module '../listing-service/steps/FinancialInfoStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/index.ts(6,15): error TS2307: Cannot find module './components' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(6,42): error TS2307: Cannot find module './BasicInfoStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(8,50): error TS2307: Cannot find module './FinancialOverviewStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(9,48): error TS2307: Cannot find module './PhotosDocumentsStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(10,50): error TS2307: Cannot find module './PrivacyVisibilityStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(11,46): error TS2307: Cannot find module './ReviewPublishStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(13,40): error TS2307: Cannot find module './WelcomeStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(16,48): error TS2307: Cannot find module './BusinessDetailsStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/steps/index.ts(18,46): error TS2307: Cannot find module './FinancialInfoStep' or its corresponding type declarations.
+src/features/phase1/business/listing/listing-service/types/ListingCreationTypes.ts(7,35): error TS2307: Cannot find module '../../../card/types' or its corresponding type declarations.
+src/features/phase1/business/listing/prelude/components/index.ts(10,53): error TS2307: Cannot find module './DemoBusinessConfirmation' or its corresponding type declarations.
+src/features/phase1/business/listing/prelude/components/index.ts(11,54): error TS2307: Cannot find module './DemoBusinessTypeSelection' or its corresponding type declarations.
+error Command failed with exit code 2.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 2.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

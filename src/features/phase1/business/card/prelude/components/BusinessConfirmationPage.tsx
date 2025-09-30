@@ -6,23 +6,12 @@ import React from 'react';
 import { BusinessConfirmationPageProps, BusinessTypeOption } from '../types/PreludeTypes';
 
 const businessTypeOptions: BusinessTypeOption[] = [
+  // 🍽️ Food & Beverage Services
   {
     id: 'catering',
     title: 'Catering',
     description: 'Event catering, corporate meals, party services',
     icon: '🍽️',
-  },
-  {
-    id: 'photography',
-    title: 'Photography',
-    description: 'Wedding, portrait, event, commercial photography',
-    icon: '📸',
-  },
-  {
-    id: 'hairstyling',
-    title: 'Hairstyling',
-    description: 'Hair salons, barbershops, mobile hair services',
-    icon: '💇‍♀️',
   },
   {
     id: 'chef',
@@ -35,6 +24,19 @@ const businessTypeOptions: BusinessTypeOption[] = [
     title: 'Meal Services',
     description: 'Meal delivery, meal prep, food subscription boxes',
     icon: '🍱',
+  },
+  {
+    id: 'restaurant',
+    title: 'Restaurant',
+    description: 'Dining establishments, cafes, food service businesses',
+    icon: '🍴',
+  },
+  // 💅 Beauty & Wellness Services
+  {
+    id: 'hairstyling',
+    title: 'Hairstyling',
+    description: 'Hair salons, barbershops, mobile hair services',
+    icon: '💇‍♀️',
   },
   {
     id: 'makeup',
@@ -55,17 +57,100 @@ const businessTypeOptions: BusinessTypeOption[] = [
     icon: '💅',
   },
   {
+    id: 'wellness',
+    title: 'Wellness Treatments',
+    description: 'Spa treatments, holistic therapies, wellness retreats',
+    icon: '🧘‍♀️',
+  },
+  // 💪 Fitness & Health
+  {
     id: 'personaltraining',
     title: 'Personal Training',
     description: 'Fitness coaching, personal trainers, workout programs',
     icon: '💪',
   },
   {
-    id: 'wellness',
-    title: 'Wellness Treatments',
-    description: 'Spa treatments, holistic therapies, wellness retreats',
-    icon: '🧘‍♀️',
+    id: 'gym',
+    title: 'Gym & Fitness',
+    description: 'Fitness centers, gyms, yoga studios, sports facilities',
+    icon: '🏋️',
   },
+  {
+    id: 'healthcare',
+    title: 'Healthcare Services',
+    description: 'Medical practices, clinics, therapy services',
+    icon: '⚕️',
+  },
+  // 📸 Creative & Media
+  {
+    id: 'photography',
+    title: 'Photography',
+    description: 'Wedding, portrait, event, commercial photography',
+    icon: '📸',
+  },
+  {
+    id: 'videography',
+    title: 'Videography',
+    description: 'Video production, editing, content creation',
+    icon: '🎥',
+  },
+  {
+    id: 'design',
+    title: 'Design Services',
+    description: 'Graphic design, web design, branding, creative services',
+    icon: '🎨',
+  },
+  {
+    id: 'marketing',
+    title: 'Marketing Agency',
+    description: 'Digital marketing, SEO, social media, advertising',
+    icon: '📱',
+  },
+  // 💻 Tech & Digital
+  {
+    id: 'saas',
+    title: 'SaaS',
+    description: 'Software as a Service, cloud platforms, B2B tech',
+    icon: '💻',
+  },
+  {
+    id: 'software',
+    title: 'Software Development',
+    description: 'Custom software, app development, tech solutions',
+    icon: '⚙️',
+  },
+  {
+    id: 'webdev',
+    title: 'Web Development',
+    description: 'Website development, e-commerce builds, web apps',
+    icon: '🌐',
+  },
+  {
+    id: 'itsupport',
+    title: 'IT Support',
+    description: 'Managed IT services, tech support, infrastructure',
+    icon: '🖥️',
+  },
+  // 🛒 E-commerce & Retail
+  {
+    id: 'ecommerce',
+    title: 'E-commerce',
+    description: 'Online stores, digital retail, dropshipping',
+    icon: '🛒',
+  },
+  {
+    id: 'retail',
+    title: 'Retail Store',
+    description: 'Physical retail, boutiques, specialty shops',
+    icon: '🏪',
+  },
+  {
+    id: 'subscription',
+    title: 'Subscription Box',
+    description: 'Recurring product boxes, membership commerce',
+    icon: '📦',
+  },
+  // 🏠 Home & Property Services
   {
     id: 'cleaning',
     title: 'Cleaning Services',
@@ -73,10 +158,86 @@ const businessTypeOptions: BusinessTypeOption[] = [
     icon: '🧹',
   },
   {
+    id: 'realestate',
+    title: 'Real Estate',
+    description: 'Property management, real estate agency, rentals',
+    icon: '🏡',
+  },
+  {
+    id: 'construction',
+    title: 'Construction',
+    description: 'Building, renovation, contracting services',
+    icon: '🔨',
+  },
+  {
+    id: 'landscaping',
+    title: 'Landscaping',
+    description: 'Garden maintenance, outdoor design, lawn care',
+    icon: '🌳',
+  },
+  // 💼 Professional Services
+  {
     id: 'consulting',
     title: 'Business Consulting',
     description: 'Management consulting, strategy, business advisory',
     icon: '💼',
+  },
+  {
+    id: 'legal',
+    title: 'Legal Services',
+    description: 'Law firms, legal consulting, compliance services',
+    icon: '⚖️',
+  },
+  {
+    id: 'accounting',
+    title: 'Accounting & Finance',
+    description: 'Bookkeeping, tax services, financial advisory',
+    icon: '📊',
+  },
+  {
+    id: 'hr',
+    title: 'HR & Recruitment',
+    description: 'Staffing agencies, recruitment, HR consulting',
+    icon: '👥',
+  },
+  // 📚 Education & Training
+  {
+    id: 'education',
+    title: 'Education & Training',
+    description: 'Online courses, tutoring, professional training',
+    icon: '📚',
+  },
+  {
+    id: 'coaching',
+    title: 'Coaching',
+    description: 'Life coaching, career coaching, business mentoring',
+    icon: '🎯',
+  },
+  // 🚗 Transportation & Logistics
+  {
+    id: 'logistics',
+    title: 'Logistics & Delivery',
+    description: 'Shipping, courier services, supply chain',
+    icon: '🚚',
+  },
+  {
+    id: 'automotive',
+    title: 'Automotive Services',
+    description: 'Car repair, detailing, auto maintenance',
+    icon: '🚗',
+  },
+  // 🎉 Events & Entertainment
+  {
+    id: 'events',
+    title: 'Event Planning',
+    description: 'Event management, wedding planning, conferences',
+    icon: '🎉',
+  },
+  {
+    id: 'entertainment',
+    title: 'Entertainment',
+    description: 'DJ services, performers, event entertainment',
+    icon: '🎭',
   },
 ];
 

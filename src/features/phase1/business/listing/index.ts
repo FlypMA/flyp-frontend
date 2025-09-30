@@ -1,12 +1,14 @@
-// 🏢 Listing Creation - Main Export
-// Location: src/features/phase1/business/listing/index.ts
-// Purpose: Main export for the listing creation feature
+// 📋 Listing Feature - Main Exports
 
-// Prelude (Business Type Selection + Confirmation)
-export * from './prelude';
+// Main component
+export { default as StreamlinedListingModal } from './components/StreamlinedListingModal';
 
-// Listing Service (7-step wizard)
-export * from './listing-service';
+// Types
+export * from './types';
 
-// Legacy exports for backward compatibility
-export { default as ListingWizardModal } from './components/ListingWizardModal';
+// Preview steps (for reuse)
+export {
+  BusinessCardPreviewStep,
+  ProfileCardPreviewStep,
+  ValuationPreviewStep,
+} from './components';

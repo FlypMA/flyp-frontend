@@ -1,4 +1,5 @@
-import { ListingWizardModal } from '@/features/phase1/business/listing';
+// Legacy import removed - using StreamlinedListingModal now
+// import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { authService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
@@ -71,12 +72,10 @@ const CreateListingPage: React.FC = () => {
         keywords="sell business, create listing, business for sale, UpSwitch listing"
       />
 
-      <ListingWizardModal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        onComplete={handleListingComplete}
-        businessInfo={businessInfo}
-      />
+      {/* Legacy ListingWizardModal - now using /my-business/listings/create */}
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-600">Please use /my-business/listings/create to create a listing</p>
+      </div>
 
       {/* Fallback content or loading indicator if modal takes time to load */}
       {!isModalOpen && (

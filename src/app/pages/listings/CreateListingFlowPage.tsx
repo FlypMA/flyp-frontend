@@ -2,7 +2,8 @@
 // Location: src/app/pages/listings/CreateListingFlowPage.tsx
 // Purpose: Full-page listing creation flow starting with business type selection
 
-import { ListingCreationFlow } from '@/features/phase1/business/listing/components';
+// Legacy import removed
+// import { ListingCreationFlow } from '@/features/phase1/business/listing/components';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +22,10 @@ const CreateListingFlowPage: React.FC = () => {
   };
 
   return (
-    <ListingCreationFlow
+    <div className="flex items-center justify-center min-h-screen">
+      <p className="text-gray-600">Please use /my-business/listings/create to create a listing</p>
+    </div>
+    /* <ListingCreationFlow
       onComplete={handleComplete}
       onClose={handleClose}
       businessInfo={{
@@ -47,7 +51,7 @@ const CreateListingFlowPage: React.FC = () => {
         valuation_confidence: 'high',
         valuation_methodology: 'DCF',
       }}
-    />
+    /> */
   );
 };
 

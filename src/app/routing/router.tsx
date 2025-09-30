@@ -32,7 +32,6 @@ import CreateListingPage from '../pages/listings/CreateListingPage';
 import ListingDetails from '../pages/listings/ListingDetails';
 import ListingPreludePage from '../pages/listings/ListingPreludePage';
 import ListingSearch from '../pages/listings/ListingSearch';
-import ListingServicePage from '../pages/listings/ListingServicePage';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Business Dashboard
@@ -342,14 +341,8 @@ export const router = createBrowserRouter([
           </SellerRoute>
         ),
       },
-      {
-        path: 'my-business/listings/create',
-        element: (
-          <SellerRoute>
-            <ListingServicePage />
-          </SellerRoute>
-        ),
-      },
+      // Removed duplicate 'my-business/listings/create' route (legacy ListingServicePage)
+      // Now using ListingCreationPage at line 296
 
       // Due Diligence (buyers, sellers, advisors)
       {

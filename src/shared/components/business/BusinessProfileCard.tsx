@@ -108,40 +108,112 @@ const BusinessProfileCard: React.FC<BusinessProfileCardProps> = ({
     );
   }
 
-  // Get business type icon
+  // Get business type icon (all 38 types)
   const getBusinessIcon = (industry: string): string => {
     const iconMap: Record<string, string> = {
+      // Food & Beverage Services
       catering: '🍽️',
-      photography: '📸',
-      hairstyling: '💇‍♀️',
       chef: '👨‍🍳',
       meals: '🍱',
+      restaurant: '🍴',
+      // Beauty & Wellness Services
+      hairstyling: '💇‍♀️',
       makeup: '💄',
       massage: '💆‍♀️',
       nailcare: '💅',
-      personaltraining: '💪',
       wellness: '🧘‍♀️',
+      // Fitness & Health
+      personaltraining: '💪',
+      gym: '🏋️',
+      healthcare: '⚕️',
+      // Creative & Media
+      photography: '📸',
+      videography: '🎥',
+      design: '🎨',
+      marketing: '📱',
+      // Tech & Digital
+      saas: '💻',
+      software: '⚙️',
+      webdev: '🌐',
+      itsupport: '🖥️',
+      // E-commerce & Retail
+      ecommerce: '🛒',
+      retail: '🏪',
+      subscription: '📦',
+      // Home & Property Services
       cleaning: '🧹',
+      realestate: '🏡',
+      construction: '🔨',
+      landscaping: '🌳',
+      // Professional Services
       consulting: '💼',
+      legal: '⚖️',
+      accounting: '📊',
+      hr: '👥',
+      // Education & Training
+      education: '📚',
+      coaching: '🎯',
+      // Transportation & Logistics
+      logistics: '🚚',
+      automotive: '🚗',
+      // Events & Entertainment
+      events: '🎉',
+      entertainment: '🎭',
     };
     return iconMap[industry.toLowerCase()] || '🏢';
   };
 
-  // Get business type display name
+  // Get business type display name (all 38 types)
   const getBusinessTypeName = (industry: string): string => {
     const nameMap: Record<string, string> = {
+      // Food & Beverage Services
       catering: 'Catering',
-      photography: 'Photography',
-      hairstyling: 'Hairstyling',
       chef: 'Chef Services',
       meals: 'Meal Services',
+      restaurant: 'Restaurant',
+      // Beauty & Wellness Services
+      hairstyling: 'Hairstyling',
       makeup: 'Make-up',
       massage: 'Massage',
       nailcare: 'Nail Care',
-      personaltraining: 'Personal Training',
       wellness: 'Wellness Treatments',
+      // Fitness & Health
+      personaltraining: 'Personal Training',
+      gym: 'Gym & Fitness',
+      healthcare: 'Healthcare Services',
+      // Creative & Media
+      photography: 'Photography',
+      videography: 'Videography',
+      design: 'Design Services',
+      marketing: 'Marketing Agency',
+      // Tech & Digital
+      saas: 'SaaS',
+      software: 'Software Development',
+      webdev: 'Web Development',
+      itsupport: 'IT Support',
+      // E-commerce & Retail
+      ecommerce: 'E-commerce',
+      retail: 'Retail Store',
+      subscription: 'Subscription Box',
+      // Home & Property Services
       cleaning: 'Cleaning Services',
+      realestate: 'Real Estate',
+      construction: 'Construction',
+      landscaping: 'Landscaping',
+      // Professional Services
       consulting: 'Business Consulting',
+      legal: 'Legal Services',
+      accounting: 'Accounting & Finance',
+      hr: 'HR & Recruitment',
+      // Education & Training
+      education: 'Education & Training',
+      coaching: 'Coaching',
+      // Transportation & Logistics
+      logistics: 'Logistics & Delivery',
+      automotive: 'Automotive Services',
+      // Events & Entertainment
+      events: 'Event Planning',
+      entertainment: 'Entertainment',
     };
     return nameMap[industry.toLowerCase()] || industry;
   };

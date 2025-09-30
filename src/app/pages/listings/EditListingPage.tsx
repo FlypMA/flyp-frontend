@@ -1,4 +1,5 @@
-import { ListingWizardModal } from '@/features/phase1/business/listing';
+// Legacy import removed
+// import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { authService } from '@/shared/services/auth';
 import { User } from '@/shared/types';
@@ -98,7 +99,11 @@ const EditListingPage: React.FC = () => {
         keywords="edit business listing, update listing, business for sale, UpSwitch"
       />
 
-      <ListingWizardModal
+      {/* Legacy ListingWizardModal - edit functionality to be implemented */}
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-600">Edit listing functionality coming soon</p>
+      </div>
+      {/* <ListingWizardModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onComplete={handleListingSave}

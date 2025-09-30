@@ -107,6 +107,16 @@ const ValuationModal: React.FC<ValuationModalProps> = ({
   };
 
   const calculateValuation = async () => {
+    console.log('🔍 Calculating valuation with inputs:', inputs);
+    console.log('📊 Input types:', {
+      revenue2025: typeof inputs.revenue2025,
+      revenue2024: typeof inputs.revenue2024,
+      revenue2023: typeof inputs.revenue2023,
+      ebitda2025: typeof inputs.ebitda2025,
+      ebitda2024: typeof inputs.ebitda2024,
+      ebitda2023: typeof inputs.ebitda2023,
+    });
+
     setIsCalculating(true);
 
     await new Promise(resolve => setTimeout(resolve, 1500));

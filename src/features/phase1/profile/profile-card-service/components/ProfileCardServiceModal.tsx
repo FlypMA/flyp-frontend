@@ -19,7 +19,12 @@ const ProfileCardServiceModal: React.FC<ProfileCardServiceModalProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [profileData, setProfileData] = useState<Partial<ProfileCard>>(initialData || {});
+  const [profileData, setProfileData] = useState<Partial<ProfileCard>>(
+    initialData || {
+      ownedBusinesses: 1, // Default value for required field
+      exits: 0, // Default value
+    }
+  );
 
   const totalSteps = 3;
 
