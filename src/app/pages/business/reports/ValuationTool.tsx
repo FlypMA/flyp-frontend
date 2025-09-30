@@ -49,18 +49,53 @@ const ValuationTool: React.FC = () => {
   const [isValuationModalOpen, setIsValuationModalOpen] = useState(false);
   const [valuationReports, setValuationReports] = useState<ValuationReport[]>([]);
 
-  // Check authentication
+  // Load existing valuation reports from localStorage
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/');
-    }
-  }, [isAuthenticated, navigate]);
+    console.log('📊 Loading valuation reports from localStorage...');
 
-  // Load existing valuation reports (empty by default)
-  useEffect(() => {
-    // In a real app, this would load from the backend
-    // For now, start with empty state
-    setValuationReports([]);
+    const valuationReportsRaw = localStorage.getItem('valuationReports');
+    if (valuationReportsRaw) {
+      try {
+        const reports = JSON.parse(valuationReportsRaw);
+        console.log('✅ Valuation reports loaded:', reports);
+
+        // Transform the reports to match the expected format
+        const transformedReports = reports.map((report: any) => ({
+          id: report.id || Date.now().toString(),
+          date: report.generated_date
+            ? new Date(report.generated_date).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0],
+          businessValue: report.estimated_value || 0,
+          method: report.methodology || 'Combined Analysis',
+          confidence: report.confidence_level || 'medium',
+          lowRange: report.value_range_low || 0,
+          highRange: report.value_range_high || 0,
+          revenueMultiple: report.revenue_multiple || 0,
+          ebitdaMultiple: report.ebitda_multiple || 0,
+          industryAverage: report.industry_benchmark || 0,
+          monthsValid: 6,
+          inputs: {
+            businessType: report.business_type || '',
+            sharesForSale: report.shares_for_sale || 100,
+            revenue2025: report.revenue_trend?.[2] || 0,
+            revenue2024: report.revenue_trend?.[1] || 0,
+            revenue2023: report.revenue_trend?.[0] || 0,
+            ebitda2025: report.ebitda_trend?.[2] || 0,
+            ebitda2024: report.ebitda_trend?.[1] || 0,
+            ebitda2023: report.ebitda_trend?.[0] || 0,
+            marketMultiplier: 1,
+          },
+        }));
+
+        setValuationReports(transformedReports);
+      } catch (error) {
+        console.error('❌ Error parsing valuation reports:', error);
+        setValuationReports([]);
+      }
+    } else {
+      console.log('📭 No valuation reports found in localStorage');
+      setValuationReports([]);
+    }
   }, []);
 
   const handleOpenValuationModal = () => {
@@ -71,24 +106,50 @@ const ValuationTool: React.FC = () => {
     setIsValuationModalOpen(false);
   };
 
-  const handleValuationComplete = (valuationData: any) => {
-    // In a real app, this would save to the backend
-    const newReport: ValuationReport = {
-      id: Date.now().toString(),
-      date: new Date().toISOString().split('T')[0],
-      businessValue: 1250000, // This would come from the actual calculation
-      method: 'Combined Analysis',
-      confidence: 'high',
-      lowRange: 1000000,
-      highRange: 1500000,
-      revenueMultiple: 3.2,
-      ebitdaMultiple: 8.5,
-      industryAverage: 7.2,
-      monthsValid: 6,
-      inputs: valuationData,
-    };
+  const handleValuationComplete = (valuationReport: any) => {
+    console.log('✅ Valuation completed:', valuationReport);
 
-    setValuationReports(prev => [newReport, ...prev]);
+    // The ValuationModal already saves to localStorage,
+    // so we just need to reload the reports from localStorage
+    const valuationReportsRaw = localStorage.getItem('valuationReports');
+    if (valuationReportsRaw) {
+      try {
+        const reports = JSON.parse(valuationReportsRaw);
+
+        // Transform the reports to match the expected format
+        const transformedReports = reports.map((report: any) => ({
+          id: report.id || Date.now().toString(),
+          date: report.generated_date
+            ? new Date(report.generated_date).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0],
+          businessValue: report.estimated_value || 0,
+          method: report.methodology || 'Combined Analysis',
+          confidence: report.confidence_level || 'medium',
+          lowRange: report.value_range_low || 0,
+          highRange: report.value_range_high || 0,
+          revenueMultiple: report.revenue_multiple || 0,
+          ebitdaMultiple: report.ebitda_multiple || 0,
+          industryAverage: report.industry_benchmark || 0,
+          monthsValid: 6,
+          inputs: {
+            businessType: report.business_type || '',
+            sharesForSale: report.shares_for_sale || 100,
+            revenue2025: report.revenue_trend?.[2] || 0,
+            revenue2024: report.revenue_trend?.[1] || 0,
+            revenue2023: report.revenue_trend?.[0] || 0,
+            ebitda2025: report.ebitda_trend?.[2] || 0,
+            ebitda2024: report.ebitda_trend?.[1] || 0,
+            ebitda2023: report.ebitda_trend?.[0] || 0,
+            marketMultiplier: 1,
+          },
+        }));
+
+        setValuationReports(transformedReports);
+      } catch (error) {
+        console.error('❌ Error reloading valuation reports:', error);
+      }
+    }
+
     setIsValuationModalOpen(false);
   };
 

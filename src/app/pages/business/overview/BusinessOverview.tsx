@@ -1,7 +1,6 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
 import { BusinessCardFlow } from '@/features/phase1/business/card';
 import { ListingWizardModal } from '@/features/phase1/business/listing';
-import StreamlinedListingModal from '@/features/phase1/business/listing/components/StreamlinedListingModal';
 import { BusinessProfileCard, ProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
@@ -56,8 +55,6 @@ const BusinessOverview = () => {
   const [businessCardData, setBusinessCardData] = useState<any>(null);
   const [profileCardData, setProfileCardData] = useState<any>(null);
   const [latestValuationReport, setLatestValuationReport] = useState<any>(null);
-  const [isStreamlinedListingModalOpen, setIsStreamlinedListingModalOpen] =
-    useState<boolean>(false);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -259,7 +256,6 @@ const BusinessOverview = () => {
   const handleListingComplete = () => {
     setHasActiveListing(true);
     setIsListingWizardModalOpen(false);
-    setIsStreamlinedListingModalOpen(false);
   };
 
   const handleListingNudge = (valuationData: unknown, businessValue: number) => {
@@ -499,12 +495,12 @@ const BusinessOverview = () => {
                 !hasBusinessCard || !hasProfileCard
                   ? undefined
                   : () => {
-                      console.log('🚀 Opening streamlined listing modal with data:', {
+                      console.log('🚀 Navigating to listing creation with data:', {
                         businessCard: businessCardData,
                         profileCard: profileCardData,
                         valuation: latestValuationReport,
                       });
-                      setIsStreamlinedListingModalOpen(true);
+                      navigate('/my-business/listings/create');
                     }
               }
             />
@@ -571,21 +567,6 @@ const BusinessOverview = () => {
           }}
           initialData={businessCardData}
           isEditing={true}
-        />
-      )}
-
-      {/* Streamlined Listing Modal - NEW! */}
-      {isStreamlinedListingModalOpen && businessCardData && (
-        <StreamlinedListingModal
-          isOpen={isStreamlinedListingModalOpen}
-          onClose={() => setIsStreamlinedListingModalOpen(false)}
-          onComplete={listingData => {
-            console.log('✅ Listing created:', listingData);
-            handleListingComplete();
-          }}
-          businessCard={businessCardData}
-          profileCard={profileCardData}
-          valuationReport={latestValuationReport}
         />
       )}
     </div>

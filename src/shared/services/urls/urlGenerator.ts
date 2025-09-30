@@ -52,6 +52,11 @@ export class UrlGenerator {
   static listingService = (businessType: string) =>
     `/my-business/listings/create?type=${encodeURIComponent(businessType)}`;
 
+  // Progressive Onboarding Flow
+  static createBusinessCard = () => '/my-business/card/create';
+  static createProfileCard = () => '/my-business/profile/create';
+  static createListing = () => '/my-business/listings/create';
+
   // ==============================================================================
   // BUSINESS BUYERS
   // For business prospectors searching for a new company to acquire, signed up as a buyer

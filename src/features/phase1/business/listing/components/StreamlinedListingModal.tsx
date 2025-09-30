@@ -268,9 +268,7 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
       case 2:
         return <ProfileCardPreviewStep profileCard={profileCard} onNext={handleNext} />;
       case 3:
-        return (
-          <ValuationPreviewStep valuationReport={valuationReport} onNext={handleNext} />
-        );
+        return <ValuationPreviewStep valuationReport={valuationReport} onNext={handleNext} />;
       case 4:
         return <BusinessStoryStep {...(stepProps as any)} />;
       case 5:
@@ -289,10 +287,10 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
   const currentStepConfig = stepConfig[currentStep - 1];
 
   return (
-    <FullscreenModal isOpen={isOpen} onClose={onClose} showProgress={false}>
-      <div className="flex h-full">
-        {/* Black Sidebar - Left Navigation */}
-        <div className="w-40 bg-black flex-shrink-0 flex flex-col py-8 px-4">
+    <FullscreenModal isOpen={isOpen} onClose={onClose} showProgress={false} showHeader={false}>
+      <div className="flex h-full min-h-0 bg-black p-4">
+        {/* Sidebar Navigation - Fixed Width */}
+        <div className="flex-shrink-0 w-[160px] bg-black h-full flex flex-col items-center justify-center space-y-6">
           <div className="flex-1 space-y-6">
             {stepConfig.map((step, index) => {
               const isActive = currentStep === step.id;
@@ -351,18 +349,14 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
           </div>
         </div>
 
-        {/* Main Content Area - Right */}
-        <div className="flex-1 flex flex-col min-w-0 bg-gray-50">
-          {/* Content Container with white rounded background */}
-          <div className="flex-1 flex flex-col m-6 bg-white rounded-2xl shadow-sm overflow-hidden">
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col h-full min-h-0 ml-4 bg-white rounded-2xl overflow-hidden shadow-xl">
             {/* Step Header */}
             <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-6">
               <div className="flex items-center justify-between">
                 {/* Step Title and Progress */}
                 <div className="flex flex-col">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    {currentStepConfig.title}
-                  </h2>
+                  <h2 className="text-xl font-semibold text-gray-900">{currentStepConfig.title}</h2>
                   <p className="text-sm text-gray-600 mt-1">
                     Step {currentStep} of {totalSteps}
                     {currentStep <= 3 && (
@@ -406,7 +400,6 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
                       : 'Continue'}
                 </button>
               </div>
-            </div>
           </div>
         </div>
       </div>

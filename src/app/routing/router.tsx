@@ -38,6 +38,7 @@ import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 // Page imports - Business Dashboard
 import BusinessCardCreationPage from '../pages/business/card/BusinessCardCreationPage';
 import DocumentVault from '../pages/business/data-room/DocumentVault';
+import ListingCreationPage from '../pages/business/listing/ListingCreationPage';
 import { ListingManagement } from '../pages/business/management';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
@@ -288,6 +289,14 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <ProfileCardCreationPage />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/listings/create',
+        element: (
+          <SellerRoute>
+            <ListingCreationPage />
           </SellerRoute>
         ),
       },

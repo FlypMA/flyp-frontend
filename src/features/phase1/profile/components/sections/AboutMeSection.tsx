@@ -8,12 +8,12 @@
  * @version 1.0.0
  */
 
+import { ProfileCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
-import { ProfileCard } from '@/shared/components/business';
 import { Avatar } from '@heroui/react';
 import { Building2, Camera, CheckCircle, PenLine, User } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '@/app/providers/auth-provider';
@@ -40,10 +40,10 @@ export const AboutMeSection: React.FC = () => {
 
   useEffect(() => {
     console.log('📊 Loading profile card data from localStorage...');
-    
+
     const hasCard = localStorage.getItem('hasProfileCard') === 'true';
     setHasProfileCard(hasCard);
-    
+
     if (hasCard) {
       const cardDataRaw = localStorage.getItem('profileCard');
       if (cardDataRaw) {
@@ -213,10 +213,7 @@ export const AboutMeSection: React.FC = () => {
         {/* Show Profile Card or Empty State */}
         {hasProfileCard && profileCardData ? (
           <div className="max-w-md">
-            <ProfileCard
-              profileData={profileCardData}
-              onEdit={handleCreateProfile}
-            />
+            <ProfileCard profileData={profileCardData} onEdit={handleCreateProfile} />
           </div>
         ) : (
           <div className="max-w-md">

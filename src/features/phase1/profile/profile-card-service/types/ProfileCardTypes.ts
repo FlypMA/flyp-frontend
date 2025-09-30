@@ -3,18 +3,29 @@
 // Purpose: Type definitions for profile card creation
 
 export interface ProfileCard {
-  // Basic Info
+  // Personal Information
   fullName: string;
   location: string;
-  profileImage?: string;
+  timezone?: string;
+  profileImage?: string; // URL to uploaded image or base64
 
-  // Professional Background
+  // About Me
   bio: string;
+
+  // Work & Education
+  jobTitle?: string;
+  company?: string;
+  industry?: string;
+  education?: string;
+  keyAchievements?: string;
+
+  // Business Metrics
   ownedBusinesses: number;
   exits: number;
-  yearsOnPlatform: number;
+  businessNotes?: string;
 
-  // Metadata
+  // Platform Metadata
+  yearsOnPlatform: number;
   status: 'draft' | 'complete';
   createdAt: Date;
   updatedAt: Date;

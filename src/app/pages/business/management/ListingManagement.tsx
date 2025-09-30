@@ -2,7 +2,6 @@
 // Location: src/app/pages/business/management/ListingManagement.tsx
 // Purpose: Manage business listings for sellers
 
-import StreamlinedListingModal from '@/features/phase1/business/listing/components/StreamlinedListingModal';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
 import { authService, UrlGenerator } from '@/shared/services';
@@ -326,33 +325,18 @@ const ListingManagement: React.FC = () => {
                 !hasBusinessCard || !hasProfileCard
                   ? undefined
                   : () => {
-                      console.log('🚀 Opening streamlined listing modal with data:', {
+                      console.log('🚀 Navigating to listing creation with data:', {
                         businessCard: businessCardData,
                         profileCard: profileCardData,
                         valuation: latestValuationReport,
                       });
-                      setIsListingWizardModalOpen(true);
+                      navigate('/my-business/listings/create');
                     }
               }
             />
           )}
         </div>
       </div>
-
-      {/* Streamlined Listing Modal */}
-      {isListingWizardModalOpen && businessCardData && (
-        <StreamlinedListingModal
-          isOpen={isListingWizardModalOpen}
-          onClose={() => setIsListingWizardModalOpen(false)}
-          onComplete={listingData => {
-            console.log('✅ Listing created:', listingData);
-            handleListingComplete(listingData);
-          }}
-          businessCard={businessCardData}
-          profileCard={profileCardData}
-          valuationReport={latestValuationReport}
-        />
-      )}
     </div>
   );
 };
