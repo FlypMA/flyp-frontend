@@ -1,12 +1,12 @@
 /**
  * 🎥 VideoBackground Component
- * 
+ *
  * Reusable video background component inspired by Airbnb, Epidemic Sound, and Fiverr
  * - Supports video with fallback to gradient/image
  * - Performance optimized with lazy loading
  * - Accessible with proper overlays
  * - Mobile-friendly with fallback backgrounds
- * 
+ *
  * Usage:
  * ```tsx
  * <VideoBackground
@@ -63,10 +63,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -124,9 +124,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
             {!videoLoaded && (
               <div
                 className={`absolute inset-0 ${
-                  fallbackImage
-                    ? 'bg-cover bg-center'
-                    : `bg-gradient-to-br ${fallbackGradient}`
+                  fallbackImage ? 'bg-cover bg-center' : `bg-gradient-to-br ${fallbackGradient}`
                 }`}
                 style={fallbackImage ? { backgroundImage: `url(${fallbackImage})` } : {}}
               />
@@ -136,24 +134,18 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           // Fallback background (no video)
           <div
             className={`absolute inset-0 ${
-              fallbackImage
-                ? 'bg-cover bg-center'
-                : `bg-gradient-to-br ${fallbackGradient}`
+              fallbackImage ? 'bg-cover bg-center' : `bg-gradient-to-br ${fallbackGradient}`
             }`}
             style={fallbackImage ? { backgroundImage: `url(${fallbackImage})` } : {}}
           />
         )}
 
         {/* Overlay */}
-        {overlay !== 'none' && (
-          <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />
-        )}
+        {overlay !== 'none' && <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />}
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };

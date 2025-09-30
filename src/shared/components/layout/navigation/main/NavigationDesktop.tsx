@@ -98,14 +98,6 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
           <ul className="h-full flex-row flex-nowrap items-center flex gap-8">
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Link
-                to="/for-sellers"
-                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
-              >
-                How to Sell
-              </Link>
-            </li>
-            <li className="text-medium whitespace-nowrap box-border list-none">
-              <Link
                 to="/search"
                 className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
               >
@@ -114,10 +106,18 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
             </li>
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Link
-                to="/resources/valuation-guide"
+                to="/valuation"
                 className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
               >
-                Free Valuation
+                Get Valued
+              </Link>
+            </li>
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Link
+                to="/how-it-works"
+                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+              >
+                How It Works
               </Link>
             </li>
           </ul>

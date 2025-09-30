@@ -15,6 +15,7 @@ export class UrlGenerator {
   static listingById = (listingId: string) => `/listings/${listingId}`;
   static about = () => '/about';
   static contact = () => '/contact';
+  static howItWorks = () => '/how-it-works';
   static forSellers = () => '/for-sellers';
 
   // ==============================================================================

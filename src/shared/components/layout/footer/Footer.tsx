@@ -5,7 +5,6 @@
 import { Globe, Mail, MapPin, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { UrlGenerator } from '../../../services';
-import UpswitchLogo from '../../logo/upswitchLogo';
 
 const Footer = () => {
   return (
@@ -13,65 +12,77 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
-          {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <div className="space-y-6">
-              {/* Brand Logo/Name */}
-              <div className="flex items-center space-x-4">
-                <div className="p-3 footer-logo-container bg-white rounded-lg">
-                  <UpswitchLogo variant="footer" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">Upswitch</h3>
-                  <p className="text-sm text-neutral-400">European M&A Platform</p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-neutral-300 text-sm leading-relaxed max-w-md">
-                  Europe's leading platform for SME mergers & acquisitions. Connecting verified
-                  buyers and sellers across 15+ countries with complete transaction support.
-                </p>
-
-                {/* Trust Indicators */}
-                <div className="flex flex-wrap gap-4 text-xs text-neutral-400">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-3 h-3" />
-                    <span>Secure & Confidential</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-3 h-3" />
-                    <span>Pan-European</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Platform Links */}
+          {/* Column 1: For Sellers */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">Platform</h3>
+            <h3 className="text-white font-semibold text-lg mb-6">For Sellers</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   to="/for-sellers"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  For Sellers
+                  Sell Your Business
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/search"
+                  to="/valuation"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  For Buyers
+                  Get Free Valuation
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/resources/valuation-guide"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Valuation Guide
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/resources/due-diligence"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Due Diligence
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Column 2: For Buyers */}
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-6">For Buyers</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/search"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Browse Businesses
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/faq"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/help"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Help Center
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Resources */}
           <div>
             <h3 className="text-white font-semibold text-lg mb-6">Resources</h3>
             <ul className="space-y-3">
@@ -91,10 +102,18 @@ const Footer = () => {
                   Due Diligence Checklist
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/faq"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Company & Legal */}
+          {/* Column 4: Company */}
           <div>
             <h3 className="text-white font-semibold text-lg mb-6">Company</h3>
             <ul className="space-y-3">
@@ -103,7 +122,7 @@ const Footer = () => {
                   to="/about"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  About Us
+                  About
                 </Link>
               </li>
               <li>
@@ -112,6 +131,14 @@ const Footer = () => {
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/help"
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Help Center
                 </Link>
               </li>
             </ul>
@@ -125,6 +152,18 @@ const Footer = () => {
               <div className="flex items-center gap-2">
                 <MapPin className="w-3 h-3" />
                 <span>Brussels, Belgium</span>
+              </div>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap gap-4 text-xs text-neutral-400 mt-6">
+              <div className="flex items-center gap-2">
+                <Shield className="w-3 h-3" />
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Globe className="w-3 h-3" />
+                <span>Pan-EU</span>
               </div>
             </div>
           </div>

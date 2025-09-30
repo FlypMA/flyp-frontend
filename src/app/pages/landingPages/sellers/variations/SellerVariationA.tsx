@@ -1,12 +1,12 @@
 /**
  * 🎯 Seller Landing Page - Variation A: "Business Intelligence First"
- * 
+ *
  * STRATEGY:
  * - Lead with valuation & business health (not selling)
  * - De-emphasize "selling" until user is ready
  * - Focus: "Get smarter about your business"
  * - Position as 12-36 month exploration journey
- * 
+ *
  * INSPIRATION:
  * - Airbnb: Trust-building, clean design, video background
  * - Typeform: Conversational, friendly tone
@@ -140,7 +140,7 @@ const SellerVariationA = () => {
     <>
       <SEOHead
         {...seoData.sellers}
-        title="Business Intelligence Platform for SME Owners | Flyp"
+        title="Business Intelligence Platform for SME Owners | Upswitch"
         description="Get smarter about your business. Free valuations, monthly insights, and growth recommendations. No pressure to sell — explore for 12-36 months."
       />
 
@@ -249,9 +249,7 @@ const SellerVariationA = () => {
                       >
                         <feature.icon className="w-8 h-8" />
                       </div>
-                      <h3 className="text-2xl font-bold text-neutral-900 mb-4">
-                        {feature.title}
-                      </h3>
+                      <h3 className="text-2xl font-bold text-neutral-900 mb-4">{feature.title}</h3>
                       <p className="text-lg text-neutral-600 leading-relaxed">
                         {feature.description}
                       </p>
@@ -305,9 +303,7 @@ const SellerVariationA = () => {
                           <div className="text-sm font-bold text-primary-600 mb-2">
                             {step.phase}
                           </div>
-                          <h3 className="text-lg font-bold text-neutral-900 mb-3">
-                            {step.title}
-                          </h3>
+                          <h3 className="text-lg font-bold text-neutral-900 mb-3">{step.title}</h3>
                           <p className="text-sm text-neutral-600 leading-relaxed">
                             {step.description}
                           </p>
@@ -348,7 +344,7 @@ const SellerVariationA = () => {
                   Trusted by smart business owners
                 </h2>
                 <p className="text-lg text-neutral-600">
-                  Join thousands who use Flyp to understand and optimize their businesses
+                  Join thousands who use Upswitch to understand and optimize their businesses
                 </p>
               </div>
 
@@ -416,7 +412,7 @@ const SellerVariationA = () => {
                 <span className="text-primary-400">starting today</span>
               </h2>
               <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                Join 12,000+ business owners using Flyp's intelligence platform to understand,
+                Join 12,000+ business owners using Upswitch's intelligence platform to understand,
                 optimize, and (when ready) sell their businesses.
               </p>
 

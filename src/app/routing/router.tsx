@@ -24,8 +24,12 @@ import NDARouteGuard from './NDARouteGuard';
 import { ProtectedRoute, SellerRoute } from './route-guards';
 
 // Page imports - Landing Pages
-import HomePage from '../pages/landingPages/home';
-import SellersPage from '../pages/landingPages/sellers/sellers';
+import {
+  SellerVariationA,
+  SellerVariationB,
+  SellerVariationC,
+} from '../pages/landingPages/sellers/variations';
+import VariationComparison from '../pages/landingPages/sellers/variations/VariationComparison';
 
 // Page imports - Listings
 import CreateListingPage from '../pages/listings/CreateListingPage';
@@ -44,6 +48,23 @@ import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import ValuationTool from '../pages/business/reports/ValuationTool';
 import ProfileCardCreationPage from '../pages/profile/ProfileCardCreationPage';
+
+// Page imports - Valuation Pages
+import {
+  ValuationVariationA,
+  ValuationVariationB,
+  ValuationVariationC,
+  ValuationVariationD,
+} from '../pages/landingPages/valuation/variations';
+import ValuationComparison from '../pages/landingPages/valuation/variations/ValuationComparison';
+
+// Page imports - Homepage Variations
+import {
+  HomeVariationA,
+  HomeVariationB,
+  HomeVariationC,
+} from '../pages/landingPages/home/variations';
+import HomeComparison from '../pages/landingPages/home/variations/HomeComparison';
 
 // Page imports - Due Diligence
 import { DueDiligencePage } from '../pages/due-diligence';
@@ -72,6 +93,7 @@ import CheckoutSuccess from '../pages/checkout/success/CheckoutSuccess';
 
 // Page imports - Company & Legal
 import About from '../pages/company/about/About';
+import HowItWorks from '../pages/company/howItWorks/HowItWorks';
 import CookiePolicy from '../pages/company/legal/cookiePolicy/CookiePolicy';
 import GdprCompliance from '../pages/company/legal/gdpr/GdprCompliance';
 import PrivacyPolicy from '../pages/company/legal/privacyPolicy/privacyPolicy';
@@ -111,10 +133,35 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       // Landing Pages
-      { index: true, element: <HomePage /> },
-      { path: 'for-sellers', element: <SellersPage /> },
+      { index: true, element: <HomeVariationC /> },
+      { path: 'for-sellers', element: <SellerVariationC /> },
+
+      // Seller Landing Page Variations (for design exploration & A/B testing)
+      { path: 'for-sellers/variation-a', element: <SellerVariationA /> },
+      { path: 'for-sellers/variation-b', element: <SellerVariationB /> },
+      { path: 'for-sellers/variation-c', element: <SellerVariationC /> },
+      { path: 'for-sellers/compare', element: <VariationComparison /> },
+
+      // Valuation Landing Page (NEW - Main entry point for sellers)
+      { path: 'valuation', element: <ValuationVariationD /> },
+      { path: 'get-valued', element: <ValuationVariationD /> }, // Alternative URL
+
+      // Valuation Page Variations (for design exploration & A/B testing)
+      { path: 'valuation/variation-a', element: <ValuationVariationA /> },
+      { path: 'valuation/variation-b', element: <ValuationVariationB /> },
+      { path: 'valuation/variation-c', element: <ValuationVariationC /> },
+      { path: 'valuation/variation-d', element: <ValuationVariationD /> },
+      { path: 'valuation/compare', element: <ValuationComparison /> },
+
+      // Homepage Variations (for design exploration & A/B testing)
+      { path: 'home/variation-a', element: <HomeVariationA /> },
+      { path: 'home/variation-b', element: <HomeVariationB /> },
+      { path: 'home/variation-c', element: <HomeVariationC /> },
+      { path: 'home/compare', element: <HomeComparison /> },
+
       { path: 'about', element: <About /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'how-it-works', element: <HowItWorks /> },
       { path: 'help', element: <Help /> },
       { path: 'faq', element: <FAQ /> },
 
