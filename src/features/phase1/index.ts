@@ -18,4 +18,4 @@ export { useBusinessValuation } from './business/valuation';
 
 // Types
 export type { BusinessInfo } from './business/dashboard';
-export type { ListingWizardData as ListingData } from './business/wizard/types';
+export type { ListingWizardData as ListingData } from './business/listing/types';

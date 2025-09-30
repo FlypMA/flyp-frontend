@@ -1,18 +1,18 @@
 // 🏢 Listing Wizard Modal - Modular Architecture
-// Location: src/features/phase1/business/wizard/components/ListingWizardModal.tsx
+// Location: src/features/phase1/business/listing/components/ListingWizardModal.tsx
 // Purpose: Main modal orchestrating the listing creation wizard
 
 import { FullscreenModal } from '@/shared/components/modals/foundations/FullscreenModal';
 import React, { useEffect, useState } from 'react';
 
 // Step Components
-import BasicInfoStep from '../steps/BasicInfoStep';
-import BusinessDetailsStep from '../steps/BusinessDetailsStep';
-import DocumentsStep from '../steps/DocumentsStep';
-import FinancialInfoStep from '../steps/FinancialInfoStep';
-import PrivacySettingsStep from '../steps/PrivacySettingsStep';
-import ReviewStep from '../steps/ReviewStep';
-import SaleDetailsStep from '../steps/SaleDetailsStep';
+import BasicInfoStep from '../listing-service/steps/BasicInfoStep';
+import BusinessDetailsStep from '../listing-service/steps/BusinessDetailsStep';
+import DocumentsStep from '../listing-service/steps/DocumentsStep';
+import FinancialInfoStep from '../listing-service/steps/FinancialInfoStep';
+import PrivacySettingsStep from '../listing-service/steps/PrivacySettingsStep';
+import ReviewStep from '../listing-service/steps/ReviewStep';
+import SaleDetailsStep from '../listing-service/steps/SaleDetailsStep';
 
 // Shared Components
 import StepIndicator from './StepIndicator';
@@ -49,6 +49,7 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
           teamSize: businessInfo?.teamSize || '',
           website: businessInfo?.website || '',
           business_model: '', // Not available in business profile, will be filled by user
+          keyHighlights: [],
         },
         financialInfo: {
           businessType: valuationData?.businessType || 'company',
@@ -238,19 +239,19 @@ const ListingWizardModal: React.FC<ListingWizardModalProps> = ({
 
     switch (currentStep) {
       case 1:
-        return <BasicInfoStep {...stepProps} />;
+        return <BasicInfoStep {...(stepProps as any)} />;
       case 2:
-        return <FinancialInfoStep {...stepProps} valuationReports={valuationReports} />;
+        return <FinancialInfoStep {...(stepProps as any)} valuationReports={valuationReports} />;
       case 3:
-        return <BusinessDetailsStep {...stepProps} />;
+        return <BusinessDetailsStep {...(stepProps as any)} />;
       case 4:
-        return <SaleDetailsStep {...stepProps} />;
+        return <SaleDetailsStep {...(stepProps as any)} />;
       case 5:
-        return <PrivacySettingsStep {...stepProps} />;
+        return <PrivacySettingsStep {...(stepProps as any)} />;
       case 6:
-        return <DocumentsStep {...stepProps} />;
+        return <DocumentsStep {...(stepProps as any)} />;
       case 7:
-        return <ReviewStep {...stepProps} />;
+        return <ReviewStep {...(stepProps as any)} />;
       default:
         return null;
     }

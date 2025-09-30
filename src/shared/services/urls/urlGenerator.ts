@@ -45,7 +45,12 @@ export class UrlGenerator {
   static businessAnalytics = () => '/my-business/analytics';
   static businessDocuments = () => '/my-business/documents';
   static businessPerformance = () => '/my-business/performance';
+
+  // Listing Creation Flow
   static createNewListing = () => '/my-business/listings/new';
+  static listingPrelude = () => '/my-business/listings/prelude';
+  static listingService = (businessType: string) =>
+    `/my-business/listings/create?type=${encodeURIComponent(businessType)}`;
 
   // ==============================================================================
   // BUSINESS BUYERS

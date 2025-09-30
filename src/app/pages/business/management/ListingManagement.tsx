@@ -2,7 +2,7 @@
 // Location: src/app/pages/business/management/ListingManagement.tsx
 // Purpose: Manage business listings for sellers
 
-import { ListingWizardModal } from '@/features/phase1/business/wizard';
+import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
 import { authService, UrlGenerator } from '@/shared/services';
@@ -92,7 +92,8 @@ const ListingManagement: React.FC = () => {
   };
 
   const handleCreateListing = () => {
-    setIsListingWizardModalOpen(true);
+    // Navigate to the listing prelude flow
+    navigate(UrlGenerator.listingPrelude());
   };
 
   const handleListingComplete = (data: any) => {

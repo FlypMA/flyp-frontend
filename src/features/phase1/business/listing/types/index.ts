@@ -1,6 +1,9 @@
-// 🏢 Listing Wizard Types - Modular Architecture
-// Location: src/features/phase1/business/wizard/types/index.ts
-// Purpose: Shared type definitions for the listing wizard feature
+// 🏢 Listing Creation Types - Modular Architecture
+// Location: src/features/phase1/business/listing/types/index.ts
+// Purpose: Shared type definitions for the listing creation feature (Legacy - kept for backward compatibility)
+
+// Note: New types are in /prelude/types and /listing-service/types
+// This file exports legacy types for backward compatibility
 
 import React from 'react';
 
@@ -15,6 +18,7 @@ export interface BasicInfo {
   teamSize: string; // Changed from 'employee_count' to 'teamSize' to match BusinessProfileModal
   website?: string; // Made optional to match BusinessProfileModal
   business_model?: string; // Made optional, not in BusinessProfileModal
+  keyHighlights: string[]; // Added to match new listing service
 }
 
 // Aligned with ValuationModal structure

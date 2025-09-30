@@ -1,5 +1,5 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
-import { ListingWizardModal } from '@/features/phase1/business/wizard';
+import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { BusinessProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';

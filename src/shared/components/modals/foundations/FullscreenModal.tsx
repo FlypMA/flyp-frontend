@@ -17,8 +17,9 @@
  */
 
 import { Modal, ModalBody, ModalContent } from '@heroui/react';
-import { ArrowLeft, X } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import React from 'react';
+import { SecondaryButton } from '../../buttons';
 
 interface FullscreenModalProps {
   /** Whether the modal is open */
@@ -26,7 +27,7 @@ interface FullscreenModalProps {
   /** Function to call when modal should close */
   onClose: () => void;
   /** Modal title */
-  title?: string;
+  title?: string | React.ReactNode;
   /** Current step number (for progress indication) */
   currentStep?: number;
   /** Total number of steps */
@@ -39,6 +40,8 @@ interface FullscreenModalProps {
   onBack?: () => void;
   /** Custom header content */
   headerContent?: React.ReactNode;
+  /** Whether to show the default header (default: true) */
+  showHeader?: boolean;
   /** Modal content */
   children: React.ReactNode;
   /** Additional CSS classes */
@@ -59,6 +62,7 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({
   showBackButton = false,
   onBack,
   headerContent,
+  showHeader = true,
   children,
   className = '',
   isDismissable = true,
@@ -83,52 +87,57 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({
       <ModalContent className="h-screen max-h-screen rounded-none">
         <ModalBody className="flex flex-col h-full p-0">
           {/* Header */}
-          <header className="flex-shrink-0 bg-white border-b border-gray-200 px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                {showBackButton && onBack && (
-                  <button
-                    onClick={onBack}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                    aria-label="Go back"
-                  >
-                    <ArrowLeft className="w-5 h-5 text-gray-600" />
-                  </button>
+          {showHeader && (
+            <header className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  {showBackButton && onBack && (
+                    <button
+                      onClick={onBack}
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      aria-label="Go back"
+                    >
+                      <ArrowLeft className="w-5 h-5 text-gray-600" />
+                    </button>
+                  )}
+
+                  <div>
+                    {title &&
+                      (typeof title === 'string' ? (
+                        <h1 className="text-xl font-semibold text-gray-900">{title}</h1>
+                      ) : (
+                        title
+                      ))}
+                    {showProgress && currentStep && totalSteps && (
+                      <p className="text-sm text-gray-500 mt-1">
+                        Step {currentStep} of {totalSteps}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {headerContent && (
+                  <div className="flex items-center space-x-4">{headerContent}</div>
                 )}
 
-                <div>
-                  {title && <h1 className="text-xl font-semibold text-gray-900">{title}</h1>}
-                  {showProgress && currentStep && totalSteps && (
-                    <p className="text-sm text-gray-500 mt-1">
-                      Step {currentStep} of {totalSteps}
-                    </p>
-                  )}
-                </div>
+                <SecondaryButton onClick={onClose} size="sm" aria-label={closeButtonAriaLabel}>
+                  Back
+                </SecondaryButton>
               </div>
 
-              {headerContent && <div className="flex items-center space-x-4">{headerContent}</div>}
-
-              <button
-                onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label={closeButtonAriaLabel}
-              >
-                <X className="w-5 h-5 text-gray-600" />
-              </button>
-            </div>
-
-            {/* Progress Bar */}
-            {showProgress && (
-              <div className="mt-4">
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-primary-600 h-2 rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${progressPercentage}%` }}
-                  />
+              {/* Progress Bar */}
+              {showProgress && (
+                <div className="mt-4">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-primary-600 h-2 rounded-full transition-all duration-300 ease-out"
+                      style={{ width: `${progressPercentage}%` }}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-          </header>
+              )}
+            </header>
+          )}
 
           {/* Content */}
           <main className="flex-1 bg-gray-50 overflow-hidden">{children}</main>

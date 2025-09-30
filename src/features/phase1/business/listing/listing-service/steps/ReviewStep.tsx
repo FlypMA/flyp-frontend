@@ -6,10 +6,11 @@ import { CustomCheckbox } from '@/shared/components/forms';
 import { Card, CardBody } from '@heroui/react';
 import { CheckCircle } from 'lucide-react';
 import React from 'react';
-import { ListingWizardData, StepComponentProps } from '../types';
+import { ListingWizardData } from '../types';
 
-const ReviewStep: React.FC<StepComponentProps> = ({ data }) => {
-  const wizardData = data as ListingWizardData;
+// NOTE: This is a legacy step that will be replaced. Using type assertions for compatibility.
+const ReviewStep: React.FC<any> = ({ data }) => {
+  const wizardData = data as any as ListingWizardData;
   const [isDraft, setIsDraft] = React.useState(false);
   const [termsAgreed, setTermsAgreed] = React.useState(false);
 

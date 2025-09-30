@@ -1,4 +1,4 @@
-import { ListingWizardModal } from '@/features/phase1/business/wizard';
+import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { authService } from '@/shared/services/auth';
 import { User } from '@/shared/types';

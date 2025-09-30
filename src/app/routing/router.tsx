@@ -30,7 +30,9 @@ import SellersPage from '../pages/landingPages/sellers/sellers';
 // Page imports - Listings
 import CreateListingPage from '../pages/listings/CreateListingPage';
 import ListingDetails from '../pages/listings/ListingDetails';
+import ListingPreludePage from '../pages/listings/ListingPreludePage';
 import ListingSearch from '../pages/listings/ListingSearch';
+import ListingServicePage from '../pages/listings/ListingServicePage';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Business Dashboard
@@ -296,12 +298,28 @@ export const router = createBrowserRouter([
         ),
       },
 
-      // Listing Creation
+      // Listing Creation Flow
       {
         path: 'my-business/listings/new',
         element: (
           <SellerRoute>
             <CreateListingPage />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/listings/prelude',
+        element: (
+          <SellerRoute>
+            <ListingPreludePage />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/listings/create',
+        element: (
+          <SellerRoute>
+            <ListingServicePage />
           </SellerRoute>
         ),
       },
