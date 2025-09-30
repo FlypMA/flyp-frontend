@@ -71,13 +71,13 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
       <header className="z-40 flex px-6 gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full">
         {/* Logo Section */}
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center gap-1">
             <img
-              src="/upswitch_logo.svg?v=2024.1"
+              src="/UpSwitch_logo_var1.svg?v=2024.4"
               alt="Upswitch - European SME M&A Platform"
               width="32"
               height="32"
-              className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
+              className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
               loading="lazy"
               style={{
                 height: '32px',
@@ -87,7 +87,9 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="font-display text-xl font-light text-gray-900 ml-2">Upswitch</span>
+            <span className="font-display text-xl font-light text-primary-700 leading-none mt-0.5">
+              Upswitch
+            </span>
           </Link>
         </div>
 

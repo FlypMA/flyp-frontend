@@ -144,7 +144,7 @@ The logo system includes cache busting to ensure users always see the latest log
 
 ```tsx
 // Logo path includes version parameter
-const logoPath = '/upswitch_logo.svg?v=2024.2';
+const logoPath = '/UpSwitch_logo_var1.svg?v=2024.4';
 ```
 
 ## Accessibility

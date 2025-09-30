@@ -4,7 +4,7 @@
  */
 
 // Import the main logo from public directory with cache busting
-const upswitchLogo = '/upswitch_logo.svg?v=2024.2';
+const upswitchLogo = '/UpSwitch_logo_var1.svg?v=2024.4';
 
 // Export logo configurations for different use cases
 export const logos = {

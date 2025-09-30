@@ -9,16 +9,18 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
   const [formData, setFormData] = useState({
     whatMakesSpecial: data.businessStory?.whatMakesSpecial || '',
     targetCustomers: data.businessStory?.targetCustomers || '',
-    growthOpportunities: data.businessStory?.growthOpportunities || '',
-    keyAssets: data.businessStory?.keyAssets || '',
-    competitiveAdvantage: data.businessStory?.competitiveAdvantage || '',
   });
 
   const handleInputChange = (field: string, value: string) => {
     const updatedData = { ...formData, [field]: value };
     setFormData(updatedData);
+    const newBusinessStory = {
+      ...data.businessStory,
+      ...updatedData,
+    };
+    console.log('📝 Business Story - updating:', { field, value, newBusinessStory });
     onDataChange({
-      businessStory: updatedData,
+      businessStory: newBusinessStory,
     });
   };
 
@@ -83,75 +85,6 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
         </div>
       </div>
 
-      {/* Growth Opportunities */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          What growth opportunities exist?
-        </label>
-        <textarea
-          value={formData.growthOpportunities}
-          onChange={e => handleInputChange('growthOpportunities', e.target.value)}
-          placeholder="What untapped potential does this business have?"
-          rows={3}
-          maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
-        />
-        <div className="flex justify-between mt-1">
-          <p className="text-sm text-gray-500">
-            E.g., "Expand to online sales" or "Add new service offerings"
-          </p>
-          <span className="text-xs text-gray-400">
-            {getCharacterCount(formData.growthOpportunities, 300)}
-          </span>
-        </div>
-      </div>
-
-      {/* Key Assets */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          What are your key business assets?
-        </label>
-        <textarea
-          value={formData.keyAssets}
-          onChange={e => handleInputChange('keyAssets', e.target.value)}
-          placeholder="List valuable assets like equipment, intellectual property, customer lists..."
-          rows={3}
-          maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
-        />
-        <div className="flex justify-between mt-1">
-          <p className="text-sm text-gray-500">
-            Include physical, digital, and intellectual assets
-          </p>
-          <span className="text-xs text-gray-400">
-            {getCharacterCount(formData.keyAssets, 300)}
-          </span>
-        </div>
-      </div>
-
-      {/* Competitive Advantage */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          What's your competitive advantage?
-        </label>
-        <textarea
-          value={formData.competitiveAdvantage}
-          onChange={e => handleInputChange('competitiveAdvantage', e.target.value)}
-          placeholder="What gives you an edge over competitors?"
-          rows={3}
-          maxLength={300}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
-        />
-        <div className="flex justify-between mt-1">
-          <p className="text-sm text-gray-500">
-            E.g., "Exclusive supplier agreements" or "Proprietary technology"
-          </p>
-          <span className="text-xs text-gray-400">
-            {getCharacterCount(formData.competitiveAdvantage, 300)}
-          </span>
-        </div>
-      </div>
-
       {/* Help Section */}
       <div className="bg-primary-50 rounded-xl p-6 mt-8">
         <div className="flex items-start space-x-4">
@@ -173,12 +106,11 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-gray-900 mb-2">Storytelling Tips</h3>
+            <h3 className="font-medium text-gray-900 mb-2">Quick Tips</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• Be specific and authentic - buyers appreciate honesty</li>
-              <li>• Focus on achievements and unique strengths</li>
-              <li>• Highlight customer satisfaction and loyalty</li>
-              <li>• Mention any awards, certifications, or recognition</li>
+              <li>• Focus on what makes you different from competitors</li>
+              <li>• Describe your ideal customer clearly</li>
             </ul>
           </div>
         </div>

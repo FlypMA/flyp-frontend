@@ -239,10 +239,10 @@ const LoginModal: React.FC = () => {
                   handleCloseModal();
                   navigate('/');
                 }}
-                className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
+                className="flex items-center space-x-2 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
-                  src="/upswitch_logo.svg?v=2024.1"
+                  src="/UpSwitch_logo_var1.svg?v=2024.4"
                   alt="Upswitch - European SME M&A Platform"
                   width="32"
                   height="32"
@@ -256,7 +256,7 @@ const LoginModal: React.FC = () => {
                     display: 'block',
                   }}
                 />
-                <span className="text-xl font-bold text-gray-900 ml-2">UpSwitch</span>
+                <span className="text-xl font-bold text-primary-700">UpSwitch</span>
               </a>
             </div>
 

@@ -3,7 +3,6 @@ import { BusinessCardFlow } from '@/features/phase1/business/card';
 // import { ListingWizardModal } from '@/features/phase1/business/listing'; // Legacy, using StreamlinedListingModal via navigation now
 import BusinessProfileCardV4 from '@/shared/components/business/BusinessProfileCardV4';
 import { Button } from '@/shared/components/buttons';
-import { EmptyStateCard } from '@/shared/components/cards';
 import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
 import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { AuthenticationService } from '@/shared/services/auth';
@@ -353,24 +352,150 @@ const BusinessOverview = () => {
         <div className="mb-12">
           {/* NEW: Progressive Onboarding Flow */}
           {!hasBusinessCard ? (
-            <EmptyStateCard
-              icon={Store}
-              title="Tell us about your business"
-              description="Share a few details about your business. This helps us create your profile and show you what your business is worth as you grow on the platform."
-              buttonText="Add Your Business"
-              onButtonClick={() => navigate('/my-business/card/create')}
-            />
+            <div className="max-w-sm">
+              {/* Square Empty State Card */}
+              <div className="aspect-square relative bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl overflow-hidden border-2 border-primary-200 hover:border-primary-300 shadow-md hover:shadow-xl transition-all duration-300 group">
+                <div className="absolute inset-0 flex flex-col p-8">
+                  {/* Background pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500 rounded-full -translate-y-32 translate-x-32"></div>
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary-600 rounded-full translate-y-24 -translate-x-24"></div>
+                  </div>
+
+                  {/* Content - Centered */}
+                  <div className="flex-1 flex flex-col items-center justify-center text-center">
+                    <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Store className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      Tell us about your business
+                    </h3>
+                    <p className="text-gray-600 mb-5 px-2 text-sm">
+                      Share a few details about your business. This helps us create your profile and
+                      show you what your business is worth as you grow on the platform.
+                    </p>
+                    <button
+                      onClick={() => navigate('/my-business/card/create')}
+                      className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg group-hover:scale-105"
+                    >
+                      <Store className="w-4 h-4 mr-2" />
+                      Add Your Business
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           ) : (
-            <BusinessProfileCardV4
-              businessInfo={businessInfo}
-              onEdit={handleEditBusinessInfo}
-              profileCardData={profileCardData}
-              hasValuationReports={hasValuationReports}
-              latestValuationReport={latestValuationReport}
-              valuationReports={valuationReports}
-              hasActiveListing={hasActiveListing}
-              onCreateValuation={() => setIsValuationModalOpen(true)}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Business Card V4 - Square */}
+              <BusinessProfileCardV4
+                businessInfo={businessInfo}
+                onEdit={handleEditBusinessInfo}
+                profileCardData={profileCardData}
+                hasValuationReports={hasValuationReports}
+                latestValuationReport={latestValuationReport}
+                valuationReports={valuationReports}
+                hasActiveListing={hasActiveListing}
+                onCreateValuation={() => setIsValuationModalOpen(true)}
+              />
+
+              {/* Next Step Card - Square */}
+              <div className="aspect-square relative w-full bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl overflow-hidden border-2 border-primary-200 hover:border-primary-300 shadow-md hover:shadow-xl transition-all duration-300 group">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500 rounded-full -translate-y-32 translate-x-32"></div>
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary-600 rounded-full translate-y-24 -translate-x-24"></div>
+                </div>
+
+                <div className="absolute inset-0 flex flex-col p-8">
+                  <div className="flex-1 flex flex-col items-center justify-center text-center">
+                    {/* Determine next step */}
+                    {!hasValuationReports ? (
+                      <>
+                        <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-3xl">💰</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          Discover your business value
+                        </h3>
+                        <p className="text-gray-600 mb-5 px-2 text-sm">
+                          Get a professional AI-powered valuation to see what your business is worth
+                          today. Track your value over time and make better decisions as you grow.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setIsValuationModalOpen(true)}
+                          className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg group-hover:scale-105"
+                        >
+                          <span className="text-xl mr-2">💰</span>
+                          Create Valuation Report
+                        </button>
+                      </>
+                    ) : !profileCardData ? (
+                      <>
+                        <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-3xl">👤</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          Add yourself as the owner
+                        </h3>
+                        <p className="text-gray-600 mb-5 px-2 text-sm">
+                          Share your story as the founder. Let others know who built this business
+                          and what drives you.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => navigate('/my-business/profile/create')}
+                          className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg group-hover:scale-105"
+                        >
+                          <span className="text-xl mr-2">👤</span>
+                          Tell about yourself
+                        </button>
+                      </>
+                    ) : !hasActiveListing ? (
+                      <>
+                        <div className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Store className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          Ready to list your business?
+                        </h3>
+                        <p className="text-gray-600 mb-5 px-2 text-sm">
+                          Create a confidential listing to test buyer interest. There are no upfront
+                          fees—you only pay when you successfully sell your business.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => navigate('/my-business/listings/create')}
+                          className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg group-hover:scale-105"
+                        >
+                          <Store className="w-4 h-4 mr-2" />
+                          Create Listing
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-16 h-16 bg-success-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-3xl">✅</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">All set!</h3>
+                        <p className="text-gray-600 mb-5 px-2 text-sm">
+                          Your business is live on the marketplace. Manage your listing and track
+                          buyer interest.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => navigate('/my-business/listings')}
+                          className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg group-hover:scale-105"
+                        >
+                          View Listing
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
 
@@ -453,21 +578,6 @@ const BusinessOverview = () => {
               </div>
               {/* Additional listing cards could go here */}
             </>
-          ) : hasBusinessCard && hasProfileCard && hasValuationReports ? (
-            <EmptyStateCard
-              icon={Store}
-              title="Ready to explore selling opportunities?"
-              description="Create a confidential listing to test buyer interest. There are no upfront fees—you only pay when you successfully sell your business."
-              buttonText="Create Listing"
-              onButtonClick={() => {
-                console.log('🚀 Navigating to listing creation with data:', {
-                  businessCard: businessCardData,
-                  profileCard: profileCardData,
-                  valuation: latestValuationReport,
-                });
-                navigate('/my-business/listings/create');
-              }}
-            />
           ) : null}
         </div>
       </div>

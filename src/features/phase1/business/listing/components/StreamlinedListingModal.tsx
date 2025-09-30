@@ -183,6 +183,13 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
           key_assets: '',
           operational_highlights: '',
         },
+        businessStory: listingData.businessStory || {
+          whatMakesSpecial: '',
+          targetCustomers: '',
+          growthOpportunities: '',
+          keyAssets: '',
+          competitiveAdvantage: '',
+        },
         saleDetails: listingData.saleDetails || {
           reason_for_sale: '',
           preferred_timeline: '',
@@ -233,13 +240,27 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
 
     switch (currentStep) {
       case 4: // Business Story
-        return !!(
-          listingData.businessDetails?.key_products && listingData.businessDetails?.target_market
-        );
+        const hasSpecial = listingData.businessStory?.whatMakesSpecial?.trim();
+        const hasCustomers = listingData.businessStory?.targetCustomers?.trim();
+        console.log('🔍 Step 4 validation:', {
+          whatMakesSpecial: listingData.businessStory?.whatMakesSpecial,
+          targetCustomers: listingData.businessStory?.targetCustomers,
+          hasSpecial,
+          hasCustomers,
+          canProceed: !!(hasSpecial && hasCustomers),
+        });
+        return !!(hasSpecial && hasCustomers);
       case 5: // Sale Details
-        return !!(
-          listingData.saleDetails?.reason_for_sale && listingData.saleDetails?.preferred_timeline
-        );
+        const hasReason = listingData.saleDetails?.reasonForSale?.trim();
+        const hasTimeline = listingData.saleDetails?.preferredTimeline?.trim();
+        console.log('🔍 Step 5 validation:', {
+          reasonForSale: listingData.saleDetails?.reasonForSale,
+          preferredTimeline: listingData.saleDetails?.preferredTimeline,
+          hasReason,
+          hasTimeline,
+          canProceed: !!(hasReason && hasTimeline),
+        });
+        return !!(hasReason && hasTimeline);
       case 6: // Documents
         return true; // Optional
       case 7: // Privacy

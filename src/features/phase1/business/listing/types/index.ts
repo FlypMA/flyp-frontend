@@ -66,13 +66,23 @@ export interface BusinessDetails {
   operational_highlights: string;
 }
 
+export interface BusinessStory {
+  whatMakesSpecial: string;
+  targetCustomers: string;
+  growthOpportunities?: string;
+  keyAssets?: string;
+  competitiveAdvantage?: string;
+}
+
 export interface SaleDetails {
   reason_for_sale: string;
   preferred_timeline: string;
-  included_assets: string[];
-  excluded_assets: string[];
-  transition_support: string;
-  staff_retention: string;
+  included_assets?: string[];
+  excluded_assets?: string[];
+  transition_support?: string;
+  staff_retention?: string;
+  reasonForSale?: string;
+  preferredTimeline?: string;
 }
 
 export interface PrivacySettings {
@@ -126,6 +136,7 @@ export interface ListingWizardData {
   basicInfo: BasicInfo;
   financialInfo: FinancialInfo;
   businessDetails: BusinessDetails;
+  businessStory: BusinessStory;
   saleDetails: SaleDetails;
   privacySettings: PrivacySettings;
   documents: Documents;

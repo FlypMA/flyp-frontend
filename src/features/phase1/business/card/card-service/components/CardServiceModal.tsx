@@ -85,7 +85,6 @@ const CardServiceModal: React.FC<CardServiceModalProps> = ({
         cardData.foundedYear &&
         cardData.name &&
         (cardData.location || cardData.isRemote) && // Allow completion if remote
-        cardData.description &&
         cardData.teamSize;
 
       if (!isValid) {
@@ -95,7 +94,6 @@ const CardServiceModal: React.FC<CardServiceModalProps> = ({
           foundedYear: cardData.foundedYear ? '✅' : '❌',
           name: cardData.name ? '✅' : '❌',
           location: cardData.location || cardData.isRemote ? '✅' : '❌',
-          description: cardData.description ? '✅' : '❌',
           teamSize: cardData.teamSize ? '✅' : '❌',
         });
         return;
@@ -108,7 +106,7 @@ const CardServiceModal: React.FC<CardServiceModalProps> = ({
         name: cardData.name,
         location: cardData.location || 'Remote', // Default to 'Remote' if no location
         isRemote: cardData.isRemote || false,
-        description: cardData.description,
+        description: cardData.description || '', // Optional field
         teamSize: cardData.teamSize,
         status: 'complete',
         createdAt: isEditing && initialData?.createdAt ? initialData.createdAt : new Date(),
@@ -144,11 +142,7 @@ const CardServiceModal: React.FC<CardServiceModalProps> = ({
       case 1: // Years Since Founded
         return typeof cardData.yearsInBusiness === 'number' && cardData.yearsInBusiness >= 0;
       case 2: // Business Information
-        return !!(
-          cardData.name &&
-          cardData.description &&
-          (cardData.location || cardData.isRemote)
-        );
+        return !!(cardData.name && (cardData.location || cardData.isRemote));
       case 3: // Review
         return true;
       default:

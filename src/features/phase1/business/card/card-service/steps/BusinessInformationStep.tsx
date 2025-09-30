@@ -109,7 +109,6 @@ const BusinessInformationStep: React.FC<CardStepProps> = ({ data, onDataChange }
           onBlur={() => {}}
           placeholder="Describe your business in a few sentences..."
           rows={4}
-          required
         />
 
         {/* Team Size */}

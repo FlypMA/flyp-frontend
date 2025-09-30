@@ -153,26 +153,6 @@ const BusinessProfileCardV4: React.FC<BusinessProfileCardV4Props> = ({
               )
             )}
 
-            {/* Profile Badge */}
-            {hasValuationReports && !profileCardData ? (
-              <div className="relative">
-                <button
-                  onClick={() => navigate('/my-business/profile/create')}
-                  onMouseEnter={() => setHoveredBadge('profile')}
-                  onMouseLeave={() => setHoveredBadge(null)}
-                  className="w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 border-2 border-primary-500"
-                >
-                  <span className="text-xl">👤</span>
-                </button>
-                {hoveredBadge === 'profile' && (
-                  <div className="absolute left-12 top-0 bg-gray-900 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-lg">
-                    Add profile
-                    <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
-                  </div>
-                )}
-              </div>
-            ) : null}
-
             {/* Listing Badge */}
             {hasActiveListing && (
               <div className="relative">
@@ -194,9 +174,10 @@ const BusinessProfileCardV4: React.FC<BusinessProfileCardV4Props> = ({
             )}
           </div>
 
-          {/* Owner Avatar - Top Right (if profile exists) */}
-          {profileCardData && (
-            <div className="absolute top-3 right-3 z-10">
+          {/* Profile/Owner - Top Right */}
+          <div className="absolute top-3 right-3 z-10">
+            {profileCardData ? (
+              // Show avatar when profile exists
               <div className="relative">
                 <img
                   src={profileCardData.profileImage}
@@ -212,8 +193,26 @@ const BusinessProfileCardV4: React.FC<BusinessProfileCardV4Props> = ({
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            ) : hasValuationReports ? (
+              // Show profile prompt when valuation exists but no profile
+              <div className="relative">
+                <button
+                  onClick={() => navigate('/my-business/profile/create')}
+                  onMouseEnter={() => setHoveredBadge('profile')}
+                  onMouseLeave={() => setHoveredBadge(null)}
+                  className="w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 border-2 border-primary-500"
+                >
+                  <span className="text-xl">👤</span>
+                </button>
+                {hoveredBadge === 'profile' && (
+                  <div className="absolute right-0 top-12 bg-gray-900 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-lg z-20">
+                    Add profile
+                    <div className="absolute right-3 top-0 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+                  </div>
+                )}
+              </div>
+            ) : null}
+          </div>
 
           {/* Center Content - Business Icon */}
           <div className="absolute inset-0 flex items-center justify-center">

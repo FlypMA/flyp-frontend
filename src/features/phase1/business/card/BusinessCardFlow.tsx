@@ -103,7 +103,7 @@ const BusinessCardFlow: React.FC<BusinessCardFlowProps> = ({
       title={
         <div className="flex items-center space-x-4">
           <img
-            src="/upswitch_logo.svg?v=2024.1"
+            src="/UpSwitch_logo_var1.svg?v=2024.4"
             alt="Upswitch - European SME M&A Platform"
             width="32"
             height="32"
