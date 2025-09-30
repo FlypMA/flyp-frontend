@@ -1,6 +1,8 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
+import { BusinessCardFlow } from '@/features/phase1/business/card';
 import { ListingWizardModal } from '@/features/phase1/business/listing';
-import { BusinessProfileCard, ValuationCard } from '@/shared/components/business';
+import StreamlinedListingModal from '@/features/phase1/business/listing/components/StreamlinedListingModal';
+import { BusinessProfileCard, ProfileCard, ValuationCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
 import ListingNudgeModal from '@/shared/components/modals/domains/business/ListingNudgeModal';
@@ -31,7 +33,8 @@ const BusinessOverview = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [businessInfo, setBusinessInfo] = useState<BusinessInfo | null>(null);
-  const [hasValuationReports] = useState<boolean>(false);
+  const [hasValuationReports, setHasValuationReports] = useState<boolean>(false);
+  const [valuationReports, setValuationReports] = useState<any[]>([]);
   const [hasActiveListing, setHasActiveListing] = useState<boolean>(false);
   const [isBusinessProfileModalOpen, setIsBusinessProfileModalOpen] = useState<boolean>(false);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState<boolean>(false);
@@ -46,6 +49,16 @@ const BusinessOverview = () => {
   // const { metrics, isLoading: metricsLoading } = useBusinessMetrics();
   // Loading states removed for smooth UX
 
+  // NEW: Progressive onboarding state
+  const [hasBusinessCard, setHasBusinessCard] = useState<boolean>(false);
+  const [hasProfileCard, setHasProfileCard] = useState<boolean>(false);
+  const [isEditingBusinessCard, setIsEditingBusinessCard] = useState<boolean>(false);
+  const [businessCardData, setBusinessCardData] = useState<any>(null);
+  const [profileCardData, setProfileCardData] = useState<any>(null);
+  const [latestValuationReport, setLatestValuationReport] = useState<any>(null);
+  const [isStreamlinedListingModalOpen, setIsStreamlinedListingModalOpen] =
+    useState<boolean>(false);
+
   useEffect(() => {
     const initializeDashboard = async () => {
       // Instant data loading - no loading state
@@ -55,6 +68,91 @@ const BusinessOverview = () => {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
+
+          // NEW: Check for business card and profile card completion
+          const hasBusinessCardFlag = localStorage.getItem('hasBusinessCard');
+          const hasProfileCardFlag = localStorage.getItem('hasProfileCard');
+          setHasBusinessCard(hasBusinessCardFlag === 'true');
+          setHasProfileCard(hasProfileCardFlag === 'true');
+
+          // Load business card data if it exists
+          if (hasBusinessCardFlag === 'true') {
+            const businessCardDataString = localStorage.getItem('businessCard');
+            console.log('📋 Loading business card from localStorage:', businessCardDataString);
+            if (businessCardDataString) {
+              try {
+                const businessCard = JSON.parse(businessCardDataString);
+                console.log('✅ Parsed business card:', businessCard);
+
+                // Store the raw business card data for editing
+                setBusinessCardData(businessCard);
+
+                // Convert business card to BusinessInfo format
+                const businessInfoData = {
+                  name: businessCard.name,
+                  industry: businessCard.type, // Using business type as industry for now
+                  description: businessCard.description,
+                  foundedYear: businessCard.foundedYear,
+                  teamSize: businessCard.teamSize,
+                  revenue: 0, // Not collected in business card
+                  location: businessCard.location,
+                  isRemote: businessCard.isRemote,
+                  status: 'active' as const,
+                };
+                console.log('🎴 Setting businessInfo:', businessInfoData);
+                setBusinessInfo(businessInfoData);
+              } catch (error) {
+                console.error('❌ Failed to parse business card data:', error);
+              }
+            } else {
+              console.log('⚠️ No business card data found in localStorage');
+            }
+          } else {
+            console.log('⚠️ hasBusinessCard flag is not true:', hasBusinessCardFlag);
+          }
+
+          // Load valuation reports if they exist
+          const hasValuationFlag = localStorage.getItem('hasValuationReports');
+          if (hasValuationFlag === 'true') {
+            const reportsDataString = localStorage.getItem('valuationReports');
+            console.log('💰 Loading valuation reports from localStorage:', reportsDataString);
+            if (reportsDataString) {
+              try {
+                const reports = JSON.parse(reportsDataString);
+                console.log('✅ Parsed valuation reports:', reports);
+                setValuationReports(reports);
+                setHasValuationReports(true);
+
+                // Set latest valuation report (most recent)
+                if (reports.length > 0) {
+                  const latest = reports.reduce((prev: any, current: any) => {
+                    return new Date(current.date) > new Date(prev.date) ? current : prev;
+                  });
+                  setLatestValuationReport(latest);
+                  console.log('📊 Latest valuation report:', latest);
+                }
+              } catch (error) {
+                console.error('❌ Failed to parse valuation reports:', error);
+              }
+            }
+          } else {
+            console.log('⚠️ No valuation reports found');
+          }
+
+          // Load profile card data if it exists (TODO: implement profile card creation)
+          const hasProfileFlag = localStorage.getItem('hasProfileCard');
+          if (hasProfileFlag === 'true') {
+            const profileDataString = localStorage.getItem('profileCard');
+            if (profileDataString) {
+              try {
+                const profile = JSON.parse(profileDataString);
+                setProfileCardData(profile);
+                console.log('👤 Loaded profile card:', profile);
+              } catch (error) {
+                console.error('❌ Failed to parse profile card:', error);
+              }
+            }
+          }
 
           // TODO: Replace with actual API calls once backend is fully implemented
           // Mock data showing single business journey stages
@@ -146,7 +244,8 @@ const BusinessOverview = () => {
   };
 
   const handleEditBusinessInfo = () => {
-    setIsBusinessProfileModalOpen(true);
+    console.log('✏️ Opening business card edit mode with data:', businessCardData);
+    setIsEditingBusinessCard(true);
   };
 
   const handleSaveBusinessInfo = (data: BusinessInfo) => {
@@ -160,6 +259,7 @@ const BusinessOverview = () => {
   const handleListingComplete = () => {
     setHasActiveListing(true);
     setIsListingWizardModalOpen(false);
+    setIsStreamlinedListingModalOpen(false);
   };
 
   const handleListingNudge = (valuationData: unknown, businessValue: number) => {
@@ -200,17 +300,54 @@ const BusinessOverview = () => {
           </p>
         </div>
 
-        {/* Business Profile Section */}
+        {/* Business Card Section */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Business Profile</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Business Card</h2>
           </div>
-          <BusinessProfileCard
-            businessInfo={businessInfo}
-            onEdit={handleEditBusinessInfo}
-            onAddInfo={handleAddBusinessInfo}
-          />
+
+          {/* NEW: Progressive Onboarding Flow */}
+          {!hasBusinessCard ? (
+            <EmptyStateCard
+              icon={Store}
+              title="Create Your Business Card"
+              description="Start by telling us about your business. This will be your profile across the platform."
+              buttonText="Create Business Card"
+              onButtonClick={() => navigate('/my-business/card/create')}
+            />
+          ) : (
+            <BusinessProfileCard
+              businessInfo={businessInfo}
+              onEdit={handleEditBusinessInfo}
+              onAddInfo={handleAddBusinessInfo}
+            />
+          )}
         </div>
+
+        {/* Personal Profile Section */}
+        {hasBusinessCard && (
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">
+                {hasProfileCard ? 'Your Profile' : 'Complete Your Profile'}
+              </h2>
+            </div>
+            {!hasProfileCard ? (
+              <EmptyStateCard
+                icon={Store}
+                title="Tell us about yourself"
+                description="Tell us about yourself and your background to build trust with potential buyers."
+                buttonText="Create Profile"
+                onButtonClick={() => navigate('/my-business/profile/create')}
+              />
+            ) : (
+              <ProfileCard
+                profileData={profileCardData}
+                onEdit={() => navigate('/my-business/profile/create')}
+              />
+            )}
+          </div>
+        )}
 
         {/* Reports Section */}
         <div className="mb-12">
@@ -218,26 +355,37 @@ const BusinessOverview = () => {
             <h2 className="text-xl font-semibold text-gray-900">Reports</h2>
           </div>
           {hasValuationReports ? (
-            <>
-              {/* Sample Valuation Report */}
-              <ValuationCard
-                id="sample-1"
-                date="2024-01-14"
-                businessValue={850000}
-                method="Comparable Sales & DCF Analysis"
-                confidence="high"
-                lowRange={680000}
-                highRange={1020000}
-                revenueMultiple={3.2}
-                ebitdaMultiple={8.5}
-                industryAverage={7.2}
-                monthsValid={-13}
-                onView={() => navigate('/my-business/valuations')}
-                onUpdate={() => navigate('/my-business/valuations')}
-                onCreateListing={() => handleListingNudge(null, 850000)}
-              />
-              {/* Additional sample reports could go here */}
-            </>
+            <div className="space-y-4">
+              {valuationReports.map(report => {
+                // Calculate months validity
+                const reportDate = new Date(report.date);
+                const today = new Date();
+                const monthsDiff = Math.floor(
+                  (today.getTime() - reportDate.getTime()) / (1000 * 60 * 60 * 24 * 30)
+                );
+                const monthsValid = report.monthsValid - monthsDiff;
+
+                return (
+                  <ValuationCard
+                    key={report.id}
+                    id={report.id}
+                    date={report.date}
+                    businessValue={report.businessValue}
+                    method={report.method}
+                    confidence={report.confidence}
+                    lowRange={report.lowRange}
+                    highRange={report.highRange}
+                    revenueMultiple={report.revenueMultiple}
+                    ebitdaMultiple={report.ebitdaMultiple}
+                    industryAverage={report.industryAverage}
+                    monthsValid={monthsValid}
+                    onView={() => navigate('/my-business/valuations')}
+                    onUpdate={() => setIsValuationModalOpen(true)}
+                    onCreateListing={() => handleListingNudge(report.inputs, report.businessValue)}
+                  />
+                );
+              })}
+            </div>
           ) : (
             <EmptyStateCard
               icon={Calculator}
@@ -334,10 +482,31 @@ const BusinessOverview = () => {
           ) : (
             <EmptyStateCard
               icon={Store}
-              title="Create Your Business Listing"
-              description="Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates."
-              buttonText="Create Listing"
-              onButtonClick={() => setIsListingWizardModalOpen(true)}
+              title={
+                !hasBusinessCard || !hasProfileCard
+                  ? 'Complete Your Profile to Create a Listing'
+                  : 'Create Your Business Listing'
+              }
+              description={
+                !hasBusinessCard || !hasProfileCard
+                  ? 'You need to complete your business card and profile before creating a listing.'
+                  : hasValuationReports
+                    ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
+                    : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
+              }
+              buttonText={!hasBusinessCard || !hasProfileCard ? undefined : 'Create Listing'}
+              onButtonClick={
+                !hasBusinessCard || !hasProfileCard
+                  ? undefined
+                  : () => {
+                      console.log('🚀 Opening streamlined listing modal with data:', {
+                        businessCard: businessCardData,
+                        profileCard: profileCardData,
+                        valuation: latestValuationReport,
+                      });
+                      setIsStreamlinedListingModalOpen(true);
+                    }
+              }
             />
           )}
         </div>
@@ -376,6 +545,49 @@ const BusinessOverview = () => {
         businessName={businessInfo?.name || 'Your Business'}
         industry={businessInfo?.industry || 'your industry'}
       />
+
+      {/* Business Card Edit Modal */}
+      {isEditingBusinessCard && businessCardData && (
+        <BusinessCardFlow
+          isOpen={isEditingBusinessCard}
+          onClose={() => setIsEditingBusinessCard(false)}
+          onComplete={updatedCard => {
+            console.log('✅ Business card updated:', updatedCard);
+            setBusinessCardData(updatedCard);
+            // Convert back to BusinessInfo format
+            const updatedBusinessInfo = {
+              name: updatedCard.name,
+              industry: updatedCard.type,
+              description: updatedCard.description,
+              foundedYear: updatedCard.foundedYear,
+              teamSize: updatedCard.teamSize,
+              revenue: 0,
+              location: updatedCard.location,
+              isRemote: updatedCard.isRemote,
+              status: 'active' as const,
+            };
+            setBusinessInfo(updatedBusinessInfo);
+            setIsEditingBusinessCard(false);
+          }}
+          initialData={businessCardData}
+          isEditing={true}
+        />
+      )}
+
+      {/* Streamlined Listing Modal - NEW! */}
+      {isStreamlinedListingModalOpen && businessCardData && (
+        <StreamlinedListingModal
+          isOpen={isStreamlinedListingModalOpen}
+          onClose={() => setIsStreamlinedListingModalOpen(false)}
+          onComplete={listingData => {
+            console.log('✅ Listing created:', listingData);
+            handleListingComplete();
+          }}
+          businessCard={businessCardData}
+          profileCard={profileCardData}
+          valuationReport={latestValuationReport}
+        />
+      )}
     </div>
   );
 };

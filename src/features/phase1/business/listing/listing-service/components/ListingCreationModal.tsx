@@ -1,20 +1,18 @@
-// 🏢 Listing Creation Modal - Airbnb-Inspired Flow
+// 🏢 Listing Creation Modal - Streamlined Flow (Steps 4-8 Only)
 // Location: src/features/phase1/business/listing/listing-service/components/ListingCreationModal.tsx
-// Purpose: Main modal orchestrating the listing creation flow with Airbnb UX patterns
+// Purpose: Main modal for listing creation with prefilled data from business card + valuation
+// Note: Steps 1-3 removed - business info comes from business card, financials from valuation
 
 import { SecondaryButton } from '@/shared/components/buttons';
 import { FullscreenModal } from '@/shared/components/modals/foundations/FullscreenModal';
 import React, { useEffect, useState } from 'react';
 
-// Step Components
-import BasicInfoStep from '../steps/BasicInfoStep';
+// Step Components (Steps 4-8 only)
 import BusinessStoryStep from '../steps/BusinessStoryStep';
-import FinancialOverviewStep from '../steps/FinancialOverviewStep';
 import PhotosDocumentsStep from '../steps/PhotosDocumentsStep';
 import PrivacyVisibilityStep from '../steps/PrivacyVisibilityStep';
 import ReviewPublishStep from '../steps/ReviewPublishStep';
 import SaleDetailsStep from '../steps/SaleDetailsStep';
-import WelcomeStep from '../steps/WelcomeStep';
 
 // Shared Components
 import NavigationControls from './NavigationControls';
@@ -27,7 +25,8 @@ const ListingCreationModal: React.FC<ListingCreationModalProps> = ({
   isOpen,
   onClose,
   onComplete,
-  businessInfo,
+  businessCard, // NEW: Required business card data
+  businessInfo, // DEPRECATED: For backward compatibility
   valuationData,
   valuationReports = [],
 }) => {
@@ -35,75 +34,61 @@ const ListingCreationModal: React.FC<ListingCreationModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [listingData, setListingData] = useState<Partial<ListingCreationData>>({});
 
-  const totalSteps = 8;
+  const totalSteps = 5; // Updated from 8 to 5 (removed Steps 1-3)
 
-  // Step configuration with Airbnb-inspired titles and descriptions
+  // Step configuration (Steps 4-8 renumbered to 1-5)
   const stepConfig = [
     {
       id: 1,
-      title: 'Welcome',
-      description: "Let's get started with your business listing",
-      icon: '🏢',
-    },
-    {
-      id: 2,
-      title: 'Basic Info',
-      description: 'Tell us about your business',
-      icon: '📝',
-    },
-    {
-      id: 3,
-      title: 'Financials',
-      description: 'Share your business performance',
-      icon: '💰',
-    },
-    {
-      id: 4,
       title: 'Business Story',
       description: 'What makes your business special?',
       icon: '✨',
     },
     {
-      id: 5,
+      id: 2,
       title: 'Sale Details',
       description: 'How would you like to sell?',
       icon: '🤝',
     },
     {
-      id: 6,
+      id: 3,
       title: 'Photos & Docs',
       description: 'Add visual appeal and documents',
       icon: '📸',
     },
     {
-      id: 7,
+      id: 4,
       title: 'Privacy',
       description: 'Control your listing visibility',
       icon: '🔒',
     },
     {
-      id: 8,
+      id: 5,
       title: 'Review',
       description: 'Review and publish your listing',
       icon: '🚀',
     },
   ];
 
-  // Initialize listing data with business profile data or defaults
+  // Initialize listing data with business card + valuation data (prefilled)
   useEffect(() => {
     if (isOpen) {
+      // Use businessCard (new) or fallback to businessInfo (deprecated)
+      const sourceData = businessCard || businessInfo;
+
       setListingData({
-        businessType: 'catering', // Default business type
+        businessType: businessCard?.type || 'catering', // From business card
         basicInfo: {
-          name: businessInfo?.name || '',
-          description: businessInfo?.description || '',
-          industry: businessInfo?.industry || '',
-          location: businessInfo?.location || '',
-          isRemote: businessInfo?.isRemote || false,
-          foundedYear: businessInfo?.foundedYear || new Date().getFullYear(),
-          teamSize: businessInfo?.teamSize || '',
-          website: businessInfo?.website || '',
-          keyHighlights: [],
+          name: sourceData?.name || '',
+          description: sourceData?.description || businessCard?.description || '',
+          industry: sourceData?.industry || businessCard?.industry || '',
+          location: sourceData?.location || businessCard?.location || '',
+          isRemote: sourceData?.isRemote || businessCard?.isRemote || false,
+          foundedYear:
+            sourceData?.foundedYear || businessCard?.foundedYear || new Date().getFullYear(),
+          teamSize: sourceData?.teamSize || businessCard?.teamSize || '',
+          website: sourceData?.website || businessCard?.website || '',
+          keyHighlights: businessCard?.keyHighlights || [],
         },
         financialOverview: {
           businessType: valuationData?.businessType || 'company',
@@ -208,7 +193,7 @@ const ListingCreationModal: React.FC<ListingCreationModalProps> = ({
         },
       }));
     }
-  }, [isOpen, businessInfo, valuationData]);
+  }, [isOpen, businessCard, businessInfo, valuationData]);
 
   const handleDataChange = (stepData: Partial<ListingCreationData>) => {
     setListingData(prev => ({
@@ -259,31 +244,21 @@ const ListingCreationModal: React.FC<ListingCreationModalProps> = ({
   };
 
   const canProceed = (): boolean => {
-    // Add validation logic for each step
+    // Validation logic for streamlined steps (1-5, originally 4-8)
     switch (currentStep) {
-      case 1:
-        return !!listingData.businessType;
-      case 2:
-        return !!(
-          listingData.basicInfo?.name &&
-          listingData.basicInfo?.description &&
-          listingData.basicInfo?.industry
-        );
-      case 3:
-        return !!listingData.financialOverview?.askingPrice;
-      case 4:
+      case 1: // Business Story (formerly Step 4)
         return !!(
           listingData.businessStory?.whatMakesSpecial && listingData.businessStory?.targetCustomers
         );
-      case 5:
+      case 2: // Sale Details (formerly Step 5)
         return !!(
           listingData.saleDetails?.reasonForSale && listingData.saleDetails?.preferredTimeline
         );
-      case 6:
+      case 3: // Photos & Docs (formerly Step 6)
         return true; // Photos and documents are optional
-      case 7:
+      case 4: // Privacy (formerly Step 7)
         return !!listingData.privacyVisibility?.teaserDescription;
-      case 8:
+      case 5: // Review (formerly Step 8)
         return true; // Review step
       default:
         return false;
@@ -301,24 +276,17 @@ const ListingCreationModal: React.FC<ListingCreationModalProps> = ({
       isLoading: isSubmitting,
     };
 
+    // Streamlined steps (1-5, originally 4-8)
     switch (currentStep) {
-      case 1:
-        return <WelcomeStep {...stepProps} />;
-      case 2:
-        return <BasicInfoStep {...stepProps} />;
-      case 3:
-        return (
-          <FinancialOverviewStep {...(stepProps as any)} valuationReports={valuationReports} />
-        );
-      case 4:
+      case 1: // Business Story (formerly Step 4)
         return <BusinessStoryStep {...stepProps} />;
-      case 5:
+      case 2: // Sale Details (formerly Step 5)
         return <SaleDetailsStep {...stepProps} />;
-      case 6:
+      case 3: // Photos & Docs (formerly Step 6)
         return <PhotosDocumentsStep {...stepProps} />;
-      case 7:
+      case 4: // Privacy (formerly Step 7)
         return <PrivacyVisibilityStep {...stepProps} />;
-      case 8:
+      case 5: // Review (formerly Step 8)
         return <ReviewPublishStep {...stepProps} />;
       default:
         return null;

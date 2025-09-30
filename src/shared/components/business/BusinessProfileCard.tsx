@@ -108,63 +108,99 @@ const BusinessProfileCard: React.FC<BusinessProfileCardProps> = ({
     );
   }
 
-  // Filled State - Airbnb Style
+  // Get business type icon
+  const getBusinessIcon = (industry: string): string => {
+    const iconMap: Record<string, string> = {
+      catering: '🍽️',
+      photography: '📸',
+      hairstyling: '💇‍♀️',
+      chef: '👨‍🍳',
+      meals: '🍱',
+      makeup: '💄',
+      massage: '💆‍♀️',
+      nailcare: '💅',
+      personaltraining: '💪',
+      wellness: '🧘‍♀️',
+      cleaning: '🧹',
+      consulting: '💼',
+    };
+    return iconMap[industry.toLowerCase()] || '🏢';
+  };
+
+  // Get business type display name
+  const getBusinessTypeName = (industry: string): string => {
+    const nameMap: Record<string, string> = {
+      catering: 'Catering',
+      photography: 'Photography',
+      hairstyling: 'Hairstyling',
+      chef: 'Chef Services',
+      meals: 'Meal Services',
+      makeup: 'Make-up',
+      massage: 'Massage',
+      nailcare: 'Nail Care',
+      personaltraining: 'Personal Training',
+      wellness: 'Wellness Treatments',
+      cleaning: 'Cleaning Services',
+      consulting: 'Business Consulting',
+    };
+    return nameMap[industry.toLowerCase()] || industry;
+  };
+
+  // Filled State - Based on Prelude Card Design
   return (
-    <div
-      className={`relative w-full h-full bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300 ${className}`}
-    >
-      {/* Background visual element */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-blue-50 opacity-30"></div>
+    <div className={`w-full ${className}`}>
+      <div className="bg-white border-2 border-gray-200 rounded-2xl p-12 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative">
+        {/* Edit Button - Top Right */}
+        {onEdit && (
+          <button
+            type="button"
+            onClick={onEdit}
+            className="absolute top-6 right-6 inline-flex items-center justify-center w-10 h-10 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+            aria-label="Edit business card"
+          >
+            <Edit className="w-5 h-5" />
+          </button>
+        )}
 
-      {/* Content container */}
-      <div className="relative w-full h-full flex flex-col p-6">
-        {/* Header with edit button */}
-        <div className="flex items-start justify-between mb-6">
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-1">{businessInfo.name}</h2>
-            <p className="text-gray-500 text-sm">{businessInfo.industry}</p>
-          </div>
-          <div className="flex items-center space-x-2">
-            {onEdit && (
-              <button
-                type="button"
-                onClick={onEdit}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-              >
-                <Edit className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
+        {/* Icon - Centered Large */}
+        <div className="text-center">
+          <div className="text-8xl mb-6">{getBusinessIcon(businessInfo.industry)}</div>
 
-        {/* Description */}
-        <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-          {businessInfo.description}
-        </p>
+          {/* Business Name */}
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{businessInfo.name}</h2>
 
-        {/* Metrics grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900 mb-1">
-              {businessInfo.foundedYear}
+          {/* Business Type */}
+          <p className="text-lg text-gray-600 mb-8">{getBusinessTypeName(businessInfo.industry)}</p>
+
+          {/* Description */}
+          <p className="text-base text-gray-600 leading-relaxed mb-10 max-w-2xl mx-auto">
+            {businessInfo.description}
+          </p>
+
+          {/* Metrics Grid - 4 Columns */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-8 pt-8 border-t border-gray-200">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900 mb-2">
+                {businessInfo.foundedYear}
+              </div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide">Founded</div>
             </div>
-            <div className="text-xs text-gray-500">Founded</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900 mb-1">{businessInfo.teamSize}</div>
-            <div className="text-xs text-gray-500">Team Size</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900 mb-1">
-              {formatCurrency(businessInfo.revenue)}
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900 mb-2">{businessInfo.teamSize}</div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide">Team Size</div>
             </div>
-            <div className="text-xs text-gray-500">Revenue</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900 mb-1">
-              {businessInfo.isRemote ? 'Remote' : businessInfo.location}
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900 mb-2">
+                {businessInfo.isRemote ? 'Remote' : businessInfo.location}
+              </div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide">Location</div>
             </div>
-            <div className="text-xs text-gray-500">Location</div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900 mb-2">
+                {businessInfo.status === 'active' ? '✅ Active' : '📝 Draft'}
+              </div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide">Status</div>
+            </div>
           </div>
         </div>
       </div>

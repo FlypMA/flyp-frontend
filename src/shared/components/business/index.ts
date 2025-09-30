@@ -5,4 +5,5 @@
  */
 
 export { default as BusinessProfileCard } from './BusinessProfileCard';
+export { default as ProfileCard } from './ProfileCard';
 export { default as ValuationCard } from './ValuationCard';

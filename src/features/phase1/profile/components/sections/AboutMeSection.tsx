@@ -9,9 +9,12 @@
  */
 
 import { Button } from '@/shared/components/buttons';
+import { EmptyStateCard } from '@/shared/components/cards';
+import { ProfileCard } from '@/shared/components/business';
 import { Avatar } from '@heroui/react';
-import { Building2, Camera, CheckCircle, PenLine } from 'lucide-react';
-import React, { useState } from 'react';
+import { Building2, Camera, CheckCircle, PenLine, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '@/app/providers/auth-provider';
 import { useProfile } from '../../hooks/useProfile';
@@ -25,8 +28,35 @@ import ProfileEditFullscreenModal from '../ProfileEditFullscreenModal';
 export const AboutMeSection: React.FC = () => {
   const { user } = useAuth();
   const { profile } = useProfile();
+  const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isProfessionalModalOpen, setIsProfessionalModalOpen] = useState(false);
+  const [hasProfileCard, setHasProfileCard] = useState(false);
+  const [profileCardData, setProfileCardData] = useState<any>(null);
+
+  // =============================================================================
+  // LOAD PROFILE CARD DATA FROM LOCALSTORAGE
+  // =============================================================================
+
+  useEffect(() => {
+    console.log('📊 Loading profile card data from localStorage...');
+    
+    const hasCard = localStorage.getItem('hasProfileCard') === 'true';
+    setHasProfileCard(hasCard);
+    
+    if (hasCard) {
+      const cardDataRaw = localStorage.getItem('profileCard');
+      if (cardDataRaw) {
+        try {
+          const cardData = JSON.parse(cardDataRaw);
+          console.log('✅ Profile card data loaded:', cardData);
+          setProfileCardData(cardData);
+        } catch (error) {
+          console.error('❌ Error parsing profile card data:', error);
+        }
+      }
+    }
+  }, []);
 
   // =============================================================================
   // EVENT HANDLERS
@@ -34,6 +64,10 @@ export const AboutMeSection: React.FC = () => {
 
   const handleEditProfile = () => {
     setIsEditModalOpen(true);
+  };
+
+  const handleCreateProfile = () => {
+    navigate('/my-business/profile/create');
   };
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -164,20 +198,41 @@ export const AboutMeSection: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-3xl font-semibold text-gray-900">About Me</h2>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleEditProfile}
-            leftIcon={<PenLine className="w-4 h-4" />}
-          >
-            Edit Profile
-          </Button>
+          {hasProfileCard && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleEditProfile}
+              leftIcon={<PenLine className="w-4 h-4" />}
+            >
+              Edit Profile
+            </Button>
+          )}
         </div>
-        {renderAboutMeCard()}
+
+        {/* Show Profile Card or Empty State */}
+        {hasProfileCard && profileCardData ? (
+          <div className="max-w-md">
+            <ProfileCard
+              profileData={profileCardData}
+              onEdit={handleCreateProfile}
+            />
+          </div>
+        ) : (
+          <div className="max-w-md">
+            <EmptyStateCard
+              icon={User}
+              title="Tell us about yourself"
+              description="Tell us about yourself and your background to build trust with potential buyers."
+              buttonText="Create Profile"
+              onButtonClick={handleCreateProfile}
+            />
+          </div>
+        )}
       </div>
 
-      {/* My Businesses Section */}
-      {renderMyBusinesses()}
+      {/* My Businesses Section - Only show if profile exists */}
+      {hasProfileCard && profileCardData && renderMyBusinesses()}
 
       {/* Edit Profile Modal */}
       {profile && (

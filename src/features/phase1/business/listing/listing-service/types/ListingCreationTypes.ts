@@ -1,9 +1,10 @@
-// 🏢 Listing Creation Types - Airbnb-Inspired Flow
+// 🏢 Listing Creation Types - Streamlined Flow
 // Location: src/features/phase1/business/listing/listing-service/types/ListingCreationTypes.ts
-// Purpose: Type definitions for the listing service (7-step wizard)
+// Purpose: Type definitions for the listing service (5-step wizard, Steps 4-8)
+// Note: Steps 1-3 removed - data comes from business card + valuation
 
-// Import BusinessType from prelude (don't re-export to avoid conflicts)
-import type { BusinessType } from '../../prelude/types';
+// Import BusinessType from business card feature
+import type { BusinessType } from '../../../card/types';
 
 // Basic Information
 export interface BasicInfo {
@@ -105,23 +106,31 @@ export interface StepComponentProps {
   isLoading?: boolean;
 }
 
-// Main modal props
+// Prefilled data from business card
+export interface BusinessCardData {
+  type: BusinessType;
+  yearsInBusiness: number;
+  foundedYear: number;
+  name: string;
+  location: string;
+  isRemote: boolean;
+  industry: string;
+  description: string;
+  teamSize: string;
+  website?: string;
+  keyHighlights: string[];
+}
+
+// Main modal props (updated for Phase 2)
 export interface ListingCreationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onComplete?: (data: ListingCreationData) => void;
-  businessInfo?: {
-    name: string;
-    industry: string;
-    description: string;
-    foundedYear: number;
-    teamSize: string;
-    location: string;
-    isRemote: boolean;
-    website?: string;
-    revenue?: number;
-    status?: 'active' | 'inactive' | 'draft';
-  };
+
+  // NEW: Prefilled data from business card (required)
+  businessCard?: BusinessCardData;
+
+  // NEW: Prefilled data from valuation (optional but recommended)
   valuationData?: {
     businessType: 'sole-trader' | 'company';
     sharesForSale: number;
@@ -135,6 +144,21 @@ export interface ListingCreationModalProps {
     valuation_confidence?: 'high' | 'medium' | 'low';
     valuation_methodology?: string;
   };
+
+  // DEPRECATED: Use businessCard instead
+  businessInfo?: {
+    name: string;
+    industry: string;
+    description: string;
+    foundedYear: number;
+    teamSize: string;
+    location: string;
+    isRemote: boolean;
+    website?: string;
+    revenue?: number;
+    status?: 'active' | 'inactive' | 'draft';
+  };
+
   valuationReports?: any[]; // Keep existing valuation reports type
 }
 

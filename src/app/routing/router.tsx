@@ -36,11 +36,13 @@ import ListingServicePage from '../pages/listings/ListingServicePage';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Business Dashboard
+import BusinessCardCreationPage from '../pages/business/card/BusinessCardCreationPage';
 import DocumentVault from '../pages/business/data-room/DocumentVault';
 import { ListingManagement } from '../pages/business/management';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import ValuationTool from '../pages/business/reports/ValuationTool';
+import ProfileCardCreationPage from '../pages/profile/ProfileCardCreationPage';
 
 // Page imports - Due Diligence
 import { DueDiligencePage } from '../pages/due-diligence';
@@ -273,6 +275,22 @@ export const router = createBrowserRouter([
       },
 
       // Advanced Business Tools (sellers only)
+      {
+        path: 'my-business/card/create',
+        element: (
+          <SellerRoute>
+            <BusinessCardCreationPage />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/profile/create',
+        element: (
+          <SellerRoute>
+            <ProfileCardCreationPage />
+          </SellerRoute>
+        ),
+      },
       {
         path: 'my-business/valuations',
         element: (

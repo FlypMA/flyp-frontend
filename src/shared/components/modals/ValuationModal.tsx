@@ -194,13 +194,42 @@ const ValuationModal: React.FC<ValuationModalProps> = ({
         inputs.businessType === 'sole-trader' ? 100 : inputs.sharesForSale;
       const finalValuation = weightedSum * (ownershipPercentage / 100);
 
+      // Create valuation report object
+      const valuationReport = {
+        id: `valuation-${Date.now()}`,
+        date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+        businessValue: Math.round(finalValuation),
+        method: 'Comparable Sales & DCF Analysis',
+        confidence: results[0].confidence,
+        lowRange: Math.round(results[0].lowRange),
+        highRange: Math.round(results[0].highRange),
+        revenueMultiple: industryData.revenueMultiple.avg,
+        ebitdaMultiple: industryData.ebitdaMultiple.avg,
+        industryAverage: industryData.ebitdaMultiple.avg,
+        monthsValid: 6,
+        inputs: inputs,
+        results: results,
+        createdAt: new Date().toISOString(),
+      };
+
+      console.log('💰 Creating valuation report:', valuationReport);
+
       // For authenticated users, complete and navigate
       if (isAuthenticated) {
+        // Save to localStorage
+        const existingReports = JSON.parse(localStorage.getItem('valuationReports') || '[]');
+        existingReports.push(valuationReport);
+        localStorage.setItem('valuationReports', JSON.stringify(existingReports));
+        localStorage.setItem('hasValuationReports', 'true');
+
+        console.log('💾 Saved valuation to localStorage');
+        console.log('📊 Total reports:', existingReports.length);
+
         if (onComplete) {
           onComplete(inputs);
         }
         onClose();
-        navigate('/my-business/valuations');
+        navigate('/my-business');
       } else {
         // For unauthenticated users, show signup prompt
         onSignupPrompt(inputs);

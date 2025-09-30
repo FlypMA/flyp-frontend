@@ -2,7 +2,7 @@
 // Location: src/app/pages/business/management/ListingManagement.tsx
 // Purpose: Manage business listings for sellers
 
-import { ListingWizardModal } from '@/features/phase1/business/listing';
+import StreamlinedListingModal from '@/features/phase1/business/listing/components/StreamlinedListingModal';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
 import { authService, UrlGenerator } from '@/shared/services';
@@ -33,23 +33,99 @@ const ListingManagement: React.FC = () => {
   const [businessInfo, setBusinessInfo] = useState<any>(null);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState(false);
 
+  // NEW: Progressive onboarding state
+  const [hasBusinessCard, setHasBusinessCard] = useState<boolean>(false);
+  const [hasProfileCard, setHasProfileCard] = useState<boolean>(false);
+  const [businessCardData, setBusinessCardData] = useState<any>(null);
+  const [profileCardData, setProfileCardData] = useState<any>(null);
+  const [latestValuationReport, setLatestValuationReport] = useState<any>(null);
+
   useEffect(() => {
     const initializePage = async () => {
       try {
         const authResult = await authService.checkAuthentication();
         if (authResult.isAuthenticated && authResult.user) {
           setUser(authResult.user);
-          // TODO: Load business info from API
-          // For now, use mock data
-          setBusinessInfo({
-            name: '',
-            industry: '',
-            description: '',
-            foundedYear: new Date().getFullYear(),
-            teamSize: '',
-            location: '',
-            isRemote: false,
-          });
+
+          // Load business card data from localStorage
+          const hasBusinessCardFlag = localStorage.getItem('hasBusinessCard');
+          setHasBusinessCard(hasBusinessCardFlag === 'true');
+
+          if (hasBusinessCardFlag === 'true') {
+            const businessCardDataString = localStorage.getItem('businessCard');
+            console.log('📋 Loading business card from localStorage:', businessCardDataString);
+            if (businessCardDataString) {
+              try {
+                const businessCard = JSON.parse(businessCardDataString);
+                console.log('✅ Parsed business card:', businessCard);
+
+                // Store raw business card data
+                setBusinessCardData(businessCard);
+
+                // Convert business card to businessInfo format
+                setBusinessInfo({
+                  name: businessCard.name,
+                  industry: businessCard.type,
+                  description: businessCard.description,
+                  foundedYear: businessCard.foundedYear,
+                  teamSize: businessCard.teamSize,
+                  location: businessCard.location,
+                  isRemote: businessCard.isRemote,
+                });
+              } catch (error) {
+                console.error('❌ Failed to parse business card data:', error);
+              }
+            }
+          } else {
+            // Fallback to empty business info
+            console.log('ℹ️ No business card in localStorage, using empty data');
+            setBusinessInfo({
+              name: '',
+              industry: '',
+              description: '',
+              foundedYear: new Date().getFullYear(),
+              teamSize: '',
+              location: '',
+              isRemote: false,
+            });
+          }
+
+          // Load profile card data
+          const hasProfileCardFlag = localStorage.getItem('hasProfileCard');
+          setHasProfileCard(hasProfileCardFlag === 'true');
+
+          if (hasProfileCardFlag === 'true') {
+            const profileCardDataString = localStorage.getItem('profileCard');
+            if (profileCardDataString) {
+              try {
+                const profileCard = JSON.parse(profileCardDataString);
+                setProfileCardData(profileCard);
+                console.log('👤 Loaded profile card:', profileCard);
+              } catch (error) {
+                console.error('❌ Failed to parse profile card:', error);
+              }
+            }
+          }
+
+          // Load latest valuation report
+          const hasValuationFlag = localStorage.getItem('hasValuationReports');
+          if (hasValuationFlag === 'true') {
+            const reportsDataString = localStorage.getItem('valuationReports');
+            if (reportsDataString) {
+              try {
+                const reports = JSON.parse(reportsDataString);
+                if (reports.length > 0) {
+                  const latest = reports.reduce((prev: any, current: any) => {
+                    return new Date(current.date) > new Date(prev.date) ? current : prev;
+                  });
+                  setLatestValuationReport(latest);
+                  console.log('📊 Latest valuation report:', latest);
+                }
+              } catch (error) {
+                console.error('❌ Failed to parse valuation reports:', error);
+              }
+            }
+          }
         } else {
           navigate('/');
         }
@@ -233,22 +309,50 @@ const ListingManagement: React.FC = () => {
           ) : (
             <EmptyStateCard
               icon={Building2}
-              title="Create Your Business Listing"
-              description="Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates."
-              buttonText="Create Listing"
-              onButtonClick={handleCreateListing}
+              title={
+                !hasBusinessCard || !hasProfileCard
+                  ? 'Complete Your Profile to Create a Listing'
+                  : 'Create Your Business Listing'
+              }
+              description={
+                !hasBusinessCard || !hasProfileCard
+                  ? 'You need to complete your business card and profile before creating a listing.'
+                  : latestValuationReport
+                    ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
+                    : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
+              }
+              buttonText={!hasBusinessCard || !hasProfileCard ? undefined : 'Create Listing'}
+              onButtonClick={
+                !hasBusinessCard || !hasProfileCard
+                  ? undefined
+                  : () => {
+                      console.log('🚀 Opening streamlined listing modal with data:', {
+                        businessCard: businessCardData,
+                        profileCard: profileCardData,
+                        valuation: latestValuationReport,
+                      });
+                      setIsListingWizardModalOpen(true);
+                    }
+              }
             />
           )}
         </div>
       </div>
 
-      {/* Listing Wizard Modal */}
-      <ListingWizardModal
-        isOpen={isListingWizardModalOpen}
-        onClose={() => setIsListingWizardModalOpen(false)}
-        onComplete={handleListingComplete}
-        businessInfo={businessInfo}
-      />
+      {/* Streamlined Listing Modal */}
+      {isListingWizardModalOpen && businessCardData && (
+        <StreamlinedListingModal
+          isOpen={isListingWizardModalOpen}
+          onClose={() => setIsListingWizardModalOpen(false)}
+          onComplete={listingData => {
+            console.log('✅ Listing created:', listingData);
+            handleListingComplete(listingData);
+          }}
+          businessCard={businessCardData}
+          profileCard={profileCardData}
+          valuationReport={latestValuationReport}
+        />
+      )}
     </div>
   );
 };
