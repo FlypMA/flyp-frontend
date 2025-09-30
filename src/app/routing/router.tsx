@@ -39,6 +39,7 @@ import BusinessCardCreationPage from '../pages/business/card/BusinessCardCreatio
 import DocumentVault from '../pages/business/data-room/DocumentVault';
 import ListingCreationPage from '../pages/business/listing/ListingCreationPage';
 import { ListingManagement } from '../pages/business/management';
+import BusinessCardVariations from '../pages/business/overview/BusinessCardVariations';
 import BusinessOverview from '../pages/business/overview/BusinessOverview';
 import GetFreeValuation from '../pages/business/reports/GetFreeValuation';
 import ValuationTool from '../pages/business/reports/ValuationTool';
@@ -304,6 +305,14 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoute>
             <ValuationTool />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: 'my-business/card-variations',
+        element: (
+          <SellerRoute>
+            <BusinessCardVariations />
           </SellerRoute>
         ),
       },

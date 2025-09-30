@@ -1,7 +1,7 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
 import { BusinessCardFlow } from '@/features/phase1/business/card';
 // import { ListingWizardModal } from '@/features/phase1/business/listing'; // Legacy, using StreamlinedListingModal via navigation now
-import { BusinessProfileCard } from '@/shared/components/business';
+import BusinessProfileCardV4 from '@/shared/components/business/BusinessProfileCardV4';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
 import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
@@ -361,10 +361,9 @@ const BusinessOverview = () => {
               onButtonClick={() => navigate('/my-business/card/create')}
             />
           ) : (
-            <BusinessProfileCard
+            <BusinessProfileCardV4
               businessInfo={businessInfo}
               onEdit={handleEditBusinessInfo}
-              onAddInfo={handleAddBusinessInfo}
               profileCardData={profileCardData}
               hasValuationReports={hasValuationReports}
               latestValuationReport={latestValuationReport}
