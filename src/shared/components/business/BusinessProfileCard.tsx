@@ -10,8 +10,9 @@
  * - Responsive layout for different screen sizes
  */
 
-import { Edit, Plus } from 'lucide-react';
+import { Edit, Plus, User } from 'lucide-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface BusinessInfo {
   name: string;
@@ -30,6 +31,12 @@ interface BusinessProfileCardProps {
   onEdit?: () => void;
   onAddInfo?: () => void;
   className?: string;
+  profileCardData?: any;
+  hasValuationReports?: boolean;
+  latestValuationReport?: any;
+  valuationReports?: any[];
+  hasActiveListing?: boolean;
+  onCreateValuation?: () => void;
 }
 
 const BusinessProfileCard: React.FC<BusinessProfileCardProps> = ({
@@ -37,7 +44,15 @@ const BusinessProfileCard: React.FC<BusinessProfileCardProps> = ({
   onEdit,
   onAddInfo,
   className = '',
+  profileCardData,
+  hasValuationReports,
+  latestValuationReport,
+  valuationReports,
+  hasActiveListing,
+  onCreateValuation,
 }) => {
+  const navigate = useNavigate();
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -248,6 +263,121 @@ const BusinessProfileCard: React.FC<BusinessProfileCardProps> = ({
           <p className="text-base text-gray-600 leading-relaxed mb-10 max-w-2xl mx-auto">
             {businessInfo.description}
           </p>
+
+          {/* Stage-Based Sections */}
+          <div className="max-w-2xl mx-auto mb-8 space-y-4">
+            {/* Stage 2: Valuation Prompt or Summary */}
+            {!hasValuationReports ? (
+              <div className="flex flex-col items-center justify-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
+                <div className="text-4xl mb-3">💰</div>
+                <p className="text-sm font-semibold text-gray-900 mb-2 text-center">
+                  Next: Discover your business value
+                </p>
+                <p className="text-xs text-gray-600 mb-4 text-center max-w-sm">
+                  Get a professional AI-powered valuation to see what your business is worth today.
+                </p>
+                <button
+                  onClick={onCreateValuation}
+                  className="text-sm text-blue-600 hover:text-blue-800 font-semibold"
+                >
+                  Create Valuation Report →
+                </button>
+              </div>
+            ) : (
+              latestValuationReport && (
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-sm font-semibold text-gray-900">
+                      💰 Valuations ({valuationReports?.length || 0}{' '}
+                      {valuationReports?.length === 1 ? 'report' : 'reports'})
+                    </p>
+                    <button
+                      onClick={() => navigate('/my-business/valuations')}
+                      className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      View All →
+                    </button>
+                  </div>
+
+                  <div className="space-y-1">
+                    <p className="text-sm text-gray-700">
+                      Latest:{' '}
+                      <span className="font-semibold">
+                        €{latestValuationReport.businessValue.toLocaleString()}
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      {latestValuationReport.method} • {latestValuationReport.confidence} confidence
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {new Date(latestValuationReport.date).toLocaleDateString('en-GB', {
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+
+            {/* Stage 3: Profile Prompt or Display */}
+            {hasValuationReports && !profileCardData ? (
+              <div className="flex flex-col items-center justify-center p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
+                <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                  <User className="w-10 h-10 text-purple-600" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900 mb-2 text-center">
+                  Next: Complete your profile
+                </p>
+                <p className="text-xs text-gray-600 mb-4 text-center max-w-sm">
+                  Buyers want to see your background and expertise before they get in touch.
+                </p>
+                <button
+                  onClick={() => navigate('/my-business/profile/create')}
+                  className="text-sm text-purple-600 hover:text-purple-800 font-semibold"
+                >
+                  Add Your Profile →
+                </button>
+              </div>
+            ) : profileCardData ? (
+              <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <img
+                  src={profileCardData.profileImage}
+                  alt={profileCardData.fullName}
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+                <div>
+                  <p className="text-xs text-gray-500">Owned by:</p>
+                  <p className="text-sm font-semibold text-gray-900">{profileCardData.fullName}</p>
+                  <p className="text-xs text-gray-500">{profileCardData.location}</p>
+                </div>
+              </div>
+            ) : null}
+
+            {/* Stage 4: Listing Status */}
+            {hasActiveListing && (
+              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-semibold text-gray-900">
+                    📋 Listing Status: <span className="text-green-600">Active</span>
+                  </p>
+                  <button
+                    onClick={() => navigate('/my-business/listings')}
+                    className="text-xs text-green-600 hover:text-green-800 font-medium"
+                  >
+                    Manage →
+                  </button>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-600">
+                    Views: <span className="font-medium">234</span> • Interested:{' '}
+                    <span className="font-medium">12</span>
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Metrics Grid - 4 Columns */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-8 pt-8 border-t border-gray-200">

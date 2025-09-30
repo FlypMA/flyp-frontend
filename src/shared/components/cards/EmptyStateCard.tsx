@@ -10,7 +10,7 @@ import React from 'react';
 interface EmptyStateCardProps {
   icon: LucideIcon;
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   buttonText: string;
   onButtonClick: () => void;
   className?: string;
@@ -47,7 +47,9 @@ export const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
           <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
 
           {/* Description */}
-          <p className="text-gray-600 mb-4 text-sm flex-1">{description}</p>
+          <div className="text-gray-600 mb-4 text-sm flex-1">
+            {typeof description === 'string' ? <p>{description}</p> : description}
+          </div>
 
           {/* CTA Button - Airbnb style */}
           <div className="flex justify-center">

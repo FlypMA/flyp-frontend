@@ -1,16 +1,14 @@
 // import { useBusinessMetrics } from '@/features/business/hooks';
 import { BusinessCardFlow } from '@/features/phase1/business/card';
 // import { ListingWizardModal } from '@/features/phase1/business/listing'; // Legacy, using StreamlinedListingModal via navigation now
-import { BusinessProfileCard, ProfileCard, ValuationCard } from '@/shared/components/business';
+import { BusinessProfileCard } from '@/shared/components/business';
 import { Button } from '@/shared/components/buttons';
 import { EmptyStateCard } from '@/shared/components/cards';
-import ListingNudgeModal from '@/shared/components/modals/domains/business/ListingNudgeModal';
 import { BusinessProfileModal } from '@/shared/components/modals/domains/business/management/BusinessProfileModal';
 import ValuationModal from '@/shared/components/modals/ValuationModal';
 import { AuthenticationService } from '@/shared/services/auth';
-import { UrlGenerator } from '@/shared/services/urls/urlGenerator';
 import { User } from '@/shared/types';
-import { Calculator, Store } from 'lucide-react';
+import { Store } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Navigation and sidebar are provided by DashboardLayout
@@ -39,9 +37,6 @@ const BusinessOverview = () => {
   const [isBusinessProfileModalOpen, setIsBusinessProfileModalOpen] = useState<boolean>(false);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState<boolean>(false);
   const [isValuationModalOpen, setIsValuationModalOpen] = useState<boolean>(false);
-  const [isListingNudgeModalOpen, setIsListingNudgeModalOpen] = useState<boolean>(false);
-  // const [currentValuationData] = useState<unknown>(null);
-  const [currentBusinessValue, setCurrentBusinessValue] = useState<number>(0);
   // const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   // const [businessValuation, setBusinessValuation] = useState<ValuationReport | null>(null);
   // const [businessListing, setBusinessListing] = useState<Listing | null>(null);
@@ -329,16 +324,6 @@ const BusinessOverview = () => {
     setIsListingWizardModalOpen(false);
   };
 
-  const handleListingNudge = (valuationData: unknown, businessValue: number) => {
-    setCurrentBusinessValue(businessValue);
-    setIsListingNudgeModalOpen(true);
-  };
-
-  const handleCreateListingFromNudge = () => {
-    setIsListingNudgeModalOpen(false);
-    setIsListingWizardModalOpen(true);
-  };
-
   // Loading screens removed for smooth user experience
 
   if (!user) {
@@ -362,24 +347,17 @@ const BusinessOverview = () => {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">My business</h1>
-          <p className="text-lg text-gray-600">
-            Manage your business profile, listings, and reports
-          </p>
         </div>
 
         {/* Business Card Section */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Business Card</h2>
-          </div>
-
           {/* NEW: Progressive Onboarding Flow */}
           {!hasBusinessCard ? (
             <EmptyStateCard
               icon={Store}
-              title="Create Your Business Card"
-              description="Start by telling us about your business. This will be your profile across the platform."
-              buttonText="Create Business Card"
+              title="Tell us about your business"
+              description="Share a few details about your business. This helps us create your profile and show you what your business is worth as you grow on the platform."
+              buttonText="Add Your Business"
               onButtonClick={() => navigate('/my-business/card/create')}
             />
           ) : (
@@ -387,88 +365,18 @@ const BusinessOverview = () => {
               businessInfo={businessInfo}
               onEdit={handleEditBusinessInfo}
               onAddInfo={handleAddBusinessInfo}
-            />
-          )}
-        </div>
-
-        {/* Personal Profile Section */}
-        {hasBusinessCard && (
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">
-                {hasProfileCard ? 'Your Profile' : 'Complete Your Profile'}
-              </h2>
-            </div>
-            {!hasProfileCard ? (
-              <EmptyStateCard
-                icon={Store}
-                title="Tell us about yourself"
-                description="Tell us about yourself and your background to build trust with potential buyers."
-                buttonText="Create Profile"
-                onButtonClick={() => navigate('/my-business/profile/create')}
-              />
-            ) : (
-              <ProfileCard
-                profileData={profileCardData}
-                onEdit={() => navigate('/my-business/profile/create')}
-              />
-            )}
-          </div>
-        )}
-
-        {/* Reports Section */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Reports</h2>
-          </div>
-          {hasValuationReports ? (
-            <div className="space-y-4">
-              {valuationReports.map(report => {
-                // Calculate months validity
-                const reportDate = new Date(report.date);
-                const today = new Date();
-                const monthsDiff = Math.floor(
-                  (today.getTime() - reportDate.getTime()) / (1000 * 60 * 60 * 24 * 30)
-                );
-                const monthsValid = report.monthsValid - monthsDiff;
-
-                return (
-                  <ValuationCard
-                    key={report.id}
-                    id={report.id}
-                    date={report.date}
-                    businessValue={report.businessValue}
-                    method={report.method}
-                    confidence={report.confidence}
-                    lowRange={report.lowRange}
-                    highRange={report.highRange}
-                    revenueMultiple={report.revenueMultiple}
-                    ebitdaMultiple={report.ebitdaMultiple}
-                    industryAverage={report.industryAverage}
-                    monthsValid={monthsValid}
-                    onView={() => navigate('/my-business/valuations')}
-                    onUpdate={() => setIsValuationModalOpen(true)}
-                    onCreateListing={() => handleListingNudge(report.inputs, report.businessValue)}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <EmptyStateCard
-              icon={Calculator}
-              title="Create Your Business Valuation"
-              description="Get a professional valuation of your business to understand its market worth."
-              buttonText="Get Valuation"
-              onButtonClick={handleCreateValuation}
+              profileCardData={profileCardData}
+              hasValuationReports={hasValuationReports}
+              latestValuationReport={latestValuationReport}
+              valuationReports={valuationReports}
+              hasActiveListing={hasActiveListing}
+              onCreateValuation={() => setIsValuationModalOpen(true)}
             />
           )}
         </div>
 
         {/* Business Listings Section */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Listings</h2>
-          </div>
           {hasActiveListing ? (
             <>
               {/* Enhanced Active Listing Card - Airbnb Style */}
@@ -546,48 +454,22 @@ const BusinessOverview = () => {
               </div>
               {/* Additional listing cards could go here */}
             </>
-          ) : (
+          ) : hasBusinessCard && hasProfileCard && hasValuationReports ? (
             <EmptyStateCard
               icon={Store}
-              title={
-                !hasBusinessCard
-                  ? 'Create Your Business Card First'
-                  : !hasProfileCard
-                    ? 'Complete Your Profile to Create a Listing'
-                    : 'Create Your Business Listing'
-              }
-              description={
-                !hasBusinessCard
-                  ? 'Start by creating your business card. This will be the foundation for your listing.'
-                  : !hasProfileCard
-                    ? 'Complete your profile to build trust with potential buyers before creating a listing.'
-                    : hasValuationReports
-                      ? 'Ready to list your business? All your information will be prefilled from your business card and valuation.'
-                      : 'Ready to explore selling opportunities? Create a confidential listing to see what interest your business generates.'
-              }
-              buttonText={
-                !hasBusinessCard
-                  ? 'Create Business Card'
-                  : !hasProfileCard
-                    ? 'Complete Profile'
-                    : 'Create Listing'
-              }
-              onButtonClick={
-                !hasBusinessCard
-                  ? () => navigate(UrlGenerator.createBusinessCard())
-                  : !hasProfileCard
-                    ? () => navigate(UrlGenerator.createProfileCard())
-                    : () => {
-                        console.log('🚀 Navigating to listing creation with data:', {
-                          businessCard: businessCardData,
-                          profileCard: profileCardData,
-                          valuation: latestValuationReport,
-                        });
-                        navigate('/my-business/listings/create');
-                      }
-              }
+              title="Ready to explore selling opportunities?"
+              description="Create a confidential listing to test buyer interest. There are no upfront fees—you only pay when you successfully sell your business."
+              buttonText="Create Listing"
+              onButtonClick={() => {
+                console.log('🚀 Navigating to listing creation with data:', {
+                  businessCard: businessCardData,
+                  profileCard: profileCardData,
+                  valuation: latestValuationReport,
+                });
+                navigate('/my-business/listings/create');
+              }}
             />
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -608,16 +490,6 @@ const BusinessOverview = () => {
         onClose={handleValuationComplete}
         onSignupPrompt={() => {}} // Not used for authenticated users
         onComplete={handleValuationComplete}
-      />
-
-      {/* Listing Nudge Modal */}
-      <ListingNudgeModal
-        isOpen={isListingNudgeModalOpen}
-        onClose={() => setIsListingNudgeModalOpen(false)}
-        onCreateListing={handleCreateListingFromNudge}
-        businessValue={currentBusinessValue}
-        businessName={businessInfo?.name || 'Your Business'}
-        industry={businessInfo?.industry || 'your industry'}
       />
 
       {/* Business Card Edit Modal */}
