@@ -23,7 +23,6 @@ import {
   ArrowRight,
   CheckCircle,
   HandshakeIcon,
-  Heart,
   Shield,
   Sparkles,
   TrendingUp,
@@ -84,17 +83,11 @@ const SellerVariationD = () => {
           fallbackGradient="from-neutral-800 via-primary-900 to-calm-900"
           posterImage="/images/seller-story-poster.jpg"
           overlay="gradient"
-          className="py-32 md:py-32"
+          className="py-16 md:py-20 lg:py-24 xl:py-32"
         >
           <Container>
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                {/* Trust badge */}
-                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-8">
-                  <Heart className="w-5 h-5 text-success-400" />
-                  <span className="text-white font-medium">Trusted by 12,000+ business owners</span>
-                </div>
-
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
                   Your business journey
                   <br />
@@ -121,16 +114,14 @@ const SellerVariationD = () => {
                   </Button>
                 </div>
 
-                <p className="text-white/70 text-sm">
-                  Free • 2 minutes • No obligations • 12,000+ business owners trust us
-                </p>
+                <p className="text-white/70 text-sm">Free • 2 minutes • No obligations</p>
               </div>
             </div>
           </Container>
         </VideoBackground>
 
         {/* Journey Steps */}
-        <section className="py-24 bg-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -176,7 +167,7 @@ const SellerVariationD = () => {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-24 bg-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -191,7 +182,7 @@ const SellerVariationD = () => {
 
               <div className="grid md:grid-cols-2 gap-8">
                 <Card className="border-2 border-primary-200 bg-gradient-to-br from-white to-primary-50">
-                  <CardBody className="p-10">
+                  <CardBody className="p-6 sm:p-8 md:p-10">
                     <div className="flex items-start gap-4 mb-6">
                       <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
                         <Shield className="w-6 h-6 text-white" />
@@ -225,7 +216,7 @@ const SellerVariationD = () => {
                 </Card>
 
                 <Card className="border-2 border-success-200 bg-gradient-to-br from-white to-success-50">
-                  <CardBody className="p-10">
+                  <CardBody className="p-6 sm:p-8 md:p-10">
                     <div className="flex items-start gap-4 mb-6">
                       <div className="w-12 h-12 bg-success-600 rounded-xl flex items-center justify-center flex-shrink-0">
                         <Users className="w-6 h-6 text-white" />
@@ -262,7 +253,7 @@ const SellerVariationD = () => {
         </section>
 
         {/* Final CTA - Emotional Close */}
-        <section className="py-32 bg-gradient-to-br from-primary-900 via-calm-900 to-neutral-900 text-white relative overflow-hidden">
+        <section className="py-16 md:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-primary-900 via-calm-900 to-neutral-900 text-white relative overflow-hidden">
           {/* Background decoration */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-success-400 rounded-full blur-3xl"></div>
@@ -271,11 +262,6 @@ const SellerVariationD = () => {
 
           <Container>
             <div className="max-w-4xl mx-auto text-center relative z-10">
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-8">
-                <Heart className="w-5 h-5 text-success-400" />
-                <span className="text-white font-medium">Join 12,000+ business owners</span>
-              </div>
-
               <h2 className="text-5xl md:text-6xl font-bold mb-8">Start your journey today</h2>
 
               <p className="text-2xl text-white/90 mb-12 max-w-2xl mx-auto">

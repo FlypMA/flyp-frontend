@@ -1,19 +1,17 @@
-// 🧭 Navigation Components - MVP Version (Production Ready)
+// 🧭 Navigation Components - Unified Version (Production Ready)
 // Location: src/shared/components/navigation/index.ts
-// Purpose: Clean exports for production navigation system
+// Purpose: Clean exports for unified navigation system
 
 /**
- * 🧭 Navigation System - Production Ready
+ * 🧭 Navigation System - Unified Architecture
  *
- * A clean navigation system based on legacy app implementation:
- * - Navigation: Main navigation bar (used in MainLayout)
- * - BuyerNavigation: Buyer navigation (used in BuyerLayout)
- * - SellerNavigation: Seller navigation (used in SellerLayout)
- * - UserAvatarDropdown: User avatar dropdown (used within Navigation)
- *
- * Based on legacy app components:
- * - UnifiedNavigation.tsx -> Navigation.tsx
- * - user_avatar_dropdown.tsx -> UserAvatarDropdown.tsx
+ * Consolidated navigation system with:
+ * - Navigation: Main navigation (uses RoleNavigationMobile)
+ * - BuyerNavigation: Buyer navigation (uses RoleNavigationMobile)
+ * - SellerNavigation: Seller navigation (uses RoleNavigationMobile)
+ * - RoleNavigationMobile: Unified mobile nav for all roles
+ * - Zustand store for global state management
+ * - Type-safe navigation config
  */
 
 // ==============================================================================
@@ -23,22 +21,22 @@
 export { default as Navigation } from './main/Navigation';
 
 // ==============================================================================
-// CLEAN NAVIGATION COMPONENT
-// ==============================================================================
-
-// CleanNavigation removed - replaced with BuyerNavigation and SellerNavigation
-
-// ==============================================================================
 // BUYER NAVIGATION COMPONENTS
 // ==============================================================================
 
-export { BuyerNavigation, BuyerNavigationDesktop, BuyerNavigationMobile } from './buyer';
+export { BuyerNavigation, BuyerNavigationDesktop } from './buyer';
 
 // ==============================================================================
 // SELLER NAVIGATION COMPONENTS
 // ==============================================================================
 
-export { SellerNavigation, SellerNavigationDesktop, SellerNavigationMobile } from './seller';
+export { SellerNavigation, SellerNavigationDesktop } from './seller';
+
+// ==============================================================================
+// UNIFIED MOBILE NAVIGATION
+// ==============================================================================
+
+export { RoleNavigationMobile } from './unified/RoleNavigationMobile';
 
 // ==============================================================================
 // USER AVATAR DROPDOWN

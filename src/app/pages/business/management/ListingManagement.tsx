@@ -303,7 +303,7 @@ const ListingManagement: React.FC = () => {
                       </div>
 
                       {/* Performance Metrics */}
-                      <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-gray-50 rounded-lg">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-3 bg-gray-50 rounded-lg">
                         <div className="text-center">
                           <div className="text-lg font-bold text-gray-900">{listing.views}</div>
                           <div className="text-xs text-gray-600">Views</div>

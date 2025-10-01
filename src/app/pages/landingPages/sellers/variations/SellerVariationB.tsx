@@ -194,7 +194,7 @@ const SellerVariationB = () => {
           fallbackGradient="from-primary-900 via-calm-800 to-primary-900"
           posterImage="/images/journey-poster.jpg"
           overlay="gradient"
-          className="py-32 md:py-40"
+          className="py-16 md:py-20 lg:py-24 xl:py-32"
           disableVideoOnMobile={true}
         >
           <Container>
@@ -265,7 +265,7 @@ const SellerVariationB = () => {
         </VideoBackground>
 
         {/* The 4-Stage Journey - Interactive */}
-        <div className="py-24 bg-gradient-to-br from-neutral-50 via-white to-neutral-50">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 via-white to-neutral-50">
           <Container>
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
@@ -346,7 +346,7 @@ const SellerVariationB = () => {
 
               {/* Active stage detail */}
               <Card className="rounded-3xl border-2 border-neutral-200 shadow-xl bg-white overflow-hidden">
-                <CardBody className="p-10 md:p-12">
+                <CardBody className="p-6 sm:p-8 md:p-10 md:p-12">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div>
                       <div className="flex items-center gap-4 mb-6">
@@ -444,7 +444,7 @@ const SellerVariationB = () => {
         </div>
 
         {/* Support Features - We're with you */}
-        <div className="py-24 bg-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -479,7 +479,7 @@ const SellerVariationB = () => {
         </div>
 
         {/* Success Stories */}
-        <div className="py-24 bg-gradient-to-br from-neutral-100 via-white to-calm-50">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-100 via-white to-calm-50">
           <Container>
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
@@ -554,7 +554,7 @@ const SellerVariationB = () => {
         </div>
 
         {/* Final CTA */}
-        <div className="py-24 bg-gradient-to-br from-primary-900 via-calm-800 to-primary-900 text-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-900 via-calm-800 to-primary-900 text-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-8">

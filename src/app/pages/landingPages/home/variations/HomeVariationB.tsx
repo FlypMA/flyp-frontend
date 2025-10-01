@@ -157,7 +157,7 @@ const HomeVariationB = () => {
           fallbackGradient="from-neutral-900 via-primary-900 to-calm-900"
           posterImage="/images/dual-journey-poster.jpg"
           overlay="gradient"
-          className="py-32 md:py-40"
+          className="py-16 md:py-20 lg:py-24 xl:py-32"
         >
           <Container>
             <div className="max-w-5xl mx-auto text-center">
@@ -224,7 +224,7 @@ const HomeVariationB = () => {
         </VideoBackground>
 
         {/* Quick Value Props - 4 Cards */}
-        <div className="py-20 bg-gradient-to-b from-neutral-50 to-white">
+        <div className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-neutral-50 to-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -272,7 +272,7 @@ const HomeVariationB = () => {
         </div>
 
         {/* Path Showcase - Choose Your Journey */}
-        <div className="py-24 bg-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
@@ -287,7 +287,7 @@ const HomeVariationB = () => {
               <div className="grid lg:grid-cols-2 gap-12">
                 {/* Seller Journey */}
                 <Card className="rounded-3xl border-2 border-primary-200 shadow-xl overflow-hidden">
-                  <CardBody className="p-10">
+                  <CardBody className="p-6 sm:p-8 md:p-10">
                     <div className="flex items-center gap-4 mb-8">
                       <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center">
                         <Building2 className="w-8 h-8 text-primary-600" />
@@ -340,7 +340,7 @@ const HomeVariationB = () => {
 
                 {/* Buyer Journey */}
                 <Card className="rounded-3xl border-2 border-calm-200 shadow-xl overflow-hidden">
-                  <CardBody className="p-10">
+                  <CardBody className="p-6 sm:p-8 md:p-10">
                     <div className="flex items-center gap-4 mb-8">
                       <div className="w-16 h-16 bg-calm-100 rounded-2xl flex items-center justify-center">
                         <Search className="w-8 h-8 text-calm-600" />
@@ -396,7 +396,7 @@ const HomeVariationB = () => {
         </div>
 
         {/* Social Proof Stats */}
-        <div className="py-20 bg-gradient-to-br from-neutral-50 to-white border-y border-neutral-200">
+        <div className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-neutral-50 to-white border-y border-neutral-200">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -420,7 +420,7 @@ const HomeVariationB = () => {
         </div>
 
         {/* Final CTA - Routing Reinforcement */}
-        <div className="py-20 bg-white">
+        <div className="py-12 md:py-16 lg:py-20 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">

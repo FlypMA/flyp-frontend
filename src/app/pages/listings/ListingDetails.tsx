@@ -370,7 +370,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
         {/* Airbnb-Style Image Gallery Section */}
         {(primaryImage || additionalImages.length > 0) && (
           <div className="mb-8">
-            <div className="grid grid-cols-4 gap-2 h-[400px] md:h-[480px] rounded-xl overflow-hidden">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 h-[400px] md:h-[480px] rounded-xl overflow-hidden">
               {/* Large primary image - takes up 2 columns */}
               {primaryImage && (
                 <div
@@ -388,7 +388,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
               )}
 
               {/* Right side grid - smaller images */}
-              <div className="col-span-4 md:col-span-2 grid grid-cols-2 gap-2">
+              <div className="col-span-4 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-2">
                 {additionalImages.slice(0, 4).map((image, index) => (
                   <div
                     key={image.id}

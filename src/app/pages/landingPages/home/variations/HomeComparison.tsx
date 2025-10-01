@@ -179,7 +179,7 @@ const HomeComparison = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className="p-4 bg-neutral-50 rounded-xl">
                       <div className="text-xs font-semibold text-neutral-600 mb-1">
                         Audience Focus
@@ -285,7 +285,7 @@ const HomeComparison = () => {
             <CardBody className="p-8">
               <h2 className="text-2xl font-bold text-neutral-900 mb-6">Quick Comparison</h2>
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0"><div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0"><table className="w-full min-w-[700px] min-w-[700px]">
                   <thead>
                     <tr className="border-b-2 border-neutral-200">
                       <th className="text-left py-3 px-4 font-semibold text-neutral-700">
@@ -334,7 +334,7 @@ const HomeComparison = () => {
                       <td className="py-3 px-4 text-neutral-600 text-sm">Paid Ads/Growth</td>
                     </tr>
                   </tbody>
-                </table>
+                </table></div></div>
               </div>
             </CardBody>
           </Card>

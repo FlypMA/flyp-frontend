@@ -156,13 +156,13 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  // Get size classes with improved spacing
+  // Get size classes with improved spacing (mobile-first with 44px touch targets)
   const getSizeClasses = () => {
     if (isIconOnly) {
       const iconSizes = {
-        xs: 'w-6 h-6 p-1',
-        sm: 'w-8 h-8 p-1.5',
-        md: 'w-10 h-10 p-2',
+        xs: 'min-w-[44px] min-h-[44px] sm:w-6 sm:h-6 p-1',
+        sm: 'min-w-[44px] min-h-[44px] sm:w-8 sm:h-8 p-1.5',
+        md: 'min-w-[44px] min-h-[44px] sm:w-10 sm:h-10 p-2',
         lg: 'w-12 h-12 p-2.5',
         xl: 'w-14 h-14 p-3',
       };
@@ -170,11 +170,11 @@ export const Button: React.FC<ButtonProps> = ({
     }
 
     const sizes = {
-      xs: 'px-3 py-1.5 text-xs h-8', // Improved padding
-      sm: 'px-4 py-2 text-sm h-9',
-      md: 'px-5 py-2.5 text-sm h-10', // Better proportions
-      lg: 'px-6 py-3 text-base h-12',
-      xl: 'px-8 py-4 text-lg h-14',
+      xs: 'px-3 py-2.5 sm:py-1.5 text-xs min-h-[44px] sm:h-8', // Mobile: 44px, Desktop: 32px
+      sm: 'px-4 py-3 sm:py-2 text-sm min-h-[44px] sm:h-9', // Mobile: 44px, Desktop: 36px
+      md: 'px-5 py-3 sm:py-2.5 text-sm min-h-[44px] sm:h-10', // Mobile: 44px, Desktop: 40px
+      lg: 'px-6 py-3 text-base h-12', // Already 48px ✅
+      xl: 'px-8 py-4 text-lg h-14', // Already 56px ✅
     };
     return sizes[size];
   };

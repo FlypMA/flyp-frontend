@@ -94,10 +94,10 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({
                   {showBackButton && onBack && (
                     <button
                       onClick={onBack}
-                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      className="p-2 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
                       aria-label="Go back"
                     >
-                      <ArrowLeft className="w-5 h-5 text-gray-600" />
+                      <ArrowLeft className="w-6 h-6 sm:w-5 sm:h-5 text-gray-600" />
                     </button>
                   )}
 

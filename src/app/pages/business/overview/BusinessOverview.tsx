@@ -540,51 +540,51 @@ const BusinessOverview = () => {
                     </span>
                   </div>
 
-                  {/* Performance Metrics */}
-                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                  {/* Performance Metrics - Mobile Optimized */}
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 p-3 sm:p-4 bg-gray-50 rounded-lg">
                     <div className="text-center">
-                      <div className="text-xl font-bold text-gray-900">24</div>
+                      <div className="text-lg sm:text-xl font-bold text-gray-900">24</div>
                       <div className="text-xs text-gray-600">Views</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-gray-900">3</div>
+                      <div className="text-lg sm:text-xl font-bold text-gray-900">3</div>
                       <div className="text-xs text-gray-600">Inquiries</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-gray-900">2</div>
+                      <div className="text-lg sm:text-xl font-bold text-gray-900">2</div>
                       <div className="text-xs text-gray-600">NDAs Signed</div>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                  {/* Action Buttons - Mobile Touch-Friendly */}
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 mt-auto">
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-primary-500 text-white font-semibold hover:bg-primary-600 focus:ring-primary-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-2 text-sm h-9 rounded-lg"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-primary-500 text-white font-semibold hover:bg-primary-600 focus:ring-primary-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-3 text-sm min-h-[44px] sm:min-h-0 sm:h-9 sm:py-2 rounded-lg w-full sm:w-auto"
                     >
                       View Public Listing
                     </button>
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-3 text-sm min-h-[44px] sm:min-h-0 sm:h-8 sm:py-2 rounded-lg w-full sm:w-auto"
                     >
                       Edit Details
                     </button>
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-3 text-sm min-h-[44px] sm:min-h-0 sm:h-8 sm:py-2 rounded-lg w-full sm:w-auto"
                     >
                       View Inquiries
                     </button>
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-3 text-sm min-h-[44px] sm:min-h-0 sm:h-8 sm:py-2 rounded-lg w-full sm:w-auto"
                     >
                       Analytics
                     </button>
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-3 py-2 text-sm h-8 rounded-lg"
+                      className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300 outline-none cursor-pointer relative overflow-hidden bg-white text-gray-700 font-medium hover:bg-gray-50 focus:ring-gray-500/30 shadow-sm hover:shadow-md active:scale-[0.98] px-4 py-3 text-sm min-h-[44px] sm:min-h-0 sm:h-8 sm:py-2 rounded-lg w-full sm:w-auto"
                     >
                       Share Listing
                     </button>

@@ -79,19 +79,19 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
 
   return (
     <nav
-      className={`flex w-full h-auto items-center justify-center backdrop-blur-lg backdrop-saturate-150 bg-white border-b border-neutral-200 shadow-sm sticky top-0 z-30 py-4 ${className}`}
+      className={`flex w-full h-auto items-center justify-center backdrop-blur-lg backdrop-saturate-150 bg-white border-b border-neutral-200 shadow-sm sticky top-0 z-30 py-3 sm:py-4 ${className}`}
       style={{ '--navbar-height': '4rem' } as React.CSSProperties}
     >
-      <header className="z-40 flex px-6 gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full">
+      <header className="z-40 flex px-3 sm:px-4 lg:px-6 gap-2 sm:gap-3 lg:gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full overflow-x-hidden">
         {/* Logo Section */}
-        <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
-          <Link to="/" className="flex items-center gap-1">
+        <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border min-w-0">
+          <Link to="/" className="flex items-center gap-1 sm:gap-1.5 min-w-0">
             <img
               src="/UpSwitch_logo_var1.svg?v=2024.4"
               alt="Upswitch - European SME M&A Platform"
               width="32"
               height="32"
-              className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
+              className="logo-image transition-opacity hover:opacity-80 w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0"
               loading="lazy"
               style={{
                 height: '32px',
@@ -101,7 +101,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="font-display text-xl font-light text-primary-700 leading-none mt-0.5">
+            <span className="font-display text-lg sm:text-xl font-light text-primary-700 leading-none mt-0.5">
               Upswitch
             </span>
           </Link>
@@ -284,8 +284,11 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         </div>
 
         {/* Right Section */}
-        <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-end bg-transparent items-center">
-          <ul className="h-full flex-row flex-nowrap flex items-center gap-4" data-justify="end">
+        <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-end bg-transparent items-center min-w-0">
+          <ul
+            className="h-full flex-row flex-nowrap flex items-center gap-2 sm:gap-3 lg:gap-4"
+            data-justify="end"
+          >
             {/* Desktop Actions */}
             <li className="text-medium whitespace-nowrap box-border list-none hidden lg:flex items-center gap-3">
               {user ? (
@@ -302,7 +305,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     variant="link"
                     size="sm"
                     onClick={handleLogin}
-                    className="text-neutral-700 hover:text-primary-600"
+                    className="text-neutral-700 hover:text-primary-600 hidden xl:inline-flex"
                   >
                     Log in
                   </Button>
@@ -310,16 +313,17 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     variant="primary"
                     size="md"
                     onClick={handlePrimaryCTA}
-                    className="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-sm hover:shadow-md transition-all"
+                    className="px-4 xl:px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-sm hover:shadow-md transition-all text-sm xl:text-base whitespace-nowrap"
                   >
-                    Get Free Valuation
+                    <span className="hidden xl:inline">Get Free Valuation</span>
+                    <span className="xl:hidden">Get Valued</span>
                   </Button>
                 </>
               )}
             </li>
 
             {/* Mobile Actions */}
-            <li className="text-medium whitespace-nowrap box-border list-none flex lg:hidden items-center gap-2">
+            <li className="text-medium whitespace-nowrap box-border list-none flex lg:hidden items-center gap-1.5 sm:gap-2">
               {user ? (
                 <>
                   {renderUserMenu()}
@@ -330,12 +334,12 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-6 h-6 text-neutral-700" />
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                   </Button>
                 </>
               ) : isCheckingAuth ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center animate-pulse">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center animate-pulse">
                     <span className="text-white text-sm font-medium">•</span>
                   </div>
                   <Button
@@ -345,7 +349,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-6 h-6 text-neutral-700" />
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                   </Button>
                 </div>
               ) : (
@@ -354,7 +358,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     variant="primary"
                     size="sm"
                     onClick={handlePrimaryCTA}
-                    className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm"
+                    className="px-3 sm:px-4 py-2 sm:py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs sm:text-sm min-h-[44px] sm:min-h-0 whitespace-nowrap"
                   >
                     Get Valued
                   </Button>
@@ -365,7 +369,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-6 h-6 text-neutral-700" />
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-700" />
                   </Button>
                 </>
               )}

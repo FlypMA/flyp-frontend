@@ -48,7 +48,7 @@ const BuyerNavigationDesktop: React.FC<BuyerNavigationDesktopProps> = ({
       className={`flex w-full h-auto items-center justify-center bg-white border-b border-neutral-200 shadow-sm sticky top-0 z-30 py-4 ${className}`}
       style={{ '--navbar-height': '4rem' } as React.CSSProperties}
     >
-      <header className="z-40 flex px-6 gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full">
+      <header className="z-40 flex px-3 sm:px-4 lg:px-6 gap-2 sm:gap-3 lg:gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full overflow-x-hidden">
         {/* Logo Section */}
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center gap-1">

@@ -78,11 +78,11 @@ export const CenteredModal: React.FC<CenteredModalProps> = ({
       hideCloseButton
       isDismissable={isDismissable}
       classNames={{
-        base: 'max-h-[90vh]',
-        wrapper: 'items-center justify-center p-4',
-        body: `${paddingClasses[bodyPadding]} overflow-y-auto max-h-[70vh]`,
+        base: 'max-h-[90vh] sm:max-h-[90vh]',
+        wrapper: 'items-center justify-center p-0 sm:p-4',
+        body: `${paddingClasses[bodyPadding]} overflow-y-auto max-h-[100vh] sm:max-h-[70vh]`,
       }}
-      className={className}
+      className={`m-0 sm:m-auto w-full h-full sm:w-auto sm:h-auto sm:rounded-lg ${className}`}
     >
       <ModalContent className="relative">
         {/* Header */}
@@ -96,10 +96,10 @@ export const CenteredModal: React.FC<CenteredModalProps> = ({
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-2 sm:p-2 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
                 aria-label={closeButtonAriaLabel}
               >
-                <X className="w-5 h-5 text-gray-600" />
+                <X className="w-6 h-6 sm:w-5 sm:h-5 text-gray-600" />
               </button>
             )}
           </ModalHeader>
@@ -109,10 +109,10 @@ export const CenteredModal: React.FC<CenteredModalProps> = ({
         {!showHeader && showCloseButton && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
             aria-label={closeButtonAriaLabel}
           >
-            <X className="w-5 h-5 text-gray-600" />
+            <X className="w-6 h-6 sm:w-5 sm:h-5 text-gray-600" />
           </button>
         )}
 

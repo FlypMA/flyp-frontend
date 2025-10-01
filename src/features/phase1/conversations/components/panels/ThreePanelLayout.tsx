@@ -3,7 +3,11 @@
 // Purpose: CSS Grid-based three-panel layout for messaging interface
 
 import React, { useEffect, useRef } from 'react';
-import { useBreakpointDetection, usePanelLayout } from '../../hooks/useContextPanel';
+import {
+  useBreakpointDetection,
+  useContextPanel,
+  usePanelLayout,
+} from '../../hooks/useContextPanel';
 
 // =============================================================================
 // COMPONENT PROPS
@@ -25,6 +29,7 @@ interface ThreePanelLayoutProps {
 const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className = '' }) => {
   const { breakpoint, layoutConfig, isCollapsed } = usePanelLayout();
   const { handleResize } = useBreakpointDetection();
+  const { togglePanel } = useContextPanel();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Handle window resize for responsive design
@@ -125,12 +130,16 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
         {children.rightPanel}
       </div>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay - Shows when left or right panel is open */}
       {breakpoint === 'mobile' &&
-        layoutConfig.rightPanel.overlay &&
-        layoutConfig.rightPanel.visible && (
+        (layoutConfig.leftPanel.visible || layoutConfig.rightPanel.visible) && (
           <div
             className="mobile-overlay"
+            onClick={() => {
+              // Close whichever panel is open
+              if (layoutConfig.leftPanel.visible) togglePanel('left');
+              if (layoutConfig.rightPanel.visible) togglePanel('right');
+            }}
             style={{
               position: 'fixed',
               top: 0,
@@ -139,9 +148,17 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
               bottom: 0,
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               zIndex: 999,
-              opacity: layoutConfig.rightPanel.visible ? 1 : 0,
-              visibility: layoutConfig.rightPanel.visible ? 'visible' : 'hidden',
-              transition: 'opacity 0.3s ease-in-out, visibility 0.3s ease-in-out',
+              opacity: 1,
+              transition: 'opacity 0.3s ease-in-out',
+            }}
+            aria-label="Close panel"
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => {
+              if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+                if (layoutConfig.leftPanel.visible) togglePanel('left');
+                if (layoutConfig.rightPanel.visible) togglePanel('right');
+              }
             }}
           />
         )}

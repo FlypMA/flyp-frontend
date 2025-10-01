@@ -1,4 +1,4 @@
-// 🧭 Main Navigation - MVP Version
+// 🧭 Main Navigation - Unified Version
 // Location: src/shared/components/navigation/main/index.ts
 // Purpose: Main navigation components exports
 
@@ -9,9 +9,9 @@
  * for all pages in the application.
  *
  * Components:
- * - Navigation: Main navigation bar with authentication and user avatar dropdown
+ * - Navigation: Main navigation orchestrator (uses RoleNavigationMobile)
+ * - NavigationDesktop: Desktop navigation bar
  */
 
 export { default as Navigation } from './Navigation';
 export { default as NavigationDesktop } from './NavigationDesktop';
-export { default as NavigationMobile } from './NavigationMobile';

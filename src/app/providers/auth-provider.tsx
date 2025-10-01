@@ -33,6 +33,7 @@ interface AuthContextType {
   // Auth actions
   checkAuth: () => Promise<void>;
   setUser: (user: User | null) => void;
+  logout: () => void;
 
   // Modal state
   activeModal: ModalType;
@@ -136,6 +137,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     hasCheckedAuth.current = false;
   }, []);
 
+  const logout = useCallback(() => {
+    // Clear user state
+    setUserState(null);
+    setIsAuthenticated(false);
+    hasCheckedAuth.current = false;
+
+    // Clear auth data from storage
+    authService.logout();
+
+    // Dispatch logout event
+    window.dispatchEvent(new CustomEvent('auth-logout'));
+  }, []);
+
   // =============================================================================
   // MODAL FUNCTIONS
   // =============================================================================
@@ -217,6 +231,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Auth actions
     checkAuth,
     setUser,
+    logout,
 
     // Modal state
     activeModal,

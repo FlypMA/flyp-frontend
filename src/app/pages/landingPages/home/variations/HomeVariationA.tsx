@@ -171,7 +171,7 @@ const HomeVariationA = () => {
           fallbackGradient="from-primary-900 via-calm-800 to-neutral-900"
           posterImage="/images/search-hero-poster.jpg"
           overlay="gradient"
-          className="py-20"
+          className="py-12 sm:py-16 lg:py-20"
         >
           <Container>
             <div className="max-w-7xl mx-auto">
@@ -360,11 +360,11 @@ const HomeVariationA = () => {
         </div>
 
         {/* Seller CTA Section (Secondary) */}
-        <div className="py-20 bg-gradient-to-br from-primary-50 to-calm-50">
+        <div className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-primary-50 to-calm-50">
           <Container>
             <div className="max-w-5xl mx-auto">
               <Card className="rounded-3xl border-2 border-primary-200 shadow-2xl overflow-hidden">
-                <CardBody className="p-12">
+                <CardBody className="p-6 sm:p-8 md:p-12">
                   <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div>
                       <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mb-6">

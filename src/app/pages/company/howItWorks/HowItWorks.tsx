@@ -508,7 +508,7 @@ const HowItWorks = () => {
         </section>
 
         {/* Dashboard Features */}
-        <section className="py-24 bg-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
@@ -562,7 +562,7 @@ const HowItWorks = () => {
         </section>
 
         {/* Why Upswitch */}
-        <section className="py-24 bg-gradient-to-br from-neutral-50 to-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 to-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -635,7 +635,7 @@ const HowItWorks = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-24 bg-gradient-to-br from-primary-900 via-success-900 to-calm-900 text-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-900 via-success-900 to-calm-900 text-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-8">

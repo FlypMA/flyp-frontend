@@ -272,7 +272,7 @@ const SubscriptionPlans: React.FC = () => {
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0"><div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0"><table className="w-full min-w-[700px] min-w-[700px]">
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-4 px-6 font-semibold text-gray-900">Features</th>
@@ -315,7 +315,7 @@ const SubscriptionPlans: React.FC = () => {
                   <td className="text-center py-4 px-6 text-gray-600">Unlimited</td>
                 </tr>
               </tbody>
-            </table>
+            </table></div></div>
           </div>
         </div>
 

@@ -151,7 +151,7 @@ const SellerVariationA = () => {
           fallbackGradient="from-neutral-900 via-neutral-800 to-neutral-900"
           posterImage="/images/hero-poster.jpg"
           overlay="dark"
-          className="py-32 md:py-40"
+          className="py-16 md:py-20 lg:py-24 xl:py-32"
           disableVideoOnMobile={true}
         >
           <Container>
@@ -219,7 +219,7 @@ const SellerVariationA = () => {
         </VideoBackground>
 
         {/* Intelligence Features - What You Get */}
-        <div className="py-24 bg-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-20">
@@ -243,7 +243,7 @@ const SellerVariationA = () => {
                     key={index}
                     className="group rounded-3xl border border-neutral-200 hover:border-primary-300 hover:shadow-2xl hover:shadow-primary-100/50 transition-all duration-500 bg-white overflow-hidden"
                   >
-                    <CardBody className="p-10">
+                    <CardBody className="p-6 sm:p-8 md:p-10">
                       <div
                         className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                       >
@@ -262,7 +262,7 @@ const SellerVariationA = () => {
         </div>
 
         {/* No-Pressure Journey Timeline - Visual */}
-        <div className="py-24 bg-gradient-to-br from-neutral-100 via-white to-calm-50">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-100 via-white to-calm-50">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-20">
@@ -336,7 +336,7 @@ const SellerVariationA = () => {
         </div>
 
         {/* Social Proof Section - De-emphasize selling */}
-        <div className="py-24 bg-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
@@ -403,7 +403,7 @@ const SellerVariationA = () => {
         </div>
 
         {/* Final CTA - Emphasis on intelligence, not selling */}
-        <div className="py-24 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-8">

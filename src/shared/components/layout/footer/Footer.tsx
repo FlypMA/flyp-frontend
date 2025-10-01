@@ -14,12 +14,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Column 1: For Sellers */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">For Business Owners</h3>
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-6">
+              For Business Owners
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   to="/valuation"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Get Free Valuation
                 </Link>
@@ -27,7 +29,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/for-sellers"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Sell Your Business
                 </Link>
@@ -35,7 +37,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/how-it-works"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   How It Works
                 </Link>
@@ -45,12 +47,12 @@ const Footer = () => {
 
           {/* Column 2: For Buyers */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">For Buyers</h3>
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-6">For Buyers</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   to="/search"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Browse Businesses
                 </Link>
@@ -58,7 +60,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/how-it-works"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   How It Works
                 </Link>
@@ -68,12 +70,12 @@ const Footer = () => {
 
           {/* Column 3: Resources */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">Resources</h3>
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-6">Resources</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   to={UrlGenerator.help()}
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Help Center
                 </Link>
@@ -81,7 +83,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/faq"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   FAQ
                 </Link>
@@ -91,12 +93,12 @@ const Footer = () => {
 
           {/* Column 4: Company */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">Company</h3>
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-6">Company</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   to={UrlGenerator.about()}
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   About
                 </Link>
@@ -104,7 +106,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={UrlGenerator.pricing()}
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Pricing
                 </Link>
@@ -112,7 +114,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={UrlGenerator.contact()}
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-base md:text-sm block py-1"
                 >
                   Contact
                 </Link>
@@ -122,11 +124,11 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="mt-6 space-y-2 text-xs text-neutral-400">
               <div className="flex items-center gap-2">
-                <Mail className="w-3 h-3" />
+                <Mail className="w-4 h-4 sm:w-3 sm:h-3" />
                 <span>hello@upswitch.com</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-3 h-3" />
+                <MapPin className="w-4 h-4 sm:w-3 sm:h-3" />
                 <span>Brussels, Belgium</span>
               </div>
             </div>
@@ -134,11 +136,11 @@ const Footer = () => {
             {/* Trust Indicators */}
             <div className="flex flex-wrap gap-4 text-xs text-neutral-400 mt-6">
               <div className="flex items-center gap-2">
-                <Shield className="w-3 h-3" />
+                <Shield className="w-4 h-4 sm:w-3 sm:h-3" />
                 <span>Secure</span>
               </div>
               <div className="flex items-center gap-2">
-                <Globe className="w-3 h-3" />
+                <Globe className="w-4 h-4 sm:w-3 sm:h-3" />
                 <span>Pan-EU</span>
               </div>
             </div>
@@ -147,7 +149,7 @@ const Footer = () => {
 
         {/* Legal Links */}
         <div className="border-t border-neutral-800 pt-8 mb-8">
-          <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-400">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-sm md:text-xs text-neutral-400">
             <Link to={UrlGenerator.privacyPolicy()} className="hover:text-white transition-colors">
               Privacy Policy
             </Link>

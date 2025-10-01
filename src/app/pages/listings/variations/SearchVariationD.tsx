@@ -339,7 +339,7 @@ const SearchVariationD = () => {
 
       <div className="min-h-screen bg-white">
         {/* Hero Search Section */}
-        <section className="py-20 bg-gradient-to-br from-neutral-50 to-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-neutral-50 to-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">

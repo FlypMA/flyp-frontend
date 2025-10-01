@@ -70,18 +70,18 @@ export const TwoPanelModal: React.FC<TwoPanelModalProps> = ({
       className={className}
     >
       <ModalContent className="h-screen max-h-screen rounded-none max-w-none w-full">
-        <ModalBody className="flex h-full p-0">
+        <ModalBody className="flex flex-col sm:flex-row h-full p-0">
           {/* Left Panel - Form Content */}
           <div
-            className={`${leftPanelWidthClasses[leftPanelWidth]} flex-shrink-0 bg-white relative`}
+            className={`w-full sm:${leftPanelWidthClasses[leftPanelWidth]} flex-shrink-0 bg-white relative`}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
               aria-label={closeButtonAriaLabel}
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-6 h-6 sm:w-5 sm:h-5 text-gray-600" />
             </button>
 
             {/* Left Panel Content */}
@@ -90,7 +90,7 @@ export const TwoPanelModal: React.FC<TwoPanelModalProps> = ({
 
           {/* Right Panel - Visual Content */}
           <div
-            className="flex-1 bg-gray-100 relative overflow-hidden"
+            className="hidden sm:flex flex-1 bg-gray-100 relative overflow-hidden"
             style={
               rightPanelBackground
                 ? {

@@ -149,7 +149,6 @@ const ValuationVariationD = () => {
           <div className="w-full max-w-5xl mx-auto text-center py-32 md:py-48 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
-              <Sparkles className="w-5 h-5 text-success-400" />
               <span className="text-white font-medium">
                 Free Valuation • No Obligations • Instant Results
               </span>
@@ -176,7 +175,7 @@ const ValuationVariationD = () => {
         </VideoBackground>
 
         {/* Calculator Section */}
-        <section className="py-24 bg-gradient-to-br from-white via-neutral-50 to-calm-50 relative">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-white via-neutral-50 to-calm-50 relative">
           {/* Decorative gradient orbs */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-300/20 rounded-full blur-3xl"></div>
@@ -357,7 +356,7 @@ const ValuationVariationD = () => {
         </section>
 
         {/* Comparison Section: Strategic Sale vs. Liquidation */}
-        <section className="py-24 bg-gradient-to-br from-neutral-900 via-primary-950 to-neutral-900 text-white relative overflow-hidden">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-900 via-primary-950 to-neutral-900 text-white relative overflow-hidden">
           {/* Animated background gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-900/50 via-success-900/50 to-primary-900/50 animate-pulse"></div>
 
@@ -613,7 +612,7 @@ const ValuationVariationD = () => {
         </section>
 
         {/* Why Get Valued */}
-        <section className="py-24 bg-gradient-to-br from-white via-calm-50 to-neutral-50">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-white via-calm-50 to-neutral-50">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -803,7 +802,7 @@ const ValuationVariationD = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-32 bg-gradient-to-br from-neutral-900 via-primary-900 to-success-900 text-white relative overflow-hidden">
+        <section className="py-16 md:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-neutral-900 via-primary-900 to-success-900 text-white relative overflow-hidden">
           {/* Animated gradient background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-900/50 via-success-900/50 to-primary-900/50 animate-pulse"></div>

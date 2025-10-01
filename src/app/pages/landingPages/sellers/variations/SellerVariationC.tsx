@@ -220,7 +220,7 @@ const SellerVariationC = () => {
           fallbackGradient="from-success-900 via-primary-900 to-success-900"
           posterImage="/images/success-poster.jpg"
           overlay="dark"
-          className="py-32 md:py-40"
+          className="py-16 md:py-20 lg:py-24 xl:py-32"
           disableVideoOnMobile={true}
         >
           <Container>
@@ -313,7 +313,7 @@ const SellerVariationC = () => {
         </div>
 
         {/* Featured Success Stories - In-depth */}
-        <div className="py-24 bg-gradient-to-br from-neutral-50 via-white to-neutral-50">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 via-white to-neutral-50">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -502,7 +502,7 @@ const SellerVariationC = () => {
         </div>
 
         {/* Why They Chose Upswitch */}
-        <div className="py-24 bg-gradient-to-br from-neutral-50 via-white to-calm-50">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 via-white to-calm-50">
           <Container>
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
@@ -554,7 +554,7 @@ const SellerVariationC = () => {
         </div>
 
         {/* Final CTA */}
-        <div className="py-24 bg-gradient-to-br from-success-900 via-primary-900 to-success-900 text-white">
+        <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-success-900 via-primary-900 to-success-900 text-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-8">

@@ -58,7 +58,7 @@ const HomeVariationC = () => {
           fallbackGradient="from-neutral-900 via-primary-900 to-calm-900"
           posterImage="/images/smart-router-poster.jpg"
           overlay="gradient"
-          className="py-12 sm:py-16 lg:py-24 xl:py-32"
+          className="py-20 md:py-32"
         >
           <Container>
             <div className="max-w-6xl mx-auto">
@@ -166,7 +166,7 @@ const HomeVariationC = () => {
 
         {/* Story Section - Business Owners Only */}
         {selectedRole === 'business-owner' && (
-          <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
+          <div className="py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
             <Container>
               <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
@@ -224,63 +224,9 @@ const HomeVariationC = () => {
           </div>
         )}
 
-        {/* Business Owner CTA Section - Business Owners Only */}
-        {selectedRole === 'business-owner' && (
-          <div className="py-16 md:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-neutral-900 via-primary-900 to-calm-900 text-white">
-            <Container>
-              <div className="max-w-4xl mx-auto text-center">
-                <Heart className="w-16 h-16 text-success-400 mx-auto mb-8" />
-
-                <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                  Ready to explore what's possible?
-                </h2>
-
-                <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                  Start with a free valuation. No commitment, no pressure. Just insights to help you
-                  make the right decision for your future.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                  <Button
-                    size="xl"
-                    onPress={() => navigate('/valuation')}
-                    endContent={<ArrowRight className="w-6 h-6" />}
-                    className="px-10 h-16 text-lg !bg-primary-500 !text-white !border-0 hover:!bg-primary-600 shadow-lg hover:shadow-xl transition-all font-semibold"
-                  >
-                    Get Your Free Valuation
-                  </Button>
-
-                  <Button
-                    size="xl"
-                    onPress={() => navigate('/search')}
-                    className="px-10 h-16 text-lg !bg-white/10 !backdrop-blur-sm !border !border-white/30 !text-white hover:!bg-white/20 transition-all"
-                  >
-                    Explore Opportunities
-                  </Button>
-                </div>
-
-                <div className="flex items-center justify-center gap-6 text-sm text-white/70">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-success-400" />
-                    <span>Free forever</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-success-400" />
-                    <span>100% confidential</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Heart className="w-5 h-5 text-success-400" />
-                    <span>No pressure</span>
-                  </div>
-                </div>
-              </div>
-            </Container>
-          </div>
-        )}
-
         {/* Promise to Buyers/Investors Section - Buyers Only */}
         {selectedRole === 'buyer-investor' && (
-          <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
+          <div className="py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
             <Container>
               <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
@@ -414,57 +360,59 @@ const HomeVariationC = () => {
           </Container>
         </div>
 
-        {/* Final CTA */}
-        <div className="py-32 bg-gradient-to-br from-neutral-900 via-primary-900 to-calm-900 text-white">
-          <Container>
-            <div className="max-w-4xl mx-auto text-center">
-              <Heart className="w-16 h-16 text-success-400 mx-auto mb-8" />
+        {/* Final CTA - Business Owners Only */}
+        {selectedRole === 'business-owner' && (
+          <div className="py-32 bg-gradient-to-br from-neutral-900 via-primary-900 to-calm-900 text-white">
+            <Container>
+              <div className="max-w-4xl mx-auto text-center">
+                <Heart className="w-16 h-16 text-success-400 mx-auto mb-8" />
 
-              <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                Ready to explore what's possible?
-              </h2>
-              <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                Start with a free valuation. No commitment, no pressure. Just insights to help you
-                make the right decision for your future.
-              </p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+                  Ready to explore what's possible?
+                </h2>
+                <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+                  Start with a free valuation. No commitment, no pressure. Just insights to help you
+                  make the right decision for your future.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Button
-                  variant="primary"
-                  size="xl"
-                  onPress={() => navigate('/for-sellers')}
-                  endContent={<ArrowRight className="w-6 h-6" />}
-                  className="px-10 h-16 text-lg"
-                >
-                  Get Your Free Valuation
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="xl"
-                  onPress={() => navigate('/search')}
-                  className="px-10 h-16 text-lg bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                >
-                  Explore Opportunities
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                  <Button
+                    variant="primary"
+                    size="xl"
+                    onPress={() => navigate('/valuation')}
+                    endContent={<ArrowRight className="w-6 h-6" />}
+                    className="px-10 h-16 text-lg"
+                  >
+                    Get Your Free Valuation
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="xl"
+                    onPress={() => navigate('/search')}
+                    className="px-10 h-16 text-lg bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+                  >
+                    Explore Opportunities
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-center gap-6 text-sm text-white/70">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-success-400" />
+                    <span>Free forever</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-success-400" />
+                    <span>100% confidential</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-5 h-5 text-success-400" />
+                    <span>No pressure</span>
+                  </div>
+                </div>
               </div>
-
-              <div className="flex items-center justify-center gap-6 text-sm text-white/70">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-success-400" />
-                  <span>Free forever</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-success-400" />
-                  <span>100% confidential</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-5 h-5 text-success-400" />
-                  <span>No pressure</span>
-                </div>
-              </div>
-            </div>
-          </Container>
-        </div>
+            </Container>
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,14 +1,18 @@
-// 🧭 Main Navigation - MVP Version
+// 🧭 Main Navigation - Unified Version
 // Location: src/shared/components/navigation/main/Navigation.tsx
 // Purpose: Main navigation orchestrator that handles both desktop and mobile navigation
 //
-// Based on legacy UnifiedNavigation.tsx - orchestrates NavigationDesktop and NavigationMobile
+// Features:
+// - Uses Zustand for global state management
+// - Unified RoleNavigationMobile component
+// - Automatic menu closing on route change
 
-import React, { useEffect, useState } from 'react';
+import { useNavigationStore } from '@/shared/stores/navigationStore';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
+import { RoleNavigationMobile } from '../unified/RoleNavigationMobile';
 import NavigationDesktop from './NavigationDesktop';
-import NavigationMobile from './NavigationMobile';
 
 interface NavigationProps {
   className?: string;
@@ -16,17 +20,18 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
   const location = useLocation();
-  const { user, isAuthenticated, isLoading } = useAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { toggleMobileMenu, closeMobileMenu, setCurrentNav } = useNavigationStore();
+
+  // Set current navigation type
+  useEffect(() => {
+    setCurrentNav('main');
+  }, [setCurrentNav]);
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+    closeMobileMenu();
+  }, [location.pathname, closeMobileMenu]);
 
   return (
     <>
@@ -40,8 +45,8 @@ const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
         className={className}
       />
 
-      {/* Mobile Navigation */}
-      <NavigationMobile user={user} isOpen={isMobileMenuOpen} onToggle={toggleMobileMenu} />
+      {/* Mobile Navigation - Unified Component */}
+      <RoleNavigationMobile user={user} onLogout={logout} />
     </>
   );
 };

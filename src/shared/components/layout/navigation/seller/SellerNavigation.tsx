@@ -1,18 +1,20 @@
-// 🧭 Seller Navigation
+// 🧭 Seller Navigation - Unified Version
 // Location: src/shared/components/layout/navigation/seller/SellerNavigation.tsx
 // Purpose: Navigation for seller pages (like Airbnb host mode)
 //
 // Features:
+// - Uses Zustand for global state management
+// - Unified RoleNavigationMobile component
 // - Logo on the left
 // - Navigation items: Overview (my-business), Valuation, Data Room
 // - User avatar/profile menu on the right
-// - Based on MainLayout navigation structure
 
-import React, { useEffect, useState } from 'react';
+import { useNavigationStore } from '@/shared/stores/navigationStore';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
+import { RoleNavigationMobile } from '../unified/RoleNavigationMobile';
 import SellerNavigationDesktop from './SellerNavigationDesktop';
-import SellerNavigationMobile from './SellerNavigationMobile';
 
 interface SellerNavigationProps {
   className?: string;
@@ -20,17 +22,18 @@ interface SellerNavigationProps {
 
 const SellerNavigation: React.FC<SellerNavigationProps> = ({ className = '' }) => {
   const location = useLocation();
-  const { user, isAuthenticated, isLoading } = useAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { toggleMobileMenu, closeMobileMenu, setCurrentNav } = useNavigationStore();
+
+  // Set current navigation type
+  useEffect(() => {
+    setCurrentNav('seller');
+  }, [setCurrentNav]);
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+    closeMobileMenu();
+  }, [location.pathname, closeMobileMenu]);
 
   return (
     <>
@@ -44,8 +47,8 @@ const SellerNavigation: React.FC<SellerNavigationProps> = ({ className = '' }) =
         className={className}
       />
 
-      {/* Mobile Navigation */}
-      <SellerNavigationMobile user={user} isOpen={isMobileMenuOpen} onToggle={toggleMobileMenu} />
+      {/* Mobile Navigation - Unified Component */}
+      <RoleNavigationMobile user={user} onLogout={logout} />
     </>
   );
 };

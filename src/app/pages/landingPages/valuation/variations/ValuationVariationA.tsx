@@ -190,7 +190,7 @@ const ValuationVariationA = () => {
           <Container>
             <div className="max-w-3xl mx-auto">
               <Card className="rounded-3xl border-2 border-success-200 shadow-2xl bg-white overflow-hidden">
-                <CardBody className="p-12">
+                <CardBody className="p-6 sm:p-8 md:p-12">
                   {/* Success Animation */}
                   <div className="text-center mb-8">
                     <div className="w-24 h-24 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
@@ -306,7 +306,7 @@ const ValuationVariationA = () => {
 
               {/* Question Card */}
               <Card className="rounded-3xl border-2 border-neutral-200 shadow-xl bg-white overflow-hidden">
-                <CardBody className="p-12">
+                <CardBody className="p-6 sm:p-8 md:p-12">
                   {/* Icon */}
                   <div className="mb-8">
                     <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center">

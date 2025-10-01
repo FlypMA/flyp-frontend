@@ -118,7 +118,7 @@ const Pricing = () => {
         </section>
 
         {/* Main Pricing Cards */}
-        <section className="py-24 relative">
+        <section className="py-12 md:py-16 lg:py-24 relative">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -282,7 +282,7 @@ const Pricing = () => {
         </section>
 
         {/* Interactive Calculator */}
-        <section className="py-24 bg-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
@@ -378,7 +378,7 @@ const Pricing = () => {
         </section>
 
         {/* Competitive Comparison Table */}
-        <section id="comparison" className="py-24 bg-gradient-to-br from-neutral-50 to-white">
+        <section id="comparison" className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 to-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -523,7 +523,7 @@ const Pricing = () => {
         </section>
 
         {/* FAQs */}
-        <section className="py-24 bg-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
@@ -587,7 +587,7 @@ const Pricing = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-24 bg-gradient-to-br from-primary-900 via-success-900 to-primary-900 text-white">
+        <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-900 via-success-900 to-primary-900 text-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <Sparkles className="w-16 h-16 text-success-400 mx-auto mb-8" />

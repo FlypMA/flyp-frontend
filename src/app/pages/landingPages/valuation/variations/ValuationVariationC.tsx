@@ -145,7 +145,7 @@ const ValuationVariationC = () => {
                 {/* Left: Calculator Controls */}
                 <div className="lg:col-span-3">
                   <Card className="rounded-3xl bg-white/95 backdrop-blur-xl border-2 border-white/20 shadow-2xl overflow-hidden">
-                    <CardBody className="p-10">
+                    <CardBody className="p-6 sm:p-8 md:p-10">
                       {/* Progress */}
                       <div className="mb-8">
                         <div className="flex items-center justify-between mb-3">

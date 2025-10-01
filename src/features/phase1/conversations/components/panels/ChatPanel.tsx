@@ -3,6 +3,7 @@
 // Purpose: Middle panel for chat messages with business details toggle
 
 import { Button } from '@/shared/components/buttons';
+import { ChevronLeft, Info } from 'lucide-react';
 import React, { useRef } from 'react';
 import { useContextPanel } from '../../hooks/useContextPanel';
 import { Conversation, ConversationMessage } from '../../types';
@@ -41,8 +42,11 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   // Suppress unused parameter warnings for optional callbacks
   void onQuickAction;
   void onNavigateToBusiness;
-  const { isVisible, toggleVisibility } = useContextPanel();
+  const { isVisible, toggleVisibility, togglePanel, currentBreakpoint } = useContextPanel();
   const messageInputRef = useRef<HTMLDivElement>(null);
+
+  // Check if we're on mobile
+  const isMobile = currentBreakpoint === 'mobile';
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -69,12 +73,24 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
 
   return (
     <div className={`chat-panel flex flex-col bg-white h-full ${className}`}>
-      {/* Chat Header */}
+      {/* Chat Header - Mobile Optimized with Navigation */}
       <div className="border-b border-gray-200 bg-white flex-shrink-0">
-        <div className="flex items-center justify-between px-4 py-4">
-          {/* Participant Info */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+        <div className="flex items-center justify-between px-3 py-3 sm:px-4 sm:py-4">
+          {/* Mobile Back Button + Participant Info */}
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+            {/* Mobile: Back to conversations button */}
+            {isMobile && (
+              <button
+                onClick={() => togglePanel('left')}
+                className="flex-shrink-0 p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center lg:hidden"
+                aria-label="Back to conversations"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-700" />
+              </button>
+            )}
+
+            {/* Participant Avatar */}
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
               {conversation.participant.avatar ? (
                 <img
                   src={conversation.participant.avatar}
@@ -82,39 +98,53 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-sm font-medium text-gray-600">
+                <span className="text-sm sm:text-base font-medium text-gray-600">
                   {conversation.participant.name?.charAt(0)}
                 </span>
               )}
             </div>
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">
+
+            {/* Participant Info */}
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                 {conversation.participant.name}
               </h2>
-              <div className="flex items-center text-sm text-gray-600">
-                <span>{conversation.participant.company}</span>
+              <div className="flex items-center text-xs sm:text-sm text-gray-600">
+                <span className="truncate">{conversation.participant.company}</span>
                 <div
-                  className="shrink-0 bg-divider border-none w-divider mx-2 h-4"
+                  className="shrink-0 bg-divider border-none w-divider mx-1 sm:mx-2 h-3 sm:h-4 hidden sm:block"
                   role="separator"
                   data-orientation="vertical"
                   aria-orientation="vertical"
                 ></div>
-                <span className="capitalize">{conversation.participant.role}</span>
+                <span className="capitalize hidden sm:inline">{conversation.participant.role}</span>
               </div>
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center space-x-2">
-            {!isVisible && (
-              <Button
-                variant="tertiary"
-                size="sm"
-                className="text-gray-500 hover:text-gray-700"
-                onPress={toggleVisibility}
+          {/* Action Buttons - Touch Optimized */}
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+            {/* Mobile: Info/Details button */}
+            {isMobile ? (
+              <button
+                onClick={toggleVisibility}
+                className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Show business details"
               >
-                Show business details
-              </Button>
+                <Info className="w-6 h-6 text-gray-700" />
+              </button>
+            ) : (
+              // Desktop: Show details button only if not visible
+              !isVisible && (
+                <Button
+                  variant="tertiary"
+                  size="sm"
+                  className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm px-3 sm:px-4"
+                  onPress={toggleVisibility}
+                >
+                  Show business details
+                </Button>
+              )
             )}
           </div>
         </div>
@@ -253,12 +283,12 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
         )}
       </div>
 
-      {/* Message Input - Airbnb Style Compose Bar */}
+      {/* Message Input - Mobile-Optimized Compose Bar */}
       <div className="border-t border-gray-200 bg-white flex-shrink-0 sticky bottom-0 z-10">
         {/* Main Compose Container */}
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {/* Input Section */}
-          <div className="mb-4">
+          <div className="mb-3 sm:mb-4">
             <div className="relative">
               <label className="sr-only" htmlFor="message_input">
                 Type a message
@@ -269,7 +299,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                   role="textbox"
                   aria-label="Type a message"
                   contentEditable="plaintext-only"
-                  className="w-full min-h-[44px] max-h-32 px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg resize-none focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 overflow-y-auto"
+                  className="w-full min-h-[44px] max-h-32 px-3 py-3 sm:px-4 text-sm sm:text-base text-gray-900 bg-white border border-gray-300 rounded-lg resize-none focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 overflow-y-auto"
                   id="message_input"
                   data-testid="messaging-composebar"
                   tabIndex={0}
@@ -290,7 +320,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                   }}
                 >
                   {!newMessage && (
-                    <span className="absolute inset-0 px-4 py-3 text-gray-500 pointer-events-none">
+                    <span className="absolute inset-0 px-3 py-3 sm:px-4 text-gray-500 pointer-events-none text-sm sm:text-base">
                       Type a message
                     </span>
                   )}
@@ -299,19 +329,23 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
             </div>
           </div>
 
-          {/* Action Buttons Section */}
-          <div className="flex items-center justify-between">
-            {/* Photo Upload Button */}
+          {/* Action Buttons Section - Mobile Optimized */}
+          <div className="flex items-center justify-between gap-2">
+            {/* Photo Upload Button - Touch-Friendly */}
             <div className="flex items-center">
               <button
-                className="inline-flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                className="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 aria-label="Add photo or video"
                 data-testid="compose-bar-button-messaging__open_image_upload_dialog"
                 type="button"
               >
                 <div className="flex items-center">
                   <div className="flex items-center justify-center">
-                    <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 32 32">
+                    <svg
+                      className="w-6 h-6 sm:w-5 sm:h-5 text-gray-600"
+                      fill="currentColor"
+                      viewBox="0 0 32 32"
+                    >
                       <path d="M27 3a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM8.89 19.04l-.1.08L3 24.92V25a2 2 0 0 0 1.85 2H18.1l-7.88-7.88a1 1 0 0 0-1.32-.08zm12.5-6-.1.08-7.13 7.13L20.92 27H27a2 2 0 0 0 2-1.85v-5.73l-6.3-6.3a1 1 0 0 0-1.31-.08zM27 5H5a2 2 0 0 0-2 2v15.08l4.38-4.37a3 3 0 0 1 4.1-.14l.14.14 1.13 1.13 7.13-7.13a3 3 0 0 1 4.1-.14l.14.14L29 16.59V7a2 2 0 0 0-1.85-2zM8 7a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
                     </svg>
                   </div>
@@ -319,13 +353,13 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
               </button>
             </div>
 
-            {/* Send Button */}
+            {/* Send Button - Touch-Friendly */}
             <div className="flex items-center">
               <button
                 disabled={!newMessage.trim()}
-                className={`inline-flex items-center justify-center p-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                className={`inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-3 sm:p-3.5 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                   newMessage.trim()
-                    ? 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 cursor-pointer'
+                    ? 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 focus:ring-primary-500 cursor-pointer scale-100 active:scale-95'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed focus:ring-gray-500'
                 }`}
                 aria-label="Send"
@@ -333,7 +367,11 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                 type="button"
                 onClick={handleSendMessage}
               >
-                <svg className="w-3 h-3 rotate-90" fill="currentColor" viewBox="0 0 16 16">
+                <svg
+                  className="w-4 h-4 sm:w-3 sm:h-3 rotate-90"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
                   <path d="m1 7.41 1.41 1.42 4.6-4.6v10.79h2V4.2l4.63 4.63 1.41-1.42-5.94-5.94a1.53 1.53 0 0 0-2.05-.1l-.11.1z"></path>
                 </svg>
               </button>

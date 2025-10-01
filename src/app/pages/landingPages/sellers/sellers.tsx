@@ -70,7 +70,7 @@ const SellersLandingPage = () => {
       <SEOHead {...seoData.sellers} />
       <div className="min-h-screen bg-white">
         {/* Hero Section - Caregiver Approach */}
-        <div className="bg-gradient-to-br from-neutral-100 via-white to-calm-50 py-24">
+        <div className="bg-gradient-to-br from-neutral-100 via-white to-calm-50 py-12 md:py-16 lg:py-24">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-8 leading-tight">
@@ -118,7 +118,7 @@ const SellersLandingPage = () => {
         </div>
 
         {/* Value Proposition - Caregiver Benefits */}
-        <div className="py-20 bg-white">
+        <div className="py-12 md:py-16 lg:py-20 bg-white">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -180,7 +180,7 @@ const SellersLandingPage = () => {
         </div>
 
         {/* How it Works Section - Caregiver Process */}
-        <div className="py-20 bg-neutral-100">
+        <div className="py-12 md:py-16 lg:py-20 bg-neutral-100">
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
@@ -224,7 +224,7 @@ const SellersLandingPage = () => {
         </div>
 
         {/* Pricing Section */}
-        <div className="py-20 bg-white">
+        <div className="py-12 md:py-16 lg:py-20 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Simple pricing</h2>
@@ -274,7 +274,7 @@ const SellersLandingPage = () => {
         </div>
 
         {/* Sell in 5 Steps Section */}
-        <div className="py-20 bg-gray-50">
+        <div className="py-12 md:py-16 lg:py-20 bg-gray-50">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -342,7 +342,7 @@ const SellersLandingPage = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="py-20 bg-white">
+        <div className="py-12 md:py-16 lg:py-20 bg-white">
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">

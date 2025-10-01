@@ -1,4 +1,5 @@
 import { authService } from '@/shared/services/auth';
+import { useNavigationStore } from '@/shared/stores/navigationStore';
 import {
   Heart,
   HelpCircle,
@@ -7,9 +8,8 @@ import {
   MessageCircle,
   Plus,
   Settings,
-  X,
 } from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../services/urls/urlGenerator';
 import { User } from '../../../../types';
@@ -19,7 +19,7 @@ interface UserAvatarDropdownProps {
 }
 
 const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isUserMenuOpen: isOpen, toggleUserMenu, closeUserMenu } = useNavigationStore();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLImageElement>(null);
@@ -33,31 +33,21 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         avatarRef.current &&
         !avatarRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        closeUserMenu();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [closeUserMenu]);
 
-  // Lock body scroll when mobile modal is open
-  useEffect(() => {
-    if (isOpen && window.innerWidth < 640) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  // Note: No body scroll lock needed - mobile menu disabled, desktop dropdown doesn't require it
 
   // Close on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setIsOpen(false);
+        closeUserMenu();
       }
     };
 
@@ -74,11 +64,11 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
     } catch (error) {
       navigate(UrlGenerator.root());
     }
-    setIsOpen(false);
+    closeUserMenu();
   };
 
   const handleMenuClick = (action: string) => {
-    setIsOpen(false);
+    closeUserMenu();
 
     switch (action) {
       // Buyer navigation
@@ -238,19 +228,27 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
 
   return (
     <div className="relative">
-      {/* Clean Avatar - No borders, spacing, or effects */}
+      {/* Clean Avatar - Clickable only on desktop */}
       <img
         ref={avatarRef}
         src={user?.avatar || defaultAvatar}
         alt={user?.name || 'User'}
-        className="w-10 h-10 sm:w-8 sm:h-8 rounded-full object-cover cursor-pointer select-none"
-        onClick={() => setIsOpen(!isOpen)}
+        className="w-10 h-10 sm:w-8 sm:h-8 rounded-full object-cover sm:cursor-pointer select-none"
+        onClick={() => {
+          // Only allow click on desktop (sm breakpoint and above)
+          if (window.innerWidth >= 640) {
+            toggleUserMenu();
+          }
+        }}
         role="button"
         tabIndex={0}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            setIsOpen(!isOpen);
+            // Only allow keyboard activation on desktop
+            if (window.innerWidth >= 640) {
+              toggleUserMenu();
+            }
           }
         }}
         aria-label="User menu"
@@ -258,83 +256,9 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         aria-haspopup="true"
       />
 
-      {/* Mobile: Full Screen Modal, Desktop: Dropdown */}
+      {/* Desktop Only: Dropdown */}
       {isOpen && (
         <>
-          {/* Mobile Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/50 z-40 sm:hidden"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Mobile: Full Screen Modal */}
-          <div className="fixed inset-0 z-50 sm:hidden">
-            <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl max-h-[80vh] overflow-hidden">
-              {/* Handle */}
-              <div className="flex justify-center pt-3 pb-2">
-                <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
-              </div>
-
-              {/* Header */}
-              <div className="px-6 py-4 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                      <span className="text-white text-lg font-medium">
-                        {user.name?.charAt(0) || user.email?.charAt(0) || 'U'}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900">{user.name || 'User'}</p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-full hover:bg-gray-100"
-                  >
-                    <X className="w-6 h-6 text-gray-500" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Menu Items */}
-              <div className="overflow-y-auto max-h-[calc(80vh-130px)] p-4">
-                {menuItems.map((item, index) => {
-                  if (item.isDivider) {
-                    return <div key={item.key} className="h-px bg-gray-200 my-3" />;
-                  }
-
-                  const Icon = item.icon!;
-
-                  return (
-                    <button
-                      key={item.key}
-                      onClick={() => handleMenuClick(item.action!)}
-                      className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl text-left transition-all ${
-                        item.isLogout
-                          ? 'text-red-600 hover:bg-red-50'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                      role="menuitem"
-                      tabIndex={0}
-                    >
-                      <div
-                        className={`p-2 rounded-lg ${item.isLogout ? 'bg-red-100' : 'bg-gray-100'}`}
-                      >
-                        <Icon
-                          className={`w-5 h-5 ${item.isLogout ? 'text-red-600' : 'text-gray-600'}`}
-                        />
-                      </div>
-                      <span className="flex-1 font-medium">{item.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop: Dropdown */}
           <div
             ref={dropdownRef}
             className="hidden sm:block absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border-0 z-50 overflow-hidden"
