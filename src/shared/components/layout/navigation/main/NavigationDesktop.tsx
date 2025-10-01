@@ -195,7 +195,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
               <Dropdown>
                 <DropdownTrigger>
                   <button
-                    className={`flex items-center gap-1 text-sm font-medium transition-colors group ${
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors relative group ${
                       isActiveLink('/blog') ||
                       isActiveLink('/success-stories') ||
                       isActiveLink('/faq')
@@ -205,6 +205,11 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                   >
                     Resources
                     <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <span
+                      className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                        isActiveLink('/faq') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
                   </button>
                 </DropdownTrigger>
                 <DropdownMenu
