@@ -280,7 +280,7 @@ const HomeVariationC = () => {
 
         {/* Promise to Buyers/Investors Section - Buyers Only */}
         {selectedRole === 'buyer-investor' && (
-          <div className="py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
+          <div className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
             <Container>
               <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
