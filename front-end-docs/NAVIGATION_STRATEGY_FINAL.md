@@ -413,3 +413,4 @@ Logo | Browse Businesses | Get Valued | How It Works | Resources
 ---
 
 **This navigation strategy is based on YOUR actual product documentation and reflects the true user journey: buyer-first browsing + seller exploration through valuation over 12-36 months.**
+
