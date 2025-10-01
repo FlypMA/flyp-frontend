@@ -75,11 +75,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   };
 
   // Resources dropdown items
-  const resourceItems = [
-    { key: 'how-it-works', label: 'How It Works', href: '/how-it-works' },
-    { key: 'faq', label: 'FAQ', href: '/faq' },
-    { key: 'contact', label: 'Contact', href: UrlGenerator.contact() },
-  ];
+  const resourceItems = [{ key: 'faq', label: 'FAQ', href: '/faq' }];
 
   return (
     <nav
@@ -175,6 +171,25 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
               </Link>
             </li>
 
+            {/* Pricing - Transparency */}
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Link
+                to={UrlGenerator.pricing()}
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActiveLink('/pricing')
+                    ? 'text-primary-600 font-semibold'
+                    : 'text-neutral-700 hover:text-primary-600'
+                }`}
+              >
+                Pricing
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                    isActiveLink('/pricing') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+              </Link>
+            </li>
+
             {/* Resources Dropdown */}
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Dropdown>
@@ -193,7 +208,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                   </button>
                 </DropdownTrigger>
                 <DropdownMenu
-                  aria-label="Resources"
+                  aria-label="FAQ & Help Center"
                   className="min-w-[200px]"
                   onAction={key =>
                     navigate(resourceItems.find(item => item.key === key)?.href || '/')

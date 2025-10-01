@@ -18,14 +18,12 @@ import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { VideoBackground } from '@/shared/components/video';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Avatar, Card, CardBody } from '@heroui/react';
+import { Card, CardBody } from '@heroui/react';
 import {
   ArrowRight,
   CheckCircle,
-  Euro,
   HandshakeIcon,
   Heart,
-  Quote,
   Shield,
   Sparkles,
   TrendingUp,
@@ -35,36 +33,6 @@ import { useNavigate } from 'react-router-dom';
 
 const SellerVariationD = () => {
   const navigate = useNavigate();
-
-  const testimonials = [
-    {
-      quote:
-        "I wasn't sure about selling, but Upswitch helped me understand my business value without any pressure. The monthly insights showed me exactly how to increase my value, and when I was ready, the right buyer was there.",
-      author: 'Elena Martinez',
-      role: 'Former Owner, Tech Startup',
-      location: 'Amsterdam',
-      image: '/images/testimonial-1.jpg',
-      salePrice: '€2.4M',
-    },
-    {
-      quote:
-        "The valuation tool gave me clarity I never had. I spent 18 months optimizing based on Upswitch's insights before listing. The result? 40% higher sale price than my initial valuation.",
-      author: 'Sophie Dubois',
-      role: 'Former Owner, Restaurant Chain',
-      location: 'Paris',
-      image: '/images/testimonial-3.jpg',
-      salePrice: '€3.8M',
-    },
-    {
-      quote:
-        'After 25 years building my business, selling was emotional. Upswitch understood that. They gave me time to prepare, helped me maximize value, and found a buyer who truly valued my legacy.',
-      author: 'Marcus Weber',
-      role: 'Former Owner, Manufacturing',
-      location: 'Munich',
-      image: '/images/testimonial-4.jpg',
-      salePrice: '€5.2M',
-    },
-  ];
 
   const journeySteps = [
     {
@@ -98,29 +66,6 @@ const SellerVariationD = () => {
       description:
         "When you're ready, we connect you with qualified buyers who value what you've built. Expert support through closing.",
       color: 'accent',
-    },
-  ];
-
-  const trustSignals = [
-    {
-      icon: Euro,
-      stat: '€840M+',
-      label: 'Total value transacted',
-    },
-    {
-      icon: Users,
-      stat: '2,400+',
-      label: 'Successful exits',
-    },
-    {
-      icon: Shield,
-      stat: '95%',
-      label: 'Seller satisfaction',
-    },
-    {
-      icon: CheckCircle,
-      stat: '18 months',
-      label: 'Average preparation time',
     },
   ];
 
@@ -184,27 +129,6 @@ const SellerVariationD = () => {
           </Container>
         </VideoBackground>
 
-        {/* Trust Signals */}
-        <section className="py-20 bg-gradient-to-b from-neutral-50 to-white">
-          <Container>
-            <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {trustSignals.map((signal, index) => (
-                  <div key={index} className="text-center">
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-success-100 rounded-2xl flex items-center justify-center">
-                        <signal.icon className="w-8 h-8 text-primary-600" />
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold text-neutral-900 mb-2">{signal.stat}</div>
-                    <div className="text-sm text-neutral-600">{signal.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Container>
-        </section>
-
         {/* Journey Steps */}
         <section className="py-24 bg-white">
           <Container>
@@ -243,65 +167,6 @@ const SellerVariationD = () => {
                           {step.description}
                         </p>
                       </div>
-                    </CardBody>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* Testimonials - Emotional Stories */}
-        <section className="py-24 bg-gradient-to-b from-white to-neutral-50">
-          <Container>
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
-                  Stories from business owners like you
-                </h2>
-                <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-                  Real people, real businesses, real success. See how Upswitch helped business
-                  owners maximize their value and find the perfect buyer.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                {testimonials.map((testimonial, index) => (
-                  <Card
-                    key={index}
-                    className="border border-neutral-200 hover:shadow-xl transition-all duration-300"
-                  >
-                    <CardBody className="p-8">
-                      <Quote className="w-10 h-10 text-primary-300 mb-6" />
-
-                      <p className="text-lg text-neutral-700 mb-6 leading-relaxed italic">
-                        "{testimonial.quote}"
-                      </p>
-
-                      <div className="flex items-center gap-4">
-                        <Avatar
-                          src={testimonial.image}
-                          name={testimonial.author}
-                          size="lg"
-                          className="flex-shrink-0"
-                        />
-                        <div className="flex-grow">
-                          <div className="font-semibold text-neutral-900">{testimonial.author}</div>
-                          <div className="text-sm text-neutral-600">{testimonial.role}</div>
-                          <div className="text-sm text-neutral-500">{testimonial.location}</div>
-                        </div>
-                      </div>
-
-                      {testimonial.salePrice && (
-                        <div className="mt-6 pt-6 border-t border-neutral-200">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm text-neutral-600">Sale Price</span>
-                            <span className="text-xl font-bold text-success-600">
-                              {testimonial.salePrice}
-                            </span>
-                          </div>
-                        </div>
-                      )}
                     </CardBody>
                   </Card>
                 ))}
@@ -419,15 +284,17 @@ const SellerVariationD = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button
-                  variant="primary"
-                  size="xl"
-                  onPress={() => navigate('/valuation')}
-                  endContent={<ArrowRight className="w-6 h-6" />}
-                  className="px-12 bg-white text-primary-900 hover:bg-neutral-100"
+                <button
+                  onClick={() => navigate('/valuation')}
+                  className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-white text-primary-900 font-semibold hover:bg-neutral-100 shadow-xl active:scale-[0.98] px-12 h-16 text-lg rounded-lg"
                 >
-                  Get Your Free Valuation
-                </Button>
+                  <span className="flex items-center justify-center">
+                    Get Your Free Valuation
+                    <span className="ml-2">
+                      <ArrowRight className="w-6 h-6" />
+                    </span>
+                  </span>
+                </button>
               </div>
 
               <p className="text-white/70 mt-8">
@@ -442,4 +309,3 @@ const SellerVariationD = () => {
 };
 
 export default SellerVariationD;
-

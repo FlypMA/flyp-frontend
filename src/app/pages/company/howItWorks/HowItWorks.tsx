@@ -32,14 +32,22 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../../providers/auth-provider';
 
 const HowItWorks = () => {
   const navigate = useNavigate();
+  const { tab } = useParams<{ tab?: 'buyer' | 'seller' }>();
   const { openModal, user } = useAuth();
   const [selectedTab, setSelectedTab] = useState<'buyer' | 'seller'>('buyer');
+
+  // Set selected tab based on URL parameter
+  useEffect(() => {
+    if (tab === 'buyer' || tab === 'seller') {
+      setSelectedTab(tab);
+    }
+  }, [tab]);
 
   const buyerSteps = [
     {

@@ -15,7 +15,10 @@ export class UrlGenerator {
   static listingById = (listingId: string) => `/listings/${listingId}`;
   static about = () => '/about';
   static contact = () => '/contact';
+  static pricing = () => '/pricing';
   static howItWorks = () => '/how-it-works';
+  static howItWorksSeller = () => '/how-it-works/seller';
+  static howItWorksBuyer = () => '/how-it-works/buyer';
   static forSellers = () => '/for-sellers';
 
   // ==============================================================================

@@ -103,6 +103,14 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to={UrlGenerator.pricing()}
+                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
                   to={UrlGenerator.contact()}
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >

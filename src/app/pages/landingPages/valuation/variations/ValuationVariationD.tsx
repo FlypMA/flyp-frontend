@@ -24,7 +24,6 @@ import {
   AlertTriangle,
   ArrowRight,
   Award,
-  Building2,
   Calculator,
   CheckCircle,
   Sparkles,
@@ -44,7 +43,6 @@ const ValuationVariationD = () => {
   const [revenue, setRevenue] = useState(500000);
   const [industry, setIndustry] = useState('technology');
   const [profitMargin, setProfitMargin] = useState(20);
-  const [yearsOperating, setYearsOperating] = useState(5);
 
   // Industry multipliers (realistic SDE/EBITDA multiples for SMEs)
   const industryMultipliers: Record<string, { min: number; max: number; label: string }> = {
@@ -56,25 +54,21 @@ const ValuationVariationD = () => {
     food: { min: 1.5, max: 3.5, label: 'Food & Beverage' },
     retail: { min: 1.5, max: 3.0, label: 'Retail' },
     consulting: { min: 2.0, max: 4.0, label: 'Consulting' },
+    other: { min: 2.0, max: 4.0, label: 'Other / General Business' },
   };
 
   // Calculate valuation
   const calculateValuation = () => {
-    const profit = (revenue * profitMargin) / 100;
+    const ebitda = (revenue * profitMargin) / 100;
     const multiplier = industryMultipliers[industry];
 
-    // Adjust multiplier based on years operating
-    const maturityBonus = Math.min(yearsOperating / 10, 0.3); // Up to 30% bonus for mature businesses
-    const adjustedMin = multiplier.min * (1 + maturityBonus);
-    const adjustedMax = multiplier.max * (1 + maturityBonus);
+    const valuationMin = Math.round(ebitda * multiplier.min);
+    const valuationMax = Math.round(ebitda * multiplier.max);
 
-    const valuationMin = Math.round(profit * adjustedMin);
-    const valuationMax = Math.round(profit * adjustedMax);
-
-    return { valuationMin, valuationMax, profit };
+    return { valuationMin, valuationMax, ebitda };
   };
 
-  const { valuationMin, valuationMax, profit } = calculateValuation();
+  const { valuationMin, valuationMax, ebitda } = calculateValuation();
 
   // Calculate strategic sale vs liquidation comparison
   const calculateComparison = () => {
@@ -160,12 +154,14 @@ const ValuationVariationD = () => {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-              Discover What Your Business is Really Worth
+              Calculate Your Valuation
+              <br />
+              <span className="text-success-400">In 2 Minutes</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              See the dramatic difference between a strategic sale and liquidation. Your business is
-              worth more than you think.
+              Get a rough estimate instantly. Sign up for our state-of-the-art valuation engine to
+              receive transparent, market-accurate results.
             </p>
 
             {/* Scroll indicator */}
@@ -273,7 +269,7 @@ const ValuationVariationD = () => {
                     <div>
                       <div className="flex justify-between items-center mb-4">
                         <label className="text-sm font-semibold text-neutral-700">
-                          Profit Margin
+                          Profit Margin (EBITDA %)
                         </label>
                         <span className="text-lg font-bold text-neutral-900">{profitMargin}%</span>
                       </div>
@@ -293,34 +289,6 @@ const ValuationVariationD = () => {
                       />
                     </div>
 
-                    {/* Years Operating Slider */}
-                    <div>
-                      <div className="flex justify-between items-center mb-4">
-                        <label className="text-sm font-semibold text-neutral-700">
-                          Years Operating
-                        </label>
-                        <span className="text-lg font-bold text-neutral-900">
-                          {yearsOperating} years
-                        </span>
-                      </div>
-                      <Slider
-                        size="lg"
-                        step={1}
-                        minValue={1}
-                        maxValue={30}
-                        value={yearsOperating}
-                        onChange={value =>
-                          setYearsOperating(Array.isArray(value) ? value[0] : value)
-                        }
-                        className="w-full"
-                        classNames={{
-                          track: 'h-2',
-                          thumb: 'w-6 h-6 bg-calm-600',
-                          filler: 'bg-calm-500',
-                        }}
-                      />
-                    </div>
-
                     {/* Estimated Valuation Result */}
                     <div className="bg-gradient-to-br from-primary-100 via-success-50 to-calm-100 rounded-2xl p-8 border-2 border-primary-300 shadow-lg">
                       <div className="text-center">
@@ -335,26 +303,33 @@ const ValuationVariationD = () => {
                           <span>Based on {industryMultipliers[industry].label}</span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm">
-                            <div className="text-xs text-neutral-500 mb-1">Annual Profit</div>
+                            <div className="text-xs text-neutral-500 mb-1">Estimated EBITDA</div>
                             <div className="text-xl font-bold text-neutral-900">
-                              €{profit.toLocaleString()}
+                              €{ebitda.toLocaleString()}
                             </div>
                           </div>
                           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm">
-                            <div className="text-xs text-neutral-500 mb-1">Multiple Range</div>
+                            <div className="text-xs text-neutral-500 mb-1">Industry Multiple</div>
                             <div className="text-xl font-bold text-neutral-900">
                               {industryMultipliers[industry].min.toFixed(1)}x -{' '}
                               {industryMultipliers[industry].max.toFixed(1)}x
                             </div>
                           </div>
-                          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm">
-                            <div className="text-xs text-neutral-500 mb-1">Maturity Bonus</div>
-                            <div className="text-xl font-bold text-success-600">
-                              +{Math.round(Math.min(yearsOperating / 10, 0.3) * 100)}%
-                            </div>
-                          </div>
+                        </div>
+
+                        <div className="bg-primary-100/50 border border-primary-300 rounded-xl p-4 mb-6">
+                          <p className="text-sm text-neutral-700 text-center">
+                            <span className="font-semibold text-primary-700">
+                              This is a rough estimate.
+                            </span>{' '}
+                            Sign up for our{' '}
+                            <span className="font-bold text-primary-800">
+                              state-of-the-art valuation engine
+                            </span>{' '}
+                            for transparent, market-accurate results.
+                          </p>
                         </div>
 
                         <Button
@@ -364,11 +339,11 @@ const ValuationVariationD = () => {
                           endContent={<ArrowRight className="w-5 h-5" />}
                           className="w-full md:w-auto px-12"
                         >
-                          Get Detailed Valuation Report
+                          Get Accurate Valuation
                         </Button>
 
                         <p className="text-xs text-neutral-500 mt-4">
-                          Free • No credit card • Instant results
+                          Free forever • No credit card • State-of-the-art valuation engine
                         </p>
                       </div>
                     </div>
@@ -656,12 +631,14 @@ const ValuationVariationD = () => {
                 <Card className="rounded-3xl border-2 border-primary-200 hover:border-primary-400 hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-primary-50">
                   <CardBody className="p-8">
                     <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                      <TrendingUp className="w-8 h-8 text-white" />
+                      <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">Improve Your Value</h3>
+                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">
+                      Discover Hidden Value
+                    </h3>
                     <p className="text-neutral-600 leading-relaxed text-lg">
-                      Understand what drives your business value and make strategic improvements.
-                      Many owners increase their valuation significantly before selling.
+                      Our state-of-the-art valuation engine reveals what buyers will actually pay.
+                      Most owners are surprised — 40% undervalue their business by €200K+.
                     </p>
                   </CardBody>
                 </Card>
@@ -671,10 +648,13 @@ const ValuationVariationD = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                       <Target className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">Know Your Position</h3>
+                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">
+                      Make Data-Driven Decisions
+                    </h3>
                     <p className="text-neutral-600 leading-relaxed text-lg">
-                      Understand where you stand in the market. Get clarity on your exit options and
-                      timing based on current market conditions.
+                      Should you sell now or wait? Invest in growth or optimize for exit? Our
+                      valuation gives you the clarity to make confident decisions backed by real
+                      market data.
                     </p>
                   </CardBody>
                 </Card>
@@ -682,12 +662,15 @@ const ValuationVariationD = () => {
                 <Card className="rounded-3xl border-2 border-primary-200 hover:border-primary-400 hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-primary-50">
                   <CardBody className="p-8">
                     <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                      <Building2 className="w-8 h-8 text-white" />
+                      <TrendingUp className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">Prepare for Sale</h3>
+                    <h3 className="text-2xl font-bold text-neutral-900 mb-3">
+                      Fast-Track Your Sale
+                    </h3>
                     <p className="text-neutral-600 leading-relaxed text-lg">
-                      Build your data room progressively. When you're ready to list, you'll have
-                      everything prepared for a smooth, fast transaction.
+                      When you're ready, you're already halfway there. Your valuation data becomes
+                      your data room foundation — saving months of preparation and thousands in
+                      advisory fees.
                     </p>
                   </CardBody>
                 </Card>
@@ -705,16 +688,12 @@ const ValuationVariationD = () => {
 
           <Container>
             <div className="max-w-4xl mx-auto text-center relative z-10">
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
-                <Sparkles className="w-5 h-5 text-success-400" />
-                <span className="text-white font-medium">Join 12,000+ Business Owners</span>
-              </div>
-
               <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white">
-                Start Tracking Your Value Today
+                Get your valuation today
               </h2>
               <p className="text-xl text-white/90 mb-12">
-                Discover what your business is really worth. Free, instant, no obligations.
+                Join other business owners who use our transparent, market-accurate valuation
+                engine. Free forever. No pressure to sell.
               </p>
 
               <button
@@ -722,7 +701,7 @@ const ValuationVariationD = () => {
                 className="inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus:ring-3 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed border-0 outline-none cursor-pointer relative overflow-hidden bg-white text-primary-900 font-semibold hover:bg-neutral-100 focus:ring-primary-500/30 shadow-xl active:scale-[0.98] px-12 h-16 text-lg rounded-lg"
               >
                 <span className="flex items-center justify-center opacity-100">
-                  Get Your Free Valuation
+                  Get Accurate Valuation
                   <span className="ml-2">
                     <ArrowRight className="w-5 h-5" />
                   </span>
@@ -730,7 +709,7 @@ const ValuationVariationD = () => {
               </button>
 
               <p className="text-sm text-white/60 mt-6">
-                Free • 2 minutes • No credit card required
+                Free forever • 2 minutes • No credit card
               </p>
             </div>
           </Container>

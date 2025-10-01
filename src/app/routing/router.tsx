@@ -107,8 +107,9 @@ import GdprCompliance from '../pages/company/legal/gdpr/GdprCompliance';
 import PrivacyPolicy from '../pages/company/legal/privacyPolicy/privacyPolicy';
 import Security from '../pages/company/legal/security/Security';
 import TermsAndConditions from '../pages/company/legal/termsAndConditions/TermsAndConditions';
-import Contact from '../pages/support/contact';
+import Pricing from '../pages/company/pricing/Pricing';
 import FAQ from '../pages/support/FAQ';
+import Contact from '../pages/support/contact';
 import Help from '../pages/support/help';
 
 // Page imports - Resources
@@ -170,7 +171,9 @@ export const router = createBrowserRouter([
 
       { path: 'about', element: <About /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'pricing', element: <Pricing /> },
       { path: 'how-it-works', element: <HowItWorks /> },
+      { path: 'how-it-works/:tab', element: <HowItWorks /> },
       { path: 'help', element: <Help /> },
       { path: 'faq', element: <FAQ /> },
 

@@ -16,7 +16,16 @@
 
 import { Button } from '@/shared/components/buttons';
 import { AuthenticationService } from '@/shared/services/auth';
-import { ChevronRight, FileText, HelpCircle, LogOut, Search, TrendingUp, X } from 'lucide-react';
+import {
+  ChevronRight,
+  Euro,
+  FileText,
+  HelpCircle,
+  LogOut,
+  Search,
+  TrendingUp,
+  X,
+} from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
@@ -87,6 +96,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
         { label: 'Browse Businesses', href: '/search', icon: Search },
         { label: 'Get Valued', href: '/valuation', icon: TrendingUp },
         { label: 'How It Works', href: '/how-it-works', icon: FileText },
+        { label: 'Pricing', href: '/pricing', icon: Euro },
         { label: 'FAQ', href: '/faq', icon: HelpCircle },
       ],
     },

@@ -6,7 +6,7 @@ import { Button } from '@/shared/components/buttons';
 import { CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
 import { authService } from '@/shared/services/auth';
 import { Modal, ModalBody, ModalContent } from '@heroui/react';
-import { ArrowLeft, Building2, Info, Search, TrendingUp, X } from 'lucide-react';
+import { ArrowLeft, Building2, Info, Search, Sparkles, TrendingUp, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../app/providers/auth-provider';
@@ -334,6 +334,31 @@ const SignupModal: React.FC = () => {
                           </p>
                         </div>
                         <div className="space-y-4">
+                          {/* Free Valuation - Top Priority (lowest friction entry) */}
+                          <button
+                            onClick={() => handleRoleSelect('seller')}
+                            className="w-full p-6 border-2 border-success-300 bg-gradient-to-r from-success-50 to-primary-50 rounded-xl hover:border-success-500 hover:shadow-xl transition-all duration-300 text-left group transform hover:scale-[1.02] relative overflow-hidden"
+                          >
+                            {/* Sparkle badge */}
+                            <div className="absolute top-3 right-3 px-2 py-1 bg-success-500 text-white text-xs font-bold rounded-full">
+                              FREE
+                            </div>
+                            <div className="flex items-start gap-4">
+                              <div className="p-3 bg-success-100 rounded-lg group-hover:bg-success-200 transition-all duration-300 shadow-sm">
+                                <Sparkles className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-success-700 transition-colors duration-300">
+                                  Get Free Valuation
+                                </h3>
+                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                  Discover your business value with our state-of-the-art valuation
+                                  engine. No obligations, instant results
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+
                           {/* Seller Path - Primary (70% priority, aligned with nav) */}
                           <button
                             onClick={() => handleRoleSelect('seller')}

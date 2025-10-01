@@ -13,15 +13,13 @@
  * - Pinterest: Visual discovery
  */
 
-import { Button } from '@/shared/components/buttons';
-import SaveSearchModal from '@/shared/components/buyer/SaveSearchModal';
 import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { VideoBackground } from '@/shared/components/video';
 import { seoData } from '@/shared/utils/seo/seoData';
 import { Pagination, Select, SelectItem } from '@heroui/react';
-import { Bell, Filter, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -60,8 +58,6 @@ const SearchVariationC = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false);
-  const [showSaveSearchModal, setShowSaveSearchModal] = useState(false);
 
   // Search filters state
   const [filters, setFilters] = useState({
@@ -404,22 +400,6 @@ const SearchVariationC = () => {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 
-  const getCurrentSearchCriteria = () => ({
-    searchQuery: filters.searchQuery,
-    sector: filters.sector,
-    country: filters.country,
-    priceRange: filters.priceRange,
-  });
-
-  const handleSaveSearch = async (searchData: unknown) => {
-    try {
-      // TODO: Replace with actual API call
-      console.log('Saving search:', searchData);
-    } catch (error) {
-      console.error('Error saving search:', error);
-    }
-  };
-
   return (
     <>
       <SEOHead
@@ -446,7 +426,7 @@ const SearchVariationC = () => {
               </span>
             </h1>
             <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Discover unique businesses for sale across Europe. Each opportunity tells a story.
+              Discover verified businesses for sale across Europe. Each tells a story.
             </p>
 
             {/* Search Bar */}
@@ -472,15 +452,6 @@ const SearchVariationC = () => {
                 {/* Left: Filters */}
                 <div className="flex-1">
                   <div className="flex flex-wrap gap-4">
-                    <Button
-                      variant="tertiary"
-                      size="md"
-                      onPress={() => setShowFilters(!showFilters)}
-                      startContent={<Filter className="w-4 h-4" />}
-                    >
-                      Filters
-                    </Button>
-
                     <Select
                       size="md"
                       placeholder="Industry"
@@ -550,15 +521,6 @@ const SearchVariationC = () => {
                     <SelectItem key="price_desc">Price: High to Low</SelectItem>
                     <SelectItem key="views">Most Popular</SelectItem>
                   </Select>
-
-                  <Button
-                    variant="tertiary"
-                    size="md"
-                    onPress={() => setShowSaveSearchModal(true)}
-                    startContent={<Bell className="w-4 h-4" />}
-                  >
-                    Save Search
-                  </Button>
                 </div>
               </div>
 
@@ -674,16 +636,6 @@ const SearchVariationC = () => {
             </div>
           </Container>
         </section>
-
-        {/* Save Search Modal */}
-        {showSaveSearchModal && (
-          <SaveSearchModal
-            isOpen={showSaveSearchModal}
-            onClose={() => setShowSaveSearchModal(false)}
-            onSave={handleSaveSearch}
-            mode="create"
-          />
-        )}
       </div>
     </>
   );
