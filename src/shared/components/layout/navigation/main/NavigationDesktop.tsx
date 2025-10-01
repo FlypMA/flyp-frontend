@@ -191,7 +191,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
             </li>
 
             {/* Resources Dropdown */}
-            <li className="text-medium whitespace-nowrap box-border list-none">
+            <li className="text-medium whitespace-nowrap box-border list-none flex items-center">
               <Dropdown>
                 <DropdownTrigger>
                   <button
