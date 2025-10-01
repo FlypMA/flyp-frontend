@@ -29,8 +29,14 @@ interface ThreePanelLayoutProps {
 const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className = '' }) => {
   const { breakpoint, layoutConfig, isCollapsed } = usePanelLayout();
   const { handleResize } = useBreakpointDetection();
-  const { togglePanel } = useContextPanel();
+  const { mobileActivePanel, togglePanel } = useContextPanel();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Initialize breakpoint detection on mount (run only once)
+  useEffect(() => {
+    handleResize(); // Detect initial breakpoint
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - run only once on mount
 
   // Handle window resize for responsive design
   useEffect(() => {
@@ -81,8 +87,8 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
     >
       {/* Left Panel - Conversations */}
       {breakpoint === 'mobile' ? (
-        // Mobile: Show as main view when visible, hide when not visible
-        layoutConfig.leftPanel.visible ? (
+        // Mobile: Show only when active
+        mobileActivePanel === 'left' && (
           <div
             className="absolute inset-0 bg-white z-10 flex flex-col"
             style={{
@@ -92,7 +98,7 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
           >
             {children.leftPanel}
           </div>
-        ) : null
+        )
       ) : (
         // Desktop: Grid item
         <div
@@ -109,14 +115,13 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
 
       {/* Middle Panel - Chat */}
       {breakpoint === 'mobile' ? (
-        // Mobile: Show only when left panel is hidden
-        !layoutConfig.leftPanel.visible && (
+        // Mobile: Show only when active
+        mobileActivePanel === 'middle' && (
           <div
             className="absolute inset-0 bg-white z-10 flex flex-col"
             style={{
               height: '100vh',
               width: '100%',
-              overflow: 'hidden',
             }}
           >
             {children.middlePanel}
@@ -130,7 +135,6 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
             gridArea: 'middle',
             height: '100vh',
             width: '100%',
-            overflow: 'hidden',
           }}
         >
           {children.middlePanel}
@@ -139,8 +143,8 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
 
       {/* Right Panel - Context */}
       {breakpoint === 'mobile' ? (
-        // Mobile: Fixed overlay (only when visible)
-        layoutConfig.rightPanel.visible && (
+        // Mobile: Show only when active
+        mobileActivePanel === 'right' && (
           <div
             className="fixed inset-0 bg-white z-[1000] flex flex-col"
             style={{
@@ -167,38 +171,32 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
         </div>
       )}
 
-      {/* Mobile Overlay - Shows when left or right panel is open */}
-      {breakpoint === 'mobile' &&
-        (layoutConfig.leftPanel.visible || layoutConfig.rightPanel.visible) && (
-          <div
-            className="mobile-overlay"
-            onClick={() => {
-              // Close whichever panel is open
-              if (layoutConfig.leftPanel.visible) togglePanel('left');
-              if (layoutConfig.rightPanel.visible) togglePanel('right');
-            }}
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              zIndex: 999,
-              opacity: 1,
-              transition: 'opacity 0.3s ease-in-out',
-            }}
-            aria-label="Close panel"
-            role="button"
-            tabIndex={0}
-            onKeyDown={e => {
-              if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-                if (layoutConfig.leftPanel.visible) togglePanel('left');
-                if (layoutConfig.rightPanel.visible) togglePanel('right');
-              }
-            }}
-          />
-        )}
+      {/* Mobile Overlay - Shows when right panel (context) is open */}
+      {breakpoint === 'mobile' && mobileActivePanel === 'right' && (
+        <div
+          className="mobile-overlay"
+          onClick={() => togglePanel('right')}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999,
+            opacity: 1,
+            transition: 'opacity 0.3s ease-in-out',
+          }}
+          aria-label="Close panel"
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+              togglePanel('right');
+            }
+          }}
+        />
+      )}
     </div>
   );
 };

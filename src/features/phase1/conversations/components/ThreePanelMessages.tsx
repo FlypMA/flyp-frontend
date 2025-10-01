@@ -213,18 +213,24 @@ const ThreePanelMessagesContent: React.FC = () => {
 
   // Local state for conversations and messages
   const [conversations] = useState<Conversation[]>(mockConversations);
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(
-    mockConversations[0]
-  );
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<ConversationMessage[]>(mockMessages);
+
+  // Use context panel hooks FIRST (before callbacks that need them)
+  const { autoSwitchContext, currentBreakpoint, setMobileActivePanel } = useContextPanel();
 
   // Conversation management functions
   const selectConversation = useCallback(
     (conversationId: string) => {
       const conversation = conversations.find(c => c.id === conversationId);
       setSelectedConversation(conversation || null);
+
+      // On mobile: immediately switch to chat panel when conversation is selected
+      if (currentBreakpoint === 'mobile') {
+        setMobileActivePanel('middle');
+      }
     },
-    [conversations]
+    [conversations, currentBreakpoint, setMobileActivePanel]
   );
 
   const addMessage = useCallback((message: ConversationMessage) => {
@@ -237,9 +243,6 @@ const ThreePanelMessagesContent: React.FC = () => {
     void actionId;
   }, []);
 
-  // Use context panel hooks
-  const { autoSwitchContext, currentBreakpoint, togglePanel, closeMobileMenu } = useContextPanel();
-
   // Auto-select first conversation on mount (only on desktop)
   useEffect(() => {
     if (conversations.length > 0 && !selectedConversation && currentBreakpoint !== 'mobile') {
@@ -251,13 +254,8 @@ const ThreePanelMessagesContent: React.FC = () => {
   useEffect(() => {
     if (selectedConversation) {
       autoSwitchContext(selectedConversation);
-
-      // On mobile: when conversation is selected, close the left panel to show chat
-      if (currentBreakpoint === 'mobile') {
-        togglePanel('left'); // Close conversation list
-      }
     }
-  }, [selectedConversation, autoSwitchContext, currentBreakpoint, togglePanel]);
+  }, [selectedConversation, autoSwitchContext]);
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedConversation) return;

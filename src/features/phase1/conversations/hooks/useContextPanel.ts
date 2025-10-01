@@ -2,6 +2,7 @@
 // Location: src/features/phase1/conversations/hooks/useContextPanel.ts
 // Purpose: Zustand store for managing three-panel messaging interface state
 
+import { useCallback } from 'react';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import {
@@ -36,6 +37,11 @@ interface ContextPanelStore extends ContextPanelState {
   currentBreakpoint: Breakpoint;
   setBreakpoint: (_breakpoint: Breakpoint) => void;
   getLayoutConfig: () => PanelLayoutConfig;
+
+  // Mobile panel management
+  mobileActivePanel: 'left' | 'middle' | 'right';
+  setMobileActivePanel: (_panel: 'left' | 'middle' | 'right') => void;
+  togglePanel: (_panel: 'left' | 'right') => void;
 
   // Reset
   reset: () => void;
@@ -186,6 +192,7 @@ export const useContextPanel = create<ContextPanelStore>()(
       (set, get) => ({
         ...initialState,
         currentBreakpoint: 'desktop',
+        mobileActivePanel: 'left', // Start with conversation list on mobile
 
         // Actions
         setVisibility: (visible: boolean) =>
@@ -208,6 +215,29 @@ export const useContextPanel = create<ContextPanelStore>()(
             }),
             false,
             'toggleVisibility'
+          ),
+
+        // Mobile panel management
+        setMobileActivePanel: (panel: 'left' | 'middle' | 'right') =>
+          set({ mobileActivePanel: panel }, false, 'setMobileActivePanel'),
+
+        togglePanel: (panel: 'left' | 'right') =>
+          set(
+            state => {
+              if (panel === 'left') {
+                // Toggle between conversation list (left) and chat (middle)
+                return {
+                  mobileActivePanel: state.mobileActivePanel === 'left' ? 'middle' : 'left',
+                };
+              } else {
+                // Toggle between chat (middle) and context panel (right)
+                return {
+                  mobileActivePanel: state.mobileActivePanel === 'right' ? 'middle' : 'right',
+                };
+              }
+            },
+            false,
+            'togglePanel'
           ),
 
         setCollapsed: (collapsed: boolean) =>
@@ -312,19 +342,22 @@ export const useContextPanel = create<ContextPanelStore>()(
 // =============================================================================
 
 export const useBreakpointDetection = () => {
-  const setBreakpoint = useContextPanel(state => state.setBreakpoint);
-
-  const detectBreakpoint = (width: number): Breakpoint => {
+  const detectBreakpoint = useCallback((width: number): Breakpoint => {
     if (width < 768) return 'mobile';
     if (width < 1200) return 'tablet';
     return 'desktop';
-  };
+  }, []);
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     const width = window.innerWidth;
-    const breakpoint = detectBreakpoint(width);
-    setBreakpoint(breakpoint);
-  };
+    const newBreakpoint = detectBreakpoint(width);
+    const currentBreakpoint = useContextPanel.getState().currentBreakpoint;
+
+    // Only update if breakpoint has changed
+    if (newBreakpoint !== currentBreakpoint) {
+      useContextPanel.getState().setBreakpoint(newBreakpoint);
+    }
+  }, [detectBreakpoint]);
 
   return {
     detectBreakpoint,

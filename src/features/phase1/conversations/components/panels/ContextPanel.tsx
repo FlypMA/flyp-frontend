@@ -33,10 +33,38 @@ const ContextPanel: React.FC<ContextPanelProps> = ({
   onQuickAction,
   className = '',
 }) => {
-  const { isVisible, isLoading, error, toggleVisibility } = useContextPanel();
+  const {
+    isVisible,
+    isLoading,
+    error,
+    toggleVisibility,
+    currentBreakpoint,
+    setMobileActivePanel,
+    mobileActivePanel,
+  } = useContextPanel();
 
-  // Don't render if no conversation or not visible
-  if (!conversation || !isVisible) {
+  const isMobile = currentBreakpoint === 'mobile';
+
+  // Handle back button on mobile
+  const handleBack = () => {
+    if (isMobile) {
+      setMobileActivePanel('middle'); // Go back to chat
+    } else {
+      toggleVisibility(); // Close panel on desktop
+    }
+  };
+
+  // Don't render if no conversation
+  if (!conversation) {
+    return null;
+  }
+
+  // On mobile, show only when active panel is 'right'
+  // On desktop, show only when isVisible is true
+  if (isMobile && mobileActivePanel !== 'right') {
+    return null;
+  }
+  if (!isMobile && !isVisible) {
     return null;
   }
 
@@ -80,7 +108,8 @@ const ContextPanel: React.FC<ContextPanelProps> = ({
             variant="tertiary"
             size="sm"
             className="text-gray-500 hover:text-gray-700"
-            onPress={toggleVisibility}
+            onPress={handleBack}
+            aria-label={isMobile ? 'Back to chat' : 'Close panel'}
           >
             <X className="w-4 h-4" />
           </Button>

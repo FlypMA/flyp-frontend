@@ -111,7 +111,7 @@ const Home = () => {
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 mb-6 leading-tight tracking-tight">
                   {selectedRole === 'business-owner' ? (
                     <>
-                      <span className="text-primary-600 whitespace-nowrap">
+                      <span className="text-primary-600 whitespace-normal md:whitespace-nowrap">
                         Know what your business is worth
                       </span>
                     </>

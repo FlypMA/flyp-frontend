@@ -42,11 +42,21 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   // Suppress unused parameter warnings for optional callbacks
   void onQuickAction;
   void onNavigateToBusiness;
-  const { isVisible, toggleVisibility, togglePanel, currentBreakpoint } = useContextPanel();
+  const { isVisible, toggleVisibility, togglePanel, setMobileActivePanel, currentBreakpoint } =
+    useContextPanel();
   const messageInputRef = useRef<HTMLDivElement>(null);
 
   // Check if we're on mobile
   const isMobile = currentBreakpoint === 'mobile';
+
+  // Handle info button click - different behavior for mobile vs desktop
+  const handleInfoClick = () => {
+    if (isMobile) {
+      setMobileActivePanel('right'); // Mobile: switch to context panel
+    } else {
+      toggleVisibility(); // Desktop: toggle visibility
+    }
+  };
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -72,7 +82,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   }
 
   return (
-    <div className={`chat-panel flex flex-col bg-white h-full ${className}`}>
+    <div className={`chat-panel flex flex-col bg-white h-full overflow-hidden ${className}`}>
       {/* Chat Header - Mobile Optimized with Navigation */}
       <div className="border-b border-gray-200 bg-white flex-shrink-0">
         <div className="flex items-center justify-between px-3 py-3 sm:px-4 sm:py-4">
@@ -127,7 +137,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
             {/* Mobile: Info/Details button */}
             {isMobile ? (
               <button
-                onClick={toggleVisibility}
+                onClick={handleInfoClick}
                 className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Show business details"
               >
@@ -140,7 +150,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                   variant="tertiary"
                   size="sm"
                   className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm px-3 sm:px-4"
-                  onPress={toggleVisibility}
+                  onPress={handleInfoClick}
                 >
                   Show business details
                 </Button>
@@ -284,7 +294,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
       </div>
 
       {/* Message Input - Mobile-Optimized Compose Bar */}
-      <div className="border-t border-gray-200 bg-white flex-shrink-0 sticky bottom-0 z-10">
+      <div className="border-t border-gray-200 bg-white flex-shrink-0">
         {/* Main Compose Container */}
         <div className="p-3 sm:p-4">
           {/* Input Section */}

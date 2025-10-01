@@ -100,7 +100,9 @@ const HomeVariationC = () => {
                 {/* Dynamic Headline based on role */}
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                   {selectedRole === 'business-owner' ? (
-                    <span className="whitespace-nowrap">Know what your business is worth</span>
+                    <span className="whitespace-normal md:whitespace-nowrap">
+                      Know what your business is worth
+                    </span>
                   ) : (
                     <>
                       Discover verified businesses
