@@ -194,7 +194,7 @@ const TransactionFlow: React.FC = () => {
           <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-neutral-900 mb-2">Transaction Not Found</h2>
           <p className="text-neutral-600 mb-4">The requested transaction could not be found.</p>
-          <Button variant="primary" onPress={() => navigate('/listings')}>
+          <Button variant="primary" onPress={() => navigate('/search')}>
             Back to Listings
           </Button>
         </div>

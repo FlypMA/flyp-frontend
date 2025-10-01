@@ -6,7 +6,7 @@ import { Button } from '@/shared/components/buttons';
 import { CustomInputField, CustomPasswordInputField } from '@/shared/components/forms';
 import { authService } from '@/shared/services/auth';
 import { Modal, ModalBody, ModalContent } from '@heroui/react';
-import { ArrowLeft, Building2, Info, Search, X } from 'lucide-react';
+import { ArrowLeft, Building2, Info, Search, TrendingUp, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../app/providers/auth-provider';
@@ -193,7 +193,7 @@ const SignupModal: React.FC = () => {
           });
         } else {
           // Redirect based on role
-          const redirectUrl = formData.role === 'seller' ? '/my-business' : '/listings';
+          const redirectUrl = formData.role === 'seller' ? '/my-business' : '/search';
           navigate(redirectUrl, { replace: true });
         }
       } else {
@@ -278,14 +278,14 @@ const SignupModal: React.FC = () => {
                   handleCloseModal();
                   navigate('/');
                 }}
-                className="flex items-center space-x-2 hover:opacity-80 transition-opacity duration-200"
+                className="flex items-center gap-1 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
                   src="/UpSwitch_logo_var1.svg?v=2024.4"
                   alt="Upswitch - European SME M&A Platform"
                   width="32"
                   height="32"
-                  className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
+                  className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
                   loading="lazy"
                   style={{
                     height: '32px',
@@ -295,7 +295,9 @@ const SignupModal: React.FC = () => {
                     display: 'block',
                   }}
                 />
-                <span className="text-xl font-bold text-primary-700">UpSwitch</span>
+                <span className="font-display text-xl font-light text-primary-700 leading-none mt-0.5">
+                  Upswitch
+                </span>
               </a>
             </div>
 
@@ -318,7 +320,7 @@ const SignupModal: React.FC = () => {
                       <>
                         <div className="mb-8">
                           <h1 className="text-2xl font-semibold text-slate-900 text-left">
-                            Join UpSwitch
+                            What brings you here today?
                           </h1>
                           <p className="text-base text-slate-600 mt-2 text-left">
                             Already have an account?{' '}
@@ -332,59 +334,64 @@ const SignupModal: React.FC = () => {
                           </p>
                         </div>
                         <div className="space-y-4">
-                          <button
-                            onClick={() => handleRoleSelect('buyer')}
-                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 text-left group"
-                          >
-                            <div className="flex items-start gap-4">
-                              <div className="p-3 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-colors">
-                                <Search className="w-6 h-6 text-primary-600" />
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                  I'm looking to buy a business
-                                </h3>
-                                <p className="text-gray-600 text-sm">
-                                  Access our marketplace of verified businesses for sale across
-                                  Europe
-                                </p>
-                              </div>
-                            </div>
-                          </button>
-
+                          {/* Seller Path - Primary (70% priority, aligned with nav) */}
                           <button
                             onClick={() => handleRoleSelect('seller')}
-                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left group"
+                            className="w-full p-6 border-2 border-primary-200 rounded-xl hover:border-primary-500 hover:bg-primary-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
                           >
                             <div className="flex items-start gap-4">
-                              <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
-                                <Building2 className="w-6 h-6 text-green-600" />
+                              <div className="p-3 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-all duration-300">
+                                <TrendingUp className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                  I'm a business owner
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-primary-700 transition-colors duration-300">
+                                  I want to sell my business
                                 </h3>
-                                <p className="text-gray-600 text-sm">
-                                  Get my business valued and explore selling opportunities
+                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                  Get a free valuation, optimize your value, and find the right
+                                  buyer when you're ready
                                 </p>
                               </div>
                             </div>
                           </button>
 
+                          {/* Buyer Path - Secondary (30%, aligned with nav) */}
                           <button
-                            onClick={() => handleRoleSelect('both')}
-                            className="w-full p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left group"
+                            onClick={() => handleRoleSelect('buyer')}
+                            className="w-full p-6 border-2 border-calm-200 rounded-xl hover:border-calm-500 hover:bg-calm-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
                           >
                             <div className="flex items-start gap-4">
-                              <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
-                                <Building2 className="w-6 h-6 text-purple-600" />
+                              <div className="p-3 bg-calm-100 rounded-lg group-hover:bg-calm-200 transition-all duration-300">
+                                <Search className="w-6 h-6 text-calm-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                  Both - I'm exploring opportunities
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-calm-700 transition-colors duration-300">
+                                  I want to buy a business
                                 </h3>
-                                <p className="text-gray-600 text-sm">
-                                  Access the full platform to buy and sell businesses
+                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                  Browse 2,400+ verified businesses across Europe and find your
+                                  perfect opportunity
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+
+                          {/* Both - Exploratory */}
+                          <button
+                            onClick={() => handleRoleSelect('both')}
+                            className="w-full p-6 border-2 border-accent-200 rounded-xl hover:border-accent-500 hover:bg-accent-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
+                          >
+                            <div className="flex items-start gap-4">
+                              <div className="p-3 bg-accent-100 rounded-lg group-hover:bg-accent-200 transition-all duration-300">
+                                <Building2 className="w-6 h-6 text-accent-600 group-hover:scale-110 transition-transform duration-300" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-accent-700 transition-colors duration-300">
+                                  I'm exploring my options
+                                </h3>
+                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                  Not sure yet? Get full access to explore buying, selling, or both
+                                  at your own pace
                                 </p>
                               </div>
                             </div>
@@ -407,7 +414,9 @@ const SignupModal: React.FC = () => {
                             </button>
                             {selectedRole && (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                                {selectedRole === 'buyer' ? 'Buyer Account' : 'Seller Account'}
+                                {selectedRole === 'buyer'
+                                  ? 'Buyer Account'
+                                  : 'Business Owner Account'}
                               </span>
                             )}
                           </div>

@@ -1,25 +1,29 @@
 /**
- * 🎯 Homepage - Variation C: "Trust & Storytelling"
+ * 🎯 Homepage - Variation C: "Smart Router" (Growth Marketing Optimized)
  *
- * STRATEGY:
- * - Emotional narrative approach
- * - Caregiver brand storytelling
- * - Trust-building through empathy
- * - Focus: "We're here for your journey"
+ * AARRR STRATEGY:
+ * - Primary Goal: Route sellers to /valuation (70% of traffic)
+ * - Secondary Goal: Route buyers to /search (30% of traffic)
+ * - Approach: Clear binary choice → Fast routing → High activation
+ *
+ * FUNNEL MECHANICS:
+ * - Hero: Binary choice (Seller vs Buyer) - reduces decision paralysis
+ * - Primary CTA: "Get Free Valuation" (seller-focused, intelligence-first)
+ * - Secondary CTA: "Browse Businesses" (buyer-focused, search-first)
+ * - NO mixed messaging, NO overwhelming content
  *
  * INSPIRATION:
- * - Typeform: Conversational, warm
- * - Caregiver archetype: Empathy, support
- * - Epidemic Sound: Bold storytelling
+ * - Typeform: Clean, minimal, choice-driven
+ * - Fiverr: Clear dual audience (adapted for seller priority)
+ * - AARRR best practices: Reduce friction, increase clarity
  */
 
 import { Button } from '@/shared/components/buttons';
-import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { VideoBackground } from '@/shared/components/video';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Avatar, Card, CardBody } from '@heroui/react';
+import { Avatar, Card, CardBody, Chip } from '@heroui/react';
 import {
   ArrowRight,
   CheckCircle,
@@ -28,6 +32,7 @@ import {
   Heart,
   MessageCircle,
   Quote,
+  Search,
   Shield,
   Sparkles,
   TrendingUp,
@@ -40,15 +45,7 @@ import { useAuth } from '../../../../providers/auth-provider';
 const HomeVariationC = () => {
   const navigate = useNavigate();
   const { openModal } = useAuth();
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = () => {
-    const searchParams = new URLSearchParams();
-    if (searchQuery.trim()) {
-      searchParams.set('q', searchQuery.trim());
-    }
-    navigate(`/search?${searchParams.toString()}`);
-  };
+  const [userIntent, setUserIntent] = useState<'seller' | 'buyer' | null>(null);
 
   const testimonials = [
     {
@@ -120,83 +117,240 @@ const HomeVariationC = () => {
       <SEOHead {...seoData.home} />
 
       <div className="min-h-screen bg-white">
-        {/* Hero Section - Emotional Storytelling */}
+        {/* Hero Section - Smart Router (Growth Marketing Optimized) */}
         <VideoBackground
-          videoSrc="/videos/story-hero.mp4"
-          fallbackGradient="from-neutral-800 via-primary-900 to-calm-900"
-          posterImage="/images/story-poster.jpg"
+          videoSrc="/videos/smart-router-hero.mp4"
+          fallbackGradient="from-neutral-900 via-primary-900 to-calm-900"
+          posterImage="/images/smart-router-poster.jpg"
           overlay="gradient"
-          className="py-32 md:py-32"
+          className="py-20 md:py-32"
         >
           <Container>
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-12">
-                {/* Trust badge */}
-                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-8">
-                  <Heart className="w-5 h-5 text-success-400" />
-                  <span className="text-white font-medium">Trusted by 12,000+ business owners</span>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center">
+                {/* Trust Badge - Minimal */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
+                  <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse" />
+                  <span className="text-white text-sm font-medium">
+                    Europe's Leading M&A Platform
+                  </span>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                  Your business journey
+                {/* Main Headline - Caregiver Value Prop */}
+                <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                  Understand your business value —
                   <br />
-                  <span className="bg-gradient-to-r from-success-300 to-primary-300 bg-clip-text text-transparent">
-                    deserves care
+                  <span className="bg-gradient-to-r from-accent-300 to-primary-300 bg-clip-text text-transparent">
+                    then choose your next chapter
                   </span>
                 </h1>
 
-                <p className="text-2xl md:text-3xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-                  Whether you're exploring your options or ready to sell, buy or invest, we're here
-                  to guide you every step of the way.
+                <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                  From valuation to closing, we handle everything.
+                  <br className="hidden md:block" />
+                  No pressure, no stress — just expert support when you need it.
                 </p>
 
-                {/* Primary CTA */}
-                <div className="flex justify-center mb-8">
-                  <Button
-                    variant="primary"
-                    size="xl"
-                    onPress={() => navigate('/valuation')}
-                    endContent={<ArrowRight className="w-6 h-6" />}
-                    className="px-12 h-16 text-lg shadow-2xl"
-                  >
-                    Get Free Valuation
-                  </Button>
+                {/* Binary Choice - Smart Router */}
+                <div className="mb-8">
+                  <p className="text-white/80 text-sm mb-4 font-medium">I want to:</p>
+                  <div className="flex flex-col md:flex-row gap-4 justify-center max-w-4xl mx-auto">
+                    {/* Seller Path (Primary - 70% of traffic) */}
+                    <Card
+                      isPressable
+                      onPress={() => {
+                        setUserIntent('seller');
+                        navigate('/valuation');
+                      }}
+                      className={`flex-1 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                        userIntent === 'seller'
+                          ? 'border-primary-400 bg-white shadow-2xl'
+                          : 'border-white/30 bg-white/10 backdrop-blur-sm hover:border-white/50 hover:bg-white/15'
+                      }`}
+                    >
+                      <CardBody className="p-6 md:p-8">
+                        <div className="flex items-start gap-4">
+                          <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <TrendingUp className="w-7 h-7 text-primary-600" />
+                          </div>
+                          <div className="text-left flex-1">
+                            <h3
+                              className={`text-xl md:text-2xl font-bold mb-2 ${
+                                userIntent === 'seller' ? 'text-neutral-900' : 'text-white'
+                              }`}
+                            >
+                              Understand my business value
+                            </h3>
+                            <p
+                              className={`text-sm md:text-base mb-4 ${
+                                userIntent === 'seller' ? 'text-neutral-600' : 'text-white/80'
+                              }`}
+                            >
+                              Free valuation • No pressure, no obligations • Build value on your
+                              timeline
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`text-sm font-semibold ${
+                                  userIntent === 'seller' ? 'text-primary-600' : 'text-white'
+                                }`}
+                              >
+                                Get Your Free Valuation
+                              </span>
+                              <ArrowRight
+                                className={`w-5 h-5 ${
+                                  userIntent === 'seller' ? 'text-primary-600' : 'text-white'
+                                }`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Seller-specific trust signals */}
+                        <div className="mt-4 pt-4 border-t border-white/20">
+                          <div className="flex flex-wrap gap-2">
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'seller'
+                                  ? 'bg-success-100 text-success-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              Free forever
+                            </Chip>
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'seller'
+                                  ? 'bg-primary-100 text-primary-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              12-36 month journey
+                            </Chip>
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'seller'
+                                  ? 'bg-calm-100 text-calm-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              Confidential
+                            </Chip>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+
+                    {/* Buyer Path (Secondary - 30% of traffic) */}
+                    <Card
+                      isPressable
+                      onPress={() => {
+                        setUserIntent('buyer');
+                        navigate('/search');
+                      }}
+                      className={`flex-1 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                        userIntent === 'buyer'
+                          ? 'border-calm-400 bg-white shadow-2xl'
+                          : 'border-white/30 bg-white/10 backdrop-blur-sm hover:border-white/50 hover:bg-white/15'
+                      }`}
+                    >
+                      <CardBody className="p-6 md:p-8">
+                        <div className="flex items-start gap-4">
+                          <div className="w-14 h-14 bg-calm-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <Search className="w-7 h-7 text-calm-600" />
+                          </div>
+                          <div className="text-left flex-1">
+                            <h3
+                              className={`text-xl md:text-2xl font-bold mb-2 ${
+                                userIntent === 'buyer' ? 'text-neutral-900' : 'text-white'
+                              }`}
+                            >
+                              Browse businesses to buy
+                            </h3>
+                            <p
+                              className={`text-sm md:text-base mb-4 ${
+                                userIntent === 'buyer' ? 'text-neutral-600' : 'text-white/80'
+                              }`}
+                            >
+                              2,400+ verified businesses • All industries • Europe-wide
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`text-sm font-semibold ${
+                                  userIntent === 'buyer' ? 'text-calm-600' : 'text-white'
+                                }`}
+                              >
+                                Start Browsing
+                              </span>
+                              <ArrowRight
+                                className={`w-5 h-5 ${
+                                  userIntent === 'buyer' ? 'text-calm-600' : 'text-white'
+                                }`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Buyer-specific trust signals */}
+                        <div className="mt-4 pt-4 border-t border-white/20">
+                          <div className="flex flex-wrap gap-2">
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'buyer'
+                                  ? 'bg-success-100 text-success-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              Verified listings
+                            </Chip>
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'buyer'
+                                  ? 'bg-calm-100 text-calm-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              Data rooms
+                            </Chip>
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              className={`${
+                                userIntent === 'buyer'
+                                  ? 'bg-primary-100 text-primary-700'
+                                  : 'bg-white/20 text-white'
+                              }`}
+                            >
+                              Expert support
+                            </Chip>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </div>
                 </div>
 
-                {/* Divider */}
-                <div className="flex items-center gap-4 max-w-2xl mx-auto mb-8">
-                  <div className="flex-1 h-px bg-white/20"></div>
-                  <span className="text-white/70 text-sm font-medium">
-                    or browse businesses for sale
-                  </span>
-                  <div className="flex-1 h-px bg-white/20"></div>
-                </div>
-
-                {/* Search Component */}
-                <div className="max-w-3xl mx-auto">
-                  <SearchComponent
-                    value={searchQuery}
-                    onChange={setSearchQuery}
-                    onSearch={handleSearch}
-                    placeholder="e.g. Restaurant in Brussels, Tech company"
-                    size="large"
-                    buttonText="Search"
-                  />
-
-                  {/* Popular Searches */}
-                  <div className="mt-4 flex flex-wrap justify-center gap-2">
-                    <span className="text-sm text-white/70">Popular:</span>
-                    {['Restaurants', 'Tech Companies', 'Manufacturing', 'Retail', 'Healthcare'].map(
-                      term => (
-                        <button
-                          key={term}
-                          onClick={() => setSearchQuery(term.toLowerCase())}
-                          className="text-sm text-success-300 hover:text-success-200 underline underline-offset-2"
-                        >
-                          {term}
-                        </button>
-                      )
-                    )}
+                {/* Trust Indicators - Minimal */}
+                <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-white/80 pt-8">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-success-400" />
+                    <span>€840M+ Transacted</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-success-400" />
+                    <span>100% Confidential</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-success-400" />
+                    <span>12,000+ Users</span>
                   </div>
                 </div>
               </div>

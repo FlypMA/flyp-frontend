@@ -1,15 +1,22 @@
-// 🖥️ Navigation Desktop - MVP Version
+// 🖥️ Navigation Desktop - Growth Marketing Optimized
 // Location: src/shared/components/navigation/main/NavigationDesktop.tsx
-// Purpose: Desktop navigation bar based on legacy UnifiedNavigation.tsx
+// Purpose: Desktop navigation bar with smart routing logic
+//
+// AARRR STRATEGY:
+// - Seller-first navigation (70% of marketing focus)
+// - Clear buyer path (30%, essential for marketplace)
+// - Intelligence-first approach ("Get Valued" not "Sell")
+// - Persistent CTA button for conversion
 //
 // Features:
-// - Desktop navigation with authentication
-// - User avatar dropdown integration
-// - Mobile menu toggle button
-// - Role-based navigation items
+// - Smart routing based on user intent
+// - Context-aware active states
+// - Resources dropdown (educational content)
+// - Persistent "Get Free Valuation" CTA
 
 import { Button } from '@/shared/components/buttons';
-import { Menu } from 'lucide-react';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
+import { ChevronDown, Menu } from 'lucide-react';
 import * as React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
@@ -29,8 +36,6 @@ interface NavigationDesktopProps {
 const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   user,
   isCheckingAuth,
-  hasToken,
-  authCheckComplete,
   onMobileMenuToggle,
   className = '',
 }) => {
@@ -38,30 +43,43 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   const navigate = useNavigate();
   const { openModal } = useAuth();
 
-  // Navigation items are now hardcoded to match legacy app
-
   // Handle authentication actions
   const handleLogin = () => {
     openModal('login');
   };
 
-  const handleSignup = () => {
-    openModal('signup');
-  };
-
-  const handleSellBusiness = () => {
+  // Smart CTA routing based on context
+  const handlePrimaryCTA = () => {
     if (user) {
-      navigate(UrlGenerator.myBusiness());
+      // If logged in, route to appropriate dashboard
+      if (user.role === 'buyer') {
+        navigate(UrlGenerator.search());
+      } else {
+        navigate(UrlGenerator.myBusiness());
+      }
     } else {
+      // If not logged in, open signup modal (leads to valuation after signup)
       openModal('signup');
     }
   };
 
-  // Render user menu - using unified dropdown
+  // Check if link is active
+  const isActiveLink = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
+
+  // Render user menu
   const renderUserMenu = () => {
     if (!user) return null;
     return <UserAvatarDropdown user={user} />;
   };
+
+  // Resources dropdown items
+  const resourceItems = [
+    { key: 'how-it-works', label: 'How It Works', href: '/how-it-works' },
+    { key: 'faq', label: 'FAQ', href: '/faq' },
+    { key: 'contact', label: 'Contact', href: UrlGenerator.contact() },
+  ];
 
   return (
     <nav
@@ -93,32 +111,104 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
           </Link>
         </div>
 
-        {/* Center Navigation - Desktop */}
+        {/* Center Navigation - Desktop (Growth Marketing Optimized) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block">
-          <ul className="h-full flex-row flex-nowrap items-center flex gap-8">
+          <ul className="h-full flex-row flex-nowrap items-center flex gap-6">
+            {/* Browse Businesses - Buyer Path */}
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Link
                 to="/search"
-                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActiveLink('/search') || isActiveLink('/browse')
+                    ? 'text-primary-600 font-semibold'
+                    : 'text-neutral-700 hover:text-primary-600'
+                }`}
               >
                 Browse Businesses
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                    isActiveLink('/search') || isActiveLink('/browse')
+                      ? 'scale-x-100'
+                      : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
               </Link>
             </li>
+
+            {/* Get Valued - Seller Path (Primary) */}
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Link
                 to="/valuation"
-                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActiveLink('/valuation')
+                    ? 'text-primary-600 font-semibold'
+                    : 'text-neutral-700 hover:text-primary-600'
+                }`}
               >
                 Get Valued
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                    isActiveLink('/valuation') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
               </Link>
             </li>
+
+            {/* How It Works - Education */}
             <li className="text-medium whitespace-nowrap box-border list-none">
               <Link
                 to="/how-it-works"
-                className="text-neutral-700 hover:text-primary-600 transition-colors text-sm font-medium"
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActiveLink('/how-it-works')
+                    ? 'text-primary-600 font-semibold'
+                    : 'text-neutral-700 hover:text-primary-600'
+                }`}
               >
                 How It Works
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                    isActiveLink('/how-it-works')
+                      ? 'scale-x-100'
+                      : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
               </Link>
+            </li>
+
+            {/* Resources Dropdown */}
+            <li className="text-medium whitespace-nowrap box-border list-none">
+              <Dropdown>
+                <DropdownTrigger>
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors group ${
+                      isActiveLink('/blog') ||
+                      isActiveLink('/success-stories') ||
+                      isActiveLink('/faq')
+                        ? 'text-primary-600 font-semibold'
+                        : 'text-neutral-700 hover:text-primary-600'
+                    }`}
+                  >
+                    Resources
+                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                  </button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Resources"
+                  className="min-w-[200px]"
+                  onAction={key =>
+                    navigate(resourceItems.find(item => item.key === key)?.href || '/')
+                  }
+                >
+                  {resourceItems.map(item => (
+                    <DropdownItem
+                      key={item.key}
+                      className={isActiveLink(item.href) ? 'bg-primary-50 text-primary-700' : ''}
+                    >
+                      {item.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
             </li>
           </ul>
         </div>
@@ -127,22 +217,32 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-end bg-transparent items-center">
           <ul className="h-full flex-row flex-nowrap flex items-center gap-4" data-justify="end">
             {/* Desktop Actions */}
-            <li className="text-medium whitespace-nowrap box-border list-none hidden lg:flex items-center gap-4">
+            <li className="text-medium whitespace-nowrap box-border list-none hidden lg:flex items-center gap-3">
               {user ? (
                 renderUserMenu()
               ) : isCheckingAuth ? (
                 <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center animate-pulse">
                     <span className="text-white text-sm font-medium">•</span>
                   </div>
                 </div>
               ) : (
                 <>
-                  <Button variant="link" size="sm" onClick={handleLogin}>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    onClick={handleLogin}
+                    className="text-neutral-700 hover:text-primary-600"
+                  >
                     Log in
                   </Button>
-                  <Button variant="primary" size="sm" onClick={handleSellBusiness}>
-                    List your business
+                  <Button
+                    variant="primary"
+                    size="md"
+                    onClick={handlePrimaryCTA}
+                    className="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-sm hover:shadow-md transition-all"
+                  >
+                    Get Free Valuation
                   </Button>
                 </>
               )}
@@ -165,7 +265,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                 </>
               ) : isCheckingAuth ? (
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center animate-pulse">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center animate-pulse">
                     <span className="text-white text-sm font-medium">•</span>
                   </div>
                   <Button
@@ -179,15 +279,25 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                   </Button>
                 </div>
               ) : (
-                <Button
-                  isIconOnly
-                  variant="tertiary"
-                  onClick={onMobileMenuToggle}
-                  className="text-neutral-700"
-                  aria-label="Open mobile menu"
-                >
-                  <Menu className="w-5 h-5 text-neutral-700" />
-                </Button>
+                <>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={handlePrimaryCTA}
+                    className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm"
+                  >
+                    Get Valued
+                  </Button>
+                  <Button
+                    isIconOnly
+                    variant="tertiary"
+                    onClick={onMobileMenuToggle}
+                    className="text-neutral-700"
+                    aria-label="Open mobile menu"
+                  >
+                    <Menu className="w-5 h-5 text-neutral-700" />
+                  </Button>
+                </>
               )}
             </li>
           </ul>

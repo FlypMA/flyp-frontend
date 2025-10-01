@@ -14,16 +14,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Column 1: For Sellers */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">For Sellers</h3>
+            <h3 className="text-white font-semibold text-lg mb-6">For Business Owners</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/for-sellers"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
-                >
-                  Sell Your Business
-                </Link>
-              </li>
               <li>
                 <Link
                   to="/valuation"
@@ -34,18 +26,18 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/resources/valuation-guide"
+                  to="/for-sellers"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  Valuation Guide
+                  Sell Your Business
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/resources/due-diligence"
+                  to="/how-it-works"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  Due Diligence
+                  How It Works
                 </Link>
               </li>
             </ul>
@@ -65,18 +57,10 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/faq"
+                  to="/how-it-works"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/help"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
-                >
-                  Help Center
+                  How It Works
                 </Link>
               </li>
             </ul>
@@ -88,26 +72,18 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/how-it-works"
+                  to={UrlGenerator.help()}
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  How It Works
+                  Help Center
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/blog"
+                  to="/faq"
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/case-studies"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
-                >
-                  Success Stories
+                  FAQ
                 </Link>
               </li>
             </ul>
@@ -119,7 +95,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/about"
+                  to={UrlGenerator.about()}
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
                   About
@@ -131,14 +107,6 @@ const Footer = () => {
                   className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
                 >
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/help"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm block py-1"
-                >
-                  Help Center
                 </Link>
               </li>
             </ul>

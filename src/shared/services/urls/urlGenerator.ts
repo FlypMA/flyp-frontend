@@ -11,7 +11,7 @@ export class UrlGenerator {
   static search = () => '/search';
   static browse = () => '/browse';
   static browseByFilter = (filter: string) => `/browse/sector/${filter}`;
-  static listings = () => '/listings';
+  static listings = () => '/search';
   static listingById = (listingId: string) => `/listings/${listingId}`;
   static about = () => '/about';
   static contact = () => '/contact';

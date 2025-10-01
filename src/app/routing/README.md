@@ -21,7 +21,7 @@ src/app/routing/
 - `/about` - About page
 - `/contact` - Contact page
 - `/search` - Search listings
-- `/listings` - Browse listings
+- `/search` - Browse listings (with design variations for A/B testing)
 - `/listings/:id` - Listing details
 - `/login` - Login page
 - `/register` - Register page

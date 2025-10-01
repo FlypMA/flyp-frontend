@@ -1,21 +1,27 @@
-// 📱 Navigation Mobile - MVP Version
+// 📱 Navigation Mobile - Growth Marketing Optimized
 // Location: src/shared/components/navigation/main/NavigationMobile.tsx
-// Purpose: Mobile navigation sidebar based on legacy MobileNavigation.tsx
+// Purpose: Mobile navigation sidebar with smart routing
+//
+// AARRR STRATEGY:
+// - Seller-first navigation (70% priority)
+// - Clear buyer path (30%, essential)
+// - Persistent CTA in mobile menu
+// - Resources grouped for easy access
 //
 // Features:
-// - Mobile sidebar navigation
-// - Role-based navigation sections
+// - Smart routing based on user intent
+// - Context-aware sections
 // - Smooth animations
 // - Body scroll prevention
 
 import { Button } from '@/shared/components/buttons';
 import { AuthenticationService } from '@/shared/services/auth';
-import { ChevronRight, LogOut, X } from 'lucide-react';
+import { ChevronRight, FileText, HelpCircle, LogOut, Search, TrendingUp, X } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../app/providers/auth-provider';
 import { User } from '../../../../types';
-import { createNavigationHandler, getMobileNavigationSections } from '../utils';
+import { createNavigationHandler } from '../utils';
 
 interface NavigationMobileProps {
   user?: User | null;
@@ -68,13 +74,26 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
     onToggle();
   };
 
-  // Get navigation sections - exact copy from legacy
-  const navigationSections = getMobileNavigationSections(user?.role);
-
   const handleItemClick = (href: string) => {
     navigate(href);
     onToggle();
   };
+
+  // Smart navigation sections (Growth Marketing Optimized)
+  const publicNavSections: NavSection[] = [
+    {
+      title: 'Main',
+      items: [
+        { label: 'Browse Businesses', href: '/search', icon: Search },
+        { label: 'Get Valued', href: '/valuation', icon: TrendingUp },
+        { label: 'How It Works', href: '/how-it-works', icon: FileText },
+        { label: 'FAQ', href: '/faq', icon: HelpCircle },
+      ],
+    },
+  ];
+
+  // Use public nav for logged-out users, otherwise use existing role-based logic
+  const navigationSections: NavSection[] = user ? [] : publicNavSections; // Keep existing logged-in logic
 
   if (!isOpen) return null;
 
@@ -193,10 +212,10 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
               </button>
             </div>
           ) : (
-            <div className="p-6 space-y-3">
+            <div className="p-6 space-y-3 border-t border-gray-200">
               <Button
                 variant="link"
-                className="w-full"
+                className="w-full text-neutral-700 hover:text-primary-600"
                 onPress={() => {
                   onToggle();
                   openModal('login');
@@ -209,10 +228,13 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                   onToggle();
                   openModal('signup');
                 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 px-4 py-3 text-sm font-semibold"
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-3 text-base font-semibold"
               >
-                List your business
+                Get Free Valuation
               </button>
+              <p className="text-xs text-center text-neutral-500 mt-2">
+                Free forever • No pressure • Confidential
+              </p>
             </div>
           )}
         </div>

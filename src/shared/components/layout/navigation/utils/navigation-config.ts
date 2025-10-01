@@ -85,7 +85,7 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
       items: [
         {
           label: normalizedRole === 'seller' ? 'My business' : 'Browse Businesses',
-          href: normalizedRole === 'seller' ? '/my-business' : '/listings',
+          href: normalizedRole === 'seller' ? '/my-business' : '/search',
           icon: Home,
         },
         {
@@ -137,7 +137,7 @@ export const getMobileNavigationSections = (userRole?: string): NavSection[] => 
  * Buyer Dropdown Menu Items - Exact copy from legacy user_avatar_dropdown.tsx
  */
 export const getBuyerDropdownItems = (): DropdownMenuItem[] => [
-  { icon: LayoutDashboard, label: 'Browse Businesses', href: '/listings' },
+  { icon: LayoutDashboard, label: 'Browse Businesses', href: '/search' },
   { icon: Heart, label: 'Saved Items', href: '/users/saved' },
   { icon: MessageCircle, label: 'Messages', href: '/messages' },
   { divider: true },

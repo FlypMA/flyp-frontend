@@ -28,6 +28,7 @@ import {
   SellerVariationA,
   SellerVariationB,
   SellerVariationC,
+  SellerVariationD,
 } from '../pages/landingPages/sellers/variations';
 import VariationComparison from '../pages/landingPages/sellers/variations/VariationComparison';
 
@@ -35,7 +36,6 @@ import VariationComparison from '../pages/landingPages/sellers/variations/Variat
 import CreateListingPage from '../pages/listings/CreateListingPage';
 import ListingDetails from '../pages/listings/ListingDetails';
 import ListingPreludePage from '../pages/listings/ListingPreludePage';
-import ListingSearch from '../pages/listings/ListingSearch';
 import PrivateListingDetails from '../pages/listings/PrivateListingDetails';
 
 // Page imports - Search Variations
@@ -148,6 +148,7 @@ export const router = createBrowserRouter([
       { path: 'for-sellers/variation-a', element: <SellerVariationA /> },
       { path: 'for-sellers/variation-b', element: <SellerVariationB /> },
       { path: 'for-sellers/variation-c', element: <SellerVariationC /> },
+      { path: 'for-sellers/variation-d', element: <SellerVariationD /> },
       { path: 'for-sellers/compare', element: <VariationComparison /> },
 
       // Valuation Landing Page (NEW - Main entry point for sellers)
@@ -176,7 +177,6 @@ export const router = createBrowserRouter([
       // Search & Listings
       { path: 'search', element: <SearchVariationC /> },
       { path: 'browse', element: <SearchVariationC /> },
-      { path: 'listings', element: <ListingSearch /> },
 
       // Search Page Variations (for design exploration & A/B testing)
       { path: 'search/variation-a', element: <SearchVariationA /> },
@@ -561,8 +561,7 @@ export const router = createBrowserRouter([
 
       // Selling/Buying redirects
       { path: 'selling', loader: () => redirect('/my-business') },
-      { path: 'buying', loader: () => redirect('/listings') },
-      { path: 'browse', loader: () => redirect('/listings') },
+      { path: 'buying', loader: () => redirect('/search') },
 
       // Dashboard redirects
       { path: 'dashboard', loader: () => redirect('/my-business') },

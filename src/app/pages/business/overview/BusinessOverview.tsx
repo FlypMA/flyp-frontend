@@ -167,6 +167,21 @@ const BusinessOverview = () => {
             }
           }
 
+          // Load active listing data if it exists
+          const hasActiveListingFlag = localStorage.getItem('hasActiveListing');
+          if (hasActiveListingFlag === 'true') {
+            setHasActiveListing(true);
+            const activeListingDataString = localStorage.getItem('activeListing');
+            if (activeListingDataString) {
+              try {
+                const listing = JSON.parse(activeListingDataString);
+                console.log('📋 Loaded active listing:', listing);
+              } catch (error) {
+                console.error('❌ Failed to parse active listing:', error);
+              }
+            }
+          }
+
           // TODO: Replace with actual API calls once backend is fully implemented
           // Mock data showing single business journey stages
 

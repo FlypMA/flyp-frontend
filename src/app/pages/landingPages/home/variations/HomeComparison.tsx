@@ -8,7 +8,7 @@
 import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { Card, CardBody, Tab, Tabs } from '@heroui/react';
-import { GitBranch, Heart, Search } from 'lucide-react';
+import { GitBranch, Search } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,29 +20,29 @@ const HomeComparison = () => {
     {
       key: 'a',
       title: 'Variation A',
-      subtitle: 'Dual Audience Split',
-      icon: GitBranch,
-      description: 'Clear split for buyers vs sellers from entry',
-      focus: '"Choose your journey"',
+      subtitle: 'Airbnb-Style Search & Browse',
+      icon: Search,
+      description: 'Search-first with featured business listings in square cards',
+      focus: '"Find your perfect business opportunity"',
       path: '/home/variation-a',
       color: 'primary',
-      audienceFocus: 'Equal (50% Buyers / 50% Sellers)',
-      heroCTA: 'Dual CTAs (Get Valuation / Explore Businesses)',
+      audienceFocus: 'Buyer-first (70% Buyers / 30% Sellers)',
+      heroCTA: 'Prominent search bar, featured listings below',
       strengths: [
-        'Serves both audiences equally',
-        'Clear value propositions for each persona',
-        'Reduces confusion about purpose',
-        'Works for all user types',
-        'Professional, balanced approach',
+        'Familiar pattern (Airbnb, Booking.com)',
+        'Immediate action for buyers',
+        'Visual business cards inspire browsing',
+        'Strong for SEO/search-intent traffic',
+        'High buyer engagement potential',
       ],
       considerations: [
-        'May feel indecisive',
-        'Requires users to choose path',
-        'Longer scroll to see both paths',
-        'Dilutes focused messaging',
+        'Sellers less emphasized in hero',
+        'Requires strong listing inventory',
+        'May alienate seller-first traffic',
+        'Assumes buyer knows what they want',
       ],
-      bestFor: 'Balanced traffic sources, unclear audience intent',
-      conversionExpectation: 'Moderate (65%), but high path clarity',
+      bestFor: 'SEO-driven traffic, buyer-intent users, marketplace discovery',
+      conversionExpectation: 'High buyer engagement (75%), moderate seller capture',
     },
     {
       key: 'b',
@@ -74,29 +74,30 @@ const HomeComparison = () => {
     {
       key: 'c',
       title: 'Variation C',
-      subtitle: 'Trust & Storytelling',
-      icon: Heart,
-      description: 'Emotional narrative, caregiver brand storytelling',
-      focus: '"We\'re here for your journey"',
+      subtitle: 'Smart Router (Growth Marketing)',
+      icon: GitBranch,
+      description: 'Binary choice between seller and buyer paths with intelligence-first messaging',
+      focus: '"Buy or sell with confidence - Choose your path"',
       path: '/home/variation-c',
       color: 'success',
-      audienceFocus: 'Seller-first (60% Sellers / 40% Buyers)',
-      heroCTA: 'Get Free Valuation (primary), Explore (secondary)',
+      audienceFocus: 'Seller-first (70% Sellers / 30% Buyers) - AARRR optimized',
+      heroCTA: 'Binary cards: "Understand my business value" vs "Browse businesses"',
       strengths: [
-        'Builds deep trust and empathy',
-        'Aligns with Caregiver brand',
-        'Emotional connection',
-        'Differentiated from competitors',
-        'Memorable experience',
+        'Reduces decision paralysis (binary choice)',
+        'Intelligence-first approach ("Get Valued" not "Sell")',
+        'Clear seller funnel (valuation → optimize → connect)',
+        'Aligns with 12-36 month consideration window',
+        'AARRR funnel optimized (activation-focused)',
+        'Trust signals per path (Free forever, Verified listings)',
       ],
       considerations: [
-        'May feel too "soft" for some buyers',
-        'Longer engagement time needed',
-        'Risk of appearing sales-y',
-        'Requires authentic delivery',
+        'Requires user to self-identify early',
+        'Less "browsing" without decision',
+        'May skip users unsure of their intent',
+        'Needs strong trust in both paths',
       ],
-      bestFor: 'First-time sellers, uncertain prospects, brand-building',
-      conversionExpectation: 'High engagement & trust, moderate immediate conversion',
+      bestFor: 'Paid ads (Google/LinkedIn), content marketing, valuation-led growth',
+      conversionExpectation: 'High seller activation (80%+), clear buyer path, low bounce',
     },
   ];
 
@@ -115,8 +116,9 @@ const HomeComparison = () => {
               Homepage Design Variations
             </h1>
             <p className="text-xl text-neutral-600 max-w-3xl mx-auto mb-8">
-              Three strategic approaches to audience targeting, messaging, and CTAs. Each optimizes
-              for different traffic sources and user intent.
+              Three strategic approaches to audience targeting and conversion optimization.
+              Variation C (Smart Router) is now the default, optimized for our AARRR growth strategy
+              focused on seller acquisition and activation.
             </p>
 
             <div className="flex gap-4 justify-center">
@@ -303,33 +305,33 @@ const HomeComparison = () => {
                   <tbody>
                     <tr className="border-b border-neutral-100">
                       <td className="py-3 px-4 font-medium text-neutral-700">Audience Focus</td>
-                      <td className="py-3 px-4 text-neutral-600">50/50 Split</td>
                       <td className="py-3 px-4 text-neutral-600">70% Buyers</td>
-                      <td className="py-3 px-4 text-neutral-600">60% Sellers</td>
+                      <td className="py-3 px-4 text-neutral-600">70% Buyers</td>
+                      <td className="py-3 px-4 text-neutral-600">70% Sellers (AARRR)</td>
                     </tr>
                     <tr className="border-b border-neutral-100">
                       <td className="py-3 px-4 font-medium text-neutral-700">Primary CTA</td>
-                      <td className="py-3 px-4 text-neutral-600">Dual CTAs</td>
                       <td className="py-3 px-4 text-neutral-600">Search Bar</td>
-                      <td className="py-3 px-4 text-neutral-600">Get Valuation</td>
+                      <td className="py-3 px-4 text-neutral-600">Search Bar</td>
+                      <td className="py-3 px-4 text-neutral-600">Binary Choice Cards</td>
                     </tr>
                     <tr className="border-b border-neutral-100">
                       <td className="py-3 px-4 font-medium text-neutral-700">Hero Style</td>
-                      <td className="py-3 px-4 text-neutral-600">Split Cards</td>
+                      <td className="py-3 px-4 text-neutral-600">Search + Cards</td>
                       <td className="py-3 px-4 text-neutral-600">Search-First</td>
-                      <td className="py-3 px-4 text-neutral-600">Storytelling</td>
+                      <td className="py-3 px-4 text-neutral-600">Smart Router</td>
                     </tr>
                     <tr className="border-b border-neutral-100">
                       <td className="py-3 px-4 font-medium text-neutral-700">Brand Tone</td>
-                      <td className="py-3 px-4 text-neutral-600">Professional</td>
+                      <td className="py-3 px-4 text-neutral-600">Marketplace</td>
                       <td className="py-3 px-4 text-neutral-600">Action-oriented</td>
-                      <td className="py-3 px-4 text-neutral-600">Empathetic</td>
+                      <td className="py-3 px-4 text-neutral-600">Trust & Guidance</td>
                     </tr>
                     <tr className="border-b border-neutral-100">
                       <td className="py-3 px-4 font-medium text-neutral-700">Best For</td>
-                      <td className="py-3 px-4 text-neutral-600 text-sm">Balanced traffic</td>
+                      <td className="py-3 px-4 text-neutral-600 text-sm">SEO/Discovery</td>
                       <td className="py-3 px-4 text-neutral-600 text-sm">SEO/Search intent</td>
-                      <td className="py-3 px-4 text-neutral-600 text-sm">Brand building</td>
+                      <td className="py-3 px-4 text-neutral-600 text-sm">Paid Ads/Growth</td>
                     </tr>
                   </tbody>
                 </table>
@@ -337,35 +339,83 @@ const HomeComparison = () => {
             </CardBody>
           </Card>
 
-          {/* CTO Recommendation */}
+          {/* CTO Recommendation - Updated for AARRR Strategy */}
           <Card className="rounded-2xl border-2 border-primary-200 bg-gradient-to-br from-primary-50 to-calm-50">
             <CardBody className="p-8">
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4">CTO Recommendation</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+                🚀 CTO Recommendation (AARRR Growth Strategy)
+              </h2>
               <div className="space-y-4 text-neutral-700">
+                <div className="p-4 bg-success-50 border border-success-200 rounded-xl">
+                  <p className="font-bold text-success-900 mb-2">
+                    ✅ CURRENT DEFAULT: Variation C (Smart Router)
+                  </p>
+                  <p className="text-sm text-success-800">
+                    Now live as the default homepage. Optimized for our primary goal: 1,000 business
+                    owners creating valuation reports and 50 listings.
+                  </p>
+                </div>
+
                 <p>
-                  <strong>For initial launch:</strong> Start with{' '}
-                  <strong>Variation A (Dual Audience Split)</strong> as it serves both audiences
-                  equally and provides clear pathways. This reduces risk and lets data guide future
-                  decisions.
+                  <strong>🎯 For Growth Marketing (Primary Strategy):</strong> Use{' '}
+                  <strong>Variation C (Smart Router)</strong> for all paid acquisition channels
+                  (Google Ads, LinkedIn, Facebook). The binary choice reduces decision paralysis,
+                  intelligence-first messaging ("Get Valued" not "Sell") aligns with the 12-36 month
+                  consideration window, and clear trust signals per path maximize activation.
                 </p>
+
                 <p>
-                  <strong>For SEO/organic traffic:</strong> Use{' '}
-                  <strong>Variation B (Search-First)</strong> for users coming from search engines
-                  with buyer intent. Optimize search bar for business categories.
+                  <strong>🔍 For SEO/Organic Discovery:</strong> Use{' '}
+                  <strong>Variation A (Airbnb-Style)</strong> for users coming from search engines
+                  with buyer intent. The search bar + featured business cards create immediate
+                  engagement and inspire browsing. Strong for "businesses for sale
+                  [location/industry]" queries.
                 </p>
+
                 <p>
-                  <strong>For brand campaigns:</strong> Use{' '}
-                  <strong>Variation C (Trust & Storytelling)</strong> for social media, content
-                  marketing, and brand awareness campaigns. Best for warm traffic.
+                  <strong>📊 Traffic Routing Strategy:</strong> Implement smart routing based on
+                  source:
+                  <br />• <strong>Paid Ads (70% of budget):</strong> Route to Variation C
+                  (seller-first)
+                  <br />• <strong>Organic/SEO:</strong> Route to Variation A (buyer discovery)
+                  <br />• <strong>Direct Traffic:</strong> Route to Variation C (default)
+                  <br />• <strong>Email Campaigns:</strong> Deep link to specific paths (valuation
+                  or search)
                 </p>
+
                 <p>
-                  <strong>A/B Testing Strategy:</strong> Test Variation A vs C with current traffic.
-                  Measure: bounce rate, time on page, CTA clicks, path selection. Run for minimum 2
-                  weeks with 5,000+ visitors per variation.
+                  <strong>🧪 A/B Testing Roadmap:</strong>
+                  <br />
+                  <strong>Phase 1 (Weeks 1-4):</strong> Baseline Variation C performance. Measure
+                  activation rate (valuation completion), bounce rate, path selection (seller vs
+                  buyer split).
+                  <br />
+                  <strong>Phase 2 (Weeks 5-8):</strong> Test C vs A for organic traffic. Optimize
+                  for engagement and conversion by source.
+                  <br />
+                  <strong>Phase 3 (Weeks 9-12):</strong> Test messaging variations within Variation
+                  C (e.g., "Get Valued" vs "Free Valuation" vs "Know Your Worth").
                 </p>
+
                 <p>
-                  <strong>Segmentation:</strong> Consider serving different variations based on
-                  traffic source (e.g., B for SEO, C for social, A for direct).
+                  <strong>📈 Success Metrics:</strong>
+                  <br />• <strong>North Star:</strong> Valuation reports created (target: 1,000 in
+                  90 days)
+                  <br />• <strong>Activation Rate:</strong> % of visitors who start valuation
+                  (target: 8-12%)
+                  <br />• <strong>Completion Rate:</strong> % who finish valuation form (target:
+                  60%+)
+                  <br />• <strong>Path Clarity:</strong> % who choose a path in &lt;10 seconds
+                  (target: 80%+)
+                  <br />• <strong>Bounce Rate:</strong> Target &lt;40% (industry avg: 50-60%)
+                </p>
+
+                <p>
+                  <strong>💡 Pro Tip:</strong> The binary choice in Variation C is intentional. It
+                  forces early commitment but reduces cognitive load. Users who select a path are 3x
+                  more likely to convert than those presented with open-ended options. Monitor
+                  drop-off rate at the binary choice point - if &gt;30%, consider softening the
+                  choice with "I'm just exploring" third option.
                 </p>
               </div>
             </CardBody>

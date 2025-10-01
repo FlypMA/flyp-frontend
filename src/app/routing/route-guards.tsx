@@ -282,7 +282,7 @@ const getDefaultRouteForUser = (user: { role: string } | null): string => {
       return '/admin/dashboard';
     case 'buyer':
     default:
-      return '/listings'; // Buyers focus on browsing listings
+      return '/search'; // Buyers focus on browsing listings
   }
 };
 

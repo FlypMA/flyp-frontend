@@ -27,7 +27,7 @@ interface Listing {
 
 const ListingManagement: React.FC = () => {
   const navigate = useNavigate();
-  const [listings] = useState<Listing[]>([]);
+  const [listings, setListings] = useState<Listing[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [businessInfo, setBusinessInfo] = useState<any>(null);
   const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState(false);
@@ -38,6 +38,7 @@ const ListingManagement: React.FC = () => {
   const [businessCardData, setBusinessCardData] = useState<any>(null);
   const [profileCardData, setProfileCardData] = useState<any>(null);
   const [latestValuationReport, setLatestValuationReport] = useState<any>(null);
+  const [activeListing, setActiveListing] = useState<any>(null);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -122,6 +123,38 @@ const ListingManagement: React.FC = () => {
                 }
               } catch (error) {
                 console.error('❌ Failed to parse valuation reports:', error);
+              }
+            }
+          }
+
+          // Load active listing from localStorage
+          const hasActiveListingFlag = localStorage.getItem('hasActiveListing');
+          if (hasActiveListingFlag === 'true') {
+            const activeListingDataString = localStorage.getItem('activeListing');
+            if (activeListingDataString) {
+              try {
+                const listing = JSON.parse(activeListingDataString);
+                setActiveListing(listing);
+                console.log('📋 Loaded active listing for listings page:', listing);
+
+                // Convert to Listing format for display
+                const displayListing: Listing = {
+                  id: listing.id || 'active-1',
+                  title: `${listing.basicInfo?.businessName || 'Business'} - Confidential Listing`,
+                  status: 'published',
+                  views: 0, // Will be tracked later
+                  inquiries: 0, // Will be tracked later
+                  publishedAt: new Date().toISOString(),
+                  askingPrice: listing.financialInfo?.asking_price
+                    ? parseFloat(listing.financialInfo.asking_price)
+                    : undefined,
+                  currency: listing.financialInfo?.currency || 'EUR',
+                  location: listing.basicInfo?.location,
+                  industry: listing.basicInfo?.businessType,
+                };
+                setListings([displayListing]);
+              } catch (error) {
+                console.error('❌ Failed to parse active listing:', error);
               }
             }
           }

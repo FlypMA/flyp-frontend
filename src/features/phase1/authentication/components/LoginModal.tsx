@@ -162,7 +162,7 @@ const LoginModal: React.FC = () => {
           });
         } else {
           // Redirect based on user role
-          const redirectUrl = authResult.user.role === 'seller' ? '/my-business' : '/listings';
+          const redirectUrl = authResult.user.role === 'seller' ? '/my-business' : '/search';
           navigate(redirectUrl, { replace: true });
         }
       } else {
@@ -239,14 +239,14 @@ const LoginModal: React.FC = () => {
                   handleCloseModal();
                   navigate('/');
                 }}
-                className="flex items-center space-x-2 hover:opacity-80 transition-opacity duration-200"
+                className="flex items-center gap-1 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
                   src="/UpSwitch_logo_var1.svg?v=2024.4"
                   alt="Upswitch - European SME M&A Platform"
                   width="32"
                   height="32"
-                  className="logo-image transition-opacity hover:opacity-80 w-8 h-8"
+                  className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
                   loading="lazy"
                   style={{
                     height: '32px',
@@ -256,7 +256,9 @@ const LoginModal: React.FC = () => {
                     display: 'block',
                   }}
                 />
-                <span className="text-xl font-bold text-primary-700">UpSwitch</span>
+                <span className="font-display text-xl font-light text-primary-700 leading-none mt-0.5">
+                  Upswitch
+                </span>
               </a>
             </div>
 

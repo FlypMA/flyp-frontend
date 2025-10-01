@@ -1,103 +1,176 @@
 /**
- * 🎯 Homepage - Variation A: "Dual Audience Split"
+ * 🎯 Homepage - Variation A: "Airbnb-Style Search & Browse"
  *
  * STRATEGY:
- * - Clear split for buyers vs sellers from entry
- * - Two distinct value propositions
- * - Equal emphasis on both audiences
- * - Focus: "Choose your journey"
+ * - Dominant search bar in hero (Airbnb-style)
+ * - Featured listings directly on homepage
+ * - Immediate buyer action focus
+ * - Seller CTA in secondary position
+ * - Focus: "Browse and discover opportunities"
  *
  * INSPIRATION:
- * - Airbnb: Clean split hero sections
- * - Fiverr: Dual audience targeting
- * - Modern SaaS: Clear persona paths
+ * - Airbnb: Prominent search, featured properties
+ * - Booking.com: Immediate browsing
+ * - Zillow: Search-first, listings visible
  */
 
 import { Button } from '@/shared/components/buttons';
+import { SearchComponent } from '@/shared/components/filters';
 import Container from '@/shared/components/layout/container/Container';
 import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { VideoBackground } from '@/shared/components/video';
+import { UrlGenerator } from '@/shared/services/urls/urlGenerator';
 import { seoData } from '@/shared/utils/seo/seoData';
-import { Card, CardBody } from '@heroui/react';
-import {
-  ArrowRight,
-  BarChart3,
-  Building2,
-  CheckCircle,
-  Euro,
-  HandshakeIcon,
-  Heart,
-  Lock,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  TrendingUp,
-  Users,
-} from 'lucide-react';
+import { Card, CardBody, Chip } from '@heroui/react';
+import { ArrowRight, Building2, Euro, Heart, Sparkles, Users } from 'lucide-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../providers/auth-provider';
 
 const HomeVariationA = () => {
   const navigate = useNavigate();
-  const { openModal } = useAuth();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  const sellerBenefits = [
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) {
+      params.set('q', searchQuery.trim());
+    }
+    navigate(`/search?${params.toString()}`);
+  };
+
+  const toggleFavorite = (id: string) => {
+    const newFavorites = new Set(favorites);
+    if (newFavorites.has(id)) {
+      newFavorites.delete(id);
+    } else {
+      newFavorites.add(id);
+    }
+    setFavorites(newFavorites);
+  };
+
+  const featuredListings = [
     {
-      icon: BarChart3,
-      title: 'Know Your Worth',
-      description: 'Get a professional valuation in 10 minutes. Free, accurate, confidential.',
+      id: '1',
+      title: 'Michelin Star Restaurant',
+      sector: 'restaurant',
+      region: 'Brussels',
+      asking_price: 2500000,
+      currency: 'EUR',
+      anonymous: false,
+      years_in_business: 12,
     },
     {
-      icon: TrendingUp,
-      title: 'Increase Value',
-      description: 'Monthly insights show you exactly how to optimize your business value.',
+      id: '2',
+      title: 'SaaS Analytics Platform',
+      sector: 'saas',
+      region: 'Amsterdam',
+      asking_price: 3200000,
+      currency: 'EUR',
+      anonymous: true,
+      years_in_business: 5,
     },
     {
-      icon: Users,
-      title: 'Find the Right Buyer',
-      description: "Connect with qualified, verified buyers who value what you've built.",
+      id: '3',
+      title: 'Automotive Parts Manufacturing',
+      sector: 'manufacturing',
+      region: 'Munich',
+      asking_price: 4800000,
+      currency: 'EUR',
+      anonymous: false,
+      years_in_business: 18,
     },
     {
-      icon: ShieldCheck,
-      title: 'Sell with Confidence',
-      description: 'Expert support through every step. No pressure, just guidance.',
+      id: '4',
+      title: 'Luxury Beauty Salon',
+      sector: 'makeup',
+      region: 'Paris',
+      asking_price: 950000,
+      currency: 'EUR',
+      anonymous: false,
+      years_in_business: 6,
+    },
+    {
+      id: '5',
+      title: 'E-commerce Fashion Brand',
+      sector: 'ecommerce',
+      region: 'Milan',
+      asking_price: 1200000,
+      currency: 'EUR',
+      anonymous: true,
+      years_in_business: 4,
+    },
+    {
+      id: '6',
+      title: 'Healthcare Clinic',
+      sector: 'healthcare',
+      region: 'Barcelona',
+      asking_price: 1950000,
+      currency: 'EUR',
+      anonymous: false,
+      years_in_business: 10,
     },
   ];
 
-  const buyerBenefits = [
-    {
-      icon: Search,
-      title: 'Curated Opportunities',
-      description: 'Access pre-vetted businesses with verified financials and documentation.',
-    },
-    {
-      icon: Lock,
-      title: 'Confidential Process',
-      description: 'NDA-protected information sharing. Your interests stay private.',
-    },
-    {
-      icon: HandshakeIcon,
-      title: 'Transaction Support',
-      description: 'Due diligence tools, offer management, and closing support included.',
-    },
-    {
-      icon: Sparkles,
-      title: 'Smart Matching',
-      description: 'AI-powered recommendations based on your investment criteria.',
-    },
+  // Get business icon based on sector
+  const getBusinessIcon = (sector: string): string => {
+    const iconMap: Record<string, string> = {
+      restaurant: '🍴',
+      saas: '💻',
+      manufacturing: '🏭',
+      makeup: '💄',
+      ecommerce: '🛒',
+      healthcare: '⚕️',
+    };
+    return iconMap[sector.toLowerCase()] || '🏢';
+  };
+
+  // Get gradient background based on sector
+  const getGradientBackground = (sector: string): string => {
+    const gradientMap: Record<string, string> = {
+      restaurant: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)', // Amber
+      saas: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)', // Blue
+      manufacturing: 'linear-gradient(135deg, #6B7280 0%, #374151 100%)', // Gray
+      makeup: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)', // Pink
+      ecommerce: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', // Emerald
+      healthcare: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)', // Violet
+    };
+    return gradientMap[sector.toLowerCase()] || 'linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)';
+  };
+
+  const formatPrice = (price: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const quickCategories = [
+    { label: 'Technology', icon: '💻', count: '240+', query: 'technology' },
+    { label: 'E-commerce', icon: '🛍️', count: '180+', query: 'ecommerce' },
+    { label: 'Services', icon: '🤝', count: '320+', query: 'services' },
+    { label: 'Food & Beverage', icon: '🍽️', count: '150+', query: 'food' },
+    { label: 'Healthcare', icon: '⚕️', count: '95+', query: 'healthcare' },
+    { label: 'Manufacturing', icon: '🏭', count: '120+', query: 'manufacturing' },
   ];
 
   return (
     <>
-      <SEOHead {...seoData.home} />
+      <SEOHead
+        {...seoData.home}
+        title="Find Your Next Business | Upswitch - Browse & Discover"
+        description="Discover verified businesses for sale across Europe. Search 2,400+ opportunities in technology, e-commerce, services, and more. Start browsing now."
+      />
 
-      <div className="min-h-screen bg-white">
-        {/* Dual Hero Section with Video Background */}
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+        {/* Hero Section - Search-First (Airbnb Style) */}
         <VideoBackground
-          videoSrc="/videos/dual-audience.mp4"
-          fallbackGradient="from-neutral-900 via-primary-900 to-calm-900"
-          posterImage="/images/dual-hero-poster.jpg"
-          overlay="dark"
+          videoSrc="/videos/search-hero.mp4"
+          fallbackGradient="from-primary-900 via-calm-800 to-neutral-900"
+          posterImage="/images/search-hero-poster.jpg"
+          overlay="gradient"
           className="py-20"
         >
           <Container>
@@ -105,225 +178,245 @@ const HomeVariationA = () => {
               {/* Pre-headline */}
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6">
-                  <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse" />
+                  <Sparkles className="w-4 h-4 text-success-400" />
                   <span className="text-sm font-medium text-white">
-                    Europe's M&A Platform for SMEs
+                    2,400+ businesses ready to discover
                   </span>
                 </div>
 
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                  Your journey starts here
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                  Find Your Next
+                  <br />
+                  <span className="bg-gradient-to-r from-accent-300 to-primary-300 bg-clip-text text-transparent">
+                    Business Adventure
+                  </span>
                 </h1>
-                <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
-                  Whether you're selling your business or looking to buy, we guide you every step of
-                  the way
+                <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12">
+                  Browse verified opportunities across Europe. Start your search now.
                 </p>
               </div>
 
-              {/* Dual Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                {/* Seller Card */}
-                <Card className="rounded-3xl border-2 border-primary-200 bg-white shadow-2xl hover:shadow-primary-500/20 transition-all duration-300 hover:scale-105">
-                  <CardBody className="p-10">
-                    <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mb-6">
-                      <Building2 className="w-8 h-8 text-primary-600" />
-                    </div>
-
-                    <h2 className="text-3xl font-bold text-neutral-900 mb-3">
-                      Selling Your Business
-                    </h2>
-                    <p className="text-lg text-neutral-600 mb-8">
-                      Get smarter about your business. Free valuation, monthly insights, and expert
-                      guidance when you're ready to sell.
-                    </p>
-
-                    <div className="space-y-3 mb-8">
-                      {[
-                        'Free business valuation',
-                        'Monthly value insights',
-                        'No-pressure exploration',
-                        'Expert support included',
-                      ].map((item, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <CheckCircle className="w-5 h-5 text-success-600 flex-shrink-0" />
-                          <span className="text-neutral-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      className="w-full"
-                      onPress={() => navigate('/for-sellers')}
-                      endContent={<ArrowRight className="w-5 h-5" />}
-                    >
-                      Get Free Valuation
-                    </Button>
-
-                    <p className="text-xs text-neutral-500 text-center mt-4">
-                      12,000+ business owners trust Upswitch
-                    </p>
-                  </CardBody>
-                </Card>
-
-                {/* Buyer Card */}
-                <Card className="rounded-3xl border-2 border-calm-200 bg-white shadow-2xl hover:shadow-calm-500/20 transition-all duration-300 hover:scale-105">
-                  <CardBody className="p-10">
-                    <div className="w-16 h-16 bg-calm-100 rounded-2xl flex items-center justify-center mb-6">
-                      <Search className="w-8 h-8 text-calm-600" />
-                    </div>
-
-                    <h2 className="text-3xl font-bold text-neutral-900 mb-3">Buying a Business</h2>
-                    <p className="text-lg text-neutral-600 mb-8">
-                      Discover verified opportunities. Access detailed financials, connect with
-                      sellers, and complete deals confidently.
-                    </p>
-
-                    <div className="space-y-3 mb-8">
-                      {[
-                        'Verified business listings',
-                        'Detailed financial data',
-                        'NDA-protected access',
-                        'Transaction tools included',
-                      ].map((item, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <CheckCircle className="w-5 h-5 text-success-600 flex-shrink-0" />
-                          <span className="text-neutral-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      className="w-full bg-calm-600 hover:bg-calm-700"
-                      onPress={() => navigate('/search')}
-                      endContent={<ArrowRight className="w-5 h-5" />}
-                    >
-                      Explore Businesses
-                    </Button>
-
-                    <p className="text-xs text-neutral-500 text-center mt-4">
-                      2,400+ successful transactions
-                    </p>
-                  </CardBody>
-                </Card>
+              {/* Search Bar - Prominent */}
+              <div className="max-w-4xl mx-auto mb-8">
+                <SearchComponent
+                  value={searchQuery}
+                  onChange={setSearchQuery}
+                  onSearch={handleSearch}
+                  placeholder="Search by industry, location, or keywords..."
+                  size="large"
+                  buttonText="Search Businesses"
+                />
               </div>
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap justify-center items-center gap-8 mt-12 text-sm text-white/70">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-white" />
-                  <span>Bank-grade security</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Euro className="w-5 h-5 text-white" />
-                  <span>€840M+ transacted</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-white" />
-                  <span>12,000+ users</span>
-                </div>
+              {/* Quick Category Pills */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {quickCategories.map((category, index) => (
+                  <Chip
+                    key={index}
+                    variant="flat"
+                    onClick={() => navigate(`/search?q=${category.query}`)}
+                    className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 cursor-pointer transition-all"
+                  >
+                    <span className="mr-2">{category.icon}</span>
+                    {category.label} ({category.count})
+                  </Chip>
+                ))}
               </div>
             </div>
           </Container>
         </VideoBackground>
 
-        {/* For Sellers Section */}
-        <div className="py-24 bg-gradient-to-br from-primary-50 via-white to-calm-50">
+        {/* Featured Listings */}
+        <div className="py-16 bg-white">
           <Container>
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-neutral-900 mb-4">For Business Owners</h2>
-                <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-                  Join thousands of business owners who use Upswitch to understand and optimize their
-                  business value
-                </p>
+            <div className="max-w-7xl mx-auto">
+              <div className="flex items-center justify-between mb-12">
+                <div>
+                  <h2 className="text-4xl font-bold text-neutral-900 mb-2">
+                    Featured Opportunities
+                  </h2>
+                  <p className="text-xl text-neutral-600">
+                    Hand-picked businesses ready for their next chapter
+                  </p>
+                </div>
+                <Button
+                  variant="tertiary"
+                  size="md"
+                  onPress={() => navigate('/search')}
+                  endContent={<ArrowRight className="w-4 h-4" />}
+                >
+                  View All
+                </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {sellerBenefits.map((benefit, index) => (
-                  <Card
-                    key={index}
-                    className="rounded-2xl border border-neutral-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 bg-white"
-                  >
-                    <CardBody className="p-8">
-                      <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center mb-4">
-                        <benefit.icon className="w-7 h-7 text-primary-600" />
+              {/* Business Card Grid - Square Cards (same as SearchVariationC) */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                {featuredListings.map(listing => (
+                  <div key={listing.id} className="w-full">
+                    <div
+                      className="relative group cursor-pointer"
+                      onClick={() => navigate(UrlGenerator.listingById(listing.id))}
+                    >
+                      {/* Square Card Design - Same as SearchVariationC */}
+                      <div
+                        className="relative aspect-square rounded-2xl overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300"
+                        style={{
+                          background: getGradientBackground(listing.sector),
+                        }}
+                      >
+                        {/* Save Button - Bottom Right (on hover) */}
+                        <button
+                          type="button"
+                          onClick={e => {
+                            e.stopPropagation();
+                            toggleFavorite(listing.id);
+                          }}
+                          className={`absolute bottom-3 right-3 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 ${
+                            favorites.has(listing.id)
+                              ? 'bg-red-100 text-red-500'
+                              : 'bg-white/90 backdrop-blur-sm hover:bg-white'
+                          }`}
+                        >
+                          <Heart
+                            className={`w-4 h-4 ${
+                              favorites.has(listing.id)
+                                ? 'fill-current text-red-500'
+                                : 'text-gray-700'
+                            }`}
+                          />
+                        </button>
+
+                        {/* Badge Overlays - Top Left */}
+                        <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
+                          <div className="relative">
+                            <button
+                              onClick={e => e.stopPropagation()}
+                              className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg"
+                            >
+                              <span className="text-xl">💰</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Anonymous Badge - Top Right */}
+                        {listing.anonymous && (
+                          <div className="absolute top-3 right-3 z-10">
+                            <div className="relative">
+                              <button
+                                onClick={e => e.stopPropagation()}
+                                className="w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 border-2 border-primary-500"
+                              >
+                                <span className="text-xl">👤</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Large Emoji Icon - Center */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-9xl mb-4 drop-shadow-lg">
+                              {getBusinessIcon(listing.sector)}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Bottom Info Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-5 px-5">
+                          <div className="text-center">
+                            <h3 className="text-xl font-bold text-white mb-1 drop-shadow-md">
+                              {listing.title}
+                            </h3>
+                            <p className="text-sm text-white/90">
+                              {formatPrice(listing.asking_price, listing.currency)}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-xl font-bold text-neutral-900 mb-3">{benefit.title}</h3>
-                      <p className="text-neutral-600 leading-relaxed">{benefit.description}</p>
-                    </CardBody>
-                  </Card>
+
+                      {/* Card Footer Info */}
+                      <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
+                        <span>📅 {listing.years_in_business} years</span>
+                        <span>📍 {listing.region}</span>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
 
+              {/* View All CTA */}
               <div className="text-center mt-12">
                 <Button
                   variant="primary"
-                  size="lg"
-                  onPress={() => navigate('/for-sellers')}
+                  size="xl"
+                  onPress={() => navigate('/search')}
                   endContent={<ArrowRight className="w-5 h-5" />}
                 >
-                  Learn More for Sellers
+                  Explore All 2,400+ Businesses
                 </Button>
               </div>
             </div>
           </Container>
         </div>
 
-        {/* For Buyers Section */}
-        <div className="py-24 bg-gradient-to-br from-calm-50 via-white to-primary-50">
+        {/* Seller CTA Section (Secondary) */}
+        <div className="py-20 bg-gradient-to-br from-primary-50 to-calm-50">
           <Container>
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-neutral-900 mb-4">For Buyers & Investors</h2>
-                <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-                  Access verified opportunities and complete transactions with confidence
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {buyerBenefits.map((benefit, index) => (
-                  <Card
-                    key={index}
-                    className="rounded-2xl border border-neutral-200 hover:border-calm-300 hover:shadow-xl transition-all duration-300 bg-white"
-                  >
-                    <CardBody className="p-8">
-                      <div className="w-14 h-14 bg-calm-100 rounded-2xl flex items-center justify-center mb-4">
-                        <benefit.icon className="w-7 h-7 text-calm-600" />
+            <div className="max-w-5xl mx-auto">
+              <Card className="rounded-3xl border-2 border-primary-200 shadow-2xl overflow-hidden">
+                <CardBody className="p-12">
+                  <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                      <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mb-6">
+                        <Building2 className="w-8 h-8 text-primary-600" />
                       </div>
-                      <h3 className="text-xl font-bold text-neutral-900 mb-3">{benefit.title}</h3>
-                      <p className="text-neutral-600 leading-relaxed">{benefit.description}</p>
-                    </CardBody>
-                  </Card>
-                ))}
-              </div>
-
-              <div className="text-center mt-12">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="bg-calm-600 hover:bg-calm-700"
-                  onPress={() => navigate('/search')}
-                  endContent={<ArrowRight className="w-5 h-5" />}
-                >
-                  Browse Opportunities
-                </Button>
-              </div>
+                      <h2 className="text-4xl font-bold text-neutral-900 mb-4">
+                        Selling Your Business?
+                      </h2>
+                      <p className="text-xl text-neutral-700 mb-6 leading-relaxed">
+                        Get a free valuation and discover what your business is really worth. No
+                        pressure, just insights.
+                      </p>
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        onPress={() => navigate('/valuation')}
+                        endContent={<ArrowRight className="w-5 h-5" />}
+                      >
+                        Get Free Valuation
+                      </Button>
+                    </div>
+                    <div className="space-y-4">
+                      {[
+                        { icon: '📊', text: 'Free professional valuation in 10 minutes' },
+                        { icon: '📈', text: 'Monthly insights to increase your value' },
+                        { icon: '🤝', text: 'Connect with qualified buyers when ready' },
+                        { icon: '🔒', text: 'Bank-grade security for your data' },
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-4 p-4 bg-white rounded-xl border border-neutral-200"
+                        >
+                          <span className="text-3xl">{item.icon}</span>
+                          <span className="text-neutral-700 font-medium">{item.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
             </div>
           </Container>
         </div>
 
         {/* Stats Section */}
-        <div className="py-20 bg-white border-y border-neutral-200">
+        <div className="py-16 bg-white border-y border-neutral-200">
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
                   { value: '€840M+', label: 'Total Transactions', icon: Euro },
-                  { value: '2,400+', label: 'Successful Exits', icon: HandshakeIcon },
+                  { value: '2,400+', label: 'Successful Exits', icon: Building2 },
                   { value: '12,000+', label: 'Active Users', icon: Users },
                   { value: '94%', label: 'Success Rate', icon: Sparkles },
                 ].map((stat, index) => (
@@ -336,44 +429,6 @@ const HomeVariationA = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          </Container>
-        </div>
-
-        {/* Final CTA */}
-        <div className="py-24 bg-gradient-to-br from-neutral-900 via-primary-900 to-calm-900 text-white">
-          <Container>
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to start your journey?</h2>
-              <p className="text-xl text-white/80 mb-12">
-                Join thousands who trust Upswitch for their most important business decisions
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Button
-                  variant="primary"
-                  size="xl"
-                  onPress={() => navigate('/for-sellers')}
-                  className="h-16 text-lg"
-                >
-                  <Building2 className="w-6 h-6 mr-2" />
-                  I'm Selling
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="xl"
-                  onPress={() => navigate('/search')}
-                  className="h-16 text-lg bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                >
-                  <Search className="w-6 h-6 mr-2" />
-                  I'm Buying
-                </Button>
-              </div>
-
-              <p className="text-sm text-white/60 mt-8 flex items-center justify-center gap-2">
-                <Heart className="w-4 h-4 text-success-400" />
-                Trusted by 12,000+ business owners across Europe
-              </p>
             </div>
           </Container>
         </div>

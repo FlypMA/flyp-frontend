@@ -450,7 +450,7 @@ const SearchVariationC = () => {
             </p>
 
             {/* Search Bar */}
-            <div className="w-full max-w-3xl mx-auto mb-8">
+            <div className="w-full max-w-3xl mx-auto">
               <SearchComponent
                 value={filters.searchQuery}
                 onChange={value => handleFilterChange('searchQuery', value)}
@@ -459,24 +459,6 @@ const SearchVariationC = () => {
                 size="large"
                 buttonText="Search"
               />
-            </div>
-
-            {/* Quick Stats */}
-            <div className="w-full max-w-2xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-white">2,400+</div>
-                  <div className="text-white/80 text-sm">Businesses</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-white">15</div>
-                  <div className="text-white/80 text-sm">Countries</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-white">€180M+</div>
-                  <div className="text-white/80 text-sm">Total Value</div>
-                </div>
-              </div>
             </div>
           </div>
         </VideoBackground>

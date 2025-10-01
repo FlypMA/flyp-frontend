@@ -171,7 +171,7 @@ const NDAAccessDenied: React.FC<NDAAccessDeniedProps> = ({ reason, listingId }) 
                 <Button
                   variant="secondary"
                   className="w-full"
-                  onPress={() => (window.location.href = '/listings')}
+                  onPress={() => (window.location.href = '/search')}
                 >
                   Browse Other Listings
                 </Button>

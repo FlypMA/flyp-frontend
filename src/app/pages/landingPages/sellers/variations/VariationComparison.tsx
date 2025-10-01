@@ -1,14 +1,14 @@
 /**
  * 🎨 Seller Landing Page Variation Comparison
  *
- * Side-by-side comparison view for all three seller landing page variations
+ * Side-by-side comparison view for all four seller landing page variations
  * Useful for stakeholder review and design decision-making
  */
 
 import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';
 import { Card, CardBody, Tab, Tabs } from '@heroui/react';
-import { BarChart3, MapPin, TrendingUp } from 'lucide-react';
+import { BarChart3, Heart, MapPin, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -83,6 +83,29 @@ const VariationComparison = () => {
       ],
       bestFor: 'Business owners ready to sell now, looking for proven platform with track record',
     },
+    {
+      key: 'd',
+      title: 'Variation D',
+      subtitle: 'Trust & Storytelling',
+      icon: Heart,
+      description: 'Emotional narrative approach focused on seller journey and care',
+      focus: '"Your business journey deserves care"',
+      path: '/for-sellers/variation-d',
+      color: 'calm',
+      strengths: [
+        'Emotional connection builds deeper trust',
+        'Emphasizes no-pressure, supportive approach',
+        'Journey-focused messaging resonates with sellers',
+        'Works for all seller types (explorers to ready)',
+      ],
+      considerations: [
+        'May be too soft for action-oriented sellers',
+        'Requires authentic brand voice and follow-through',
+        'Longer content may reduce mobile engagement',
+      ],
+      bestFor:
+        'Emotional decision-makers who need reassurance and support, trust-focused business owners',
+    },
   ];
 
   const currentVariation = variations.find(v => v.key === selectedVariation);
@@ -100,7 +123,7 @@ const VariationComparison = () => {
               Seller Landing Page Variations
             </h1>
             <p className="text-xl text-neutral-600 max-w-3xl mx-auto mb-8">
-              Compare three strategic approaches to converting business owners. Each variation
+              Compare four strategic approaches to converting business owners. Each variation
               optimizes for different user psychology and journey stages.
             </p>
 
@@ -256,7 +279,7 @@ const VariationComparison = () => {
           {/* Quick Comparison Grid */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-neutral-900 mb-6">Quick Comparison</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {variations.map(variation => (
                 <Card
                   key={variation.key}
@@ -293,21 +316,26 @@ const VariationComparison = () => {
               <h2 className="text-2xl font-bold text-neutral-900 mb-4">CTO Recommendation</h2>
               <div className="space-y-4 text-neutral-700">
                 <p>
-                  <strong>For initial launch:</strong> Start with Variation B (Guided Journey) as
-                  primary landing page. It balances education, trust-building, and conversion
-                  potential.
+                  <strong>For initial launch:</strong> Start with Variation C (Success Stories) as
+                  primary landing page (current default). It provides strong social proof and
+                  credibility immediately.
                 </p>
                 <p>
-                  <strong>For A/B testing:</strong> Test Variation A vs Variation B with traffic
-                  split to optimize for both exploration-phase and ready-to-sell segments.
+                  <strong>For A/B testing:</strong> Test Variation C vs Variation D with traffic
+                  split. C focuses on social proof, D focuses on emotional trust. Both are strong
+                  for different seller psychologies.
                 </p>
                 <p>
-                  <strong>For nurture campaigns:</strong> Use Variation C (Success Stories) in email
-                  campaigns and retargeting to convert warm leads with social proof.
+                  <strong>For content marketing:</strong> Use Variation A (Intelligence First) for
+                  blog/SEO traffic where users are in early research phase.
+                </p>
+                <p>
+                  <strong>For paid ads:</strong> Use Variation D (Trust & Storytelling) for
+                  high-intent keywords where emotional connection drives conversion.
                 </p>
                 <p>
                   <strong>Next steps:</strong> Create video assets for hero sections, gather real
-                  testimonials for Variation C, and set up analytics to track conversion funnels.
+                  testimonials, and set up analytics to track conversion funnels by variation.
                 </p>
               </div>
             </CardBody>

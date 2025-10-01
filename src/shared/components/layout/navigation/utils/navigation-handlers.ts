@@ -52,7 +52,7 @@ export class NavigationHandler {
     switch (action) {
       // Buyer navigation (SIMPLIFIED CTO MODEL)
       case 'browse-listings':
-        this.navigate('/listings');
+        this.navigate('/search');
         break;
       case 'saved':
         this.navigate('/users/saved'); // Saved items in user profile
