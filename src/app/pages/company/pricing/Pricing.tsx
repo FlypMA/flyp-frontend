@@ -197,8 +197,8 @@ const Pricing = () => {
                 <Card className="rounded-3xl border-2 border-calm-300 shadow-2xl bg-gradient-to-br from-white to-calm-50">
                   <CardBody className="p-8 md:p-12">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-14 h-14 bg-calm-100 rounded-2xl flex items-center justify-center">
-                        <Users className="w-7 h-7 text-calm-600" />
+                      <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center">
+                        <Users className="w-7 h-7 text-primary-600" />
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold text-neutral-900">

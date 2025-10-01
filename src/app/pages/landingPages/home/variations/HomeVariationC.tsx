@@ -400,10 +400,10 @@ const HomeVariationC = () => {
                 </Card>
 
                 {/* Buyer Journey */}
-                <Card className="rounded-2xl border-2 border-calm-200 bg-gradient-to-br from-calm-50 to-white hover:shadow-xl transition-all">
+                <Card className="rounded-2xl border-2 border-calm-200 bg-gradient-to-br from-primary-50 to-white hover:shadow-xl transition-all">
                   <CardBody className="p-8">
-                    <div className="w-14 h-14 bg-calm-100 rounded-2xl flex items-center justify-center mb-4">
-                      <Search className="w-7 h-7 text-calm-600" />
+                    <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center mb-4">
+                      <Search className="w-7 h-7 text-primary-600" />
                     </div>
                     <h3 className="text-2xl font-bold text-neutral-900 mb-3">
                       For Buyers/Investors
