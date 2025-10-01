@@ -239,7 +239,8 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
     if (currentStep <= 3) return true;
 
     switch (currentStep) {
-      case 4: // Business Story
+      case 4: {
+        // Business Story
         const hasSpecial = listingData.businessStory?.whatMakesSpecial?.trim();
         const hasCustomers = listingData.businessStory?.targetCustomers?.trim();
         console.log('🔍 Step 4 validation:', {
@@ -250,7 +251,9 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
           canProceed: !!(hasSpecial && hasCustomers),
         });
         return !!(hasSpecial && hasCustomers);
-      case 5: // Sale Details
+      }
+      case 5: {
+        // Sale Details
         const hasReason = listingData.saleDetails?.reasonForSale?.trim();
         const hasTimeline = listingData.saleDetails?.preferredTimeline?.trim();
         console.log('🔍 Step 5 validation:', {
@@ -261,6 +264,7 @@ const StreamlinedListingModal: React.FC<StreamlinedListingModalProps> = ({
           canProceed: !!(hasReason && hasTimeline),
         });
         return !!(hasReason && hasTimeline);
+      }
       case 6: // Documents
         return true; // Optional
       case 7: // Privacy

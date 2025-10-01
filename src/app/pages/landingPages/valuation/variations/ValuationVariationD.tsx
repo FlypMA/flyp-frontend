@@ -26,6 +26,8 @@ import {
   Award,
   Calculator,
   CheckCircle,
+  Database,
+  Shield,
   Sparkles,
   Target,
   TrendingUp,
@@ -674,6 +676,127 @@ const ValuationVariationD = () => {
                     </p>
                   </CardBody>
                 </Card>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* Valuation Methodology Section */}
+        <section className="py-16 md:py-20 lg:py-24 bg-white">
+          <Container>
+            <div className="max-w-6xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-12 md:mb-16">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
+                  <Calculator className="w-4 h-4" />
+                  Our Methodology
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+                  Others overpromise. We keep it real.
+                </h2>
+
+                <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+                  Get a free, honest valuation — not inflated numbers.
+                  <br />
+                  Our method goes beyond online averages to give you a realistic, data-backed
+                  estimate you can trust.
+                </p>
+              </div>
+
+              {/* Three-Column Features */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+                <Card className="rounded-2xl border border-neutral-200 bg-white hover:shadow-xl transition-all">
+                  <CardBody className="p-6 md:p-8">
+                    <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center mb-4">
+                      <Calculator className="w-7 h-7 text-primary-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-neutral-900 mb-3">
+                      Multi-Method Valuation
+                    </h3>
+                    <p className="text-neutral-600 leading-relaxed">
+                      We use 3 proven methods: Revenue Multiples, EBITDA Analysis, and Trend-Based
+                      Growth to give you the most accurate picture.
+                    </p>
+                  </CardBody>
+                </Card>
+
+                <Card className="rounded-2xl border border-neutral-200 bg-white hover:shadow-xl transition-all">
+                  <CardBody className="p-6 md:p-8">
+                    <div className="w-14 h-14 bg-calm-100 rounded-2xl flex items-center justify-center mb-4">
+                      <Database className="w-7 h-7 text-calm-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-neutral-900 mb-3">Real Market Data</h3>
+                    <p className="text-neutral-600 leading-relaxed">
+                      Industry-specific multiples and actual transaction data — not inflated online
+                      averages that set false expectations.
+                    </p>
+                  </CardBody>
+                </Card>
+
+                <Card className="rounded-2xl border border-neutral-200 bg-white hover:shadow-xl transition-all">
+                  <CardBody className="p-6 md:p-8">
+                    <div className="w-14 h-14 bg-success-100 rounded-2xl flex items-center justify-center mb-4">
+                      <Shield className="w-7 h-7 text-success-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-neutral-900 mb-3">
+                      Transparent Methodology
+                    </h3>
+                    <p className="text-neutral-600 leading-relaxed">
+                      See exactly how we calculate your value. Every assumption, every data source,
+                      clearly explained.
+                    </p>
+                  </CardBody>
+                </Card>
+              </div>
+
+              {/* Comparison Table */}
+              <div className="bg-gradient-to-br from-neutral-50 to-primary-50 rounded-2xl p-6 md:p-8">
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6 text-center">
+                  How we compare
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-white rounded-xl p-6 border-2 border-neutral-200">
+                    <div className="text-sm font-semibold text-neutral-500 mb-2">
+                      Online Calculators
+                    </div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <AlertTriangle className="w-5 h-5 text-warning-600" />
+                      <span className="text-xs font-semibold text-warning-700 bg-warning-100 px-2 py-1 rounded">
+                        Unrealistic
+                      </span>
+                    </div>
+                    <p className="text-sm text-neutral-600">
+                      Generic formulas ignore industry nuances
+                    </p>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-6 border-2 border-neutral-200">
+                    <div className="text-sm font-semibold text-neutral-500 mb-2">
+                      Traditional Brokers
+                    </div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <TrendingUp className="w-5 h-5 text-danger-600" />
+                      <span className="text-xs font-semibold text-danger-700 bg-danger-100 px-2 py-1 rounded">
+                        Overpriced
+                      </span>
+                    </div>
+                    <p className="text-sm text-neutral-600">Inflate values to win your business</p>
+                  </div>
+
+                  <div className="bg-primary-50 rounded-xl p-6 border-2 border-primary-400 shadow-lg">
+                    <div className="text-sm font-semibold text-primary-900 mb-2">UpSwitch</div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <CheckCircle className="w-5 h-5 text-success-600" />
+                      <span className="text-xs font-semibold text-success-700 bg-success-100 px-2 py-1 rounded">
+                        Honest
+                      </span>
+                    </div>
+                    <p className="text-sm text-neutral-700 font-medium">
+                      Data-backed estimates you can trust
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </Container>

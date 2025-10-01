@@ -76,15 +76,22 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
     },
   ];
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    <>
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onToggle} />
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={onToggle}
+      />
 
       {/* Mobile Menu */}
-      <div className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
+      <div
+        className={`fixed top-0 right-0 h-full w-full sm:w-80 sm:max-w-[85vw] bg-white shadow-xl z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -93,10 +100,10 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
               isIconOnly
               variant="tertiary"
               onClick={onToggle}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 min-w-[44px] min-h-[44px]"
               aria-label="Close menu"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </Button>
           </div>
 
@@ -128,7 +135,7 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
                       <Link
                         key={item.path}
                         to={item.path}
-                        className={`block w-full px-4 py-3 text-left rounded-lg transition-colors ${
+                        className={`block w-full px-4 py-4 sm:py-3 text-base sm:text-sm text-left rounded-lg transition-colors ${
                           isActive
                             ? 'text-primary-600 bg-primary-50 font-medium'
                             : 'text-gray-700 hover:bg-gray-50'
@@ -148,21 +155,21 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
                   </h3>
                   <Link
                     to="/profile"
-                    className="block w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="block w-full px-4 py-4 sm:py-3 text-base sm:text-sm text-left text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
                     onClick={onToggle}
                   >
                     Profile
                   </Link>
                   <Link
                     to="/settings"
-                    className="block w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="block w-full px-4 py-4 sm:py-3 text-base sm:text-sm text-left text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
                     onClick={onToggle}
                   >
                     Settings
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block w-full px-4 py-3 text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="block w-full px-4 py-4 sm:py-3 text-base sm:text-sm text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     Log out
                   </button>
@@ -188,7 +195,7 @@ const SellerNavigationMobile: React.FC<SellerNavigationMobileProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

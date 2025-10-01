@@ -7,18 +7,12 @@
  *
  * A clean navigation system based on legacy app implementation:
  * - Navigation: Main navigation bar (used in MainLayout)
- * - CleanNavigation: Clean navigation bar (replaced by BuyerNavigation)
  * - BuyerNavigation: Buyer navigation (used in BuyerLayout)
  * - SellerNavigation: Seller navigation (used in SellerLayout)
- * - DashboardSidebar: Desktop sidebar for seller dashboard (legacy)
- * - DashboardSidebarMobile: Mobile sidebar for seller dashboard (legacy)
  * - UserAvatarDropdown: User avatar dropdown (used within Navigation)
  *
  * Based on legacy app components:
  * - UnifiedNavigation.tsx -> Navigation.tsx
- * - CleanNavigation.tsx -> CleanNavigation.tsx
- * - SellerSidebar.tsx -> DashboardSidebar.tsx (legacy)
- * - MobileNavigation.tsx -> DashboardSidebarMobile.tsx (legacy)
  * - user_avatar_dropdown.tsx -> UserAvatarDropdown.tsx
  */
 
@@ -45,12 +39,6 @@ export { BuyerNavigation, BuyerNavigationDesktop, BuyerNavigationMobile } from '
 // ==============================================================================
 
 export { SellerNavigation, SellerNavigationDesktop, SellerNavigationMobile } from './seller';
-
-// ==============================================================================
-// DASHBOARD SIDEBAR COMPONENTS
-// ==============================================================================
-
-export { DashboardSidebar, DashboardSidebarMobile } from './dashboard';
 
 // ==============================================================================
 // USER AVATAR DROPDOWN

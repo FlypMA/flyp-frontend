@@ -89,21 +89,27 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
   };
 
   // Smart navigation sections (Growth Marketing Optimized)
-  const publicNavSections: NavSection[] = [
+  const navigationSections: NavSection[] = [
     {
-      title: 'Main',
+      title: 'For Business Owners',
       items: [
-        { label: 'Browse Businesses', href: '/search', icon: Search },
-        { label: 'Get Valued', href: '/valuation', icon: TrendingUp },
+        { label: 'Get Free Valuation', href: '/valuation', icon: TrendingUp },
+        { label: 'Sell My Business', href: '/for-sellers', icon: FileText },
+      ],
+    },
+    {
+      title: 'For Buyers',
+      items: [{ label: 'Browse Businesses', href: '/search', icon: Search }],
+    },
+    {
+      title: 'Information',
+      items: [
         { label: 'How It Works', href: '/how-it-works', icon: FileText },
         { label: 'Pricing', href: '/pricing', icon: Euro },
         { label: 'FAQ', href: '/faq', icon: HelpCircle },
       ],
     },
   ];
-
-  // Use public nav for logged-out users, otherwise use existing role-based logic
-  const navigationSections: NavSection[] = user ? [] : publicNavSections; // Keep existing logged-in logic
 
   if (!isOpen) return null;
 
@@ -117,26 +123,38 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-80 h-full bg-white shadow-2xl z-50 lg:hidden transform transition-transform duration-300 ease-out ${
+        className={`fixed top-0 left-0 w-80 max-w-[85vw] h-full bg-white shadow-2xl z-50 lg:hidden transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">U</span>
-              </div>
-              <span className="font-display text-lg font-light text-gray-900">Upswitch</span>
+            <div className="flex items-center gap-2">
+              <img
+                src="/UpSwitch_logo_var1.svg?v=2024.4"
+                alt="Upswitch - European SME M&A Platform"
+                width="32"
+                height="32"
+                className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
+                loading="lazy"
+                style={{
+                  height: '32px',
+                  objectFit: 'contain',
+                  opacity: 1,
+                  visibility: 'visible',
+                  display: 'block',
+                }}
+              />
+              <span className="font-display text-lg font-light text-primary-700">Upswitch</span>
             </div>
 
             <button
               onClick={onToggle}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-3 rounded-lg hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Close menu"
             >
-              <X className="w-5 h-5 text-gray-500" />
+              <X className="w-6 h-6 text-gray-500" />
             </button>
           </div>
 
@@ -179,18 +197,20 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                       <button
                         key={itemIndex}
                         onClick={() => handleItemClick(item.href)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
+                        className={`w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-all duration-200 min-h-[44px] ${
                           isActive
                             ? 'bg-primary-50 text-primary-700 border border-primary-200'
                             : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
                         <Icon
-                          className={`w-5 h-5 flex-shrink-0 ${
+                          className={`w-6 h-6 flex-shrink-0 ${
                             isActive ? 'text-primary-600' : 'text-gray-500'
                           }`}
                         />
-                        <span className="flex-1 text-sm font-medium">{item.label}</span>
+                        <span className="flex-1 text-base sm:text-sm font-medium">
+                          {item.label}
+                        </span>
                         {item.badge && (
                           <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full">
                             {item.badge}
@@ -201,7 +221,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                             New
                           </span>
                         )}
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <ChevronRight className="w-5 h-5 text-gray-400" />
                       </button>
                     );
                   })}
@@ -215,10 +235,10 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
             <div className="p-4 border-t border-gray-200">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors text-red-600 hover:bg-red-50"
+                className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors text-red-600 hover:bg-red-50 min-h-[44px]"
               >
-                <LogOut className="w-5 h-5" />
-                <span className="text-sm font-medium">Log Out</span>
+                <LogOut className="w-6 h-6" />
+                <span className="text-base sm:text-sm font-medium">Log Out</span>
               </button>
             </div>
           ) : (
@@ -238,7 +258,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ user, isOpen, onTog
                   onToggle();
                   openModal('signup');
                 }}
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-3 text-base font-semibold"
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-4 text-base font-semibold min-h-[48px]"
               >
                 Get Free Valuation
               </button>

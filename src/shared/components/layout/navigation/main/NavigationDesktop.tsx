@@ -110,44 +110,94 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
         {/* Center Navigation - Desktop (Growth Marketing Optimized) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block">
           <ul className="h-full flex-row flex-nowrap items-center flex gap-6">
-            {/* Browse Businesses - Buyer Path */}
-            <li className="text-medium whitespace-nowrap box-border list-none">
-              <Link
-                to="/search"
-                className={`text-sm font-medium transition-colors relative group ${
-                  isActiveLink('/search') || isActiveLink('/browse')
-                    ? 'text-primary-600 font-semibold'
-                    : 'text-neutral-700 hover:text-primary-600'
-                }`}
-              >
-                Browse Businesses
-                <span
-                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
-                    isActiveLink('/search') || isActiveLink('/browse')
-                      ? 'scale-x-100'
-                      : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
-                />
-              </Link>
+            {/* For Business Owners - Dropdown */}
+            <li className="text-medium whitespace-nowrap box-border list-none flex items-center">
+              <Dropdown>
+                <DropdownTrigger>
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors relative group ${
+                      isActiveLink('/valuation') || isActiveLink('/for-sellers')
+                        ? 'text-primary-600 font-semibold'
+                        : 'text-neutral-700 hover:text-primary-600'
+                    }`}
+                  >
+                    For Business Owners
+                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <span
+                      className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                        isActiveLink('/valuation') || isActiveLink('/for-sellers')
+                          ? 'scale-x-100'
+                          : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
+                  </button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Business Owners Menu"
+                  className="w-64 p-0"
+                  itemClasses={{
+                    base: 'rounded-md',
+                  }}
+                >
+                  <DropdownItem
+                    key="get-valuation"
+                    onClick={() => navigate('/valuation')}
+                    className="py-3 px-4 hover:bg-primary-50 transition-colors"
+                    description="Know your business worth"
+                  >
+                    <div className="font-medium">Get Free Valuation</div>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="sell-business"
+                    onClick={() => navigate('/for-sellers')}
+                    className="py-3 px-4 hover:bg-primary-50 transition-colors"
+                    description="List your business for sale"
+                  >
+                    <div className="font-medium">Sell My Business</div>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </li>
 
-            {/* Get Valued - Seller Path (Primary) */}
-            <li className="text-medium whitespace-nowrap box-border list-none">
-              <Link
-                to="/valuation"
-                className={`text-sm font-medium transition-colors relative group ${
-                  isActiveLink('/valuation')
-                    ? 'text-primary-600 font-semibold'
-                    : 'text-neutral-700 hover:text-primary-600'
-                }`}
-              >
-                Get Valued
-                <span
-                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
-                    isActiveLink('/valuation') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
-                />
-              </Link>
+            {/* For Buyers - Dropdown */}
+            <li className="text-medium whitespace-nowrap box-border list-none flex items-center">
+              <Dropdown>
+                <DropdownTrigger>
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium transition-colors relative group ${
+                      isActiveLink('/search') || isActiveLink('/browse')
+                        ? 'text-primary-600 font-semibold'
+                        : 'text-neutral-700 hover:text-primary-600'
+                    }`}
+                  >
+                    For Buyers
+                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <span
+                      className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left ${
+                        isActiveLink('/search') || isActiveLink('/browse')
+                          ? 'scale-x-100'
+                          : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
+                  </button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Buyers Menu"
+                  className="w-64 p-0"
+                  itemClasses={{
+                    base: 'rounded-md',
+                  }}
+                >
+                  <DropdownItem
+                    key="browse-businesses"
+                    onClick={() => navigate(UrlGenerator.search())}
+                    className="py-3 px-4 hover:bg-primary-50 transition-colors"
+                    description="Find businesses for sale"
+                  >
+                    <div className="font-medium">Browse Businesses</div>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </li>
 
             {/* How It Works - Education */}
@@ -277,10 +327,10 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     isIconOnly
                     variant="tertiary"
                     onClick={onMobileMenuToggle}
-                    className="text-neutral-700"
+                    className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-5 h-5 text-neutral-700" />
+                    <Menu className="w-6 h-6 text-neutral-700" />
                   </Button>
                 </>
               ) : isCheckingAuth ? (
@@ -292,10 +342,10 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     isIconOnly
                     variant="tertiary"
                     onClick={onMobileMenuToggle}
-                    className="text-neutral-700"
+                    className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-5 h-5 text-neutral-700" />
+                    <Menu className="w-6 h-6 text-neutral-700" />
                   </Button>
                 </div>
               ) : (
@@ -312,10 +362,10 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
                     isIconOnly
                     variant="tertiary"
                     onClick={onMobileMenuToggle}
-                    className="text-neutral-700"
+                    className="text-neutral-700 min-w-[44px] min-h-[44px]"
                     aria-label="Open mobile menu"
                   >
-                    <Menu className="w-5 h-5 text-neutral-700" />
+                    <Menu className="w-6 h-6 text-neutral-700" />
                   </Button>
                 </>
               )}
