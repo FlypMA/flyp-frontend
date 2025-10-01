@@ -1,26 +1,6 @@
 # Robots.txt for UpSwitch Platform
 # https://www.robotstxt.org/robotstxt.html
 
+# Temporarily block all search engine crawlers
 User-agent: *
-Allow: /
-
-# Block sensitive pages
-Disallow: /admin/
-Disallow: /api/
-Disallow: /account/
-Disallow: /business/
-Disallow: /messages/
-Disallow: /transaction/
-
-# Allow specific public pages
-Allow: /
-Allow: /about
-Allow: /help
-Allow: /legal/
-Allow: /listings
-
-# Sitemap location
-Sitemap: https://www.upswitch.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
+Disallow: /
