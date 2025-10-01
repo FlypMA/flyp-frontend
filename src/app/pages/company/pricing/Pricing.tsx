@@ -40,10 +40,10 @@ const Pricing = () => {
   const [dealValue, setDealValue] = useState(500000); // €500K default
 
   // Calculate fees
-  const flypFee = dealValue * 0.025; // 2.5% (seller only)
+  const upswitchFee = dealValue * 0.025; // 2.5% (seller only)
   const traditionalBrokerFee = dealValue * 0.08; // 8% average
   const onlineMarketplaceFee = dealValue * 0.1 + 299 * 12; // 10% + listing fees (up to 10% success fee + monthly listing)
-  const savings = traditionalBrokerFee - flypFee;
+  const savings = traditionalBrokerFee - upswitchFee;
 
   const handleGetStarted = () => {
     if (user) {
@@ -352,7 +352,7 @@ const Pricing = () => {
                       </div>
                       <div className="text-sm font-semibold text-success-700 mb-2">UpSwitch</div>
                       <div className="text-3xl font-bold text-success-700 mb-1">
-                        €{(flypFee / 1000).toFixed(0)}K
+                        €{(upswitchFee / 1000).toFixed(0)}K
                       </div>
                       <div className="text-xs text-success-600">2.5% success fee only</div>
                     </div>
@@ -378,7 +378,10 @@ const Pricing = () => {
         </section>
 
         {/* Competitive Comparison Table */}
-        <section id="comparison" className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 to-white">
+        <section
+          id="comparison"
+          className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-neutral-50 to-white"
+        >
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
@@ -421,61 +424,61 @@ const Pricing = () => {
                         feature: 'Upfront Costs',
                         traditional: '€2,000-€10,000',
                         marketplace: '€99-€599/month',
-                        flyp: '€0',
+                        upswitch: '€0',
                       },
                       {
                         feature: 'Seller Success Fee',
                         traditional: '5-12%',
                         marketplace: 'Up to 10%',
-                        flyp: '2.5%',
+                        upswitch: '2.5%',
                       },
                       {
                         feature: 'Buyer Fees',
                         traditional: '€0',
                         marketplace: '€49-€299/month',
-                        flyp: '€0',
+                        upswitch: '€0',
                       },
                       {
                         feature: 'Free Valuation',
                         traditional: false,
                         marketplace: 'Basic',
-                        flyp: true,
+                        upswitch: true,
                       },
                       {
                         feature: 'Valuation Quality',
                         traditional: 'Manual estimate',
                         marketplace: 'Basic calculator',
-                        flyp: 'State-of-the-art AI',
+                        upswitch: 'State-of-the-art AI',
                       },
                       {
                         feature: 'Listing Duration',
                         traditional: '6-12 months',
                         marketplace: 'Pay per month',
-                        flyp: 'Unlimited (free)',
+                        upswitch: 'Unlimited (free)',
                       },
                       {
                         feature: 'Data Room Included',
                         traditional: false,
                         marketplace: 'Extra fee',
-                        flyp: true,
+                        upswitch: true,
                       },
                       {
                         feature: 'Expert Support',
                         traditional: true,
                         marketplace: 'Extra fee',
-                        flyp: true,
+                        upswitch: true,
                       },
                       {
                         feature: 'Buyer Verification',
                         traditional: 'Manual',
                         marketplace: 'Basic',
-                        flyp: 'State-of-the-art',
+                        upswitch: 'State-of-the-art',
                       },
                       {
                         feature: 'Average Cost (€1M deal)',
                         traditional: '€50K-€120K',
                         marketplace: '€103K+ (10% + fees)',
-                        flyp: '€25K',
+                        upswitch: '€25K',
                       },
                     ].map((row, i) => (
                       <tr key={i} className="border-b border-neutral-100 hover:bg-neutral-50">
@@ -503,14 +506,14 @@ const Pricing = () => {
                           )}
                         </td>
                         <td className="p-6 text-center bg-success-50/30">
-                          {typeof row.flyp === 'boolean' ? (
-                            row.flyp ? (
+                          {typeof row.upswitch === 'boolean' ? (
+                            row.upswitch ? (
                               <Check className="w-5 h-5 text-success-600 mx-auto" />
                             ) : (
                               <X className="w-5 h-5 text-neutral-400 mx-auto" />
                             )
                           ) : (
-                            <span className="text-success-700 font-semibold">{row.flyp}</span>
+                            <span className="text-success-700 font-semibold">{row.upswitch}</span>
                           )}
                         </td>
                       </tr>
@@ -562,6 +565,10 @@ const Pricing = () => {
                   {
                     q: 'Is the free valuation really free?',
                     a: 'Yes, 100% free. No credit card required, no strings attached. Get an accurate, transparent valuation using our state-of-the-art engine.',
+                  },
+                  {
+                    q: 'How is your valuation different from other platforms?',
+                    a: 'Most platforms inflate valuations to attract listings — which sounds good but wastes your time when deals never close. Our state-of-the-art engine gives you realistic, data-backed estimates that align with actual sale prices. We track our accuracy publicly (92% within 15% of final sale price) because honest valuations lead to successful transactions.',
                   },
                 ].map((faq, i) => (
                   <Card

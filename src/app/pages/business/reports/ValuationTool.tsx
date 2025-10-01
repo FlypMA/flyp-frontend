@@ -160,12 +160,14 @@ const ValuationTool: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header - Updated to remove tabs */}
+        {/* Header - Mobile Responsive */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Valuation Reports</h1>
-              <p className="text-lg text-gray-600">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                Business Valuation Reports
+              </h1>
+              <p className="text-base sm:text-lg text-gray-600">
                 Track your business value over time with professional valuations
               </p>
             </div>
@@ -173,6 +175,7 @@ const ValuationTool: React.FC = () => {
               variant="primary"
               startContent={<Calculator className="w-4 h-4" />}
               onPress={handleOpenValuationModal}
+              className="w-full sm:w-auto flex-shrink-0"
             >
               New Valuation
             </Button>

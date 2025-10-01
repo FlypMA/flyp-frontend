@@ -468,11 +468,11 @@ export const router = createBrowserRouter([
   },
 
   // ==============================================================================
-  // OTHER SELLER ROUTES - SellerLayout WITH FOOTER
+  // MESSAGES ROUTES - SellerLayout WITHOUT FOOTER (Full-height messaging interface)
   // ==============================================================================
   {
     path: '/',
-    element: <SellerLayout showFooter={true} />,
+    element: <SellerLayout showFooter={false} />,
     children: [
       // Messages (all authenticated users) - Enhanced with conversation context
       {
@@ -492,6 +492,15 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+
+  // ==============================================================================
+  // OTHER SELLER ROUTES - SellerLayout WITH FOOTER
+  // ==============================================================================
+  {
+    path: '/',
+    element: <SellerLayout showFooter={true} />,
+    children: [],
   },
 
   // ==============================================================================

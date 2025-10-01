@@ -249,14 +249,14 @@ const DocumentVault = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1">
               <h1 className="text-3xl font-semibold text-gray-900 mb-2">Document Vault</h1>
               <p className="text-lg text-gray-600">
                 Store and organize your important business documents securely
               </p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="w-full sm:w-auto sm:flex-shrink-0">
               <input
                 type="file"
                 multiple
@@ -270,6 +270,7 @@ const DocumentVault = () => {
                 startContent={<Upload className="w-4 h-4" />}
                 onPress={() => document.getElementById('file-upload')?.click()}
                 isLoading={isUploading}
+                className="w-full sm:w-auto"
               >
                 {isUploading ? 'Uploading...' : 'Upload Documents'}
               </Button>

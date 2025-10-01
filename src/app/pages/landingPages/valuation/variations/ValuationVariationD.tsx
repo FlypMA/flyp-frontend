@@ -149,8 +149,9 @@ const ValuationVariationD = () => {
           <div className="w-full max-w-5xl mx-auto text-center py-32 md:py-48 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
+              <Shield className="w-5 h-5 text-success-400" />
               <span className="text-white font-medium">
-                Free Valuation • No Obligations • Instant Results
+                Honest Valuations • Real Market Data • Zero Pressure
               </span>
             </div>
 
@@ -161,8 +162,9 @@ const ValuationVariationD = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Get a rough estimate instantly. Sign up for our state-of-the-art valuation engine to
-              receive transparent, market-accurate results.
+              Get a rough estimate instantly with our calculator. Sign up to access our
+              state-of-the-art valuation engine in your dashboard for detailed, data-backed results
+              you can trust — not inflated numbers.
             </p>
 
             {/* Scroll indicator */}
@@ -606,6 +608,126 @@ const ValuationVariationD = () => {
                     throws it all away.
                   </p>
                 </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* Why Trust Our Valuation Section */}
+        <section className="py-24 bg-gradient-to-br from-neutral-900 via-primary-900 to-success-900 text-white">
+          <Container>
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  Why trust our valuation over others?
+                </h2>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                  Most platforms inflate values to get you to list. We give you the truth because
+                  that's what leads to actual successful sales.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    icon: Database,
+                    title: 'Real Market Data',
+                    description:
+                      'We analyze thousands of actual M&A transactions — not guesses or wish-list prices. Your valuation reflects what similar businesses actually sold for.',
+                    stat: '12,000+ transactions analyzed',
+                  },
+                  {
+                    icon: Sparkles,
+                    title: 'Multiple Methodologies',
+                    description:
+                      "We don't rely on one formula. Our state-of-the-art engine combines DCF analysis, market multiples, and industry benchmarks for accuracy.",
+                    stat: '3 validation methods',
+                  },
+                  {
+                    icon: Target,
+                    title: 'Proven Accuracy',
+                    description:
+                      'Our valuations align with final sale prices within 15% on average. Competitors? Often 50-100% inflated. We track our accuracy publicly.',
+                    stat: '92% accuracy rate',
+                  },
+                ].map((feature, i) => (
+                  <Card
+                    key={i}
+                    className="rounded-2xl bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all"
+                  >
+                    <CardBody className="p-8">
+                      <div className="w-14 h-14 bg-success-500/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
+                        <feature.icon className="w-7 h-7 text-success-400" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                      <p className="text-white/80 mb-4 leading-relaxed">{feature.description}</p>
+                      <div className="text-sm font-semibold text-success-400">{feature.stat}</div>
+                    </CardBody>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Methodology Comparison */}
+              <div className="mt-16 grid md:grid-cols-2 gap-8">
+                {/* What Others Do */}
+                <div className="p-8 bg-red-500/10 backdrop-blur-sm rounded-2xl border-2 border-red-500/30">
+                  <div className="flex items-center gap-3 mb-6">
+                    <AlertTriangle className="w-8 h-8 text-red-400" />
+                    <h3 className="text-2xl font-bold">What Others Do</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {[
+                      'Use generic online calculators',
+                      'Inflate values to attract listings',
+                      'No methodology transparency',
+                      'Ignore market conditions',
+                      "Don't validate with real data",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-white/90">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* What We Do */}
+                <div className="p-8 bg-success-500/10 backdrop-blur-sm rounded-2xl border-2 border-success-400/30">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Award className="w-8 h-8 text-success-400" />
+                    <h3 className="text-2xl font-bold">What We Do</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {[
+                      'State-of-the-art AI valuation engine',
+                      'Show realistic, achievable values',
+                      'Full methodology disclosure',
+                      'Real-time market data integration',
+                      'Track accuracy against actual sales',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-success-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-white font-medium">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="text-center mt-12">
+                <Button
+                  variant="primary"
+                  size="xl"
+                  onPress={handleGetStarted}
+                  endContent={<ArrowRight className="w-6 h-6" />}
+                  className="px-12 h-16 text-lg bg-white text-primary-900 hover:bg-neutral-100"
+                >
+                  Get Your Honest Valuation
+                </Button>
+                <p className="text-sm text-white/60 mt-4">
+                  Used by 12,000+ business owners • 100% free • No credit card required
+                </p>
               </div>
             </div>
           </Container>

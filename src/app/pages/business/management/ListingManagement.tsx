@@ -227,10 +227,10 @@ const ListingManagement: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Listings</h1>
-              <p className="text-lg text-gray-600">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Listings</h1>
+              <p className="text-base sm:text-lg text-gray-600">
                 Manage your business listings and track their performance
               </p>
             </div>
@@ -238,6 +238,7 @@ const ListingManagement: React.FC = () => {
               variant="primary"
               onPress={handleCreateListing}
               startContent={<Plus className="w-4 h-4" />}
+              className="w-full sm:w-auto flex-shrink-0"
             >
               Create New Listing
             </Button>

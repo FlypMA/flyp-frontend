@@ -27,14 +27,20 @@ import { seoData } from '@/shared/utils/seo/seoData';
 import { Card, CardBody } from '@heroui/react';
 import {
   ArrowRight,
+  Calculator,
+  Check,
   CheckCircle,
+  Database,
   HandshakeIcon,
   Heart,
   Search,
   Shield,
   Sparkles,
+  Target,
   TrendingUp,
   Users,
+  X,
+  XCircle,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -284,8 +290,123 @@ const HomeVariationC = () => {
           </div>
         )}
 
-        {/* How It Works Teaser Section */}
+        {/* Why Our Valuations Are Different Section */}
         <div className="py-24 bg-white">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
+                  <Shield className="w-4 h-4" />
+                  Honest Valuations, Real Results
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+                  Others overpromise. We keep it real.
+                </h2>
+
+                <p className="text-xl text-neutral-600 leading-relaxed">
+                  Our free valuation is grounded in data, not guesswork — so you can plan your next
+                  step with confidence.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Competitor Approach */}
+                <Card className="rounded-2xl border-2 border-red-200 bg-red-50/50">
+                  <CardBody className="p-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <XCircle className="w-8 h-8 text-red-600" />
+                      <h3 className="text-xl font-bold text-neutral-900">Traditional Platforms</h3>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        'Inflated valuations to attract listings',
+                        'Generic online calculators',
+                        'No methodology transparency',
+                        '80% of listings never sell',
+                        'Overpriced = wasted time',
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-neutral-700">
+                          <X className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardBody>
+                </Card>
+
+                {/* UpSwitch Approach */}
+                <Card className="rounded-2xl border-2 border-success-300 bg-gradient-to-br from-success-50 to-primary-50">
+                  <CardBody className="p-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <CheckCircle className="w-8 h-8 text-success-600" />
+                      <h3 className="text-xl font-bold text-neutral-900">
+                        The UpSwitch Difference
+                      </h3>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        'Realistic valuations that lead to sales',
+                        'State-of-the-art AI valuation engine',
+                        'Full methodology transparency',
+                        'Market-validated accuracy',
+                        'Honest = faster, better deals',
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-neutral-700">
+                          <Check className="w-5 h-5 text-success-600 flex-shrink-0 mt-0.5" />
+                          <span className="font-medium">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardBody>
+                </Card>
+              </div>
+
+              {/* Methodology Preview */}
+              <div className="mt-12 p-8 bg-gradient-to-r from-neutral-900 to-primary-900 rounded-2xl text-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <Database className="w-6 h-6 text-success-400" />
+                  <h3 className="text-xl font-bold">Our Valuation Methodology</h3>
+                </div>
+                <p className="text-white/90 mb-6">
+                  We combine multiple proven valuation methods with real-time market data to give
+                  you the most accurate estimate:
+                </p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {[
+                    {
+                      icon: TrendingUp,
+                      title: 'Market Multiples',
+                      desc: 'Real transaction data from similar businesses',
+                    },
+                    {
+                      icon: Calculator,
+                      title: 'DCF Analysis',
+                      desc: 'Cash flow projections & growth potential',
+                    },
+                    {
+                      icon: Target,
+                      title: 'Industry Benchmarks',
+                      desc: 'Sector-specific adjustments & factors',
+                    },
+                  ].map((method, i) => (
+                    <div
+                      key={i}
+                      className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                    >
+                      <method.icon className="w-6 h-6 text-success-400 mb-2" />
+                      <div className="font-semibold mb-1">{method.title}</div>
+                      <div className="text-sm text-white/70">{method.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+
+        {/* How It Works Teaser Section */}
+        <div className="py-24 bg-gradient-to-br from-neutral-50 to-white">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6 leading-tight">

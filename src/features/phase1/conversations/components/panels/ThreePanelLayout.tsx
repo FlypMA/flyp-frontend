@@ -69,66 +69,103 @@ const ThreePanelLayout: React.FC<ThreePanelLayoutProps> = ({ children, className
       ref={containerRef}
       className={`three-panel-layout ${className}`}
       style={{
-        display: 'grid',
+        display: breakpoint === 'mobile' ? 'block' : 'grid',
         height: '100vh',
-        transition: 'grid-template-columns 0.3s ease-in-out',
-        ...gridStyle,
+        width: '100vw',
+        maxWidth: '100vw',
+        overflow: 'hidden',
+        position: 'relative',
+        transition: breakpoint === 'mobile' ? 'none' : 'grid-template-columns 0.3s ease-in-out',
+        ...(breakpoint === 'mobile' ? {} : gridStyle),
       }}
     >
       {/* Left Panel - Conversations */}
-      <div
-        className={`left-panel ${layoutConfig.leftPanel.visible ? 'visible' : 'hidden'} ${
-          layoutConfig.leftPanel.position === 'fixed' ? 'fixed' : 'relative'
-        }`}
-        style={{
-          gridArea: 'left',
-          position: layoutConfig.leftPanel.position,
-          width: layoutConfig.leftPanel.width,
-          height: '100vh',
-          zIndex: layoutConfig.leftPanel.position === 'fixed' ? 1000 : 'auto',
-          transform:
-            layoutConfig.leftPanel.position === 'fixed' && !layoutConfig.leftPanel.visible
-              ? 'translateX(-100%)'
-              : 'translateX(0)',
-          transition: 'transform 0.3s ease-in-out',
-        }}
-      >
-        {children.leftPanel}
-      </div>
+      {breakpoint === 'mobile' ? (
+        // Mobile: Show as main view when visible, hide when not visible
+        layoutConfig.leftPanel.visible ? (
+          <div
+            className="absolute inset-0 bg-white z-10 flex flex-col"
+            style={{
+              transform: 'translateX(0)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+          >
+            {children.leftPanel}
+          </div>
+        ) : null
+      ) : (
+        // Desktop: Grid item
+        <div
+          className="left-panel"
+          style={{
+            gridArea: 'left',
+            height: '100vh',
+            overflow: 'hidden',
+          }}
+        >
+          {children.leftPanel}
+        </div>
+      )}
 
       {/* Middle Panel - Chat */}
-      <div
-        className="middle-panel"
-        style={{
-          gridArea: 'middle',
-          minWidth: 0, // Prevents grid item from overflowing
-        }}
-      >
-        {children.middlePanel}
-      </div>
+      {breakpoint === 'mobile' ? (
+        // Mobile: Show only when left panel is hidden
+        !layoutConfig.leftPanel.visible && (
+          <div
+            className="absolute inset-0 bg-white z-10 flex flex-col"
+            style={{
+              height: '100vh',
+              width: '100%',
+              overflow: 'hidden',
+            }}
+          >
+            {children.middlePanel}
+          </div>
+        )
+      ) : (
+        // Desktop: Grid item
+        <div
+          className="middle-panel"
+          style={{
+            gridArea: 'middle',
+            height: '100vh',
+            width: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          {children.middlePanel}
+        </div>
+      )}
 
       {/* Right Panel - Context */}
-      <div
-        className={`right-panel ${layoutConfig.rightPanel.visible ? 'visible' : 'hidden'} ${
-          layoutConfig.rightPanel.position === 'fixed' ? 'fixed' : 'relative'
-        } ${isCollapsed ? 'collapsed' : 'expanded'}`}
-        style={{
-          gridArea: 'right',
-          position: layoutConfig.rightPanel.position,
-          width: layoutConfig.rightPanel.width,
-          height: '100vh',
-          maxHeight: '100vh',
-          overflow: 'hidden',
-          zIndex: layoutConfig.rightPanel.position === 'fixed' ? 1000 : 'auto',
-          transform:
-            layoutConfig.rightPanel.position === 'fixed' && !layoutConfig.rightPanel.visible
-              ? 'translateX(100%)'
-              : 'translateX(0)',
-          transition: 'transform 0.3s ease-in-out, width 0.3s ease-in-out',
-        }}
-      >
-        {children.rightPanel}
-      </div>
+      {breakpoint === 'mobile' ? (
+        // Mobile: Fixed overlay (only when visible)
+        layoutConfig.rightPanel.visible && (
+          <div
+            className="fixed inset-0 bg-white z-[1000] flex flex-col"
+            style={{
+              transform: 'translateX(0)',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+          >
+            {children.rightPanel}
+          </div>
+        )
+      ) : (
+        // Desktop: Grid item
+        <div
+          className={`right-panel ${isCollapsed ? 'collapsed' : 'expanded'}`}
+          style={{
+            gridArea: 'right',
+            height: '100vh',
+            maxHeight: '100vh',
+            overflow: 'hidden',
+            transition: 'width 0.3s ease-in-out',
+          }}
+        >
+          {children.rightPanel}
+        </div>
+      )}
 
       {/* Mobile Overlay - Shows when left or right panel is open */}
       {breakpoint === 'mobile' &&

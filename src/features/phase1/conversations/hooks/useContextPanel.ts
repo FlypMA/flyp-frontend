@@ -160,12 +160,12 @@ const getLayoutConfigs = (): Record<Breakpoint, PanelLayoutConfig> => ({
     breakpoint: 'mobile',
     leftPanel: {
       width: 100,
-      visible: false,
+      visible: true, // Show conversation list by default on mobile
       position: 'fixed',
     },
     middlePanel: {
       width: 'flex',
-      visible: true,
+      visible: false, // Hide chat initially on mobile until conversation selected
     },
     rightPanel: {
       width: 100,

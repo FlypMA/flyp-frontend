@@ -51,13 +51,13 @@ const BuyerNavigationDesktop: React.FC<BuyerNavigationDesktopProps> = ({
       <header className="z-40 flex px-3 sm:px-4 lg:px-6 gap-2 sm:gap-3 lg:gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full overflow-x-hidden">
         {/* Logo Section */}
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
-          <Link to="/" className="flex items-center gap-1">
+          <Link to="/" className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
             <img
               src="/UpSwitch_logo_var1.svg?v=2024.4"
               alt="Upswitch - European SME M&A Platform"
               width="32"
               height="32"
-              className="logo-image transition-opacity hover:opacity-80 w-8 h-8 flex-shrink-0"
+              className="logo-image transition-opacity hover:opacity-80 w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0"
               loading="lazy"
               style={{
                 height: '32px',
@@ -67,7 +67,7 @@ const BuyerNavigationDesktop: React.FC<BuyerNavigationDesktopProps> = ({
                 display: 'block',
               }}
             />
-            <span className="font-display text-xl font-light text-primary-700 leading-none mt-0.5">
+            <span className="font-display text-lg sm:text-xl font-light text-primary-700 leading-none mt-0.5 flex-shrink-0">
               Upswitch
             </span>
           </Link>

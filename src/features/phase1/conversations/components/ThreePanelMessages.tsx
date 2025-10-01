@@ -42,6 +42,21 @@ const ThreePanelMessagesContent: React.FC = () => {
   });
   const [newMessage, setNewMessage] = useState('');
 
+  // Prevent body scroll and horizontal overflow on messages page
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.maxWidth = '100vw';
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.maxWidth = '100vw';
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.maxWidth = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.maxWidth = '';
+    };
+  }, []);
+
   // Modal states
   const [showOfferModal, setShowOfferModal] = useState(false);
   const [showDDModal, setShowDDModal] = useState(false);
@@ -223,21 +238,26 @@ const ThreePanelMessagesContent: React.FC = () => {
   }, []);
 
   // Use context panel hooks
-  const { autoSwitchContext } = useContextPanel();
+  const { autoSwitchContext, currentBreakpoint, togglePanel, closeMobileMenu } = useContextPanel();
 
-  // Auto-select first conversation on mount
+  // Auto-select first conversation on mount (only on desktop)
   useEffect(() => {
-    if (conversations.length > 0 && !selectedConversation) {
+    if (conversations.length > 0 && !selectedConversation && currentBreakpoint !== 'mobile') {
       selectConversation(conversations[0].id);
     }
-  }, [conversations, selectedConversation, selectConversation]);
+  }, [conversations, selectedConversation, selectConversation, currentBreakpoint]);
 
   // Auto-switch context when conversation changes
   useEffect(() => {
     if (selectedConversation) {
       autoSwitchContext(selectedConversation);
+
+      // On mobile: when conversation is selected, close the left panel to show chat
+      if (currentBreakpoint === 'mobile') {
+        togglePanel('left'); // Close conversation list
+      }
     }
-  }, [selectedConversation, autoSwitchContext]);
+  }, [selectedConversation, autoSwitchContext, currentBreakpoint, togglePanel]);
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedConversation) return;
@@ -378,7 +398,7 @@ const ThreePanelMessagesContent: React.FC = () => {
   };
 
   return (
-    <div className="h-screen bg-gray-50">
+    <div className="h-screen w-screen max-w-full overflow-hidden bg-gray-50">
       <ThreePanelLayout>
         {{
           leftPanel: (

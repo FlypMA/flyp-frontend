@@ -110,8 +110,12 @@ export const RoleNavigationMobile: React.FC<RoleNavigationMobileProps> = ({ user
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
+            {/* Logo - Clickable to Home */}
+            <button
+              onClick={() => handleNavigate('/')}
+              className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+              aria-label="Go to home page"
+            >
               <div className="w-8 h-8">
                 <img
                   src="/UpSwitch_logo_var1.svg"
@@ -120,7 +124,7 @@ export const RoleNavigationMobile: React.FC<RoleNavigationMobileProps> = ({ user
                 />
               </div>
               <span className="font-display text-lg font-light text-gray-900">Upswitch</span>
-            </div>
+            </button>
 
             {/* Close Button */}
             <button
