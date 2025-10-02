@@ -199,7 +199,7 @@ const ValuationVariationA = () => {
                     <h1 className="text-4xl font-bold text-neutral-900 mb-4">
                       Your Business is Valued at
                     </h1>
-                    <div className="text-6xl font-bold text-success-600 mb-2">
+                    <div className="text-3xl sm:text-4xl md:text-6xl font-bold text-success-600 mb-2">
                       €{estimatedValue.toLocaleString()}
                     </div>
                     <p className="text-lg text-neutral-600">

@@ -253,7 +253,7 @@ const ValuationLanding = () => {
                         <div className="text-sm font-semibold text-neutral-600 mb-2">
                           Estimated Business Value
                         </div>
-                        <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-primary-600 to-success-600 bg-clip-text mb-4">
+                        <div className="text-3xl sm:text-4xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-primary-600 to-success-600 bg-clip-text mb-4">
                           €{valuationMin.toLocaleString()} - €{valuationMax.toLocaleString()}
                         </div>
                         <div className="flex items-center justify-center gap-2 text-sm text-neutral-600 mb-6">
@@ -385,35 +385,35 @@ const ValuationLanding = () => {
                               item.isNegative ? 'text-red-600' : 'text-neutral-500'
                             }`}
                           />
-                          <div className="flex-1">
-                            <div className="flex justify-between items-start mb-1">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-1 sm:gap-2">
                               <h4
-                                className={`font-semibold ${item.isNegative ? 'text-red-900' : 'text-neutral-900'}`}
+                                className={`font-semibold text-sm sm:text-base ${item.isNegative ? 'text-red-900' : 'text-neutral-900'}`}
                               >
                                 {item.item}
                               </h4>
                               <span
-                                className={`font-medium text-sm ${item.isNegative ? 'text-red-700' : 'text-neutral-700'}`}
+                                className={`font-medium text-sm sm:text-base whitespace-nowrap ${item.isNegative ? 'text-red-700' : 'text-neutral-700'}`}
                               >
                                 {item.amount}
                               </span>
                             </div>
-                            <p className="text-neutral-600 text-sm">{item.desc}</p>
+                            <p className="text-neutral-600 text-xs sm:text-sm">{item.desc}</p>
                           </div>
                         </div>
                       ))}
                     </div>
 
                     <div className="mt-6 p-4 bg-neutral-300/50 rounded-xl border-2 border-neutral-400">
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-semibold text-neutral-900">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <span className="text-base sm:text-lg font-semibold text-neutral-900">
                           Total Liquidation Value:
                         </span>
-                        <span className="text-xl font-bold text-neutral-700">
+                        <span className="text-lg sm:text-xl font-bold text-neutral-700 whitespace-nowrap">
                           €{comparison.liquidation.total.toLocaleString()}
                         </span>
                       </div>
-                      <p className="text-sm text-red-700 font-semibold mt-2">
+                      <p className="text-xs sm:text-sm text-red-700 font-semibold mt-2">
                         ⚠️ You lose {comparison.percentageLost}% of potential value
                       </p>
                     </div>
@@ -488,38 +488,38 @@ const ValuationLanding = () => {
                               item.isNew ? 'text-success-600' : 'text-neutral-500'
                             }`}
                           />
-                          <div className="flex-1">
-                            <div className="flex justify-between items-start mb-1">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-1 sm:gap-2">
                               <h4
-                                className={`font-semibold ${item.isNew ? 'text-success-900' : 'text-neutral-900'}`}
+                                className={`font-semibold text-sm sm:text-base ${item.isNew ? 'text-success-900' : 'text-neutral-900'}`}
                               >
                                 {item.item}
                                 {item.isNew && (
-                                  <span className="ml-2 text-xs bg-success-200 text-success-800 px-2 py-1 rounded-full">
+                                  <span className="ml-1 sm:ml-2 text-xs bg-success-200 text-success-800 px-1 sm:px-2 py-1 rounded-full">
                                     PRESERVED
                                   </span>
                                 )}
                               </h4>
-                              <span className="text-success-700 font-medium text-sm">
+                              <span className="text-success-700 font-medium text-sm sm:text-base whitespace-nowrap">
                                 {item.amount}
                               </span>
                             </div>
-                            <p className="text-neutral-600 text-sm">{item.desc}</p>
+                            <p className="text-neutral-600 text-xs sm:text-sm">{item.desc}</p>
                           </div>
                         </div>
                       ))}
                     </div>
 
                     <div className="mt-6 p-4 bg-gradient-to-r from-success-200/50 to-primary-200/50 rounded-xl border-2 border-success-400">
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-semibold text-neutral-900">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <span className="text-base sm:text-lg font-semibold text-neutral-900">
                           Total Strategic Value:
                         </span>
-                        <span className="text-xl font-bold text-transparent bg-gradient-to-r from-success-600 to-primary-600 bg-clip-text">
+                        <span className="text-lg sm:text-xl font-bold text-transparent bg-gradient-to-r from-success-600 to-primary-600 bg-clip-text whitespace-nowrap">
                           €{comparison.strategicSale.total.toLocaleString()}
                         </span>
                       </div>
-                      <p className="text-sm text-success-700 font-semibold mt-2">
+                      <p className="text-xs sm:text-sm text-success-700 font-semibold mt-2">
                         ✅ You capture {100 - comparison.percentageLost}% MORE value
                       </p>
                     </div>

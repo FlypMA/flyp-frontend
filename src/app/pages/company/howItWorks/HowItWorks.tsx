@@ -3,7 +3,7 @@
  *
  * Comprehensive guide explaining the platform for both buyers and sellers
  * - Buyer journey: Browse → Inquire → NDA → Due Diligence → Offer → Close
- * - Seller journey: 12-36 month exploration → Valuation → Track → Optimize → List → Match → Close
+ * - Seller journey: Valuation → Track → Optimize → List → Match → Close
  */
 
 import { Button } from '@/shared/components/buttons';
@@ -26,7 +26,6 @@ import {
   MessageSquare,
   Search,
   Shield,
-  Sparkles,
   TrendingUp,
   Upload,
   Users,
@@ -154,7 +153,7 @@ const HowItWorks = () => {
     },
     {
       number: 2,
-      title: 'Track Value (12-36 months)',
+      title: 'Track Value Over Time',
       icon: LineChart,
       description: 'Monitor your business value over time',
       features: [
@@ -310,11 +309,6 @@ const HowItWorks = () => {
 
           <Container>
             <div className="max-w-5xl mx-auto text-center relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-8">
-                <Sparkles className="w-5 h-5 text-success-400" />
-                <span className="text-white font-medium">Complete Guide to M&A on Upswitch</span>
-              </div>
-
               <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
                 How Upswitch
                 <br />
@@ -373,7 +367,7 @@ const HowItWorks = () => {
                 <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
                   {selectedTab === 'buyer'
                     ? 'From discovering the perfect business to closing the deal, we support you every step of the way.'
-                    : 'From understanding your value to finding the right buyer, take 12-36 months to explore at your own pace.'}
+                    : 'From understanding your value to finding the right buyer, explore at your own pace.'}
                 </p>
               </div>
 
@@ -598,7 +592,7 @@ const HowItWorks = () => {
                     icon: Clock,
                     title: 'No Pressure',
                     description:
-                      'For sellers: explore for 12-36 months. For buyers: take your time to find the right fit.',
+                      'For sellers: explore at your own pace. For buyers: take your time to find the right fit.',
                   },
                   {
                     icon: BarChart3,

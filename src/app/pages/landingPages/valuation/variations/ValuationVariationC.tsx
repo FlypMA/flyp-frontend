@@ -331,7 +331,7 @@ const ValuationVariationC = () => {
                           <span className="font-semibold">Estimated Value</span>
                         </div>
 
-                        <div className="text-6xl font-bold mb-4 animate-pulse">
+                        <div className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 animate-pulse">
                           €{calculatedValue.toLocaleString()}
                         </div>
 

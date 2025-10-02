@@ -143,7 +143,7 @@ export const router = createBrowserRouter([
     children: [
       // Landing Pages
       { index: true, element: <HomeVariationC /> },
-      { path: 'for-sellers', element: <SellerVariationC /> },
+      { path: 'for-sellers', element: <SellerVariationD /> },
 
       // Seller Landing Page Variations (for design exploration & A/B testing)
       { path: 'for-sellers/variation-a', element: <SellerVariationA /> },
