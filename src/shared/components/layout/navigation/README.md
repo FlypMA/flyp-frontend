@@ -1,5 +1,12 @@
 # 🧭 Navigation System - Buyer/Seller Based
 
+> **✨ Recent Changes (Mobile Navigation Consolidation):**
+>
+> - `NavigationMobile.tsx`, `BuyerNavigationMobile.tsx`, and `SellerNavigationMobile.tsx` have been **REMOVED**
+> - Replaced with unified `RoleNavigationMobile.tsx` in `unified/` directory
+> - 70% reduction in mobile navigation code duplication
+> - All mobile navigation now uses Zustand store and type-safe config from `navigationConfig.ts`
+
 ## 📁 Directory Structure
 
 ```
@@ -7,18 +14,17 @@ navigation/
 ├── main/                      # Main navigation components
 │   ├── Navigation.tsx         # Main navigation orchestrator
 │   ├── NavigationDesktop.tsx  # Desktop navigation (based on UnifiedNavigation)
-│   ├── NavigationMobile.tsx   # Mobile navigation (based on MobileNavigation)
 │   └── index.ts               # Main navigation exports
 ├── buyer/                     # Buyer navigation components (like Airbnb guest)
 │   ├── BuyerNavigation.tsx    # Buyer navigation orchestrator
 │   ├── BuyerNavigationDesktop.tsx # Desktop buyer navigation
-│   ├── BuyerNavigationMobile.tsx  # Mobile buyer navigation
 │   └── index.ts               # Buyer navigation exports
 ├── seller/                    # Seller navigation components (like Airbnb host)
 │   ├── SellerNavigation.tsx   # Seller navigation orchestrator
 │   ├── SellerNavigationDesktop.tsx # Desktop seller navigation
-│   ├── SellerNavigationMobile.tsx  # Mobile seller navigation
 │   └── index.ts               # Seller navigation exports
+├── unified/                   # Unified mobile navigation (NEW)
+│   └── RoleNavigationMobile.tsx   # Unified mobile nav for all roles
 ├── dropdown/                  # User avatar dropdown components
 │   ├── BuyerDropdown.tsx      # Buyer-specific dropdown
 │   ├── SellerDropdown.tsx     # Seller-specific dropdown
@@ -47,7 +53,7 @@ The navigation system provides a modular, production-ready navigation experience
   - Authentication state management
   - Token checking and user authentication
   - Mobile menu state management
-  - Orchestrates NavigationDesktop and NavigationMobile
+  - Orchestrates NavigationDesktop and RoleNavigationMobile
 
 #### **NavigationDesktop.tsx**
 
