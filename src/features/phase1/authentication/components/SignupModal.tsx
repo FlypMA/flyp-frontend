@@ -313,16 +313,16 @@ const SignupModal: React.FC = () => {
             <form onSubmit={handleSignup} className="h-full">
               <div className="grid md:grid-cols-2 min-h-screen">
                 {/* Left Side - Role Selection or Form */}
-                <div className="p-8 flex items-center justify-center bg-white min-h-full">
+                <div className="p-4 pt-20 md:p-8 flex items-center justify-center bg-white min-h-full">
                   <div className="max-w-md w-full">
                     {showRoleSelection ? (
                       /* Role Selection Mode */
                       <>
-                        <div className="mb-8">
-                          <h1 className="text-2xl font-semibold text-slate-900 text-left">
+                        <div className="mb-6 md:mb-8">
+                          <h1 className="text-xl md:text-2xl font-semibold text-slate-900 text-left">
                             What brings you here today?
                           </h1>
-                          <p className="text-base text-slate-600 mt-2 text-left">
+                          <p className="text-sm md:text-base text-slate-600 mt-2 text-left">
                             Already have an account?{' '}
                             <button
                               type="button"
@@ -333,25 +333,25 @@ const SignupModal: React.FC = () => {
                             </button>
                           </p>
                         </div>
-                        <div className="space-y-4">
+                        <div className="space-y-3 md:space-y-4">
                           {/* Free Valuation - Top Priority (lowest friction entry) */}
                           <button
                             onClick={() => handleRoleSelect('seller')}
-                            className="w-full p-6 border-2 border-success-300 bg-gradient-to-r from-success-50 to-primary-50 rounded-xl hover:border-success-500 hover:shadow-xl transition-all duration-300 text-left group transform hover:scale-[1.02] relative overflow-hidden"
+                            className="w-full p-4 md:p-6 border-2 border-success-300 bg-gradient-to-r from-success-50 to-primary-50 rounded-xl hover:border-success-500 hover:shadow-xl transition-all duration-300 text-left group transform hover:scale-[1.02] relative overflow-hidden"
                           >
                             {/* Sparkle badge */}
-                            <div className="absolute top-3 right-3 px-2 py-1 bg-success-500 text-white text-xs font-bold rounded-full">
+                            <div className="absolute top-2 right-2 md:top-3 md:right-3 px-2 py-1 bg-success-500 text-white text-xs font-bold rounded-full">
                               FREE
                             </div>
-                            <div className="flex items-start gap-4">
-                              <div className="p-3 bg-success-100 rounded-lg group-hover:bg-success-200 transition-all duration-300 shadow-sm">
-                                <Sparkles className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
+                            <div className="flex items-start gap-3 md:gap-4">
+                              <div className="p-2 md:p-3 bg-success-100 rounded-lg group-hover:bg-success-200 transition-all duration-300 shadow-sm">
+                                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-success-700 transition-colors duration-300">
+                                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 group-hover:text-success-700 transition-colors duration-300">
                                   Get Free Valuation
                                 </h3>
-                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors duration-300">
                                   Discover your business value with our state-of-the-art valuation
                                   engine. No obligations, instant results
                                 </p>
@@ -362,17 +362,17 @@ const SignupModal: React.FC = () => {
                           {/* Seller Path - Primary (70% priority, aligned with nav) */}
                           <button
                             onClick={() => handleRoleSelect('seller')}
-                            className="w-full p-6 border-2 border-primary-200 rounded-xl hover:border-primary-500 hover:bg-primary-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
+                            className="w-full p-4 md:p-6 border-2 border-primary-200 rounded-xl hover:border-primary-500 hover:bg-primary-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
                           >
-                            <div className="flex items-start gap-4">
-                              <div className="p-3 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-all duration-300">
-                                <TrendingUp className="w-6 h-6 text-primary-600 group-hover:scale-110 transition-transform duration-300" />
+                            <div className="flex items-start gap-3 md:gap-4">
+                              <div className="p-2 md:p-3 bg-primary-100 rounded-lg group-hover:bg-primary-200 transition-all duration-300">
+                                <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-primary-700 transition-colors duration-300">
+                                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 group-hover:text-primary-700 transition-colors duration-300">
                                   I want to sell my business
                                 </h3>
-                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors duration-300">
                                   Get a free valuation, optimize your value, and find the right
                                   buyer when you're ready
                                 </p>
@@ -383,17 +383,17 @@ const SignupModal: React.FC = () => {
                           {/* Buyer Path - Secondary (30%, aligned with nav) */}
                           <button
                             onClick={() => handleRoleSelect('buyer')}
-                            className="w-full p-6 border-2 border-calm-200 rounded-xl hover:border-calm-500 hover:bg-calm-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
+                            className="w-full p-4 md:p-6 border-2 border-calm-200 rounded-xl hover:border-calm-500 hover:bg-calm-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
                           >
-                            <div className="flex items-start gap-4">
-                              <div className="p-3 bg-calm-100 rounded-lg group-hover:bg-calm-200 transition-all duration-300">
-                                <Search className="w-6 h-6 text-calm-600 group-hover:scale-110 transition-transform duration-300" />
+                            <div className="flex items-start gap-3 md:gap-4">
+                              <div className="p-2 md:p-3 bg-calm-100 rounded-lg group-hover:bg-calm-200 transition-all duration-300">
+                                <Search className="w-5 h-5 md:w-6 md:h-6 text-calm-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-calm-700 transition-colors duration-300">
+                                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 group-hover:text-calm-700 transition-colors duration-300">
                                   I want to buy a business
                                 </h3>
-                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors duration-300">
                                   Browse verified businesses across Europe and find your perfect
                                   opportunity
                                 </p>
@@ -404,17 +404,17 @@ const SignupModal: React.FC = () => {
                           {/* Both - Exploratory */}
                           <button
                             onClick={() => handleRoleSelect('both')}
-                            className="w-full p-6 border-2 border-accent-200 rounded-xl hover:border-accent-500 hover:bg-accent-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
+                            className="w-full p-4 md:p-6 border-2 border-accent-200 rounded-xl hover:border-accent-500 hover:bg-accent-50 hover:shadow-lg transition-all duration-300 text-left group transform hover:scale-[1.02]"
                           >
-                            <div className="flex items-start gap-4">
-                              <div className="p-3 bg-accent-100 rounded-lg group-hover:bg-accent-200 transition-all duration-300">
-                                <Building2 className="w-6 h-6 text-accent-600 group-hover:scale-110 transition-transform duration-300" />
+                            <div className="flex items-start gap-3 md:gap-4">
+                              <div className="p-2 md:p-3 bg-accent-100 rounded-lg group-hover:bg-accent-200 transition-all duration-300">
+                                <Building2 className="w-5 h-5 md:w-6 md:h-6 text-accent-600 group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-accent-700 transition-colors duration-300">
+                                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 group-hover:text-accent-700 transition-colors duration-300">
                                   I'm exploring my options
                                 </h3>
-                                <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
+                                <p className="text-gray-600 text-xs md:text-sm group-hover:text-gray-700 transition-colors duration-300">
                                   Not sure yet? Get full access to explore buying, selling, or both
                                   at your own pace
                                 </p>
