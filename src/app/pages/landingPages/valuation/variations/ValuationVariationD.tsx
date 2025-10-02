@@ -147,14 +147,6 @@ const ValuationVariationD = () => {
           disableVideoOnMobile={true}
         >
           <div className="w-full max-w-5xl mx-auto text-center py-32 md:py-48 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-8">
-              <Shield className="w-5 h-5 text-success-400" />
-              <span className="text-white font-medium">
-                Honest Valuations • Real Market Data • Zero Pressure
-              </span>
-            </div>
-
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
               Calculate Your Valuation
               <br />
@@ -162,9 +154,9 @@ const ValuationVariationD = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Get a rough estimate instantly with our calculator. Sign up to access our
-              state-of-the-art valuation engine in your dashboard for detailed, data-backed results
-              you can trust — not inflated numbers.
+              Get a quick estimate below — free, no pressure. Ready to know your real worth? Sign
+              up for honest, data-backed valuations. We only succeed when you do, so we'll never
+              inflate your numbers.
             </p>
 
             {/* Scroll indicator */}
@@ -192,7 +184,7 @@ const ValuationVariationD = () => {
                   Calculate Your
                   <span className="bg-gradient-to-r from-primary-600 to-success-600 bg-clip-text text-transparent">
                     {' '}
-                    True Value
+                    Honest Business Value
                   </span>
                 </h2>
                 <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
