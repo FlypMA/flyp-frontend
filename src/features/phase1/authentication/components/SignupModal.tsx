@@ -394,8 +394,8 @@ const SignupModal: React.FC = () => {
                                   I want to buy a business
                                 </h3>
                                 <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors duration-300">
-                                  Browse 2,400+ verified businesses across Europe and find your
-                                  perfect opportunity
+                                  Browse verified businesses across Europe and find your perfect
+                                  opportunity
                                 </p>
                               </div>
                             </div>
