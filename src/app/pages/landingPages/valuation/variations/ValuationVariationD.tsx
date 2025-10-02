@@ -154,8 +154,8 @@ const ValuationVariationD = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Get a quick estimate below — free, no pressure. Ready to know your real worth? Sign
-              up for honest, data-backed valuations. We only succeed when you do, so we'll never
+              Get a quick estimate below — free, no pressure. Ready to know your real worth? Sign up
+              for honest, data-backed valuations. We only succeed when you do, so we'll never
               inflate your numbers.
             </p>
 
