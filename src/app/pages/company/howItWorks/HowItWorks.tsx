@@ -333,7 +333,7 @@ const HowItWorks = () => {
                         : 'text-white hover:text-white/80'
                     }`}
                   >
-                    👤 For Buyers
+                    For Buyers
                   </button>
                   <button
                     onClick={() => setSelectedTab('seller')}
@@ -343,7 +343,7 @@ const HowItWorks = () => {
                         : 'text-white hover:text-white/80'
                     }`}
                   >
-                    💼 For Sellers
+                    For Sellers
                   </button>
                 </div>
               </div>
