@@ -21,7 +21,7 @@ export type ModalType = 'signup' | 'login' | null;
 
 interface PostAuthRedirect {
   url: string;
-  state?: any;
+  state?: Record<string, unknown>;
 }
 
 interface AuthContextType {

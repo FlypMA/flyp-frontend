@@ -1,4 +1,4 @@
-# 🚀 MVP Routing - flyp MVP
+# 🚀 MVP Routing - UpSwitch MVP
 
 ## 📋 **Overview**
 

@@ -102,10 +102,11 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onError={(_error, _errorInfo) => {
+      onError={(error, errorInfo) => {
         // Log error for debugging in development
         if (import.meta.env.MODE === 'development') {
-          logger.error('Error occurred', _error);
+          logger.error('Error occurred', error);
+          logger.debug('Error info:', errorInfo);
         }
 
         // In production, you might want to send this to an error reporting service

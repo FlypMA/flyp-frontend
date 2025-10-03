@@ -433,4 +433,4 @@ When modifying navigation components:
 
 ## 📄 License
 
-This navigation system is part of the flyp MVP application and follows the same licensing terms.
+This navigation system is part of the UpSwitch MVP application and follows the same licensing terms.

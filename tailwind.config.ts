@@ -12,7 +12,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Flyp Brand Colors - Teal Primary (Trust & Care)
+        // UpSwitch Brand Colors - Teal Primary (Trust & Care)
         primary: {
           50: '#F0FDFC',
           100: '#CCFBF6',

@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # =============================================================================
-# FLYP FRONTEND DEVELOPMENT BYPASS SETUP
+# UPSWITCH FRONTEND DEVELOPMENT BYPASS SETUP
 # =============================================================================
 # This script sets up the development environment with dev bypass authentication
 # =============================================================================
 
-echo "🚀 Setting up Flyp Frontend Development Bypass"
+echo "🚀 Setting up UpSwitch Frontend Development Bypass"
 echo "=========================================================="
 
 # Create development .env.local file with dev bypass enabled
 cat > .env.local << 'EOF'
 # =============================================================================
-# FLYP FRONTEND DEVELOPMENT ENVIRONMENT WITH BYPASS
+# UPSWITCH FRONTEND DEVELOPMENT ENVIRONMENT WITH BYPASS
 # =============================================================================
 # Development configuration with dev bypass authentication enabled
 # This allows testing all dashboards without authentication

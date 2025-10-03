@@ -90,4 +90,4 @@ Missing pages: /get-valued, /pricing, /blog, /guides, /success-stories
 
 **Implementation**: 15 new pages, 3 phases
 
-See full details in `/apps/flyp-frontend/front-end-docs/SITEMAP_RECOMMENDATIONS.md`
+See full details in `/apps/upswitch-frontend/front-end-docs/SITEMAP_RECOMMENDATIONS.md`

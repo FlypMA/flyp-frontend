@@ -135,7 +135,7 @@ const config = getLogoConfig('header');
 
 - **Consistent Sizing**: Standardized dimensions across variants
 - **Responsive Design**: Adapts to different screen sizes
-- **Brand Guidelines**: Follows flyp brand standards
+- **Brand Guidelines**: Follows UpSwitch brand standards
 - **Accessibility**: Proper alt text and semantic markup
 
 ## Cache Busting

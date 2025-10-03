@@ -6,4 +6,4 @@
 
 export { default as BrandLogo } from './BrandLogo';
 export { getLogoConfig, logos } from './logos';
-export { default as FlypLogo, default as UpswitchLogo } from './upswitchLogo';
+export { default as UpswitchLogo } from './upswitchLogo';
