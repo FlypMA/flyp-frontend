@@ -278,8 +278,8 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
     );
   }
 
-  const primaryImage = listing.images?.find(img => img.is_primary) || listing.images?.[0];
-  const additionalImages = listing.images?.filter(img => img.id !== primaryImage?.id) || [];
+  const primaryImage = listing.images?.find((img: { is_primary?: boolean }) => img.is_primary) || listing.images?.[0];
+  const additionalImages = listing.images?.filter((img: { id?: string }) => img.id !== primaryImage?.id) || [];
 
   return (
     <div className="min-h-screen bg-white">
@@ -389,7 +389,7 @@ This is an ideal acquisition for an investor looking to enter the Belgian food s
 
               {/* Right side grid - smaller images */}
               <div className="col-span-4 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-                {additionalImages.slice(0, 4).map((image, index) => (
+                {additionalImages.slice(0, 4).map((image: { id?: string; url?: string; alt?: string; thumbnail_url?: string; storage_url?: string; alt_text?: string }, index: number) => (
                   <div
                     key={image.id}
                     className={`relative cursor-pointer group overflow-hidden ${

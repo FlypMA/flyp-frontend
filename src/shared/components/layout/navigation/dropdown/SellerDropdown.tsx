@@ -11,7 +11,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
 import { User } from '../../../../types';
 import { AuthenticationService } from '@/shared/services/auth';
 import {
@@ -142,7 +141,7 @@ const SellerDropdown: React.FC<SellerDropdownProps> = ({ user }) => {
                     }`}
                     role="menuitem"
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    {Icon && <Icon className="w-4 h-4 flex-shrink-0" />}
                     <span className="flex-1 text-left">{item.label}</span>
                   </button>
                 );

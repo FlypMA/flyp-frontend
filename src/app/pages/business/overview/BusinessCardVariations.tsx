@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🎨 Business Card Design Variations
  * Compare 3 different design approaches

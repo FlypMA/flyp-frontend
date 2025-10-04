@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🎯 Context Panel State Management
 // Location: src/features/phase1/conversations/hooks/useContextPanel.ts
 // Purpose: Zustand store for managing three-panel messaging interface state

@@ -225,14 +225,16 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
               </Card>
 
               {/* Current Valuation Report */}
-              <ValuationReportCard
-                report={currentValuation}
-                onView={() => {}}
-                onDownload={() => {}}
-                onShare={() => {}}
-                onEdit={() => {}}
-                onCreateListing={onCreateListing}
-              />
+              {currentValuation && (
+                <ValuationReportCard
+                  report={currentValuation}
+                  onView={() => {}}
+                  onDownload={() => {}}
+                  onShare={() => {}}
+                  onEdit={() => {}}
+                  onCreateListing={onCreateListing}
+                />
+              )}
             </div>
           </ModernTabContent>
 
@@ -279,7 +281,7 @@ const ValuationDashboard: React.FC<ValuationDashboardProps> = ({
 
                   {/* Historical Reports List */}
                   <div className="space-y-3">
-                    {historicalValuations.map((valuation, index) => (
+                    {historicalValuations.map((valuation) => (
                       <Card key={valuation.id} className="border border-gray-200">
                         <CardBody className="p-4">
                           <div className="flex items-center justify-between">

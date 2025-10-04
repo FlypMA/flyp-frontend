@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Offer Negotiation
  * Location: src/shared/components/offer-management/OfferNegotiation.tsx

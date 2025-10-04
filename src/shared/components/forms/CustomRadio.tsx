@@ -63,7 +63,7 @@ const CustomRadio: React.FC<CustomRadioProps> = ({
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}
             aria-describedby={description ? `${name}-${value}-description` : undefined}
-            aria-invalid={hasError}
+            aria-invalid={hasError ? 'true' : 'false'}
           />
           {checked && (
             <div

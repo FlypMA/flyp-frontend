@@ -154,7 +154,7 @@ export const isApiAvailable = (): boolean => {
  * Get request headers with authentication
  */
 export const getRequestHeaders = (token?: string): Record<string, string> => {
-  const headers = { ...API_CONFIG.REQUEST.headers };
+  const headers: Record<string, string> = { ...API_CONFIG.REQUEST.headers };
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;

@@ -93,16 +93,18 @@ const UserSettings: React.FC = () => {
       if (authResult.isAuthenticated && authResult.user) {
         setUser(authResult.user);
         // Pre-populate about section with user data
-        setSettings(prev => ({
-          ...prev,
-          about: {
-            ...prev.about,
-            name: authResult.user.name || '',
-            location: 'Neerpelt, België', // Mock location
-            age: '32', // Mock age
-            company: authResult.user.company_name || '',
-          },
-        }));
+        if (authResult.user) {
+          setSettings(prev => ({
+            ...prev,
+            about: {
+              ...prev.about,
+              name: authResult.user?.name || '',
+              location: 'Neerpelt, België', // Mock location
+              age: '32', // Mock age
+              company: authResult.user?.company_name || '',
+            },
+          }));
+        }
       } else {
         navigate(UrlGenerator.login());
       }

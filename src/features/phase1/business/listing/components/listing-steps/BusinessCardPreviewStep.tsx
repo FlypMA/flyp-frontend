@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏢 Business Card Preview Step
 // Location: src/features/phase1/business/listing/components/listing-steps/BusinessCardPreviewStep.tsx
 // Purpose: Read-only preview of business card data (Step 1 of listing creation)

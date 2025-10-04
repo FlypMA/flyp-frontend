@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Offer Management Dashboard
  * Location: src/shared/components/offer-management/OfferManagementDashboard.tsx

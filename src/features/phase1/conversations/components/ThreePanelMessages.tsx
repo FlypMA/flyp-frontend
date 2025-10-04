@@ -433,7 +433,7 @@ const ThreePanelMessagesContent: React.FC = () => {
             onClose={() => setShowOfferModal(false)}
             conversationId={selectedConversation.id}
             listingId={selectedConversation.context?.listingId}
-            onSuccess={handleOfferSubmit}
+            onSuccess={handleOfferSubmit as (data: unknown) => void}
           />
 
           <DueDiligenceRequestModal
@@ -441,7 +441,7 @@ const ThreePanelMessagesContent: React.FC = () => {
             onClose={() => setShowDDModal(false)}
             conversationId={selectedConversation.id}
             listingId={selectedConversation.context?.listingId}
-            onSuccess={handleDueDiligenceRequest}
+            onSuccess={handleDueDiligenceRequest as (data: unknown) => void}
           />
 
           <DocumentSharingModal
@@ -449,7 +449,7 @@ const ThreePanelMessagesContent: React.FC = () => {
             onClose={() => setShowDocumentModal(false)}
             conversationId={selectedConversation.id}
             listingId={selectedConversation.context?.listingId}
-            onSuccess={handleDocumentShare}
+            onSuccess={handleDocumentShare as (data: unknown) => void}
           />
         </>
       )}

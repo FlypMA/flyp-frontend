@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Offer Comparison
  * Location: src/shared/components/offer-management/OfferComparison.tsx

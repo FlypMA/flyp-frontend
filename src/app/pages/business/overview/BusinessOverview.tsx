@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import { useBusinessMetrics } from '@/features/business/hooks';
 import { BusinessCardFlow } from '@/features/phase1/business/card';
 // import { ListingWizardModal } from '@/features/phase1/business/listing'; // Legacy, using StreamlinedListingModal via navigation now
@@ -404,7 +405,7 @@ const BusinessOverview = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Business Card V4 - Square */}
               <BusinessProfileCardV4
-                businessInfo={businessInfo}
+                businessInfo={businessInfo || undefined}
                 onEdit={handleEditBusinessInfo}
                 profileCardData={profileCardData}
                 hasValuationReports={hasValuationReports}

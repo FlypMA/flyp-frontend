@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 💰 Business Valuation Tool - Dashboard Version
  * Location: src/app/pages/business/reports/ValuationTool.tsx

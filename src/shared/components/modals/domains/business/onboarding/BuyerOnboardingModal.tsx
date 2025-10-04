@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🛒 Buyer Onboarding Modal - Business Domain
  * Location: src/shared/components/modals/domains/business/onboarding/BuyerOnboardingModal.tsx

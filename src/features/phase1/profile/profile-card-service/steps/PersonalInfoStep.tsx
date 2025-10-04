@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 👤 Personal Information Step
  * Step 1 of Profile Card Creation

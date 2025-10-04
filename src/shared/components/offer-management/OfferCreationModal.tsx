@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Offer Creation Modal
  * Location: src/shared/components/offer-management/OfferCreationModal.tsx

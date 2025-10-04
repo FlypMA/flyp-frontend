@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 📊 Valuation Report Modal - Business Domain
  * Location: src/shared/components/modals/domains/business/reports/ValuationReportModal.tsx

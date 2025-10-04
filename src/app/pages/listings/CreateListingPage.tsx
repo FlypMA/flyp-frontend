@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Legacy import removed - using StreamlinedListingModal now
 // import { ListingWizardModal } from '@/features/phase1/business/listing';
 import { SEOHead } from '@/shared/components/seo/SEOHead';

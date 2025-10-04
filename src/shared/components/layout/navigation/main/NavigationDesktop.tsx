@@ -71,7 +71,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
   // Render user menu
   const renderUserMenu = () => {
     if (!user) return null;
-    return <UserAvatarDropdown user={user} />;
+    return <UserAvatarDropdown user={user} instanceId="main-nav" />;
   };
 
   // Resources dropdown items
@@ -82,7 +82,7 @@ const NavigationDesktop: React.FC<NavigationDesktopProps> = ({
       className={`flex w-full h-auto items-center justify-center backdrop-blur-lg backdrop-saturate-150 bg-white border-b border-neutral-200 shadow-sm sticky top-0 z-30 py-3 sm:py-4 ${className}`}
       style={{ '--navbar-height': '4rem' } as React.CSSProperties}
     >
-      <header className="z-40 flex px-3 sm:px-4 lg:px-6 gap-2 sm:gap-3 lg:gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full overflow-x-hidden">
+      <header className="z-40 flex px-3 sm:px-4 lg:px-6 gap-2 sm:gap-3 lg:gap-4 w-full flex-row relative flex-nowrap items-center justify-between h-[var(--navbar-height)] max-w-full overflow-x-hidden overflow-y-visible">
         {/* Logo Section */}
         <div className="flex basis-0 flex-row flex-grow flex-nowrap justify-start bg-transparent items-center no-underline text-medium whitespace-nowrap box-border">
           <Link to="/" className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 📄 Document Sharing Modal
 // Location: src/features/phase1/conversations/components/modals/DocumentSharingModal.tsx
 // Purpose: Modal for sharing documents within conversation context

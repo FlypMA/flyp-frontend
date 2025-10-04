@@ -54,7 +54,7 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
             disabled={disabled}
             className="sr-only"
             aria-describedby={description ? `${name}-description` : undefined}
-            aria-invalid={hasError}
+            aria-invalid={hasError ? 'true' : 'false'}
           />
           <label
             htmlFor={`${name}-switch`}

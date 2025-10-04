@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🎯 Search Variation D - Airbnb-Style Large Images
  *

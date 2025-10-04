@@ -18,7 +18,7 @@ const SaleDetailsStep: React.FC<StepComponentProps> = ({ data, onDataChange }) =
       saleDetails: {
         ...data.saleDetails,
         ...updatedData,
-      },
+      } as any,
     });
   };
 

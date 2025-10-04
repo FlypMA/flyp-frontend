@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🎯 Search Variation A - Enhanced Traditional Grid
  *

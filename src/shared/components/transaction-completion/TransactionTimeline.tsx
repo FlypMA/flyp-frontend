@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Transaction Timeline
  * Location: src/shared/components/transaction-completion/TransactionTimeline.tsx

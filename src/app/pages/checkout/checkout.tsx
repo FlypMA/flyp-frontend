@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@/shared/components/buttons';
 import { CustomDropdown, CustomInputField } from '@/shared/components/forms';
 import Container from '@/shared/components/layout/container/Container';

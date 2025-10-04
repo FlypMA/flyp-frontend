@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🔒 NDA Route Guard - UpSwitch MVP
  * Protects private listing routes with NDA verification

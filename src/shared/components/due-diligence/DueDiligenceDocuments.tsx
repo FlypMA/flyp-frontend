@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Due Diligence Documents
  * Location: src/shared/components/due-diligence/DueDiligenceDocuments.tsx

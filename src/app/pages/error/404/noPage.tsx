@@ -5,9 +5,11 @@ import { SEOHead } from '@/shared/components/seo/SEOHead';
 import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const NoPage = () => {
+  const seoData = getSEOData('notFound');
+  
   return (
     <Container>
-      <SEOHead {...getSEOData('notFound')} />
+      {seoData && <SEOHead {...seoData} />}
       <HeadingHero>404</HeadingHero>
       <Heading1>No Page found</Heading1>
     </Container>

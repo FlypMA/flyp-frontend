@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🚨 Development Bypass Utilities
 // Location: src/shared/utils/devBypass.ts
 // Purpose: Development environment bypass for authentication and testing
@@ -37,6 +38,32 @@ export const isDebugModeEnabled = (): boolean => {
 // =============================================================================
 
 /**
+ * Get dev bypass role from localStorage (for easy testing)
+ */
+export const getDevBypassRole = (): UserRole | null => {
+  if (!isDevBypassEnabled()) return null;
+  
+  const storedRole = localStorage.getItem('UpSwitch_dev_role');
+  if (storedRole && ['buyer', 'seller', 'both', 'admin'].includes(storedRole)) {
+    return storedRole as UserRole;
+  }
+  return null;
+};
+
+/**
+ * Set dev bypass role in localStorage (for easy testing)
+ */
+export const setDevBypassRole = (role: UserRole): void => {
+  if (!isDevBypassEnabled()) return;
+  
+  localStorage.setItem('UpSwitch_dev_role', role);
+  // eslint-disable-next-line no-console
+  console.log(`🔧 Dev Bypass: Role set to "${role}"`);
+  // eslint-disable-next-line no-console
+  console.log('🔄 Reload the page to see the new role in action');
+};
+
+/**
  * Determine user role based on email address for development
  */
 export const determineUserRoleFromEmail = (email: string): UserRole => {
@@ -44,6 +71,8 @@ export const determineUserRoleFromEmail = (email: string): UserRole => {
     return 'buyer';
   } else if (email.includes('seller@')) {
     return 'seller';
+  } else if (email.includes('both@')) {
+    return 'both';
   } else if (email.includes('admin@')) {
     return 'admin';
   }
@@ -55,25 +84,31 @@ export const determineUserRoleFromEmail = (email: string): UserRole => {
  * Create a mock user for development bypass
  */
 export const createMockUser = (email?: string, role?: UserRole): User => {
-  // Determine role from email if not provided
-  const userRole = role || (email ? determineUserRoleFromEmail(email) : 'seller');
+  // Priority: explicit role > localStorage role > email-based role > default
+  const storedRole = getDevBypassRole();
+  const userRole = role || storedRole || (email ? determineUserRoleFromEmail(email) : 'seller');
 
   // Generate appropriate user data based on role
   const getRoleSpecificData = (role: UserRole) => {
     switch (role) {
       case 'buyer':
         return {
-          name: 'John Doe',
+          name: 'John Doe (Buyer)',
           email: email || 'buyer@test.com',
         };
       case 'seller':
         return {
-          name: 'John Doe',
+          name: 'Jane Smith (Seller)',
           email: email || 'seller@test.com',
+        };
+      case 'both':
+        return {
+          name: 'Alex Johnson (Buyer & Seller)',
+          email: email || 'both@test.com',
         };
       case 'admin':
         return {
-          name: 'John Doe',
+          name: 'Admin User',
           email: email || 'admin@test.com',
         };
       default:
@@ -116,6 +151,59 @@ export const createMockAuthResult = (email?: string, role?: UserRole) => {
     token: 'dev-mock-token',
   };
 };
+
+// =============================================================================
+// DEV CONSOLE HELPERS
+// =============================================================================
+
+/**
+ * Dev console helpers for easy role switching
+ * Usage in browser console:
+ *   window.devSetRole('buyer')
+ *   window.devSetRole('seller')
+ *   window.devSetRole('both')
+ */
+/* eslint-disable no-console, @typescript-eslint/no-explicit-any */
+if (typeof window !== 'undefined' && isDevBypassEnabled()) {
+  (window as any).devSetRole = (role: UserRole) => {
+    setDevBypassRole(role);
+  };
+  
+  (window as any).devGetRole = () => {
+    const role = getDevBypassRole();
+    console.log(`🔧 Current dev role: ${role || 'default (seller)'}`);
+    return role;
+  };
+  
+  (window as any).devShowRoleHelp = () => {
+    console.log(`
+🔧 Dev Bypass Role Switching
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Available roles:
+  • buyer  - Buyer menu with Browse & Saved Items
+  • seller - Seller menu with My Business & Create Listing
+  • both   - Combined menu with both buyer & seller options
+  • admin  - Admin menu (if implemented)
+
+Commands:
+  window.devSetRole('buyer')   - Switch to buyer role
+  window.devSetRole('seller')  - Switch to seller role  
+  window.devSetRole('both')    - Switch to both roles
+  window.devGetRole()          - Show current role
+  window.devShowRoleHelp()     - Show this help
+
+After switching roles, reload the page to see changes.
+    `);
+  };
+  
+  // Auto-show help on first load
+  if (!localStorage.getItem('UpSwitch_dev_help_shown')) {
+    console.log('🔧 Dev Bypass is enabled! Type window.devShowRoleHelp() for role switching commands');
+    localStorage.setItem('UpSwitch_dev_help_shown', 'true');
+  }
+}
+/* eslint-enable no-console, @typescript-eslint/no-explicit-any */
 
 // =============================================================================
 // DEVELOPMENT BYPASS FUNCTIONS
@@ -173,7 +261,7 @@ export const shouldBypassProtectedRoute = (): boolean => {
 /**
  * Development logger that only logs in dev mode
  */
-export const devLog = (message: string, data?: any): void => {
+export const devLog = (_message: string, _data?: any): void => {
   if (isDevelopmentMode() && isDebugModeEnabled()) {
     // TODO: Add proper logging
   }
@@ -182,7 +270,7 @@ export const devLog = (message: string, data?: any): void => {
 /**
  * Development warning logger
  */
-export const devWarn = (message: string, data?: any): void => {
+export const devWarn = (_message: string, _data?: any): void => {
   if (isDevelopmentMode()) {
     // TODO: Add proper warning handling
   }
@@ -191,7 +279,7 @@ export const devWarn = (message: string, data?: any): void => {
 /**
  * Development error logger
  */
-export const devError = (message: string, error?: any): void => {
+export const devError = (_message: string, _error?: any): void => {
   if (isDevelopmentMode()) {
     // TODO: Add proper error handling
   }

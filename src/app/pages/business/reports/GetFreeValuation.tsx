@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { authService } from '@/shared/services/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

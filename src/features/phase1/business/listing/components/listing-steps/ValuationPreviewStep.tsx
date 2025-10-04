@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 💰 Valuation Preview Step
 // Location: src/features/phase1/business/listing/components/listing-steps/ValuationPreviewStep.tsx
 // Purpose: Read-only preview of valuation data (Step 3 of listing creation)

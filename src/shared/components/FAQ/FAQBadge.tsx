@@ -18,6 +18,8 @@ const badgeLabels = {
 };
 
 export const FAQBadge: React.FC<FAQBadgeProps> = ({ type, className }) => {
+  if (!type) return null;
+  
   return (
     <span
       className={cn(

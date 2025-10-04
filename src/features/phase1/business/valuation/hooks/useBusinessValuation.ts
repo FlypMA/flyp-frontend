@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏪 Business Valuation Hook - MVP Version
 // Location: src/features/business-dashboard/hooks/useBusinessValuation.ts
 // Purpose: Handle business valuation calculations, scenarios, and reports

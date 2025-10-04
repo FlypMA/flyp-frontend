@@ -9,13 +9,15 @@ import {
   Plus,
   Settings,
 } from 'lucide-react';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { UrlGenerator } from '../../../../services/urls/urlGenerator';
 import { User } from '../../../../types';
 
 interface UserAvatarDropdownProps {
   user: User;
+  instanceId?: string;
 }
 
 const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
@@ -23,6 +25,30 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLImageElement>(null);
+  const [avatarPosition, setAvatarPosition] = useState({ top: 0, right: 0 });
+  const [isThisInstanceActive, setIsThisInstanceActive] = useState(false);
+
+  // Check if this component should render the dropdown
+  useEffect(() => {
+    if (isOpen && avatarRef.current && avatarRef.current.dataset.clicked === 'true') {
+      setIsThisInstanceActive(true);
+      // Clear the clicked flag
+      delete avatarRef.current.dataset.clicked;
+    } else if (!isOpen) {
+      setIsThisInstanceActive(false);
+    }
+  }, [isOpen]);
+
+  // Calculate avatar position for portal positioning
+  const updateAvatarPosition = () => {
+    if (avatarRef.current) {
+      const rect = avatarRef.current.getBoundingClientRect();
+      setAvatarPosition({
+        top: rect.bottom + window.scrollY + 8, // 8px margin
+        right: window.innerWidth - rect.right - window.scrollX,
+      });
+    }
+  };
 
   // Close dropdown when clicking outside (desktop only)
   useEffect(() => {
@@ -54,6 +80,23 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
+
+  // Update position on scroll/resize
+  useEffect(() => {
+    if (isOpen) {
+      const handleScroll = () => updateAvatarPosition();
+      const handleResize = () => updateAvatarPosition();
+      
+      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleResize);
+      
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [isOpen]);
+
 
   const handleLogout = async () => {
     try {
@@ -119,6 +162,14 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
 
   const isSeller = user?.role === 'seller' || user?.role === 'both';
   const isBuyer = user?.role === 'buyer' || user?.role === 'both';
+
+  // Debug logging for role-based menu
+  useEffect(() => {
+    console.log('UserAvatarDropdown - User role:', user?.role);
+    console.log('UserAvatarDropdown - isSeller:', isSeller);
+    console.log('UserAvatarDropdown - isBuyer:', isBuyer);
+    console.log('UserAvatarDropdown - Menu type:', isSeller ? 'Business Owner Menu' : 'Buyer Menu');
+  }, [user?.role, isSeller, isBuyer]);
 
   const defaultAvatar =
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80';
@@ -213,18 +264,73 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
     },
   ];
 
-  const menuItems = isSeller ? businessOwnerMenuItems : buyerMenuItems;
+  // Combined menu for users with 'both' roles
+  const bothRolesMenuItems = [
+    // Seller section
+    {
+      key: 'business-dashboard',
+      icon: LayoutDashboard,
+      label: 'My Business',
+      action: 'business-dashboard',
+    },
+    {
+      key: 'create-listing',
+      icon: Plus,
+      label: 'Create a New Listing',
+      action: 'create-listing',
+    },
+    {
+      key: 'divider-1',
+      isDivider: true,
+    },
+    // Buyer section
+    {
+      key: 'browse-listings',
+      icon: LayoutDashboard,
+      label: 'Browse Businesses',
+      action: 'browse-listings',
+    },
+    {
+      key: 'saved',
+      icon: Heart,
+      label: 'Saved Items',
+      action: 'saved',
+    },
+    {
+      key: 'divider-2',
+      isDivider: true,
+    },
+    // Common section
+    {
+      key: 'profile-settings',
+      icon: Settings,
+      label: 'Account Settings',
+      action: 'profile-settings',
+    },
+    {
+      key: 'help-center',
+      icon: HelpCircle,
+      label: 'Get Help',
+      action: 'help-center',
+    },
+    {
+      key: 'divider-3',
+      isDivider: true,
+    },
+    {
+      key: 'logout',
+      icon: LogOut,
+      label: 'Log Out',
+      action: 'logout',
+      isLogout: true,
+    },
+  ];
 
-  const getUserInitials = (user: User) => {
-    if (user.name) {
-      const parts = user.name.split(' ');
-      if (parts.length > 1) {
-        return `${parts[0].charAt(0)}${parts[1].charAt(0)}`.toUpperCase();
-      }
-      return parts[0].charAt(0).toUpperCase();
-    }
-    return user.email?.charAt(0).toUpperCase() || 'U';
-  };
+  // Determine which menu to show based on role
+  const menuItems = 
+    user?.role === 'both' ? bothRolesMenuItems :
+    isSeller ? businessOwnerMenuItems : 
+    buyerMenuItems;
 
   return (
     <div className="relative">
@@ -237,6 +343,11 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         onClick={() => {
           // Only allow click on desktop (sm breakpoint and above)
           if (window.innerWidth >= 640) {
+            // Mark this instance as the clicked one
+            if (avatarRef.current) {
+              avatarRef.current.dataset.clicked = 'true';
+            }
+            updateAvatarPosition();
             toggleUserMenu();
           }
         }}
@@ -256,19 +367,21 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
         aria-haspopup="true"
       />
 
-      {/* Desktop Only: Dropdown */}
-      {isOpen && (
-        <>
-          <div
-            ref={dropdownRef}
-            className="hidden sm:block absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border-0 z-50 overflow-hidden"
-            role="menu"
-            aria-orientation="vertical"
-            style={{
-              filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
-            }}
-          >
-            {menuItems.map((item, index) => {
+      {/* Desktop Only: Dropdown Portal */}
+      {isThisInstanceActive && createPortal(
+        <div
+          data-user-avatar-dropdown
+          ref={dropdownRef}
+          className="fixed w-56 bg-white rounded-xl shadow-2xl border-0 z-[9999] overflow-hidden"
+          role="menu"
+          aria-orientation="vertical"
+          style={{
+            top: `${avatarPosition.top}px`,
+            right: `${avatarPosition.right}px`,
+            filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
+          }}
+        >
+          {menuItems.map((item, index) => {
               if (item.isDivider) {
                 return <div key={item.key} className="h-px bg-gray-200 my-1" role="separator" />;
               }
@@ -296,8 +409,8 @@ const UserAvatarDropdown: React.FC<UserAvatarDropdownProps> = ({ user }) => {
                 </button>
               );
             })}
-          </div>
-        </>
+        </div>,
+        document.body
       )}
     </div>
   );

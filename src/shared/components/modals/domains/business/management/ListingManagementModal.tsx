@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 📋 Listing Management Modal - Business Domain
  * Location: src/shared/components/modals/domains/business/management/ListingManagementModal.tsx

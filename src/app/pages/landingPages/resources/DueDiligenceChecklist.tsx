@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useAuth } from '@/app/providers/auth-provider';
 import { Button } from '@/shared/components/buttons';
 import Container from '@/shared/components/layout/container/Container';

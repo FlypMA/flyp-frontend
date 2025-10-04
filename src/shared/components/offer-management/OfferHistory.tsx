@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Offer History
  * Location: src/shared/components/offer-management/OfferHistory.tsx

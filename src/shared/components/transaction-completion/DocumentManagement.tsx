@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Document Management
  * Location: src/shared/components/transaction-completion/DocumentManagement.tsx

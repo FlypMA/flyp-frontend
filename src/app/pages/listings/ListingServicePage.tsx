@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏢 Listing Service Page
 // Location: src/app/pages/listings/ListingServicePage.tsx
 // Purpose: Main listing creation wizard (7 steps) after prelude

@@ -140,7 +140,7 @@ const BuyerDropdown: React.FC<BuyerDropdownProps> = ({ user }) => {
                     }`}
                     role="menuitem"
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    {Icon && <Icon className="w-4 h-4 flex-shrink-0" />}
                     <span className="flex-1 text-left">{item.label}</span>
                   </button>
                 );

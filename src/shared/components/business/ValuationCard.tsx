@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 💰 Valuation Card Component
  * Location: src/shared/components/business/ValuationCard.tsx

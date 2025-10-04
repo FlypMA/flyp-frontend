@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🍪 Session Manager - MVP Version
 // Location: src/shared/services/auth/utils/session-manager.ts
 // Purpose: Centralized session management with cookies and localStorage persistence

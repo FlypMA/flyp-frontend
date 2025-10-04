@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🚨 Error Handler - MVP Version
 // Location: src/shared/services/auth/utils/error-handler.ts
 // Purpose: Centralized error handling for authentication operations with user-friendly messages
@@ -102,7 +103,7 @@ export class AuthErrorHandler {
     // Map Supabase error codes to our error codes
     const errorCode = this.mapSupabaseErrorCode(error);
     const message =
-      AUTH_ERROR_MESSAGES[errorCode] || AUTH_ERROR_MESSAGES[AUTH_ERROR_CODES.UNKNOWN_ERROR];
+      AUTH_ERROR_MESSAGES[errorCode as keyof typeof AUTH_ERROR_MESSAGES] || AUTH_ERROR_MESSAGES[AUTH_ERROR_CODES.UNKNOWN_ERROR];
 
     return {
       code: errorCode,

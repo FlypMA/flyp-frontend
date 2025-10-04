@@ -25,7 +25,7 @@ export const FAQCategory: React.FC<FAQCategoryProps> = ({
     red: 'bg-red-50 text-red-700 border-red-200',
   };
 
-  const badgeColor = colorVariants[category.color] || colorVariants.blue;
+  const badgeColor = category.color ? colorVariants[category.color] || colorVariants.blue : colorVariants.blue;
 
   return (
     <div className={cn('space-y-6', className)}>

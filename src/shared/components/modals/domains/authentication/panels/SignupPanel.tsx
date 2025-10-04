@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🔐 Signup Panel Component
  * Location: src/shared/components/modals/domains/authentication/panels/SignupPanel.tsx

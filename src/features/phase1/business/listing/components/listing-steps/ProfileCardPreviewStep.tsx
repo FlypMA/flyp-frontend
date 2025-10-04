@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 👤 Profile Card Preview Step
 // Location: src/features/phase1/business/listing/components/listing-steps/ProfileCardPreviewStep.tsx
 // Purpose: Read-only preview of profile card data (Step 2 of listing creation)

@@ -77,7 +77,7 @@ const EnhancedConversationPanel: React.FC<EnhancedConversationPanelProps> = ({
       const query = searchQuery.toLowerCase();
       return (
         conv.participant.name.toLowerCase().includes(query) ||
-        conv.participant.company.toLowerCase().includes(query) ||
+        conv.participant.company?.toLowerCase().includes(query) ||
         conv.businessContext?.title.toLowerCase().includes(query) ||
         conv.businessContext?.location.toLowerCase().includes(query) ||
         conv.lastMessage.content.toLowerCase().includes(query)

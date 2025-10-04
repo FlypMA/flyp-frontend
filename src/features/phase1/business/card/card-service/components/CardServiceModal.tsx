@@ -100,14 +100,14 @@ const CardServiceModal: React.FC<CardServiceModalProps> = ({
       }
 
       const completedCard: BusinessCard = {
-        type: cardData.type,
-        yearsInBusiness: cardData.yearsInBusiness,
-        foundedYear: cardData.foundedYear,
-        name: cardData.name,
+        type: cardData.type!,
+        yearsInBusiness: cardData.yearsInBusiness!,
+        foundedYear: cardData.foundedYear!,
+        name: cardData.name!,
         location: cardData.location || 'Remote', // Default to 'Remote' if no location
         isRemote: cardData.isRemote || false,
         description: cardData.description || '', // Optional field
-        teamSize: cardData.teamSize,
+        teamSize: cardData.teamSize!,
         status: 'complete',
         createdAt: isEditing && initialData?.createdAt ? initialData.createdAt : new Date(),
         updatedAt: new Date(),

@@ -49,7 +49,7 @@ export const RoleNavigationMobile: React.FC<RoleNavigationMobileProps> = ({ user
   // Use combined config (public + role-specific) when logged in
   const navigationSections: NavSection[] = user
     ? getCombinedNavConfig(user.role)
-    : getNavConfigForRole(user?.role);
+    : getNavConfigForRole(undefined);
 
   // Check if a link is active (exact match only to prevent multiple active states)
   const isActiveLink = (href: string): boolean => {

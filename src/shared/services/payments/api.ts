@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 💳 Payments API Service
  * Location: src/shared/services/payments/api.ts

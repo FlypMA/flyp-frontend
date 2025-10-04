@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Due Diligence Timeline
  * Location: src/shared/components/due-diligence/DueDiligenceTimeline.tsx

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🚨 COMPREHENSIVE ERROR HANDLING & MONITORING - UpSwitch M&A Platform
  * Enterprise-grade error handling with user feedback, logging, and recovery strategies

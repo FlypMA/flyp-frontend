@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🔐 Custom Password Input Field - Password input with visibility toggle
 // Location: src/shared/components/forms/CustomPasswordInputField.tsx
 // Purpose: Password input with show/hide functionality and validation

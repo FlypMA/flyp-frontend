@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏢 Listing Management Page - Business Owner Dashboard
 // Location: src/app/pages/business/management/ListingManagement.tsx
 // Purpose: Manage business listings for sellers

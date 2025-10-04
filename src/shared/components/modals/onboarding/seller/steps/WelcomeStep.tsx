@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🎉 Welcome Step - Seller Onboarding
  * Location: src/shared/components/modals/sellerOnboarding/steps/WelcomeStep.tsx

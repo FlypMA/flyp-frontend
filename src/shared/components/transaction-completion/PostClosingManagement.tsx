@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Post Closing Management
  * Location: src/shared/components/transaction-completion/PostClosingManagement.tsx

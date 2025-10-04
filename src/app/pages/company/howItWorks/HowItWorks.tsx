@@ -453,15 +453,15 @@ const HowItWorks = () => {
                               ))}
                             </ul>
 
-                            {'cta' in step && step.cta && (
+                            {'cta' in step && (step as any).cta && (
                               <div className="mt-6">
                                 <Button
                                   variant="primary"
                                   size="lg"
-                                  onPress={() => navigate(step.dashboard)}
+                                  onPress={() => navigate((step as any).dashboard)}
                                   endContent={<ArrowRight className="w-5 h-5" />}
                                 >
-                                  {step.cta as string}
+                                  {String((step as any).cta || '')}
                                 </Button>
                               </div>
                             )}
@@ -536,11 +536,11 @@ const HowItWorks = () => {
                         <p className="text-neutral-600 leading-relaxed mb-4">
                           {feature.description}
                         </p>
-                        {feature.route && (
+                        {'route' in feature && feature.route && (
                           <Button
                             variant="secondary"
                             size="sm"
-                            onPress={() => navigate(feature.route)}
+                            onPress={() => navigate((feature as any).route)}
                             endContent={<ArrowRight className="w-4 h-4" />}
                           >
                             View Dashboard

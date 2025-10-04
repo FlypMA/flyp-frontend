@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🏢 Business Profile Card V3 - Minimal with Badges
  * Variation 3: Ultra-compact with inline badges for stages

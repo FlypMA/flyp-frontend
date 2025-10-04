@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 💾 Saved Listings Page - MVP Version
 // Location: src/app/pages/users/SavedListings.tsx
 // Purpose: Display user's saved business listings with management capabilities

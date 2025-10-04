@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 💬 Transaction Message Component
 // Location: src/features/phase1/conversations/components/messages/TransactionMessage.tsx
 // Purpose: Renders different types of transaction messages with appropriate UI

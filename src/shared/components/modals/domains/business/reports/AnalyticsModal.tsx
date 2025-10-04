@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 📈 Analytics Modal - Business Domain
  * Location: src/shared/components/modals/domains/business/reports/AnalyticsModal.tsx

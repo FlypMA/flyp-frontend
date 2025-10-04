@@ -224,7 +224,7 @@ export const calculateProfileStrength = (profile: Profile): number => {
           return Object.keys(value).length > 0;
         }
         if (Array.isArray(value)) {
-          return value.length > 0;
+          return (value as any[]).length > 0;
         }
         return (
           value !== undefined && value !== null && (typeof value === 'string' ? value !== '' : true)

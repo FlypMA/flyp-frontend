@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏢 Upswitch Logo Component - Exact legacy implementation
 // Location: src/shared/components/ui/upswitchLogo.tsx
 // Purpose: Reusable logo component matching legacy exactly

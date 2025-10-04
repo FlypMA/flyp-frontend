@@ -5,9 +5,11 @@ import Heading2 from '@/shared/components/typography/Heading2';
 import { getSEOData } from '@/shared/utils/seo/seoData';
 
 const TermsAndConditions = () => {
+  const seoData = getSEOData('termsAndConditions');
+  
   return (
     <Container>
-      <SEOHead {...getSEOData('termsAndConditions')} />
+      {seoData && <SEOHead {...seoData} />}
       <div className="max-w-4xl mx-auto py-12 px-4 bg-white">
         <Heading1 className="text-gray-900">Terms and Conditions</Heading1>
         <p className="text-sm text-gray-600 mb-8">Last Updated: January 2025</p>

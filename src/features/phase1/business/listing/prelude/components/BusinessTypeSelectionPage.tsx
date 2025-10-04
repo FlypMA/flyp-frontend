@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // 🏢 Business Type Selection Page - Full Page Airbnb-Inspired
 // Location: src/features/phase1/business/listing/components/BusinessTypeSelectionPage.tsx
 // Purpose: Full-page business type selection with header and back button

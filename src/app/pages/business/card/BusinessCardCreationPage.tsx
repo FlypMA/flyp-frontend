@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const BusinessCardCreationPage: React.FC = () => {
   const navigate = useNavigate();
-  const [isFlowOpen, setIsFlowOpen] = useState(true);
+  const [isFlowOpen] = useState(true);
 
   const handleComplete = async (card: BusinessCard) => {
     console.log('Business card created:', card);

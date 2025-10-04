@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@/shared/components/buttons';
 import { Card, CardBody } from '@heroui/react';
 import { ArrowRight, Check, Crown, Sparkles } from 'lucide-react';

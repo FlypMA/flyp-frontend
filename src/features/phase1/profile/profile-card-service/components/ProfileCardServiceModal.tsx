@@ -112,17 +112,17 @@ const ProfileCardServiceModal: React.FC<ProfileCardServiceModalProps> = ({
       }
 
       const completedProfile: ProfileCard = {
-        fullName: profileData.fullName,
-        location: profileData.location,
+        fullName: profileData.fullName!,
+        location: profileData.location!,
         timezone: profileData.timezone || 'Europe/Amsterdam',
         profileImage: profileData.profileImage || '',
-        bio: profileData.bio,
+        bio: profileData.bio!,
         jobTitle: profileData.jobTitle || '',
         company: profileData.company || '',
         industry: profileData.industry || '',
         education: profileData.education || '',
         keyAchievements: profileData.keyAchievements || '',
-        ownedBusinesses: profileData.ownedBusinesses,
+        ownedBusinesses: profileData.ownedBusinesses!,
         exits: profileData.exits || 0,
         businessNotes: profileData.businessNotes || '',
         yearsOnPlatform: profileData.yearsOnPlatform || 5,

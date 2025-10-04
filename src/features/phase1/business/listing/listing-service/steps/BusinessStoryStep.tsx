@@ -14,7 +14,7 @@ const BusinessStoryStep: React.FC<StepComponentProps> = ({ data, onDataChange })
   const handleInputChange = (field: string, value: string) => {
     const updatedData = { ...formData, [field]: value };
     setFormData(updatedData);
-    const newBusinessStory = {
+    const newBusinessStory: any = {
       ...data.businessStory,
       ...updatedData,
     };

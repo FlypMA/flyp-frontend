@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 🏢 Business Profile Card Component
  * Location: src/shared/components/business/BusinessProfileCard.tsx

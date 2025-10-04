@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * 👤 Profile Edit Fullscreen Modal
  *
@@ -52,7 +53,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
   const { connectLinkedIn, isLoading: linkedInLoading } = useLinkedIn({
     onSuccess: linkedInData => {
       // Merge LinkedIn data with current form data
-      setEditedProfile(prev => ({
+      setEditedProfile((prev: Partial<Profile>) => ({
         ...prev,
         personalInfo: {
           ...prev.personalInfo,
@@ -70,7 +71,7 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
               ...linkedInData.investorData,
             }
           : prev.investorData,
-      }));
+      } as Partial<Profile>));
     },
     onError: () => {
       // TODO: Show error notification
@@ -83,13 +84,13 @@ export const ProfileEditFullscreenModal: React.FC<ProfileEditFullscreenModalProp
   // =============================================================================
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setEditedProfile(prev => ({
+    setEditedProfile((prev: Partial<Profile>) => ({
       ...prev,
       personalInfo: {
         ...prev.personalInfo,
         [field]: value,
       },
-    }));
+    } as Partial<Profile>));
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

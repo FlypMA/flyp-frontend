@@ -151,7 +151,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
           multiple={multiple}
           className="sr-only"
           aria-describedby={description ? `${name}-description` : undefined}
-          aria-invalid={hasError}
+          aria-invalid={hasError ? 'true' : 'false'}
         />
 
         <div className="flex flex-col items-center">

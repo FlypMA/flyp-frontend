@@ -226,7 +226,7 @@ const SignupModal: React.FC = () => {
   };
 
   const switchToLogin = () => {
-    openModal('login', postAuthRedirect);
+    openModal('login', postAuthRedirect || undefined);
   };
 
   return (

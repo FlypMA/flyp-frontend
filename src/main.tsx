@@ -20,6 +20,9 @@ import App from './App';
 import './index.css';
 import { logger } from './shared/utils/logger';
 
+// 🔧 Import dev bypass utilities to enable console commands
+import './shared/utils/dev/devBypass';
+
 // 🚀 Development Debug Information
 logger.info('🚀 Upswitch MVP starting...');
 logger.info('Build time:', new Date().toISOString());

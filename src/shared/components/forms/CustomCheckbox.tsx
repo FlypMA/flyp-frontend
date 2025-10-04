@@ -70,7 +70,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
               backgroundImage: 'none',
             }}
             aria-describedby={description ? `${name}-description` : undefined}
-            aria-invalid={hasError}
+            aria-invalid={hasError ? 'true' : 'false'}
           />
           {checked && (
             <svg

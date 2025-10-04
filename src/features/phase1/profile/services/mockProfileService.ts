@@ -9,6 +9,7 @@ import {
   BusinessOwnerProfile,
   CreateProfileRequest,
   InvestorProfile,
+  PersonalInfo,
   Profile,
   ProfileListResponse,
   UpdateProfileRequest,
@@ -380,7 +381,7 @@ class MockProfileService {
       id: `profile-${Date.now()}`,
       userId: 'user-123', // Mock user ID
       role: data.role,
-      personalInfo: data.personalInfo || ({} as any),
+      personalInfo: data.personalInfo as PersonalInfo || ({} as PersonalInfo),
       businessOwnerData: data.businessOwnerData || ({} as any),
       investorData: data.investorData || ({} as any),
       sharedData: data.sharedData || ({} as any),

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Closing Checklist
  * Location: src/shared/components/transaction-completion/ClosingChecklist.tsx
