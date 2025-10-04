@@ -29,9 +29,9 @@ interface Listing {
 const ListingManagement: React.FC = () => {
   const navigate = useNavigate();
   const [listings, setListings] = useState<Listing[]>([]);
-  const [user, setUser] = useState<User | null>(null);
-  const [businessInfo, setBusinessInfo] = useState<any>(null);
-  const [isListingWizardModalOpen, setIsListingWizardModalOpen] = useState(false);
+  const [_user, setUser] = useState<User | null>(null);
+  const [_businessInfo, setBusinessInfo] = useState<any>(null);
+  const [_isListingWizardModalOpen, setIsListingWizardModalOpen] = useState(false);
 
   // NEW: Progressive onboarding state
   const [hasBusinessCard, setHasBusinessCard] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const ListingManagement: React.FC = () => {
   const [businessCardData, setBusinessCardData] = useState<any>(null);
   const [profileCardData, setProfileCardData] = useState<any>(null);
   const [latestValuationReport, setLatestValuationReport] = useState<any>(null);
-  const [activeListing, setActiveListing] = useState<any>(null);
+  const [_activeListing, setActiveListing] = useState<any>(null);
 
   useEffect(() => {
     const initializePage = async () => {
@@ -205,7 +205,7 @@ const ListingManagement: React.FC = () => {
     navigate(UrlGenerator.listingPrelude());
   };
 
-  const handleListingComplete = (data: any) => {
+  const _handleListingComplete = (_data: any) => {
     // Here you would typically:
     // 1. Send the data to your API to create the listing
     // 2. Show success notification
